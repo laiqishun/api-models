@@ -1,0 +1,223 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for FBA Inventory lets you programmatically retrieve information about inventory in Amazon's fulfillment network.",
+    "version": "v1",
+    "title": "Selling Partner API for FBA Inventory",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/fba/inventory/v1/items/inventory": {
+      "post": {
+        "tags": [
+          "fbaInventory"
+        ],
+        "description": "Requests that Amazon add items to the Sandbox Inventory with desired amount of quantity in the sandbox environment. This is a sandbox-only operation and must be directed to a sandbox endpoint. Refer to [Selling Partner API sandbox](https://developer-docs.amazon.com/sp-api/docs/the-selling-partner-api-sandbox) for more information.",
+        "operationId": "addInventory",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "x-amzn-idempotency-token",
+            "in": "header",
+            "description": "A unique token/requestId provided with each call to ensure idempotency.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "addInventoryRequestBody",
+            "in": "body",
+            "description": "List of items to add to Sandbox inventory.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AddInventoryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/AddInventoryResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/AddInventoryResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, Invalid Signature or Resource Not Found.",
+            "schema": {
+              "$ref": "#/definitions/AddInventoryResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/AddInventoryResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/AddInventoryResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/AddInventoryResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/AddInventoryResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "InventoryItems": {
+      "description": "List of Inventory to be added",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/InventoryItem"
+      }
+    },
+    "AddInventoryRequest": {
+      "description": "The object with the list of Inventory to be added",
+      "type": "object",
+      "properties": {
+        "inventoryItems": {
+          "$ref": "#/definitions/InventoryItems"
+        }
+      }
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition in a human-readable form."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional information that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "An error response returned when the request is unsuccessful."
+    },
+    "AddInventoryResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "description": "One or more unexpected errors occurred during the AddInventory operation.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The response schema for the AddInventory operation."
+    },
+    "InventoryItem": {
+      "description": "An item in the list of inventory to be added.",
+      "type": "object",
+      "properties": {
+        "sellerSku": {
+          "description": "The seller SKU of the item.",
+          "type": "string"
+        },
+        "marketplaceId": {
+          "description": "The marketplaceId.",
+          "type": "string"
+        },
+        "quantity": {
+          "description": "The quantity of item to add.",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "sellerSku",
+        "marketplaceId",
+        "quantity"
+      ]
+    }
+  }
+}

@@ -1,0 +1,885 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon Seller Wallet Open Banking API",
+    "description": "The Selling Partner API for Seller Wallet (Seller Wallet API) provides financial information that is relevant to a seller's Seller Wallet account. You can obtain financial events, balances, and transfer schedules for Seller Wallet accounts. You can also schedule and initiate transactions.",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "2024-03-01"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Accounts",
+      "description": "Everything about Amazon Seller Wallet customer accounts"
+    },
+    {
+      "name": "Transfer Preview",
+      "description": "Access to all transfers with fees and the final amount with FX details in Amazon Seller Wallet"
+    },
+    {
+      "name": "Transactions",
+      "description": "Access to all transactions in Amazon Seller Wallet account"
+    },
+    {
+      "name": "Transfer Schedule",
+      "description": "Access to all transfer schedules in Amazon Seller Wallet account"
+    }
+  ],
+  "paths": {
+    "/finances/transfers/wallet/2024-03-01/transactions": {
+      "get": {
+        "tags": [
+          "Transactions"
+        ],
+        "summary": "The API will return all the transactions for a given Amazon Seller Wallet account sorted by the transaction request date",
+        "description": "Retrieve a list of transactions for a given Seller Wallet bank account.",
+        "operationId": "listAccountTransactions",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "query",
+            "type": "string",
+            "description": "The ID of the Amazon Seller Wallet account.",
+            "required": true,
+            "x-example": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ"
+          },
+          {
+            "name": "nextPageToken",
+            "in": "query",
+            "description": "A token that you use to retrieve the next page of results. The response includes `nextPageToken` when the number of results exceeds 100. To get the next page of results, call the operation with this token and include the same arguments as the call that produced the token. To get a complete list, call this operation until `nextPageToken` is null. Note that this operation can return empty pages.",
+            "required": false,
+            "type": "string",
+            "x-example": "Next Page Token"
+          },
+          {
+            "name": "marketplaceId",
+            "in": "query",
+            "description": "The marketplace for which items are returned. The marketplace ID is the globally unique identifier of a marketplace. To find the ID for your marketplace, refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids).",
+            "required": true,
+            "type": "string",
+            "x-example": "A1RKKUPIHCS9HS"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "sourceAccountIdCase200"
+                      },
+                      "marketplaceId": {
+                        "value": "A1RKKUPIHCS9HS"
+                      }
+                    }
+                  },
+                  "response": {
+                    "nextPageToken": "3493805734095308457308475",
+                    "transactions": [
+                      {
+                        "accountId": "amzn1.account.SMUGN2EN3ZHWSRJKH2KCJPII5JEI",
+                        "transactionId": "amzn.transaction.AKJBNEFNL23R84V",
+                        "transactionType": "DEBIT",
+                        "transactionStatus": "IN_PROGRESS",
+                        "transactionRequestDate": "2023-09-26T02:32:59.787Z",
+                        "expectedCompletionDate": "2023-09-26T02:32:59.787Z",
+                        "transactionActualCompletionDate": "2023-09-26T02:32:59.787Z",
+                        "lastUpdateDate": "2023-09-26T02:32:59.787Z",
+                        "requesterName": "TppOrgId",
+                        "transactionRequesterSource": "TPP",
+                        "transactionDescription": "Test transaction request",
+                        "transactionSourceAccount": {
+                          "accountId": "sourceAccountIdCase200",
+                          "bankAccountHolderName": "John Doe",
+                          "bankName": "Amazon Seller Wallet",
+                          "bankAccountNumberFormat": "IBAN",
+                          "bankAccountNumberTail": "123",
+                          "bankAccountCurrency": "GBP"
+                        },
+                        "transactionDestinationAccount": {
+                          "bankAccountHolderName": "Dane Shipping",
+                          "bankName": "Royal Bank of Scotland",
+                          "bankAccountNumberFormat": "IBAN",
+                          "bankAccountNumberTail": "819",
+                          "bankAccountCurrency": "GBP",
+                          "bankAccountCountryCode": "UK"
+                        },
+                        "transactionRequestAmount": {
+                          "currencyCode": "EUR",
+                          "currencyAmount": 500.0
+                        },
+                        "transferRateDetails": {
+                          "baseAmount": {
+                            "currencyCode": "EUR",
+                            "currencyAmount": 500.0
+                          },
+                          "fxRateDetails": {
+                            "fxRateId": "UNIQUE_FX_RATE_ID_1",
+                            "baseRate": 7.6915,
+                            "effectiveFxRate": 7.6084,
+                            "rateDirection": "BUY"
+                          },
+                          "transferAmount": {
+                            "currencyCode": "CNY",
+                            "currencyAmount": 3804.2
+                          },
+                          "fees": [
+                            {
+                              "feeId": "Unique_FeeId_001",
+                              "feeType": "TRANSACTION_FEE",
+                              "feeRateValue": "0.9",
+                              "feeAmount": {
+                                "currencyCode": "EUR",
+                                "currencyAmount": 4.5
+                              }
+                            },
+                            {
+                              "feeId": "Unique_FeeId_002",
+                              "feeType": "TAX",
+                              "feeRateValue": "20.0",
+                              "feeAmount": {
+                                "currencyCode": "EUR",
+                                "currencyAmount": 0.9
+                              }
+                            }
+                          ]
+                        },
+                        "transactionFinalAmount": {
+                          "currencyCode": "CNY",
+                          "currencyAmount": 3804.2
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/TransactionListing"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "sourceAccountIdCase400"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid or Missing wacCertificate.",
+                        "details": "WAC certificate is missing for the request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "sourceAccountIdCase403"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "UnauthorizedRequest",
+                        "message": "Invalid WAC certificate.",
+                        "details": "NCA Status for the certificate is invalid"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "sourceAccountIdCase404"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "NotFound",
+                        "message": "BankAccount not found.",
+                        "details": "BankAccount doesn't exists for InvalidAccountId"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "408": {
+            "description": "Request Timed Out.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "sourceAccountIdCase408"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "RequestTimedOut",
+                        "message": "Request Timed Out",
+                        "details": "Server did not respond in time"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "sourceAccountIdCase429"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "RequestThrottled",
+                        "message": "Request Throttled",
+                        "details": "Server throttled the request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "sourceAccountIdCase500"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InternalServerError",
+                        "message": "Internal Server Error",
+                        "details": "Internal Server Error Occurred"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "sourceAccountIdCase503"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "ServiceUnavailable",
+                        "message": "Server Unavailable",
+                        "details": "Server is not accepting request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TransactionAccount": {
+      "type": "object",
+      "description": "Details of the bank account involved in the transaction.",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "description": "The unique identifier provided by Amazon to identify the account."
+        },
+        "bankAccountHolderName": {
+          "type": "string",
+          "description": "The account holder's name."
+        },
+        "bankName": {
+          "type": "string",
+          "description": "The name of the bank."
+        },
+        "bankAccountNumberFormat": {
+          "description": "The format for the bank account number.",
+          "$ref": "#/definitions/BankAccountNumberFormat"
+        },
+        "bankAccountNumberTail": {
+          "type": "string",
+          "description": "The last three digits of the bank account number."
+        },
+        "bankAccountCountryCode": {
+          "type": "string",
+          "description": "The two-digit country code, in ISO 3166 format. This field is optional for `transactionSourceAccount`, but is mandatory for `transactionDestinationAccount`."
+        },
+        "bankAccountCurrency": {
+          "type": "string",
+          "description": "The currency code in ISO 4217 format."
+        }
+      },
+      "required": [
+        "bankName",
+        "bankAccountNumberFormat",
+        "bankAccountCurrency"
+      ]
+    },
+    "Fee": {
+      "type": "object",
+      "required": [
+        "feeId",
+        "feeType",
+        "feeRateValue",
+        "feeAmount"
+      ],
+      "properties": {
+        "feeId": {
+          "type": "string",
+          "description": "The unique identifier assigned to the fee."
+        },
+        "feeType": {
+          "description": "The type of the fee.",
+          "$ref": "#/definitions/FeeType"
+        },
+        "feeRateValue": {
+          "type": "string",
+          "description": "The value of the fee in percentage format."
+        },
+        "feeAmount": {
+          "description": "The actual value of the fee in numeric format.",
+          "$ref": "#/definitions/Currency"
+        }
+      },
+      "description": "Details of the fee."
+    },
+    "BigDecimal": {
+      "type": "number",
+      "description": "A decimal number, such as an amount or FX rate."
+    },
+    "BankAccountNumberFormat": {
+      "type": "string",
+      "description": "The format of the bank account number.",
+      "enum": [
+        "IBAN",
+        "BBAN"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "IBAN",
+          "description": "International bank account number."
+        },
+        {
+          "value": "BBAN",
+          "description": "Basic bank account number for domestic bank accounts."
+        }
+      ]
+    },
+    "Transaction": {
+      "type": "object",
+      "description": "The current transaction status and related historical details.",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "description": "The unique identifier of the Amazon Seller Wallet bank account from which the money is debited.",
+          "example": "amzn1.account.SMUGN2EN3ZHWSRJKH2KCJPII5JEI"
+        },
+        "transactionId": {
+          "type": "string",
+          "description": "The unique identifier provided by Amazon to the transaction."
+        },
+        "transactionType": {
+          "description": "The type of the transaction.",
+          "$ref": "#/definitions/TransactionType"
+        },
+        "transactionStatus": {
+          "description": "The status of the transaction.",
+          "$ref": "#/definitions/TransactionStatus"
+        },
+        "transactionRequestDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date when the transaction was initiated."
+        },
+        "expectedCompletionDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The expected completion date of the transaction.",
+          "example": "2023-09-26T02:32:59.787Z"
+        },
+        "transactionActualCompletionDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The transaction's completion date."
+        },
+        "lastUpdateDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date of the most recent account balance update."
+        },
+        "requesterName": {
+          "type": "string",
+          "description": "The Amazon Seller Wallet customer who requested the transaction.",
+          "example": "TPPOrgId"
+        },
+        "transactionRequesterSource": {
+          "type": "string",
+          "description": "The transaction initiation source. This value is either the Amazon portal or PISP name that the customer used to start the transaction."
+        },
+        "transactionDescription": {
+          "type": "string",
+          "description": "A description of the transaction that the requester provides when they initiate the transaction."
+        },
+        "transactionSourceAccount": {
+          "description": "The source bank account details in the transaction.",
+          "$ref": "#/definitions/TransactionAccount"
+        },
+        "transactionDestinationAccount": {
+          "description": "The destination bank account details in the transaction.",
+          "$ref": "#/definitions/TransactionAccount"
+        },
+        "transactionRequestAmount": {
+          "description": "The amount for which the transfer was initiated.",
+          "$ref": "#/definitions/Currency"
+        },
+        "transferRateDetails": {
+          "description": "The fees and rates that apply to the transaction, as applicable.",
+          "$ref": "#/definitions/TransferRatePreview"
+        },
+        "transactionFinalAmount": {
+          "description": "The amount of completed transaction in the destination account currency. This value is only populated for international transactions",
+          "$ref": "#/definitions/Currency"
+        },
+        "transactionFailureReason": {
+          "type": "string",
+          "description": "The reason the transaction failed, if applicable.",
+          "example": "Insufficient Balance"
+        }
+      },
+      "required": [
+        "accountId",
+        "transactionId",
+        "transactionType",
+        "transactionStatus",
+        "transactionRequestDate",
+        "lastUpdateDate",
+        "transactionRequesterSource",
+        "transactionDescription",
+        "transactionRequestAmount",
+        "transactionDestinationAccount",
+        "transferRateDetails"
+      ]
+    },
+    "TransactionType": {
+      "type": "string",
+      "description": "The type of transaction.",
+      "enum": [
+        "CREDIT",
+        "DEBIT"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "CREDIT",
+          "description": "Money is deposited into the Seller Wallet account."
+        },
+        {
+          "value": "DEBIT",
+          "description": "Money is taken out of the Seller Wallet account."
+        }
+      ]
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of errors",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "FeeType": {
+      "type": "string",
+      "description": "The type of fee on the transaction.",
+      "enum": [
+        "MISCELLANEOUS_FEE",
+        "TAX",
+        "TRANSACTION_FEE"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "MISCELLANEOUS_FEE",
+          "description": "Any other service charges or additional fee applied by a transaction executor service."
+        },
+        {
+          "value": "TAX",
+          "description": "Taxes on the transaction."
+        },
+        {
+          "value": "TRANSACTION_FEE",
+          "description": "A per-transaction fee that can be applied by a transaction executor service. This can be both international and domestic fees"
+        }
+      ]
+    },
+    "Currency": {
+      "type": "object",
+      "properties": {
+        "currencyCode": {
+          "type": "string",
+          "description": "The three-digit currency code in ISO 4217 format."
+        },
+        "currencyAmount": {
+          "description": "The monetary value.",
+          "$ref": "#/definitions/BigDecimal"
+        }
+      },
+      "description": "A currency type and amount."
+    },
+    "TransactionListing": {
+      "type": "object",
+      "description": "A list of transactions.",
+      "required": [
+        "transactions"
+      ],
+      "properties": {
+        "nextPageToken": {
+          "description": "A token that you use to retrieve the next page of results. The response includes `nextPageToken` when the number of results exceeds 100. To get the next page of results, call the operation with this token and include the same arguments as the call that produced the token. To get a complete list, call this operation until `nextPageToken` is null. Note that this operation can return empty pages.",
+          "type": "string",
+          "example": "3493805734095308457308475"
+        },
+        "transactions": {
+          "type": "array",
+          "description": "A list of transactions.",
+          "items": {
+            "$ref": "#/definitions/Transaction"
+          }
+        }
+      }
+    },
+    "TransferRatePreview": {
+      "type": "object",
+      "description": "The fees and foreign exchange rates that apply to the transaction.\n\nIf the fees are in terms of the `baseAmount` (source account) currency, then the effective rate is equal to **1 - (fees * `baseRate` / `baseAmount`)**.\n\nIf the fees are in terms of the `transferAmount` (destination account) currency, then the effective rate is equal to **`baseRate` - (fees / `baseAmount`)**.\n\nIn the preceding expressions, **fees** is equal to the sum of all `feeAmount.currencyAmount` values in the `fees` array.",
+      "required": [
+        "baseAmount",
+        "fxRateDetails",
+        "transferAmount",
+        "fees"
+      ],
+      "properties": {
+        "baseAmount": {
+          "description": "The base amount of the transaction.",
+          "$ref": "#/definitions/Currency"
+        },
+        "fxRateDetails": {
+          "description": "The foreign exchange rate value of the transaction.",
+          "$ref": "#/definitions/FxRateDetails"
+        },
+        "transferAmount": {
+          "description": "The final amount transferred, which includes both the fee deduction and currency conversion rate.",
+          "$ref": "#/definitions/Currency"
+        },
+        "fees": {
+          "type": "array",
+          "description": "A list of fees.",
+          "items": {
+            "$ref": "#/definitions/Fee"
+          }
+        }
+      }
+    },
+    "RateDirection": {
+      "type": "string",
+      "description": "Whether the customer is buying or selling the source currency.",
+      "enum": [
+        "BUY",
+        "SELL"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "BUY",
+          "description": "Buy value represents the rate if customer is buying the destination currency."
+        },
+        {
+          "value": "SELL",
+          "description": "Sell value represents the rate if customer is selling the destination currency."
+        }
+      ]
+    },
+    "FxRateDetails": {
+      "type": "object",
+      "required": [
+        "fxRateId",
+        "baseRate",
+        "effectiveFxRate",
+        "rateDirection"
+      ],
+      "properties": {
+        "fxRateId": {
+          "type": "string",
+          "description": "The unique identifier assigned to the fees / foreign exchange rate of a transaction."
+        },
+        "baseRate": {
+          "description": "The market foreign exchange rate.",
+          "$ref": "#/definitions/BigDecimal"
+        },
+        "effectiveFxRate": {
+          "description": "The total rate applied to the money transfer. This includes all exchange rates, markups, and fees.",
+          "$ref": "#/definitions/BigDecimal"
+        },
+        "rateDirection": {
+          "description": "Whether the customer is buying or selling the source currency.",
+          "$ref": "#/definitions/RateDirection"
+        }
+      },
+      "description": "Foreign exchange rate details.",
+      "example": {
+        "fxRateId": "UNIQUE_FX_RATE_ID_1",
+        "baseRate": 7.2,
+        "effectiveFxRate": 7.25,
+        "rateDirection": "BUY"
+      }
+    },
+    "TransactionStatus": {
+      "type": "string",
+      "description": "The current status of the transaction.",
+      "enum": [
+        "EXPIRED",
+        "FAILED",
+        "FAILED_CREDITS_APPLIED",
+        "IN_PROGRESS",
+        "PENDING_USER_APPROVAL",
+        "SUCCESSFUL"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "EXPIRED",
+          "description": "The transaction has expired due to missing approval/consent."
+        },
+        {
+          "value": "FAILED",
+          "description": "The transaction failed before completion."
+        },
+        {
+          "value": "FAILED_CREDITS_APPLIED",
+          "description": "The transaction failed after debit and credit had been applied back to the balance."
+        },
+        {
+          "value": "IN_PROGRESS",
+          "description": "The transaction is in progress."
+        },
+        {
+          "value": "PENDING_USER_APPROVAL",
+          "description": "The transaction has been created, but pending approval from the user via dynamic linking."
+        },
+        {
+          "value": "SUCCESSFUL",
+          "description": "The transaction is successfully processed."
+        }
+      ]
+    }
+  }
+}

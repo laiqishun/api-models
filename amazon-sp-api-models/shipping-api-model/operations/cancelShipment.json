@@ -1,0 +1,393 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Amazon Shipping API is designed to support outbound shipping use cases both for orders originating on Amazon-owned marketplaces as well as external channels/marketplaces. With these APIs, you can request shipping rates, create shipments, cancel shipments, and track shipments.",
+    "version": "v2",
+    "title": "Amazon Shipping API",
+    "contact": {
+      "name": "Amazon Shipping API Support",
+      "email": "swa-api-core@amazon.com"
+    },
+    "license": {
+      "name": "Amazon Software License",
+      "url": "https://aws.amazon.com/asl/"
+    }
+  },
+  "host": "sellingpartnerapi-eu.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/shipping/v2/shipments/{shipmentId}/cancel": {
+      "parameters": [],
+      "put": {
+        "tags": [
+          "shipping"
+        ],
+        "description": "Cancels a purchased shipment. Returns an empty object if the shipment is successfully cancelled.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 80 | 100 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values then those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "cancelShipment",
+        "parameters": [
+          {
+            "name": "shipmentId",
+            "description": "The shipment identifier originally returned by the purchaseShipment operation.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-amzn-shipping-business-id",
+            "in": "header",
+            "description": "Amazon shipping business to assume for this request. The default is AmazonShipping_UK.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "AmazonShipping_US",
+              "AmazonShipping_IN",
+              "AmazonShipping_UK",
+              "AmazonShipping_UAE",
+              "AmazonShipping_SA",
+              "AmazonShipping_EG",
+              "AmazonShipping_IT",
+              "AmazonShipping_ES",
+              "AmazonShipping_FR",
+              "AmazonShipping_JP"
+            ],
+            "x-docgen-enum-table-extension": [
+              {
+                "value": "AmazonShipping_US",
+                "description": "The United States Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_IN",
+                "description": "The India Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_UK",
+                "description": "The United Kingdom Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_UAE",
+                "description": "The United Arab Emirates Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_SA",
+                "description": "The Saudi Arabia Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_EG",
+                "description": "The Egypt Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_IT",
+                "description": "The Italy Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_ES",
+                "description": "The Spain Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_FR",
+                "description": "The France Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_JP",
+                "description": "The Japan Amazon shipping business."
+              }
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/CancelShipmentResponse"
+            },
+            "examples": {
+              "application/json": {}
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "InvalidRequest",
+                    "message": "Request is missing or has invalid parameters",
+                    "details": "ShipmentId cannot be null"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "Unauthorized",
+                    "message": "You don't have access to the requested response or the credentials are invalid."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "Unauthorized",
+                    "message": "You don't have access to the requested response or the credentials are invalid."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "NotFound",
+                    "message": "The requested resource is invalid or doesn't exist"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "InvalidRequest",
+                    "message": "The request payload size is greater than maximum accepted size."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "InvalidRequest",
+                    "message": "The request payload format is not supported."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "TooManyRequests",
+                    "message": "The total number of requests exceeded your allowed limit."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "InternalError",
+                    "message": "Something went wrong while processing the request."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "ServiceUnavailable",
+                    "message": "Service temporarily unavailable or down for maintenance. Please try again after sometime."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        },
+        "x-amzn-api-sandbox": {
+          "dynamic": {}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "Array of Errors",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "CancelShipmentResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "$ref": "#/definitions/CancelShipmentResult"
+        }
+      },
+      "description": "Response schema for the cancelShipment operation."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "CancelShipmentResult": {
+      "type": "object",
+      "description": "The payload for the cancelShipment operation.",
+      "additionalProperties": {}
+    }
+  }
+}

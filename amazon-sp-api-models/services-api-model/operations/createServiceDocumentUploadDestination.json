@@ -1,0 +1,479 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "With the Services API, you can build applications that help service providers get and modify their service orders and manage their resources.",
+    "version": "v1",
+    "title": "Selling Partner API for Services",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/service/v1/documents": {
+      "parameters": [],
+      "post": {
+        "tags": [
+          "service"
+        ],
+        "description": "Creates an upload destination.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 5 | 20 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](doc:usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "createServiceDocumentUploadDestination",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Upload document operation input details.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ServiceUploadDocument"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully created an upload destination for the given resource.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/CreateServiceDocumentUploadDestination"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "contentType": "PNG",
+                          "contentLength": 1386437,
+                          "contentMD5": "97WrSKv9ffHkDopCdB32mw=="
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "payload": {
+                      "encryptionDetails": {
+                        "standard": "AES",
+                        "initializationVector": "paPlpo1iBBLmyOhU0mIo5g==",
+                        "key": "PDuDJm2l+0ydObrRpS48tB+t2qbtOmWhSEOiFWKnH2k="
+                      },
+                      "uploadDestinationId": "amzn1.tortuga.3.15ba627d-8e24-42ad-89d1-5eb01f5ba0af.T15MXQRST78UTC<->amzn1.tortuga.1.token.DizquVc+EoX/lWAV/7WTlw==",
+                      "url": "https://tortuga-devo.s3-us-west-2.amazonaws.com/%2FThirtyDays/amzn1.tortuga.3.15ba627d-8e24-42ad-89d1-5eb01f5ba0af.T15MXQRST78UTC?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20210108T103450Z&X-Amz-SignedHeaders=content-type%3Bhost&X-Amz-Expires=300&X-Amz-Credential=AKIAUR3X5C6O5CADVWED%2F20210108%2Fus-west-2%2Fs3%2Faws4_request&X-Amz-Signature=dd2fefe6c6102aba14bab1481b33cf07dcc0385bd49f7eb5796d77b082ea5ba3"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/CreateServiceDocumentUploadDestination"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {}
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Missing or invalid request parameters: [contentType, contentLength].",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "contentType": "PNG"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Missing or invalid request parameters: [contentLength].",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "contentLength": 123
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Missing or invalid request parameters: [contentType].",
+                        "details": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/CreateServiceDocumentUploadDestination"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/CreateServiceDocumentUploadDestination"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/CreateServiceDocumentUploadDestination"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request's Content-Type header is invalid.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/CreateServiceDocumentUploadDestination"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Unable to process the contained instructions.",
+            "schema": {
+              "$ref": "#/definitions/CreateServiceDocumentUploadDestination"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "contentType": "PNGr",
+                          "contentLength": 1386437,
+                          "contentMD5": "97WrSKv9ffHkDopCdB32mw=="
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "contentType parameter is invalid. Use one of ['TIFF', 'JPG', 'PNG', 'JPEG', 'GIF', 'PDF']",
+                        "details": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/CreateServiceDocumentUploadDestination"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/CreateServiceDocumentUploadDestination"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/CreateServiceDocumentUploadDestination"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ServiceUploadDocument": {
+      "type": "object",
+      "required": [
+        "contentLength",
+        "contentType"
+      ],
+      "properties": {
+        "contentType": {
+          "type": "string",
+          "description": "The content type of the to-be-uploaded file",
+          "enum": [
+            "TIFF",
+            "JPG",
+            "PNG",
+            "JPEG",
+            "GIF",
+            "PDF"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "TIFF",
+              "description": "To be uploaded POA is of type image/tiff."
+            },
+            {
+              "value": "JPG",
+              "description": "To be uploaded POA is of type image/jpg."
+            },
+            {
+              "value": "PNG",
+              "description": "To be uploaded POA is of type image/png."
+            },
+            {
+              "value": "JPEG",
+              "description": "To be uploaded POA is of type image/jpeg."
+            },
+            {
+              "value": "GIF",
+              "description": "To be uploaded POA is of type image/gif."
+            },
+            {
+              "value": "PDF",
+              "description": "To be uploaded POA is of type application/pdf."
+            }
+          ]
+        },
+        "contentLength": {
+          "type": "number",
+          "format": "int64",
+          "description": "The content length of the to-be-uploaded file",
+          "minimum": 1,
+          "maximum": 5242880
+        },
+        "contentMD5": {
+          "type": "string",
+          "description": "An MD5 hash of the content to be submitted to the upload destination. This value is used to determine if the data has been corrupted or tampered with during transit.",
+          "pattern": "^[A-Za-z0-9\\\\+/]{22}={2}$"
+        }
+      },
+      "description": "Input for to be uploaded document."
+    },
+    "CreateServiceDocumentUploadDestination": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "$ref": "#/definitions/ServiceDocumentUploadDestination"
+        },
+        "errors": {
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The response schema for the `createServiceDocumentUploadDestination` operation."
+    },
+    "ServiceDocumentUploadDestination": {
+      "type": "object",
+      "required": [
+        "encryptionDetails",
+        "uploadDestinationId",
+        "url"
+      ],
+      "properties": {
+        "uploadDestinationId": {
+          "type": "string",
+          "description": "The unique identifier to be used by APIs that reference the upload destination."
+        },
+        "url": {
+          "type": "string",
+          "description": "The URL to which to upload the file."
+        },
+        "encryptionDetails": {
+          "$ref": "#/definitions/EncryptionDetails"
+        },
+        "headers": {
+          "type": "object",
+          "description": "The headers to include in the upload request.",
+          "properties": {}
+        }
+      },
+      "description": "Information about an upload destination."
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        },
+        "errorLevel": {
+          "type": "string",
+          "description": "The type of error.",
+          "enum": [
+            "ERROR",
+            "WARNING"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "ERROR",
+              "description": "Error"
+            },
+            {
+              "value": "WARNING",
+              "description": "Warning"
+            }
+          ]
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "EncryptionDetails": {
+      "type": "object",
+      "required": [
+        "initializationVector",
+        "key",
+        "standard"
+      ],
+      "properties": {
+        "standard": {
+          "type": "string",
+          "description": "The encryption standard required to encrypt or decrypt the document contents.",
+          "enum": [
+            "AES"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "AES",
+              "description": "The Advanced Encryption Standard (AES)."
+            }
+          ]
+        },
+        "initializationVector": {
+          "type": "string",
+          "description": "The vector to encrypt or decrypt the document contents using Cipher Block Chaining (CBC)."
+        },
+        "key": {
+          "type": "string",
+          "description": "The encryption key used to encrypt or decrypt the document contents."
+        }
+      },
+      "description": "Encryption details for required client-side encryption and decryption of document contents."
+    }
+  }
+}

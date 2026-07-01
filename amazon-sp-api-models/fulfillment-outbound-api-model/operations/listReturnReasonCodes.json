@@ -1,0 +1,314 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Fulfillment Outbound lets you create applications that help a seller fulfill Multi-Channel Fulfillment orders using their inventory in Amazon's fulfillment network. You can get information on both potential and existing fulfillment orders.",
+    "version": "2020-07-01",
+    "title": "Selling Partner APIs for Fulfillment Outbound",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/fba/outbound/2020-07-01/returnReasonCodes": {
+      "get": {
+        "tags": [
+          "fbaOutbound"
+        ],
+        "description": "Returns a list of return reason codes for a seller SKU in a given marketplace. The parameters for this operation may contain special characters that require URL encoding. To avoid errors with SKUs when encoding URLs, refer to [URL Encoding](https://developer-docs.amazon.com/sp-api/docs/url-encoding).\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 2 | 30 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "listReturnReasonCodes",
+        "parameters": [
+          {
+            "name": "sellerSku",
+            "in": "query",
+            "description": "The seller SKU for which return reason codes are required.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "marketplaceId",
+            "in": "query",
+            "description": "The marketplace for which the seller wants return reason codes.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "sellerFulfillmentOrderId",
+            "in": "query",
+            "description": "The identifier assigned to the item by the seller when the fulfillment order was created. The service uses this value to determine the marketplace for which the seller wants return reason codes.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "language",
+            "in": "query",
+            "description": "The language that the `TranslatedDescription` property of the `ReasonCodeDetails` response object should be translated into.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/ListReturnReasonCodesResponse"
+            },
+            "examples": {
+              "payload": {
+                "reasonCodeDetails": [
+                  {
+                    "returnReasonCode": "CR-UNWANTED_ITEM",
+                    "description": "No longer needed/wanted"
+                  },
+                  {
+                    "returnReasonCode": "AMZ-PG-BAD-DESC",
+                    "description": "Different from website description"
+                  },
+                  {
+                    "returnReasonCode": "CR-DEFECTIVE",
+                    "description": "Defective/Does not work properly"
+                  },
+                  {
+                    "returnReasonCode": "CR-ORDERED_WRONG_ITEM",
+                    "description": "Accidental order"
+                  },
+                  {
+                    "returnReasonCode": "CR-FOUND_BETTER_PRICE",
+                    "description": "Better price available"
+                  },
+                  {
+                    "returnReasonCode": "CR-DAMAGED_BY_FC",
+                    "description": "Damaged due to inappropriate packaging"
+                  },
+                  {
+                    "returnReasonCode": "CR-MISSED_ESTIMATED_DELIVERY",
+                    "description": "Missed estimated delivery date"
+                  },
+                  {
+                    "returnReasonCode": "CR-MISSING_PARTS",
+                    "description": "Missing parts or accessories"
+                  },
+                  {
+                    "returnReasonCode": "CR-DAMAGED_BY_CARRIER",
+                    "description": "Damaged during shipping"
+                  },
+                  {
+                    "returnReasonCode": "CR-SWITCHEROO",
+                    "description": "Different from what was ordered"
+                  },
+                  {
+                    "returnReasonCode": "CR-EXTRA_ITEM",
+                    "description": "Arrived in addition to what was ordered"
+                  },
+                  {
+                    "returnReasonCode": "CR-UNAUTHORIZED_PURCHASE",
+                    "description": "Unauthorized purchase"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ListReturnReasonCodesResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/ListReturnReasonCodesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ListReturnReasonCodesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ListReturnReasonCodesResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ListReturnReasonCodesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ListReturnReasonCodesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ListReturnReasonCodesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "ListReturnReasonCodesResult": {
+      "description": "The request for the `listReturnReasonCodes` operation.",
+      "type": "object",
+      "properties": {
+        "reasonCodeDetails": {
+          "$ref": "#/definitions/ReasonCodeDetailsList"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "ReasonCodeDetails": {
+      "type": "object",
+      "required": [
+        "description",
+        "returnReasonCode"
+      ],
+      "properties": {
+        "returnReasonCode": {
+          "type": "string",
+          "description": "A code that indicates a valid return reason."
+        },
+        "description": {
+          "type": "string",
+          "description": "A human readable description of the return reason code."
+        },
+        "translatedDescription": {
+          "type": "string",
+          "description": "A translation of the description. The translation is in the language specified in the `language` request parameter."
+        }
+      },
+      "description": "A return reason code, a description, and an optional description translation."
+    },
+    "ReasonCodeDetailsList": {
+      "type": "array",
+      "description": "An array of return reason code details.",
+      "items": {
+        "$ref": "#/definitions/ReasonCodeDetails"
+      }
+    },
+    "ListReturnReasonCodesResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "description": "The payload for the `listReturnReasonCodes` operation.",
+          "$ref": "#/definitions/ListReturnReasonCodesResult"
+        },
+        "errors": {
+          "description": "One or more unexpected errors occurred during the `listReturnReasonCodes` operation.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The response schema for the `listReturnReasonCodes` operation."
+    }
+  }
+}

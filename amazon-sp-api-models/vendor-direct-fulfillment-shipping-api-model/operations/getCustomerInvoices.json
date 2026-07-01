@@ -1,0 +1,322 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Use the Selling Partner API for Direct Fulfillment Shipping to access a direct fulfillment vendor's shipping data.",
+    "version": "2021-12-28",
+    "title": "Selling Partner API for Direct Fulfillment Shipping",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/vendor/directFulfillment/shipping/2021-12-28/customerInvoices": {
+      "get": {
+        "tags": [
+          "customerInvoices"
+        ],
+        "description": "Returns a list of customer invoices created during a time frame that you specify. You define the time frame using the createdAfter and createdBefore parameters. You must use both of these parameters. The date range to search must be no more than 7 days.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 10 | 10 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The preceding table indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values then those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits).",
+        "operationId": "getCustomerInvoices",
+        "summary": "getCustomerInvoices",
+        "parameters": [
+          {
+            "name": "shipFromPartyId",
+            "in": "query",
+            "description": "The vendor warehouseId for order fulfillment. If not specified, the result will contain orders for all warehouses.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The limit to the number of records returned",
+            "required": false,
+            "type": "integer",
+            "maximum": 100,
+            "minimum": 1
+          },
+          {
+            "name": "createdAfter",
+            "in": "query",
+            "description": "Orders that became available after this date and time will be included in the result. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format.",
+            "required": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "createdBefore",
+            "in": "query",
+            "description": "Orders that became available before this date and time will be included in the result. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format.",
+            "required": true,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "sortOrder",
+            "in": "query",
+            "description": "Sort ASC or DESC by order creation date.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "ASC",
+              "DESC"
+            ],
+            "x-docgen-enum-table-extension": [
+              {
+                "value": "ASC",
+                "description": "Sort in ascending order by order creation date."
+              },
+              {
+                "value": "DESC",
+                "description": "Sort in descending order by order creation date."
+              }
+            ]
+          },
+          {
+            "name": "nextToken",
+            "in": "query",
+            "description": "Used for pagination when there are more orders than the specified result size limit. The token value is returned in the previous API call.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/CustomerInvoiceList"
+            },
+            "examples": {
+              "payload": {
+                "pagination": {
+                  "nextToken": "MDAwMDAwMDAwMQ=="
+                },
+                "customerInvoices": [
+                  {
+                    "purchaseOrderNumber": "PO98676856",
+                    "content": "base 64 content goes here"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "InvalidRequest",
+                    "message": "The request is invalid."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        },
+        "x-amzn-api-sandbox": {
+          "dynamic": {}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CustomerInvoiceList": {
+      "type": "object",
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/Pagination",
+          "description": "The pagination elements required to retrieve the remaining data."
+        },
+        "customerInvoices": {
+          "type": "array",
+          "description": "Represents a customer invoice within the `CustomerInvoiceList`.",
+          "items": {
+            "$ref": "#/definitions/CustomerInvoice"
+          }
+        }
+      },
+      "description": "Represents a list of customer invoices, potentially paginated."
+    },
+    "CustomerInvoice": {
+      "type": "object",
+      "required": [
+        "content",
+        "purchaseOrderNumber"
+      ],
+      "properties": {
+        "purchaseOrderNumber": {
+          "type": "string",
+          "description": "The purchase order number for this order.",
+          "pattern": "^[a-zA-Z0-9]+$"
+        },
+        "content": {
+          "type": "string",
+          "description": "The Base64 customer invoice."
+        }
+      },
+      "description": "Represents a customer invoice associated with a purchase order."
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "description": "An array of Error objects representing individual errors encountered during the request."
+        }
+      }
+    },
+    "Pagination": {
+      "type": "object",
+      "properties": {
+        "nextToken": {
+          "type": "string",
+          "description": "Pagination occurs when a request produces a response that exceeds the `pageSize`. This means that the response is divided into individual pages. To retrieve the next page or the previous page, you must pass the `nextToken` value or the `previousToken` value as the `pageToken` parameter in the next request. There is no `nextToken` in the pagination object on the last page."
+        }
+      },
+      "description": "The pagination elements required to retrieve the remaining data."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    }
+  }
+}

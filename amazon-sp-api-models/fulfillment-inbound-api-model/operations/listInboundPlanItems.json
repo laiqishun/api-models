@@ -1,0 +1,449 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/items": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Identifier of an inbound plan.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "inboundPlanId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The number of items to return in the response matching the given query.",
+            "in": "query",
+            "maximum": 1000,
+            "minimum": 1,
+            "name": "pageSize",
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "description": "A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the `pagination` returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result.",
+            "in": "query",
+            "maxLength": 1024,
+            "minLength": 0,
+            "name": "paginationToken",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListInboundPlanItems 200 response",
+            "schema": {
+              "$ref": "#/definitions/ListInboundPlanItemsResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "pageSize": {
+                        "value": 2
+                      },
+                      "paginationToken": {
+                        "value": "paginationToken"
+                      }
+                    }
+                  },
+                  "response": {
+                    "items": [
+                      {
+                        "quantity": 5,
+                        "expiration": "2024-01-01",
+                        "manufacturingLotCode": "manufacturingLotCode",
+                        "prepInstructions": [
+                          {
+                            "prepType": "ITEM_POLYBAGGING",
+                            "prepOwner": "AMAZON",
+                            "fee": {
+                              "code": "USD",
+                              "amount": 10.0
+                            }
+                          }
+                        ],
+                        "msku": "msku",
+                        "asin": "asin",
+                        "fnsku": "fnsku",
+                        "labelOwner": "AMAZON"
+                      }
+                    ],
+                    "pagination": {
+                      "nextToken": "nextPaginationToken"
+                    }
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wfbad4abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "pageSize": {
+                        "value": 1
+                      },
+                      "paginationToken": {
+                        "value": ""
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The requested inbound plan does not exist."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "Provides a paginated list of item packages in an inbound plan.",
+        "operationId": "listInboundPlanItems"
+      }
+    }
+  },
+  "definitions": {
+    "PrepInstruction": {
+      "description": "Information pertaining to the preparation of inbound goods.",
+      "properties": {
+        "fee": {
+          "$ref": "#/definitions/Currency"
+        },
+        "prepOwner": {
+          "description": "In some situations, special preparations are required for items and this field reflects the owner of the preparations. Options include `AMAZON`, `SELLER` or `NONE`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "prepType": {
+          "description": "Type of preparation that should be done.\n\nPossible values: `ITEM_LABELING`, `ITEM_BUBBLEWRAP`, `ITEM_POLYBAGGING`, `ITEM_TAPING`, `ITEM_BLACK_SHRINKWRAP`, `ITEM_HANG_GARMENT`, `ITEM_BOXING`, `ITEM_SETCREAT`, `ITEM_RMOVHANG`, `ITEM_SUFFOSTK`, `ITEM_CAP_SEALING`, `ITEM_DEBUNDLE`, `ITEM_SETSTK`, `ITEM_SIOC`, `ITEM_NO_PREP`, `ADULT`, `BABY`, `TEXTILE`, `HANGER`, `FRAGILE`, `LIQUID`, `SHARP`, `SMALL`, `PERFORATED`, `GRANULAR`, `SET`, `FC_PROVIDED`, `UNKNOWN`, `NONE`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "Pagination": {
+      "description": "Contains tokens to fetch from a certain page.",
+      "properties": {
+        "nextToken": {
+          "description": "When present, pass this string token in the next request to return the next response page.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "Currency": {
+      "description": "The type and amount of currency.",
+      "properties": {
+        "amount": {
+          "description": "Decimal value of the currency.",
+          "type": "number"
+        },
+        "code": {
+          "description": "ISO 4217 standard of a currency code.",
+          "maxLength": 3,
+          "minLength": 3,
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "code"
+      ],
+      "type": "object"
+    },
+    "Item": {
+      "description": "Information associated with a single SKU in the seller's catalog.",
+      "properties": {
+        "asin": {
+          "description": "The Amazon Standard Identification Number (ASIN) of the item.",
+          "maxLength": 10,
+          "minLength": 1,
+          "type": "string"
+        },
+        "expiration": {
+          "description": "The expiration date of the MSKU. In [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) datetime format with pattern`YYYY-MM-DD`. The same MSKU with different expiration dates cannot go into the same box.",
+          "pattern": "^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+          "type": "string"
+        },
+        "fnsku": {
+          "description": "A unique identifier assigned by Amazon to products stored in and fulfilled from an Amazon fulfillment center.",
+          "maxLength": 10,
+          "minLength": 1,
+          "type": "string"
+        },
+        "labelOwner": {
+          "description": "Specifies who will label the items. Options include `AMAZON`, `SELLER`, and `NONE`. `AMAZON` is not an accepted value in the US marketplace.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "manufacturingLotCode": {
+          "description": "The manufacturing lot code.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "msku": {
+          "description": "The merchant-defined SKU ID.",
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "prepInstructions": {
+          "description": "Special preparations that are required for an item.",
+          "items": {
+            "$ref": "#/definitions/PrepInstruction"
+          },
+          "type": "array"
+        },
+        "quantity": {
+          "description": "The number of the specified MSKU.",
+          "maximum": 500000,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "asin",
+        "fnsku",
+        "labelOwner",
+        "msku",
+        "prepInstructions",
+        "quantity"
+      ],
+      "type": "object"
+    },
+    "ListInboundPlanItemsResponse": {
+      "description": "The `listInboundPlanItems` response.",
+      "properties": {
+        "items": {
+          "description": "The items in an inbound plan.",
+          "items": {
+            "$ref": "#/definitions/Item"
+          },
+          "type": "array"
+        },
+        "pagination": {
+          "$ref": "#/definitions/Pagination"
+        }
+      },
+      "required": [
+        "items"
+      ],
+      "type": "object"
+    }
+  }
+}

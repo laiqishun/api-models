@@ -1,0 +1,473 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "With the Services API, you can build applications that help service providers get and modify their service orders and manage their resources.",
+    "version": "v1",
+    "title": "Selling Partner API for Services",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/service/v1/appointmentSlots": {
+      "parameters": [],
+      "get": {
+        "tags": [
+          "service"
+        ],
+        "description": "Gets appointment slots as per the service context specified.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 20 | 40 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](doc:usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getAppointmentSlots",
+        "parameters": [
+          {
+            "name": "asin",
+            "in": "query",
+            "description": "ASIN associated with the service.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "storeId",
+            "in": "query",
+            "description": "Store identifier defining the region scope to retrive appointment slots.",
+            "required": true,
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          {
+            "name": "marketplaceIds",
+            "in": "query",
+            "description": "An identifier for the marketplace for which appointment slots are queried",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 1
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "description": "A time from which the appointment slots will be retrieved. The specified time must be in ISO 8601 format. If `startTime` is provided, `endTime` should also be provided. Default value is as per business configuration.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "description": "A time up to which the appointment slots will be retrieved. The specified time must be in ISO 8601 format. If `endTime` is provided, `startTime` should also be provided. Default value is as per business configuration. Maximum range of appointment slots can be 90 days.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response.",
+            "schema": {
+              "$ref": "#/definitions/GetAppointmentSlotsResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "asin": {
+                        "value": "B07BB1RGT5"
+                      },
+                      "storeId": {
+                        "value": "53694163-6dc8-4f80-b6b1-ec47b7b9747e"
+                      }
+                    }
+                  },
+                  "response": {
+                    "payload": {
+                      "startTime": "2021-04-04T00:00:00Z",
+                      "endTime": "2021-04-04T02:00:00Z",
+                      "schedulingType": "REAL_TIME_SCHEDULING",
+                      "appointmentSlots": [
+                        {
+                          "startTime": "2021-04-04T00:00:00Z",
+                          "endTime": "2021-04-04T01:00:00Z",
+                          "capacity": 20
+                        },
+                        {
+                          "startTime": "2021-04-04T01:00:00Z",
+                          "endTime": "2021-04-04T02:00:00Z",
+                          "capacity": 0
+                        }
+                      ]
+                    }
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "asin": {
+                        "value": "B07BB1RGT6"
+                      },
+                      "storeId": {
+                        "value": "53694163-6dc8-4f80-b6b1-ec47b7b9747f"
+                      },
+                      "startTime": {
+                        "value": "2021-04-04T00:00:00Z"
+                      },
+                      "endTime": {
+                        "value": "2021-04-04T02:00:00Z"
+                      }
+                    }
+                  },
+                  "response": {
+                    "payload": {
+                      "startTime": "2021-04-04T00:00:00Z",
+                      "endTime": "2021-04-04T02:00:00Z",
+                      "schedulingType": "NON_REAL_TIME_SCHEDULING",
+                      "appointmentSlots": [
+                        {
+                          "startTime": "2021-04-04T00:00:00Z",
+                          "endTime": "2021-04-04T01:00:00Z",
+                          "capacity": 20
+                        },
+                        {
+                          "startTime": "2021-04-04T01:00:00Z",
+                          "endTime": "2021-04-04T02:00:00Z",
+                          "capacity": 0
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/GetAppointmentSlotsResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "asin": {
+                        "value": "nullValue"
+                      },
+                      "storeId": {
+                        "value": "53694163-6dc8-4f80-b6b1-ec47b7b9747e"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Missing or invalid request parameters: [asin]"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "asin": {
+                        "value": "B07BB1RGT5"
+                      },
+                      "storeId": {
+                        "value": "53694163-6dc8-4f80-b6b1-ec47b7b9747e"
+                      },
+                      "endTime": {
+                        "value": "20-21-04-04T01:00:00Z"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Range End Time is not a valid ISO date/time object"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "asin": {
+                        "value": "B07BB1RGT5"
+                      },
+                      "storeId": {
+                        "value": "53694163-6dc8-4f80-b6b1-ec47b7b9747e"
+                      },
+                      "startTime": {
+                        "value": "2021-04-04T05:00:00Z"
+                      },
+                      "endTime": {
+                        "value": "2021-04-04T02:00:00Z"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Range End Time should be after Range Start Time"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/GetAppointmentSlotsResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/GetAppointmentSlotsResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/GetAppointmentSlotsResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Unable to process the contained instructions.",
+            "schema": {
+              "$ref": "#/definitions/GetAppointmentSlotsResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/GetAppointmentSlotsResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/GetAppointmentSlotsResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/GetAppointmentSlotsResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "GetAppointmentSlotsResponse": {
+      "type": "object",
+      "description": "The response of fetching appointment slots based on service context.",
+      "properties": {
+        "payload": {
+          "description": "The appointment slots fetched based on service context.",
+          "$ref": "#/definitions/AppointmentSlotReport"
+        },
+        "errors": {
+          "description": "Errors occurred in getting schedule.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      }
+    },
+    "AppointmentSlotReport": {
+      "description": "Availability information as per the service context queried.",
+      "type": "object",
+      "properties": {
+        "schedulingType": {
+          "type": "string",
+          "description": "Defines the type of slots.",
+          "enum": [
+            "REAL_TIME_SCHEDULING",
+            "NON_REAL_TIME_SCHEDULING"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "REAL_TIME_SCHEDULING",
+              "description": "The slots provided are backed by inventory in inventory management system."
+            },
+            {
+              "value": "NON_REAL_TIME_SCHEDULING",
+              "description": "The slots provided are based on working hours defined in seller management system."
+            }
+          ]
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Start Time from which the appointment slots are generated in ISO 8601 format."
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End Time up to which the appointment slots are generated in ISO 8601 format."
+        },
+        "appointmentSlots": {
+          "type": "array",
+          "description": "A list of time windows along with associated capacity in which the service can be performed.",
+          "items": {
+            "$ref": "#/definitions/AppointmentSlot"
+          }
+        }
+      }
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        },
+        "errorLevel": {
+          "type": "string",
+          "description": "The type of error.",
+          "enum": [
+            "ERROR",
+            "WARNING"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "ERROR",
+              "description": "Error"
+            },
+            {
+              "value": "WARNING",
+              "description": "Warning"
+            }
+          ]
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "AppointmentSlot": {
+      "type": "object",
+      "description": "A time window along with associated capacity in which the service can be performed.",
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time window start time in ISO 8601 format."
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Time window end time in ISO 8601 format."
+        },
+        "capacity": {
+          "type": "integer",
+          "description": "Number of resources for which a slot can be reserved.",
+          "minimum": 0
+        }
+      }
+    }
+  }
+}

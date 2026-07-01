@@ -1,0 +1,382 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/selfShipAppointmentCancellation": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Identifier of an inbound plan.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "inboundPlanId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Identifier of a shipment. A shipment contains the boxes and units being inbounded.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "shipmentId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CancelSelfShipAppointmentRequest"
+            },
+            "description": "The body of the request to `cancelSelfShipAppointment`."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "CancelSelfShipAppointment 202 response",
+            "schema": {
+              "$ref": "#/definitions/CancelSelfShipAppointmentResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "shipmentId": {
+                        "value": "sh1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "body": {
+                        "value": {
+                          "reasonComment": "OTHER"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "operationId": "1234abcd-1234-abcd-5678-1234abcd5678"
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "shipmentId": {
+                        "value": "bad234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "body": {
+                        "value": {
+                          "reasonComment": "OTHER"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The requested shipmentId does not exist for the specified inbound plan."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "Cancels a self-ship appointment slot against a shipment. Only available in the following [marketplaces](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids): MX, BR, EG, SA, AE, IN. ",
+        "operationId": "cancelSelfShipAppointment"
+      }
+    }
+  },
+  "definitions": {
+    "CancelSelfShipAppointmentRequest": {
+      "description": "The `cancelSelfShipAppointment` request.",
+      "properties": {
+        "reasonComment": {
+          "$ref": "#/definitions/ReasonComment"
+        }
+      },
+      "type": "object",
+      "example": {
+        "reasonComment": "OTHER"
+      }
+    },
+    "CancelSelfShipAppointmentResponse": {
+      "description": "The `CancelSelfShipAppointment` response.",
+      "properties": {
+        "operationId": {
+          "description": "UUID for the given operation.",
+          "maxLength": 38,
+          "minLength": 36,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operationId"
+      ],
+      "type": "object"
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "ReasonComment": {
+      "description": "Reason for cancelling or rescheduling a self-ship appointment.",
+      "enum": [
+        "APPOINTMENT_REQUESTED_BY_MISTAKE",
+        "VEHICLE_DELAY",
+        "SLOT_NOT_SUITABLE",
+        "OUTSIDE_CARRIER_BUSINESS_HOURS",
+        "UNFAVOURABLE_EXTERNAL_CONDITIONS",
+        "PROCUREMENT_DELAY",
+        "SHIPPING_PLAN_CHANGED",
+        "INCREASED_QUANTITY",
+        "OTHER"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "APPOINTMENT_REQUESTED_BY_MISTAKE",
+          "description": "-"
+        },
+        {
+          "value": "VEHICLE_DELAY",
+          "description": "-"
+        },
+        {
+          "value": "SLOT_NOT_SUITABLE",
+          "description": "-"
+        },
+        {
+          "value": "OUTSIDE_CARRIER_BUSINESS_HOURS",
+          "description": "-"
+        },
+        {
+          "value": "UNFAVOURABLE_EXTERNAL_CONDITIONS",
+          "description": "-"
+        },
+        {
+          "value": "PROCUREMENT_DELAY",
+          "description": "-"
+        },
+        {
+          "value": "SHIPPING_PLAN_CHANGED",
+          "description": "-"
+        },
+        {
+          "value": "INCREASED_QUANTITY",
+          "description": "-"
+        },
+        {
+          "value": "OTHER",
+          "description": "-"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1049 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Customer Feedback (Customer Feedback API) provides information about customer reviews and returns at both the item and browse node level.",
+    "version": "2024-06-01",
+    "title": "The Selling Partner API for CustomerFeedback",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/customerFeedback/2024-06-01/items/{asin}/reviews/topics": {
+      "get": {
+        "tags": [
+          "customerFeedback"
+        ],
+        "description": "Retrieve an item's ten most positive and ten most negative review topics.",
+        "operationId": "getItemReviewTopics",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "asin",
+            "in": "path",
+            "description": "The Amazon Standard Identification Number (ASIN) is the unique identifier of a product within a marketplace. The value must be a child ASIN.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "marketplaceId",
+            "in": "query",
+            "description": "The MarketplaceId is the globally unique identifier of a marketplace, you can refer to the marketplaceId here : https://developer-docs.amazon.com/sp-api/docs/marketplace-ids.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "The metric by which to sort data in the response.",
+            "required": true,
+            "type": "string",
+            "items": {
+              "type": "string",
+              "enum": [
+                "MENTIONS",
+                "STAR_RATING_IMPACT"
+              ],
+              "x-docgen-enum-table-extension": [
+                {
+                  "value": "MENTIONS",
+                  "description": "The top positive and negative topics calculated by their mentions in customers reviews of the ASIN."
+                },
+                {
+                  "value": "STAR_RATING_IMPACT",
+                  "description": "The top positive and negative topics calculated by their impact towards the star rating of the ASIN."
+                }
+              ]
+            },
+            "collectionFormat": "csv",
+            "x-example": "MENTIONS"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/ItemReviewTopicsResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "examples": {
+              "application/json": {
+                "asin": "B0BT5K9B2T",
+                "itemName": "LANTEFUL 10 Tiers Tall Shoe Rack 20-25 Pairs Boots Organizer Storage Sturdy Narrow Shoe Shelf for Entryway Closets with Hooks Black",
+                "marketplaceId": "ATVPDKIKX0DER",
+                "countryCode": "US",
+                "dateRange": {
+                  "startDate": "2024-03-22T08:35:43.717Z",
+                  "endDate": "2024-09-22T08:35:43.717Z"
+                },
+                "topics": {
+                  "positiveTopics": [
+                    {
+                      "topic": "Assembly/Installation",
+                      "asinMetrics": {
+                        "numberOfMentions": 36,
+                        "occurrencePercentage": 17.31,
+                        "starRatingImpact": 4
+                      },
+                      "parentAsinMetrics": {
+                        "numberOfMentions": 107,
+                        "occurrencePercentage": 18.01,
+                        "starRatingImpact": 3
+                      },
+                      "browseNodeMetrics": {
+                        "occurrencePercentage": {
+                          "allProducts": 16.41
+                        },
+                        "starRatingImpact": {
+                          "allProducts": 1.5
+                        }
+                      },
+                      "childAsinMetrics": {
+                        "mostMentions": {
+                          "asin": "B08576RCY4",
+                          "numberOfMentions": 36
+                        },
+                        "leastMentions": {
+                          "asin": "B08576DCY4",
+                          "numberOfMentions": 4
+                        }
+                      },
+                      "reviewSnippets": [
+                        "Easy installation!",
+                        "Easy to install.",
+                        "Easy to assemble"
+                      ],
+                      "subtopics": [
+                        {
+                          "subtopic": "Simple and easy to assemble",
+                          "metrics": {
+                            "numberOfMentions": 9,
+                            "occurrencePercentage": 25.01
+                          },
+                          "reviewSnippets": [
+                            "Easy installation!",
+                            "Not difficult to assemble.",
+                            "Easy to assemble"
+                          ]
+                        },
+                        {
+                          "subtopic": "easy to put together and quick",
+                          "metrics": {
+                            "numberOfMentions": 5,
+                            "occurrencePercentage": 13.01
+                          },
+                          "reviewSnippets": [
+                            "Easy to put together!!.",
+                            "Putting the product togetherwas alot however this saved so much room in my closet",
+                            "love that it came with the one little tool you needed to putit all together!"
+                          ]
+                        },
+                        {
+                          "subtopic": "quick and easy to install",
+                          "metrics": {
+                            "numberOfMentions": 3,
+                            "occurrencePercentage": 9.01
+                          },
+                          "reviewSnippets": [
+                            "Easy installation!",
+                            "Easy to install.",
+                            "install was straight forward."
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "topic": "Strong",
+                      "asinMetrics": {
+                        "numberOfMentions": 36,
+                        "occurrencePercentage": 17.31,
+                        "starRatingImpact": 4.7
+                      },
+                      "parentAsinMetrics": {
+                        "numberOfMentions": 107,
+                        "occurrencePercentage": 18.01,
+                        "starRatingImpact": 3.8
+                      },
+                      "browseNodeMetrics": {
+                        "occurrencePercentage": {
+                          "allProducts": 16.41
+                        },
+                        "starRatingImpact": {
+                          "allProducts": 1.5
+                        }
+                      },
+                      "childAsinMetrics": {
+                        "mostMentions": {
+                          "asin": "B08576RCY4",
+                          "numberOfMentions": 36
+                        },
+                        "leastMentions": {
+                          "asin": "B08576DCY4",
+                          "numberOfMentions": 4
+                        }
+                      },
+                      "reviewSnippets": [
+                        "Sturdy and strong.",
+                        "Fairly sturdy.",
+                        "very sturdy"
+                      ],
+                      "subtopics": [
+                        {
+                          "subtopic": "sturdy and well built",
+                          "metrics": {
+                            "numberOfMentions": 9,
+                            "occurrencePercentage": 25.01
+                          },
+                          "reviewSnippets": [
+                            "very sturdy",
+                            "Sturdiness is ok.",
+                            "Sturdier than expected."
+                          ]
+                        },
+                        {
+                          "subtopic": "durable and sturdy",
+                          "metrics": {
+                            "numberOfMentions": 4,
+                            "occurrencePercentage": 12.01
+                          },
+                          "reviewSnippets": [
+                            "This IS sturdy.",
+                            "Sturdiness construction.",
+                            "it much sturdier than the other two brands that I have purchased."
+                          ]
+                        },
+                        {
+                          "subtopic": "strong and durable",
+                          "metrics": {
+                            "numberOfMentions": 2,
+                            "occurrencePercentage": 6.01
+                          },
+                          "reviewSnippets": [
+                            "This IS sturdy.",
+                            "Sturdiness construction.",
+                            "it much sturdier than the other two brands that I have purchased."
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "negativeTopics": [
+                    {
+                      "topic": "Assembly/Installation",
+                      "asinMetrics": {
+                        "numberOfMentions": 36,
+                        "occurrencePercentage": 17.31,
+                        "starRatingImpact": -2.3
+                      },
+                      "parentAsinMetrics": {
+                        "numberOfMentions": 107,
+                        "occurrencePercentage": 18.01,
+                        "starRatingImpact": -2.6
+                      },
+                      "browseNodeMetrics": {
+                        "occurrencePercentage": {
+                          "allProducts": 16.41
+                        },
+                        "starRatingImpact": {
+                          "allProducts": -1.5
+                        }
+                      },
+                      "childAsinMetrics": {
+                        "mostMentions": {
+                          "asin": "B08576RCY4",
+                          "numberOfMentions": 36
+                        },
+                        "leastMentions": {
+                          "asin": "B08576DCY4",
+                          "numberOfMentions": 4
+                        }
+                      },
+                      "reviewSnippets": [
+                        "Difficult to assemble",
+                        "Difficult to assemble",
+                        "impossible to put together"
+                      ],
+                      "subtopics": [
+                        {
+                          "subtopic": "difficult to put together",
+                          "metrics": {
+                            "numberOfMentions": 9,
+                            "occurrencePercentage": 25.01
+                          },
+                          "reviewSnippets": [
+                            "impossible to put together",
+                            "Had a little hard time putting together either."
+                          ]
+                        },
+                        {
+                          "subtopic": "hard to assemble",
+                          "metrics": {
+                            "numberOfMentions": 6,
+                            "occurrencePercentage": 18.01
+                          },
+                          "reviewSnippets": [
+                            "impossible to put together",
+                            "Had a little hard time putting together either."
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "asin": {
+                        "value": "B08PD3JNPF"
+                      },
+                      "marketplaceId": {
+                        "value": "ATVPDKIKX0DER"
+                      },
+                      "sortBy": {
+                        "value": "MENTIONS"
+                      }
+                    }
+                  },
+                  "response": {
+                    "asin": "B0BT5K9B2T",
+                    "itemName": "LANTEFUL 10 Tiers Tall Shoe Rack 20-25 Pairs Boots Organizer Storage Sturdy Narrow Shoe Shelf for Entryway Closets with Hooks Black",
+                    "marketplaceId": "ATVPDKIKX0DER",
+                    "countryCode": "US",
+                    "dateRange": {
+                      "startDate": "2024-03-22T08:35:43.717Z",
+                      "endDate": "2024-09-22T08:35:43.717Z"
+                    },
+                    "topics": {
+                      "positiveTopics": [
+                        {
+                          "topic": "Assembly/Installation",
+                          "asinMetrics": {
+                            "numberOfMentions": 36,
+                            "occurrencePercentage": 17.31,
+                            "starRatingImpact": 4
+                          },
+                          "parentAsinMetrics": {
+                            "numberOfMentions": 107,
+                            "occurrencePercentage": 18.01,
+                            "starRatingImpact": 3
+                          },
+                          "browseNodeMetrics": {
+                            "occurrencePercentage": {
+                              "allProducts": 16.41
+                            },
+                            "starRatingImpact": {
+                              "allProducts": 1.5
+                            }
+                          },
+                          "childAsinMetrics": {
+                            "mostMentions": {
+                              "asin": "B08576RCY4",
+                              "numberOfMentions": 36
+                            },
+                            "leastMentions": {
+                              "asin": "B08576DCY4",
+                              "numberOfMentions": 4
+                            }
+                          },
+                          "reviewSnippets": [
+                            "Easy installation!",
+                            "Easy to install.",
+                            "Easy to assemble"
+                          ],
+                          "subtopics": [
+                            {
+                              "subtopic": "Simple and easy to assemble",
+                              "metrics": {
+                                "numberOfMentions": 9,
+                                "occurrencePercentage": 25.01
+                              },
+                              "reviewSnippets": [
+                                "Easy installation!",
+                                "Not difficult to assemble.",
+                                "Easy to assemble"
+                              ]
+                            },
+                            {
+                              "subtopic": "easy to put together and quick",
+                              "metrics": {
+                                "numberOfMentions": 5,
+                                "occurrencePercentage": 13.01
+                              },
+                              "reviewSnippets": [
+                                "Easy to put together!!.",
+                                "Putting the product togetherwas alot however this saved so much room in my closet",
+                                "love that it came with the one little tool you needed to putit all together!"
+                              ]
+                            },
+                            {
+                              "subtopic": "quick and easy to install",
+                              "metrics": {
+                                "numberOfMentions": 3,
+                                "occurrencePercentage": 9.01
+                              },
+                              "reviewSnippets": [
+                                "Easy installation!",
+                                "Easy to install.",
+                                "install was straight forward."
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "topic": "Strong",
+                          "asinMetrics": {
+                            "numberOfMentions": 36,
+                            "occurrencePercentage": 17.31,
+                            "starRatingImpact": 4.7
+                          },
+                          "parentAsinMetrics": {
+                            "numberOfMentions": 107,
+                            "occurrencePercentage": 18.01,
+                            "starRatingImpact": 3.8
+                          },
+                          "browseNodeMetrics": {
+                            "occurrencePercentage": {
+                              "allProducts": 16.41
+                            },
+                            "starRatingImpact": {
+                              "allProducts": 1.5
+                            }
+                          },
+                          "childAsinMetrics": {
+                            "mostMentions": {
+                              "asin": "B08576RCY4",
+                              "numberOfMentions": 36
+                            },
+                            "leastMentions": {
+                              "asin": "B08576DCY4",
+                              "numberOfMentions": 4
+                            }
+                          },
+                          "reviewSnippets": [
+                            "Sturdy and strong.",
+                            "Fairly sturdy.",
+                            "very sturdy"
+                          ],
+                          "subtopics": [
+                            {
+                              "subtopic": "sturdy and well built",
+                              "metrics": {
+                                "numberOfMentions": 9,
+                                "occurrencePercentage": 25.01
+                              },
+                              "reviewSnippets": [
+                                "very sturdy",
+                                "Sturdiness is ok.",
+                                "Sturdier than expected."
+                              ]
+                            },
+                            {
+                              "subtopic": "durable and sturdy",
+                              "metrics": {
+                                "numberOfMentions": 4,
+                                "occurrencePercentage": 12.01
+                              },
+                              "reviewSnippets": [
+                                "This IS sturdy.",
+                                "Sturdiness construction.",
+                                "it much sturdier than the other two brands that I have purchased."
+                              ]
+                            },
+                            {
+                              "subtopic": "strong and durable",
+                              "metrics": {
+                                "numberOfMentions": 2,
+                                "occurrencePercentage": 6.01
+                              },
+                              "reviewSnippets": [
+                                "This IS sturdy.",
+                                "Sturdiness construction.",
+                                "it much sturdier than the other two brands that I have purchased."
+                              ]
+                            }
+                          ]
+                        }
+                      ],
+                      "negativeTopics": [
+                        {
+                          "topic": "Assembly/Installation",
+                          "asinMetrics": {
+                            "numberOfMentions": 36,
+                            "occurrencePercentage": 17.31,
+                            "starRatingImpact": -2.3
+                          },
+                          "parentAsinMetrics": {
+                            "numberOfMentions": 107,
+                            "occurrencePercentage": 18.01,
+                            "starRatingImpact": -2.6
+                          },
+                          "browseNodeMetrics": {
+                            "occurrencePercentage": {
+                              "allProducts": 16.41
+                            },
+                            "starRatingImpact": {
+                              "allProducts": -1.5
+                            }
+                          },
+                          "childAsinMetrics": {
+                            "mostMentions": {
+                              "asin": "B08576RCY4",
+                              "numberOfMentions": 36
+                            },
+                            "leastMentions": {
+                              "asin": "B08576DCY4",
+                              "numberOfMentions": 4
+                            }
+                          },
+                          "reviewSnippets": [
+                            "Difficult to assemble",
+                            "Difficult to assemble",
+                            "impossible to put together"
+                          ],
+                          "subtopics": [
+                            {
+                              "subtopic": "difficult to put together",
+                              "metrics": {
+                                "numberOfMentions": 9,
+                                "occurrencePercentage": 25.01
+                              },
+                              "reviewSnippets": [
+                                "impossible to put together",
+                                "Had a little hard time putting together either."
+                              ]
+                            },
+                            {
+                              "subtopic": "hard to assemble",
+                              "metrics": {
+                                "numberOfMentions": 6,
+                                "occurrencePercentage": 18.01
+                              },
+                              "reviewSnippets": [
+                                "impossible to put together",
+                                "Had a little hard time putting together either."
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "204": {
+            "description": "Success.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "examples": {
+              "application/json": {}
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "asin": {
+                        "value": "B08PD3JTPF"
+                      },
+                      "marketplaceId": {
+                        "value": "ATVPDKIKR0DER"
+                      },
+                      "sortBy": {
+                        "value": "MENTIONS"
+                      }
+                    }
+                  },
+                  "response": {}
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "asin": {
+                        "value": "123456"
+                      },
+                      "marketplaceId": {
+                        "value": "abcd"
+                      },
+                      "sortBy": {
+                        "value": "starRatingImpact"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid input."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BrowseNodeOccurrence": {
+      "description": "The browse node review trend occurrence metrics.",
+      "type": "object",
+      "properties": {
+        "allProducts": {
+          "description": "The percentage of reviews of products in the browse node that mention a topic.",
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "required": [
+        "allProducts"
+      ]
+    },
+    "ItemReviewTopicsResponse": {
+      "description": "The response for the `getItemReviewTopics` operation.",
+      "properties": {
+        "asin": {
+          "description": "The requested ASIN. The Amazon Standard Identification Number (ASIN) is the unique identifier of a product within a marketplace.",
+          "type": "string"
+        },
+        "itemName": {
+          "description": "The product title of the requested ASIN.",
+          "type": "string"
+        },
+        "marketplaceId": {
+          "description": "The requested marketplace id.",
+          "type": "string"
+        },
+        "countryCode": {
+          "description": "The two digit country code of the requested marketplace id, in ISO 3166-1 alpha-2 format.",
+          "type": "string"
+        },
+        "dateRange": {
+          "description": "The date range of the item review topics.",
+          "$ref": "#/definitions/DateRange"
+        },
+        "topics": {
+          "description": "The item review topics for the requested ASIN.",
+          "$ref": "#/definitions/ItemReviewTopics"
+        }
+      },
+      "required": [
+        "asin",
+        "itemName",
+        "marketplaceId",
+        "countryCode",
+        "dateRange",
+        "topics"
+      ],
+      "type": "object"
+    },
+    "ItemReviewTopicMetrics": {
+      "description": "The item review topic metrics.",
+      "type": "object",
+      "properties": {
+        "numberOfMentions": {
+          "description": "The number of times that reviews mention the topic. This value is `null` if reviews do not mention the topic frequently enough.",
+          "type": "integer"
+        },
+        "occurrencePercentage": {
+          "description": "The percentage of customer reviews that mention the topic. This value is `null` if reviews do not mention the topic frequently enough.",
+          "type": "number",
+          "format": "float"
+        },
+        "starRatingImpact": {
+          "description": "The effect of the topic on the star rating of the ASIN. This value can be positive or negative. This value is `null` if the topic does't affect the star rating of the ASIN.",
+          "type": "number",
+          "format": "float"
+        }
+      }
+    },
+    "ItemReviewBrowseNodeMetrics": {
+      "description": "The browse node review topic metrics.",
+      "type": "object",
+      "properties": {
+        "occurrencePercentage": {
+          "description": "The percentage of reviews that mention the topic. This value is `null` if reviews do not mention the topic frequently enough.",
+          "$ref": "#/definitions/BrowseNodeOccurrence"
+        },
+        "starRatingImpact": {
+          "description": "The effect of the topic on the star rating of items in the browse node. This value is `null` if the topic does not affect the star rating of the browse node.",
+          "$ref": "#/definitions/BrowseNodeStarRatingImpact"
+        }
+      }
+    },
+    "DateRange": {
+      "description": "A date range.",
+      "type": "object",
+      "properties": {
+        "startDate": {
+          "description": "The start date of the date range in ISO-8601 date/time format.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDate": {
+          "description": "The end date of the date range in ISO-8601 date/time format.",
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": [
+        "startDate",
+        "endDate"
+      ]
+    },
+    "ItemReviewSubtopic": {
+      "description": "Details of the subtopic for an item review topic.",
+      "type": "object",
+      "properties": {
+        "subtopic": {
+          "description": "The name of the subtopic.",
+          "type": "string"
+        },
+        "metrics": {
+          "description": "The subtopic metrics.",
+          "$ref": "#/definitions/ItemReviewSubtopicMetrics"
+        },
+        "reviewSnippets": {
+          "description": "A list of up to three snippets from reviews that contain the subtopic. This value is `null` if there aren't enough review snippets for the subtopic.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 3
+        }
+      },
+      "required": [
+        "subtopic",
+        "metrics"
+      ]
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "ItemReviewTopics": {
+      "description": "The top 10 positive and negative item review topics.",
+      "type": "object",
+      "properties": {
+        "positiveTopics": {
+          "description": "A list of the most positive review topics. When the `sortBy` query parameter is set to `MENTIONS`, the number of reviews that mention the topic determines the topic's placement in the list. When `sortBy` is set to `STAR_RATING_IMPACT`, the effect that the topic has on the star rating of the item determines placement in the list. This value is `null` if there are not enough positive reviews for the specified ASIN.\n\n**Max length:** 10",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ItemReviewTopic"
+          },
+          "maxItems": 10
+        },
+        "negativeTopics": {
+          "description": "A list of the most negative review topics. When the `sortBy` query parameter is set to `MENTIONS`, the number of reviews that mention the topic determines the topic's placement in the list. When `sortBy` is set to `STAR_RATING_IMPACT`, the effect that the topic has on the star rating of the item determines placement in the list. This value is `null` if there are not enough negative reviews for the specified ASIN.\n\n**Max length:** 10",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ItemReviewTopic"
+          },
+          "maxItems": 10
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful.",
+      "example": {
+        "code": "CF_ERROR_001",
+        "details": "The requested ASIN is not valid.",
+        "message": "Invalid Request"
+      }
+    },
+    "ItemReviewTopic": {
+      "description": "Details of item review topic.",
+      "type": "object",
+      "properties": {
+        "topic": {
+          "description": "The name of the item review topic.",
+          "type": "string"
+        },
+        "asinMetrics": {
+          "description": "The ASIN's review topic metrics.",
+          "$ref": "#/definitions/ItemReviewTopicMetrics"
+        },
+        "parentAsinMetrics": {
+          "description": "The parent ASIN's review topic metrics. This value is `null` if there isn't enough topic data for the parent ASIN.",
+          "$ref": "#/definitions/ItemReviewTopicMetrics"
+        },
+        "browseNodeMetrics": {
+          "description": "The browse node's review topic metrics. This value is `null` if there isn't enough topic data for the browse node.",
+          "$ref": "#/definitions/ItemReviewBrowseNodeMetrics"
+        },
+        "childAsinMetrics": {
+          "description": "The review topic metrics for other child ASINs that have the same parent ASIN. This value is `null` if there isn't any child ASIN metric data.",
+          "$ref": "#/definitions/ChildAsinMetrics"
+        },
+        "reviewSnippets": {
+          "description": "A list of up to three snippets from reviews that contain the topic. This value is `null` if there aren't enough review snippets for the topic.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 3
+        },
+        "subtopics": {
+          "description": "A list of up to five top subtopics for the topic. The percentage of customer reviews that mention the subtopic determine the topic's placement in the list. This value is `null` if there are no subtopics.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ItemReviewSubtopic"
+          },
+          "maxItems": 5
+        }
+      },
+      "required": [
+        "topic",
+        "asinMetrics"
+      ]
+    },
+    "BrowseNodeStarRatingImpact": {
+      "description": "The effects of a topic on a browse node's star rating.",
+      "type": "object",
+      "properties": {
+        "allProducts": {
+          "description": "The effect of the topic on the star rating for all products in this browse node. This value can be positive or negative.",
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "required": [
+        "allProducts"
+      ]
+    },
+    "ItemReviewSubtopicMetrics": {
+      "description": "The item review subtopic metrics.",
+      "type": "object",
+      "properties": {
+        "numberOfMentions": {
+          "description": "The number of times that reviews mention the subtopic.",
+          "type": "integer"
+        },
+        "occurrencePercentage": {
+          "description": "The percentage of reviews that mention the subtopic.",
+          "type": "number",
+          "format": "float"
+        }
+      },
+      "required": [
+        "numberOfMentions",
+        "occurrencePercentage"
+      ]
+    },
+    "ChildAsinMetrics": {
+      "description": "The review topic metrics for other child ASINs that have the same parent ASIN. This value is `null` if there isn't any child ASIN metric data.",
+      "type": "object",
+      "properties": {
+        "mostMentions": {
+          "description": "The child ASIN for which reviews mention the topic the greatest number of times, and the number of times reviews mention the topic. This value is `null` if there are no child ASIN metrics.",
+          "$ref": "#/definitions/ChildAsinMentionMetrics"
+        },
+        "leastMentions": {
+          "description": "The child ASIN for which reviews mention the topic the least number of times, and the number of times reviews mention the topic. This value is `null` if there are no child ASIN metrics.",
+          "$ref": "#/definitions/ChildAsinMentionMetrics"
+        }
+      }
+    },
+    "ChildAsinMentionMetrics": {
+      "description": "The child ASIN review topic mention metrics.",
+      "type": "object",
+      "properties": {
+        "asin": {
+          "description": "The child ASIN of the requested item.",
+          "type": "string"
+        },
+        "numberOfMentions": {
+          "description": "The number of times reviews of the child ASIN mention the topic.",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "asin",
+        "numberOfMentions"
+      ]
+    }
+  }
+}

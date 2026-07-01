@@ -1,0 +1,1239 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Fulfillment Outbound lets you create applications that help a seller fulfill Multi-Channel Fulfillment orders using their inventory in Amazon's fulfillment network. You can get information on both potential and existing fulfillment orders.",
+    "version": "2020-07-01",
+    "title": "Selling Partner APIs for Fulfillment Outbound",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/fba/outbound/2020-07-01/fulfillmentOrders/{sellerFulfillmentOrderId}": {
+      "get": {
+        "tags": [
+          "fbaOutbound"
+        ],
+        "description": "Returns the fulfillment order indicated by the specified order identifier.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 2 | 30 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getFulfillmentOrder",
+        "parameters": [
+          {
+            "name": "sellerFulfillmentOrderId",
+            "in": "path",
+            "description": "The identifier assigned to the item by the seller when the fulfillment order was created.",
+            "required": true,
+            "type": "string",
+            "maxLength": 40
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/GetFulfillmentOrderResponse"
+            },
+            "examples": {
+              "payload": {
+                "fulfillmentOrder": {
+                  "sellerFulfillmentOrderId": "FBATestOrder-1",
+                  "marketplaceId": "ATVPDKIKX0DER",
+                  "displayableOrderId": "TestOrder-FBAOutbound",
+                  "displayableOrderDate": "2020-01-09T19:46:45Z",
+                  "displayableOrderComment": "TestOrder",
+                  "shippingSpeedCategory": "Standard",
+                  "destinationAddress": {
+                    "name": "Amazon",
+                    "addressLine1": "1234 Amazon Way",
+                    "addressLine2": "Suite 123",
+                    "addressLine3": "Lane1",
+                    "city": "Troy",
+                    "stateOrRegion": "MI",
+                    "countryCode": "US",
+                    "postalCode": "48084"
+                  },
+                  "fulfillmentAction": "Ship",
+                  "fulfillmentPolicy": "FillOrKill",
+                  "receivedDate": "2020-02-07T01:23:30Z",
+                  "fulfillmentOrderStatus": "PROCESSING",
+                  "statusUpdatedDate": "2020-02-07T02:33:31Z",
+                  "notificationEmails": [
+                    "test2@amazon.com",
+                    "test1@amazon.com"
+                  ]
+                },
+                "fulfillmentOrderItems": [
+                  {
+                    "sellerSku": "PSMM-TEST-SKU-Jan-21_19_59_44-0738",
+                    "sellerFulfillmentOrderItemId": "OrderItemID2",
+                    "quantity": 1,
+                    "fulfillmentNetworkSku": "B07CGHKWZP",
+                    "orderItemDisposition": "Sellable",
+                    "cancelledQuantity": 0,
+                    "unfulfillableQuantity": 0,
+                    "estimatedShipDate": "2020-02-08T01:23:31Z",
+                    "estimatedArrivalDate": "2020-02-15T01:23:31Z",
+                    "perUnitDeclaredValue": {
+                      "currencyCode": "USD",
+                      "value": "18.99"
+                    }
+                  },
+                  {
+                    "sellerSku": "CR-47K6-H6QN",
+                    "sellerFulfillmentOrderItemId": "OrderItemID1",
+                    "quantity": 3,
+                    "fulfillmentNetworkSku": "X0014BIZ8T",
+                    "orderItemDisposition": "Sellable",
+                    "cancelledQuantity": 0,
+                    "unfulfillableQuantity": 0,
+                    "estimatedShipDate": "2020-02-08T01:23:31Z",
+                    "estimatedArrivalDate": "2020-02-15T01:23:31Z",
+                    "perUnitDeclaredValue": {
+                      "currencyCode": "USD",
+                      "value": "2.00"
+                    }
+                  }
+                ],
+                "fulfillmentShipments": [
+                  {
+                    "amazonShipmentId": "DchKfcZ9N",
+                    "fulfillmentCenterId": "RNO1",
+                    "fulfillmentShipmentStatus": "PENDING",
+                    "shippingDate": "2020-02-07T02:33:23Z",
+                    "estimatedArrivalDate": "2020-02-07T02:33:23Z",
+                    "fulfillmentShipmentItem": [
+                      {
+                        "sellerSku": "PSMM-TEST-SKU-Jan-21_19_59_44-0738",
+                        "sellerFulfillmentOrderItemId": "OrderItemID2",
+                        "quantity": 1,
+                        "packageNumber": 0,
+                        "serialNumber": "a1b2c"
+                      },
+                      {
+                        "sellerSku": "CR-47K6-H6QN",
+                        "sellerFulfillmentOrderItemId": "OrderItemID1",
+                        "quantity": 3,
+                        "packageNumber": 0,
+                        "serialNumber": "",
+                        "manufacturerLotCodes": [
+                          "LOT0822-1234",
+                          "LOT1030-5678"
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "returnItems": [],
+                "returnAuthorizations": []
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/GetFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/GetFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/GetFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/GetFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/GetFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/GetFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/GetFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ReturnItemList": {
+      "type": "array",
+      "description": "An array of items that Amazon accepted for return. Returns empty if no items were accepted for return.",
+      "items": {
+        "$ref": "#/definitions/ReturnItem"
+      }
+    },
+    "ReturnAuthorization": {
+      "type": "object",
+      "required": [
+        "amazonRmaId",
+        "fulfillmentCenterId",
+        "returnAuthorizationId",
+        "returnToAddress",
+        "rmaPageURL"
+      ],
+      "properties": {
+        "returnAuthorizationId": {
+          "type": "string",
+          "description": "An identifier for the return authorization. This identifier associates return items with the return authorization used to return them."
+        },
+        "fulfillmentCenterId": {
+          "type": "string",
+          "description": "An identifier for the Amazon fulfillment center to which the return items should be sent."
+        },
+        "returnToAddress": {
+          "description": "The address of the Amazon fulfillment center that the return items should be sent to.",
+          "$ref": "#/definitions/Address"
+        },
+        "amazonRmaId": {
+          "type": "string",
+          "description": "The return merchandise authorization (RMA) that Amazon needs to process the return."
+        },
+        "rmaPageURL": {
+          "type": "string",
+          "description": "A URL for a web page that contains the return authorization barcode and the mailing label. This does not include pre-paid shipping."
+        }
+      },
+      "description": "Return authorization information for items accepted for return."
+    },
+    "FulfillmentShipmentItem": {
+      "type": "object",
+      "required": [
+        "quantity",
+        "sellerFulfillmentOrderItemId",
+        "sellerSku"
+      ],
+      "properties": {
+        "sellerSku": {
+          "type": "string",
+          "description": "The seller SKU of the item."
+        },
+        "sellerFulfillmentOrderItemId": {
+          "type": "string",
+          "description": "The fulfillment order item identifier that the seller created and submitted with a call to the `createFulfillmentOrder` operation."
+        },
+        "quantity": {
+          "$ref": "#/definitions/Quantity"
+        },
+        "packageNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "An identifier for the package that contains the item quantity."
+        },
+        "serialNumber": {
+          "type": "string",
+          "description": "The serial number of the shipped item."
+        },
+        "manufacturerLotCodes": {
+          "description": "The manufacturer lot codes of the shipped items.",
+          "$ref": "#/definitions/StringList"
+        }
+      },
+      "description": "Item information for a shipment in a fulfillment order."
+    },
+    "GetFulfillmentOrderResult": {
+      "description": "The request for the `getFulfillmentOrder` operation.",
+      "type": "object",
+      "required": [
+        "fulfillmentOrder",
+        "fulfillmentOrderItems",
+        "returnAuthorizations",
+        "returnItems"
+      ],
+      "properties": {
+        "fulfillmentOrder": {
+          "$ref": "#/definitions/FulfillmentOrder"
+        },
+        "fulfillmentOrderItems": {
+          "$ref": "#/definitions/FulfillmentOrderItemList"
+        },
+        "fulfillmentShipments": {
+          "$ref": "#/definitions/FulfillmentShipmentList"
+        },
+        "returnItems": {
+          "$ref": "#/definitions/ReturnItemList"
+        },
+        "returnAuthorizations": {
+          "$ref": "#/definitions/ReturnAuthorizationList"
+        },
+        "paymentInformation": {
+          "$ref": "#/definitions/PaymentInformationList"
+        }
+      }
+    },
+    "ReturnItem": {
+      "type": "object",
+      "required": [
+        "amazonShipmentId",
+        "sellerFulfillmentOrderItemId",
+        "sellerReturnItemId",
+        "sellerReturnReasonCode",
+        "status",
+        "statusChangedDate"
+      ],
+      "properties": {
+        "sellerReturnItemId": {
+          "type": "string",
+          "description": "An identifier the seller assigns to the return item."
+        },
+        "sellerFulfillmentOrderItemId": {
+          "type": "string",
+          "description": "The identifier assigned to the item by the seller when the fulfillment order was created."
+        },
+        "amazonShipmentId": {
+          "type": "string",
+          "description": "The identifier for the shipment that is associated with the return item."
+        },
+        "sellerReturnReasonCode": {
+          "type": "string",
+          "description": "The return reason code assigned to the return item by the seller."
+        },
+        "returnComment": {
+          "type": "string",
+          "description": "An optional comment about the return item."
+        },
+        "amazonReturnReasonCode": {
+          "type": "string",
+          "description": "The return reason code that the Amazon fulfillment center assigned to the return item."
+        },
+        "status": {
+          "description": "Indicates if the return item has been processed by an Amazon fulfillment center.",
+          "$ref": "#/definitions/FulfillmentReturnItemStatus"
+        },
+        "statusChangedDate": {
+          "description": "Indicates when the status last changed.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "returnAuthorizationId": {
+          "type": "string",
+          "description": "Identifies the return authorization used to return this item. Refer to `ReturnAuthorization`."
+        },
+        "returnReceivedCondition": {
+          "$ref": "#/definitions/ReturnItemDisposition"
+        },
+        "fulfillmentCenterId": {
+          "type": "string",
+          "description": "The identifier for the Amazon fulfillment center that processed the return item."
+        }
+      },
+      "description": "An item that Amazon accepted for return."
+    },
+    "Decimal": {
+      "type": "string",
+      "description": "A decimal number with no loss of precision. Useful when precision loss is unacceptable, as with currencies. Follows RFC7159 for number representation."
+    },
+    "PaymentInformation": {
+      "type": "object",
+      "required": [
+        "paymentTransactionId",
+        "paymentMode",
+        "paymentDate"
+      ],
+      "properties": {
+        "paymentTransactionId": {
+          "type": "string",
+          "description": "The transaction identifier of this payment."
+        },
+        "paymentMode": {
+          "type": "string",
+          "description": "The transaction mode of this payment."
+        },
+        "paymentDate": {
+          "description": "The transaction date of this payment.",
+          "$ref": "#/definitions/Timestamp"
+        }
+      },
+      "description": "The attributes related to the payment made from customer to seller for this order."
+    },
+    "FulfillmentOrderStatus": {
+      "type": "string",
+      "description": "The current status of the fulfillment order.",
+      "enum": [
+        "New",
+        "Received",
+        "Planning",
+        "Processing",
+        "Cancelled",
+        "Complete",
+        "CompletePartialled",
+        "Unfulfillable",
+        "Invalid"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "New",
+          "description": "The fulfillment order was received but not yet validated."
+        },
+        {
+          "value": "Received",
+          "description": "The fulfillment order was received and validated. Validation includes determining that the destination address is valid and that Amazon's records indicate that the seller has enough sellable (undamaged) inventory to fulfill the order. The seller can cancel a fulfillment order that has a status of Received."
+        },
+        {
+          "value": "Planning",
+          "description": "The fulfillment order has been sent to Amazon's fulfillment network to begin shipment planning, but no unit in any shipment has been picked from inventory yet. The seller can cancel a fulfillment order that has a status of Planning."
+        },
+        {
+          "value": "Processing",
+          "description": "The process of picking units from inventory has begun on at least one shipment in the fulfillment order. The seller cannot cancel a fulfillment order that has a status of Processing."
+        },
+        {
+          "value": "Cancelled",
+          "description": "The fulfillment order has been cancelled by the seller."
+        },
+        {
+          "value": "Complete",
+          "description": "All item quantities in the fulfillment order have been fulfilled."
+        },
+        {
+          "value": "CompletePartialled",
+          "description": "Some item quantities in the fulfillment order were fulfilled; the rest were either cancelled or unfulfillable."
+        },
+        {
+          "value": "Unfulfillable",
+          "description": "No item quantities in the fulfillment order could be fulfilled because the Amazon fulfillment center workers found no inventory for those items or found no inventory that was in sellable (undamaged) condition."
+        },
+        {
+          "value": "Invalid",
+          "description": "The fulfillment order was received but could not be validated. The reasons for this include an invalid destination address or Amazon's records indicating that the seller does not have enough sellable inventory to fulfill the order. When this happens, the fulfillment order is invalid and no items in the order will ship."
+        }
+      ]
+    },
+    "CODSettings": {
+      "type": "object",
+      "required": [
+        "isCodRequired"
+      ],
+      "properties": {
+        "isCodRequired": {
+          "type": "boolean",
+          "description": "When true, this fulfillment order requires a COD (Cash On Delivery) payment."
+        },
+        "codCharge": {
+          "description": "The amount of the COD charge to be collected from the recipient for a COD order.",
+          "$ref": "#/definitions/Money"
+        },
+        "codChargeTax": {
+          "description": "The amount of the tax on the COD charge to be collected from the recipient for a COD order.",
+          "$ref": "#/definitions/Money"
+        },
+        "shippingCharge": {
+          "description": "The amount of the tax on the COD charge to be collected from the recipient for a COD order.",
+          "$ref": "#/definitions/Money"
+        },
+        "shippingChargeTax": {
+          "description": "The amount of the tax on the shipping charge to be collected from the recipient for a COD order.",
+          "$ref": "#/definitions/Money"
+        }
+      },
+      "description": "The COD (Cash On Delivery) charges that you associate with a COD fulfillment order."
+    },
+    "FeatureSettings": {
+      "type": "object",
+      "properties": {
+        "featureName": {
+          "type": "string",
+          "description": "The name of the feature. Valid feature names are:\n\n- `BLOCK_AMZL`: Blocks orders from being shipped using Amazon Logistics (AMZL).\n  - Note: Using this feature will incur additional fee surcharges on MCF orders and may increase the risk of unfulfilled or delayed deliveries if alternative carriers are unavailable. Using `BLOCK_AMZL` in an order request will take precedence over your Seller Central account setting.\n- `BLANK_BOX`: Ships orders in non-Amazon branded packaging (blank boxes).\n- `OVERBOX`: Requires items to be shipped in an overbox rather than in their original product packaging.\n- `PACKING_SLIP`: Requires a packing slip to be included with the order.\n- `SIGNATURE_CONFIRMATION`: Requires a signature from the recipient upon delivery. \n  - Note: Using signature confirmation features will incur additional fees on MCF orders and are currently supported only in the US marketplace."
+        },
+        "featureFulfillmentPolicy": {
+          "type": "string",
+          "description": "Specifies the policy to use when fulfilling an order.",
+          "enum": [
+            "Required",
+            "NotRequired"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "Required",
+              "description": "If the offer can't be shipped with the selected feature, reject the order."
+            },
+            {
+              "value": "NotRequired",
+              "description": "The feature is not required for shipping."
+            }
+          ]
+        }
+      },
+      "description": "Feature settings allows you to apply fulfillment features to an order. To block an order from being shipped using Amazon Logistics (AMZL) and an AMZL tracking number, set `featureName` to `BLOCK_AMZL` and `featureFulfillmentPolicy` to `Required`. Blocking AMZL will incur an additional fee surcharge on your MCF orders and increase the risk of some of your orders being unfulfilled or delivered late if there are no alternative carriers available. Using `BLOCK_AMZL` in an order request will take precedence over your Seller Central account setting. To ship in non-Amazon branded packaging (blank boxes), set `featureName` to `BLANK_BOX`. To require items to be shipped in an overbox rather than in their original product packaging, set `featureName` to `OVERBOX`. To require a packing slip to be included with the order, set `featureName` to `PACKING_SLIP`. To require a signature from the recipient upon delivery, set `featureName` to `SIGNATURE_CONFIRMATION`. Note that using signature confirmation features will incur additional fees on MCF orders and are currently supported only in the US marketplace. To ensure all items in an order are delivered together, set `featureName` to `DELIVER_TOGETHER`."
+    },
+    "FulfillmentShipmentItemList": {
+      "type": "array",
+      "description": "An array of fulfillment shipment item information.",
+      "items": {
+        "$ref": "#/definitions/FulfillmentShipmentItem"
+      }
+    },
+    "DeliveryDocument": {
+      "type": "object",
+      "required": [
+        "documentType"
+      ],
+      "properties": {
+        "documentType": {
+          "type": "string",
+          "description": "The delivery document type. The only possible value is `DELIVERY_IMAGE`."
+        },
+        "url": {
+          "type": "string",
+          "description": "A URL that is valid for one hour to download the document. In case of URL expiry, call the API again to get a new url. The URL will have a Content-Type header."
+        }
+      },
+      "description": "A delivery document for a package."
+    },
+    "DeliveryDocumentList": {
+      "type": "array",
+      "description": "A list of delivery documents for a package.",
+      "items": {
+        "$ref": "#/definitions/DeliveryDocument"
+      }
+    },
+    "StringList": {
+      "description": "String list",
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ReturnAuthorizationList": {
+      "type": "array",
+      "description": "An array of return authorization information.",
+      "items": {
+        "$ref": "#/definitions/ReturnAuthorization"
+      }
+    },
+    "PaymentInformationList": {
+      "type": "array",
+      "description": "An array of various payment attributes related to this fulfillment order.",
+      "items": {
+        "$ref": "#/definitions/PaymentInformation"
+      }
+    },
+    "ShippingSpeedCategory": {
+      "type": "string",
+      "description": "The shipping method used for the fulfillment order. When this value is `ScheduledDelivery`, choose `Ship` for the `fulfillmentAction`. `Hold` is not a valid `fulfillmentAction` value when the `shippingSpeedCategory` value is `ScheduledDelivery`.\nNote: Shipping method service level agreements vary by marketplace. Sellers should refer to the [Seller Central](https://developer-docs.amazon.com/sp-api/docs/seller-central-urls) website in their marketplace for shipping method service level agreements and fulfillment fees.",
+      "enum": [
+        "Standard",
+        "Expedited",
+        "Priority",
+        "ScheduledDelivery"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "Standard",
+          "description": "Standard shipping method."
+        },
+        {
+          "value": "Expedited",
+          "description": "Expedited shipping method."
+        },
+        {
+          "value": "Priority",
+          "description": "Priority shipping method."
+        },
+        {
+          "value": "ScheduledDelivery",
+          "description": "Scheduled Delivery shipping method. This is only available in the JP marketplace."
+        }
+      ]
+    },
+    "FulfillmentOrder": {
+      "type": "object",
+      "required": [
+        "destinationAddress",
+        "displayableOrderComment",
+        "displayableOrderDate",
+        "displayableOrderId",
+        "fulfillmentOrderStatus",
+        "marketplaceId",
+        "receivedDate",
+        "sellerFulfillmentOrderId",
+        "shippingSpeedCategory",
+        "statusUpdatedDate"
+      ],
+      "properties": {
+        "sellerFulfillmentOrderId": {
+          "type": "string",
+          "description": "The fulfillment order identifier submitted with the `createFulfillmentOrder` operation."
+        },
+        "marketplaceId": {
+          "type": "string",
+          "description": "The identifier for the marketplace the fulfillment order is placed against."
+        },
+        "displayableOrderId": {
+          "type": "string",
+          "description": "A fulfillment order identifier submitted with the `createFulfillmentOrder` operation. Displays as the order identifier in recipient-facing materials such as the packing slip."
+        },
+        "displayableOrderDate": {
+          "description": "A date and time submitted with the `createFulfillmentOrder` operation. Displays as the order date in recipient-facing materials such as the packing slip.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "displayableOrderComment": {
+          "type": "string",
+          "description": "A text block submitted with the `createFulfillmentOrder` operation. Displays in recipient-facing materials such as the packing slip."
+        },
+        "shippingSpeedCategory": {
+          "$ref": "#/definitions/ShippingSpeedCategory"
+        },
+        "deliveryWindow": {
+          "$ref": "#/definitions/DeliveryWindow"
+        },
+        "destinationAddress": {
+          "description": "The destination address submitted with the `createFulfillmentOrder` operation.",
+          "$ref": "#/definitions/Address"
+        },
+        "fulfillmentAction": {
+          "$ref": "#/definitions/FulfillmentAction"
+        },
+        "fulfillmentPolicy": {
+          "$ref": "#/definitions/FulfillmentPolicy"
+        },
+        "codSettings": {
+          "$ref": "#/definitions/CODSettings"
+        },
+        "receivedDate": {
+          "description": "The date and time that the fulfillment order was received by an Amazon fulfillment center.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "fulfillmentOrderStatus": {
+          "$ref": "#/definitions/FulfillmentOrderStatus"
+        },
+        "statusUpdatedDate": {
+          "description": "The date and time that the status of the fulfillment order last changed, in ISO 8601 date time format.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "notificationEmails": {
+          "$ref": "#/definitions/NotificationEmailList"
+        },
+        "featureConstraints": {
+          "type": "array",
+          "description": "A list of features and their fulfillment policies to apply to the order.",
+          "items": {
+            "$ref": "#/definitions/FeatureSettings"
+          }
+        }
+      },
+      "description": "General information about a fulfillment order, including its status."
+    },
+    "DropOffLocation": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The drop-off location type at the destination address.",
+          "enum": [
+            "FRONT_DOOR",
+            "DELIVERY_BOX",
+            "GAS_METER_BOX",
+            "BICYCLE_BASKET",
+            "GARAGE",
+            "RECEPTIONIST",
+            "FALLBACK_NEIGHBOR_DELIVERY",
+            "DO_NOT_LEAVE_UNATTENDED"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "FRONT_DOOR",
+              "description": "Front door location."
+            },
+            {
+              "value": "DELIVERY_BOX",
+              "description": "Delivery box location."
+            },
+            {
+              "value": "GAS_METER_BOX",
+              "description": "Gas meter box location."
+            },
+            {
+              "value": "BICYCLE_BASKET",
+              "description": "Bicycle basket location."
+            },
+            {
+              "value": "GARAGE",
+              "description": "Garage location."
+            },
+            {
+              "value": "RECEPTIONIST",
+              "description": "Delivery to or via receptionist."
+            },
+            {
+              "value": "FALLBACK_NEIGHBOR_DELIVERY",
+              "description": "Delivery to a designated neighbor when the recipient is not available at the destination address."
+            },
+            {
+              "value": "DO_NOT_LEAVE_UNATTENDED",
+              "description": "Attended delivery (package not left unattended)."
+            }
+          ]
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Additional information about the drop-off location. This information can vary depending on the type of drop-off location specified in the `type` field.\n\nIf the `type` is set to `FALLBACK_NEIGHBOR_DELIVERY`, the `attributes` object must include the keys `neighborName` and `houseNumber` to provide the name and house number of the designated neighbor.\n\nFor `RECEPTIONIST` type, the `attributes` object may include a `recipientName` field that contains the name of the person who received or will receive the package."
+        }
+      },
+      "description": "The drop-off location at the destination address."
+    },
+    "FulfillmentPolicy": {
+      "type": "string",
+      "description": "The `FulfillmentPolicy` value specified when you called the `createFulfillmentOrder` operation.",
+      "enum": [
+        "FillOrKill",
+        "FillAll",
+        "FillAllAvailable"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "FillOrKill",
+          "description": "If an item in a fulfillment order is determined to be unfulfillable before any shipment in the order has acquired the status of Pending (the process of picking units from inventory has begun), then the entire order is considered unfulfillable. However, if an item in a fulfillment order is determined to be unfulfillable after a shipment in the order has acquired the status of Pending, Amazon cancels as much of the fulfillment order as possible. Refer to the `FulfillmentShipment` object for shipment status definitions."
+        },
+        {
+          "value": "FillAll",
+          "description": "All fulfillable items in the fulfillment order are shipped. The fulfillment order remains in a processing state until all items are either shipped by Amazon or cancelled by the seller."
+        },
+        {
+          "value": "FillAllAvailable",
+          "description": "All fulfillable items in the fulfillment order are shipped. All unfulfillable items in the order are cancelled."
+        }
+      ]
+    },
+    "FulfillmentAction": {
+      "type": "string",
+      "description": "Specifies whether the fulfillment order should ship now or have an order hold put on it.",
+      "enum": [
+        "Ship",
+        "Hold"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "Ship",
+          "description": "The fulfillment order ships now."
+        },
+        {
+          "value": "Hold",
+          "description": "An order hold is put on the fulfillment order."
+        }
+      ]
+    },
+    "ReturnItemDisposition": {
+      "type": "string",
+      "description": "The condition of the return item when received by an Amazon fulfillment center.",
+      "enum": [
+        "Sellable",
+        "Defective",
+        "CustomerDamaged",
+        "CarrierDamaged",
+        "FulfillerDamaged"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "Sellable",
+          "description": "Item is in sellable condition."
+        },
+        {
+          "value": "Defective",
+          "description": "Item is defective."
+        },
+        {
+          "value": "CustomerDamaged",
+          "description": "Item was damaged by the buyer or the seller."
+        },
+        {
+          "value": "CarrierDamaged",
+          "description": "Item was damaged by the carrier."
+        },
+        {
+          "value": "FulfillerDamaged",
+          "description": "Item was damaged by Amazon."
+        }
+      ]
+    },
+    "FulfillmentShipmentPackage": {
+      "type": "object",
+      "required": [
+        "carrierCode",
+        "packageNumber"
+      ],
+      "properties": {
+        "packageNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Identifies a package in a shipment."
+        },
+        "carrierCode": {
+          "type": "string",
+          "description": "Identifies the carrier who will deliver the shipment to the recipient."
+        },
+        "trackingNumber": {
+          "type": "string",
+          "description": "The tracking number, if provided, can be used to obtain tracking and delivery information."
+        },
+        "amazonFulfillmentTrackingNumber": {
+          "type": "string",
+          "description": "The Amazon fulfillment tracking number, if provided, can be used to obtain tracking and delivery information."
+        },
+        "estimatedArrivalDate": {
+          "description": "The estimated arrival date and time of the package, in ISO 8601 date time format.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "lockerDetails": {
+          "description": "The locker details, if provided can be used to access locker delivery box.",
+          "$ref": "#/definitions/LockerDetails"
+        },
+        "deliveryInformation": {
+          "description": "The delivery information of the package, this information is only available post package delivery to its intended destination.",
+          "$ref": "#/definitions/DeliveryInformation"
+        }
+      },
+      "description": "Package information for a shipment in a fulfillment order."
+    },
+    "DeliveryInformation": {
+      "type": "object",
+      "properties": {
+        "deliveryDocumentList": {
+          "description": "All of the delivery documents for a package.",
+          "$ref": "#/definitions/DeliveryDocumentList"
+        },
+        "dropOffLocation": {
+          "description": "The drop off location for a package.",
+          "$ref": "#/definitions/DropOffLocation"
+        }
+      },
+      "description": "The delivery information of the package, this information is only available post package delivery to its intended destination."
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Quantity": {
+      "type": "integer",
+      "format": "int32",
+      "description": "The item quantity."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "FulfillmentShipmentList": {
+      "type": "array",
+      "description": "An array of fulfillment shipment information.",
+      "items": {
+        "$ref": "#/definitions/FulfillmentShipment"
+      }
+    },
+    "NotificationEmailList": {
+      "type": "array",
+      "description": "A list of email addresses that the seller provides that are used by Amazon to send ship-complete notifications to recipients on behalf of the seller.",
+      "items": {
+        "type": "string",
+        "maxLength": 64
+      }
+    },
+    "FulfillmentReturnItemStatus": {
+      "type": "string",
+      "description": "Indicates if the return item has been processed by a fulfillment center.",
+      "enum": [
+        "New",
+        "Processed"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "New",
+          "description": "The return item has not yet been processed by a fulfillment center."
+        },
+        {
+          "value": "Processed",
+          "description": "The return item has been processed by a fulfillment center."
+        }
+      ]
+    },
+    "FulfillmentShipment": {
+      "type": "object",
+      "required": [
+        "amazonShipmentId",
+        "fulfillmentCenterId",
+        "fulfillmentShipmentItem",
+        "fulfillmentShipmentStatus"
+      ],
+      "properties": {
+        "amazonShipmentId": {
+          "type": "string",
+          "description": "A shipment identifier assigned by Amazon."
+        },
+        "fulfillmentCenterId": {
+          "type": "string",
+          "description": "An identifier for the fulfillment center from which the shipment is sent."
+        },
+        "fulfillmentShipmentStatus": {
+          "type": "string",
+          "description": "The current status of the shipment.",
+          "enum": [
+            "PENDING",
+            "SHIPPED",
+            "CANCELLED_BY_FULFILLER",
+            "CANCELLED_BY_SELLER"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "PENDING",
+              "description": "The process of picking units from inventory has begun."
+            },
+            {
+              "value": "SHIPPED",
+              "description": "All packages in the shipment have left the fulfillment center."
+            },
+            {
+              "value": "CANCELLED_BY_FULFILLER",
+              "description": "The Amazon fulfillment center could not fulfill the shipment as planned. This might be because the inventory was not at the expected location in the fulfillment center. After cancelling the fulfillment order, Amazon immediately creates a new fulfillment shipment and again attempts to fulfill the order."
+            },
+            {
+              "value": "CANCELLED_BY_SELLER",
+              "description": "The shipment was cancelled using the CancelFulfillmentOrder request."
+            }
+          ]
+        },
+        "shippingDate": {
+          "description": "The meaning of the `shippingDate` value depends on the current status of the shipment. If the current value of FulfillmentShipmentStatus is:\n\n* Pending - shippingDate represents the estimated time that the shipment will leave the Amazon fulfillment center.\n\n* Shipped - shippingDate represents the date that the shipment left the Amazon fulfillment center.\n\nIf a shipment includes more than one package, `shippingDate` applies to all of the packages in the shipment. If the value of `FulfillmentShipmentStatus` is `CancelledByFulfiller` or `CancelledBySeller`, `shippingDate` is not returned. The value must be in ISO 8601 date time format.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "estimatedArrivalDate": {
+          "description": "The estimated arrival date and time of the shipment, in ISO 8601 date time format. Note that this value can change over time. If a shipment includes more than one package, `estimatedArrivalDate` applies to all of the packages in the shipment. If the shipment is cancelled, `estimatedArrivalDate` is not returned.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "shippingNotes": {
+          "type": "array",
+          "description": "Provides additional insight into shipment timeline. Primarily used to communicate that actual delivery dates aren't available.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fulfillmentShipmentItem": {
+          "$ref": "#/definitions/FulfillmentShipmentItemList"
+        },
+        "fulfillmentShipmentPackage": {
+          "$ref": "#/definitions/FulfillmentShipmentPackageList"
+        }
+      },
+      "description": "Delivery and item information for a shipment in a fulfillment order."
+    },
+    "FulfillmentShipmentPackageList": {
+      "type": "array",
+      "description": "An array of fulfillment shipment package information.",
+      "items": {
+        "$ref": "#/definitions/FulfillmentShipmentPackage"
+      }
+    },
+    "DeliveryWindow": {
+      "type": "object",
+      "required": [
+        "endDate",
+        "startDate"
+      ],
+      "properties": {
+        "startDate": {
+          "description": "The date and time of the start of the Scheduled Delivery window, in ISO 8601 date time format.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "endDate": {
+          "description": "The date and time of the end of the Scheduled Delivery window, in ISO 8601 date time format.",
+          "$ref": "#/definitions/Timestamp"
+        }
+      },
+      "description": "The time range within which a Scheduled Delivery fulfillment order should be delivered. This is only available in the JP marketplace."
+    },
+    "FulfillmentOrderItemList": {
+      "type": "array",
+      "description": "An array of fulfillment order item information.",
+      "items": {
+        "$ref": "#/definitions/FulfillmentOrderItem"
+      }
+    },
+    "Timestamp": {
+      "description": "Date timestamp",
+      "type": "string",
+      "format": "date-time"
+    },
+    "FulfillmentOrderItem": {
+      "type": "object",
+      "required": [
+        "cancelledQuantity",
+        "quantity",
+        "sellerFulfillmentOrderItemId",
+        "sellerSku",
+        "unfulfillableQuantity"
+      ],
+      "properties": {
+        "sellerSku": {
+          "type": "string",
+          "description": "The seller SKU of the item."
+        },
+        "sellerFulfillmentOrderItemId": {
+          "type": "string",
+          "description": "A fulfillment order item identifier submitted with a call to the `createFulfillmentOrder` operation."
+        },
+        "quantity": {
+          "$ref": "#/definitions/Quantity"
+        },
+        "giftMessage": {
+          "type": "string",
+          "description": "A message to the gift recipient, if applicable."
+        },
+        "displayableComment": {
+          "type": "string",
+          "description": "Item-specific text that displays in recipient-facing materials such as the outbound shipment packing slip."
+        },
+        "fulfillmentNetworkSku": {
+          "type": "string",
+          "description": "Amazon's fulfillment network SKU of the item."
+        },
+        "orderItemDisposition": {
+          "type": "string",
+          "description": "Indicates whether the item is sellable or unsellable."
+        },
+        "cancelledQuantity": {
+          "description": "The item quantity that was cancelled by the seller.",
+          "$ref": "#/definitions/Quantity"
+        },
+        "unfulfillableQuantity": {
+          "description": "The item quantity that is unfulfillable.",
+          "$ref": "#/definitions/Quantity"
+        },
+        "estimatedShipDate": {
+          "description": "The estimated date and time that the item quantity is scheduled to ship from the fulfillment center. Note that this value can change over time. If the shipment that contains the item quantity is cancelled, `estimatedShipDate` is not returned.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "estimatedArrivalDate": {
+          "description": "The estimated arrival date and time of the item quantity. Note that this value can change over time. If the shipment that contains the item quantity is cancelled, `estimatedArrivalDate` is not returned.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "perUnitPrice": {
+          "description": "The amount to be collected from the recipient for this item in a COD (Cash On Delivery) order.",
+          "$ref": "#/definitions/Money"
+        },
+        "perUnitTax": {
+          "description": "The tax on the amount to be collected from the recipient for this item in a COD (Cash On Delivery) order.",
+          "$ref": "#/definitions/Money"
+        },
+        "perUnitDeclaredValue": {
+          "description": "The monetary value assigned by the seller to this item. This is a required field for India MCF orders.",
+          "$ref": "#/definitions/Money"
+        }
+      },
+      "description": "Item information for a fulfillment order."
+    },
+    "Money": {
+      "type": "object",
+      "required": [
+        "currencyCode",
+        "value"
+      ],
+      "properties": {
+        "currencyCode": {
+          "type": "string",
+          "description": "Three digit currency code in ISO 4217 format."
+        },
+        "value": {
+          "$ref": "#/definitions/Decimal"
+        }
+      },
+      "description": "An amount of money, including units in the form of currency."
+    },
+    "GetFulfillmentOrderResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "description": "The payload for the `getFulfillmentOrder` operation.",
+          "$ref": "#/definitions/GetFulfillmentOrderResult"
+        },
+        "errors": {
+          "description": "One or more unexpected errors occurred during the `getFulfillmentOrder` operation.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The response schema for the `getFulfillmentOrder` operation."
+    },
+    "Address": {
+      "type": "object",
+      "required": [
+        "addressLine1",
+        "countryCode",
+        "name",
+        "postalCode"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the person, business or institution at the address."
+        },
+        "addressLine1": {
+          "type": "string",
+          "description": "The first line of the address."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Additional address information, if required."
+        },
+        "addressLine3": {
+          "type": "string",
+          "description": "Additional address information, if required."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city where the person, business, or institution is located. This property is required in all countries except Japan. It should not be used in Japan."
+        },
+        "districtOrCounty": {
+          "type": "string",
+          "description": "The district or county where the person, business, or institution is located."
+        },
+        "stateOrRegion": {
+          "type": "string",
+          "description": "The state or region where the person, business or institution is located."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal code of the address."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The two digit country code. In ISO 3166-1 alpha-2 format."
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the person, business, or institution located at the address."
+        }
+      },
+      "description": "A physical address."
+    },
+    "LockerDetails": {
+      "type": "object",
+      "properties": {
+        "lockerNumber": {
+          "type": "string",
+          "description": "Indicates the locker number"
+        },
+        "lockerAccessCode": {
+          "type": "string",
+          "description": "Indicates the locker access code"
+        }
+      },
+      "description": "The locker details, which you can use to access the locker delivery box."
+    }
+  }
+}

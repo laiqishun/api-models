@@ -1,0 +1,442 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Use the Selling Partner API for Direct Fulfillment Shipping to access a direct fulfillment vendor's shipping data.",
+    "version": "2021-12-28",
+    "title": "Selling Partner API for Direct Fulfillment Shipping",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/vendor/directFulfillment/shipping/2021-12-28/shipmentStatusUpdates": {
+      "post": {
+        "tags": [
+          "vendorShipping"
+        ],
+        "description": "This operation is only to be used by Vendor-Own-Carrier (VOC) vendors. Calling this API submits a shipment status update for the package that a vendor has shipped. It will provide the Amazon customer visibility on their order, when the package is outside of Amazon Network visibility.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 10 | 10 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The preceding table indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values then those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits).",
+        "operationId": "submitShipmentStatusUpdates",
+        "summary": "submitShipmentStatusUpdates",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubmitShipmentStatusUpdatesRequest"
+            },
+            "description": "Request body containing the shipment status update data."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/TransactionReference"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        },
+        "x-amzn-api-sandbox": {
+          "dynamic": {}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "StatusUpdateDetails": {
+      "type": "object",
+      "required": [
+        "reasonCode",
+        "statusCode",
+        "statusDateTime",
+        "statusLocationAddress",
+        "trackingNumber"
+      ],
+      "properties": {
+        "trackingNumber": {
+          "type": "string",
+          "description": "The shipment tracking number is required for every package and should match the `trackingNumber` sent for the shipment confirmation."
+        },
+        "statusCode": {
+          "type": "string",
+          "description": "Indicates the shipment status code of the package that provides transportation information for Amazon tracking systems and ultimately for the final customer. For more information, refer to the [Additional Fields Explanation](https://developer-docs.amazon.com/sp-api/docs/vendor-direct-fulfillment-shipping-api-use-case-guide#additional-fields-explanation)."
+        },
+        "reasonCode": {
+          "type": "string",
+          "description": "Provides a reason code for the status of the package that will provide additional information about the transportation status. For more information, refer to the [Additional Fields Explanation](https://developer-docs.amazon.com/sp-api/docs/vendor-direct-fulfillment-shipping-api-use-case-guide#additional-fields-explanation)."
+        },
+        "statusDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time when the shipment status was updated. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format, with UTC time zone or UTC offset. For example, 2020-07-16T23:00:00Z or 2020-07-16T23:00:00+01:00."
+        },
+        "statusLocationAddress": {
+          "$ref": "#/definitions/Address"
+        },
+        "shipmentSchedule": {
+          "$ref": "#/definitions/ShipmentSchedule"
+        }
+      },
+      "description": "Details for the shipment status update given by the vendor for the specific package."
+    },
+    "TaxRegistrationDetails": {
+      "type": "object",
+      "required": [
+        "taxRegistrationNumber"
+      ],
+      "properties": {
+        "taxRegistrationType": {
+          "type": "string",
+          "description": "Tax registration type for the entity.",
+          "enum": [
+            "VAT",
+            "GST"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "VAT",
+              "description": "Value-added tax."
+            },
+            {
+              "value": "GST",
+              "description": "Goods and Services Tax (GST)."
+            }
+          ]
+        },
+        "taxRegistrationNumber": {
+          "type": "string",
+          "description": "Tax registration number for the party. For example, VAT ID."
+        },
+        "taxRegistrationAddress": {
+          "description": "Address associated with the tax registration number.",
+          "$ref": "#/definitions/Address"
+        },
+        "taxRegistrationMessages": {
+          "type": "string",
+          "description": "Tax registration message that can be used for additional tax related details."
+        }
+      },
+      "description": "Tax registration details of the entity."
+    },
+    "ShipmentSchedule": {
+      "type": "object",
+      "properties": {
+        "estimatedDeliveryDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date on which the shipment is expected to reach the customer delivery location. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format, with UTC time zone or UTC offset. For example, 2020-07-16T23:00:00Z or 2020-07-16T23:00:00+01:00."
+        },
+        "apptWindowStartDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time at the start of the appointment window when the shipment is expected to be delivered. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format, with UTC time zone or UTC offset. For example, 2020-07-16T23:00:00Z or 2020-07-16T23:00:00+01:00."
+        },
+        "apptWindowEndDateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time at the end of the appointment window when the shipment is expected to be delivered. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format, with UTC time zone or UTC offset. For example, 2020-07-16T23:00:00Z or 2020-07-16T23:00:00+01:00."
+        }
+      },
+      "description": "Details about the estimated delivery window."
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "description": "An array of Error objects representing individual errors encountered during the request."
+        }
+      }
+    },
+    "SubmitShipmentStatusUpdatesRequest": {
+      "type": "object",
+      "properties": {
+        "shipmentStatusUpdates": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ShipmentStatusUpdate"
+          },
+          "minItems": 1,
+          "description": "Contains a list of one or more `ShipmentStatusUpdate` objects. Each `ShipmentStatusUpdate` object represents an update to the status of a specific shipment."
+        }
+      },
+      "description": "The request schema for the `submitShipmentStatusUpdates` operation."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "TransactionReference": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "GUID to identify this transaction. This value can be used with the Transaction Status API to return the status of this transaction."
+        }
+      },
+      "description": "Response containing the transaction ID."
+    },
+    "ShipmentStatusUpdate": {
+      "type": "object",
+      "required": [
+        "purchaseOrderNumber",
+        "sellingParty",
+        "shipFromParty",
+        "statusUpdateDetails"
+      ],
+      "properties": {
+        "purchaseOrderNumber": {
+          "type": "string",
+          "description": "Purchase order number of the shipment for which to update the shipment status.",
+          "pattern": "^[a-zA-Z0-9]+$"
+        },
+        "sellingParty": {
+          "description": "ID of the selling party or vendor.",
+          "$ref": "#/definitions/PartyIdentification"
+        },
+        "shipFromParty": {
+          "description": "Warehouse code of vendor.",
+          "$ref": "#/definitions/PartyIdentification"
+        },
+        "statusUpdateDetails": {
+          "description": "Provide the details about the status of the shipment at that particular point of time.",
+          "$ref": "#/definitions/StatusUpdateDetails"
+        }
+      },
+      "description": "Represents an update to the status of a shipment."
+    },
+    "Address": {
+      "type": "object",
+      "required": [
+        "addressLine1",
+        "countryCode",
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the person, business or institution at that address."
+        },
+        "addressLine1": {
+          "type": "string",
+          "description": "First line of the address."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Additional street address information, if required."
+        },
+        "addressLine3": {
+          "type": "string",
+          "description": "Additional street address information, if required."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city where the person, business or institution is located."
+        },
+        "county": {
+          "type": "string",
+          "description": "The county where person, business or institution is located."
+        },
+        "district": {
+          "type": "string",
+          "description": "The district where person, business or institution is located."
+        },
+        "stateOrRegion": {
+          "type": "string",
+          "description": "The state or region where person, business or institution is located."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal code of that address. It contains a series of letters or digits or both, sometimes including spaces or punctuation."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The two-letter country code in [ISO 3166-1 alpha-2](https://www.iban.com/country-codes) format."
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the person, business or institution located at that address."
+        }
+      },
+      "description": "Address of the party."
+    },
+    "PartyIdentification": {
+      "description": "The name, address, and tax details of a party.",
+      "type": "object",
+      "required": [
+        "partyId"
+      ],
+      "properties": {
+        "partyId": {
+          "type": "string",
+          "description": "The identifier of the party."
+        },
+        "address": {
+          "description": "The address of the party.",
+          "$ref": "#/definitions/Address"
+        },
+        "taxRegistrationDetails": {
+          "type": "array",
+          "description": "The tax registration details of the party.",
+          "items": {
+            "$ref": "#/definitions/TaxRegistrationDetails"
+          }
+        }
+      }
+    }
+  }
+}

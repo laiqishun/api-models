@@ -1,0 +1,474 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/trackingDetails": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Identifier of an inbound plan.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "inboundPlanId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Identifier of a shipment. A shipment contains the boxes and units being inbounded.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "shipmentId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateShipmentTrackingDetailsRequest"
+            },
+            "description": "The body of the request to `updateShipmentTrackingDetails`."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "UpdateShipmentTrackingDetails 202 response",
+            "schema": {
+              "$ref": "#/definitions/UpdateShipmentTrackingDetailsResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "shipmentId": {
+                        "value": "sh1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "body": {
+                        "value": {
+                          "trackingDetails": {
+                            "ltlTrackingDetail": {
+                              "freightBillNumber": [
+                                "freightBillNumber1"
+                              ],
+                              "billOfLadingNumber": "billOfLadingNumber"
+                            },
+                            "spdTrackingDetail": {
+                              "spdTrackingItems": [
+                                {
+                                  "boxId": "boxId",
+                                  "trackingId": "trackingId"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "operationId": "1234abcd-1234-abcd-5678-1234abcd5678"
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "shipmentId": {
+                        "value": "bad234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "body": {
+                        "value": {
+                          "trackingDetails": {
+                            "ltlTrackingDetail": {
+                              "freightBillNumber": [
+                                "freightBillNumber1"
+                              ],
+                              "billOfLadingNumber": "billOfLadingNumber"
+                            },
+                            "spdTrackingDetail": {
+                              "spdTrackingItems": [
+                                {
+                                  "boxId": "boxId",
+                                  "trackingId": "trackingId"
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The requested shipmentId does not exist for the specified inbound plan."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "Updates a shipment's tracking details.",
+        "operationId": "updateShipmentTrackingDetails"
+      }
+    }
+  },
+  "definitions": {
+    "UpdateShipmentTrackingDetailsRequest": {
+      "description": "The `updateShipmentTrackingDetails` request.",
+      "properties": {
+        "trackingDetails": {
+          "$ref": "#/definitions/TrackingDetailsInput"
+        }
+      },
+      "required": [
+        "trackingDetails"
+      ],
+      "type": "object",
+      "example": {
+        "trackingDetails": {
+          "spdTrackingDetail": {
+            "spdTrackingItems": [
+              {
+                "boxId": "FBA10ABC0YY100001",
+                "trackingId": "FBA10002000"
+              }
+            ]
+          }
+        }
+      }
+    },
+    "SpdTrackingItemInput": {
+      "description": "Small Parcel Delivery (SPD) tracking items input information.",
+      "properties": {
+        "boxId": {
+          "description": "The ID provided by Amazon that identifies a given box. This ID is comprised of the external shipment ID (which is generated after transportation has been confirmed) and the index of the box.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "trackingId": {
+          "description": "The tracking Id associated with each box in a non-Amazon partnered Small Parcel Delivery (SPD) shipment. The seller must provide this information.",
+          "maxLength": 64,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "boxId",
+        "trackingId"
+      ],
+      "type": "object",
+      "example": {
+        "boxId": "FBA10ABC0YY100001",
+        "trackingId": "FBA10002000"
+      }
+    },
+    "LtlTrackingDetailInput": {
+      "description": "Contains input information to update Less-Than-Truckload (LTL) tracking information.",
+      "properties": {
+        "billOfLadingNumber": {
+          "description": "The number of the carrier shipment acknowledgement document.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "freightBillNumber": {
+          "description": "Number associated with the freight bill.",
+          "items": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9-._ ]*$",
+            "type": "string"
+          },
+          "maxItems": 1,
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "freightBillNumber"
+      ],
+      "type": "object",
+      "example": {
+        "billOfLadingNumber": "billOfLadingNumber",
+        "freightBillNumber": [
+          "freightBillNumber1"
+        ]
+      }
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "UpdateShipmentTrackingDetailsResponse": {
+      "description": "The `updateShipmentTrackingDetails` response.",
+      "properties": {
+        "operationId": {
+          "description": "UUID for the given operation.",
+          "maxLength": 38,
+          "minLength": 36,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operationId"
+      ],
+      "type": "object"
+    },
+    "TrackingDetailsInput": {
+      "description": "Tracking information input for Less-Than-Truckload (LTL) and Small Parcel Delivery (SPD) shipments.",
+      "properties": {
+        "ltlTrackingDetail": {
+          "$ref": "#/definitions/LtlTrackingDetailInput"
+        },
+        "spdTrackingDetail": {
+          "$ref": "#/definitions/SpdTrackingDetailInput"
+        }
+      },
+      "type": "object",
+      "example": {
+        "ltlTrackingDetail": {
+          "billOfLadingNumber": "billOfLadingNumber",
+          "freightBillNumber": [
+            "freightBillNumber1"
+          ]
+        }
+      }
+    },
+    "SpdTrackingDetailInput": {
+      "description": "Contains input information to update Small Parcel Delivery (SPD) tracking information.",
+      "properties": {
+        "spdTrackingItems": {
+          "description": "List of Small Parcel Delivery (SPD) tracking items input.",
+          "items": {
+            "$ref": "#/definitions/SpdTrackingItemInput"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "spdTrackingItems"
+      ],
+      "type": "object",
+      "example": {
+        "spdTrackingItems": [
+          {
+            "boxId": "FBA10ABC0YY100001",
+            "trackingId": "FBA10002000"
+          }
+        ]
+      }
+    }
+  }
+}

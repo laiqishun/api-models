@@ -1,0 +1,445 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon Seller Wallet Open Banking API",
+    "description": "The Selling Partner API for Seller Wallet (Seller Wallet API) provides financial information that is relevant to a seller's Seller Wallet account. You can obtain financial events, balances, and transfer schedules for Seller Wallet accounts. You can also schedule and initiate transactions.",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "2024-03-01"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Accounts",
+      "description": "Everything about Amazon Seller Wallet customer accounts"
+    },
+    {
+      "name": "Transfer Preview",
+      "description": "Access to all transfers with fees and the final amount with FX details in Amazon Seller Wallet"
+    },
+    {
+      "name": "Transactions",
+      "description": "Access to all transactions in Amazon Seller Wallet account"
+    },
+    {
+      "name": "Transfer Schedule",
+      "description": "Access to all transfer schedules in Amazon Seller Wallet account"
+    }
+  ],
+  "paths": {
+    "/finances/transfers/wallet/2024-03-01/transferSchedules/{transferScheduleId}": {
+      "delete": {
+        "tags": [
+          "Transfer Schedule"
+        ],
+        "summary": "Delete a transaction request that is scheduled from Amazon Seller Wallet account to another customer-provided account",
+        "description": "Delete a transaction request that is scheduled from Amazon Seller Wallet account to another customer-provided account.",
+        "operationId": "deleteScheduleTransaction",
+        "parameters": [
+          {
+            "name": "transferScheduleId",
+            "description": "A unique reference ID for a scheduled transfer.",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "x-example": "amzn1.scheduletransfer.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ"
+          },
+          {
+            "name": "marketplaceId",
+            "in": "query",
+            "description": "The marketplace for which items are returned. The marketplace ID is the globally unique identifier of a marketplace. To find the ID for your marketplace, refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids).",
+            "required": true,
+            "type": "string",
+            "x-example": "A1RKKUPIHCS9HS"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully deleted the transfer schedule.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "transferScheduleId": {
+                        "value": "transferScheduleIdCase200"
+                      },
+                      "marketplaceId": {
+                        "value": "A1RKKUPIHCS9HS"
+                      }
+                    }
+                  },
+                  "response": {
+                    "code": "Successful",
+                    "message": "Deleted transfer schedule",
+                    "details": "Deleted transfer schedule for ID transferScheduleIdCase200"
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/DeleteTransferSchedule"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "transferScheduleId": {
+                        "value": "transferScheduleIdCase400"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid or Missing signature.",
+                        "details": "Missing addressDigitalSignature"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "transferScheduleId": {
+                        "value": "transferScheduleIdCase403"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "UnauthorizedRequest",
+                        "message": "Invalid WAC certificate.",
+                        "details": "NCA Status for the certificate is invalid"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "transferScheduleId": {
+                        "value": "transferScheduleIdCase404"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "NotFound",
+                        "message": "Transfer Schedule not found.",
+                        "details": "Transfer schedule id doesn't exists for invalid TransferScheduleId"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "408": {
+            "description": "Request Timed Out.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "transferScheduleId": {
+                        "value": "transferScheduleIdCase408"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "RequestTimedOut",
+                        "message": "Request Timed Out",
+                        "details": "Server did not respond in time"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "transferScheduleId": {
+                        "value": "transferScheduleIdCase429"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "RequestThrottled",
+                        "message": "Request Throttled",
+                        "details": "Server throttled the request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "transferScheduleId": {
+                        "value": "transferScheduleIdCase500"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InternalServerError",
+                        "message": "Internal Server Error",
+                        "details": "Internal Server Error Occurred"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "transferScheduleId": {
+                        "value": "transferScheduleIdCase503"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "ServiceUnavailable",
+                        "message": "Server Unavailable",
+                        "details": "Server is not accepting request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of errors",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "DeleteTransferSchedule": {
+      "description": "The response returned when the schedule transfer's delete request is successful.",
+      "properties": {
+        "code": {
+          "description": "A success code that specifies that the delete operation was successful. For example, HTTP 200.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the success condition of the delete schedule transaction.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand the operation execution.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    }
+  }
+}

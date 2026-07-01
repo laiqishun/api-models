@@ -1,0 +1,574 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "With the Services API, you can build applications that help service providers get and modify their service orders and manage their resources.",
+    "version": "v1",
+    "title": "Selling Partner API for Services",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/service/v1/serviceResources/{resourceId}/capacity/fixed": {
+      "parameters": [],
+      "post": {
+        "tags": [
+          "service"
+        ],
+        "description": "Provides capacity in fixed-size slots. \n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 5 | 20 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](doc:usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getFixedSlotCapacity",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Resource Identifier.",
+            "required": true,
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Request body.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FixedSlotCapacityQuery"
+            }
+          },
+          {
+            "name": "marketplaceIds",
+            "in": "query",
+            "description": "An identifier for the marketplace in which the resource operates.",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 1
+          },
+          {
+            "name": "nextPageToken",
+            "in": "query",
+            "description": "Next page token returned in the response of your previous request.",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response.",
+            "schema": {
+              "$ref": "#/definitions/FixedSlotCapacity"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "resourceId": {
+                        "value": "validResourceId-9e378g66-9537-6ggq-dd48-f167gb969f48"
+                      },
+                      "body": {
+                        "value": {
+                          "capacityTypes": [
+                            "SCHEDULED_CAPACITY",
+                            "RESERVED_CAPACITY"
+                          ],
+                          "startDateTime": "2021-04-04T00:00:00Z",
+                          "endDateTime": "2021-04-04T02:00:00Z",
+                          "slotDuration": 30
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "resourceId": "validResourceId-9e378g66-9537-6ggq-dd48-f167gb969f48",
+                    "slotDuration": 30,
+                    "capacities": [
+                      {
+                        "startDateTime": "2021-04-04T00:00:00Z",
+                        "scheduledCapacity": 1,
+                        "reservedCapacity": 1
+                      },
+                      {
+                        "startDateTime": "2021-04-04T00:30:00Z",
+                        "scheduledCapacity": 1,
+                        "reservedCapacity": 0
+                      },
+                      {
+                        "startDateTime": "2021-04-04T01:00:00Z",
+                        "scheduledCapacity": 0,
+                        "reservedCapacity": 0
+                      },
+                      {
+                        "startDateTime": "2021-04-04T01:30:00Z",
+                        "scheduledCapacity": 0,
+                        "reservedCapacity": 0
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/FixedSlotCapacityErrors"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "capacityTypes": [
+                            "SCHEDULED_CAPACITY"
+                          ],
+                          "startDateTime": "2021-04-04T00:00:00Z",
+                          "endDateTime": "2021-04-04T02:00:00Z"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "This is invalid input",
+                        "details": "Received the following errors: [Missing or invalid request parameters: [resourceId]]"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "resourceId": {
+                        "value": "validResourceId-9d267d55-9dfa-5bfp-cc47-f167gb969f48a"
+                      },
+                      "body": {
+                        "value": {
+                          "capacityTypes": [
+                            "SCHEDULED_CAPACITY"
+                          ],
+                          "startDateTime": "2021-04-04T00:00:00Z",
+                          "endDateTime": "2021-04-04T02:00:00Z",
+                          "slotDuration": 400
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "This is invalid input",
+                        "details": "Received the following errors: [Slot duration is not valid, it should be a multiple of 5 and within allowed range.]"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "resourceId": {
+                        "value": "validResourceId-9e378g66-9537-6ggq-dd48-f1klmb969f48"
+                      },
+                      "body": {
+                        "value": {
+                          "capacityTypes": [
+                            "SCHEDULED_CAPACITY"
+                          ],
+                          "startDateTime": "2021-04-04T02:00:00Z",
+                          "endDateTime": "2021-04-04T00:00:00Z"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "This is invalid input",
+                        "details": "Received the following errors: [endDateTime should be after Start Time]"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "resourceId": {
+                          "value": "validResourceId-9e378g66-9537-6ggq-dd48-f1klmb969f482"
+                        },
+                        "value": {
+                          "capacityTypes": [
+                            "SCHEDULED_CAPACITY"
+                          ],
+                          "startDateTime": "2021-04-04T00:00:00Z"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "This is invalid input",
+                        "details": "Received the following errors: [startDateTime or endDateTime are not present]"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "resourceId": {
+                        "value": "validResourceId-9e378g66-9537-6ggq-dd48-f1klmb969f483"
+                      },
+                      "body": {
+                        "value": {
+                          "capacityTypes": [
+                            "SCHEDULED_CAPACITY"
+                          ],
+                          "startDateTime": "2021-0",
+                          "endDateTime": "2021-04-04T00:00:00Z"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "This is invalid input",
+                        "details": "Received the following errors: [startDateTime is not a valid ISO date/time object]"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/FixedSlotCapacityErrors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/FixedSlotCapacityErrors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/FixedSlotCapacityErrors"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/FixedSlotCapacityErrors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/FixedSlotCapacityErrors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/FixedSlotCapacityErrors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/FixedSlotCapacityErrors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/FixedSlotCapacityErrors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "FixedSlotCapacityQuery": {
+      "type": "object",
+      "description": "Request schema for the `getFixedSlotCapacity` operation. This schema is used to define the time range, capacity types and slot duration which are being queried.",
+      "required": [
+        "startDateTime",
+        "endDateTime"
+      ],
+      "properties": {
+        "capacityTypes": {
+          "description": "An array of capacity types which are being requested. Default value is `[SCHEDULED_CAPACITY]`.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CapacityType"
+          }
+        },
+        "slotDuration": {
+          "description": "Size in which slots are being requested. This value should be a multiple of 5 and fall in the range: 5 <= `slotDuration` <= 360.",
+          "type": "number",
+          "format": "int32",
+          "multipleOf": 5
+        },
+        "startDateTime": {
+          "description": "Start date time from which the capacity slots are being requested in ISO 8601 format.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "endDateTime": {
+          "description": "End date time up to which the capacity slots are being requested in ISO 8601 format.",
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "CapacityType": {
+      "description": "Type of capacity",
+      "type": "string",
+      "enum": [
+        "SCHEDULED_CAPACITY",
+        "AVAILABLE_CAPACITY",
+        "ENCUMBERED_CAPACITY",
+        "RESERVED_CAPACITY"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "This capacity represents the originally allocated capacity as per resource schedule.",
+          "value": "SCHEDULED_CAPACITY"
+        },
+        {
+          "description": "This capacity represents the capacity available for allocation to reservations.",
+          "value": "AVAILABLE_CAPACITY"
+        },
+        {
+          "description": "This capacity represents the capacity allocated for Amazon Jobs/Appointments/Orders.",
+          "value": "ENCUMBERED_CAPACITY"
+        },
+        {
+          "description": "This capacity represents the capacity made unavailable due to events like Breaks/Leaves/Lunch.",
+          "value": "RESERVED_CAPACITY"
+        }
+      ]
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        },
+        "errorLevel": {
+          "type": "string",
+          "description": "The type of error.",
+          "enum": [
+            "ERROR",
+            "WARNING"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "ERROR",
+              "description": "Error"
+            },
+            {
+              "value": "WARNING",
+              "description": "Warning"
+            }
+          ]
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "FixedSlot": {
+      "description": "In this slot format each slot only has the requested capacity types. This slot size is as specified by slot duration.",
+      "type": "object",
+      "properties": {
+        "startDateTime": {
+          "description": "Start date time of slot in ISO 8601 format with precision of seconds.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "scheduledCapacity": {
+          "description": "Scheduled capacity corresponding to the slot. This capacity represents the originally allocated capacity as per resource schedule.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "availableCapacity": {
+          "description": "Available capacity corresponding to the slot. This capacity represents the capacity available for allocation to reservations.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "encumberedCapacity": {
+          "description": "Encumbered capacity corresponding to the slot. This capacity represents the capacity allocated for Amazon Jobs/Appointments/Orders.",
+          "type": "integer",
+          "format": "int32"
+        },
+        "reservedCapacity": {
+          "description": "Reserved capacity corresponding to the slot. This capacity represents the capacity made unavailable due to events like Breaks/Leaves/Lunch.",
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "FixedSlotCapacityErrors": {
+      "description": "The error response schema for the `getFixedSlotCapacity` operation.",
+      "type": "object",
+      "properties": {
+        "errors": {
+          "description": "Errors encountered during the `getFixedSlotCapacity` operation.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      }
+    },
+    "FixedSlotCapacity": {
+      "description": "Response schema for the `getFixedSlotCapacity` operation.",
+      "type": "object",
+      "properties": {
+        "resourceId": {
+          "description": "Resource Identifier.",
+          "type": "string"
+        },
+        "slotDuration": {
+          "description": "The duration of each slot which is returned. This value will be a multiple of 5 and fall in the following range: 5 <= `slotDuration` <= 360.",
+          "type": "number",
+          "format": "int32",
+          "multipleOf": 5
+        },
+        "capacities": {
+          "description": "Array of capacity slots in fixed slot format.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/FixedSlot"
+          }
+        },
+        "nextPageToken": {
+          "description": "Next page token, if there are more pages.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

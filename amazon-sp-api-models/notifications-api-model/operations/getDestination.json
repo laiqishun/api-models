@@ -1,0 +1,335 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Notifications lets you subscribe to notifications that are relevant to a selling partner's business. Using this API you can create a destination to receive notifications, subscribe to notifications, delete notification subscriptions, and more.\n\nFor more information, refer to the [Notifications Use Case Guide](https://developer-docs.amazon.com/sp-api/docs/notifications-api-v1-use-case-guide).",
+    "version": "v1",
+    "title": "Selling Partner API for Notifications",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/notifications/v1/destinations/{destinationId}": {
+      "get": {
+        "tags": [
+          "notifications"
+        ],
+        "description": "Returns information about the destination that you specify. The `getDestination` operation is grantless. For more information, refer to [Grantless Operations](https://developer-docs.amazon.com/sp-api/docs/grantless-operations) in the Selling Partner API Developer Guide.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 1 | 5 |\n\nThe `x-amzn-RateLimit-Limit` response header contains the usage plan rate limits for the operation, when available. The preceding table contains the default rate and burst values for this operation. Selling partners whose business demands require higher throughput might have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getDestination",
+        "parameters": [
+          {
+            "name": "destinationId",
+            "in": "path",
+            "description": "The identifier generated when you created the destination.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/GetDestinationResponse"
+            },
+            "examples": {
+              "Successful Response": {
+                "payload": {
+                  "destinationId": "9e7a83ee-7730-11e9-8f9e-2a86e4085a59",
+                  "name": "SQSDestination",
+                  "resource": {
+                    "sqs": {
+                      "arn": "arn:aws:sqs:us-east-2:444455556666:queue1"
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {}
+                  },
+                  "response": {
+                    "payload": {
+                      "destinationId": "TEST_CASE_200_DESTINATION",
+                      "resource": {
+                        "sqs": {
+                          "arn": "arn:aws:sqs:us-east-2:444455556666:queue1"
+                        }
+                      },
+                      "name": "SQSDestination"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/GetDestinationResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/GetDestinationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/GetDestinationResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "409": {
+            "description": "The resource specified conflicts with the current state.",
+            "schema": {
+              "$ref": "#/definitions/GetDestinationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/GetDestinationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/GetDestinationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/GetDestinationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/GetDestinationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/GetDestinationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "EventBridgeResource": {
+      "type": "object",
+      "required": [
+        "accountId",
+        "name",
+        "region"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the partner event source associated with the destination.",
+          "maxLength": 256
+        },
+        "region": {
+          "type": "string",
+          "description": "The AWS region in which you receive the notifications. For AWS regions that Amazon EventBridge supports, refer to [Amazon EventBridge endpoints and quotas](https://docs.aws.amazon.com/general/latest/gr/ev.html)."
+        },
+        "accountId": {
+          "type": "string",
+          "description": "The identifier for the AWS account that is responsible for charges related to receiving notifications."
+        }
+      },
+      "description": "The Amazon EventBridge destination."
+    },
+    "DestinationResource": {
+      "type": "object",
+      "properties": {
+        "sqs": {
+          "description": "An Amazon Simple Queue Service (SQS) queue destination.",
+          "$ref": "#/definitions/SqsResource"
+        },
+        "eventBridge": {
+          "description": "An Amazon EventBridge destination.",
+          "$ref": "#/definitions/EventBridgeResource"
+        }
+      },
+      "description": "The destination resource types."
+    },
+    "GetDestinationResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "description": "The payload for the `getDestination` operation.",
+          "$ref": "#/definitions/Destination"
+        },
+        "errors": {
+          "description": "One or more unexpected errors occurred during the `getDestination` operation.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The response schema for the `getDestination` operation."
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "An error response returned when the request is unsuccessful."
+    },
+    "SqsResource": {
+      "type": "object",
+      "required": [
+        "arn"
+      ],
+      "properties": {
+        "arn": {
+          "type": "string",
+          "description": "The Amazon Resource Name (ARN) associated with the SQS queue.",
+          "maxLength": 1000,
+          "pattern": "^arn:aws:sqs:\\S+:\\S+:\\S+"
+        }
+      },
+      "description": "The information required to create an Amazon Simple Queue Service (Amazon SQS) queue destination."
+    },
+    "Destination": {
+      "type": "object",
+      "required": [
+        "destinationId",
+        "name",
+        "resource"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The developer-defined name for this destination.",
+          "maxLength": 256
+        },
+        "destinationId": {
+          "type": "string",
+          "description": "The destination identifier generated when you created the destination."
+        },
+        "resource": {
+          "description": "The resource that will receive notifications associated with this destination.",
+          "$ref": "#/definitions/DestinationResource"
+        }
+      },
+      "description": "Information about the destination you create when you call the `createDestination` operation."
+    }
+  }
+}

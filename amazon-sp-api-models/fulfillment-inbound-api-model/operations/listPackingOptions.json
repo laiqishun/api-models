@@ -1,0 +1,685 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingOptions": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Identifier of an inbound plan.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "inboundPlanId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The number of packing options to return in the response matching the given query.",
+            "in": "query",
+            "maximum": 20,
+            "minimum": 1,
+            "name": "pageSize",
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "description": "A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the `pagination` returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result.",
+            "in": "query",
+            "maxLength": 1024,
+            "minLength": 0,
+            "name": "paginationToken",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListPackingOptions 200 response",
+            "schema": {
+              "$ref": "#/definitions/ListPackingOptionsResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "pageSize": {
+                        "value": 2
+                      },
+                      "paginationToken": {
+                        "value": "paginationToken"
+                      }
+                    }
+                  },
+                  "response": {
+                    "packingOptions": [
+                      {
+                        "packingOptionId": "po1234abcd-1234-abcd-5678-1234abcd5678",
+                        "packingGroups": [
+                          "pg1234abcd-1234-abcd-5678-1234abcd5678"
+                        ],
+                        "fees": [
+                          {
+                            "value": {
+                              "code": "USD",
+                              "amount": 1.0
+                            },
+                            "type": "FEE",
+                            "target": "Placement Services",
+                            "description": "description"
+                          }
+                        ],
+                        "discounts": [
+                          {
+                            "value": {
+                              "code": "USD",
+                              "amount": 1.0
+                            },
+                            "type": "DISCOUNT",
+                            "target": "Placement Services",
+                            "description": "description"
+                          }
+                        ],
+                        "expiration": "2024-01-01T00:00:00.000Z",
+                        "status": "OFFERED",
+                        "supportedShippingConfigurations": [
+                          {
+                            "shippingSolution": "AMAZON_PARTNERED_CARRIER",
+                            "shippingMode": "GROUND_SMALL_PARCEL"
+                          }
+                        ],
+                        "supportedConfigurations": [
+                          {
+                            "boxPackingMethods": [
+                              "BOX_CONTENT_PROVIDED"
+                            ],
+                            "boxRequirements": {
+                              "weight": {
+                                "unit": "KG",
+                                "minimum": 1.0,
+                                "maximum": 25.0
+                              }
+                            },
+                            "shippingRequirements": [
+                              {
+                                "solution": "USE_YOUR_OWN_CARRIER",
+                                "modes": [
+                                  "FREIGHT_LTL",
+                                  "GROUND_SMALL_PARCEL"
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "boxPackingMethods": [
+                              "MANUAL_PROCESS",
+                              "BARCODE_2D"
+                            ],
+                            "boxRequirements": {
+                              "weight": {
+                                "unit": "KG",
+                                "minimum": 1.0,
+                                "maximum": 15.0
+                              }
+                            },
+                            "shippingRequirements": [
+                              {
+                                "solution": "USE_YOUR_OWN_CARRIER",
+                                "modes": [
+                                  "FREIGHT_LTL",
+                                  "GROUND_SMALL_PARCEL"
+                                ]
+                              },
+                              {
+                                "solution": "AMAZON_PARTNERED_CARRIER",
+                                "modes": [
+                                  "GROUND_SMALL_PARCEL"
+                                ]
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    "pagination": {
+                      "nextToken": "nextPaginationToken"
+                    }
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "bad234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "pageSize": {
+                        "value": 2
+                      },
+                      "paginationToken": {
+                        "value": "paginationToken"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The requested inbound plan does not exist."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "Retrieves a list of all packing options for an inbound plan. Packing options must first be generated by the corresponding operation before becoming available.",
+        "operationId": "listPackingOptions"
+      }
+    }
+  },
+  "definitions": {
+    "BoxRequirements": {
+      "description": "The requirements for a box in the packing option.",
+      "properties": {
+        "weight": {
+          "$ref": "#/definitions/WeightRange"
+        }
+      },
+      "required": [
+        "weight"
+      ],
+      "type": "object"
+    },
+    "BoxContentInformationSource": {
+      "description": "Indication of how box content is meant to be provided.",
+      "enum": [
+        "BOX_CONTENT_PROVIDED",
+        "MANUAL_PROCESS",
+        "BARCODE_2D"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "BOX_CONTENT_PROVIDED",
+          "description": "Box contents have been provided by the seller."
+        },
+        {
+          "value": "MANUAL_PROCESS",
+          "description": "Box contents will be manually processed during receive. This service incurs charges."
+        },
+        {
+          "value": "BARCODE_2D",
+          "description": "Box contents information is provided by a barcode on the shipment. For more information, refer to [Using 2D barcodes for box content information](https://sellercentral.amazon.com/help/hub/reference/GJWALJCN6JKWJX5A) on Seller Central."
+        }
+      ]
+    },
+    "ShippingRequirements": {
+      "description": "The possible shipping modes for the packing option for a given shipping solution or program. Available solutions are Amazon-Partnered Carrier and Use Your Own Carrier. Available modes are ground small parcel, freight less-than-truckload (LTL), freight full-truckload (FTL) palletized, freight FTL non-palletized, ocean less-than-container-load (LCL), ocean full-container load (FCL), air small parcel, and air small parcel express.",
+      "properties": {
+        "modes": {
+          "description": "Available shipment modes for this shipping program.",
+          "items": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9-._ ]*$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "solution": {
+          "description": "Shipping program for the option. Can be: `AMAZON_PARTNERED_CARRIER`, `USE_YOUR_OWN_CARRIER`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "modes",
+        "solution"
+      ],
+      "type": "object"
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "Pagination": {
+      "description": "Contains tokens to fetch from a certain page.",
+      "properties": {
+        "nextToken": {
+          "description": "When present, pass this string token in the next request to return the next response page.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "Incentive": {
+      "description": "Contains details about cost related modifications to the placement cost.",
+      "properties": {
+        "description": {
+          "description": "Description of the incentive.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "target": {
+          "description": "Target of the incentive. Possible values: 'Placement Services', 'Fulfillment Fee Discount'.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "type": {
+          "description": "Type of incentive. Possible values: `FEE`, `DISCOUNT`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/definitions/Currency"
+        }
+      },
+      "required": [
+        "description",
+        "target",
+        "type",
+        "value"
+      ],
+      "type": "object"
+    },
+    "ShippingConfiguration": {
+      "description": "The shipping configurations supported for the packing option. Available modes are ground small parcel, freight less-than-truckload (LTL), freight full-truckload (FTL) palletized, freight FTL non-palletized, ocean less-than-container-load (LCL), ocean full-container load (FCL), air small parcel, and air small parcel express.",
+      "properties": {
+        "shippingMode": {
+          "description": "Mode of shipment transportation that this option will provide.\n\nPossible values: `GROUND_SMALL_PARCEL`, `FREIGHT_LTL`, `FREIGHT_FTL_PALLET`, `FREIGHT_FTL_NONPALLET`, `OCEAN_LCL`, `OCEAN_FCL`, `AIR_SMALL_PARCEL`, `AIR_SMALL_PARCEL_EXPRESS`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "shippingSolution": {
+          "description": "Shipping program for the option. Possible values: `AMAZON_PARTNERED_CARRIER`, `USE_YOUR_OWN_CARRIER`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Currency": {
+      "description": "The type and amount of currency.",
+      "properties": {
+        "amount": {
+          "description": "Decimal value of the currency.",
+          "type": "number"
+        },
+        "code": {
+          "description": "ISO 4217 standard of a currency code.",
+          "maxLength": 3,
+          "minLength": 3,
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "code"
+      ],
+      "type": "object"
+    },
+    "WeightRange": {
+      "description": "The range of weights that are allowed for a package.",
+      "properties": {
+        "maximum": {
+          "description": "Maximum allowed weight.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "minimum": {
+          "description": "Minimum allowed weight.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "unit": {
+          "$ref": "#/definitions/UnitOfWeight"
+        }
+      },
+      "required": [
+        "maximum",
+        "minimum",
+        "unit"
+      ],
+      "type": "object"
+    },
+    "UnitOfWeight": {
+      "description": "Unit of the weight being measured.",
+      "enum": [
+        "LB",
+        "KG"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "LB",
+          "description": "Pounds."
+        },
+        {
+          "value": "KG",
+          "description": "Kilograms."
+        }
+      ]
+    },
+    "ListPackingOptionsResponse": {
+      "description": "The `listPlacementOptions` response.",
+      "properties": {
+        "packingOptions": {
+          "description": "List of packing options.",
+          "items": {
+            "$ref": "#/definitions/PackingOption"
+          },
+          "type": "array"
+        },
+        "pagination": {
+          "$ref": "#/definitions/Pagination"
+        }
+      },
+      "required": [
+        "packingOptions"
+      ],
+      "type": "object"
+    },
+    "PackingConfiguration": {
+      "description": "A way to configure this packing option. Some box content information sources might not be allowed. Non-standard minimum and maximum box weights might be enforced.",
+      "properties": {
+        "boxPackingMethods": {
+          "description": "The box content information sources that are allowed.",
+          "items": {
+            "$ref": "#/definitions/BoxContentInformationSource"
+          },
+          "type": "array"
+        },
+        "boxRequirements": {
+          "$ref": "#/definitions/BoxRequirements"
+        },
+        "shippingRequirements": {
+          "description": "A list of supported shipping requirements for this packing configuration.",
+          "items": {
+            "$ref": "#/definitions/ShippingRequirements"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "PackingOption": {
+      "description": "A packing option contains a set of pack groups plus additional information about the packing option, such as any discounts or fees if it's selected.",
+      "properties": {
+        "discounts": {
+          "description": "Discount for the offered option.",
+          "items": {
+            "$ref": "#/definitions/Incentive"
+          },
+          "type": "array"
+        },
+        "expiration": {
+          "description": "The time at which this packing option is no longer valid. In [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) datetime format with pattern `yyyy-MM-ddTHH:mm:ss.sssZ`.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "fees": {
+          "description": "Fee for the offered option.",
+          "items": {
+            "$ref": "#/definitions/Incentive"
+          },
+          "type": "array"
+        },
+        "packingGroups": {
+          "description": "Packing group IDs.",
+          "items": {
+            "description": "Identifier of a packing group.",
+            "maxLength": 38,
+            "minLength": 38,
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "packingOptionId": {
+          "description": "Identifier of a packing option.",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        },
+        "status": {
+          "description": "The status of the packing option. Possible values: `OFFERED`, `ACCEPTED`, `EXPIRED`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "supportedConfigurations": {
+          "description": "A list of possible configurations for this option.",
+          "items": {
+            "$ref": "#/definitions/PackingConfiguration"
+          },
+          "type": "array"
+        },
+        "supportedShippingConfigurations": {
+          "description": "**This field is deprecated**. Use the `shippingRequirements` property under `supportedConfigurations` instead. List of supported shipping modes.",
+          "items": {
+            "$ref": "#/definitions/ShippingConfiguration"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "discounts",
+        "fees",
+        "packingGroups",
+        "packingOptionId",
+        "status",
+        "supportedConfigurations",
+        "supportedShippingConfigurations"
+      ],
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,1089 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Pricing helps you programmatically retrieve product pricing and offer pricing information for Amazon Marketplace products.\n\nFor more information, refer to the [Product Pricing v2022-05-01 Use Case Guide](https://developer-docs.amazon.com/sp-api/docs/product-pricing-api-v2022-05-01-use-case-guide).",
+    "version": "2022-05-01",
+    "title": "Selling Partner API for Pricing",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/batches/products/pricing/2022-05-01/offer/featuredOfferExpectedPrice": {
+      "post": {
+        "tags": [
+          "productPricing"
+        ],
+        "description": "Returns the set of responses that correspond to the batched list of up to 40 requests defined in the request body. The response for each successful (HTTP status code 200) request in the set includes the computed listing price at or below which a seller can expect to become the featured offer (before applicable promotions). This is called the featured offer expected price (FOEP). Featured offer is not guaranteed because competing offers might change. Other offers might be featured based on factors such as fulfillment capabilities to a specific customer. The response to an unsuccessful request includes the available error text.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 0.033 | 1 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that are applied to the requested operation, when available. The preceding table contains the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may receive higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api) in the Selling Partner API.",
+        "operationId": "getFeaturedOfferExpectedPriceBatch",
+        "parameters": [
+          {
+            "name": "getFeaturedOfferExpectedPriceBatchRequestBody",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetFeaturedOfferExpectedPriceBatchRequest"
+            },
+            "description": "The batch of `getFeaturedOfferExpectedPrice` requests."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/GetFeaturedOfferExpectedPriceBatchResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "examples": {
+              "application/json": {
+                "responses": [
+                  {
+                    "request": {
+                      "marketplaceId": "MARKETPLACE_ID",
+                      "sku": "MY_SKU",
+                      "segment": {
+                        "segmentDetails": {
+                          "sampleLocation": {
+                            "postalCode": {
+                              "countryCode": "US",
+                              "value": "98109"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "status": {
+                      "statusCode": 200,
+                      "reasonPhrase": "Success"
+                    },
+                    "headers": {},
+                    "body": {
+                      "offerIdentifier": {
+                        "asin": "ASIN",
+                        "sku": "MY_SKU",
+                        "marketplaceId": "MARKETPLACE_ID",
+                        "fulfillmentType": "AFN",
+                        "sellerId": "MY_SELLER_ID"
+                      },
+                      "featuredOfferExpectedPriceResults": [
+                        {
+                          "featuredOfferExpectedPrice": {
+                            "listingPrice": {
+                              "amount": 10.0,
+                              "currencyCode": "USD"
+                            },
+                            "points": {
+                              "pointsNumber": 3,
+                              "pointsMonetaryValue": {
+                                "amount": 0.03,
+                                "currencyCode": "USD"
+                              }
+                            }
+                          },
+                          "resultStatus": "VALID_FOEP",
+                          "competingFeaturedOffer": {
+                            "offerIdentifier": {
+                              "asin": "ASIN",
+                              "marketplaceId": "MARKETPLACE_ID",
+                              "fulfillmentType": "AFN",
+                              "sellerId": "OTHER_SELLER_ID"
+                            },
+                            "condition": "New",
+                            "price": {
+                              "listingPrice": {
+                                "amount": 12.0,
+                                "currencyCode": "USD"
+                              },
+                              "shippingPrice": {
+                                "amount": 0,
+                                "currencyCode": "USD"
+                              },
+                              "points": {
+                                "pointsNumber": 3,
+                                "pointsMonetaryValue": {
+                                  "amount": 0.03,
+                                  "currencyCode": "USD"
+                                }
+                              }
+                            }
+                          },
+                          "currentFeaturedOffer": {
+                            "offerIdentifier": {
+                              "asin": "ASIN",
+                              "marketplaceId": "MARKETPLACE_ID",
+                              "fulfillmentType": "AFN",
+                              "sellerId": "OTHER_SELLER_ID"
+                            },
+                            "condition": "New",
+                            "price": {
+                              "listingPrice": {
+                                "amount": 12.0,
+                                "currencyCode": "USD"
+                              },
+                              "shippingPrice": {
+                                "amount": 0,
+                                "currencyCode": "USD"
+                              },
+                              "points": {
+                                "pointsNumber": 3,
+                                "pointsMonetaryValue": {
+                                  "amount": 0.03,
+                                  "currencyCode": "USD"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "request": {
+                      "marketplaceId": "MARKETPLACE_ID",
+                      "sku": "MY_UNIQUE_SKU"
+                    },
+                    "status": {
+                      "statusCode": 200,
+                      "reasonPhrase": "Success"
+                    },
+                    "headers": {},
+                    "body": {
+                      "offerIdentifier": {
+                        "asin": "ASIN",
+                        "sku": "MY_UNIQUE_SKU",
+                        "marketplaceId": "MARKETPLACE_ID",
+                        "fulfillmentType": "AFN",
+                        "sellerId": "MY_SELLER_ID"
+                      },
+                      "featuredOfferExpectedPriceResults": [
+                        {
+                          "resultStatus": "NO_COMPETING_OFFERS",
+                          "currentFeaturedOffer": {
+                            "offerIdentifier": {
+                              "asin": "ASIN",
+                              "marketplaceId": "MARKETPLACE_ID",
+                              "fulfillmentType": "AFN",
+                              "sellerId": "MY_SELLER_ID"
+                            },
+                            "condition": "New",
+                            "price": {
+                              "listingPrice": {
+                                "amount": 12.0,
+                                "currencyCode": "USD"
+                              },
+                              "shippingPrice": {
+                                "amount": 0,
+                                "currencyCode": "USD"
+                              },
+                              "points": {
+                                "pointsNumber": 3,
+                                "pointsMonetaryValue": {
+                                  "amount": 0.03,
+                                  "currencyCode": "USD"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "request": {
+                      "marketplaceId": "MARKETPLACE_ID",
+                      "sku": "MY_NONEXISTENT_SKU"
+                    },
+                    "status": {
+                      "statusCode": 400,
+                      "reasonPhrase": "Client Error"
+                    },
+                    "headers": {},
+                    "body": {
+                      "errors": [
+                        {
+                          "code": "INVALID_SKU",
+                          "message": "The requested SKU does not exist for the seller in the requested marketplace."
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "requests": [
+                            {
+                              "marketplaceId": "MARKETPLACE_ID",
+                              "sku": "MY_SKU",
+                              "segment": {
+                                "segmentDetails": {
+                                  "sampleLocation": {
+                                    "postalCode": {
+                                      "countryCode": "COUNTRY_CODE",
+                                      "value": "POSTAL_CODE_VALUE"
+                                    }
+                                  }
+                                }
+                              },
+                              "method": "GET",
+                              "uri": "/products/pricing/2022-05-01/offer/featuredOfferExpectedPrice"
+                            },
+                            {
+                              "marketplaceId": "MARKETPLACE_ID",
+                              "sku": "MY_UNIQUE_SKU",
+                              "method": "GET",
+                              "uri": "/products/pricing/2022-05-01/offer/featuredOfferExpectedPrice"
+                            },
+                            {
+                              "marketplaceId": "MARKETPLACE_ID",
+                              "sku": "INVALID_SKU",
+                              "method": "GET",
+                              "uri": "/products/pricing/2022-05-01/offer/featuredOfferExpectedPrice"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "responses": [
+                      {
+                        "request": {
+                          "marketplaceId": "MARKETPLACE_ID",
+                          "sku": "MY_SKU",
+                          "segment": {
+                            "segmentDetails": {
+                              "sampleLocation": {
+                                "postalCode": {
+                                  "countryCode": "COUNTRY_CODE",
+                                  "value": "POSTAL_CODE_VALUE"
+                                }
+                              }
+                            }
+                          }
+                        },
+                        "status": {
+                          "statusCode": 200,
+                          "reasonPhrase": "Success"
+                        },
+                        "headers": {},
+                        "body": {
+                          "offerIdentifier": {
+                            "asin": "ASIN",
+                            "sku": "MY_SKU",
+                            "marketplaceId": "MARKETPLACE_ID",
+                            "fulfillmentType": "AFN",
+                            "sellerId": "MY_SELLER_ID"
+                          },
+                          "featuredOfferExpectedPriceResults": [
+                            {
+                              "featuredOfferExpectedPrice": {
+                                "listingPrice": {
+                                  "amount": 10.0,
+                                  "currencyCode": "USD"
+                                },
+                                "points": {
+                                  "pointsNumber": 3,
+                                  "pointsMonetaryValue": {
+                                    "amount": 0.03,
+                                    "currencyCode": "USD"
+                                  }
+                                }
+                              },
+                              "resultStatus": "VALID_FOEP",
+                              "competingFeaturedOffer": {
+                                "offerIdentifier": {
+                                  "asin": "ASIN",
+                                  "marketplaceId": "MARKETPLACE_ID",
+                                  "fulfillmentType": "AFN",
+                                  "sellerId": "OTHER_SELLER_ID"
+                                },
+                                "condition": "New",
+                                "price": {
+                                  "listingPrice": {
+                                    "amount": 12.0,
+                                    "currencyCode": "USD"
+                                  },
+                                  "shippingPrice": {
+                                    "amount": 0,
+                                    "currencyCode": "USD"
+                                  },
+                                  "points": {
+                                    "pointsNumber": 3,
+                                    "pointsMonetaryValue": {
+                                      "amount": 0.03,
+                                      "currencyCode": "USD"
+                                    }
+                                  }
+                                }
+                              },
+                              "currentFeaturedOffer": {
+                                "offerIdentifier": {
+                                  "asin": "ASIN",
+                                  "marketplaceId": "MARKETPLACE_ID",
+                                  "fulfillmentType": "AFN",
+                                  "sellerId": "OTHER_SELLER_ID"
+                                },
+                                "condition": "New",
+                                "price": {
+                                  "listingPrice": {
+                                    "amount": 12.0,
+                                    "currencyCode": "USD"
+                                  },
+                                  "shippingPrice": {
+                                    "amount": 0,
+                                    "currencyCode": "USD"
+                                  },
+                                  "points": {
+                                    "pointsNumber": 3,
+                                    "pointsMonetaryValue": {
+                                      "amount": 0.03,
+                                      "currencyCode": "USD"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "request": {
+                          "marketplaceId": "MARKETPLACE_ID",
+                          "sku": "MY_UNIQUE_SKU"
+                        },
+                        "status": {
+                          "statusCode": 200,
+                          "reasonPhrase": "Success"
+                        },
+                        "headers": {},
+                        "body": {
+                          "offerIdentifier": {
+                            "asin": "ASIN",
+                            "sku": "MY_UNIQUE_SKU",
+                            "marketplaceId": "MARKETPLACE_ID",
+                            "fulfillmentType": "AFN",
+                            "sellerId": "MY_SELLER_ID"
+                          },
+                          "featuredOfferExpectedPriceResults": [
+                            {
+                              "resultStatus": "NO_COMPETING_OFFERS",
+                              "currentFeaturedOffer": {
+                                "offerIdentifier": {
+                                  "asin": "ASIN",
+                                  "marketplaceId": "MARKETPLACE_ID",
+                                  "fulfillmentType": "AFN",
+                                  "sellerId": "MY_SELLER_ID"
+                                },
+                                "condition": "New",
+                                "price": {
+                                  "listingPrice": {
+                                    "amount": 12.0,
+                                    "currencyCode": "USD"
+                                  },
+                                  "shippingPrice": {
+                                    "amount": 0,
+                                    "currencyCode": "USD"
+                                  },
+                                  "points": {
+                                    "pointsNumber": 3,
+                                    "pointsMonetaryValue": {
+                                      "amount": 0.03,
+                                      "currencyCode": "USD"
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      },
+                      {
+                        "request": {
+                          "marketplaceId": "MARKETPLACE_ID",
+                          "sku": "MY_NONEXISTENT_SKU"
+                        },
+                        "status": {
+                          "statusCode": 400,
+                          "reasonPhrase": "Client Error"
+                        },
+                        "headers": {},
+                        "body": {
+                          "errors": [
+                            {
+                              "code": "INVALID_SKU",
+                              "message": "The requested SKU does not exist for the seller in the requested marketplace."
+                            }
+                          ]
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "requests": [
+                            {
+                              "marketplaceId": "MARKETPLACE_ID",
+                              "sku": "INVALID_SKU",
+                              "method": "GET",
+                              "uri": "/products/pricing/2022-05-01/offer/featuredOfferExpectedPrice"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "INVALID_SKU",
+                        "message": "The requested SKU does not exist for the seller in the requested marketplace."
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The request frequency exceeds the allowed rate.",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/Errors"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Segment": {
+      "description": "Input segment for featured offer expected price. The segment contains the location information for which featured offer expected price is requested.",
+      "properties": {
+        "segmentDetails": {
+          "description": "Segment details",
+          "$ref": "#/definitions/SegmentDetails"
+        }
+      },
+      "type": "object"
+    },
+    "Errors": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "description": "One or more unexpected errors occurred during the operation.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      }
+    },
+    "FeaturedOfferExpectedPriceResponse": {
+      "allOf": [
+        {
+          "$ref": "#/definitions/BatchResponse"
+        },
+        {
+          "type": "object",
+          "required": [
+            "request"
+          ],
+          "properties": {
+            "request": {
+              "$ref": "#/definitions/FeaturedOfferExpectedPriceRequestParams",
+              "description": "Use these request parameters to map the response back to the request."
+            },
+            "body": {
+              "$ref": "#/definitions/FeaturedOfferExpectedPriceResponseBody"
+            }
+          }
+        }
+      ],
+      "description": "Schema for an individual FOEP response."
+    },
+    "BatchRequest": {
+      "description": "The common properties for individual requests within a batch.",
+      "type": "object",
+      "required": [
+        "uri",
+        "method"
+      ],
+      "properties": {
+        "uri": {
+          "description": "The URI associated with an individual request within a batch. For `FeaturedOfferExpectedPrice`, this is `/products/pricing/2022-05-01/offer/featuredOfferExpectedPrice`.",
+          "type": "string"
+        },
+        "method": {
+          "$ref": "#/definitions/HttpMethod"
+        },
+        "body": {
+          "$ref": "#/definitions/HttpBody"
+        },
+        "headers": {
+          "$ref": "#/definitions/HttpHeaders"
+        }
+      }
+    },
+    "MoneyType": {
+      "type": "object",
+      "properties": {
+        "currencyCode": {
+          "type": "string",
+          "description": "The currency code in ISO 4217 format."
+        },
+        "amount": {
+          "type": "number",
+          "description": "The monetary value."
+        }
+      },
+      "description": "Currency type and monetary value schema to demonstrate pricing information."
+    },
+    "FeaturedOfferExpectedPriceResponseList": {
+      "description": "A batched list of FOEP responses.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FeaturedOfferExpectedPriceResponse"
+      },
+      "minItems": 1
+    },
+    "HttpBody": {
+      "description": "Additional HTTP body information that is associated with an individual request within a batch.",
+      "additionalProperties": {}
+    },
+    "GetFeaturedOfferExpectedPriceBatchRequest": {
+      "description": "The request body for the `getFeaturedOfferExpectedPriceBatch` operation.",
+      "type": "object",
+      "properties": {
+        "requests": {
+          "$ref": "#/definitions/FeaturedOfferExpectedPriceRequestList"
+        }
+      }
+    },
+    "GetFeaturedOfferExpectedPriceBatchResponse": {
+      "description": "The response schema for the `getFeaturedOfferExpectedPriceBatch` operation.",
+      "type": "object",
+      "properties": {
+        "responses": {
+          "$ref": "#/definitions/FeaturedOfferExpectedPriceResponseList"
+        }
+      }
+    },
+    "HttpStatusLine": {
+      "description": "The HTTP status line associated with the response for an individual request within a batch. For more information, refer to [RFC 2616](https://www.w3.org/Protocols/rfc2616/rfc2616-sec6.html).",
+      "type": "object",
+      "properties": {
+        "statusCode": {
+          "description": "The HTTP response status code.",
+          "type": "integer",
+          "minimum": 100,
+          "maximum": 599
+        },
+        "reasonPhrase": {
+          "description": "The HTTP response reason phrase.",
+          "type": "string"
+        }
+      }
+    },
+    "BatchResponse": {
+      "description": "The common properties for responses to individual requests within a batch.",
+      "type": "object",
+      "required": [
+        "status",
+        "headers"
+      ],
+      "properties": {
+        "headers": {
+          "$ref": "#/definitions/HttpHeaders"
+        },
+        "status": {
+          "$ref": "#/definitions/HttpStatusLine"
+        }
+      }
+    },
+    "FeaturedOfferExpectedPriceResultList": {
+      "type": "array",
+      "description": "A list of FOEP results for the requested offer.",
+      "items": {
+        "$ref": "#/definitions/FeaturedOfferExpectedPriceResult"
+      }
+    },
+    "FeaturedOfferExpectedPriceRequestList": {
+      "description": "A batched list of FOEP requests.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/FeaturedOfferExpectedPriceRequest"
+      },
+      "minItems": 1
+    },
+    "FulfillmentType": {
+      "type": "string",
+      "description": "Indicates whether the item is fulfilled by Amazon or by the seller (merchant).",
+      "enum": [
+        "AFN",
+        "MFN"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "AFN",
+          "description": "Fulfilled by Amazon."
+        },
+        {
+          "value": "MFN",
+          "description": "Fulfilled by the seller."
+        }
+      ]
+    },
+    "Asin": {
+      "description": "The ASIN of the item.",
+      "type": "string"
+    },
+    "Price": {
+      "type": "object",
+      "required": [
+        "listingPrice"
+      ],
+      "properties": {
+        "listingPrice": {
+          "description": "The listing price for the item, excluding any promotions.",
+          "$ref": "#/definitions/MoneyType"
+        },
+        "shippingPrice": {
+          "description": "The shipping cost of the product. Note that the shipping cost is not always available.",
+          "$ref": "#/definitions/MoneyType"
+        },
+        "points": {
+          "description": "The number of Amazon Points that are offered with the purchase of an item and the monetary value of these points.",
+          "$ref": "#/definitions/Points"
+        }
+      },
+      "description": "The schema for item's price information, including listing price, shipping price, and Amazon Points."
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses that are returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "SampleLocation": {
+      "description": "Information about a location. It uses a postal code to identify the location.",
+      "type": "object",
+      "properties": {
+        "postalCode": {
+          "$ref": "#/definitions/PostalCode"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "FeaturedOfferExpectedPrice": {
+      "description": "The item price at or below which the target offer may be featured.",
+      "type": "object",
+      "required": [
+        "listingPrice"
+      ],
+      "properties": {
+        "listingPrice": {
+          "description": "A computed listing price at or below which a seller can expect to become the featured offer (before applicable promotions).",
+          "$ref": "#/definitions/MoneyType"
+        },
+        "points": {
+          "description": "The number of Amazon Points that are offered with the purchase of an item and the monetary value of these points.",
+          "$ref": "#/definitions/Points"
+        }
+      }
+    },
+    "Points": {
+      "type": "object",
+      "properties": {
+        "pointsNumber": {
+          "type": "integer",
+          "format": "int32",
+          "description": "The number of Amazon Points."
+        },
+        "pointsMonetaryValue": {
+          "description": "The monetary value of Amazon Points.",
+          "$ref": "#/definitions/MoneyType"
+        }
+      },
+      "description": "The number of Amazon Points that are offered with the purchase of an item and the monetary value of these points."
+    },
+    "FeaturedOfferExpectedPriceResponseBody": {
+      "description": "The FOEP response data for a requested SKU.",
+      "type": "object",
+      "properties": {
+        "offerIdentifier": {
+          "description": "Metadata that identifies the target offer for which the FOEP result data was computed.",
+          "$ref": "#/definitions/OfferIdentifier"
+        },
+        "featuredOfferExpectedPriceResults": {
+          "description": "The FOEP results for the requested target offer.",
+          "$ref": "#/definitions/FeaturedOfferExpectedPriceResultList"
+        },
+        "errors": {
+          "description": "The errors that occurred if the operation wasn't successful (HTTP status code non-200).",
+          "$ref": "#/definitions/ErrorList"
+        }
+      }
+    },
+    "HttpHeaders": {
+      "description": "A mapping of additional HTTP headers to send or receive for an individual request within a batch.",
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "PostalCode": {
+      "description": "Postal code value with country code",
+      "type": "object",
+      "properties": {
+        "countryCode": {
+          "description": "Country code value",
+          "type": "string"
+        },
+        "value": {
+          "description": "Postal code value ",
+          "type": "string"
+        }
+      }
+    },
+    "HttpMethod": {
+      "description": "The HTTP method associated with an individual request within a batch.",
+      "type": "string",
+      "enum": [
+        "GET",
+        "PUT",
+        "PATCH",
+        "DELETE",
+        "POST"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "GET",
+          "description": "GET"
+        },
+        {
+          "value": "PUT",
+          "description": "PUT"
+        },
+        {
+          "value": "PATCH",
+          "description": "PATCH"
+        },
+        {
+          "value": "DELETE",
+          "description": "DELETE"
+        },
+        {
+          "value": "POST",
+          "description": "POST"
+        }
+      ]
+    },
+    "MarketplaceId": {
+      "description": "The marketplace ID is the globally unique identifier of a marketplace. To find the ID for your marketplace, refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids).",
+      "type": "string"
+    },
+    "FeaturedOfferExpectedPriceRequestParams": {
+      "description": "The parameters for an individual request.",
+      "type": "object",
+      "required": [
+        "marketplaceId",
+        "sku"
+      ],
+      "properties": {
+        "marketplaceId": {
+          "$ref": "#/definitions/MarketplaceId"
+        },
+        "sku": {
+          "$ref": "#/definitions/Sku"
+        },
+        "segment": {
+          "$ref": "#/definitions/Segment"
+        }
+      }
+    },
+    "SegmentDetails": {
+      "description": "The details about the segment. The FeaturedOfferExpectedPrice API uses only the sampleLocation portion as input.",
+      "type": "object",
+      "properties": {
+        "glanceViewWeightPercentage": {
+          "description": "The glance view weighted percentage for this segment, which is the glance views for this segment as a percentage of total glance views across all segments for the ASIN. A higher percentage indicates that more Amazon customers receive this offer as the Featured Offer.",
+          "type": "number"
+        },
+        "sampleLocation": {
+          "$ref": "#/definitions/SampleLocation",
+          "description": "The representative location that features the offer for the segment."
+        }
+      }
+    },
+    "FeaturedOfferExpectedPriceResult": {
+      "description": "The FOEP result data for the requested offer.",
+      "type": "object",
+      "required": [
+        "resultStatus"
+      ],
+      "properties": {
+        "featuredOfferExpectedPrice": {
+          "$ref": "#/definitions/FeaturedOfferExpectedPrice"
+        },
+        "resultStatus": {
+          "description": "The status of the FOEP computation. Possible values include `VALID_FOEP`, `NO_COMPETING_OFFER`, `OFFER_NOT_ELIGIBLE`, `OFFER_NOT_FOUND`, and `ASIN_NOT_ELIGIBLE`. Additional values might be added in the future.",
+          "type": "string"
+        },
+        "competingFeaturedOffer": {
+          "description": "The offer that will likely be the featured offer if the target offer is priced above its FOEP. If the target offer is currently the featured offer, this property will be different than `currentFeaturedOffer`.",
+          "$ref": "#/definitions/FeaturedOffer"
+        },
+        "currentFeaturedOffer": {
+          "description": "The offer that is currently the featured offer. If the target offer is not currently featured, then this property will be equal to `competingFeaturedOffer`.",
+          "$ref": "#/definitions/FeaturedOffer"
+        }
+      }
+    },
+    "FeaturedOffer": {
+      "type": "object",
+      "required": [
+        "offerIdentifier"
+      ],
+      "properties": {
+        "offerIdentifier": {
+          "description": "An offer identifier used to identify the merchant of the featured offer. Since this may not belong to the requester, the SKU field is omitted.",
+          "$ref": "#/definitions/OfferIdentifier"
+        },
+        "condition": {
+          "description": "The item condition.",
+          "$ref": "#/definitions/Condition"
+        },
+        "price": {
+          "description": "The current active price of the offer.",
+          "$ref": "#/definitions/Price"
+        }
+      },
+      "description": "Schema for `currentFeaturedOffer` or `competingFeaturedOffer`."
+    },
+    "OfferIdentifier": {
+      "description": "Identifies an offer from a particular seller for a specified ASIN.",
+      "type": "object",
+      "required": [
+        "marketplaceId",
+        "asin"
+      ],
+      "properties": {
+        "marketplaceId": {
+          "$ref": "#/definitions/MarketplaceId",
+          "description": "A marketplace identifier."
+        },
+        "sellerId": {
+          "type": "string",
+          "description": "The seller identifier for the offer."
+        },
+        "sku": {
+          "type": "string",
+          "description": "The seller SKU of the item. This will only be present for the target offer, which belongs to the requesting seller."
+        },
+        "asin": {
+          "$ref": "#/definitions/Asin",
+          "description": "The Amazon identifier for the item."
+        },
+        "fulfillmentType": {
+          "$ref": "#/definitions/FulfillmentType",
+          "description": "The fulfillment type for the offer."
+        }
+      }
+    },
+    "Sku": {
+      "description": "The seller SKU of the item.",
+      "type": "string"
+    },
+    "FeaturedOfferExpectedPriceRequest": {
+      "description": "An individual FOEP request for a particular SKU.",
+      "allOf": [
+        {
+          "$ref": "#/definitions/BatchRequest"
+        },
+        {
+          "$ref": "#/definitions/FeaturedOfferExpectedPriceRequestParams"
+        }
+      ]
+    },
+    "Condition": {
+      "description": "The condition of the item.",
+      "type": "string",
+      "enum": [
+        "New",
+        "Used",
+        "Collectible",
+        "Refurbished",
+        "Club"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "New",
+          "description": "New"
+        },
+        {
+          "value": "Used",
+          "description": "Used"
+        },
+        {
+          "value": "Collectible",
+          "description": "Collectible"
+        },
+        {
+          "value": "Refurbished",
+          "description": "Refurbished"
+        },
+        {
+          "value": "Club",
+          "description": "Club"
+        }
+      ]
+    }
+  }
+}

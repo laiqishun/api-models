@@ -1,0 +1,923 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2022-11-07",
+    "title": "Selling Partner API for Replenishment",
+    "description": "The Selling Partner API for Replenishment (Replenishment API) provides programmatic access to replenishment program metrics and offers. These programs provide recurring delivery of any replenishable item at a frequency chosen by the customer.\n\nThe Replenishment API is available worldwide wherever Amazon Subscribe & Save is available or is supported. The API is available to vendors and FBA selling partners.",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/replenishment/2022-11-07/sellingPartners/metrics/search": {
+      "post": {
+        "tags": [
+          "sellingpartners"
+        ],
+        "description": "Returns aggregated replenishment program metrics for a selling partner. \n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 1 | 1 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getSellingPartnerMetrics",
+        "parameters": [
+          {
+            "name": "body",
+            "description": "The request body for the `getSellingPartnerMetrics` operation.",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/GetSellingPartnerMetricsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/GetSellingPartnerMetricsResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "examples": {
+              "application/json": {
+                "metrics": [
+                  {
+                    "subscriberAverageRevenue": 125.93,
+                    "nonSubscriberAverageRevenue": 73.62,
+                    "shippedSubscriptionUnits": 5290,
+                    "notDeliveredDueToOOS": 5.54,
+                    "totalSubscriptionsRevenue": 131340.24,
+                    "activeSubscriptions": 0,
+                    "lostRevenueDueToOOS": 38493.29,
+                    "subscriberAverageReorders": 3.25,
+                    "nonSubscriberAverageReorders": 1.11,
+                    "couponsRevenuePenetration": 0.0,
+                    "revenueFromSubscriptionsWithMultipleDeliveries": 98623.04,
+                    "revenueFromActiveSubscriptionsWithSingleDelivery": 30345.2,
+                    "revenueFromCancelledSubscriptionsAfterSingleDelivery": 2372.0,
+                    "subscriberRetentionFor30Days": 94.43,
+                    "subscriberRetentionFor90Days": 78.43,
+                    "revenuePenetrationFor0PercentSellerFunding": 10.23,
+                    "revenuePenetrationFor5PercentSellerFunding": 22.2,
+                    "revenuePenetrationFor10PercentSellerFunding": 67.57,
+                    "shareOfCouponSubscriptions": 17.32,
+                    "signupConversionFor0PercentSellerFunding": 11.7,
+                    "signupConversionFor5PercentSellerFunding": 7.3,
+                    "signupConversionFor10PercentSellerFunding": 3.9,
+                    "revenuePenetration": 21.67,
+                    "currencyCode": "USD",
+                    "timeInterval": {
+                      "endDate": "2025-05-09T22:36:56Z",
+                      "startDate": "2024-05-09T22:36:56Z"
+                    }
+                  },
+                  {
+                    "nonSubscriberLifeTimeValueFromOTP": 95.74,
+                    "lostSubscriberLifeTimeValueFromOTP": 119.1,
+                    "lostSubscriberLifeTimeValueFromSNS": 76.56,
+                    "growingSubscriberLifeTimeValueFromOTP": 113.31,
+                    "growingSubscriberLifeTimeValueFromSNS": 106.56,
+                    "establishedSubscriberLifeTimeValueFromOTP": 138.02,
+                    "establishedSubscriberLifeTimeValueFromSNS": 316.25,
+                    "currencyCode": "USD",
+                    "timeInterval": {
+                      "endDate": "2025-05-09T22:36:56Z",
+                      "startDate": "2023-05-09T22:36:56Z"
+                    }
+                  }
+                ]
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "aggregationFrequency": "YEAR",
+                          "timeInterval": {
+                            "startDate": "2022-01-01T00:00:00Z",
+                            "endDate": "2022-12-31T00:00:00Z"
+                          },
+                          "metrics": [
+                            "TOTAL_SUBSCRIPTIONS_REVENUE",
+                            "REVENUE_PENETRATION"
+                          ],
+                          "timePeriodType": "PERFORMANCE",
+                          "marketplaceId": "ATVPDKIKX0DER",
+                          "programTypes": [
+                            "SUBSCRIBE_AND_SAVE"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "metrics": [
+                      {
+                        "subscriberAverageRevenue": 125.93,
+                        "nonSubscriberAverageRevenue": 73.62,
+                        "shippedSubscriptionUnits": 5290,
+                        "notDeliveredDueToOOS": 5.54,
+                        "totalSubscriptionsRevenue": 131340.24,
+                        "activeSubscriptions": 0,
+                        "lostRevenueDueToOOS": 38493.29,
+                        "subscriberAverageReorders": 3.25,
+                        "nonSubscriberAverageReorders": 1.11,
+                        "couponsRevenuePenetration": 0.0,
+                        "revenueFromSubscriptionsWithMultipleDeliveries": 98623.04,
+                        "revenueFromActiveSubscriptionsWithSingleDelivery": 30345.2,
+                        "revenueFromCancelledSubscriptionsAfterSingleDelivery": 2372.0,
+                        "subscriberRetentionFor30Days": 94.43,
+                        "subscriberRetentionFor90Days": 78.43,
+                        "revenuePenetrationFor0PercentSellerFunding": 10.23,
+                        "revenuePenetrationFor5PercentSellerFunding": 22.2,
+                        "revenuePenetrationFor10PercentSellerFunding": 67.57,
+                        "shareOfCouponSubscriptions": 17.32,
+                        "signupConversionFor0PercentSellerFunding": 11.7,
+                        "signupConversionFor5PercentSellerFunding": 7.3,
+                        "signupConversionFor10PercentSellerFunding": 3.9,
+                        "revenuePenetration": 21.67,
+                        "currencyCode": "USD",
+                        "timeInterval": {
+                          "endDate": "2025-05-09T22:36:56Z",
+                          "startDate": "2024-05-09T22:36:56Z"
+                        }
+                      },
+                      {
+                        "nonSubscriberLifeTimeValueFromOTP": 95.74,
+                        "lostSubscriberLifeTimeValueFromOTP": 119.1,
+                        "lostSubscriberLifeTimeValueFromSNS": 76.56,
+                        "growingSubscriberLifeTimeValueFromOTP": 113.31,
+                        "growingSubscriberLifeTimeValueFromSNS": 106.56,
+                        "establishedSubscriberLifeTimeValueFromOTP": 138.02,
+                        "establishedSubscriberLifeTimeValueFromSNS": 316.25,
+                        "currencyCode": "USD",
+                        "timeInterval": {
+                          "endDate": "2025-05-09T22:36:56Z",
+                          "startDate": "2023-05-09T22:36:56Z"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "aggregationFrequency": "DAY",
+                          "timeInterval": {
+                            "startDate": "2022-01-01T00:00:00Z",
+                            "endDate": "2023-01-01T00:00:00Z"
+                          },
+                          "metrics": [
+                            "SHIPPED_SUBSCRIPTION_UNITS",
+                            "TOTAL_SUBSCRIPTIONS_REVENUE",
+                            "NOT_DELIVERED_DUE_TO_OOS",
+                            "ACTIVE_SUBSCRIPTIONS",
+                            "SUBSCRIBER_NON_SUBSCRIBER_AVERAGE_REVENUE",
+                            "LOST_REVENUE_DUE_TO_OOS",
+                            "SUBSCRIBER_NON_SUBSCRIBER_AVERAGE_REORDERS",
+                            "COUPONS_REVENUE_PENETRATION"
+                          ],
+                          "timePeriodType": "PERFORMANCE",
+                          "marketplaceId": "ATVPDKIKX0DER",
+                          "programTypes": [
+                            "SUBSCRIBE_AND_SAVE"
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Unsupported aggregationFrequency is provided. Only WEEK, MONTH, QUARTER and YEAR are supported"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Metric": {
+      "type": "string",
+      "description": "The metric name and description.",
+      "enum": [
+        "SHIPPED_SUBSCRIPTION_UNITS",
+        "TOTAL_SUBSCRIPTIONS_REVENUE",
+        "ACTIVE_SUBSCRIPTIONS",
+        "NOT_DELIVERED_DUE_TO_OOS",
+        "SUBSCRIBER_NON_SUBSCRIBER_AVERAGE_REVENUE",
+        "LOST_REVENUE_DUE_TO_OOS",
+        "SUBSCRIBER_NON_SUBSCRIBER_AVERAGE_REORDERS",
+        "COUPONS_REVENUE_PENETRATION",
+        "REVENUE_BY_DELIVERIES",
+        "SUBSCRIBER_RETENTION",
+        "REVENUE_PENETRATION_BY_SELLER_FUNDING",
+        "SHARE_OF_COUPON_SUBSCRIPTIONS",
+        "SUBSCRIBER_LIFETIME_VALUE_BY_CUSTOMER_SEGMENT",
+        "SIGNUP_CONVERSION_BY_SELLER_FUNDING",
+        "REVENUE_PENETRATION"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "SHIPPED_SUBSCRIPTION_UNITS",
+          "description": "The number of units shipped to the subscribers over a period of time."
+        },
+        {
+          "value": "TOTAL_SUBSCRIPTIONS_REVENUE",
+          "description": "The revenue generated from subscriptions over a period of time."
+        },
+        {
+          "value": "ACTIVE_SUBSCRIPTIONS",
+          "description": "The number of active subscriptions present at the end of the period."
+        },
+        {
+          "value": "NOT_DELIVERED_DUE_TO_OOS",
+          "description": "The percentage of items that were not shipped out of the total shipped units over a period of time due to being out of stock."
+        },
+        {
+          "value": "SUBSCRIBER_NON_SUBSCRIBER_AVERAGE_REVENUE",
+          "description": "The average revenue per subscriber and non-subscriber over the past 12 months for sellers and 6 months for vendors."
+        },
+        {
+          "value": "LOST_REVENUE_DUE_TO_OOS",
+          "description": "The revenue that would have been generated had there not been out of stock."
+        },
+        {
+          "value": "SUBSCRIBER_NON_SUBSCRIBER_AVERAGE_REORDERS",
+          "description": "The average reorders per subscriber and non-subscriber over the last 12 months."
+        },
+        {
+          "value": "COUPONS_REVENUE_PENETRATION",
+          "description": "The percentage of revenue from ASINs with coupons out of total revenue from all ASINs."
+        },
+        {
+          "value": "REVENUE_BY_DELIVERIES",
+          "description": "The subscription revenue generated from subscriptions with over two deliveries, active subscriptions with one delivery and cancelled subscriptions after one delivery over the past 12 months."
+        },
+        {
+          "value": "SUBSCRIBER_RETENTION",
+          "description": "The percentage of subscriptions retained after 30 and 90 days of subscription creation."
+        },
+        {
+          "value": "REVENUE_PENETRATION_BY_SELLER_FUNDING",
+          "description": "The percentage of subscription revenue generated by different tiers of seller-funded discount over the last 12 months."
+        },
+        {
+          "value": "SHARE_OF_COUPON_SUBSCRIPTIONS",
+          "description": "The percentage of new subscriptions from coupons."
+        },
+        {
+          "value": "SUBSCRIBER_LIFETIME_VALUE_BY_CUSTOMER_SEGMENT",
+          "description": "The total customer spend on your catalog over the past 24 months, including both one-time purchases and Subscribe & Save orders. Subscribers with more than 12 months of tenure are categorized as ‘Established’, while those with less are classified as ‘Growing’."
+        },
+        {
+          "value": "SIGNUP_CONVERSION_BY_SELLER_FUNDING",
+          "description": "The percentage of subscriptions created within a specific discount tier out of the total number of new orders placed over the past 12 months (including both one-time purchases and new subscriptions)."
+        },
+        {
+          "value": "REVENUE_PENETRATION",
+          "description": "The percentage of total program revenue out of total product revenue over a period of time."
+        }
+      ]
+    },
+    "GetSellingPartnerMetricsResponseMetric": {
+      "type": "object",
+      "description": "An object which contains metric data for a selling partner.",
+      "properties": {
+        "notDeliveredDueToOOS": {
+          "description": "The percentage of items that were not shipped out of the total shipped units over a period of time due to being out of stock. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "totalSubscriptionsRevenue": {
+          "description": "The revenue generated from subscriptions over a period of time. Applicable for both the `PERFORMANCE` and `FORECAST` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "shippedSubscriptionUnits": {
+          "description": "The number of units shipped to the subscribers over a period of time. Applicable for both the `PERFORMANCE` and `FORECAST` `timePeriodType`.",
+          "type": "number",
+          "format": "int64",
+          "minimum": 0
+        },
+        "activeSubscriptions": {
+          "description": "The number of active subscriptions present at the end of the period. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "int64",
+          "minimum": 0
+        },
+        "subscriberAverageRevenue": {
+          "description": "The average revenue per subscriber of the program over a period of past 12 months for sellers and 6 months for vendors. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "nonSubscriberAverageRevenue": {
+          "description": "The average revenue per non-subscriber of the program over a period of past 12 months for sellers and 6 months for vendors. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "lostRevenueDueToOOS": {
+          "description": "The revenue that would have been generated had there not been out of stock. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "subscriberAverageReorders": {
+          "description": "The average reorders per subscriber of the program over a period of 12 months. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "nonSubscriberAverageReorders": {
+          "description": "The average reorders per non-subscriber of the program over a period of past 12 months. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "couponsRevenuePenetration": {
+          "description": "The percentage of revenue from ASINs with coupons out of total revenue from all ASINs. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "revenueFromSubscriptionsWithMultipleDeliveries": {
+          "description": "The subscription revenue generated from subscriptions with over two deliveries over the past 12 months. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "revenueFromActiveSubscriptionsWithSingleDelivery": {
+          "description": "The subscription revenue generated from active subscriptions with one delivery over the past 12 months. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "revenueFromCancelledSubscriptionsAfterSingleDelivery": {
+          "description": "The subscription revenue generated from subscriptions which are cancelled after one delivery over the past 12 months. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "subscriberRetentionFor30Days": {
+          "description": "The percentage of subscriptions retained after 30 days of subscription creation. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "subscriberRetentionFor90Days": {
+          "description": "The percentage of subscriptions retained after 90 days of subscription creation. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "revenuePenetrationFor0PercentSellerFunding": {
+          "description": "The percentage of subscription revenue generated by offers with 0% seller-funded discount over the last 12 months. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "revenuePenetrationFor5PercentSellerFunding": {
+          "description": "[Applicable only for Sellers] The percentage of subscription revenue generated by offers with 5% seller-funded discount over the last 12 months. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "revenuePenetrationFor10PercentSellerFunding": {
+          "description": "[Applicable only for Sellers] The percentage of subscription revenue generated by offers with 10% seller-funded discount over the last 12 months. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "revenuePenetrationFor5PlusPercentSellerFunding": {
+          "description": "[Applicable only for vendors] The percentage of subscription revenue generated by offers with 5% or above seller-funded discount over the last 12 months. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "shareOfCouponSubscriptions": {
+          "description": "The percentage of new subscriptions from coupons. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "nonSubscriberLifeTimeValueFromOTP": {
+          "description": "Total revenue from customers who have made purchases from your catalog but have never subscribed to any products.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "lostSubscriberLifeTimeValueFromOTP": {
+          "description": "Revenue from one-time purchase orders placed by customers who previously had subscriptions but currently have none active in your catalog.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "lostSubscriberLifeTimeValueFromSNS": {
+          "description": "Revenue from Subscribe & Save orders placed by customers who previously had subscriptions but currently have none active in your catalog.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "growingSubscriberLifeTimeValueFromOTP": {
+          "description": "Revenue from one-time purchase orders placed by customers who started their first subscription with your catalog within the past 12 months.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "growingSubscriberLifeTimeValueFromSNS": {
+          "description": "Revenue from Subscribe & Save orders placed by customers who started their first subscription with your catalog within the past 12 months.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "establishedSubscriberLifeTimeValueFromOTP": {
+          "description": "Revenue from one-time purchase orders placed by customers who have maintained an active subscription with your catalog for more than 12 months.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "establishedSubscriberLifeTimeValueFromSNS": {
+          "description": "Revenue from Subscribe & Save orders placed by customers who have maintained an active subscription with your catalog for more than 12 months.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "signupConversionFor0PercentSellerFunding": {
+          "description": "Percentage of subscriptions from offers with 0% seller-funded discount out of the total number of new orders placed over the past 12 months.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "signupConversionFor5PercentSellerFunding": {
+          "description": "[Applicable only for Sellers] Percentage of subscriptions from offers with 5% seller-funded discount out of the total number of new orders placed over the past 12 months.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "signupConversionFor10PercentSellerFunding": {
+          "description": "[Applicable only for Sellers] Percentage of subscriptions from offers with 10% seller-funded discount out of the total number of new orders placed over the past 12 months.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "signupConversionFor5PlusPercentSellerFunding": {
+          "description": "[Applicable only for Vendors] Percentage of subscriptions from offers with 5% or above seller-funded discount out of the total number of new orders placed over the past 12 months.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "revenuePenetration": {
+          "description": "The percentage of total program revenue out of total product revenue over a period of time. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "timeInterval": {
+          "description": "A time interval used to compute metrics.",
+          "$ref": "#/definitions/TimeInterval"
+        },
+        "currencyCode": {
+          "type": "string",
+          "description": "The currency code in ISO 4217 format."
+        }
+      }
+    },
+    "GetSellingPartnerMetricsRequest": {
+      "description": "The request body for the `getSellingPartnerMetrics` operation.",
+      "type": "object",
+      "required": [
+        "timeInterval",
+        "timePeriodType",
+        "programTypes",
+        "marketplaceId"
+      ],
+      "properties": {
+        "aggregationFrequency": {
+          "$ref": "#/definitions/AggregationFrequency"
+        },
+        "timeInterval": {
+          "description": "A time interval used to compute metrics.",
+          "$ref": "#/definitions/TimeInterval"
+        },
+        "metrics": {
+          "description": "The list of metrics requested. If no metric value is provided, data for all metrics will be returned.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Metric"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "filters": {
+          "description": "Use these parameters to filter results. Any result must match all provided parameters. For parameters that accept multiple values (arrays), the API returns results that match at least one value in the array.",
+          "$ref": "#/definitions/GetSellingPartnerMetricsRequestFilters"
+        },
+        "timePeriodType": {
+          "$ref": "#/definitions/TimePeriodType"
+        },
+        "marketplaceId": {
+          "description": "The marketplace identifier. The supported marketplaces for both sellers and vendors are US, CA, ES, UK, FR, IT, IN, DE, and JP. The supported marketplaces for vendors only are BR, AU, MX, AE, and NL. Refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids) to find the identifier for the marketplace.",
+          "$ref": "#/definitions/MarketplaceId"
+        },
+        "programTypes": {
+          "description": "The list of replenishment program types for which to return metrics.",
+          "$ref": "#/definitions/ProgramTypes"
+        }
+      }
+    },
+    "MarketplaceId": {
+      "type": "string",
+      "description": "The marketplace identifier. The supported marketplaces for both sellers and vendors are US, CA, ES, UK, FR, IT, IN, DE, and JP. The supported marketplaces for vendors only are BR, AU, MX, AE, and NL. Refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids) to find the identifier for the marketplace."
+    },
+    "GetSellingPartnerMetricsRequestFilters": {
+      "type": "object",
+      "description": "Use these parameters to filter results. Any result must match all provided parameters. For parameters that accept multiple values (arrays), the API returns results that match at least one value in the array.",
+      "properties": {
+        "asins": {
+          "type": "array",
+          "description": "A list of Amazon Standard Identification Numbers (ASINs) to filter by. ASIN filter is supported for these metrics: SHIPPED_SUBSCRIPTION_UNITS, TOTAL_SUBSCRIPTIONS_REVENUE, ACTIVE_SUBSCRIPTIONS, NOT_DELIVERED_DUE_TO_OOS, LOST_REVENUE_DUE_TO_OOS, COUPONS_REVENUE_PENETRATION, SHARE_OF_COUPON_SUBSCRIPTIONS and REVENUE_PENETRATION.",
+          "items": {
+            "type": "string",
+            "description": "Amazon Standard Identification Number."
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 20
+        },
+        "skus": {
+          "type": "array",
+          "description": "[Applicable only for Sellers] A list of SKUs to filter by. SKU filter is supported for these metrics: SHIPPED_SUBSCRIPTION_UNITS, TOTAL_SUBSCRIPTIONS_REVENUE, ACTIVE_SUBSCRIPTIONS, NOT_DELIVERED_DUE_TO_OOS, LOST_REVENUE_DUE_TO_OOS, COUPONS_REVENUE_PENETRATION, SHARE_OF_COUPON_SUBSCRIPTIONS and REVENUE_PENETRATION.",
+          "items": {
+            "type": "string",
+            "description": "Stock Keeping Unit."
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 20
+        },
+        "fulfillmentChannelTypes": {
+          "type": "array",
+          "description": "[Applicable only for Sellers] The fulfillment channel types to filter by. Fulfillment channel type filter is supported for these metrics: SHIPPED_SUBSCRIPTION_UNITS, TOTAL_SUBSCRIPTIONS_REVENUE, ACTIVE_SUBSCRIPTIONS, NOT_DELIVERED_DUE_TO_OOS, LOST_REVENUE_DUE_TO_OOS, COUPONS_REVENUE_PENETRATION, SHARE_OF_COUPON_SUBSCRIPTIONS and REVENUE_PENETRATION.",
+          "items": {
+            "$ref": "#/definitions/FulfillmentChannelType"
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "brandNames": {
+          "type": "array",
+          "description": "[Applicable only for US marketplace] A list of brand names to filter by. Brand name filter is supported for these metrics: SHIPPED_SUBSCRIPTION_UNITS, TOTAL_SUBSCRIPTIONS_REVENUE, ACTIVE_SUBSCRIPTIONS, NOT_DELIVERED_DUE_TO_OOS, LOST_REVENUE_DUE_TO_OOS, COUPONS_REVENUE_PENETRATION, SHARE_OF_COUPON_SUBSCRIPTIONS, REVENUE_PENETRATION, SUBSCRIBER_NON_SUBSCRIBER_AVERAGE_REVENUE, SUBSCRIBER_NON_SUBSCRIBER_AVERAGE_REORDERS, REVENUE_BY_DELIVERIES, SUBSCRIBER_RETENTION, REVENUE_PENETRATION_BY_SELLER_FUNDING, SUBSCRIBER_LIFETIME_VALUE_BY_CUSTOMER_SEGMENT and SIGNUP_CONVERSION_BY_SELLER_FUNDING.",
+          "items": {
+            "type": "string",
+            "description": "Brand name."
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 20
+        },
+        "productGroups": {
+          "type": "array",
+          "description": "[Applicable only for Vendors] A list of product group names to filter by. Product group filter is supported for these metrics: SHIPPED_SUBSCRIPTION_UNITS, TOTAL_SUBSCRIPTIONS_REVENUE, ACTIVE_SUBSCRIPTIONS, NOT_DELIVERED_DUE_TO_OOS, LOST_REVENUE_DUE_TO_OOS, COUPONS_REVENUE_PENETRATION, SHARE_OF_COUPON_SUBSCRIPTIONS and REVENUE_PENETRATION.",
+          "items": {
+            "type": "string",
+            "description": "Product group name."
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 20
+        }
+      }
+    },
+    "FulfillmentChannelType": {
+      "type": "string",
+      "description": "The fulfillment channel type of an offer. Note that this is only valid for sellers and not for vendors.",
+      "enum": [
+        "AMAZON",
+        "MERCHANT"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "AMAZON",
+          "description": "Orders for this offer are fulfilled by Amazon."
+        },
+        {
+          "value": "MERCHANT",
+          "description": "Orders for this offer are fulfilled by the merchant."
+        }
+      ]
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "A list of error responses returned when a request is unsuccessful.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ]
+    },
+    "TimeInterval": {
+      "type": "object",
+      "description": "A date-time interval in ISO 8601 format used to compute metrics. Only the date is required, but you must pass the complete date and time value. For example, November 11, 2022 should be passed as \"2022-11-11T00:00:00Z\". Note that only data for the trailing 2 years is supported.\n\n**Note**:\n* The `listOfferMetrics` operation only supports a time interval which covers a single unit of the aggregation frequency. For example, for a MONTH aggregation frequency, the duration of the interval between the startDate and endDate can not be more than 1 month.\n* For the `getSellingPartnerMetrics` operation with DAY aggregation frequency, the time interval cannot exceed 31 days.",
+      "required": [
+        "startDate",
+        "endDate"
+      ],
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this object is used as a request parameter, the specified `startDate` is adjusted based on the aggregation frequency.\n\n* For `DAY` the metric is computed from the specific day indicated by the `startDate`.\n* For `WEEK` the metric is computed from the first day of the week (Monday, based on ISO 8601) that contains the `startDate`.\n* For `MONTH` the metric is computed from the first day of the month that contains the `startDate`.\n* For `QUARTER` the metric is computed from the first day of the quarter that contains the `startDate`.\n* For `YEAR` the metric is computed from the first day of the year that contains the `startDate`."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this object is used as a request parameter, the specified `endDate` is adjusted based on the aggregation frequency.\n\n* For `DAY` the metric is computed up to the specific day indicated by the `endDate`.\n* For `WEEK` the metric is computed up to the last day of the week (Sunday, based on ISO 8601) that contains the `endDate`.\n* For `MONTH`, the metric is computed up to the last day of the month that contains the `endDate`.\n* For `QUARTER` the metric is computed up to the last day of the quarter that contains the `endDate`.\n* For `YEAR` the metric is computed up to the last day of the year that contains the `endDate`.\n Note: The end date may be adjusted to a lower value based on the data available in our system."
+        }
+      }
+    },
+    "TimePeriodType": {
+      "type": "string",
+      "description": "The time period type that determines whether the metrics requested are backward-looking (performance) or forward-looking (forecast).",
+      "enum": [
+        "PERFORMANCE",
+        "FORECAST"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "PERFORMANCE",
+          "description": "Indicates past performance metrics."
+        },
+        {
+          "value": "FORECAST",
+          "description": "Indicates forecasted metrics. Only `TOTAL_SUBSCRIPTIONS_REVENUE` and `SHIPPED_SUBSCRIPTION_UNITS` are supported. Forecast data is supported for sellers but not for vendors."
+        }
+      ]
+    },
+    "ProgramType": {
+      "type": "string",
+      "description": "The replenishment program type.",
+      "enum": [
+        "SUBSCRIBE_AND_SAVE"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "SUBSCRIBE_AND_SAVE",
+          "description": "Subscribe and Save Program."
+        }
+      ]
+    },
+    "ProgramTypes": {
+      "type": "array",
+      "description": "A list of replenishment program types.",
+      "items": {
+        "$ref": "#/definitions/ProgramType"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "GetSellingPartnerMetricsResponse": {
+      "description": "The response schema for the `getSellingPartnerMetrics` operation.",
+      "type": "object",
+      "properties": {
+        "metrics": {
+          "type": "array",
+          "description": "A list of metrics data for the selling partner.",
+          "items": {
+            "$ref": "#/definitions/GetSellingPartnerMetricsResponseMetric"
+          }
+        }
+      }
+    },
+    "AggregationFrequency": {
+      "description": "The time period used to group data in the response. Note that this is only valid for the `PERFORMANCE` time period type.",
+      "type": "string",
+      "enum": [
+        "DAY",
+        "WEEK",
+        "MONTH",
+        "QUARTER",
+        "YEAR"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "DAY",
+          "description": "ISO Calendar Day."
+        },
+        {
+          "value": "WEEK",
+          "description": "ISO Calendar Week."
+        },
+        {
+          "value": "MONTH",
+          "description": "ISO Calendar Month."
+        },
+        {
+          "value": "QUARTER",
+          "description": "ISO Calendar Quarter."
+        },
+        {
+          "value": "YEAR",
+          "description": "ISO Calendar Year."
+        }
+      ]
+    }
+  }
+}

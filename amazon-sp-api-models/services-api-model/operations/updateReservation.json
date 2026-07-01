@@ -1,0 +1,618 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "With the Services API, you can build applications that help service providers get and modify their service orders and manage their resources.",
+    "version": "v1",
+    "title": "Selling Partner API for Services",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/service/v1/reservation/{reservationId}": {
+      "parameters": [],
+      "put": {
+        "tags": [
+          "service"
+        ],
+        "description": "Update a reservation.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 5 | 20 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](doc:usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "updateReservation",
+        "parameters": [
+          {
+            "name": "reservationId",
+            "in": "path",
+            "description": "Reservation Identifier",
+            "required": true,
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Reservation details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateReservationRequest"
+            }
+          },
+          {
+            "name": "marketplaceIds",
+            "in": "query",
+            "description": "An identifier for the marketplace in which the resource operates.",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateReservationResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "reservationId": {
+                        "value": "456"
+                      },
+                      "body": {
+                        "value": {
+                          "resourceId": "validResourceId-9c156c44-8315-4aeb-bb36-e056fa827e36",
+                          "reservation": {
+                            "availability": {
+                              "startTime": "2020-04-01T10:00:00.00-07",
+                              "endTime": "2020-04-01T11:00:00.00-07"
+                            },
+                            "type": "BREAK"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "payload": {
+                      "reservation": {
+                        "reservationId": "457",
+                        "type": "APPOINTMENT",
+                        "availability": {
+                          "startTime": "2025-07-22T22:38:02.283Z",
+                          "endTime": "2025-07-22T22:38:02.283Z",
+                          "recurrence": {
+                            "endTime": "2025-07-22T22:38:02.283Z"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "reservationId": {
+                        "value": "456"
+                      },
+                      "body": {
+                        "value": {
+                          "resourceId": "invalidResourceId-9c156c44-8315-4aeb-bb36-e056fa827e36",
+                          "reservation": {
+                            "availability": {
+                              "startTime": "2020-04-01T10:00:00.00-07",
+                              "endTime": "2020-04-01T11:00:00.00-07"
+                            },
+                            "type": "BREAK"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "message": "Invalid request parameters: [resourceId]",
+                        "code": "InvalidInput"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/UpdateReservationResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "resourceId": "null",
+                          "reservation": {}
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "message": "Missing or invalid request parameters: [resourceId]",
+                        "code": "InvalidInput"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "resourceId": "validResourceId-9c156c44-8315-4aeb-bb36-e056fa827e36",
+                          "reservation": {}
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "message": "Missing or invalid request parameters: [reservation]",
+                        "code": "InvalidInput"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/UpdateReservationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The reservation specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/UpdateReservationResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "reservationId": {
+                        "value": "not-existent-456"
+                      },
+                      "body": {
+                        "value": {
+                          "resourceId": "invalidResourceId-9c156c44-8315-4aeb-bb36-e056fa827e36",
+                          "reservation": {
+                            "availability": {
+                              "startTime": "2020-04-01T10:00:00.00-07",
+                              "endTime": "2020-04-01T11:00:00.00-07"
+                            },
+                            "type": "BREAK"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "message": "Could not find reservation with ID: [not-existent-456]",
+                        "code": "InvalidInput"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/UpdateReservationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/UpdateReservationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/UpdateReservationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "Encountered an unexpected condition which prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/UpdateReservationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/UpdateReservationResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Warning": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An warning code that identifies the type of warning that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the warning condition in a human-readable form."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or address the warning."
+        }
+      },
+      "description": "Warning returned when the request is successful, but there are important callouts based on which API clients should take defined actions."
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Recurrence": {
+      "type": "object",
+      "required": [
+        "endTime"
+      ],
+      "properties": {
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time of the recurrence."
+        },
+        "daysOfWeek": {
+          "type": "array",
+          "description": "Days of the week when recurrence is valid. If the schedule is valid every Monday, input will only contain `MONDAY` in the list.",
+          "items": {
+            "$ref": "#/definitions/DayOfWeek"
+          }
+        },
+        "daysOfMonth": {
+          "type": "array",
+          "description": "Days of the month when recurrence is valid.",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31
+          }
+        }
+      },
+      "description": "Repeated occurrence of an event in a time range."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        },
+        "errorLevel": {
+          "type": "string",
+          "description": "The type of error.",
+          "enum": [
+            "ERROR",
+            "WARNING"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "ERROR",
+              "description": "Error"
+            },
+            {
+              "value": "WARNING",
+              "description": "Warning"
+            }
+          ]
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "WarningList": {
+      "type": "array",
+      "description": "A list of warnings returned in the sucessful execution response of an API request.",
+      "items": {
+        "$ref": "#/definitions/Warning"
+      }
+    },
+    "DayOfWeek": {
+      "type": "string",
+      "description": "The day of the week.",
+      "enum": [
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY",
+        "SATURDAY",
+        "SUNDAY"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "MONDAY",
+          "description": "Monday."
+        },
+        {
+          "value": "TUESDAY",
+          "description": "Tuesday."
+        },
+        {
+          "value": "WEDNESDAY",
+          "description": "Wednesday."
+        },
+        {
+          "value": "THURSDAY",
+          "description": "Thursday."
+        },
+        {
+          "value": "FRIDAY",
+          "description": "Friday."
+        },
+        {
+          "value": "SATURDAY",
+          "description": "Saturday."
+        },
+        {
+          "value": "SUNDAY",
+          "description": "Sunday."
+        }
+      ]
+    },
+    "UpdateReservationRecord": {
+      "type": "object",
+      "properties": {
+        "reservation": {
+          "description": "Reservation record if the operation failed. It will only contain the new `reservationId` if the operation is successful.",
+          "$ref": "#/definitions/Reservation"
+        },
+        "warnings": {
+          "description": "Warnings encountered, if any.",
+          "$ref": "#/definitions/WarningList"
+        },
+        "errors": {
+          "description": "Errors encountered, if any.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "`UpdateReservationRecord` entity contains the `Reservation` if there is an error/warning while performing the requested operation on it, otherwise it will contain the new `reservationId`."
+    },
+    "UpdateReservationRequest": {
+      "type": "object",
+      "required": [
+        "reservation",
+        "resourceId"
+      ],
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "description": "Resource (store) identifier."
+        },
+        "reservation": {
+          "description": "`Reservation` object to reduce the capacity of a resource.",
+          "$ref": "#/definitions/Reservation"
+        }
+      },
+      "description": "Request schema for the `updateReservation` operation."
+    },
+    "Reservation": {
+      "type": "object",
+      "required": [
+        "availability",
+        "type"
+      ],
+      "properties": {
+        "reservationId": {
+          "type": "string",
+          "description": "Unique identifier for a reservation. If present, it is treated as an update reservation request and will update the corresponding reservation. Otherwise, it is treated as a new create reservation request."
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of reservation.",
+          "enum": [
+            "APPOINTMENT",
+            "TRAVEL",
+            "VACATION",
+            "BREAK",
+            "TRAINING"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "APPOINTMENT",
+              "description": "Reduce resource (store) capacity because of an appointment."
+            },
+            {
+              "value": "TRAVEL",
+              "description": "Reduce resource (store) capacity because technician(s) are travelling."
+            },
+            {
+              "value": "VACATION",
+              "description": "Reduce resource (store) capacity because technician(s) are on vacation."
+            },
+            {
+              "value": "BREAK",
+              "description": "Reduce resource (store) capacity because technician(s) are on break."
+            },
+            {
+              "value": "TRAINING",
+              "description": "Reduce resource (store) capacity because technician(s) are in training."
+            }
+          ]
+        },
+        "availability": {
+          "description": "`AvailabilityRecord` to represent the capacity of a resource over a time range.",
+          "$ref": "#/definitions/AvailabilityRecord"
+        }
+      },
+      "description": "Reservation object reduces the capacity of a resource."
+    },
+    "UpdateReservationResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "description": "`UpdateReservationRecord` contains only the new `reservationId` if the operation was successful. Otherwise it will contain the reservation entity with warnings/errors.",
+          "$ref": "#/definitions/UpdateReservationRecord"
+        },
+        "errors": {
+          "description": "Errors encountered, if any.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "Response schema for the `updateReservation` operation."
+    },
+    "AvailabilityRecord": {
+      "type": "object",
+      "required": [
+        "endTime",
+        "startTime"
+      ],
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Denotes the time from when the resource is available in a day in ISO-8601 format."
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Denotes the time till when the resource is available in a day in ISO-8601 format."
+        },
+        "recurrence": {
+          "description": "Recurrence object containing the recurrence pattern of schedule.",
+          "$ref": "#/definitions/Recurrence"
+        },
+        "capacity": {
+          "type": "integer",
+          "description": "Signifies the capacity of a resource which is available.",
+          "minimum": 1
+        }
+      },
+      "description": "`AvailabilityRecord` to represent the capacity of a resource over a time range."
+    }
+  }
+}

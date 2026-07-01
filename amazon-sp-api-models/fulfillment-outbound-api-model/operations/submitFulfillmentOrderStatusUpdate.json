@@ -1,0 +1,257 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Fulfillment Outbound lets you create applications that help a seller fulfill Multi-Channel Fulfillment orders using their inventory in Amazon's fulfillment network. You can get information on both potential and existing fulfillment orders.",
+    "version": "2020-07-01",
+    "title": "Selling Partner APIs for Fulfillment Outbound",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/fba/outbound/2020-07-01/fulfillmentOrders/{sellerFulfillmentOrderId}/status": {
+      "put": {
+        "tags": [
+          "fbaOutbound"
+        ],
+        "description": "Requests that Amazon update the status of an order in the sandbox testing environment. This is a sandbox-only operation and must be directed to a sandbox endpoint. Refer to [Fulfillment Outbound Dynamic Sandbox Guide](https://developer-docs.amazon.com/sp-api/docs/fulfillment-outbound-dynamic-sandbox-guide) and [Selling Partner API sandbox](https://developer-docs.amazon.com/sp-api/docs/the-selling-partner-api-sandbox) for more information.",
+        "operationId": "submitFulfillmentOrderStatusUpdate",
+        "parameters": [
+          {
+            "name": "sellerFulfillmentOrderId",
+            "in": "path",
+            "description": "The identifier assigned to the item by the seller when the fulfillment order was created.",
+            "required": true,
+            "type": "string",
+            "maxLength": 40
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubmitFulfillmentOrderStatusUpdateRequest"
+            },
+            "description": "The identifier assigned to the item by the seller when the fulfillment order was created."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/SubmitFulfillmentOrderStatusUpdateResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/SubmitFulfillmentOrderStatusUpdateResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/SubmitFulfillmentOrderStatusUpdateResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/SubmitFulfillmentOrderStatusUpdateResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/SubmitFulfillmentOrderStatusUpdateResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/SubmitFulfillmentOrderStatusUpdateResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/SubmitFulfillmentOrderStatusUpdateResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/SubmitFulfillmentOrderStatusUpdateResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SubmitFulfillmentOrderStatusUpdateRequest": {
+      "type": "object",
+      "description": "The request body schema for the `submitFulfillmentOrderStatusUpdate` operation.",
+      "properties": {
+        "fulfillmentOrderStatus": {
+          "$ref": "#/definitions/FulfillmentOrderStatus"
+        }
+      }
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "SubmitFulfillmentOrderStatusUpdateResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "description": "One or more unexpected errors occurred during the `SubmitFulfillmentOrderStatusUpdate` operation.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The response schema for the `SubmitFulfillmentOrderStatusUpdate` operation."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "FulfillmentOrderStatus": {
+      "type": "string",
+      "description": "The current status of the fulfillment order.",
+      "enum": [
+        "New",
+        "Received",
+        "Planning",
+        "Processing",
+        "Cancelled",
+        "Complete",
+        "CompletePartialled",
+        "Unfulfillable",
+        "Invalid"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "New",
+          "description": "The fulfillment order was received but not yet validated."
+        },
+        {
+          "value": "Received",
+          "description": "The fulfillment order was received and validated. Validation includes determining that the destination address is valid and that Amazon's records indicate that the seller has enough sellable (undamaged) inventory to fulfill the order. The seller can cancel a fulfillment order that has a status of Received."
+        },
+        {
+          "value": "Planning",
+          "description": "The fulfillment order has been sent to Amazon's fulfillment network to begin shipment planning, but no unit in any shipment has been picked from inventory yet. The seller can cancel a fulfillment order that has a status of Planning."
+        },
+        {
+          "value": "Processing",
+          "description": "The process of picking units from inventory has begun on at least one shipment in the fulfillment order. The seller cannot cancel a fulfillment order that has a status of Processing."
+        },
+        {
+          "value": "Cancelled",
+          "description": "The fulfillment order has been cancelled by the seller."
+        },
+        {
+          "value": "Complete",
+          "description": "All item quantities in the fulfillment order have been fulfilled."
+        },
+        {
+          "value": "CompletePartialled",
+          "description": "Some item quantities in the fulfillment order were fulfilled; the rest were either cancelled or unfulfillable."
+        },
+        {
+          "value": "Unfulfillable",
+          "description": "No item quantities in the fulfillment order could be fulfilled because the Amazon fulfillment center workers found no inventory for those items or found no inventory that was in sellable (undamaged) condition."
+        },
+        {
+          "value": "Invalid",
+          "description": "The fulfillment order was received but could not be validated. The reasons for this include an invalid destination address or Amazon's records indicating that the seller does not have enough sellable inventory to fulfill the order. When this happens, the fulfillment order is invalid and no items in the order will ship."
+        }
+      ]
+    }
+  }
+}

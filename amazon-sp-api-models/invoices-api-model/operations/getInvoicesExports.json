@@ -1,0 +1,427 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Use the Selling Partner API for Invoices to retrieve and manage invoice-related operations, which can help selling partners manage their bookkeeping processes.",
+    "version": "2024-06-19",
+    "title": "The Selling Partner API for Invoices.",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/tax/invoices/2024-06-19/exports": {
+      "get": {
+        "tags": [
+          "invoices"
+        ],
+        "description": "Returns invoice exports details for exports that match the filters that you specify.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 0.1 | 20 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The preceding table indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getInvoicesExports",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The returned exports match the specified marketplace.",
+            "type": "string",
+            "name": "marketplaceId",
+            "in": "query",
+            "required": true
+          },
+          {
+            "description": "The earliest export creation date and time for exports that you want to include in the response. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format. The default is 30 days ago.",
+            "type": "string",
+            "name": "dateStart",
+            "in": "query",
+            "format": "date-time"
+          },
+          {
+            "description": "The response includes `nextToken` when the number of results exceeds the specified `pageSize` value. To get the next page of results, call the operation with this token and include the same arguments as the call that produced the token. To get a complete list, call this operation until `nextToken` is null. Note that this operation can return empty pages.",
+            "type": "string",
+            "name": "nextToken",
+            "in": "query"
+          },
+          {
+            "description": "The maximum number of invoices to return in a single call.\n\nMinimum: 1\n\nMaximum: 100",
+            "type": "integer",
+            "name": "pageSize",
+            "in": "query"
+          },
+          {
+            "description": "The latest export creation date and time for exports that you want to include in the response. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format. The default value is the time of the request.",
+            "type": "string",
+            "name": "dateEnd",
+            "in": "query",
+            "format": "date-time"
+          },
+          {
+            "description": "Return exports matching the status specified. ",
+            "type": "string",
+            "name": "status",
+            "in": "query",
+            "enum": [
+              "REQUESTED",
+              "PROCESSING",
+              "DONE",
+              "ERROR"
+            ],
+            "x-docgen-enum-table-extension": [
+              {
+                "description": "The export request was created, but has not started yet.",
+                "value": "REQUESTED"
+              },
+              {
+                "description": "The export request is being processed",
+                "value": "PROCESSING"
+              },
+              {
+                "description": "The export request is finished with success. Use the document IDs to download the output documents.",
+                "value": "DONE"
+              },
+              {
+                "description": "The export request resulted in an error. Check the `errorMessage` attribute for more details.",
+                "value": "ERROR"
+              }
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/GetInvoicesExportsResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "dateEnd": {
+                        "value": "2024-07-10T23:59:59.000Z"
+                      },
+                      "dateStart": {
+                        "value": "2024-07-10T00:00:00.000Z"
+                      },
+                      "marketplaceId": {
+                        "value": "A2Q3Y263D00KWC"
+                      },
+                      "pageSize": {
+                        "value": 1
+                      },
+                      "status": {
+                        "value": "DONE"
+                      }
+                    }
+                  },
+                  "response": {
+                    "exports": [
+                      {
+                        "errorMessage": "",
+                        "exportId": "4bdd8293-0cd7-4208-bed5-78b2c6ecefef",
+                        "generateExportFinishedAt": "2024-07-10T16:00:00.000Z",
+                        "generateExportStartedAt": "2024-07-10T15:00:00.000Z",
+                        "invoicesDocumentIds": [
+                          "18c598f5-75db-4c1a-bd3e-4c64b36781c5"
+                        ],
+                        "status": "DONE"
+                      }
+                    ],
+                    "nextToken": "WTtGLzlBkat22iOI5C1yrpSPqMpz9UHYxdvm5U4DqEVJL5hqxv9xMuXe3eg35i17"
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "A2Q3Y263D00KWC"
+                      },
+                      "nextToken": {
+                        "value": "WTtGLzlBkat22iOI5C1yrpSPqMpz9UHYxdvm5U4DqEVJL5hqxv9xMuXe3eg35i17"
+                      },
+                      "status": {
+                        "value": "DONE"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "400",
+                        "details": "Specifying nextToken with any other parameters will cause the request to fail.",
+                        "message": "Invalid Request."
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "A list of error responses returned when a request is unsuccessful.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Export": {
+      "description": "Detailed information about the export.",
+      "type": "object",
+      "properties": {
+        "errorMessage": {
+          "description": "When the export generation fails, this attribute contains a description of the error.",
+          "type": "string"
+        },
+        "exportId": {
+          "description": "The export identifier.",
+          "type": "string"
+        },
+        "generateExportFinishedAt": {
+          "description": "The date and time when the export generation finished. Vales are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "generateExportStartedAt": {
+          "description": "The date and time when the export generation started. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "invoicesDocumentIds": {
+          "description": "The identifier for the export documents. To get the information required to retrieve the export document's contents, pass each ID in the `getInvoicesDocument` operation.\n\nThis list is empty until the status is `DONE`.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "status": {
+          "$ref": "#/definitions/ExportStatus"
+        }
+      }
+    },
+    "ExportStatus": {
+      "description": "The current status of the request.",
+      "type": "string",
+      "enum": [
+        "REQUESTED",
+        "PROCESSING",
+        "DONE",
+        "ERROR"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "The export request was created, but has not yet started.",
+          "value": "REQUESTED"
+        },
+        {
+          "description": "The export request is being processed.",
+          "value": "PROCESSING"
+        },
+        {
+          "description": "The export request has finished successfully. Use the document IDs to download the output documents.",
+          "value": "DONE"
+        },
+        {
+          "description": "The export request resulted in an error. Refer to the `errorMessage` attribute for more information.",
+          "value": "ERROR"
+        }
+      ]
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses that are returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Error": {
+      "description": "The error response that is returned when the request is unsuccessful.",
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        }
+      }
+    },
+    "GetInvoicesExportsResponse": {
+      "description": "Success.",
+      "type": "object",
+      "properties": {
+        "exports": {
+          "description": "A list of exports.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Export"
+          },
+          "maxItems": 100
+        },
+        "nextToken": {
+          "description": "This token is returned when the number of results exceeds the specified `pageSize` value. To get the next page of results, call the `getInvoices` operation and include this token with the previous call parameters.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

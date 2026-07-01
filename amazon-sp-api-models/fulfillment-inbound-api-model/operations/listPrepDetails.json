@@ -1,0 +1,563 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/items/prepDetails": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The marketplace ID. For a list of possible values, refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids).",
+            "in": "query",
+            "maxLength": 20,
+            "minLength": 1,
+            "name": "marketplaceId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "collectionFormat": "multi",
+            "description": "A list of merchant SKUs, a merchant-supplied identifier of a specific SKU.",
+            "in": "query",
+            "items": {
+              "maxLength": 255,
+              "minLength": 1,
+              "type": "string"
+            },
+            "maxItems": 100,
+            "minItems": 1,
+            "name": "mskus",
+            "required": true,
+            "type": "array"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListPrepDetails 200 response",
+            "schema": {
+              "$ref": "#/definitions/ListPrepDetailsResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "ATVPDKIKX0DER"
+                      },
+                      "mskus": {
+                        "value": [
+                          "msku1",
+                          "msku2"
+                        ]
+                      }
+                    }
+                  },
+                  "response": {
+                    "mskuPrepDetails": [
+                      {
+                        "msku": "msku1",
+                        "prepCategory": "TEXTILE",
+                        "prepTypes": [
+                          "ITEM_LABELING",
+                          "ITEM_POLYBAGGING"
+                        ],
+                        "prepOwnerConstraint": "AMAZON_ONLY",
+                        "labelOwnerConstraint": "AMAZON_ONLY",
+                        "allOwnersConstraint": "MUST_MATCH"
+                      },
+                      {
+                        "msku": "msku2",
+                        "prepCategory": "FRAGILE",
+                        "prepTypes": [
+                          "ITEM_LABELING",
+                          "ITEM_BUBBLEWRAP"
+                        ],
+                        "allOwnersConstraint": "MUST_MATCH"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "ATVPDKIKX0DER"
+                      },
+                      "mskus": {
+                        "value": [
+                          "badmsku"
+                        ]
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The requested MSKU is not valid."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "Get preparation details for a list of MSKUs in a specified marketplace.\\n\\n**Note:** MSKUs that contain certain characters must be encoded. For more information, refer to [URL Encoding](https://developer-docs.amazon.com/sp-api/docs/url-encoding).\\n\\nThe following characters must be double percent encoded:\\n\\n- `%`\\n- `+`\\n- `,`\\n\\n**Examples:** An MSKU value of `test%msku` is encoded as `test%2525msku`. An MSKU value of `test,msku` is encoded as `test%252Cmsku`. ",
+        "operationId": "listPrepDetails"
+      }
+    }
+  },
+  "definitions": {
+    "ListPrepDetailsResponse": {
+      "description": "The response to the `listPrepDetails` operation.",
+      "properties": {
+        "mskuPrepDetails": {
+          "description": "A list of MSKUs and related prep details.",
+          "items": {
+            "$ref": "#/definitions/MskuPrepDetail"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "mskuPrepDetails"
+      ],
+      "type": "object"
+    },
+    "PrepCategory": {
+      "description": "The preparation category for shipping an item to Amazon's fulfillment network.",
+      "enum": [
+        "ADULT",
+        "BABY",
+        "FC_PROVIDED",
+        "FRAGILE",
+        "GRANULAR",
+        "HANGER",
+        "LIQUID",
+        "PERFORATED",
+        "SET",
+        "SHARP",
+        "SMALL",
+        "TEXTILE",
+        "UNKNOWN",
+        "NONE"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "ADULT",
+          "description": "Displays potentially offensive material such as profanity or nudity."
+        },
+        {
+          "value": "BABY",
+          "description": "Made for a child aged three years or younger, packaging with cutouts greater than one square inch."
+        },
+        {
+          "value": "FC_PROVIDED",
+          "description": "A prep type has been defined by the Fulfillment Center. This value is provided by Amazon and cannot be used as an input."
+        },
+        {
+          "value": "FRAGILE",
+          "description": "Glass or otherwise fragile, or a liquid in a glass container."
+        },
+        {
+          "value": "GRANULAR",
+          "description": "Made of powder, pellets, or granular material."
+        },
+        {
+          "value": "HANGER",
+          "description": "Made of cloth or fabric and intended to be put on a hanger."
+        },
+        {
+          "value": "LIQUID",
+          "description": "Liquid or viscous without a double seal."
+        },
+        {
+          "value": "PERFORATED",
+          "description": "In packaging that has a perforated opening."
+        },
+        {
+          "value": "SET",
+          "description": "Multiple items that are sold as one unit."
+        },
+        {
+          "value": "SHARP",
+          "description": "Sharp and easily exposed, not already contained in protective packaging."
+        },
+        {
+          "value": "SMALL",
+          "description": "Longest side less than 2 1/8 inches (width of a credit card)."
+        },
+        {
+          "value": "TEXTILE",
+          "description": "Made of cloth or fabric that could be damaged by dirt, dust, moisture, or liquid."
+        },
+        {
+          "value": "UNKNOWN",
+          "description": "An unknown prep category was found and needs to be updated. This value is provided by Amazon and cannot be used as an input."
+        },
+        {
+          "value": "NONE",
+          "description": "Does not require prep."
+        }
+      ]
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "MskuPrepDetail": {
+      "description": "An MSKU and its related prep details.",
+      "properties": {
+        "allOwnersConstraint": {
+          "$ref": "#/definitions/AllOwnersConstraint"
+        },
+        "labelOwnerConstraint": {
+          "$ref": "#/definitions/OwnerConstraint"
+        },
+        "msku": {
+          "description": "The merchant SKU, a merchant-supplied identifier for a specific SKU.",
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "prepCategory": {
+          "$ref": "#/definitions/PrepCategory"
+        },
+        "prepOwnerConstraint": {
+          "$ref": "#/definitions/OwnerConstraint"
+        },
+        "prepTypes": {
+          "description": "A list of preparation types associated with a preparation category.",
+          "items": {
+            "$ref": "#/definitions/PrepType"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "msku",
+        "prepCategory",
+        "prepTypes"
+      ],
+      "type": "object"
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "AllOwnersConstraint": {
+      "description": "A constraint that applies to all owners. If no constraint is specified, defer to any individual owner constraints.",
+      "enum": [
+        "MUST_MATCH"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "MUST_MATCH",
+          "description": "All owners must match."
+        }
+      ]
+    },
+    "PrepType": {
+      "description": "Preparation instructions for shipping an item to Amazon's fulfillment network. For more information about preparing items for shipment to Amazon's fulfillment network, refer to [Seller Central Help for your marketplace](https://developer-docs.amazon.com/sp-api/docs/seller-central-urls).",
+      "enum": [
+        "ITEM_BLACK_SHRINKWRAP",
+        "ITEM_BLANKSTK",
+        "ITEM_BOXING",
+        "ITEM_BUBBLEWRAP",
+        "ITEM_CAP_SEALING",
+        "ITEM_DEBUNDLE",
+        "ITEM_HANG_GARMENT",
+        "ITEM_LABELING",
+        "ITEM_NO_PREP",
+        "ITEM_POLYBAGGING",
+        "ITEM_RMOVHANG",
+        "ITEM_SETCREAT",
+        "ITEM_SETSTK",
+        "ITEM_SIOC",
+        "ITEM_SUFFOSTK",
+        "ITEM_TAPING"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "ITEM_BLACK_SHRINKWRAP",
+          "description": "The item requires black shrink wrapping."
+        },
+        {
+          "value": "ITEM_BLANKSTK",
+          "description": "The item requires a blank sticker to obscure a bad barcode that cannot be covered by another sticker."
+        },
+        {
+          "value": "ITEM_BOXING",
+          "description": "Products may require overboxing when there are safety concerns over sharp items, fragile items, hazardous liquids, and vinyl records. For items over 4.5 kg, use double-wall corrugated boxes."
+        },
+        {
+          "value": "ITEM_BUBBLEWRAP",
+          "description": "The item requires bubble wrapping."
+        },
+        {
+          "value": "ITEM_CAP_SEALING",
+          "description": "To prevent leakage, the product needs to have a secondary seal in one of the following types: Induction seal, safety ring, clips, heat shrink plastic band, or boxing."
+        },
+        {
+          "value": "ITEM_DEBUNDLE",
+          "description": "The item requires taking apart a set of items labeled for individual sale. Remove tape or shrink wrap that groups multiple inventory units together."
+        },
+        {
+          "value": "ITEM_HANG_GARMENT",
+          "description": "The item must be placed on a hanger."
+        },
+        {
+          "value": "ITEM_LABELING",
+          "description": "The FNSKU label must be applied to the item."
+        },
+        {
+          "value": "ITEM_NO_PREP",
+          "description": "The item does not require any prep."
+        },
+        {
+          "value": "ITEM_POLYBAGGING",
+          "description": "The item requires polybagging."
+        },
+        {
+          "value": "ITEM_RMOVHANG",
+          "description": "The item cannot be shipped on a hanger."
+        },
+        {
+          "value": "ITEM_SETCREAT",
+          "description": "Units that are sets must be labeled as sets on their packaging. The barcodes on the individual items must not face outward and must not require covering."
+        },
+        {
+          "value": "ITEM_SETSTK",
+          "description": "Products that are sets must be marked as sets on their packaging. Add a label to the unit that clearly states that the products must be received and sold as a single unit. For example, if a set of six unique toy cars is sold as one unit, the packaging for each car must indicate that it is part of the set. "
+        },
+        {
+          "value": "ITEM_SIOC",
+          "description": "The item ships in its original product packaging."
+        },
+        {
+          "value": "ITEM_SUFFOSTK",
+          "description": "Poly bags with an opening of 12 cm or larger (measured when flat) must have a suffocation warning. This warning must be printed on the bag or attached as a label."
+        },
+        {
+          "value": "ITEM_TAPING",
+          "description": "Indicates that taping is required."
+        }
+      ]
+    },
+    "OwnerConstraint": {
+      "description": "A constraint that can apply to an individual owner. If no constraint is specified, both `AMAZON` and `SELLER` are acceptable.",
+      "enum": [
+        "AMAZON_ONLY",
+        "NONE_ONLY",
+        "SELLER_ONLY"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "AMAZON_ONLY",
+          "description": "Only `AMAZON` is accepted as an owner."
+        },
+        {
+          "value": "NONE_ONLY",
+          "description": "Only `NONE` is accepted as an owner."
+        },
+        {
+          "value": "SELLER_ONLY",
+          "description": "Only `SELLER` is accepted as an owner."
+        }
+      ]
+    }
+  }
+}

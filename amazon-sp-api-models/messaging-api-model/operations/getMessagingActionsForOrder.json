@@ -1,0 +1,469 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "With the Messaging API you can build applications that send messages to buyers. You can get a list of message types that are available for an order that you specify, then call an operation that sends a message to the buyer for that order. The Messaging API returns responses that are formed according to the <a href=https://tools.ietf.org/html/draft-kelly-json-hal-08>JSON Hypertext Application Language</a> (HAL) standard.",
+    "version": "v1",
+    "title": "Selling Partner API for Messaging",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/hal+json"
+  ],
+  "paths": {
+    "/messaging/v1/orders/{amazonOrderId}": {
+      "get": {
+        "tags": [
+          "messaging"
+        ],
+        "description": "Returns a list of message types that are available for an order that you specify. A message type is represented by an actions object, which contains a path and query parameter(s). You can use the path and parameter(s) to call an operation that sends a message.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 1 | 5 |\n\nThe `x-amzn-RateLimit-Limit` response header contains the usage plan rate limits for the operation, when available. The preceding table contains the default rate and burst values for this operation. Selling partners whose business demands require higher throughput might have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getMessagingActionsForOrder",
+        "parameters": [
+          {
+            "name": "amazonOrderId",
+            "in": "path",
+            "description": "An Amazon order identifier. This specifies the order for which you want a list of available message types.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "marketplaceIds",
+            "in": "query",
+            "description": "A marketplace identifier. This identifies the marketplace in which the order was placed. You can only specify one marketplace.",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns hypermedia links under the _links.actions key that specify which messaging actions are allowed for the order.",
+            "schema": {
+              "$ref": "#/definitions/GetMessagingActionsForOrderResponse"
+            },
+            "examples": {
+              "application/hal+json": {
+                "_links": {
+                  "actions": [
+                    {
+                      "href": "/messaging/v1/orders/903-1671087-0812628/messages/negativeFeedbackRemoval?marketplaceIds=ATVPDKIKX0DER",
+                      "name": "negativeFeedbackRemoval"
+                    }
+                  ],
+                  "self": {
+                    "href": "/messaging/v1/orders/903-1671087-0812628?marketplaceIds=ATVPDKIKX0DER"
+                  }
+                },
+                "_embedded": {
+                  "actions": [
+                    {
+                      "_links": {
+                        "schema": {
+                          "href": "/messaging/v1/orders/903-1671087-0812628/messages/negativeFeedbackRemoval/schema",
+                          "name": "negativeFeedbackRemoval"
+                        },
+                        "self": {
+                          "href": "/messaging/v1/orders/903-1671087-0812628/messages/negativeFeedbackRemoval?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "negativeFeedbackRemoval"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "amazonOrderId": {
+                        "value": "123-1234567-1234567"
+                      }
+                    }
+                  },
+                  "response": {
+                    "_links": {
+                      "actions": [
+                        {
+                          "href": "/messaging/v1/orders/123-1234567-1234567/messages/confirmCustomizationDetails?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "confirmCustomizationDetails"
+                        },
+                        {
+                          "href": "/messaging/v1/orders/123-1234567-1234567/messages/confirmDeliveryDetails?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "confirmDeliveryDetails"
+                        },
+                        {
+                          "href": "/messaging/v1/orders/123-1234567-1234567/messages/legalDisclosure?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "legalDisclosure"
+                        },
+                        {
+                          "href": "/messaging/v1/orders/123-1234567-1234567/messages/negativeFeedbackRemoval?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "negativeFeedbackRemoval"
+                        },
+                        {
+                          "href": "/messaging/v1/orders/123-1234567-1234567/messages/confirmOrderDetails?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "confirmOrderDetails"
+                        },
+                        {
+                          "href": "/messaging/v1/orders/123-1234567-1234567/messages/confirmServiceDetails?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "confirmServiceDetails"
+                        },
+                        {
+                          "href": "/messaging/v1/orders/123-1234567-1234567/messages/amazonMotors?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "amazonMotors"
+                        },
+                        {
+                          "href": "/messaging/v1/orders/123-1234567-1234567/messages/digitalAccessKey?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "digitalAccessKey"
+                        },
+                        {
+                          "href": "/messaging/v1/orders/123-1234567-1234567/messages/unexpectedProblem?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "unexpectedProblem"
+                        },
+                        {
+                          "href": "/messaging/v1/orders/123-1234567-1234567/messages/warranty?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "warranty"
+                        },
+                        {
+                          "href": "/messaging/v1/orders/123-1234567-1234567/attributes?marketplaceIds=ATVPDKIKX0DER",
+                          "name": "attributes"
+                        }
+                      ],
+                      "self": {
+                        "href": "/messaging/v1/orders/123-1234567-1234567?marketplaceIds=ATVPDKIKX0DER"
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/GetMessagingActionsForOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "amazonOrderId": {
+                        "value": "123-1234567-0000000"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid Input",
+                        "details": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/GetMessagingActionsForOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/GetMessagingActionsForOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/GetMessagingActionsForOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/GetMessagingActionsForOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/GetMessagingActionsForOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/GetMessagingActionsForOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/GetMessagingActionsForOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "GetMessagingActionsForOrderResponse": {
+      "type": "object",
+      "properties": {
+        "_links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "$ref": "#/definitions/LinkObject"
+            },
+            "actions": {
+              "type": "array",
+              "description": "Eligible actions for the specified amazonOrderId.",
+              "items": {
+                "$ref": "#/definitions/LinkObject"
+              }
+            }
+          },
+          "description": "The links response that is associated with the specified `amazonOrderId`.",
+          "required": [
+            "actions",
+            "self"
+          ]
+        },
+        "_embedded": {
+          "type": "object",
+          "properties": {
+            "actions": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/GetMessagingActionResponse"
+              }
+            }
+          },
+          "description": "The messaging actions response that is associated with the specified `amazonOrderId`.",
+          "required": [
+            "actions"
+          ]
+        },
+        "errors": {
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The response schema for the `getMessagingActionsForOrder` operation."
+    },
+    "Schema": {
+      "type": "object",
+      "description": "A JSON schema document describing the expected payload of the action. This object can be validated against <a href=http://json-schema.org/draft-04/schema>http://json-schema.org/draft-04/schema</a>.",
+      "additionalProperties": {}
+    },
+    "LinkObject": {
+      "type": "object",
+      "required": [
+        "href"
+      ],
+      "properties": {
+        "href": {
+          "type": "string",
+          "description": "A URI for this object."
+        },
+        "name": {
+          "type": "string",
+          "description": "An identifier for this object."
+        }
+      },
+      "description": "A Link object."
+    },
+    "MessagingAction": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the template."
+        }
+      },
+      "description": "A simple object containing the name of the template."
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "GetMessagingActionResponse": {
+      "type": "object",
+      "properties": {
+        "_links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "$ref": "#/definitions/LinkObject"
+            },
+            "schema": {
+              "$ref": "#/definitions/LinkObject"
+            }
+          },
+          "description": "The links response that is associated with the messaging action.",
+          "required": [
+            "schema",
+            "self"
+          ]
+        },
+        "_embedded": {
+          "type": "object",
+          "properties": {
+            "schema": {
+              "$ref": "#/definitions/GetSchemaResponse"
+            }
+          },
+          "description": "The embedded response associated with the messaging action."
+        },
+        "payload": {
+          "$ref": "#/definitions/MessagingAction"
+        },
+        "errors": {
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "Describes a messaging action that can be taken for an order. Provides a JSON Hypertext Application Language (HAL) link to the JSON schema document that describes the expected input."
+    },
+    "GetSchemaResponse": {
+      "type": "object",
+      "properties": {
+        "_links": {
+          "type": "object",
+          "properties": {
+            "self": {
+              "$ref": "#/definitions/LinkObject"
+            }
+          },
+          "description": "The links response that is associated with the object.",
+          "required": [
+            "self"
+          ]
+        },
+        "payload": {
+          "$ref": "#/definitions/Schema"
+        },
+        "errors": {
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The `GET` request schema response."
+    }
+  }
+}

@@ -1,0 +1,462 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Use the Selling Partner API for Direct Fulfillment Shipping to access a direct fulfillment vendor's shipping data.",
+    "version": "2021-12-28",
+    "title": "Selling Partner API for Direct Fulfillment Shipping",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/vendor/directFulfillment/shipping/2021-12-28/containerLabel": {
+      "post": {
+        "tags": [
+          "createContainerLabel"
+        ],
+        "description": "Creates a container (pallet) label for the associated shipment package.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 10 | 10 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The preceding table contains the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "createContainerLabel",
+        "summary": "createContainerLabel",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateContainerLabelRequest"
+            },
+            "description": "Request body containing the container label data."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/CreateContainerLabelResponse"
+            },
+            "examples": {
+              "containerLabel": {
+                "containerTrackingNumber": "TBA134335066000",
+                "content": "Base 64 encoded string goes here ",
+                "format": "PNG"
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        },
+        "x-amzn-api-sandbox": {
+          "dynamic": {}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Package": {
+      "type": "object",
+      "description": "The package that is associated with the container.",
+      "required": [
+        "packageTrackingNumber"
+      ],
+      "properties": {
+        "packageTrackingNumber": {
+          "type": "string",
+          "description": "The tracking number on the label of shipment package, that you can fetch from the `shippingLabels` response. You can also scan the bar code on the shipping label to get the tracking number."
+        }
+      }
+    },
+    "TaxRegistrationDetails": {
+      "type": "object",
+      "required": [
+        "taxRegistrationNumber"
+      ],
+      "properties": {
+        "taxRegistrationType": {
+          "type": "string",
+          "description": "Tax registration type for the entity.",
+          "enum": [
+            "VAT",
+            "GST"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "VAT",
+              "description": "Value-added tax."
+            },
+            {
+              "value": "GST",
+              "description": "Goods and Services Tax (GST)."
+            }
+          ]
+        },
+        "taxRegistrationNumber": {
+          "type": "string",
+          "description": "Tax registration number for the party. For example, VAT ID."
+        },
+        "taxRegistrationAddress": {
+          "description": "Address associated with the tax registration number.",
+          "$ref": "#/definitions/Address"
+        },
+        "taxRegistrationMessages": {
+          "type": "string",
+          "description": "Tax registration message that can be used for additional tax related details."
+        }
+      },
+      "description": "Tax registration details of the entity."
+    },
+    "ContainerLabel": {
+      "description": "The details of the container label.",
+      "type": "object",
+      "required": [
+        "content",
+        "format"
+      ],
+      "properties": {
+        "containerTrackingNumber": {
+          "type": "string",
+          "description": "The container (pallet) tracking identifier from the shipping carrier."
+        },
+        "content": {
+          "type": "string",
+          "description": "The container label content encoded into a Base64 string."
+        },
+        "format": {
+          "description": "The format of the container label.",
+          "$ref": "#/definitions/ContainerLabelFormat"
+        }
+      }
+    },
+    "ContainerLabelFormat": {
+      "type": "string",
+      "description": "The format of the container label.",
+      "enum": [
+        "PNG",
+        "ZPL"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "PNG",
+          "description": "Portable Network Graphics (png) format."
+        },
+        {
+          "value": "ZPL",
+          "description": "Zebra Programming Language (zpl) format."
+        }
+      ]
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "description": "An array of Error objects representing individual errors encountered during the request."
+        }
+      }
+    },
+    "CarrierId": {
+      "type": "string",
+      "description": "The unique carrier code for the carrier for whom container labels are requested.",
+      "enum": [
+        "SWA"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "SWA",
+          "description": "Ship with Amazon Carrier."
+        }
+      ]
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "CreateContainerLabelResponse": {
+      "description": "The response schema for the `createContainerLabel` operation.",
+      "type": "object",
+      "required": [
+        "containerLabel"
+      ],
+      "properties": {
+        "containerLabel": {
+          "description": "The label data for the container label.",
+          "$ref": "#/definitions/ContainerLabel"
+        }
+      }
+    },
+    "VendorContainerId": {
+      "type": "string",
+      "description": "The unique, vendor-provided identifier for the container."
+    },
+    "CreateContainerLabelRequest": {
+      "description": "The request body schema for the `createContainerLabel` operation.",
+      "type": "object",
+      "required": [
+        "sellingParty",
+        "shipFromParty",
+        "carrierId",
+        "vendorContainerId",
+        "packages"
+      ],
+      "properties": {
+        "sellingParty": {
+          "description": "The ID of the selling party or vendor.",
+          "$ref": "#/definitions/PartyIdentification"
+        },
+        "shipFromParty": {
+          "description": "The warehouse code of the vendor.",
+          "$ref": "#/definitions/PartyIdentification"
+        },
+        "carrierId": {
+          "description": "The container (pallet) label's carrier.",
+          "$ref": "#/definitions/CarrierId"
+        },
+        "vendorContainerId": {
+          "description": "The vendor's unique identifier for the container.",
+          "$ref": "#/definitions/VendorContainerId"
+        },
+        "packages": {
+          "description": "An array of package objects that associate shipment packages with a container.",
+          "$ref": "#/definitions/Packages"
+        }
+      }
+    },
+    "Address": {
+      "type": "object",
+      "required": [
+        "addressLine1",
+        "countryCode",
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the person, business or institution at that address."
+        },
+        "addressLine1": {
+          "type": "string",
+          "description": "First line of the address."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Additional street address information, if required."
+        },
+        "addressLine3": {
+          "type": "string",
+          "description": "Additional street address information, if required."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city where the person, business or institution is located."
+        },
+        "county": {
+          "type": "string",
+          "description": "The county where person, business or institution is located."
+        },
+        "district": {
+          "type": "string",
+          "description": "The district where person, business or institution is located."
+        },
+        "stateOrRegion": {
+          "type": "string",
+          "description": "The state or region where person, business or institution is located."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal code of that address. It contains a series of letters or digits or both, sometimes including spaces or punctuation."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The two-letter country code in [ISO 3166-1 alpha-2](https://www.iban.com/country-codes) format."
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the person, business or institution located at that address."
+        }
+      },
+      "description": "Address of the party."
+    },
+    "PartyIdentification": {
+      "description": "The name, address, and tax details of a party.",
+      "type": "object",
+      "required": [
+        "partyId"
+      ],
+      "properties": {
+        "partyId": {
+          "type": "string",
+          "description": "The identifier of the party."
+        },
+        "address": {
+          "description": "The address of the party.",
+          "$ref": "#/definitions/Address"
+        },
+        "taxRegistrationDetails": {
+          "type": "array",
+          "description": "The tax registration details of the party.",
+          "items": {
+            "$ref": "#/definitions/TaxRegistrationDetails"
+          }
+        }
+      }
+    },
+    "Packages": {
+      "description": "An array of package objects in a container.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/Package"
+      }
+    }
+  }
+}

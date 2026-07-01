@@ -1,0 +1,361 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Data Kiosk lets you submit GraphQL queries from a variety of schemas to help selling partners manage their businesses.",
+    "version": "2023-11-15",
+    "title": "Selling Partner API for Data Kiosk",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/dataKiosk/2023-11-15/queries/{queryId}": {
+      "parameters": [],
+      "get": {
+        "tags": [
+          "queries"
+        ],
+        "operationId": "getQuery",
+        "description": "Returns query details for the query specified by the `queryId` parameter. See the `createQuery` operation for details about query retention.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 2.0 | 15 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "parameters": [
+          {
+            "name": "queryId",
+            "in": "path",
+            "required": true,
+            "description": "The query identifier.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/Query"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "queryId": {
+                        "value": "QueryId1"
+                      }
+                    }
+                  },
+                  "response": {
+                    "queryId": "QueryId1",
+                    "query": "query {sampleQuery(startDate:\"2023-03-01\" endDate:\"2023-03-31\" marketplaceIds:[\"ATVPDKIKX0DER\"]){sales{date averageSellingPrice{amount currencyCode}}}}",
+                    "createdTime": "2023-12-11T13:47:20.677Z",
+                    "processingStatus": "DONE",
+                    "processingStartTime": "2023-12-11T13:47:20.677Z",
+                    "processingEndTime": "2023-12-11T14:47:20.677Z",
+                    "dataDocumentId": "DocumentId1"
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "queryId": {
+                        "value": "InvalidQueryId1"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid input",
+                        "details": "Invalid input"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "queryId": {
+                        "value": "NotFoundQueryId1"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "NotFound",
+                        "message": "The provided queryId was not found."
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "description": "Error response returned when the request is unsuccessful.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Query": {
+      "type": "object",
+      "description": "Detailed information about the query.",
+      "required": [
+        "processingStatus",
+        "queryId",
+        "query",
+        "createdTime"
+      ],
+      "properties": {
+        "queryId": {
+          "description": "The query identifier. This identifier is unique only in combination with a selling partner account ID.",
+          "type": "string"
+        },
+        "query": {
+          "description": "The submitted query.",
+          "type": "string"
+        },
+        "createdTime": {
+          "description": "The date and time when the query was created, in ISO 8601 date time format.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "processingStatus": {
+          "description": "The processing status of the query.",
+          "type": "string",
+          "enum": [
+            "CANCELLED",
+            "DONE",
+            "FATAL",
+            "IN_PROGRESS",
+            "IN_QUEUE"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "CANCELLED",
+              "description": "The query was cancelled before it began processing."
+            },
+            {
+              "value": "DONE",
+              "description": "The query has completed processing."
+            },
+            {
+              "value": "FATAL",
+              "description": "The query was aborted due to a fatal error."
+            },
+            {
+              "value": "IN_PROGRESS",
+              "description": "The query is being processed."
+            },
+            {
+              "value": "IN_QUEUE",
+              "description": "The query has not yet started processing. It may be waiting for another `IN_PROGRESS` query."
+            }
+          ]
+        },
+        "processingStartTime": {
+          "description": "The date and time when the query processing started, in ISO 8601 date time format.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "processingEndTime": {
+          "description": "The date and time when the query processing completed, in ISO 8601 date time format.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "dataDocumentId": {
+          "description": "The data document identifier. This identifier is only present when there is data available as a result of the query. This identifier is unique only in combination with a selling partner account ID. Pass this identifier into the `getDocument` operation to get the information required to retrieve the data document's contents.",
+          "type": "string"
+        },
+        "errorDocumentId": {
+          "description": "The error document identifier. This identifier is only present when an error occurs during query processing. This identifier is unique only in combination with a selling partner account ID. Pass this identifier into the `getDocument` operation to get the information required to retrieve the error document's contents.",
+          "type": "string"
+        },
+        "pagination": {
+          "type": "object",
+          "description": "When a query produces results that are not included in the data document, pagination occurs. This means the results are divided into pages. To retrieve the next page, you must pass a `CreateQuerySpecification` object with `paginationToken` set to this object's `nextToken` and with `query` set to this object's `query` in the subsequent `createQuery` request. When there are no more pages to fetch, the `nextToken` field will be absent.",
+          "properties": {
+            "nextToken": {
+              "type": "string",
+              "description": "A token that can be used to fetch the next page of results."
+            }
+          }
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "description": "Error response returned when the request is unsuccessful.",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,495 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/shipments/{shipmentId}/pallets": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Identifier of an inbound plan.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "inboundPlanId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Identifier of a shipment. A shipment contains the boxes and units being inbounded.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "shipmentId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The number of pallets to return in the response matching the given query.",
+            "in": "query",
+            "maximum": 1000,
+            "minimum": 1,
+            "name": "pageSize",
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "description": "A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the `pagination` returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result.",
+            "in": "query",
+            "maxLength": 1024,
+            "minLength": 0,
+            "name": "paginationToken",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListShipmentPallets 200 response",
+            "schema": {
+              "$ref": "#/definitions/ListShipmentPalletsResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "shipmentId": {
+                        "value": "sh1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "pageSize": {
+                        "value": 2
+                      },
+                      "paginationToken": {
+                        "value": "paginationToken"
+                      }
+                    }
+                  },
+                  "response": {
+                    "pallets": [
+                      {
+                        "stackability": "STACKABLE",
+                        "packageId": "pk1234abcd-1234-abcd-5678-1234abcd5678",
+                        "weight": {
+                          "unit": "KG",
+                          "value": 5.5
+                        },
+                        "dimensions": {
+                          "unitOfMeasurement": "CM",
+                          "length": 3.0,
+                          "width": 4.0,
+                          "height": 5.0
+                        },
+                        "quantity": 2
+                      }
+                    ],
+                    "pagination": {
+                      "nextToken": "nextPaginationToken"
+                    }
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "bad234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "shipmentId": {
+                        "value": "sh1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "pageSize": {
+                        "value": 2
+                      },
+                      "paginationToken": {
+                        "value": "paginationToken"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The requested inbound plan does not exist."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "Provides a paginated list of pallet packages in a shipment. A palletized shipment will have pallets when the related details are provided after generating Less-Than-Truckload (LTL) carrier shipments.",
+        "operationId": "listShipmentPallets"
+      }
+    }
+  },
+  "definitions": {
+    "Weight": {
+      "description": "The weight of a package.",
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/UnitOfWeight"
+        },
+        "value": {
+          "description": "Value of a weight.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ],
+      "type": "object"
+    },
+    "Stackability": {
+      "description": "Indicates whether pallets will be stacked when carrier arrives for pick-up.",
+      "enum": [
+        "STACKABLE",
+        "NON_STACKABLE"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "STACKABLE",
+          "description": "A pallet that can be stacked on top of another pallet."
+        },
+        {
+          "value": "NON_STACKABLE",
+          "description": "A pallet that cannot be stacked on top of another pallet."
+        }
+      ]
+    },
+    "UnitOfMeasurement": {
+      "description": "Unit of linear measure.",
+      "enum": [
+        "IN",
+        "CM"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "IN",
+          "description": "Inches."
+        },
+        {
+          "value": "CM",
+          "description": "Centimeters."
+        }
+      ]
+    },
+    "UnitOfWeight": {
+      "description": "Unit of the weight being measured.",
+      "enum": [
+        "LB",
+        "KG"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "LB",
+          "description": "Pounds."
+        },
+        {
+          "value": "KG",
+          "description": "Kilograms."
+        }
+      ]
+    },
+    "Dimensions": {
+      "description": "Measurement of a package's dimensions.",
+      "properties": {
+        "height": {
+          "description": "The height of a package.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "length": {
+          "description": "The length of a package.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "unitOfMeasurement": {
+          "$ref": "#/definitions/UnitOfMeasurement"
+        },
+        "width": {
+          "description": "The width of a package.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "height",
+        "length",
+        "unitOfMeasurement",
+        "width"
+      ],
+      "type": "object"
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "Pagination": {
+      "description": "Contains tokens to fetch from a certain page.",
+      "properties": {
+        "nextToken": {
+          "description": "When present, pass this string token in the next request to return the next response page.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "Pallet": {
+      "description": "Contains information about a pallet that is used in the inbound plan. The pallet is a container that holds multiple items or boxes.",
+      "properties": {
+        "dimensions": {
+          "$ref": "#/definitions/Dimensions"
+        },
+        "packageId": {
+          "description": "Primary key to uniquely identify a Package (Box or Pallet).",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        },
+        "quantity": {
+          "description": "The number of containers where all other properties like weight or dimensions are identical.",
+          "maximum": 10000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "stackability": {
+          "$ref": "#/definitions/Stackability"
+        },
+        "weight": {
+          "$ref": "#/definitions/Weight"
+        }
+      },
+      "required": [
+        "packageId"
+      ],
+      "type": "object"
+    },
+    "ListShipmentPalletsResponse": {
+      "description": "The `listShipmentPallets` response.",
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/Pagination"
+        },
+        "pallets": {
+          "description": "The pallets in a shipment.",
+          "items": {
+            "$ref": "#/definitions/Pallet"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "pallets"
+      ],
+      "type": "object"
+    }
+  }
+}

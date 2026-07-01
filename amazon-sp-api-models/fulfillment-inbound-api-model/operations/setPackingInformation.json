@@ -1,0 +1,740 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/packingInformation": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Identifier of an inbound plan.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "inboundPlanId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SetPackingInformationRequest"
+            },
+            "description": "The body of the request to `setPackingInformation`."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "SetPackingInformation 202 response",
+            "schema": {
+              "$ref": "#/definitions/SetPackingInformationResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "body": {
+                        "value": {
+                          "packageGroupings": [
+                            {
+                              "shipmentId": "sh1234abcd-1234-abcd-5678-1234abcd5678",
+                              "packingGroupId": "pg1234abcd-1234-abcd-5678-1234abcd5678",
+                              "boxes": [
+                                {
+                                  "items": [
+                                    {
+                                      "msku": "msku",
+                                      "quantity": 5,
+                                      "expiration": "2024-01-01",
+                                      "prepOwner": "AMAZON",
+                                      "labelOwner": "AMAZON",
+                                      "manufacturingLotCode": "manufacturingLotCode"
+                                    }
+                                  ],
+                                  "contentInformationSource": "BOX_CONTENT_PROVIDED",
+                                  "weight": {
+                                    "unit": "KG",
+                                    "value": 5.5
+                                  },
+                                  "dimensions": {
+                                    "unitOfMeasurement": "CM",
+                                    "length": 3.0,
+                                    "width": 4.0,
+                                    "height": 5.0
+                                  },
+                                  "quantity": 2
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "operationId": "1234abcd-1234-abcd-5678-1234abcd5678"
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "bad234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "body": {
+                        "value": {
+                          "packageGroupings": [
+                            {
+                              "shipmentId": "sh1234abcd-1234-abcd-5678-1234abcd5678",
+                              "packingGroupId": "bad234abcd-1234-abcd-5678-1234abcd5678",
+                              "boxes": [
+                                {
+                                  "items": [
+                                    {
+                                      "msku": "msku",
+                                      "quantity": 5,
+                                      "expiration": "2024-01-01",
+                                      "prepOwner": "AMAZON",
+                                      "labelOwner": "AMAZON",
+                                      "manufacturingLotCode": "manufacturingLotCode"
+                                    }
+                                  ],
+                                  "contentInformationSource": "BOX_CONTENT_PROVIDED",
+                                  "weight": {
+                                    "unit": "KG",
+                                    "value": 5.5
+                                  },
+                                  "dimensions": {
+                                    "unitOfMeasurement": "CM",
+                                    "length": 3.0,
+                                    "width": 4.0,
+                                    "height": 5.0
+                                  },
+                                  "quantity": 2
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The requested packingGroupId does not exist for the specified inbound plan."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "Sets packing information for an inbound plan. This should be called after an inbound plan is created to populate the box level information required for planning and transportation estimates.",
+        "operationId": "setPackingInformation"
+      }
+    }
+  },
+  "definitions": {
+    "Weight": {
+      "description": "The weight of a package.",
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/UnitOfWeight"
+        },
+        "value": {
+          "description": "Value of a weight.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ],
+      "type": "object"
+    },
+    "UnitOfMeasurement": {
+      "description": "Unit of linear measure.",
+      "enum": [
+        "IN",
+        "CM"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "IN",
+          "description": "Inches."
+        },
+        {
+          "value": "CM",
+          "description": "Centimeters."
+        }
+      ]
+    },
+    "SetPackingInformationRequest": {
+      "description": "The `setPackingInformation` request.",
+      "properties": {
+        "packageGroupings": {
+          "description": "List of packing information for the inbound plan.",
+          "items": {
+            "$ref": "#/definitions/PackageGroupingInput"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "packageGroupings"
+      ],
+      "type": "object",
+      "example": {
+        "packageGroupings": [
+          {
+            "boxes": [
+              {
+                "contentInformationSource": "BOX_CONTENT_PROVIDED",
+                "dimensions": {
+                  "height": 5,
+                  "length": 3,
+                  "unitOfMeasurement": "CM",
+                  "width": 4
+                },
+                "items": [
+                  {
+                    "expiration": "2024-01-01",
+                    "labelOwner": "AMAZON",
+                    "manufacturingLotCode": "manufacturingLotCode",
+                    "msku": "Sunglasses",
+                    "prepOwner": "AMAZON",
+                    "quantity": 10
+                  }
+                ],
+                "quantity": 2,
+                "weight": {
+                  "unit": "KG",
+                  "value": 5.5
+                }
+              }
+            ],
+            "packingGroupId": "pg1234abcd-1234-abcd-5678-1234abcd5678",
+            "shipmentId": "sh1234abcd-1234-abcd-5678-1234abcd5678"
+          }
+        ]
+      }
+    },
+    "BoxInput": {
+      "description": "Input information for a given box.",
+      "properties": {
+        "contentInformationSource": {
+          "$ref": "#/definitions/BoxContentInformationSource"
+        },
+        "dimensions": {
+          "$ref": "#/definitions/Dimensions"
+        },
+        "items": {
+          "description": "The items and their quantity in the box. This must be empty if the box `contentInformationSource` is `BARCODE_2D` or `MANUAL_PROCESS`.",
+          "items": {
+            "$ref": "#/definitions/ItemInput"
+          },
+          "type": "array"
+        },
+        "quantity": {
+          "description": "The number of containers where all other properties like weight or dimensions are identical.",
+          "maximum": 10000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "weight": {
+          "$ref": "#/definitions/Weight"
+        }
+      },
+      "required": [
+        "contentInformationSource",
+        "dimensions",
+        "quantity",
+        "weight"
+      ],
+      "type": "object",
+      "example": {
+        "contentInformationSource": "BOX_CONTENT_PROVIDED",
+        "dimensions": {
+          "height": 5,
+          "length": 3,
+          "unitOfMeasurement": "CM",
+          "width": 4
+        },
+        "items": [
+          {
+            "expiration": "2024-01-01",
+            "labelOwner": "AMAZON",
+            "manufacturingLotCode": "manufacturingLotCode",
+            "msku": "Sunglasses",
+            "prepOwner": "AMAZON",
+            "quantity": 10
+          }
+        ],
+        "quantity": 2,
+        "weight": {
+          "unit": "KG",
+          "value": 5.5
+        }
+      }
+    },
+    "BoxContentInformationSource": {
+      "description": "Indication of how box content is meant to be provided.",
+      "enum": [
+        "BOX_CONTENT_PROVIDED",
+        "MANUAL_PROCESS",
+        "BARCODE_2D"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "BOX_CONTENT_PROVIDED",
+          "description": "Box contents have been provided by the seller."
+        },
+        {
+          "value": "MANUAL_PROCESS",
+          "description": "Box contents will be manually processed during receive. This service incurs charges."
+        },
+        {
+          "value": "BARCODE_2D",
+          "description": "Box contents information is provided by a barcode on the shipment. For more information, refer to [Using 2D barcodes for box content information](https://sellercentral.amazon.com/help/hub/reference/GJWALJCN6JKWJX5A) on Seller Central."
+        }
+      ]
+    },
+    "Dimensions": {
+      "description": "Measurement of a package's dimensions.",
+      "properties": {
+        "height": {
+          "description": "The height of a package.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "length": {
+          "description": "The length of a package.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "unitOfMeasurement": {
+          "$ref": "#/definitions/UnitOfMeasurement"
+        },
+        "width": {
+          "description": "The width of a package.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "height",
+        "length",
+        "unitOfMeasurement",
+        "width"
+      ],
+      "type": "object"
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "PackageGroupingInput": {
+      "description": "Packing information for the inbound plan.",
+      "properties": {
+        "boxes": {
+          "description": "Box level information being provided.",
+          "items": {
+            "$ref": "#/definitions/BoxInput"
+          },
+          "maxItems": 5000,
+          "minItems": 1,
+          "type": "array"
+        },
+        "packingGroupId": {
+          "description": "The ID of the `packingGroup` that packages are grouped according to. The `PackingGroupId` can only be provided before placement confirmation, and it must belong to the confirmed `PackingOption`. One of `ShipmentId` or `PackingGroupId` must be provided with every request.",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        },
+        "shipmentId": {
+          "description": "The ID of the shipment that packages are grouped according to. The `ShipmentId` can only be provided after placement confirmation, and the shipment must belong to the confirmed placement option. One of `ShipmentId` or `PackingGroupId` must be provided with every request.",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "boxes"
+      ],
+      "type": "object",
+      "example": {
+        "boxes": [
+          {
+            "contentInformationSource": "BOX_CONTENT_PROVIDED",
+            "dimensions": {
+              "height": 5,
+              "length": 3,
+              "unitOfMeasurement": "CM",
+              "width": 4
+            },
+            "items": [
+              {
+                "expiration": "2024-01-01",
+                "labelOwner": "AMAZON",
+                "manufacturingLotCode": "manufacturingLotCode",
+                "msku": "Sunglasses",
+                "prepOwner": "AMAZON",
+                "quantity": 10
+              }
+            ],
+            "quantity": 2,
+            "weight": {
+              "unit": "KG",
+              "value": 5.5
+            }
+          }
+        ],
+        "packingGroupId": "pg1234abcd-1234-abcd-5678-1234abcd5678",
+        "shipmentId": "sh1234abcd-1234-abcd-5678-1234abcd5678"
+      }
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "UnitOfWeight": {
+      "description": "Unit of the weight being measured.",
+      "enum": [
+        "LB",
+        "KG"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "LB",
+          "description": "Pounds."
+        },
+        {
+          "value": "KG",
+          "description": "Kilograms."
+        }
+      ]
+    },
+    "ItemInput": {
+      "description": "Defines an item's input parameters.",
+      "properties": {
+        "expiration": {
+          "description": "The expiration date of the MSKU. In [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) datetime format with pattern `YYYY-MM-DD`. Items with the same MSKU but different expiration dates cannot go into the same box.",
+          "pattern": "^([0-9]{4})-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$",
+          "type": "string"
+        },
+        "labelOwner": {
+          "$ref": "#/definitions/LabelOwner"
+        },
+        "manufacturingLotCode": {
+          "description": "The manufacturing lot code.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "msku": {
+          "description": "The merchant SKU, a merchant-supplied identifier of a specific SKU.",
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "prepOwner": {
+          "$ref": "#/definitions/PrepOwner"
+        },
+        "quantity": {
+          "description": "The number of units of the specified MSKU that will be shipped.",
+          "maximum": 500000,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "labelOwner",
+        "msku",
+        "prepOwner",
+        "quantity"
+      ],
+      "type": "object",
+      "example": {
+        "expiration": "2024-01-01",
+        "labelOwner": "AMAZON",
+        "manufacturingLotCode": "manufacturingLotCode",
+        "msku": "Sunglasses",
+        "prepOwner": "AMAZON",
+        "quantity": 10
+      }
+    },
+    "LabelOwner": {
+      "description": "Specifies who will label the items. Options include `AMAZON`, `SELLER` or `NONE`.",
+      "enum": [
+        "AMAZON",
+        "SELLER",
+        "NONE"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "AMAZON",
+          "description": "Amazon provides the information."
+        },
+        {
+          "value": "SELLER",
+          "description": "Seller provides the information."
+        },
+        {
+          "value": "NONE",
+          "description": "No owner is required for the labelling."
+        }
+      ]
+    },
+    "PrepOwner": {
+      "description": "The owner of the preparations, if special preparations are required.",
+      "enum": [
+        "AMAZON",
+        "SELLER",
+        "NONE"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "AMAZON",
+          "description": "Amazon provides the information."
+        },
+        {
+          "value": "SELLER",
+          "description": "The seller provides the information."
+        },
+        {
+          "value": "NONE",
+          "description": "No owner is required for the preparations."
+        }
+      ]
+    },
+    "SetPackingInformationResponse": {
+      "description": "The `setPackingInformation` response.",
+      "properties": {
+        "operationId": {
+          "description": "UUID for the given operation.",
+          "maxLength": 38,
+          "minLength": 36,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operationId"
+      ],
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,636 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "With the Services API, you can build applications that help service providers get and modify their service orders and manage their resources.",
+    "version": "v1",
+    "title": "Selling Partner API for Services",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/service/v1/serviceResources/{resourceId}/schedules": {
+      "parameters": [],
+      "put": {
+        "tags": [
+          "service"
+        ],
+        "description": "Update the schedule of the given resource.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 5 | 20 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](doc:usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "updateSchedule",
+        "parameters": [
+          {
+            "name": "resourceId",
+            "in": "path",
+            "description": "Resource (store) Identifier",
+            "required": true,
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Schedule details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateScheduleRequest"
+            }
+          },
+          {
+            "name": "marketplaceIds",
+            "in": "query",
+            "description": "An identifier for the marketplace in which the resource operates.",
+            "required": true,
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response.",
+            "schema": {
+              "$ref": "#/definitions/UpdateScheduleResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "resourceId": {
+                        "value": "validResourceId-9c156c44-8315-4aeb-bb36-e056fa827e36"
+                      },
+                      "body": {
+                        "value": {
+                          "schedules": [
+                            {
+                              "startTime": "2020-01-01T00:00:00.00-07",
+                              "endTime": "2020-01-01T23:59:00.00-07",
+                              "recurrence": {
+                                "endTime": "2020-01-06T23:59:00.00-07",
+                                "daysOfWeek": [
+                                  "MONDAY",
+                                  "TUESDAY",
+                                  "WEDNESDAY",
+                                  "THURSDAY",
+                                  "FRIDAY"
+                                ]
+                              }
+                            },
+                            {
+                              "startTime": "2020-01-11T00:00:00.00-07",
+                              "endTime": "2020-01-11T23:59:00.00-07",
+                              "recurrence": {
+                                "endTime": "2020-01-16T23:59:00.00-07",
+                                "daysOfWeek": [
+                                  "MONDAY",
+                                  "TUESDAY",
+                                  "WEDNESDAY"
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {}
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "resourceId": {
+                        "value": "validResourceId-9c156c44-8315-4aeb-bb36-e056fa827e36"
+                      },
+                      "body": {
+                        "value": {
+                          "schedules": [
+                            {
+                              "startTime": "2020-01-01T12:00:00.00-07",
+                              "endTime": "2020-01-01T23:59:00.00-07",
+                              "recurrence": {
+                                "endTime": "2020-01-06T23:59:00.00-07",
+                                "daysOfWeek": [
+                                  "MONDAY",
+                                  "TUESDAY",
+                                  "WEDNESDAY",
+                                  "THURSDAY",
+                                  "FRIDAY"
+                                ]
+                              }
+                            },
+                            {
+                              "startTime": "2020-01-11T00:00:00.00-07",
+                              "endTime": "2020-01-11T23:59:00.00-07",
+                              "recurrence": {
+                                "endTime": "2020-01-16T23:59:00.00-07",
+                                "daysOfWeek": [
+                                  "MONDAY",
+                                  "TUESDAY",
+                                  "WEDNESDAY"
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "payload": [
+                      {
+                        "availability": {
+                          "startTime": "2025-07-22T22:38:02.283Z",
+                          "endTime": "2025-07-22T22:38:02.283Z",
+                          "recurrence": {
+                            "endTime": "2025-07-22T22:38:02.283Z",
+                            "daysOfWeek": [
+                              "MONDAY",
+                              "TUESDAY",
+                              "WEDNESDAY",
+                              "THURSDAY",
+                              "FRIDAY"
+                            ]
+                          }
+                        },
+                        "warnings": [
+                          {
+                            "code": "ScheduleOverride",
+                            "message": "This AvailabilityRecord will override the current schedule as the time-ranges overlap"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "resourceId": {
+                        "value": "invalidResourceId-9c156c44-8315-4aeb-bb36-e056fa827e36"
+                      },
+                      "body": {
+                        "value": {
+                          "schedules": [
+                            {
+                              "startTime": "2020-01-01T00:00:00.00-07",
+                              "endTime": "2020-01-01T23:59:00.00-07",
+                              "recurrence": {
+                                "endTime": "2020-01-06T23:59:00.00-07",
+                                "daysOfWeek": [
+                                  "MONDAY",
+                                  "TUESDAY",
+                                  "WEDNESDAY",
+                                  "THURSDAY",
+                                  "FRIDAY"
+                                ]
+                              }
+                            },
+                            {
+                              "startTime": "2020-01-11T00:00:00.00-07",
+                              "endTime": "2020-01-11T23:59:00.00-07",
+                              "recurrence": {
+                                "endTime": "2020-01-16T23:59:00.00-07",
+                                "daysOfWeek": [
+                                  "MONDAY",
+                                  "TUESDAY",
+                                  "WEDNESDAY"
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "message": "Invalid request parameters: [resourceId]",
+                        "code": "InvalidInput"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/UpdateScheduleResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "resourceId": {
+                        "value": "null"
+                      },
+                      "body": {
+                        "value": {
+                          "schedules": []
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "message": "Missing or invalid request parameters: [resourceId]",
+                        "code": "InvalidInput"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "resourceId": {
+                        "value": "validResourceId-9c156c44-8315-4aeb-bb36-e056fa827e36"
+                      },
+                      "body": {
+                        "value": {
+                          "schedules": []
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "message": "Missing or invalid request parameters: [schedule]",
+                        "code": "InvalidInput"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/UpdateScheduleResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/UpdateScheduleResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/UpdateScheduleResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/UpdateScheduleResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/UpdateScheduleResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "Encountered an unexpected condition which prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/UpdateScheduleResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/UpdateScheduleResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "UpdateScheduleRecord": {
+      "type": "object",
+      "properties": {
+        "availability": {
+          "description": "Availability record if the operation failed.",
+          "$ref": "#/definitions/AvailabilityRecord"
+        },
+        "warnings": {
+          "description": "Warnings encountered, if any.",
+          "$ref": "#/definitions/WarningList"
+        },
+        "errors": {
+          "description": "Errors encountered, if any.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "`UpdateScheduleRecord` entity contains the `AvailabilityRecord` if there is an error/warning while performing the requested operation on it."
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Recurrence": {
+      "type": "object",
+      "required": [
+        "endTime"
+      ],
+      "properties": {
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "End time of the recurrence."
+        },
+        "daysOfWeek": {
+          "type": "array",
+          "description": "Days of the week when recurrence is valid. If the schedule is valid every Monday, input will only contain `MONDAY` in the list.",
+          "items": {
+            "$ref": "#/definitions/DayOfWeek"
+          }
+        },
+        "daysOfMonth": {
+          "type": "array",
+          "description": "Days of the month when recurrence is valid.",
+          "items": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31
+          }
+        }
+      },
+      "description": "Repeated occurrence of an event in a time range."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        },
+        "errorLevel": {
+          "type": "string",
+          "description": "The type of error.",
+          "enum": [
+            "ERROR",
+            "WARNING"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "ERROR",
+              "description": "Error"
+            },
+            {
+              "value": "WARNING",
+              "description": "Warning"
+            }
+          ]
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "WarningList": {
+      "type": "array",
+      "description": "A list of warnings returned in the sucessful execution response of an API request.",
+      "items": {
+        "$ref": "#/definitions/Warning"
+      }
+    },
+    "DayOfWeek": {
+      "type": "string",
+      "description": "The day of the week.",
+      "enum": [
+        "MONDAY",
+        "TUESDAY",
+        "WEDNESDAY",
+        "THURSDAY",
+        "FRIDAY",
+        "SATURDAY",
+        "SUNDAY"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "MONDAY",
+          "description": "Monday."
+        },
+        {
+          "value": "TUESDAY",
+          "description": "Tuesday."
+        },
+        {
+          "value": "WEDNESDAY",
+          "description": "Wednesday."
+        },
+        {
+          "value": "THURSDAY",
+          "description": "Thursday."
+        },
+        {
+          "value": "FRIDAY",
+          "description": "Friday."
+        },
+        {
+          "value": "SATURDAY",
+          "description": "Saturday."
+        },
+        {
+          "value": "SUNDAY",
+          "description": "Sunday."
+        }
+      ]
+    },
+    "AvailabilityRecords": {
+      "type": "array",
+      "description": "List of `AvailabilityRecord`s to represent the capacity of a resource over a time range.",
+      "items": {
+        "$ref": "#/definitions/AvailabilityRecord"
+      }
+    },
+    "Warning": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An warning code that identifies the type of warning that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the warning condition in a human-readable form."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or address the warning."
+        }
+      },
+      "description": "Warning returned when the request is successful, but there are important callouts based on which API clients should take defined actions."
+    },
+    "UpdateScheduleResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "type": "array",
+          "description": "Contains the `UpdateScheduleRecords` for which the error/warning has occurred.",
+          "items": {
+            "$ref": "#/definitions/UpdateScheduleRecord"
+          }
+        },
+        "errors": {
+          "description": "Errors encountered, if any.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "Response schema for the `updateSchedule` operation."
+    },
+    "UpdateScheduleRequest": {
+      "type": "object",
+      "required": [
+        "schedules"
+      ],
+      "properties": {
+        "schedules": {
+          "description": "List of schedule objects to define the normal working hours of a resource.",
+          "$ref": "#/definitions/AvailabilityRecords"
+        }
+      },
+      "description": "Request schema for the `updateSchedule` operation."
+    },
+    "AvailabilityRecord": {
+      "type": "object",
+      "required": [
+        "endTime",
+        "startTime"
+      ],
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Denotes the time from when the resource is available in a day in ISO-8601 format."
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Denotes the time till when the resource is available in a day in ISO-8601 format."
+        },
+        "recurrence": {
+          "description": "Recurrence object containing the recurrence pattern of schedule.",
+          "$ref": "#/definitions/Recurrence"
+        },
+        "capacity": {
+          "type": "integer",
+          "description": "Signifies the capacity of a resource which is available.",
+          "minimum": 1
+        }
+      },
+      "description": "`AvailabilityRecord` to represent the capacity of a resource over a time range."
+    }
+  }
+}

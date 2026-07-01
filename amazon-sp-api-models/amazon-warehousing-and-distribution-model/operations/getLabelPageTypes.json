@@ -1,0 +1,355 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon Warehousing and Distribution",
+    "version": "2024-05-09",
+    "description": "The Selling Partner API for Amazon Warehousing and Distribution (AWD) provides programmatic access to information about AWD shipments and inventory. ",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/awd/2024-05-09/inboundShipments/{shipmentId}/labelPageTypes": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "ID for the shipment.",
+            "in": "path",
+            "minLength": 1,
+            "name": "shipmentId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The 200 response for `getLabelPageTypes`.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ShipmentLabelPageTypes"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "shipmentId": {
+                        "value": "TestShipmentId"
+                      }
+                    }
+                  },
+                  "response": {
+                    "labelStatus": "GENERATED",
+                    "pageTypes": [
+                      "PLAIN_PAPER"
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "shipmentId": {
+                        "value": " "
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BAD_REQUEST",
+                        "details": "This exception is thrown when client inputs are invalid",
+                        "message": "ShipmentId should be present for this request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        },
+        "tags": [
+          "awd"
+        ],
+        "description": "Retrieves the available label page types for a shipment ID that you specify. This is an asynchronous operation. If the label status is `GENERATED`, then the pageTypes are available.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 1 | 2 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The preceding table indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getLabelPageTypes"
+      }
+    }
+  },
+  "definitions": {
+    "ShipmentLabelPageTypes": {
+      "description": "Shipment label page types.",
+      "properties": {
+        "labelStatus": {
+          "description": "Status of label page types.",
+          "$ref": "#/definitions/LabelStatus"
+        },
+        "pageTypes": {
+          "description": "List of available page types.",
+          "items": {
+            "$ref": "#/definitions/PageType"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "labelStatus"
+      ],
+      "type": "object"
+    },
+    "ErrorList": {
+      "description": "This exception is thrown when client inputs are invalid.",
+      "properties": {
+        "errors": {
+          "description": "A list of errors describing the failures.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      "required": [
+        "errors"
+      ]
+    },
+    "LabelStatus": {
+      "description": "The status of your label.",
+      "enum": [
+        "GENERATING",
+        "GENERATED",
+        "GENERATION_FAILED",
+        "NOT_READY"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Labels are being generated.",
+          "value": "GENERATING"
+        },
+        {
+          "description": "Labels are generated.",
+          "value": "GENERATED"
+        },
+        {
+          "description": "Label generation failed.",
+          "value": "GENERATION_FAILED"
+        },
+        {
+          "description": "Not yet ready to start label generation.",
+          "value": "NOT_READY"
+        }
+      ]
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "PageType": {
+      "description": "Label page type.",
+      "enum": [
+        "PLAIN_PAPER",
+        "LETTER_PCP_FULFILLMENTLABEL",
+        "LETTER_2_HORIZONTAL",
+        "LETTER_2",
+        "THERMAL_NO_CARRIER_ROTATION",
+        "THERMAL",
+        "A4_PAPER",
+        "A4_2_HORIZONTAL",
+        "THERMAL_SQUARE_10CM"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "One label per sheet of US Letter paper. Only for non-Amazon-partnered shipments.",
+          "value": "PLAIN_PAPER"
+        },
+        {
+          "description": "A4 paper format.",
+          "value": "A4_PAPER"
+        },
+        {
+          "description": "Letter PCP fulfillment label format.",
+          "value": "LETTER_PCP_FULFILLMENTLABEL"
+        },
+        {
+          "description": "Two labels per US Letter sheet, horizontal orientation.",
+          "value": "LETTER_2_HORIZONTAL"
+        },
+        {
+          "description": "Two labels per US Letter sheet.",
+          "value": "LETTER_2"
+        },
+        {
+          "description": "Thermal format without carrier rotation.",
+          "value": "THERMAL_NO_CARRIER_ROTATION"
+        },
+        {
+          "description": "Standard thermal format.",
+          "value": "THERMAL"
+        },
+        {
+          "description": "Two labels per A4 sheet, horizontal orientation.",
+          "value": "A4_2_HORIZONTAL"
+        },
+        {
+          "description": "Thermal square 10cm format.",
+          "value": "THERMAL_SQUARE_10CM"
+        }
+      ],
+      "example": "PLAIN_PAPER"
+    }
+  }
+}

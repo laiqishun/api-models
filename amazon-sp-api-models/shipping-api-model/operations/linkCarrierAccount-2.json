@@ -1,0 +1,525 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Amazon Shipping API is designed to support outbound shipping use cases both for orders originating on Amazon-owned marketplaces as well as external channels/marketplaces. With these APIs, you can request shipping rates, create shipments, cancel shipments, and track shipments.",
+    "version": "v2",
+    "title": "Amazon Shipping API",
+    "contact": {
+      "name": "Amazon Shipping API Support",
+      "email": "swa-api-core@amazon.com"
+    },
+    "license": {
+      "name": "Amazon Software License",
+      "url": "https://aws.amazon.com/asl/"
+    }
+  },
+  "host": "sellingpartnerapi-eu.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/shipping/v2/carrierAccounts/{carrierId}": {
+      "parameters": [],
+      "post": {
+        "tags": [
+          "shipping"
+        ],
+        "description": "This API associates/links the specified carrier account with the merchant. \n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 5 | 10 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values then those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](doc:usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "linkCarrierAccount",
+        "parameters": [
+          {
+            "name": "carrierId",
+            "description": "An identifier for the carrier with which the seller's account is being linked.",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "LinkCarrierAccountRequest body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LinkCarrierAccountRequest"
+            }
+          },
+          {
+            "name": "x-amzn-shipping-business-id",
+            "in": "header",
+            "description": "Amazon shipping business to assume for this request. The default is AmazonShipping_UK.",
+            "required": false,
+            "type": "string",
+            "enum": [
+              "AmazonShipping_US",
+              "AmazonShipping_IN",
+              "AmazonShipping_UK",
+              "AmazonShipping_UAE",
+              "AmazonShipping_SA",
+              "AmazonShipping_EG",
+              "AmazonShipping_IT",
+              "AmazonShipping_ES",
+              "AmazonShipping_FR",
+              "AmazonShipping_JP"
+            ],
+            "x-docgen-enum-table-extension": [
+              {
+                "value": "AmazonShipping_US",
+                "description": "The United States Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_IN",
+                "description": "The India Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_UK",
+                "description": "The United Kingdom Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_UAE",
+                "description": "The United Arab Emirates Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_SA",
+                "description": "The Saudi Arabia Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_EG",
+                "description": "The Egypt Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_IT",
+                "description": "The Italy Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_ES",
+                "description": "The Spain Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_FR",
+                "description": "The France Amazon shipping business."
+              },
+              {
+                "value": "AmazonShipping_JP",
+                "description": "The Japan Amazon shipping business."
+              }
+            ]
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/LinkCarrierAccountResponse"
+            },
+            "examples": {
+              "application/json": {
+                "registrationStatus": "ACTIVE",
+                "accountId": "90613e4-dcf6-4c3e-bc57-45005580"
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "InvalidRequest",
+                    "message": "Request is missing or has invalid parameters",
+                    "details": "Provided input is invalid. Please verify."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "Unauthorized",
+                    "message": "You don't have access to the requested response or the credentials are invalid."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "Unauthorized",
+                    "message": "You don't have access to the requested response or the credentials are invalid."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "NotFound",
+                    "message": "The requested resource is invalid or doesn't exist"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "InvalidRequest",
+                    "message": "The request payload size is greater than maximum accepted size."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "InvalidRequest",
+                    "message": "The request payload format is not supported."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "TooManyRequests",
+                    "message": "The total number of requests exceeded your allowed limit."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "InternalError",
+                    "message": "Something went wrong while processing the request."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "examples": {
+              "application/json": {
+                "errors": [
+                  {
+                    "code": "ServiceUnavailable",
+                    "message": "Service temporarily unavailable or down for maintenance. Please try again after sometime."
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        },
+        "x-amzn-api-sandbox": {
+          "dynamic": {}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CarrierAccountAttributes": {
+      "type": "array",
+      "description": "A list of all attributes required by the carrier in order to successfully link the merchant's account",
+      "items": {
+        "$ref": "#/definitions/CarrierAccountAttribute"
+      }
+    },
+    "AccountStatus": {
+      "type": "string",
+      "description": "Account Status.",
+      "enum": [
+        "ACTIVE",
+        "INACTIVE",
+        "PENDING",
+        "SUSPENDED"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "ACTIVE",
+          "description": "Seller Account is Active."
+        },
+        {
+          "value": "INACTIVE",
+          "description": "Seller Account is InActive."
+        },
+        {
+          "value": "PENDING",
+          "description": "Seller Account is Pending."
+        },
+        {
+          "value": "SUSPENDED",
+          "description": "Seller Account is Suspended."
+        }
+      ]
+    },
+    "ClientReferenceDetail": {
+      "type": "object",
+      "required": [
+        "clientReferenceType",
+        "clientReferenceId"
+      ],
+      "properties": {
+        "clientReferenceType": {
+          "type": "string",
+          "description": "Client Reference type.",
+          "enum": [
+            "IntegratorShipperId",
+            "IntegratorMerchantId"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "IntegratorShipperId",
+              "description": "The unique identifier assigned to a 3P seller by the shipping integrator."
+            },
+            {
+              "value": "IntegratorMerchantId",
+              "description": "The unique identifier assigned to a 3P shipping integrator by Amazon."
+            }
+          ]
+        },
+        "clientReferenceId": {
+          "type": "string",
+          "description": "The Client Reference Id."
+        }
+      },
+      "description": "Client Reference Details"
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "Array of Errors",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "AccountId": {
+      "type": "string",
+      "description": "Identifier for the seller's carrier account."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "CarrierAccountAttribute": {
+      "type": "object",
+      "properties": {
+        "attributeName": {
+          "type": "string",
+          "description": "Attribute Name ."
+        },
+        "propertyGroup": {
+          "type": "string",
+          "description": "Property Group."
+        },
+        "value": {
+          "type": "string",
+          "description": "Value ."
+        }
+      },
+      "description": "Attribute Properties required by carrier"
+    },
+    "LinkCarrierAccountRequest": {
+      "description": "The request schema for verify and add the merchant's account with a certain carrier.",
+      "type": "object",
+      "required": [
+        "carrierAccountAttributes",
+        "carrierAccountType"
+      ],
+      "properties": {
+        "clientReferenceDetails": {
+          "$ref": "#/definitions/ClientReferenceDetails"
+        },
+        "carrierAccountType": {
+          "$ref": "#/definitions/CarrierAccountType"
+        },
+        "carrierAccountAttributes": {
+          "$ref": "#/definitions/CarrierAccountAttributes"
+        },
+        "encryptedCarrierAccountAttributes": {
+          "$ref": "#/definitions/CarrierAccountAttributes"
+        }
+      }
+    },
+    "CarrierAccountType": {
+      "type": "string",
+      "description": "CarrierAccountType  associated with account."
+    },
+    "ClientReferenceDetails": {
+      "type": "array",
+      "description": "Object to pass additional information about the MCI Integrator shipperType: List of ClientReferenceDetail",
+      "items": {
+        "$ref": "#/definitions/ClientReferenceDetail"
+      }
+    },
+    "LinkCarrierAccountResponse": {
+      "description": "The Response  for the LinkCarrierAccount operation.",
+      "type": "object",
+      "properties": {
+        "registrationStatus": {
+          "$ref": "#/definitions/AccountStatus"
+        },
+        "accountId": {
+          "$ref": "#/definitions/AccountId"
+        }
+      }
+    }
+  }
+}

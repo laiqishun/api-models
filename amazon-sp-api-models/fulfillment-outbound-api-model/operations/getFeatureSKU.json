@@ -1,0 +1,271 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Fulfillment Outbound lets you create applications that help a seller fulfill Multi-Channel Fulfillment orders using their inventory in Amazon's fulfillment network. You can get information on both potential and existing fulfillment orders.",
+    "version": "2020-07-01",
+    "title": "Selling Partner APIs for Fulfillment Outbound",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/fba/outbound/2020-07-01/features/inventory/{featureName}/{sellerSku}": {
+      "get": {
+        "tags": [
+          "fbaOutbound"
+        ],
+        "description": "Returns the number of items with the `sellerSku` you specify that can have orders fulfilled using the specified feature. Note that if the `sellerSku` isn't eligible, the response will contain an empty `skuInfo` object. The parameters for this operation may contain special characters that require URL encoding. To avoid errors with SKUs when encoding URLs, refer to [URL Encoding](https://developer-docs.amazon.com/sp-api/docs/url-encoding).\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 2 | 30 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The preceding table indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getFeatureSKU",
+        "parameters": [
+          {
+            "name": "marketplaceId",
+            "in": "query",
+            "description": "The marketplace for which to return the count.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "featureName",
+            "in": "path",
+            "description": "The name of the feature.",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "sellerSku",
+            "in": "path",
+            "description": "Used to identify an item in the given marketplace. `sellerSku` is qualified by the seller's `sellerId`, which is included with every operation that you submit.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/GetFeatureSkuResponse"
+            },
+            "examples": {
+              "payload": {
+                "marketplaceId": "ATVPDKIKX0DER",
+                "featureName": "BLANK_BOX",
+                "isEligible": true,
+                "ineligibleReasons": [],
+                "sellerSku": "TEST_SKU",
+                "fnSku": "TEST_fnSku",
+                "asin": "TEST_asin",
+                "skuCount": 33
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/GetFeatureSkuResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/GetFeatureSkuResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/GetFeatureSkuResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/GetFeatureSkuResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/GetFeatureSkuResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/GetFeatureSkuResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/GetFeatureSkuResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "GetFeatureSkuResult": {
+      "type": "object",
+      "required": [
+        "featureName",
+        "isEligible",
+        "marketplaceId"
+      ],
+      "properties": {
+        "marketplaceId": {
+          "type": "string",
+          "description": "The requested marketplace."
+        },
+        "featureName": {
+          "type": "string",
+          "description": "The name of the feature."
+        },
+        "isEligible": {
+          "type": "boolean",
+          "description": "When true, the seller SKU is eligible for the requested feature."
+        },
+        "ineligibleReasons": {
+          "type": "array",
+          "description": "A list of one or more reasons that the seller SKU is ineligible for the feature.\n\nPossible values:\n* `MERCHANT_NOT_ENROLLED`: The merchant isn't enrolled for the feature.\n* `SKU_NOT_ELIGIBLE`: The SKU doesn't reside in a warehouse that supports the feature.\n* `INVALID_SKU`: There is an issue with the SKU provided.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "sellerSku": {
+          "type": "string",
+          "description": "Used to identify an item in the given marketplace. SellerSKU is qualified by the seller's SellerId, which is included with every operation that you submit."
+        },
+        "fnSku": {
+          "type": "string",
+          "description": "The unique SKU used by Amazon's fulfillment network."
+        },
+        "asin": {
+          "type": "string",
+          "description": "The Amazon Standard Identification Number (ASIN) of the item."
+        },
+        "skuCount": {
+          "type": "number",
+          "description": "The number of SKUs available for this service."
+        }
+      },
+      "description": "The payload for the `getFeatureSKU` operation."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "GetFeatureSkuResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "$ref": "#/definitions/GetFeatureSkuResult"
+        },
+        "errors": {
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The response schema for the `getFeatureSKU` operation."
+    }
+  }
+}

@@ -1,0 +1,467 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon Warehousing and Distribution",
+    "version": "2024-05-09",
+    "description": "The Selling Partner API for Amazon Warehousing and Distribution (AWD) provides programmatic access to information about AWD shipments and inventory. ",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/awd/2024-05-09/inboundShipments": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Field to sort results by. By default, the response will be sorted by UPDATED_AT.",
+            "enum": [
+              "UPDATED_AT",
+              "CREATED_AT"
+            ],
+            "in": "query",
+            "name": "sortBy",
+            "type": "string",
+            "x-docgen-enum-table-extension": [
+              {
+                "description": "Sort by the time of update.",
+                "value": "UPDATED_AT"
+              },
+              {
+                "description": "Sort by the time of creation.",
+                "value": "CREATED_AT"
+              }
+            ]
+          },
+          {
+            "description": "Sort the response in ASCENDING or DESCENDING order. By default, the response will be sorted in DESCENDING order.",
+            "enum": [
+              "ASCENDING",
+              "DESCENDING"
+            ],
+            "in": "query",
+            "name": "sortOrder",
+            "type": "string",
+            "x-docgen-enum-table-extension": [
+              {
+                "description": "Sorts the collection in ascending order.",
+                "value": "ASCENDING"
+              },
+              {
+                "description": "Sorts the collection in descending order.",
+                "value": "DESCENDING"
+              }
+            ],
+            "x-example": "ASCENDING"
+          },
+          {
+            "description": "Filter by inbound shipment status.",
+            "enum": [
+              "CREATED",
+              "SHIPPED",
+              "IN_TRANSIT",
+              "RECEIVING",
+              "DELIVERED",
+              "CLOSED",
+              "CANCELLED"
+            ],
+            "in": "query",
+            "name": "shipmentStatus",
+            "type": "string",
+            "x-docgen-enum-table-extension": [
+              {
+                "description": "Shipment is created, but hasn't shipped.",
+                "value": "CREATED"
+              },
+              {
+                "description": "Shipment was picked up by the carrier or was dropped off with the carrier.",
+                "value": "SHIPPED"
+              },
+              {
+                "description": "The carrier has notified AWD that the shipment is in transit between the origin and destination nodes.",
+                "value": "IN_TRANSIT"
+              },
+              {
+                "description": "The shipment has been partially received.",
+                "value": "RECEIVING"
+              },
+              {
+                "description": "The shipment has reached the destination node and has been delivered to the facility yard. The shipment `receive` process at the warehouse will start soon.",
+                "value": "DELIVERED"
+              },
+              {
+                "description": "No more actions are required for the shipment. This is a final state.",
+                "value": "CLOSED"
+              },
+              {
+                "description": "The shipment is cancelled. This is a final state.",
+                "value": "CANCELLED"
+              }
+            ],
+            "x-example": "CREATED"
+          },
+          {
+            "description": "List the inbound shipments that were updated after a certain time (inclusive). The date must be in <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> format.",
+            "format": "date-time",
+            "in": "query",
+            "name": "updatedAfter",
+            "type": "string",
+            "x-example": "2023-01-12T10:00:00.000Z"
+          },
+          {
+            "description": "List the inbound shipments that were updated before a certain time (inclusive). The date must be in <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> format.",
+            "format": "date-time",
+            "in": "query",
+            "name": "updatedBefore",
+            "type": "string",
+            "x-example": "2023-01-12T10:00:00.000Z"
+          },
+          {
+            "default": 25,
+            "description": "Maximum number of results to return.",
+            "format": "int32",
+            "in": "query",
+            "maximum": 200,
+            "minimum": 1,
+            "name": "maxResults",
+            "type": "integer",
+            "x-example": "10"
+          },
+          {
+            "description": "A token that is used to retrieve the next page of results. The response includes `nextToken` when the number of results exceeds the specified `maxResults` value. To get the next page of results, call the operation with this token and include the same arguments as the call that produced the token. To get a complete list, call this operation until `nextToken` is null. Note that this operation can return empty pages.",
+            "in": "query",
+            "name": "nextToken",
+            "type": "string",
+            "x-example": "SampleToken"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The 200 response for `listInboundShipments`.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ShipmentListing"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {}
+                  },
+                  "response": {
+                    "shipments": [
+                      {
+                        "createdAt": "2023-06-07T12:12:09.061Z",
+                        "orderId": "TestOrderId",
+                        "shipmentId": "TestShipmentId",
+                        "shipmentStatus": "CREATED",
+                        "updatedAt": "2023-06-07T12:12:09.061Z"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "sortBy": {
+                        "value": "TEST"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BAD_REQUEST",
+                        "details": "This exception is thrown when client inputs are invalid",
+                        "message": "Invalid shipment sortable field received: TEST"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        },
+        "tags": [
+          "awd"
+        ],
+        "description": "Retrieves a summary of all the inbound AWD shipments associated with a merchant, with the ability to apply optional filters.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 1 | 1 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "listInboundShipments"
+      }
+    }
+  },
+  "definitions": {
+    "InboundShipmentSummary": {
+      "description": "Summary for an AWD inbound shipment containing the shipment ID, which can be used to retrieve the actual shipment.",
+      "properties": {
+        "createdAt": {
+          "description": "Timestamp when the shipment was created.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "externalReferenceId": {
+          "description": "Optional client-provided reference ID that can be used to correlate this shipment with client resources. For example, to map this shipment to an internal bookkeeping order record.",
+          "type": "string",
+          "example": "TestReferenceId"
+        },
+        "orderId": {
+          "description": "The AWD inbound order ID that this inbound shipment belongs to.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "shipmentId": {
+          "description": "A unique shipment ID.",
+          "minLength": 1,
+          "type": "string"
+        },
+        "shipmentStatus": {
+          "$ref": "#/definitions/InboundShipmentStatus"
+        },
+        "updatedAt": {
+          "description": "Timestamp when the shipment was updated.",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "orderId",
+        "shipmentId",
+        "shipmentStatus"
+      ],
+      "type": "object"
+    },
+    "InboundShipmentStatus": {
+      "description": "Possible shipment statuses used by shipments.",
+      "enum": [
+        "CREATED",
+        "SHIPPED",
+        "IN_TRANSIT",
+        "RECEIVING",
+        "DELIVERED",
+        "CLOSED",
+        "CANCELLED"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Shipment is created but has not yet shipped.",
+          "value": "CREATED"
+        },
+        {
+          "description": "Shipment was picked up by the carrier or was dropped off with the carrier.",
+          "value": "SHIPPED"
+        },
+        {
+          "description": "The carrier has notified AWD that the shipment is in transit between origin and destination node.",
+          "value": "IN_TRANSIT"
+        },
+        {
+          "description": "The shipment has been partially received.",
+          "value": "RECEIVING"
+        },
+        {
+          "description": "The shipment has reached the destination node and has been delivered to the facility yard. The shipment receive process at the warehouse will start soon.",
+          "value": "DELIVERED"
+        },
+        {
+          "description": "No more actions required on the shipment. This is a final state.",
+          "value": "CLOSED"
+        },
+        {
+          "description": "Shipment has been cancelled. This is a final state.",
+          "value": "CANCELLED"
+        }
+      ]
+    },
+    "ErrorList": {
+      "description": "This exception is thrown when client inputs are invalid.",
+      "properties": {
+        "errors": {
+          "description": "A list of errors describing the failures.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      "required": [
+        "errors"
+      ]
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "ShipmentListing": {
+      "description": "A list of inbound shipment summaries filtered by the attributes specified in the request.",
+      "properties": {
+        "nextToken": {
+          "description": "A token that is used to retrieve the next page of results. The response includes `nextToken` when the number of results exceeds the specified `maxResults` value. To get the next page of results, call the operation with this token and include the same arguments as the call that produced the token. To get a complete list, call this operation until `nextToken` is null. Note that this operation can return empty pages.",
+          "type": "string",
+          "example": "SampleToken"
+        },
+        "shipments": {
+          "description": "List of inbound shipment summaries.",
+          "items": {
+            "$ref": "#/definitions/InboundShipmentSummary"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    }
+  }
+}

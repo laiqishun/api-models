@@ -1,0 +1,479 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Fulfillment Outbound lets you create applications that help a seller fulfill Multi-Channel Fulfillment orders using their inventory in Amazon's fulfillment network. You can get information on both potential and existing fulfillment orders.",
+    "version": "2020-07-01",
+    "title": "Selling Partner APIs for Fulfillment Outbound",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/fba/outbound/2020-07-01/deliveryOffers": {
+      "post": {
+        "tags": [
+          "fbaOutbound"
+        ],
+        "description": "Returns delivery options that include an estimated delivery date and offer expiration, based on criteria that you specify.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 5 | 30 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "deliveryOffers",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetDeliveryOffersRequest"
+            },
+            "description": "GetDeliveryOffersRequest parameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/GetDeliveryOffersResponse"
+            },
+            "examples": {
+              "payload": {
+                "deliveryOffers": [
+                  {
+                    "expiresAt": "2023-10-11T18:00:00Z",
+                    "dateRange": {
+                      "earliest": "2023-10-13T10:00:00Z",
+                      "latest": "2023-10-14T16:00:00Z"
+                    },
+                    "policy": {
+                      "messaging": {
+                        "text": "Get it as soon as Wed, Aug 23",
+                        "locale": "en_US"
+                      }
+                    }
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/GetDeliveryOffersResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/GetDeliveryOffersResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/GetDeliveryOffersResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/GetDeliveryOffersResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/GetDeliveryOffersResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/GetDeliveryOffersResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/GetDeliveryOffersResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "GetDeliveryOffersRequest": {
+      "type": "object",
+      "required": [
+        "product",
+        "terms"
+      ],
+      "properties": {
+        "product": {
+          "$ref": "#/definitions/GetDeliveryOffersProduct",
+          "description": "The product details for the delivery offer."
+        },
+        "terms": {
+          "$ref": "#/definitions/GetDeliveryOffersTerms",
+          "description": "The terms for the delivery offer."
+        }
+      },
+      "description": "The request body schema for the `getDeliveryOffers` operation."
+    },
+    "DeliveryPolicy": {
+      "type": "object",
+      "properties": {
+        "message": {
+          "$ref": "#/definitions/DeliveryMessage",
+          "description": "Localized messaging for a delivery offering."
+        }
+      },
+      "description": "The policy for a delivery offering."
+    },
+    "DeliveryMessage": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "The message content for a delivery offering."
+        },
+        "locale": {
+          "type": "string",
+          "description": "The locale for the message (e.g., `en_US`)."
+        }
+      },
+      "description": "Localized messaging for a delivery offering."
+    },
+    "DateRange": {
+      "type": "object",
+      "required": [
+        "earliest",
+        "latest"
+      ],
+      "properties": {
+        "earliest": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "The earliest point in a date range."
+        },
+        "latest": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "The latest point in a date range."
+        }
+      },
+      "description": "The time range within which something (for example, a delivery) will occur."
+    },
+    "Decimal": {
+      "type": "string",
+      "description": "A decimal number with no loss of precision. Useful when precision loss is unacceptable, as with currencies. Follows RFC7159 for number representation."
+    },
+    "VariablePrecisionAddress": {
+      "type": "object",
+      "required": [
+        "countryCode",
+        "postalCode"
+      ],
+      "properties": {
+        "addressLine1": {
+          "type": "string",
+          "description": "The first line of the address."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Additional address information, if required."
+        },
+        "addressLine3": {
+          "type": "string",
+          "description": "Additional address information, if required."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city where the person, business, or institution is located. This property should not be used in Japan."
+        },
+        "districtOrCounty": {
+          "type": "string",
+          "description": "The district or county where the person, business, or institution is located."
+        },
+        "stateOrRegion": {
+          "type": "string",
+          "description": "The state or region where the person, business or institution is located."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal code of the address."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The two digit country code. In ISO 3166-1 alpha-2 format.",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      },
+      "description": "A physical address with varying degrees of precision. A more precise address can provide more accurate results than country code and postal code alone."
+    },
+    "GetDeliveryOffersProduct": {
+      "type": "object",
+      "required": [
+        "productIdentifier"
+      ],
+      "properties": {
+        "productIdentifier": {
+          "$ref": "#/definitions/ProductIdentifier",
+          "description": "Product identifier input that locates a product for MCF."
+        },
+        "amount": {
+          "$ref": "#/definitions/Amount",
+          "description": "The amount of the requested product."
+        }
+      },
+      "description": "The product details for the delivery offer."
+    },
+    "Origin": {
+      "type": "object",
+      "required": [
+        "countryCode"
+      ],
+      "description": "The origin for the delivery offer.",
+      "properties": {
+        "countryCode": {
+          "type": "string",
+          "description": "The two-digit country code (in ISO 3166-1 alpha-2 format) for the country where the items will ship from.",
+          "minLength": 2,
+          "maxLength": 2
+        }
+      }
+    },
+    "GetDeliveryOffersResult": {
+      "type": "object",
+      "properties": {
+        "deliveryOffers": {
+          "$ref": "#/definitions/DeliveryOffersList",
+          "description": "An array of delivery offers."
+        }
+      },
+      "description": "A list of delivery offers, including offer expiration, earliest and latest date and time range, and the delivery offer policy."
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "Destination": {
+      "type": "object",
+      "properties": {
+        "deliveryAddress": {
+          "$ref": "#/definitions/VariablePrecisionAddress"
+        },
+        "ipAddress": {
+          "$ref": "#/definitions/IpAddress",
+          "description": "The IP address of the customer."
+        }
+      },
+      "description": "The destination for the delivery offer."
+    },
+    "GetDeliveryOffersTerms": {
+      "type": "object",
+      "required": [
+        "origin",
+        "destination"
+      ],
+      "properties": {
+        "origin": {
+          "$ref": "#/definitions/Origin",
+          "description": "The origin for the delivery offer."
+        },
+        "destination": {
+          "$ref": "#/definitions/Destination",
+          "description": "The destination for the delivery offer."
+        }
+      },
+      "description": "The delivery terms for the delivery offer."
+    },
+    "DeliveryOffer": {
+      "type": "object",
+      "properties": {
+        "expiresAt": {
+          "$ref": "#/definitions/Timestamp",
+          "description": "The timestamp at which a delivery offer expires."
+        },
+        "dateRange": {
+          "$ref": "#/definitions/DateRange",
+          "description": "The range between which delivery is expected."
+        },
+        "policy": {
+          "$ref": "#/definitions/DeliveryPolicy",
+          "description": "The policy for a delivery offer, including localized messaging."
+        }
+      },
+      "description": "An available offer for delivery of a product."
+    },
+    "GetDeliveryOffersResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "$ref": "#/definitions/GetDeliveryOffersResult",
+          "description": "The response payload for the `getDeliveryOffers` operation."
+        },
+        "errors": {
+          "$ref": "#/definitions/ErrorList",
+          "description": "One or more unexpected errors occurred during the `getDeliveryOffers` operation."
+        }
+      },
+      "description": "The response schema for the `getDeliveryOffers` operation."
+    },
+    "ProductIdentifier": {
+      "type": "object",
+      "required": [
+        "merchantSku"
+      ],
+      "properties": {
+        "merchantSku": {
+          "type": "string",
+          "description": "The merchant SKU for the product.",
+          "maxLength": 50
+        }
+      },
+      "description": "Product identifier input that locates a product for MCF."
+    },
+    "DeliveryOffersList": {
+      "type": "array",
+      "description": "An array of delivery offer information.",
+      "items": {
+        "$ref": "#/definitions/DeliveryOffer"
+      }
+    },
+    "Timestamp": {
+      "description": "Date timestamp",
+      "type": "string",
+      "format": "date-time"
+    },
+    "Amount": {
+      "type": "object",
+      "required": [
+        "unitOfMeasure",
+        "value"
+      ],
+      "properties": {
+        "unitOfMeasure": {
+          "type": "string",
+          "description": "The unit of measure for the amount.",
+          "enum": [
+            "Eaches"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "Eaches",
+              "description": "Specifies an integer count of units."
+            }
+          ]
+        },
+        "value": {
+          "$ref": "#/definitions/Decimal",
+          "description": "The amount of a product in the associated unit of measurement."
+        }
+      },
+      "description": "A quantity based on the specified unit of measurement."
+    },
+    "IpAddress": {
+      "type": "string",
+      "format": "ip",
+      "description": "An IP address."
+    }
+  }
+}

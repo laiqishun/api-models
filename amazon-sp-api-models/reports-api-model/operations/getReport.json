@@ -1,0 +1,348 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Reports lets you retrieve and manage a variety of reports that can help selling partners manage their businesses.",
+    "version": "2021-06-30",
+    "title": "Selling Partner API for Reports",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/reports/2021-06-30/reports/{reportId}": {
+      "parameters": [],
+      "get": {
+        "tags": [
+          "reports"
+        ],
+        "operationId": "getReport",
+        "description": "Returns report details (including the `reportDocumentId`, if available) for the report that you specify.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 2 | 15 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "parameters": [
+          {
+            "name": "reportId",
+            "in": "path",
+            "required": true,
+            "description": "The identifier for the report. This identifier is unique only in combination with a seller ID.",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/Report"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "reportId": {
+                        "value": "ID323"
+                      }
+                    }
+                  },
+                  "response": {
+                    "reportId": "ReportId1",
+                    "reportType": "FEE_DISCOUNTS_REPORT",
+                    "dataStartTime": "2024-03-11T13:47:20.677Z",
+                    "dataEndTime": "2024-03-12T13:47:20.677Z",
+                    "createdTime": "2024-03-10T13:47:20.677Z",
+                    "processingStatus": "IN_PROGRESS",
+                    "processingStartTime": "2024-03-10T13:47:20.677Z",
+                    "processingEndTime": "2024-03-12T13:47:20.677Z"
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "reportId": {
+                        "value": "badReportId1"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "400",
+                        "message": "Invalid input",
+                        "details": "Invalid input"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request's Content-Type header is invalid.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "description": "Error response returned when the request is unsuccessful."
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "Report": {
+      "type": "object",
+      "description": "Detailed information about the report.",
+      "required": [
+        "processingStatus",
+        "reportId",
+        "reportType",
+        "createdTime"
+      ],
+      "properties": {
+        "marketplaceIds": {
+          "description": "A list of marketplace identifiers for the report.",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "reportId": {
+          "description": "The identifier for the report. This identifier is unique only in combination with a seller ID.",
+          "type": "string"
+        },
+        "reportType": {
+          "description": "The report type. Refer to [Report Type Values](https://developer-docs.amazon.com/sp-api/docs/report-type-values) for more information.",
+          "type": "string"
+        },
+        "dataStartTime": {
+          "description": "The start of a date and time range used for selecting the data to report.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "dataEndTime": {
+          "description": "The end of a date and time range used for selecting the data to report.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "reportScheduleId": {
+          "description": "The identifier of the report schedule that created this report (if any). This identifier is unique only in combination with a seller ID.",
+          "type": "string"
+        },
+        "createdTime": {
+          "description": "The date and time when the report was created.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "processingStatus": {
+          "description": "The processing status of the report.",
+          "type": "string",
+          "enum": [
+            "CANCELLED",
+            "DONE",
+            "FATAL",
+            "IN_PROGRESS",
+            "IN_QUEUE"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "CANCELLED",
+              "description": "The report was cancelled. There are two ways a report can be cancelled: an explicit cancellation request before the report starts processing, or an automatic cancellation if there is no data to return."
+            },
+            {
+              "value": "DONE",
+              "description": "The report has completed processing."
+            },
+            {
+              "value": "FATAL",
+              "description": "The report was aborted due to a fatal error."
+            },
+            {
+              "value": "IN_PROGRESS",
+              "description": "The report is being processed."
+            },
+            {
+              "value": "IN_QUEUE",
+              "description": "The report has not yet started processing. It may be waiting for another `IN_PROGRESS` report."
+            }
+          ]
+        },
+        "processingStartTime": {
+          "description": "The date and time when the report processing started, in <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> date time format.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "processingEndTime": {
+          "description": "The date and time when the report processing completed, in <a href='https://developer-docs.amazon.com/sp-api/docs/iso-8601'>ISO 8601</a> date time format.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "reportDocumentId": {
+          "description": "The identifier for the report document. Pass this into the `getReportDocument` operation to get the information you will need to retrieve the report document's contents.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

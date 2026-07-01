@@ -1,0 +1,666 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Retail Procurement Orders provides programmatic access to vendor orders data.",
+    "version": "v1",
+    "title": "Selling Partner API for Retail Procurement Orders",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/vendor/orders/v1/acknowledgements": {
+      "post": {
+        "tags": [
+          "vendorOrders"
+        ],
+        "description": "Submits acknowledgements for one or more purchase orders.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 10 | 10 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The preceding table indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "submitAcknowledgement",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Submits acknowledgements for one or more purchase orders from a vendor.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubmitAcknowledgementRequest"
+            }
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/SubmitAcknowledgementResponse"
+            },
+            "examples": {
+              "application/json": {
+                "payload": {
+                  "transactionId": "20190827182357-8725bde9-c61c-49f9-86ac-46efd82d4da5"
+                }
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "acknowledgements": [
+                            {
+                              "purchaseOrderNumber": "TestOrder202",
+                              "sellingParty": {
+                                "partyId": "API01"
+                              },
+                              "acknowledgementDate": "2021-03-12T17:35:26.308Z",
+                              "items": [
+                                {
+                                  "vendorProductIdentifier": "028877454078",
+                                  "orderedQuantity": {
+                                    "amount": 10
+                                  },
+                                  "netCost": {
+                                    "amount": "10.2"
+                                  },
+                                  "itemAcknowledgements": [
+                                    {
+                                      "acknowledgementCode": "Accepted",
+                                      "acknowledgedQuantity": {
+                                        "amount": 10
+                                      }
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "payload": {
+                      "transactionId": "20190827182357-8725bde9-c61c-49f9-86ac-46efd82d4da5"
+                    }
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {}
+                    }
+                  },
+                  "response": {
+                    "payload": {
+                      "transactionId": "mock-TransactionId-20190827182357-8725bde9-c61c-49f9-86ac-46efd82d4da5"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/SubmitAcknowledgementResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "acknowledgements": [
+                            {
+                              "purchaseOrderNumber": "TestOrder400",
+                              "sellingParty": {}
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "The content of element 'sellingParty' is not complete. One of '{partyId, address, taxInfo}' is expected.",
+                        "details": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/SubmitAcknowledgementResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/SubmitAcknowledgementResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/SubmitAcknowledgementResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/SubmitAcknowledgementResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/SubmitAcknowledgementResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/SubmitAcknowledgementResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/SubmitAcknowledgementResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "SubmitAcknowledgementRequest": {
+      "type": "object",
+      "properties": {
+        "acknowledgements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderAcknowledgement"
+          },
+          "description": "An array of order acknowledgements to be submitted."
+        }
+      },
+      "description": "The request schema for the submitAcknowledgment operation."
+    },
+    "TaxRegistrationDetails": {
+      "type": "object",
+      "required": [
+        "taxRegistrationNumber",
+        "taxRegistrationType"
+      ],
+      "properties": {
+        "taxRegistrationType": {
+          "type": "string",
+          "description": "Tax registration type for the entity.",
+          "enum": [
+            "VAT",
+            "GST"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "VAT",
+              "description": "Value-added tax."
+            },
+            {
+              "value": "GST",
+              "description": "Goods and Services tax."
+            }
+          ]
+        },
+        "taxRegistrationNumber": {
+          "type": "string",
+          "description": "Tax registration number for the entity. For example, VAT ID."
+        }
+      },
+      "description": "Tax registration details of the entity."
+    },
+    "OrderAcknowledgementItem": {
+      "type": "object",
+      "required": [
+        "itemAcknowledgements",
+        "orderedQuantity"
+      ],
+      "properties": {
+        "itemSequenceNumber": {
+          "type": "string",
+          "description": "Line item sequence number for the item."
+        },
+        "amazonProductIdentifier": {
+          "type": "string",
+          "description": "Amazon Standard Identification Number (ASIN) of an item."
+        },
+        "vendorProductIdentifier": {
+          "type": "string",
+          "description": "The vendor selected product identification of the item. Should be the same as was sent in the purchase order."
+        },
+        "orderedQuantity": {
+          "description": "The quantity of this item ordered.",
+          "$ref": "#/definitions/ItemQuantity"
+        },
+        "netCost": {
+          "description": "The net cost of an item per each or weight unit that must match the cost on the invoice. This is a required field. If left blank, Amazon systems will reject the file. Price information must not be zero or negative.",
+          "$ref": "#/definitions/Money"
+        },
+        "listPrice": {
+          "description": "The list price of an item per each or weight unit. Required only if a vendor sells books at list price.",
+          "$ref": "#/definitions/Money"
+        },
+        "discountMultiplier": {
+          "type": "string",
+          "description": "The discount multiplier that should be applied to the price if a vendor sells books with a list price. This is a multiplier factor to arrive at a final discounted price. A multiplier of .90 would be the factor if a 10% discount is given."
+        },
+        "itemAcknowledgements": {
+          "type": "array",
+          "description": "This is used to indicate acknowledged quantity.",
+          "items": {
+            "$ref": "#/definitions/OrderItemAcknowledgement"
+          }
+        }
+      },
+      "description": "Details of the item being acknowledged."
+    },
+    "Money": {
+      "type": "object",
+      "properties": {
+        "currencyCode": {
+          "type": "string",
+          "description": "Three digit currency code in ISO 4217 format. String of length 3.",
+          "maxLength": 3
+        },
+        "amount": {
+          "$ref": "#/definitions/Decimal"
+        },
+        "unitOfMeasure": {
+          "type": "string",
+          "description": "The unit of measure for prices of items sold by weight. If this field is absent, the item is sold by eaches.",
+          "enum": [
+            "POUNDS",
+            "OUNCES",
+            "GRAMS",
+            "KILOGRAMS"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "POUNDS",
+              "description": "Priced per Pound."
+            },
+            {
+              "value": "OUNCES",
+              "description": "Priced per Ounce."
+            },
+            {
+              "value": "GRAMS",
+              "description": "Priced per Gram."
+            },
+            {
+              "value": "KILOGRAMS",
+              "description": "Priced per Kilogram."
+            }
+          ]
+        }
+      },
+      "description": "An amount of money. Includes the currency code and an optional unit of measure for items priced by weight."
+    },
+    "Decimal": {
+      "type": "string",
+      "description": "A decimal number with no loss of precision. Useful when precision loss is unacceptable, as with currencies. Follows RFC7159 for number representation. <br>**Pattern** : `^-?(0|([1-9]\\d*))(\\.\\d+)?([eE][+-]?\\d+)?$`."
+    },
+    "OrderAcknowledgement": {
+      "type": "object",
+      "required": [
+        "acknowledgementDate",
+        "items",
+        "purchaseOrderNumber",
+        "sellingParty"
+      ],
+      "properties": {
+        "purchaseOrderNumber": {
+          "type": "string",
+          "description": "The purchase order number. Formatting Notes: 8-character alpha-numeric code."
+        },
+        "sellingParty": {
+          "description": "Name, address and tax details of the party receiving a shipment of products.",
+          "$ref": "#/definitions/PartyIdentification"
+        },
+        "acknowledgementDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date and time when the purchase order is acknowledged, in ISO-8601 date/time format."
+        },
+        "items": {
+          "type": "array",
+          "description": "A list of the items being acknowledged with associated details.",
+          "items": {
+            "$ref": "#/definitions/OrderAcknowledgementItem"
+          }
+        }
+      },
+      "description": "Represents an acknowledgement for an order, including the purchase order number, selling party details, acknowledgement date, and a list of acknowledged items."
+    },
+    "OrderItemAcknowledgement": {
+      "type": "object",
+      "required": [
+        "acknowledgedQuantity",
+        "acknowledgementCode"
+      ],
+      "properties": {
+        "acknowledgementCode": {
+          "type": "string",
+          "description": "This indicates the acknowledgement code.",
+          "enum": [
+            "Accepted",
+            "Backordered",
+            "Rejected"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "Accepted",
+              "description": "Vendor accepts to fulfill the order item(s)."
+            },
+            {
+              "value": "Backordered",
+              "description": "Vendor placed a backorder to fulfill the original order and provides a scheduledShipDate or scheduledDeliveryDate which is different than the expectedShipDate or expectedDeliveryDate provided in the purchase order."
+            },
+            {
+              "value": "Rejected",
+              "description": "Vendor rejects to fulfill the order item(s)."
+            }
+          ]
+        },
+        "acknowledgedQuantity": {
+          "description": "Details of quantity acknowledged with the above acknowledgement code.",
+          "$ref": "#/definitions/ItemQuantity"
+        },
+        "scheduledShipDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Estimated ship date per line item. Must be in ISO-8601 date/time format."
+        },
+        "scheduledDeliveryDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Estimated delivery date per line item. Must be in ISO-8601 date/time format."
+        },
+        "rejectionReason": {
+          "type": "string",
+          "description": "Indicates the reason for rejection.",
+          "enum": [
+            "TemporarilyUnavailable",
+            "InvalidProductIdentifier",
+            "ObsoleteProduct"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "TemporarilyUnavailable",
+              "description": "Items are currently not available."
+            },
+            {
+              "value": "InvalidProductIdentifier",
+              "description": "Item cannot be found with the provided identifier."
+            },
+            {
+              "value": "ObsoleteProduct",
+              "description": "Item is no longer sold."
+            }
+          ]
+        }
+      },
+      "description": "Represents the acknowledgement details for an individual order item, including the acknowledgement code, acknowledged quantity, scheduled ship and delivery dates, and rejection reason (if applicable)."
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "SubmitAcknowledgementResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "description": "The payload for the submitAcknowledgement operation.",
+          "$ref": "#/definitions/TransactionId"
+        },
+        "errors": {
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The response schema for the submitAcknowledgement operation"
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "Address": {
+      "type": "object",
+      "required": [
+        "addressLine1",
+        "countryCode",
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the person, business or institution at that address."
+        },
+        "addressLine1": {
+          "type": "string",
+          "description": "First line of the address."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Additional address information, if required."
+        },
+        "addressLine3": {
+          "type": "string",
+          "description": "Additional address information, if required."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city where the person, business or institution is located."
+        },
+        "county": {
+          "type": "string",
+          "description": "The county where person, business or institution is located."
+        },
+        "district": {
+          "type": "string",
+          "description": "The district where person, business or institution is located."
+        },
+        "stateOrRegion": {
+          "type": "string",
+          "description": "The state or region where person, business or institution is located."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal code of that address. It conatins a series of letters or digits or both, sometimes including spaces or punctuation."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The two digit country code. In ISO 3166-1 alpha-2 format.",
+          "maxLength": 2
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the person, business or institution located at that address."
+        }
+      },
+      "description": "Address of the party."
+    },
+    "TransactionId": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "GUID assigned by Amazon to identify this transaction. This value can be used with the Transaction Status API to return the status of this transaction."
+        }
+      },
+      "description": "Response containing the transaction ID."
+    },
+    "ItemQuantity": {
+      "type": "object",
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "description": "Acknowledged quantity. This value should not be zero."
+        },
+        "unitOfMeasure": {
+          "type": "string",
+          "description": "Unit of measure for the acknowledged quantity.",
+          "enum": [
+            "Cases",
+            "Eaches"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "Cases",
+              "description": "Packing of individual items into a case."
+            },
+            {
+              "value": "Eaches",
+              "description": "Individual items."
+            }
+          ]
+        },
+        "unitSize": {
+          "type": "integer",
+          "description": "The case size, in the event that we ordered using cases."
+        }
+      },
+      "description": "Details of quantity ordered."
+    },
+    "PartyIdentification": {
+      "type": "object",
+      "description": "Name, address and tax details of a party.",
+      "required": [
+        "partyId"
+      ],
+      "properties": {
+        "partyId": {
+          "type": "string",
+          "description": "Assigned identification for the party. For example, warehouse code or vendor code. Please refer to specific party for more details."
+        },
+        "address": {
+          "description": "Identification of the party by address.",
+          "$ref": "#/definitions/Address"
+        },
+        "taxInfo": {
+          "description": "Tax registration details of the party.",
+          "$ref": "#/definitions/TaxRegistrationDetails"
+        }
+      }
+    }
+  }
+}

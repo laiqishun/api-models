@@ -1,0 +1,672 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Use the Selling Partner API for Direct Fulfillment Shipping to access a direct fulfillment vendor's shipping data.",
+    "version": "2021-12-28",
+    "title": "Selling Partner API for Direct Fulfillment Shipping",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/vendor/directFulfillment/shipping/2021-12-28/shipmentConfirmations": {
+      "post": {
+        "tags": [
+          "vendorShipping"
+        ],
+        "description": "Submits one or more shipment confirmations for vendor orders.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 10 | 10 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The preceding table indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values then those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits).",
+        "operationId": "submitShipmentConfirmations",
+        "summary": "submitShipmentConfirmations",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SubmitShipmentConfirmationsRequest"
+            },
+            "description": "Request body containing the shipment confirmations data."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/TransactionReference"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        },
+        "x-amzn-api-sandbox": {
+          "dynamic": {}
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Container": {
+      "type": "object",
+      "required": [
+        "containerIdentifier",
+        "containerType",
+        "packedItems",
+        "weight"
+      ],
+      "properties": {
+        "containerType": {
+          "type": "string",
+          "description": "The type of container.",
+          "enum": [
+            "Carton",
+            "Pallet"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "Carton",
+              "description": "A packing container type that is typically used for drinks or food."
+            },
+            {
+              "value": "Pallet",
+              "description": "A flat transport structure which supports goods in a stable fashion while being lifted by a forklift."
+            }
+          ]
+        },
+        "containerIdentifier": {
+          "type": "string",
+          "description": "The container identifier."
+        },
+        "trackingNumber": {
+          "type": "string",
+          "description": "The tracking number."
+        },
+        "manifestId": {
+          "type": "string",
+          "description": "The manifest identifier."
+        },
+        "manifestDate": {
+          "type": "string",
+          "description": "The date of the manifest."
+        },
+        "shipMethod": {
+          "type": "string",
+          "description": "The shipment method. This property is required when calling the `submitShipmentConfirmations` operation, and optional otherwise."
+        },
+        "scacCode": {
+          "type": "string",
+          "description": "SCAC code required for NA VOC vendors only."
+        },
+        "carrier": {
+          "type": "string",
+          "description": "Carrier required for EU VOC vendors only."
+        },
+        "containerSequenceNumber": {
+          "type": "integer",
+          "description": "An integer that must be submitted for multi-box shipments only, where one item may come in separate packages."
+        },
+        "dimensions": {
+          "$ref": "#/definitions/Dimensions"
+        },
+        "weight": {
+          "$ref": "#/definitions/Weight"
+        },
+        "packedItems": {
+          "type": "array",
+          "description": "A list of packed items.",
+          "items": {
+            "$ref": "#/definitions/PackedItem"
+          }
+        }
+      },
+      "description": "A container used for shipping and packing items."
+    },
+    "Weight": {
+      "type": "object",
+      "required": [
+        "unitOfMeasure",
+        "value"
+      ],
+      "properties": {
+        "unitOfMeasure": {
+          "type": "string",
+          "description": "The unit of measurement.",
+          "enum": [
+            "KG",
+            "LB"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "KG",
+              "description": "Kilogram"
+            },
+            {
+              "value": "LB",
+              "description": "Pounds (Libra for Latin)."
+            }
+          ]
+        },
+        "value": {
+          "description": "The measurement value.",
+          "$ref": "#/definitions/Decimal"
+        }
+      },
+      "description": "The weight."
+    },
+    "TaxRegistrationDetails": {
+      "type": "object",
+      "required": [
+        "taxRegistrationNumber"
+      ],
+      "properties": {
+        "taxRegistrationType": {
+          "type": "string",
+          "description": "Tax registration type for the entity.",
+          "enum": [
+            "VAT",
+            "GST"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "VAT",
+              "description": "Value-added tax."
+            },
+            {
+              "value": "GST",
+              "description": "Goods and Services Tax (GST)."
+            }
+          ]
+        },
+        "taxRegistrationNumber": {
+          "type": "string",
+          "description": "Tax registration number for the party. For example, VAT ID."
+        },
+        "taxRegistrationAddress": {
+          "description": "Address associated with the tax registration number.",
+          "$ref": "#/definitions/Address"
+        },
+        "taxRegistrationMessages": {
+          "type": "string",
+          "description": "Tax registration message that can be used for additional tax related details."
+        }
+      },
+      "description": "Tax registration details of the entity."
+    },
+    "SubmitShipmentConfirmationsRequest": {
+      "type": "object",
+      "properties": {
+        "shipmentConfirmations": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ShipmentConfirmation"
+          },
+          "description": "Array of `ShipmentConfirmation` objects. Each `ShipmentConfirmation` object represents the confirmation details for a specific shipment."
+        }
+      },
+      "description": "The request schema for the submitShipmentConfirmations operation."
+    },
+    "ShipmentDetails": {
+      "type": "object",
+      "required": [
+        "shipmentStatus",
+        "shippedDate"
+      ],
+      "properties": {
+        "shippedDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date of the shipment's departure from vendor's location. Vendors send ASNs within 30 minutes of departure from their warehouse/distribution center or six hours prior to the appointment time at the Amazon destination warehouse. The shipped date mentioned in the shipment confirmation cannot be in the future."
+        },
+        "shipmentStatus": {
+          "type": "string",
+          "description": "The shipment status.",
+          "enum": [
+            "SHIPPED",
+            "FLOOR_DENIAL"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "SHIPPED",
+              "description": "Orders that have left the warehouse have shipped status."
+            },
+            {
+              "value": "FLOOR_DENIAL",
+              "description": "Status for orders rejected due to quality issues with products on the floor, or the physical and virtual inventory do not match."
+            }
+          ]
+        },
+        "isPriorityShipment": {
+          "type": "boolean",
+          "description": "Provide the priority of the shipment."
+        },
+        "vendorOrderNumber": {
+          "type": "string",
+          "description": "The vendor order number is a unique identifier generated by a vendor for their reference."
+        },
+        "estimatedDeliveryDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date on which the shipment is expected to reach the buyer's warehouse. The date is estimated based on the average transit time between the ship-from location and the destination. Usually, the exact appointment time is unknown when creating the shipment confirmation and is later provided by the buyer."
+        }
+      },
+      "description": "Details about a shipment."
+    },
+    "Decimal": {
+      "type": "string",
+      "description": "A decimal number with no loss of precision. Useful when precision loss is unacceptable, as with currencies. Follows RFC7159 for number representation.  <br>**Pattern** : `^-?(0|([1-9]\\\\d*))(\\\\.\\\\d+)?([eE][+-]?\\\\d+)?$`."
+    },
+    "Dimensions": {
+      "type": "object",
+      "required": [
+        "height",
+        "length",
+        "unitOfMeasure",
+        "width"
+      ],
+      "properties": {
+        "length": {
+          "description": "The length of the container.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "width": {
+          "description": "The width of the container.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "height": {
+          "description": "The height of the container.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "unitOfMeasure": {
+          "type": "string",
+          "description": "The unit of measure for dimensions.",
+          "enum": [
+            "IN",
+            "CM"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "IN",
+              "description": "Inches"
+            },
+            {
+              "value": "CM",
+              "description": "Centimeters"
+            }
+          ]
+        }
+      },
+      "description": "Physical dimensional measurements of a container."
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "description": "An array of Error objects representing individual errors encountered during the request."
+        }
+      }
+    },
+    "ShipmentConfirmation": {
+      "type": "object",
+      "required": [
+        "items",
+        "purchaseOrderNumber",
+        "sellingParty",
+        "shipFromParty",
+        "shipmentDetails"
+      ],
+      "properties": {
+        "purchaseOrderNumber": {
+          "type": "string",
+          "description": "Purchase order number corresponding to the shipment.",
+          "pattern": "^[a-zA-Z0-9]+$"
+        },
+        "shipmentDetails": {
+          "description": "Shipment information.",
+          "$ref": "#/definitions/ShipmentDetails"
+        },
+        "sellingParty": {
+          "description": "ID of the selling party or vendor.",
+          "$ref": "#/definitions/PartyIdentification"
+        },
+        "shipFromParty": {
+          "description": "Warehouse code of vendor.",
+          "$ref": "#/definitions/PartyIdentification"
+        },
+        "items": {
+          "type": "array",
+          "description": "Provide the details of the items in this shipment. If any of the item details field is common at a package or a pallet level, then provide them at the corresponding package.",
+          "items": {
+            "$ref": "#/definitions/Item"
+          }
+        },
+        "containers": {
+          "type": "array",
+          "description": "Provide the details of the items in this shipment. If any of the item details field is common at a package or a pallet level, then provide them at the corresponding package.",
+          "items": {
+            "$ref": "#/definitions/Container"
+          }
+        }
+      },
+      "description": "Represents the confirmation details of a shipment, including the purchase order number and other shipment details."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "TransactionReference": {
+      "type": "object",
+      "properties": {
+        "transactionId": {
+          "type": "string",
+          "description": "GUID to identify this transaction. This value can be used with the Transaction Status API to return the status of this transaction."
+        }
+      },
+      "description": "Response containing the transaction ID."
+    },
+    "Address": {
+      "type": "object",
+      "required": [
+        "addressLine1",
+        "countryCode",
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the person, business or institution at that address."
+        },
+        "addressLine1": {
+          "type": "string",
+          "description": "First line of the address."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Additional street address information, if required."
+        },
+        "addressLine3": {
+          "type": "string",
+          "description": "Additional street address information, if required."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city where the person, business or institution is located."
+        },
+        "county": {
+          "type": "string",
+          "description": "The county where person, business or institution is located."
+        },
+        "district": {
+          "type": "string",
+          "description": "The district where person, business or institution is located."
+        },
+        "stateOrRegion": {
+          "type": "string",
+          "description": "The state or region where person, business or institution is located."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal code of that address. It contains a series of letters or digits or both, sometimes including spaces or punctuation."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The two-letter country code in [ISO 3166-1 alpha-2](https://www.iban.com/country-codes) format."
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the person, business or institution located at that address."
+        }
+      },
+      "description": "Address of the party."
+    },
+    "ItemQuantity": {
+      "type": "object",
+      "required": [
+        "amount",
+        "unitOfMeasure"
+      ],
+      "properties": {
+        "amount": {
+          "type": "integer",
+          "description": "Quantity of units shipped for a specific item at a shipment level. If the item is present only in certain packages or pallets within the shipment, please provide this at the appropriate package or pallet level."
+        },
+        "unitOfMeasure": {
+          "type": "string",
+          "description": "Unit of measure for the shipped quantity."
+        }
+      },
+      "description": "Details of item quantity."
+    },
+    "Item": {
+      "type": "object",
+      "required": [
+        "itemSequenceNumber",
+        "shippedQuantity"
+      ],
+      "properties": {
+        "itemSequenceNumber": {
+          "type": "integer",
+          "description": "The sequence number of the item. The number must be the same as the order number of the item."
+        },
+        "buyerProductIdentifier": {
+          "type": "string",
+          "description": "The buyer's Amazon Standard Identification Number (ASIN) of an item. Either `buyerProductIdentifier` or `vendorProductIdentifier` is required."
+        },
+        "vendorProductIdentifier": {
+          "type": "string",
+          "description": "An item's product identifier, which the vendor selects. This identifier should be the same as the identifier, such as a SKU, in the purchase order."
+        },
+        "shippedQuantity": {
+          "description": "The total quantity of items that are in this shipment.",
+          "$ref": "#/definitions/ItemQuantity"
+        }
+      },
+      "description": "Details of the item being shipped."
+    },
+    "PartyIdentification": {
+      "description": "The name, address, and tax details of a party.",
+      "type": "object",
+      "required": [
+        "partyId"
+      ],
+      "properties": {
+        "partyId": {
+          "type": "string",
+          "description": "The identifier of the party."
+        },
+        "address": {
+          "description": "The address of the party.",
+          "$ref": "#/definitions/Address"
+        },
+        "taxRegistrationDetails": {
+          "type": "array",
+          "description": "The tax registration details of the party.",
+          "items": {
+            "$ref": "#/definitions/TaxRegistrationDetails"
+          }
+        }
+      }
+    },
+    "PackedItem": {
+      "type": "object",
+      "required": [
+        "itemSequenceNumber",
+        "packedQuantity"
+      ],
+      "properties": {
+        "itemSequenceNumber": {
+          "type": "integer",
+          "description": "The sequence number of the item. The number must be the same as the order number of the item."
+        },
+        "buyerProductIdentifier": {
+          "type": "string",
+          "description": "The buyer's Amazon Standard Identification Number (ASIN) of an item. Either `buyerProductIdentifier` or `vendorProductIdentifier` is required."
+        },
+        "pieceNumber": {
+          "type": "integer",
+          "description": "The piece number of the item in this container. This is required when the item is split across different containers."
+        },
+        "vendorProductIdentifier": {
+          "type": "string",
+          "description": "An item's product identifier, which the vendor selects. This identifier should be the same as the identifier, such as a SKU, in the purchase order."
+        },
+        "packedQuantity": {
+          "description": "The total quantity of items that are packed in the shipment.",
+          "$ref": "#/definitions/ItemQuantity"
+        }
+      },
+      "description": "An item that has been packed into a container for shipping."
+    }
+  }
+}

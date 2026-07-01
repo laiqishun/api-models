@@ -1,0 +1,594 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Identifier of an inbound plan.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "inboundPlanId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GetInboundPlan 200 response",
+            "schema": {
+              "$ref": "#/definitions/InboundPlan"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      }
+                    }
+                  },
+                  "response": {
+                    "inboundPlanId": "wf1234abcd-1234-abcd-5678-1234abcd5678",
+                    "name": "FBA (03/20/2024, 12:01 PM)",
+                    "createdAt": "2024-03-20T12:01:00Z",
+                    "lastUpdatedAt": "2024-03-28T13:15:30Z",
+                    "status": "ACTIVE",
+                    "marketplaceIds": [
+                      "A2EUQ1WTGCTBG2"
+                    ],
+                    "packingOptions": [],
+                    "placementOptions": [],
+                    "shipments": [],
+                    "sourceAddress": {
+                      "name": "name",
+                      "companyName": "Acme",
+                      "addressLine1": "123 example street",
+                      "addressLine2": "Unit 102",
+                      "city": "Toronto",
+                      "countryCode": "CA",
+                      "stateOrProvinceCode": "ON",
+                      "postalCode": "M1M1M1",
+                      "phoneNumber": "1234567890",
+                      "email": "email@email.com"
+                    }
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wfotherbcd-1234-abcd-5678-1234abcd5678"
+                      }
+                    }
+                  },
+                  "response": {
+                    "inboundPlanId": "wf1234abcd-1234-abcd-5678-1234abcd5678",
+                    "name": "FBA (03/20/2024, 12:01 PM)",
+                    "createdAt": "2024-03-20T12:01:00Z",
+                    "lastUpdatedAt": "2024-03-28T13:15:30Z",
+                    "status": "ACTIVE",
+                    "marketplaceIds": [
+                      "A2EUQ1WTGCTBG2"
+                    ],
+                    "packingOptions": [],
+                    "placementOptions": [],
+                    "shipments": [],
+                    "sourceAddress": {
+                      "name": "name",
+                      "companyName": "TheCompany",
+                      "addressLine1": "1111 street name",
+                      "addressLine2": "Apartment 12B",
+                      "city": "Ann Arbor",
+                      "districtOrCounty": "Washtenaw",
+                      "stateOrProvinceCode": "MI",
+                      "postalCode": "11564",
+                      "countryCode": "US",
+                      "phoneNumber": "1234567890",
+                      "email": "email@email.com"
+                    }
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wfbad4abcd-1234-abcd-5678-1234abcd5678"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The inboundPlanId is malformed."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "Fetches the top level information about an inbound plan.",
+        "operationId": "getInboundPlan"
+      }
+    }
+  },
+  "definitions": {
+    "PackingOptionSummary": {
+      "description": "Summary information about a packing option.",
+      "properties": {
+        "packingOptionId": {
+          "description": "Identifier of a packing option.",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        },
+        "status": {
+          "description": "The status of a packing option. Possible values: 'OFFERED', 'ACCEPTED', 'EXPIRED'.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "packingOptionId",
+        "status"
+      ],
+      "type": "object",
+      "example": {
+        "packingOptionId": "po1234abcd-1234-abcd-5678-1234abcd5678",
+        "status": "OFFERED"
+      }
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "Address": {
+      "description": "Specific details to identify a place.",
+      "properties": {
+        "addressLine1": {
+          "description": "Street address information.",
+          "maxLength": 180,
+          "minLength": 1,
+          "type": "string"
+        },
+        "addressLine2": {
+          "description": "Additional street address information.",
+          "maxLength": 60,
+          "minLength": 1,
+          "type": "string"
+        },
+        "city": {
+          "description": "The city.",
+          "maxLength": 30,
+          "minLength": 1,
+          "type": "string"
+        },
+        "companyName": {
+          "description": "The name of the business.",
+          "maxLength": 50,
+          "minLength": 1,
+          "type": "string"
+        },
+        "countryCode": {
+          "description": "The country code in two-character ISO 3166-1 alpha-2 format.",
+          "maxLength": 2,
+          "minLength": 2,
+          "pattern": "^[A-Z]{2}$",
+          "type": "string"
+        },
+        "districtOrCounty": {
+          "description": "The district or county.",
+          "maxLength": 50,
+          "minLength": 1,
+          "type": "string"
+        },
+        "email": {
+          "description": "The email address.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the individual who is the primary contact.",
+          "maxLength": 50,
+          "minLength": 1,
+          "type": "string"
+        },
+        "phoneNumber": {
+          "description": "The phone number.",
+          "maxLength": 20,
+          "minLength": 1,
+          "type": "string"
+        },
+        "postalCode": {
+          "description": "The postal code.",
+          "maxLength": 32,
+          "minLength": 1,
+          "type": "string"
+        },
+        "stateOrProvinceCode": {
+          "description": "The state or province code.",
+          "maxLength": 64,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "addressLine1",
+        "city",
+        "countryCode",
+        "name",
+        "postalCode"
+      ],
+      "type": "object",
+      "example": {
+        "addressLine1": "123 example street",
+        "addressLine2": "Floor 19",
+        "city": "Toronto",
+        "companyName": "Acme",
+        "countryCode": "CA",
+        "email": "email@email.com",
+        "name": "name",
+        "phoneNumber": "1234567890",
+        "postalCode": "M1M1M1",
+        "stateOrProvinceCode": "ON"
+      }
+    },
+    "ShipmentSummary": {
+      "description": "Summary information about a shipment.",
+      "properties": {
+        "shipmentId": {
+          "description": "Identifier of a shipment. A shipment contains the boxes and units being inbounded.",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        },
+        "status": {
+          "description": "The status of a shipment. The state of the shipment will typically start as `UNCONFIRMED`, then transition to `WORKING` after a placement option has been confirmed, and then to `READY_TO_SHIP` once labels are generated.\n\nPossible values: `ABANDONED`, `CANCELLED`, `CHECKED_IN`, `CLOSED`, `DELETED`, `DELIVERED`, `IN_TRANSIT`, `MIXED`, `READY_TO_SHIP`, `RECEIVING`, `SHIPPED`, `UNCONFIRMED`, `WORKING`",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "shipmentId",
+        "status"
+      ],
+      "type": "object",
+      "example": {
+        "shipmentId": "sh1234abcd-1234-abcd-5678-1234abcd5678",
+        "status": "SHIPPED"
+      }
+    },
+    "InboundPlan": {
+      "description": "Inbound plan containing details of the inbound workflow.",
+      "properties": {
+        "createdAt": {
+          "description": "The time at which the inbound plan was created. In [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) datetime with pattern `yyyy-MM-ddTHH:mm:ssZ`.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "inboundPlanId": {
+          "description": "Identifier of an inbound plan.",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        },
+        "lastUpdatedAt": {
+          "description": "The time at which the inbound plan was last updated. In [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) datetime format with pattern `yyyy-MM-ddTHH:mm:ssZ`.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "marketplaceIds": {
+          "description": "A list of marketplace IDs.",
+          "items": {
+            "description": "The Marketplace ID. For a list of possible values, refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids).",
+            "maxLength": 20,
+            "minLength": 1,
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "name": {
+          "description": "Human-readable name of the inbound plan.",
+          "type": "string"
+        },
+        "packingOptions": {
+          "description": "Packing options for the inbound plan. This property will be populated when it has been generated via the corresponding operation. If there is a chosen placement option, only packing options for that placement option will be returned. If there are confirmed shipments, only packing options for those shipments will be returned. Query the packing option for more details.",
+          "items": {
+            "$ref": "#/definitions/PackingOptionSummary"
+          },
+          "type": "array"
+        },
+        "placementOptions": {
+          "description": "Placement options for the inbound plan. This property will be populated when it has been generated via the corresponding operation. If there is a chosen placement option, that will be the only returned option. Query the placement option for more details.",
+          "items": {
+            "$ref": "#/definitions/PlacementOptionSummary"
+          },
+          "type": "array"
+        },
+        "shipments": {
+          "description": "A list of shipment IDs for the inbound plan. This property is populated when it has been generated with the `confirmPlacementOptions` operation. Only shipments from the chosen placement option are returned. Query the shipment for more details.",
+          "items": {
+            "$ref": "#/definitions/ShipmentSummary"
+          },
+          "type": "array"
+        },
+        "sourceAddress": {
+          "$ref": "#/definitions/Address"
+        },
+        "status": {
+          "description": "Current status of the inbound plan. Possible values: `ACTIVE`, `VOIDED`, `SHIPPED`, `ERRORED`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdAt",
+        "inboundPlanId",
+        "lastUpdatedAt",
+        "marketplaceIds",
+        "name",
+        "sourceAddress",
+        "status"
+      ],
+      "type": "object",
+      "example": {
+        "createdAt": "2024-03-20T12:01:00Z",
+        "inboundPlanId": "wf1234abcd-1234-abcd-5678-1234abcd5678",
+        "lastUpdatedAt": "2024-03-28T13:15:30Z",
+        "marketplaceIds": [
+          "A2EUQ1WTGCTBG2"
+        ],
+        "name": "FBA (03/20/2024, 12:01 PM)",
+        "packingOptions": [],
+        "placementOptions": [],
+        "shipments": [],
+        "sourceAddress": {
+          "addressLine1": "123 example street",
+          "addressLine2": "Floor 19",
+          "city": "Toronto",
+          "companyName": "Acme",
+          "countryCode": "CA",
+          "email": "email@email.com",
+          "name": "name",
+          "phoneNumber": "1234567890",
+          "postalCode": "M1M1M1",
+          "stateOrProvinceCode": "ON"
+        },
+        "status": "ACTIVE"
+      }
+    },
+    "PlacementOptionSummary": {
+      "description": "Summary information about a placement option.",
+      "properties": {
+        "placementOptionId": {
+          "description": "The identifier of a placement option. A placement option represents the shipment splits and destinations of SKUs.",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        },
+        "status": {
+          "description": "The status of a placement option. Possible values: `OFFERED`, `ACCEPTED`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "placementOptionId",
+        "status"
+      ],
+      "type": "object",
+      "example": {
+        "placementOptionId": "pl1234abcd-1234-abcd-5678-1234abcd5678",
+        "status": "ACCEPTED"
+      }
+    }
+  }
+}

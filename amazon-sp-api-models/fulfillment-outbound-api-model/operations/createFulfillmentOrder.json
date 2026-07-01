@@ -1,0 +1,684 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Fulfillment Outbound lets you create applications that help a seller fulfill Multi-Channel Fulfillment orders using their inventory in Amazon's fulfillment network. You can get information on both potential and existing fulfillment orders.",
+    "version": "2020-07-01",
+    "title": "Selling Partner APIs for Fulfillment Outbound",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/fba/outbound/2020-07-01/fulfillmentOrders": {
+      "post": {
+        "tags": [
+          "fbaOutbound"
+        ],
+        "description": "Requests that Amazon ship items from the seller's inventory in Amazon's fulfillment network to a destination address.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 2 | 30 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api)",
+        "operationId": "createFulfillmentOrder",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentOrderRequest"
+            },
+            "description": "CreateFulfillmentOrderRequest parameter"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentOrderResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "CreateFulfillmentOrderItem": {
+      "type": "object",
+      "required": [
+        "quantity",
+        "sellerFulfillmentOrderItemId",
+        "sellerSku"
+      ],
+      "properties": {
+        "sellerSku": {
+          "type": "string",
+          "description": "The seller SKU of the item.",
+          "maxLength": 50
+        },
+        "sellerFulfillmentOrderItemId": {
+          "type": "string",
+          "description": "A fulfillment order item identifier that the seller creates to track fulfillment order items. Used to disambiguate multiple fulfillment items that have the same `sellerSku` value. For example, the seller might assign different `sellerFulfillmentOrderItemId` values to two items in a fulfillment order that share the same `sellerSku` value but have different `giftMessage` values.",
+          "maxLength": 50
+        },
+        "quantity": {
+          "$ref": "#/definitions/Quantity"
+        },
+        "giftMessage": {
+          "type": "string",
+          "description": "A message to the gift recipient, if applicable.",
+          "maxLength": 512
+        },
+        "displayableComment": {
+          "type": "string",
+          "description": "Item-specific text that displays in recipient-facing materials such as the outbound shipment packing slip.",
+          "maxLength": 250
+        },
+        "fulfillmentNetworkSku": {
+          "type": "string",
+          "description": "Amazon's fulfillment network SKU of the item."
+        },
+        "perUnitDeclaredValue": {
+          "description": "The monetary value assigned by the seller to this item. This is a required field for India MCF orders.",
+          "$ref": "#/definitions/Money"
+        },
+        "perUnitPrice": {
+          "description": "The amount to be collected from the recipient for this item in a COD (Cash On Delivery) order.",
+          "$ref": "#/definitions/Money"
+        },
+        "perUnitTax": {
+          "description": "The tax on the amount to be collected from the recipient for this item in a COD (Cash On Delivery) order.",
+          "$ref": "#/definitions/Money"
+        }
+      },
+      "description": "Item information for creating a fulfillment order."
+    },
+    "Decimal": {
+      "type": "string",
+      "description": "A decimal number with no loss of precision. Useful when precision loss is unacceptable, as with currencies. Follows RFC7159 for number representation."
+    },
+    "CreateFulfillmentOrderRequest": {
+      "type": "object",
+      "required": [
+        "destinationAddress",
+        "displayableOrderComment",
+        "displayableOrderDate",
+        "displayableOrderId",
+        "items",
+        "sellerFulfillmentOrderId",
+        "shippingSpeedCategory"
+      ],
+      "properties": {
+        "marketplaceId": {
+          "type": "string",
+          "description": "The marketplace the fulfillment order is placed against."
+        },
+        "sellerFulfillmentOrderId": {
+          "type": "string",
+          "description": "A fulfillment order identifier that the seller creates to track their fulfillment order. The `sellerFulfillmentOrderId` must be unique for each fulfillment order that a seller creates. If the seller's system already creates unique order identifiers, then these might be good values for them to use.",
+          "maxLength": 40
+        },
+        "displayableOrderId": {
+          "type": "string",
+          "description": "A fulfillment order identifier that the seller creates. This value displays as the order identifier in recipient-facing materials such as the outbound shipment packing slip. The value of `displayableOrderId` should match the order identifier that the seller provides to the recipient. The seller can use the SellerFulfillmentOrderId for this value or they can specify an alternate value if they want the recipient to reference an alternate order identifier.\n\nThe value must be an alpha-numeric or ISO 8859-1 compliant string from one to 40 characters in length. Cannot contain two spaces in a row. Leading and trailing white space is removed.",
+          "maxLength": 40
+        },
+        "displayableOrderDate": {
+          "description": "The date and time of the fulfillment order. Displays as the order date in recipient-facing materials such as the outbound shipment packing slip.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "displayableOrderComment": {
+          "type": "string",
+          "description": "Order-specific text that appears in recipient-facing materials such as the outbound shipment packing slip.",
+          "maxLength": 750
+        },
+        "shippingSpeedCategory": {
+          "description": "The shipping method for the fulfillment order. When this value is `ScheduledDelivery`, choose Ship for the `fulfillmentAction`. Hold is not a valid `fulfillmentAction` value when the `shippingSpeedCategory` value is `ScheduledDelivery`.\nNote: Shipping method service level agreements vary by marketplace. Sellers can refer to [Seller Central]( https://developer-docs.amazon.com/sp-api/docs/seller-central-urls) for shipping method service-level agreements and multi-channel fulfillment fees.",
+          "$ref": "#/definitions/ShippingSpeedCategory"
+        },
+        "deliveryWindow": {
+          "$ref": "#/definitions/DeliveryWindow"
+        },
+        "destinationAddress": {
+          "description": "The destination address for the fulfillment order.",
+          "$ref": "#/definitions/Address"
+        },
+        "deliveryPreferences": {
+          "description": "The delivery preferences applied to the destination address. These preferences are applied when possible and are best effort. For eligible orders, the default delivery preference is to leave the package unattended at the front door.\nThis feature is currently supported only in the JP marketplace and not applicable for other marketplaces.\nFor eligible orders, the default delivery preference will be to deliver the package unattended at the front door, unless you specify otherwise.",
+          "$ref": "#/definitions/DeliveryPreferences"
+        },
+        "fulfillmentAction": {
+          "$ref": "#/definitions/FulfillmentAction"
+        },
+        "fulfillmentPolicy": {
+          "$ref": "#/definitions/FulfillmentPolicy"
+        },
+        "codSettings": {
+          "$ref": "#/definitions/CODSettings"
+        },
+        "shipFromCountryCode": {
+          "type": "string",
+          "description": "The two-character country code for the country from which the fulfillment order ships. Must be in ISO 3166-1 alpha-2 format."
+        },
+        "notificationEmails": {
+          "$ref": "#/definitions/NotificationEmailList"
+        },
+        "featureConstraints": {
+          "type": "array",
+          "description": "A list of features and their fulfillment policies to apply to the order.",
+          "items": {
+            "$ref": "#/definitions/FeatureSettings"
+          }
+        },
+        "items": {
+          "description": "A list of items to include in the fulfillment order preview, including quantity. Maximum of 100 line items with a maximum of 250 units per order.",
+          "$ref": "#/definitions/CreateFulfillmentOrderItemList"
+        },
+        "paymentInformation": {
+          "description": "An array of various payment attributes related to this fulfillment order. This property is required if the order is placed against the India marketplace.",
+          "$ref": "#/definitions/PaymentInformationList"
+        }
+      },
+      "description": "The request body schema for the `createFulfillmentOrder` operation."
+    },
+    "PaymentInformation": {
+      "type": "object",
+      "required": [
+        "paymentTransactionId",
+        "paymentMode",
+        "paymentDate"
+      ],
+      "properties": {
+        "paymentTransactionId": {
+          "type": "string",
+          "description": "The transaction identifier of this payment."
+        },
+        "paymentMode": {
+          "type": "string",
+          "description": "The transaction mode of this payment."
+        },
+        "paymentDate": {
+          "description": "The transaction date of this payment.",
+          "$ref": "#/definitions/Timestamp"
+        }
+      },
+      "description": "The attributes related to the payment made from customer to seller for this order."
+    },
+    "CODSettings": {
+      "type": "object",
+      "required": [
+        "isCodRequired"
+      ],
+      "properties": {
+        "isCodRequired": {
+          "type": "boolean",
+          "description": "When true, this fulfillment order requires a COD (Cash On Delivery) payment."
+        },
+        "codCharge": {
+          "description": "The amount of the COD charge to be collected from the recipient for a COD order.",
+          "$ref": "#/definitions/Money"
+        },
+        "codChargeTax": {
+          "description": "The amount of the tax on the COD charge to be collected from the recipient for a COD order.",
+          "$ref": "#/definitions/Money"
+        },
+        "shippingCharge": {
+          "description": "The amount of the tax on the COD charge to be collected from the recipient for a COD order.",
+          "$ref": "#/definitions/Money"
+        },
+        "shippingChargeTax": {
+          "description": "The amount of the tax on the shipping charge to be collected from the recipient for a COD order.",
+          "$ref": "#/definitions/Money"
+        }
+      },
+      "description": "The COD (Cash On Delivery) charges that you associate with a COD fulfillment order."
+    },
+    "FeatureSettings": {
+      "type": "object",
+      "properties": {
+        "featureName": {
+          "type": "string",
+          "description": "The name of the feature. Valid feature names are:\n\n- `BLOCK_AMZL`: Blocks orders from being shipped using Amazon Logistics (AMZL).\n  - Note: Using this feature will incur additional fee surcharges on MCF orders and may increase the risk of unfulfilled or delayed deliveries if alternative carriers are unavailable. Using `BLOCK_AMZL` in an order request will take precedence over your Seller Central account setting.\n- `BLANK_BOX`: Ships orders in non-Amazon branded packaging (blank boxes).\n- `OVERBOX`: Requires items to be shipped in an overbox rather than in their original product packaging.\n- `PACKING_SLIP`: Requires a packing slip to be included with the order.\n- `SIGNATURE_CONFIRMATION`: Requires a signature from the recipient upon delivery. \n  - Note: Using signature confirmation features will incur additional fees on MCF orders and are currently supported only in the US marketplace."
+        },
+        "featureFulfillmentPolicy": {
+          "type": "string",
+          "description": "Specifies the policy to use when fulfilling an order.",
+          "enum": [
+            "Required",
+            "NotRequired"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "Required",
+              "description": "If the offer can't be shipped with the selected feature, reject the order."
+            },
+            {
+              "value": "NotRequired",
+              "description": "The feature is not required for shipping."
+            }
+          ]
+        }
+      },
+      "description": "Feature settings allows you to apply fulfillment features to an order. To block an order from being shipped using Amazon Logistics (AMZL) and an AMZL tracking number, set `featureName` to `BLOCK_AMZL` and `featureFulfillmentPolicy` to `Required`. Blocking AMZL will incur an additional fee surcharge on your MCF orders and increase the risk of some of your orders being unfulfilled or delivered late if there are no alternative carriers available. Using `BLOCK_AMZL` in an order request will take precedence over your Seller Central account setting. To ship in non-Amazon branded packaging (blank boxes), set `featureName` to `BLANK_BOX`. To require items to be shipped in an overbox rather than in their original product packaging, set `featureName` to `OVERBOX`. To require a packing slip to be included with the order, set `featureName` to `PACKING_SLIP`. To require a signature from the recipient upon delivery, set `featureName` to `SIGNATURE_CONFIRMATION`. Note that using signature confirmation features will incur additional fees on MCF orders and are currently supported only in the US marketplace. To ensure all items in an order are delivered together, set `featureName` to `DELIVER_TOGETHER`."
+    },
+    "ShippingSpeedCategory": {
+      "type": "string",
+      "description": "The shipping method used for the fulfillment order. When this value is `ScheduledDelivery`, choose `Ship` for the `fulfillmentAction`. `Hold` is not a valid `fulfillmentAction` value when the `shippingSpeedCategory` value is `ScheduledDelivery`.\nNote: Shipping method service level agreements vary by marketplace. Sellers should refer to the [Seller Central](https://developer-docs.amazon.com/sp-api/docs/seller-central-urls) website in their marketplace for shipping method service level agreements and fulfillment fees.",
+      "enum": [
+        "Standard",
+        "Expedited",
+        "Priority",
+        "ScheduledDelivery"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "Standard",
+          "description": "Standard shipping method."
+        },
+        {
+          "value": "Expedited",
+          "description": "Expedited shipping method."
+        },
+        {
+          "value": "Priority",
+          "description": "Priority shipping method."
+        },
+        {
+          "value": "ScheduledDelivery",
+          "description": "Scheduled Delivery shipping method. This is only available in the JP marketplace."
+        }
+      ]
+    },
+    "PaymentInformationList": {
+      "type": "array",
+      "description": "An array of various payment attributes related to this fulfillment order.",
+      "items": {
+        "$ref": "#/definitions/PaymentInformation"
+      }
+    },
+    "DropOffLocation": {
+      "type": "object",
+      "required": [
+        "type"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The drop-off location type at the destination address.",
+          "enum": [
+            "FRONT_DOOR",
+            "DELIVERY_BOX",
+            "GAS_METER_BOX",
+            "BICYCLE_BASKET",
+            "GARAGE",
+            "RECEPTIONIST",
+            "FALLBACK_NEIGHBOR_DELIVERY",
+            "DO_NOT_LEAVE_UNATTENDED"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "FRONT_DOOR",
+              "description": "Front door location."
+            },
+            {
+              "value": "DELIVERY_BOX",
+              "description": "Delivery box location."
+            },
+            {
+              "value": "GAS_METER_BOX",
+              "description": "Gas meter box location."
+            },
+            {
+              "value": "BICYCLE_BASKET",
+              "description": "Bicycle basket location."
+            },
+            {
+              "value": "GARAGE",
+              "description": "Garage location."
+            },
+            {
+              "value": "RECEPTIONIST",
+              "description": "Delivery to or via receptionist."
+            },
+            {
+              "value": "FALLBACK_NEIGHBOR_DELIVERY",
+              "description": "Delivery to a designated neighbor when the recipient is not available at the destination address."
+            },
+            {
+              "value": "DO_NOT_LEAVE_UNATTENDED",
+              "description": "Attended delivery (package not left unattended)."
+            }
+          ]
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Additional information about the drop-off location. This information can vary depending on the type of drop-off location specified in the `type` field.\n\nIf the `type` is set to `FALLBACK_NEIGHBOR_DELIVERY`, the `attributes` object must include the keys `neighborName` and `houseNumber` to provide the name and house number of the designated neighbor.\n\nFor `RECEPTIONIST` type, the `attributes` object may include a `recipientName` field that contains the name of the person who received or will receive the package."
+        }
+      },
+      "description": "The drop-off location at the destination address."
+    },
+    "FulfillmentPolicy": {
+      "type": "string",
+      "description": "The `FulfillmentPolicy` value specified when you called the `createFulfillmentOrder` operation.",
+      "enum": [
+        "FillOrKill",
+        "FillAll",
+        "FillAllAvailable"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "FillOrKill",
+          "description": "If an item in a fulfillment order is determined to be unfulfillable before any shipment in the order has acquired the status of Pending (the process of picking units from inventory has begun), then the entire order is considered unfulfillable. However, if an item in a fulfillment order is determined to be unfulfillable after a shipment in the order has acquired the status of Pending, Amazon cancels as much of the fulfillment order as possible. Refer to the `FulfillmentShipment` object for shipment status definitions."
+        },
+        {
+          "value": "FillAll",
+          "description": "All fulfillable items in the fulfillment order are shipped. The fulfillment order remains in a processing state until all items are either shipped by Amazon or cancelled by the seller."
+        },
+        {
+          "value": "FillAllAvailable",
+          "description": "All fulfillable items in the fulfillment order are shipped. All unfulfillable items in the order are cancelled."
+        }
+      ]
+    },
+    "FulfillmentAction": {
+      "type": "string",
+      "description": "Specifies whether the fulfillment order should ship now or have an order hold put on it.",
+      "enum": [
+        "Ship",
+        "Hold"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "Ship",
+          "description": "The fulfillment order ships now."
+        },
+        {
+          "value": "Hold",
+          "description": "An order hold is put on the fulfillment order."
+        }
+      ]
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Quantity": {
+      "type": "integer",
+      "format": "int32",
+      "description": "The item quantity."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "NotificationEmailList": {
+      "type": "array",
+      "description": "A list of email addresses that the seller provides that are used by Amazon to send ship-complete notifications to recipients on behalf of the seller.",
+      "items": {
+        "type": "string",
+        "maxLength": 64
+      }
+    },
+    "DeliveryWindow": {
+      "type": "object",
+      "required": [
+        "endDate",
+        "startDate"
+      ],
+      "properties": {
+        "startDate": {
+          "description": "The date and time of the start of the Scheduled Delivery window, in ISO 8601 date time format.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "endDate": {
+          "description": "The date and time of the end of the Scheduled Delivery window, in ISO 8601 date time format.",
+          "$ref": "#/definitions/Timestamp"
+        }
+      },
+      "description": "The time range within which a Scheduled Delivery fulfillment order should be delivered. This is only available in the JP marketplace."
+    },
+    "Timestamp": {
+      "description": "Date timestamp",
+      "type": "string",
+      "format": "date-time"
+    },
+    "Money": {
+      "type": "object",
+      "required": [
+        "currencyCode",
+        "value"
+      ],
+      "properties": {
+        "currencyCode": {
+          "type": "string",
+          "description": "Three digit currency code in ISO 4217 format."
+        },
+        "value": {
+          "$ref": "#/definitions/Decimal"
+        }
+      },
+      "description": "An amount of money, including units in the form of currency."
+    },
+    "CreateFulfillmentOrderResponse": {
+      "type": "object",
+      "properties": {
+        "errors": {
+          "description": "One or more unexpected errors occurred during the `createFulfillmentOrder` operation.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The response schema for the `createFulfillmentOrder` operation."
+    },
+    "Address": {
+      "type": "object",
+      "required": [
+        "addressLine1",
+        "countryCode",
+        "name",
+        "postalCode"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the person, business or institution at the address."
+        },
+        "addressLine1": {
+          "type": "string",
+          "description": "The first line of the address."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Additional address information, if required."
+        },
+        "addressLine3": {
+          "type": "string",
+          "description": "Additional address information, if required."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city where the person, business, or institution is located. This property is required in all countries except Japan. It should not be used in Japan."
+        },
+        "districtOrCounty": {
+          "type": "string",
+          "description": "The district or county where the person, business, or institution is located."
+        },
+        "stateOrRegion": {
+          "type": "string",
+          "description": "The state or region where the person, business or institution is located."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal code of the address."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The two digit country code. In ISO 3166-1 alpha-2 format."
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the person, business, or institution located at the address."
+        }
+      },
+      "description": "A physical address."
+    },
+    "DeliveryPreferences": {
+      "type": "object",
+      "properties": {
+        "deliveryInstructions": {
+          "type": "string",
+          "description": "Additional delivery instructions. For example, this could be instructions on how to enter a building, nearby landmark or navigation instructions, or `Beware of dogs`.",
+          "maxLength": 250
+        },
+        "dropOffLocation": {
+          "description": "The preferred location to leave packages at the destination address.",
+          "$ref": "#/definitions/DropOffLocation"
+        }
+      },
+      "description": "The delivery preferences applied to the destination address. These preferences are applied when possible and are best effort.\nThis feature is currently supported only in the JP marketplace and not applicable for other marketplaces.\nFor eligible orders, the default delivery preference will be to deliver the package unattended at the front door, unless you specify otherwise."
+    },
+    "CreateFulfillmentOrderItemList": {
+      "type": "array",
+      "description": "An array of item information for creating a fulfillment order.",
+      "items": {
+        "$ref": "#/definitions/CreateFulfillmentOrderItem"
+      }
+    }
+  }
+}

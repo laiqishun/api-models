@@ -1,0 +1,701 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon External Fulfillment Shipments Processing",
+    "description": "You can use the External Fulfillment Shipments API to retrieve, manage, and track shipments processed through Amazon's external fulfillment network. Use this API to get shipment details, monitor status changes, and access fulfillment requirements.",
+    "version": "2024-09-11",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html",
+      "email": "marketplaceapitest@amazon.com"
+    },
+    "license": {
+      "name": "Amazon Software License",
+      "url": "https://aws.amazon.com/asl/"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/externalFulfillment/2024-09-11/shipments/{shipmentId}/shippingOptions": {
+      "get": {
+        "tags": [
+          "shipmentProcessing"
+        ],
+        "description": "Get a list of shipping options for a package in a shipment given the shipment's marketplace and channel. If the marketplace and channel have a pre-determined shipping option, then this operation returns an empty response.",
+        "operationId": "retrieveShippingOptions",
+        "parameters": [
+          {
+            "name": "shipmentId",
+            "in": "path",
+            "description": "The ID of the shipment to which the package belongs.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "packageId",
+            "in": "query",
+            "description": "The ID of the package for which you want to retrieve shipping options.",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "shipmentId": {
+                        "value": "TEST_CASE_200_MFN_SHIPMENT_ID"
+                      },
+                      "packageId": {
+                        "value": "TEST_CASE_200_PACKAGE_ID"
+                      }
+                    }
+                  },
+                  "response": {
+                    "shippingOptions": [
+                      {
+                        "shippingOptionId": "TEST_CASE_200_SHIPPING_OPTION_ID",
+                        "carrierName": "ATSPL",
+                        "shipBy": "MARKETPLACE",
+                        "pickupWindow": {
+                          "startTime": 1612933142,
+                          "endTime": 1612494142
+                        },
+                        "timeSlot": {
+                          "startTime": 1612933142,
+                          "endTime": 1612494142,
+                          "handoverMethod": "PICKUP"
+                        }
+                      }
+                    ],
+                    "recommendedShippingOption": {
+                      "shippingOptionId": "TEST_CASE_200_SHIPPING_OPTION_ID",
+                      "carrierName": "ATSPL",
+                      "shipBy": "MARKETPLACE",
+                      "pickupWindow": {
+                        "startTime": 1612933142,
+                        "endTime": 1612494142
+                      },
+                      "timeSlot": {
+                        "startTime": 1612933142,
+                        "endTime": 1612494142,
+                        "handoverMethod": "PICKUP"
+                      }
+                    }
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "shipmentId": {
+                        "value": "TEST_CASE_200_FBA_SHIPMENT_ID"
+                      },
+                      "packageId": {
+                        "value": "TEST_CASE_200_PACKAGE_ID"
+                      }
+                    }
+                  },
+                  "response": {
+                    "shippingOptions": []
+                  }
+                }
+              ]
+            },
+            "examples": {
+              "application/json": {
+                "shippingOptions": [
+                  {
+                    "shippingOptionId": "FF9FCL",
+                    "carrierName": "ATSPL",
+                    "shipBy": "MARKETPLACE",
+                    "pickupWindow": {
+                      "startTime": 1612433142,
+                      "endTime": 1612434142
+                    },
+                    "timeSlot": {
+                      "startTime": 1612933142,
+                      "endTime": 1612494142,
+                      "handoverMethod": "PICKUP"
+                    }
+                  }
+                ],
+                "recommendedShippingOption": {
+                  "shippingOptionId": "FF9FCL",
+                  "carrierName": "ATSPL",
+                  "shipBy": "MARKETPLACE",
+                  "pickupWindow": {
+                    "startTime": 1612433142,
+                    "endTime": 1612434142
+                  },
+                  "timeSlot": {
+                    "startTime": 1612933142,
+                    "endTime": 1612494142,
+                    "handoverMethod": "PICKUP"
+                  }
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ShippingOptionsResponse"
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {}
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "Invalid Input",
+                        "message": "Invalid Input"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "409": {
+            "description": "The resource specified conflicts with the current state",
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Unable to process the contained instructions",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Distance": {
+      "description": "A distance measurement.",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The numerical value of the distance.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "distanceUnit": {
+          "description": "The unit of measurement of the distance.",
+          "type": "string",
+          "enum": [
+            "MI",
+            "KM"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "MI",
+              "description": "Miles."
+            },
+            {
+              "value": "KM",
+              "description": "Kilometers."
+            }
+          ]
+        }
+      },
+      "example": {
+        "value": "3.5",
+        "distanceUnit": "MI"
+      },
+      "required": [
+        "value",
+        "distanceUnit"
+      ]
+    },
+    "Decimal": {
+      "description": "A decimal number with no loss of precision. Useful when precision loss is unacceptable, as with currencies.",
+      "type": "string"
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "An object containing a list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "A list of error responses returned when a request is unsuccessful.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "ShippingOptionsResponse": {
+      "description": "The response to the `retrieveShippingOptions` operation. The response contains shipping options on a per-package basis from which the seller has to select one shipping option while they retrieve the shipping label. If the particular marketplace channel does not support scheduled shipping options, then this response will be empty.",
+      "type": "object",
+      "properties": {
+        "shippingOptions": {
+          "description": "A list of shipping options.",
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/ShippingOptions"
+          }
+        },
+        "recommendedShippingOption": {
+          "description": "The recommended shipping options that a marketplace channel provides to the seller.",
+          "$ref": "#/definitions/ShippingOptions"
+        }
+      }
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "HandoverLocation": {
+      "description": "The drop-off location details for package handover.",
+      "type": "object",
+      "properties": {
+        "address": {
+          "description": "The address of the drop-off location.",
+          "$ref": "#/definitions/Address"
+        },
+        "distance": {
+          "description": "The distance from the seller's location to the drop-off point.",
+          "$ref": "#/definitions/Distance"
+        },
+        "mapUrl": {
+          "description": "URL to the map that shows the drop-off location.",
+          "type": "string"
+        }
+      },
+      "example": {
+        "address": {
+          "postalCode": "98101",
+          "addressLine1": "123 Main St",
+          "city": "Seattle",
+          "stateOrRegion": "WA",
+          "countryCode": "US",
+          "geocodes": {
+            "latitude": "47.6062",
+            "longitude": "-122.3321"
+          }
+        },
+        "distance": {
+          "value": "3.5",
+          "distanceUnit": "MI"
+        },
+        "mapUrl": "https://maps.example.com/location?lat=47.6062&lng=-122.3321"
+      }
+    },
+    "TimeWindow": {
+      "description": "Time duration used to specify the interval of an event, such as pick up and delivery.",
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "description": "The start time of the window.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "endTime": {
+          "description": "The end time of the window.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "handoverMethod": {
+          "description": "Whether the seller picks up from Amazon Logistics or drops off to Amazon Logistics.",
+          "type": "string",
+          "enum": [
+            "PICKUP",
+            "DROPOFF"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "PICKUP",
+              "description": "The seller picks up the package from Amazon Logistics."
+            },
+            {
+              "value": "DROPOFF",
+              "description": "The seller drops off the package to Amazon Logistics."
+            }
+          ]
+        }
+      },
+      "example": {
+        "startTime": 1612933142,
+        "endTime": 1612494142,
+        "handoverMethod": "DROPOFF"
+      },
+      "required": [
+        "startTime",
+        "endTime"
+      ]
+    },
+    "Address": {
+      "description": "The address.",
+      "properties": {
+        "name": {
+          "description": "The name of the person, business or institution at that address.",
+          "minLength": 1,
+          "maxLength": 50,
+          "type": "string"
+        },
+        "addressLine1": {
+          "description": "The first line of the address.",
+          "minLength": 1,
+          "maxLength": 60,
+          "type": "string"
+        },
+        "addressLine2": {
+          "description": "Additional address information, if required.",
+          "minLength": 1,
+          "maxLength": 60,
+          "type": "string"
+        },
+        "addressLine3": {
+          "description": "Additional address information, if required.",
+          "minLength": 1,
+          "maxLength": 60,
+          "type": "string"
+        },
+        "district": {
+          "description": "The district or state where the person, business, or institution is located.",
+          "type": "string"
+        },
+        "municipality": {
+          "description": "The municipality where the person, business, or institution is located.",
+          "type": "string"
+        },
+        "state": {
+          "description": "The state or region where the person, business, or institution is located.",
+          "type": "string"
+        },
+        "city": {
+          "description": "The city where the person, business, or institution is located.",
+          "minLength": 1,
+          "maxLength": 50,
+          "type": "string"
+        },
+        "countryCode": {
+          "description": "The two digit country code. In ISO 3166-1 alpha-2 format.",
+          "minLength": 2,
+          "maxLength": 2,
+          "type": "string"
+        },
+        "postalCode": {
+          "description": "The postal code of the address. It contains a series of letters or digits or both, sometimes including spaces or punctuation.",
+          "minLength": 1,
+          "maxLength": 20,
+          "type": "string"
+        },
+        "email": {
+          "description": "The email address of the contact associated with the address.",
+          "maxLength": 64,
+          "type": "string"
+        },
+        "copyEmails": {
+          "description": "The email cc addresses of the contact associated with the address.",
+          "maxItems": 2,
+          "type": "array",
+          "items": {
+            "maxLength": 64,
+            "type": "string"
+          }
+        },
+        "phoneNumber": {
+          "description": "The phone number of the person, business, or institution located at the address.",
+          "minLength": 1,
+          "maxLength": 20,
+          "type": "string"
+        },
+        "addressType": {
+          "description": "The type of address.",
+          "minLength": 1,
+          "maxLength": 20,
+          "type": "string"
+        },
+        "geocodes": {
+          "description": "The geographic coordinates of the address.",
+          "$ref": "#/definitions/Geocodes"
+        }
+      },
+      "required": [
+        "postalCode"
+      ],
+      "type": "object"
+    },
+    "Geocodes": {
+      "description": "Geographic coordinates.",
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "description": "The latitude coordinate.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "longitude": {
+          "description": "The longitude coordinate.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "elevation": {
+          "description": "The elevation in meters.",
+          "$ref": "#/definitions/Decimal"
+        }
+      },
+      "example": {
+        "latitude": "47.6062",
+        "longitude": "-122.3321",
+        "elevation": "56.0"
+      },
+      "required": [
+        "latitude",
+        "longitude"
+      ]
+    },
+    "ShippingOptions": {
+      "description": "Shipping options for a single package.",
+      "type": "object",
+      "properties": {
+        "shippingOptionId": {
+          "description": "An identifier for the shipping option.",
+          "type": "string"
+        },
+        "shipBy": {
+          "description": "The shipper type.",
+          "type": "string",
+          "enum": [
+            "MARKETPLACE",
+            "SELLER",
+            "THIRD_PARTY_CARRIER",
+            "OTHER"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "MARKETPLACE",
+              "description": "The shipper is the marketplace platform."
+            },
+            {
+              "value": "SELLER",
+              "description": "The shipper is the seller."
+            },
+            {
+              "value": "THIRD_PARTY_CARRIER",
+              "description": "The shipper is a third party."
+            },
+            {
+              "value": "OTHER",
+              "description": "The shipper is not the marketplace, seller, or a third party."
+            }
+          ]
+        },
+        "carrierName": {
+          "description": "The carrier name for the offering.",
+          "type": "string"
+        },
+        "pickupWindow": {
+          "description": "The time window during which the package will be picked up.",
+          "$ref": "#/definitions/TimeWindow"
+        },
+        "timeSlot": {
+          "description": "A time window to hand over the package to or from Amazon Logistics.",
+          "$ref": "#/definitions/TimeWindow"
+        },
+        "handoverLocation": {
+          "description": "The drop-off location details. This value is populated when `handoverMethod` is `DROPOFF`.",
+          "$ref": "#/definitions/HandoverLocation"
+        }
+      },
+      "example": {
+        "shippingOptionId": "TEST_CASE_200_SHIPPING_OPTION_ID",
+        "carrierName": "ATSPL",
+        "shipBy": "MARKETPLACE",
+        "pickupWindow": {
+          "startTime": 1612933142,
+          "endTime": 1612494142
+        },
+        "timeSlot": {
+          "startTime": 1612933142,
+          "endTime": 1612494142,
+          "handoverMethod": "DROPOFF"
+        },
+        "handoverLocation": {
+          "address": {
+            "postalCode": "98101",
+            "addressLine1": "123 Main St",
+            "city": "Seattle",
+            "stateOrRegion": "WA",
+            "countryCode": "US",
+            "geocodes": {
+              "latitude": "47.6062",
+              "longitude": "-122.3321"
+            }
+          },
+          "distance": {
+            "value": "3.5",
+            "distanceUnit": "MI"
+          },
+          "mapUrl": "https://maps.example.com/location?lat=47.6062&lng=-122.3321"
+        }
+      },
+      "required": [
+        "shippingOptionId",
+        "shipBy"
+      ]
+    }
+  }
+}

@@ -1,0 +1,378 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Use the Selling Partner API for Invoices to retrieve and manage invoice-related operations, which can help selling partners manage their bookkeeping processes.",
+    "version": "2024-06-19",
+    "title": "The Selling Partner API for Invoices.",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/tax/invoices/2024-06-19/invoices/{invoiceId}": {
+      "get": {
+        "tags": [
+          "invoices"
+        ],
+        "description": "Returns invoice data for the specified invoice. This operation returns only a subset of the invoices data; refer to the response definition to get all the possible attributes.\nTo get the full invoice, use the `createInvoicesExport` operation to start an export request.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 2 | 15 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The preceding table indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getInvoice",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The marketplace from which you want the invoice.",
+            "type": "string",
+            "name": "marketplaceId",
+            "in": "query",
+            "required": true
+          },
+          {
+            "description": "The invoice identifier.",
+            "type": "string",
+            "name": "invoiceId",
+            "in": "path",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/GetInvoiceResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "invoiceId": {
+                        "value": "ad5b9dcd-6981-4dc4-a3d7-dd2568298a94"
+                      },
+                      "marketplaceId": {
+                        "value": "A2Q3Y263D00KWC"
+                      }
+                    }
+                  },
+                  "response": {
+                    "invoice": {
+                      "date": "2024-07-10T15:00:00.000Z",
+                      "errorCode": "",
+                      "externalInvoiceId": "1283743",
+                      "govResponse": "",
+                      "id": "ad5b9dcd-6981-4dc4-a3d7-dd2568298a94",
+                      "invoiceType": "CUSTOMER_SALES",
+                      "series": "32",
+                      "status": "AUTHORIZED",
+                      "transactionIds": [
+                        {
+                          "name": "BUSINESS_TRANSACTION_ID",
+                          "id": "94cd4e1a-5cc5-486d-b592-045a95a168e1"
+                        }
+                      ],
+                      "transactionType": "CUSTOMER_SALES_SYMBOLIC"
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "A2Q3Y263D00KWC"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "400",
+                        "details": "Missing required parameter 'invoiceId'",
+                        "message": "Invalid Request."
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "invoiceId": {
+                        "value": "ad5b9dcd-6981-4dc4-a3d7-dd2568298a94"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "400",
+                        "details": "Missing required parameter 'marketplaceId'",
+                        "message": "Invalid Request."
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "A list of error responses returned when a request is unsuccessful.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "TransactionIdentifier": {
+      "description": "The identifier for a transaction.",
+      "type": "object",
+      "properties": {
+        "name": {
+          "description": "The transaction identifier name. Use the `getInvoicesAttributes` operation to check `transactionIdentifierName` options.",
+          "type": "string"
+        },
+        "id": {
+          "description": "The transaction identifier.",
+          "type": "string"
+        }
+      }
+    },
+    "GetInvoiceResponse": {
+      "description": "Success.",
+      "type": "object",
+      "properties": {
+        "invoice": {
+          "$ref": "#/definitions/Invoice"
+        }
+      }
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses that are returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Error": {
+      "description": "The error response that is returned when the request is unsuccessful.",
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        }
+      }
+    },
+    "Invoice": {
+      "description": "Provides detailed information about an invoice.",
+      "type": "object",
+      "properties": {
+        "date": {
+          "description": "The date and time the invoice is issued. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format.",
+          "type": "string",
+          "format": "date-time"
+        },
+        "errorCode": {
+          "description": "If the invoice is in an error state, this attribute displays the error code.",
+          "type": "string"
+        },
+        "externalInvoiceId": {
+          "description": "The invoice identifier that is used by an external party. This is typically the government agency that authorized the invoice.",
+          "type": "string"
+        },
+        "govResponse": {
+          "description": "The response message from the government authority when there is an error during invoice issuance.",
+          "type": "string"
+        },
+        "id": {
+          "description": "The invoice identifier.",
+          "type": "string"
+        },
+        "invoiceType": {
+          "description": "The classification of the invoice type. This varies across marketplaces. Use the `getInvoicesAttributes` operation to check `invoiceType` options.",
+          "type": "string"
+        },
+        "series": {
+          "description": "Use this identifier in conjunction with `externalInvoiceId` to identify invoices from the same seller.",
+          "type": "string"
+        },
+        "status": {
+          "description": "The invoice status classification. Use the `getInvoicesAttributes` operation to check invoice status options.",
+          "type": "string"
+        },
+        "transactionIds": {
+          "description": "List with identifiers for the transactions associated to the invoice.",
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/TransactionIdentifier"
+          }
+        },
+        "transactionType": {
+          "description": "Classification of the transaction that originated this invoice. Use the `getInvoicesAttributes` operation to check `transactionType` options.",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

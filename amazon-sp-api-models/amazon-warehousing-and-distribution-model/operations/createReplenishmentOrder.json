@@ -1,0 +1,396 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon Warehousing and Distribution",
+    "version": "2024-05-09",
+    "description": "The Selling Partner API for Amazon Warehousing and Distribution (AWD) provides programmatic access to information about AWD shipments and inventory. ",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/awd/2024-05-09/replenishmentOrders": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Payload for creating a replenishment order.",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ReplenishmentOrderCreationData"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "CreateReplenishmentOrder 201 response.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ReplenishmentOrderReference"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "products": [
+                            {
+                              "quantity": 20,
+                              "sku": "TEST_SKU"
+                            }
+                          ],
+                          "preferences": {
+                            "confirmation": "AUTO"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "orderId": "TEST_ORDER_ID"
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "products": [
+                            {
+                              "quantity": 1,
+                              "sku": "TEST_SKU"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BAD_REQUEST",
+                        "details": "This exception is thrown when client inputs are invalid",
+                        "message": "Invalid package type: TEST"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        },
+        "tags": [
+          "awd"
+        ],
+        "description": "Creates an AWD replenishment order with given products to replenish.\nThe API will return the order ID of the newly created order and also start an async validation check on the products to e.\nThe order status will transition to ELIGIBLE/INELIGIBLE status from VALIDATING post validation check",
+        "operationId": "createReplenishmentOrder"
+      }
+    }
+  },
+  "definitions": {
+    "ReplenishmentPreferences": {
+      "description": "Preferences that can be passed in context of a replenishment order",
+      "properties": {
+        "confirmation": {
+          "description": "Confirmation Mode to use for the created Replenishment order.",
+          "$ref": "#/definitions/ConfirmationMode"
+        }
+      },
+      "type": "object"
+    },
+    "ReplenishmentOrderReference": {
+      "description": "Response containing the reference identifier for the newly created/updated replenishment order consisting of the order ID.",
+      "properties": {
+        "orderId": {
+          "description": "Order ID of the Replenishment order.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "orderId"
+      ],
+      "type": "object"
+    },
+    "ErrorList": {
+      "description": "This exception is thrown when client inputs are invalid.",
+      "properties": {
+        "errors": {
+          "description": "A list of errors describing the failures.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      "required": [
+        "errors"
+      ]
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "ProductAttribute": {
+      "description": "Product instance attribute that is not described at the SKU level in the catalog.",
+      "properties": {
+        "name": {
+          "description": "Product attribute name.",
+          "type": "string",
+          "example": "TestAttribute"
+        },
+        "value": {
+          "description": "Product attribute value.",
+          "type": "string",
+          "example": "TestAttributeValue"
+        }
+      },
+      "type": "object",
+      "example": {
+        "name": "TestAttribute",
+        "value": "TestAttributeValue"
+      }
+    },
+    "DistributionProduct": {
+      "description": "Represents a product with sku details and corresponding quantity",
+      "properties": {
+        "attributes": {
+          "description": "Attributes for this instance of the product, i.e. already-prepped, or other\nattributes that distinguish the product beyond the SKU.",
+          "items": {
+            "$ref": "#/definitions/ProductAttribute"
+          },
+          "type": "array",
+          "example": {
+            "name": "TestAttribute",
+            "value": "TestAttributeValue"
+          }
+        },
+        "quantity": {
+          "description": "Quantity of the product",
+          "format": "int32",
+          "type": "integer"
+        },
+        "sku": {
+          "description": "The seller/merchant stock keeping unit (SKU).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "quantity",
+        "sku"
+      ],
+      "type": "object"
+    },
+    "ConfirmationMode": {
+      "description": "Confirmation Modes supported for Replenishment order creation. By default, the confirmation mode will be set to MANUAL.",
+      "enum": [
+        "AUTO",
+        "MANUAL"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "When set to AUTO, the order will be confirmed once the status is ELIGIBLE.",
+          "value": "AUTO"
+        },
+        {
+          "description": "When set to MANUAL, the order needs to be confirmed manually after the status is ELIGIBLE.",
+          "value": "AUTO"
+        }
+      ],
+      "example": "MANUAL"
+    },
+    "ReplenishmentOrderCreationData": {
+      "description": "This structure represents the payload for creating an AFN Replenishment Order.\nBy default, all replenishment orders created support Partial order preferences.",
+      "properties": {
+        "preferences": {
+          "$ref": "#/definitions/ReplenishmentPreferences"
+        },
+        "products": {
+          "description": "Requested amount of single product units to be replenished.",
+          "items": {
+            "$ref": "#/definitions/DistributionProduct"
+          },
+          "type": "array",
+          "example": [
+            {
+              "sku": "TestSKU",
+              "quantity": 1
+            }
+          ]
+        }
+      },
+      "type": "object",
+      "example": {
+        "products": [
+          {
+            "quantity": 1,
+            "sku": "testPen"
+          }
+        ],
+        "preferences": {
+          "confirmation": "AUTO"
+        }
+      }
+    }
+  }
+}

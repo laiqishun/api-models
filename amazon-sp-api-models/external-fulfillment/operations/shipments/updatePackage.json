@@ -1,0 +1,578 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon External Fulfillment Shipments Processing",
+    "description": "You can use the External Fulfillment Shipments API to retrieve, manage, and track shipments processed through Amazon's external fulfillment network. Use this API to get shipment details, monitor status changes, and access fulfillment requirements.",
+    "version": "2024-09-11",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html",
+      "email": "marketplaceapitest@amazon.com"
+    },
+    "license": {
+      "name": "Amazon Software License",
+      "url": "https://aws.amazon.com/asl/"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/externalFulfillment/2024-09-11/shipments/{shipmentId}/packages/{packageId}": {
+      "put": {
+        "tags": [
+          "shipmentProcessing"
+        ],
+        "description": "Updates the details about the packages that will be used to fulfill the specified shipment.",
+        "operationId": "updatePackage",
+        "parameters": [
+          {
+            "name": "shipmentId",
+            "in": "path",
+            "description": "The ID of the shipment to which the package belongs.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "packageId",
+            "in": "path",
+            "description": "The ID of the package whose information you want to update.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The body of the request.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Package"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Success.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "shipmentId": {
+                        "value": "TEST_CASE_200_FBA_SHIPMENT_ID"
+                      },
+                      "packageId": {
+                        "value": "TEST_CASE_200_PACKAGE_ID"
+                      },
+                      "body": {
+                        "value": {}
+                      }
+                    }
+                  },
+                  "response": {}
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "shipmentId": {
+                        "value": "TEST_CASE_200_MFN_SHIPMENT_ID"
+                      },
+                      "packageId": {
+                        "value": "TEST_CASE_200_PACKAGE_ID"
+                      },
+                      "body": {
+                        "value": {}
+                      }
+                    }
+                  },
+                  "response": {}
+                }
+              ]
+            },
+            "examples": {
+              "application/json": {}
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {}
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid input."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "409": {
+            "description": "The resource specified conflicts with the current state",
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Unable to process the contained instructions",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Weight": {
+      "description": "The weight of a package.",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The numerical value of the weight. Must be a positive value.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "weightUnit": {
+          "description": "The unit of measurement of the weight.",
+          "type": "string",
+          "enum": [
+            "G",
+            "KG",
+            "LB",
+            "OZ"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "G",
+              "description": "Grams."
+            },
+            {
+              "value": "KG",
+              "description": "Kilograms."
+            },
+            {
+              "value": "LB",
+              "description": "Pounds."
+            },
+            {
+              "value": "OZ",
+              "description": "Ounces."
+            }
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "weightUnit"
+      ]
+    },
+    "PackageLineItems": {
+      "description": "The list of line items in a package.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PackageLineItem"
+      }
+    },
+    "PackageDimensions": {
+      "description": "The dimensions of a package.",
+      "type": "object",
+      "properties": {
+        "length": {
+          "description": "The length of the package.",
+          "$ref": "#/definitions/Dimension"
+        },
+        "width": {
+          "description": "The width of the package.",
+          "$ref": "#/definitions/Dimension"
+        },
+        "height": {
+          "description": "The height of the package.",
+          "$ref": "#/definitions/Dimension"
+        }
+      },
+      "required": [
+        "length",
+        "width",
+        "height"
+      ]
+    },
+    "SerialNumber": {
+      "description": "The serial number of the SKU in this line item.",
+      "type": "string"
+    },
+    "Amount": {
+      "description": "An amount of money, including units in the form of currency.",
+      "properties": {
+        "value": {
+          "description": "The amount of money.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "currencyCode": {
+          "description": "Three digit currency code in ISO 4217 format.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "value",
+        "currencyCode"
+      ],
+      "type": "object"
+    },
+    "Decimal": {
+      "description": "A decimal number with no loss of precision. Useful when precision loss is unacceptable, as with currencies.",
+      "type": "string"
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "An object containing a list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "A list of error responses returned when a request is unsuccessful.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Dimension": {
+      "description": "A dimension of a package.",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The numerical value of the dimension. Must be a positive value.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "dimensionUnit": {
+          "description": "The unit of measurement of the dimension.",
+          "type": "string",
+          "enum": [
+            "CM",
+            "M",
+            "IN"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "CM",
+              "description": "Centimeters."
+            },
+            {
+              "value": "M",
+              "description": "Meters."
+            },
+            {
+              "value": "IN",
+              "description": "Inches."
+            }
+          ]
+        }
+      },
+      "required": [
+        "value",
+        "dimensionUnit"
+      ]
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "PackageLineItem": {
+      "description": "A line item in a package.",
+      "type": "object",
+      "properties": {
+        "packageLineItemId": {
+          "description": "The line item ID.",
+          "type": "string"
+        },
+        "quantity": {
+          "description": "The number of items of a particular line item of a shipment that are packed into the package.",
+          "type": "integer"
+        },
+        "serialNumbers": {
+          "description": "The list of serial numbers of items in the package, if required to be provided.",
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "$ref": "#/definitions/SerialNumber"
+          }
+        },
+        "pieces": {
+          "description": "The number of pieces of a multi-piece item that are in this package. This is applicable only for items that are shipped in multiple pieces.",
+          "type": "integer",
+          "minimum": 1
+        },
+        "countryOfOrigin": {
+          "description": "The country of origin provided by the seller, represented by a two-letter country code in ISO-3166 alpha-2 format. You must pass this field when `countryOfOriginRequirement` is `REQUIRED` in the `getShipment` or `getShipments` response.",
+          "$ref": "#/definitions/CountryCode"
+        },
+        "itemValue": {
+          "description": "The value of the item being shipped, as provided by the seller. This serves as the basis for import duty/tax calculations. You must pass this field when `itemValueRequirement` is `REQUIRED` in the `getShipment` or `getShipments` response.",
+          "$ref": "#/definitions/Amount"
+        }
+      },
+      "required": [
+        "packageLineItemId",
+        "quantity"
+      ]
+    },
+    "CountryCode": {
+      "description": "A two-letter country code, as defined by the ISO-3166 alpha-2 standard.",
+      "type": "string"
+    },
+    "Package": {
+      "description": "A package that is created to ship one or more of a shipment's line items.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "An ID that uniquely identifies a package within a shipment.",
+          "type": "string"
+        },
+        "dimensions": {
+          "description": "The dimensions of the package.",
+          "$ref": "#/definitions/PackageDimensions"
+        },
+        "weight": {
+          "description": "The weight of the package. The package must weigh at least 5 grams.",
+          "$ref": "#/definitions/Weight"
+        },
+        "hazmatLabels": {
+          "description": "The optional list of HAZMAT labels applied to the package.",
+          "type": "array",
+          "minItems": 0,
+          "items": {
+            "type": "string"
+          }
+        },
+        "packageLineItems": {
+          "description": "The list of line items in a package.",
+          "$ref": "#/definitions/PackageLineItems"
+        },
+        "status": {
+          "description": "The current status of the package.",
+          "type": "string",
+          "enum": [
+            "CREATED",
+            "PICKUP_SLOT_RETRIEVED",
+            "INVOICE_GENERATED",
+            "SHIPLABEL_GENERATED",
+            "SHIPPED",
+            "DELIVERED",
+            "CANCELLED"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "CREATED",
+              "description": "The package is created."
+            },
+            {
+              "value": "PICKUP_SLOT_RETRIEVED",
+              "description": "The pickup slot is retrieved."
+            },
+            {
+              "value": "INVOICE_GENERATED",
+              "description": "The invoice is generated."
+            },
+            {
+              "value": "SHIPLABEL_GENERATED",
+              "description": "The shipping label is generated."
+            },
+            {
+              "value": "SHIPPED",
+              "description": "The package is shipped."
+            },
+            {
+              "value": "DELIVERED",
+              "description": "The package is delivered."
+            },
+            {
+              "value": "CANCELLED",
+              "description": "The shipment is cancelled."
+            }
+          ]
+        },
+        "packageHandlingRequirements": {
+          "description": "Whether the package requires standard handling or extra care.",
+          "type": "string",
+          "enum": [
+            "NORMAL",
+            "FRAGILE"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "NORMAL",
+              "description": "The package requires standard handling."
+            },
+            {
+              "value": "FRAGILE",
+              "description": "The package requires extra care in handling."
+            }
+          ],
+          "example": "FRAGILE"
+        }
+      },
+      "required": [
+        "dimensions",
+        "id",
+        "weight",
+        "packageLineItems"
+      ]
+    }
+  }
+}

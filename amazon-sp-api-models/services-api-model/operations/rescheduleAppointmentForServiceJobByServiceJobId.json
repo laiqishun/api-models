@@ -1,0 +1,757 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "With the Services API, you can build applications that help service providers get and modify their service orders and manage their resources.",
+    "version": "v1",
+    "title": "Selling Partner API for Services",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/service/v1/serviceJobs/{serviceJobId}/appointments/{appointmentId}": {
+      "parameters": [],
+      "post": {
+        "tags": [
+          "service"
+        ],
+        "description": "Reschedules an appointment for the service job indicated by the service job identifier specified.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 5 | 20 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](doc:usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "rescheduleAppointmentForServiceJobByServiceJobId",
+        "parameters": [
+          {
+            "name": "serviceJobId",
+            "in": "path",
+            "description": "An Amazon defined service job identifier.",
+            "required": true,
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          {
+            "name": "appointmentId",
+            "in": "path",
+            "description": "An existing appointment identifier for the Service Job.",
+            "required": true,
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Reschedule appointment operation input details.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RescheduleAppointmentRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response.",
+            "schema": {
+              "$ref": "#/definitions/SetAppointmentResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10:00:00.000Z"
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "appointmentId": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693d34468_new_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-2-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "validJobId-2-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10:00:00.000Z",
+                            "durationInMinutes": 60
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "appointmentId": "validJobId-2-9cb9bc29-3d7d-5e49-5709-efb693d34468_new_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-3-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "validJobId-3-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10:00:00.000Z",
+                            "durationInMinutes": 60
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "appointmentId": "validJobId-3-9cb9bc29-3d7d-5e49-5709-efb693d34468_new_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a",
+                    "warnings": [
+                      {
+                        "code": "RESOURCES_UNASSIGNED",
+                        "message": "Unassigned resources : ATechnicianId,BTechnicianId"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/SetAppointmentResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "nullJobId"
+                      },
+                      "appointmentId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10:00:00.000Z",
+                            "durationInMinutes": 60
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Missing or invalid request parameters: [serviceJobId]",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "nullAppointmentId"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10:00:00.000Z",
+                            "durationInMinutes": 60
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Missing or invalid request parameters: [appointmentId]",
+                        "details": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/SetAppointmentResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "unauthorizedJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "unauthorizedJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10:00:00.000Z"
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "UnauthorizedAction",
+                        "message": "Not authorized to access this resource. Please check your input again.",
+                        "details": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/SetAppointmentResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/SetAppointmentResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/SetAppointmentResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Unable to process the contained instructions.",
+            "schema": {
+              "$ref": "#/definitions/SetAppointmentResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10:00:00.000+05:30"
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "ISO8601 time 2021-01-01T10:00:00.000+05:30 is not in UTC.",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10-00:00.000Z"
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Failed to parse ISO8601 input: 2021-01-01T10-00:00.000Z",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "invalidJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "invalidJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10:00:00.000Z"
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "No job exist with jobId : invalidJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "completedJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "completedJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10:00:00.000Z"
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Operation not allowed on job with jobId : completedJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468 and jobState : COMPLETED",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2019-01-01T10:00:00.000Z"
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Failed to add appointment for jobId : validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468, reason : Start time of appointment should be in the future.",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2022-01-01T10:00:00.000Z"
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Failed to add appointment for jobId : validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468, reason : Start time for appointment is beyond the maximum allowed period of 365 days.",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10:15:00.000Z"
+                          },
+                          "rescheduleReasonCode": "R1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Failed to add appointment for jobId : validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468, reason : Appointment slot is not available.",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468"
+                      },
+                      "appointmentId": {
+                        "value": "validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468_00b9d5f2-839d-c13e-b8cd-dae1c3995b2a"
+                      },
+                      "body": {
+                        "value": {
+                          "appointmentTime": {
+                            "startTime": "2021-01-01T10:00:00.000Z"
+                          },
+                          "rescheduleReasonCode": "U1"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Failed to add appointment for jobId : validJobId-9cb9bc29-3d7d-5e49-5709-efb693d34468, reason : Appointment reschedule reason code is not valid.",
+                        "details": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/SetAppointmentResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "Encountered an unexpected condition which prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/SetAppointmentResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/SetAppointmentResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AppointmentTimeInput": {
+      "type": "object",
+      "required": [
+        "startTime"
+      ],
+      "properties": {
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date, time in UTC for the start time of an appointment in ISO 8601 format."
+        },
+        "durationInMinutes": {
+          "type": "integer",
+          "description": "The duration of an appointment in minutes."
+        }
+      },
+      "description": "The input appointment time details."
+    },
+    "RescheduleReasonCode": {
+      "type": "string",
+      "description": "The appointment reschedule reason code."
+    },
+    "RescheduleAppointmentRequest": {
+      "type": "object",
+      "required": [
+        "appointmentTime",
+        "rescheduleReasonCode"
+      ],
+      "properties": {
+        "appointmentTime": {
+          "description": "Input appointment time details.",
+          "$ref": "#/definitions/AppointmentTimeInput"
+        },
+        "rescheduleReasonCode": {
+          "description": "Input appointment reschedule reason.",
+          "$ref": "#/definitions/RescheduleReasonCode"
+        }
+      },
+      "description": "Input for rescheduled appointment operation."
+    },
+    "AppointmentId": {
+      "type": "string",
+      "description": "The appointment identifier.",
+      "minLength": 5,
+      "maxLength": 100
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        },
+        "errorLevel": {
+          "type": "string",
+          "description": "The type of error.",
+          "enum": [
+            "ERROR",
+            "WARNING"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "ERROR",
+              "description": "Error"
+            },
+            {
+              "value": "WARNING",
+              "description": "Warning"
+            }
+          ]
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "WarningList": {
+      "type": "array",
+      "description": "A list of warnings returned in the sucessful execution response of an API request.",
+      "items": {
+        "$ref": "#/definitions/Warning"
+      }
+    },
+    "Warning": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An warning code that identifies the type of warning that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the warning condition in a human-readable form."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or address the warning."
+        }
+      },
+      "description": "Warning returned when the request is successful, but there are important callouts based on which API clients should take defined actions."
+    },
+    "SetAppointmentResponse": {
+      "type": "object",
+      "properties": {
+        "appointmentId": {
+          "description": "New appointment identifier generated during the `addAppointmentForServiceJobByServiceJobId` or `rescheduleAppointmentForServiceJobByServiceJobId` operations.",
+          "$ref": "#/definitions/AppointmentId"
+        },
+        "warnings": {
+          "description": "Warnings generated during the `addAppointmentForServiceJobByServiceJobId` or `rescheduleAppointmentForServiceJobByServiceJobId` operations.",
+          "$ref": "#/definitions/WarningList"
+        },
+        "errors": {
+          "description": "Errors occurred during during the `addAppointmentForServiceJobByServiceJobId` or `rescheduleAppointmentForServiceJobByServiceJobId` operations.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "Response schema for the `addAppointmentForServiceJobByServiceJobId` and `rescheduleAppointmentForServiceJobByServiceJobId` operations."
+    }
+  }
+}

@@ -1,0 +1,859 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "With the Services API, you can build applications that help service providers get and modify their service orders and manage their resources.",
+    "version": "v1",
+    "title": "Selling Partner API for Services",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/service/v1/serviceJobs/{serviceJobId}/appointments/{appointmentId}/resources": {
+      "parameters": [],
+      "put": {
+        "tags": [
+          "service"
+        ],
+        "description": "Assigns new resource(s) or overwrite/update the existing one(s) to a service job appointment.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 1 | 2 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](doc:usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "assignAppointmentResources",
+        "parameters": [
+          {
+            "name": "serviceJobId",
+            "in": "path",
+            "description": "An Amazon-defined service job identifier. Get this value by calling the `getServiceJobs` operation of the Services API.",
+            "required": true,
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          {
+            "name": "appointmentId",
+            "in": "path",
+            "description": "An Amazon-defined identifier of active service job appointment.",
+            "required": true,
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Input containing the resource details to be assigned to the appointment.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AssignAppointmentResourcesRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success response.",
+            "schema": {
+              "$ref": "#/definitions/AssignAppointmentResourcesResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "validAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "validResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "validResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {}
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "validAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {}
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {}
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "validAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "overBookedResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "validResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "payload": {
+                      "warnings": [
+                        {
+                          "code": "RESOURCES_OVERBOOKED",
+                          "message": "Resources overbooked for this time window."
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/AssignAppointmentResourcesResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "nullJobId"
+                      },
+                      "appointmentId": {
+                        "value": "validAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "validResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "validResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Missing or invalid request parameters: [serviceJobId]",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "nullAppointmentId"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "validResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "validResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Missing or invalid request parameters: [appointmentId]",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "nullJobId"
+                      },
+                      "appointmentId": {
+                        "value": "nullAppointmentId"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "validResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "validResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Missing or invalid request parameters: [appointmentId, serviceJobId]",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "validAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {}
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Resources not provided in input JSON payload.",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "validAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": []
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Resources must have size greater than or equal to 1.",
+                        "details": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/AssignAppointmentResourcesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "unauthorizedJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "validAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "validResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "validResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "UnauthorizedAction",
+                        "message": "Not authorized to access this resource. Please check your input again.",
+                        "details": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/AssignAppointmentResourcesResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/AssignAppointmentResourcesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/AssignAppointmentResourcesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Unable to process the contained instructions.",
+            "schema": {
+              "$ref": "#/definitions/AssignAppointmentResourcesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "invalidJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "validAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "validResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "validResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "No job exists with jobId : invalidJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "invalidAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "validResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "validResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Failed to Update Appointment for jobId : invalidJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687, appointmentId : invalidAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d, reason : No appointment exists with appointmentId: invalidAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "validAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "badResourceId"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid resourceId : badResourceId provided in the input.",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "completedJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "completedAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "validResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "validResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Operation not allowed on job with jobId : completedJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687 and jobState : COMPLETED",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "cancelledJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "cancelledAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "validResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "validResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Operation not allowed on job with jobId : cancelledJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687 and jobState : CANCELLED",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "cancelledAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "validResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "validResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Appointment metadata update is not allowed for appointmentId cancelledAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d",
+                        "details": ""
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "serviceJobId": {
+                        "value": "validJobId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687"
+                      },
+                      "appointmentId": {
+                        "value": "validAppointmentId-1-9cb9bc29-3d7d-5e49-5709-efb693t25687_87b9d5f2-839d-y13e-sd4d-dae1c3996s3d"
+                      },
+                      "body": {
+                        "value": {
+                          "resources": [
+                            {
+                              "resourceId": "invalidResourceId-A8B3M999LMHF2"
+                            },
+                            {
+                              "resourceId": "invalidResourceId-AMIDIAX1H5V"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "RESOURCES_MISMATCHED_SERVICE_LOCATION_TYPE",
+                        "message": "Resources do not have same service location type as job. Applicable resources: A8B3M999LMHF2,AMIDIAX1H5V",
+                        "details": ""
+                      },
+                      {
+                        "code": "RESOURCES_MISSING_REQUIRED_SKILLS",
+                        "message": "Resources Missing required XYZ skills. Applicable resources: A8B3M999LMHF2,AMIDIAX1H5V",
+                        "details": ""
+                      },
+                      {
+                        "code": "RESOURCES_NOT_AVAILABLE_IN_LOCATION",
+                        "message": "Resources are not available in the store. Applicable resources: A8B3M999LMHF2,AMIDIAX1H5V",
+                        "details": ""
+                      },
+                      {
+                        "code": "RESOURCES_NOT_REGISTERED_UNDER_MERCHANT",
+                        "message": "Resources are not registered under this Merchant. Applicable resources: A8B3M999LMHF2,AMIDIAX1H5V",
+                        "details": ""
+                      },
+                      {
+                        "code": "RESOURCES_BACKGROUND_CHECK_INCOMPLETE",
+                        "message": "Resources background check is incomplete. Applicable resources: A8B3M999LMHF2,AMIDIAX1H5V",
+                        "details": ""
+                      },
+                      {
+                        "code": "RESOURCES_NOT_AVAILABLE_IN_TIME_WINDOW",
+                        "message": "Resources do not have sufficient available capacity. Applicable resources: A8B3M999LMHF2,AMIDIAX1H5V",
+                        "details": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/AssignAppointmentResourcesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/AssignAppointmentResourcesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/AssignAppointmentResourcesResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AppointmentResources": {
+      "type": "array",
+      "description": "List of resources that performs or performed job appointment fulfillment.",
+      "items": {
+        "$ref": "#/definitions/AppointmentResource"
+      }
+    },
+    "AssignAppointmentResourcesRequest": {
+      "type": "object",
+      "required": [
+        "resources"
+      ],
+      "properties": {
+        "resources": {
+          "description": "List of resource objects to be assigned.",
+          "$ref": "#/definitions/AppointmentResources"
+        }
+      },
+      "description": "Request schema for the `assignAppointmentResources` operation."
+    },
+    "AppointmentResource": {
+      "type": "object",
+      "properties": {
+        "resourceId": {
+          "type": "string",
+          "description": "The resource identifier."
+        }
+      },
+      "description": "The resource that performs or performed appointment fulfillment."
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        },
+        "errorLevel": {
+          "type": "string",
+          "description": "The type of error.",
+          "enum": [
+            "ERROR",
+            "WARNING"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "ERROR",
+              "description": "Error"
+            },
+            {
+              "value": "WARNING",
+              "description": "Warning"
+            }
+          ]
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "WarningList": {
+      "type": "array",
+      "description": "A list of warnings returned in the sucessful execution response of an API request.",
+      "items": {
+        "$ref": "#/definitions/Warning"
+      }
+    },
+    "Warning": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An warning code that identifies the type of warning that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the warning condition in a human-readable form."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or address the warning."
+        }
+      },
+      "description": "Warning returned when the request is successful, but there are important callouts based on which API clients should take defined actions."
+    },
+    "AssignAppointmentResourcesResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "type": "object",
+          "description": "The payload for the `assignAppointmentResource` operation.",
+          "properties": {
+            "warnings": {
+              "description": "Warnings generated during the `assignAppointmentResources` operation.",
+              "$ref": "#/definitions/WarningList"
+            }
+          }
+        },
+        "errors": {
+          "description": "Errors occurred during during the `assignAppointmentResources` operation.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "Response schema for the `assignAppointmentResources` operation."
+    }
+  }
+}

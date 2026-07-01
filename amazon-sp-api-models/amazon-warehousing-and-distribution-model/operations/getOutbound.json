@@ -1,0 +1,1267 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon Warehousing and Distribution",
+    "version": "2024-05-09",
+    "description": "The Selling Partner API for Amazon Warehousing and Distribution (AWD) provides programmatic access to information about AWD shipments and inventory. ",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/awd/2024-05-09/outboundOrders/{orderId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "ID for the outbound order to be retrieved.",
+            "in": "path",
+            "name": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The 200 response for `getOutbound`.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/OutboundOrder"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "orderId": {
+                        "value": "TEST_ORDER_ID"
+                      }
+                    }
+                  },
+                  "response": {
+                    "eligiblePackagesToOutbound": [],
+                    "eligibleProductsToOutbound": [],
+                    "executionErrors": [],
+                    "orderId": "TEST_ORDER_ID",
+                    "orderPreferences": [],
+                    "orderStatus": "SUCCESS",
+                    "outboundShipments": [],
+                    "packagesToOutbound": [],
+                    "productsToOutbound": [],
+                    "shippedOutboundPackages": [],
+                    "shippedOutboundProducts": []
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "orderId": {
+                        "value": " "
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BAD_REQUEST",
+                        "details": "This exception is thrown when client inputs are invalid",
+                        "message": "Required parameter 'orderId' is missing in the request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        },
+        "tags": [
+          "awd"
+        ],
+        "description": "Retrieves an AWD outbound order with a set of shipments that contain items that are outbound into a destination channel. If the order is not eligible, the validation errors field is included in the order response. The API returns the order ID for the newly created order and starts an async validation check on the outbound products. After the validation check, the order status transitions from `VALIDATING` to `ELIGIBLE/INELIGIBLE`.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 1 | 1 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getOutbound"
+      }
+    }
+  },
+  "definitions": {
+    "PackageVolume": {
+      "description": "Represents the volume of the package with a unit of measurement.",
+      "properties": {
+        "unitOfMeasurement": {
+          "description": "Unit of measurement for the package volume.",
+          "$ref": "#/definitions/VolumeUnitOfMeasurement"
+        },
+        "volume": {
+          "description": "The package volume value.",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "unitOfMeasurement",
+        "volume"
+      ],
+      "type": "object"
+    },
+    "PackageDimensions": {
+      "description": "Dimensions of the package.",
+      "properties": {
+        "height": {
+          "description": "Height of the package.",
+          "format": "double",
+          "type": "number"
+        },
+        "length": {
+          "description": "Length of the package.",
+          "format": "double",
+          "type": "number"
+        },
+        "unitOfMeasurement": {
+          "description": "Unit of measurement for package dimensions.",
+          "$ref": "#/definitions/DimensionUnitOfMeasurement"
+        },
+        "width": {
+          "description": "Width of the package.",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "height",
+        "length",
+        "unitOfMeasurement",
+        "width"
+      ],
+      "type": "object"
+    },
+    "OutboundShipment": {
+      "description": "Represents an AWD outbound shipment.",
+      "properties": {
+        "createdAt": {
+          "description": "Timestamp when the shipment was created.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "destinationAddress": {
+          "description": "Destination address for this shipment.",
+          "$ref": "#/definitions/Address"
+        },
+        "orderId": {
+          "description": "Outbound order ID this outbound shipment belongs to.",
+          "type": "string"
+        },
+        "originAddress": {
+          "description": "Origin address for this shipment.",
+          "$ref": "#/definitions/Address"
+        },
+        "shipmentPackageQuantities": {
+          "description": "Specific distribution packages that are included in the context of this shipment.",
+          "items": {
+            "$ref": "#/definitions/DistributionPackageQuantity"
+          },
+          "type": "array"
+        },
+        "shipmentId": {
+          "description": "Unique shipment ID.",
+          "type": "string"
+        },
+        "shipmentProductQuantities": {
+          "description": "Specific product units that are included in the context of this shipment.",
+          "items": {
+            "$ref": "#/definitions/ProductQuantity"
+          },
+          "type": "array"
+        },
+        "shipmentStatus": {
+          "description": "Current status of this shipment.",
+          "$ref": "#/definitions/OutboundShipmentStatus"
+        },
+        "updatedAt": {
+          "description": "Timestamp when the shipment was updated.",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "destinationAddress",
+        "orderId",
+        "originAddress",
+        "shipmentId",
+        "shipmentStatus"
+      ],
+      "type": "object",
+      "example": {
+        "createdAt": "2023-01-12T10:00:00.000Z",
+        "destinationAddress": {
+          "addressLine1": "address_1",
+          "addressLine2": "address_2",
+          "addressLine3": "address_3",
+          "city": "Seattle",
+          "countryCode": "US",
+          "county": "Washington",
+          "district": "District1",
+          "name": "address_name",
+          "phoneNumber": "+14155552671",
+          "postalCode": "123456",
+          "stateOrRegion": "Washington"
+        },
+        "originAddress": {
+          "addressLine1": "address_1",
+          "addressLine2": "address_2",
+          "addressLine3": "address_3",
+          "city": "Seattle",
+          "countryCode": "US",
+          "county": "Washington",
+          "district": "District1",
+          "name": "address_name",
+          "phoneNumber": "+14155552671",
+          "postalCode": "123456",
+          "stateOrRegion": "Washington"
+        },
+        "orderId": "TestOrderId",
+        "shipmentId": "TestShipmentId",
+        "shipmentPackageQuantities": [
+          {
+            "count": 1,
+            "distributionPackage": {
+              "contents": {
+                "products": [
+                  {
+                    "quantity": 1,
+                    "sku": "testPen"
+                  }
+                ]
+              },
+              "measurements": {
+                "dimensions": {
+                  "height": 1,
+                  "length": 1,
+                  "unitOfMeasurement": "INCHES",
+                  "width": 1
+                },
+                "volume": {
+                  "unitOfMeasurement": "CUIN",
+                  "volume": 1
+                },
+                "weight": {
+                  "unitOfMeasurement": "POUNDS",
+                  "weight": 1
+                }
+              },
+              "type": "CASE"
+            }
+          }
+        ],
+        "shipmentProductQuantities": [],
+        "shipmentStatus": "CREATED",
+        "updatedAt": "2023-01-12T10:00:00.000Z"
+      }
+    },
+    "ProductQuantity": {
+      "description": "Represents a product with the SKU details and the corresponding quantity.",
+      "properties": {
+        "attributes": {
+          "description": "Contains attributes for this instance of the product. For example, item color, or other attributes that distinguish the product beyond the SKU. This is metadata for the product and Amazon does not process this data.",
+          "items": {
+            "$ref": "#/definitions/ProductAttribute"
+          },
+          "type": "array",
+          "example": {
+            "name": "TestAttribute",
+            "value": "TestAttributeValue"
+          }
+        },
+        "quantity": {
+          "description": "Product quantity.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "sku": {
+          "description": "The seller or merchant SKU.",
+          "type": "string"
+        },
+        "expiration": {
+          "description": "The expiration date for the SKU. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "prepDetails": {
+          "description": "Preparation details of a product which contains the prep category, prep owner and the label owner.\nIf not passed while creating an inbound order, NO_PREP will be used on the product by-default.\nPrep instructions will be generated based on the category passed",
+          "$ref": "#/definitions/PrepDetails"
+        }
+      },
+      "required": [
+        "quantity",
+        "sku"
+      ],
+      "type": "object"
+    },
+    "OutboundShipmentStatus": {
+      "description": "Possible shipment statuses for outbound shipments.",
+      "enum": [
+        "CREATED",
+        "IN_TRANSIT",
+        "DELIVERED",
+        "RECEIVING",
+        "RECEIVED",
+        "CLOSED",
+        "CANCELLED",
+        "FAILED"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Shipment is created. No inventory has been picked up at the source node.",
+          "value": "CREATED"
+        },
+        {
+          "description": "Carrier acknowledged that the shipment is in transit between the origin node and destination node.",
+          "value": "IN_TRANSIT"
+        },
+        {
+          "description": "Carrier indicated that the shipment has arrived at the destination node, but the destination node has not acknowledged the delivery.",
+          "value": "DELIVERED"
+        },
+        {
+          "description": "Destination node acknowledged the arrival of the shipment.",
+          "value": "RECEIVING"
+        },
+        {
+          "description": "Destination node has received the items.",
+          "value": "RECEIVED"
+        },
+        {
+          "description": "No more actions are required for the shipment. This is a final state.",
+          "value": "CLOSED"
+        },
+        {
+          "description": "Shipment has been cancelled by order owner. This is a final state.",
+          "value": "CANCELLED"
+        },
+        {
+          "description": "Shipment delivery has failed. This is a final state.",
+          "value": "FAILED"
+        }
+      ],
+      "example": "CREATED"
+    },
+    "ProductAttribute": {
+      "description": "Product instance attribute that is not described at the SKU level in the catalog.",
+      "properties": {
+        "name": {
+          "description": "Product attribute name.",
+          "type": "string",
+          "example": "TestAttribute"
+        },
+        "value": {
+          "description": "Product attribute value.",
+          "type": "string",
+          "example": "TestAttributeValue"
+        }
+      },
+      "type": "object",
+      "example": {
+        "name": "TestAttribute",
+        "value": "TestAttributeValue"
+      }
+    },
+    "OrderAttribute": {
+      "description": "Consists of the order preference and corresponding preference value.",
+      "properties": {
+        "orderPreference": {
+          "description": "Preference for the distribution order.",
+          "$ref": "#/definitions/OrderPreference"
+        },
+        "orderPreferenceValue": {
+          "description": "Value for the order preference.",
+          "$ref": "#/definitions/OrderPreferenceValue"
+        }
+      },
+      "required": [
+        "orderPreference",
+        "orderPreferenceValue"
+      ],
+      "type": "object",
+      "example": {
+        "orderPreference": "PARTIAL_ORDER",
+        "orderPreferenceValue": "SET"
+      }
+    },
+    "DistributionPackageContents": {
+      "description": "Represents the contents inside a package, which can be products or a nested package.",
+      "properties": {
+        "packages": {
+          "description": "This is required only when `DistributionPackageType=PALLET`.",
+          "items": {
+            "$ref": "#/definitions/DistributionPackageQuantity"
+          },
+          "type": "array"
+        },
+        "products": {
+          "description": "This is required only when `DistributionPackageType=CASE`.",
+          "items": {
+            "$ref": "#/definitions/ProductQuantity"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "DistributionPackage": {
+      "description": "Represents an AWD distribution package.",
+      "properties": {
+        "contents": {
+          "description": "The contents appropriate for the type.",
+          "$ref": "#/definitions/DistributionPackageContents"
+        },
+        "measurements": {
+          "description": "Measurements of a package, including weight, volume, and dimensions.",
+          "$ref": "#/definitions/MeasurementData"
+        },
+        "type": {
+          "description": "Type of distribution package.",
+          "$ref": "#/definitions/DistributionPackageType"
+        }
+      },
+      "required": [
+        "contents",
+        "measurements",
+        "type"
+      ],
+      "type": "object",
+      "example": {
+        "contents": {
+          "products": [
+            {
+              "quantity": 1,
+              "sku": "testPen",
+              "expiration": "2025-06-07T12:12:09.061Z",
+              "prepDetails": {
+                "prepCategory": "PERFORATED",
+                "prepOwner": "AMAZON",
+                "labelOwner": "SELF",
+                "prepInstructions": [
+                  {
+                    "prepType": "ITEM_POLYBAGGING",
+                    "prepOwner": "AMAZON"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "measurements": {
+          "dimensions": {
+            "height": 1,
+            "length": 1,
+            "unitOfMeasurement": "INCHES",
+            "width": 1
+          },
+          "volume": {
+            "unitOfMeasurement": "CUIN",
+            "volume": 1
+          },
+          "weight": {
+            "unitOfMeasurement": "POUNDS",
+            "weight": 1
+          }
+        },
+        "type": "CASE"
+      }
+    },
+    "OrderPreferenceValue": {
+      "description": "Value for the order preference.",
+      "enum": [
+        "SET",
+        "UNSET"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Sets the order preference.",
+          "value": "SET"
+        },
+        {
+          "description": "Unsets the order preference.",
+          "value": "UNSET"
+        }
+      ],
+      "example": "SET"
+    },
+    "PrepInstruction": {
+      "description": "Information pertaining to the preparation of inbound products.",
+      "properties": {
+        "prepOwner": {
+          "$ref": "#/definitions/PrepOwner"
+        },
+        "prepType": {
+          "description": "The type of preparation to be done. For more information about preparing items, refer to [Prep guidance](https://sellercentral.amazon.com/help/hub/reference/external/GF4G7547KSLDX2KC) on Seller Central.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "OutboundExecutionError": {
+      "description": "Execution errors associated with the outbound order. This field will be populated if the order failed validation.",
+      "properties": {
+        "failureCode": {
+          "description": "Failure code details for the error.",
+          "type": "string",
+          "example": "TestErrorCode"
+        },
+        "failureReasons": {
+          "description": "Failure reasons for the error.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "example": [
+            "Test failure reason"
+          ]
+        },
+        "sku": {
+          "description": "MSKU associated with the error.",
+          "type": "string",
+          "example": "SampleSKU"
+        }
+      },
+      "required": [
+        "failureCode",
+        "failureReasons"
+      ],
+      "type": "object",
+      "example": {
+        "failureCode": "TestErrorCode",
+        "failureReasons": [
+          "Test failure reason"
+        ],
+        "sku": "SampleSKU"
+      }
+    },
+    "LabelOwner": {
+      "description": "The entity that labels the products. `AMAZON` is not an accepted value in the US marketplace.",
+      "enum": [
+        "AMAZON",
+        "SELF"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Amazon labels the products.",
+          "value": "AMAZON"
+        },
+        {
+          "description": "The seller labels the products.",
+          "value": "SELF"
+        }
+      ]
+    },
+    "PrepOwner": {
+      "description": "The owner of the preparations, if special preparations are required. `AMAZON` is not an accepted value in the US marketplace.",
+      "enum": [
+        "AMAZON",
+        "SELF"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Amazon owns the preparation.",
+          "value": "AMAZON"
+        },
+        {
+          "description": "The seller owns the preparation",
+          "value": "SELF"
+        }
+      ]
+    },
+    "DistributionPackageType": {
+      "description": "Type of distribution packages.",
+      "enum": [
+        "CASE",
+        "PALLET"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Package type `CASE`.",
+          "value": "CASE"
+        },
+        {
+          "description": "Package type `PALLET`. Currently, the `PALLET` package type is not supported.",
+          "value": "PALLET"
+        }
+      ],
+      "example": "CASE"
+    },
+    "DistributionPackageQuantity": {
+      "description": "Represents a distribution package with its respective quantity.",
+      "properties": {
+        "count": {
+          "description": "Number of cases or pallets with the same package configuration.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "distributionPackage": {
+          "$ref": "#/definitions/DistributionPackage"
+        }
+      },
+      "required": [
+        "count",
+        "distributionPackage"
+      ],
+      "type": "object",
+      "example": {
+        "count": 1,
+        "distributionPackage": {
+          "contents": {
+            "products": [
+              {
+                "quantity": 1,
+                "sku": "testPen",
+                "expiration": "2025-06-07T12:12:09.061Z",
+                "prepDetails": {
+                  "prepCategory": "PERFORATED",
+                  "prepOwner": "AMAZON",
+                  "labelOwner": "SELF",
+                  "prepInstructions": [
+                    {
+                      "prepType": "ITEM_POLYBAGGING",
+                      "prepOwner": "AMAZON"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "measurements": {
+            "dimensions": {
+              "height": 1,
+              "length": 1,
+              "unitOfMeasurement": "INCHES",
+              "width": 1
+            },
+            "volume": {
+              "unitOfMeasurement": "CUIN",
+              "volume": 1
+            },
+            "weight": {
+              "unitOfMeasurement": "POUNDS",
+              "weight": 1
+            }
+          },
+          "type": "CASE"
+        }
+      }
+    },
+    "PrepCategory": {
+      "description": "The preparation category for shipping an item to Amazon's fulfillment network.",
+      "enum": [
+        "ADULT",
+        "BABY",
+        "FC_PROVIDED",
+        "FRAGILE",
+        "GRANULAR",
+        "HANGER",
+        "LIQUID",
+        "PERFORATED",
+        "SET",
+        "SHARP",
+        "SMALL",
+        "TEXTILE",
+        "NO_PREP",
+        "UNKNOWN"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "ADULT",
+          "description": "Displays potentially offensive material such as profanity or nudity."
+        },
+        {
+          "value": "BABY",
+          "description": "Made for a child aged three years or younger, packaging with cutouts greater than one square inch."
+        },
+        {
+          "value": "FC_PROVIDED",
+          "description": "A prep type has been defined by the Fulfillment Center. This value is provided by Amazon and cannot be used as an input."
+        },
+        {
+          "value": "FRAGILE",
+          "description": "Glass or otherwise fragile, or a liquid in a glass container."
+        },
+        {
+          "value": "GRANULAR",
+          "description": "Made of powder, pellets, or granular material."
+        },
+        {
+          "value": "HANGER",
+          "description": "Made of cloth or fabric and intended to be put on a hanger."
+        },
+        {
+          "value": "LIQUID",
+          "description": "Liquid or viscous without a double seal."
+        },
+        {
+          "value": "PERFORATED",
+          "description": "In packaging that has a perforated opening."
+        },
+        {
+          "value": "SET",
+          "description": "Multiple items that are sold as one unit."
+        },
+        {
+          "value": "SHARP",
+          "description": "Sharp and easily exposed, not already contained in protective packaging."
+        },
+        {
+          "value": "SMALL",
+          "description": "Longest side less than 2 1/8 inches (width of a credit card)."
+        },
+        {
+          "value": "TEXTILE",
+          "description": "Made of cloth or fabric that could be damaged by dirt, dust, moisture, or liquid."
+        },
+        {
+          "value": "NO_PREP",
+          "description": "Does not require prep."
+        },
+        {
+          "value": "UNKNOWN",
+          "description": "An unknown prep category was found. This value is provided by Amazon and cannot be used as an input."
+        }
+      ]
+    },
+    "ErrorList": {
+      "description": "This exception is thrown when client inputs are invalid.",
+      "properties": {
+        "errors": {
+          "description": "A list of errors describing the failures.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      "required": [
+        "errors"
+      ]
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "PrepDetails": {
+      "description": "The preparation details for a product. This contains the prep category, prep owner, and label owner.\nPrep instructions are generated based on the specified category.",
+      "properties": {
+        "labelOwner": {
+          "$ref": "#/definitions/LabelOwner"
+        },
+        "prepCategory": {
+          "description": "The preparation category for shipping an item to Amazon's fulfillment network.",
+          "$ref": "#/definitions/PrepCategory"
+        },
+        "prepInstructions": {
+          "description": "Contains information about the preparation of the inbound products. The system auto-generates this field with the use of the `prepCategory`, and if you attempt to pass a value for this field, the system will ignore it.",
+          "items": {
+            "$ref": "#/definitions/PrepInstruction"
+          },
+          "type": "array"
+        },
+        "prepOwner": {
+          "$ref": "#/definitions/PrepOwner"
+        }
+      },
+      "type": "object"
+    },
+    "OrderPreference": {
+      "description": "Supported preferences for the distribution order.",
+      "enum": [
+        "PARTIAL_ORDER"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Represents a partial order case.",
+          "value": "PARTIAL_ORDER"
+        }
+      ],
+      "example": "PARTIAL_ORDER"
+    },
+    "VolumeUnitOfMeasurement": {
+      "description": "Unit of measurement for the package volume.",
+      "enum": [
+        "CU_IN",
+        "CBM",
+        "CC"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Denotes volume measurement in cubic inches.",
+          "value": "CU_IN"
+        },
+        {
+          "description": "Denotes volume measurement in cubic meters.",
+          "value": "CBM"
+        },
+        {
+          "description": "Denotes volume measurement in cubic centimeters.",
+          "value": "CC"
+        }
+      ]
+    },
+    "PackageWeight": {
+      "description": "Represents the weight of the package with a unit of measurement.",
+      "properties": {
+        "unitOfMeasurement": {
+          "description": "Unit of measurement for the package weight.",
+          "$ref": "#/definitions/WeightUnitOfMeasurement"
+        },
+        "weight": {
+          "description": "The package weight value.",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "unitOfMeasurement",
+        "weight"
+      ],
+      "type": "object"
+    },
+    "DimensionUnitOfMeasurement": {
+      "description": "Unit of measurement for package dimensions.",
+      "enum": [
+        "INCHES",
+        "CENTIMETERS"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Denotes package dimensions in inches.",
+          "value": "INCHES"
+        },
+        {
+          "description": "Denotes package dimensions in centimeters.",
+          "value": "CENTIMETERS"
+        }
+      ],
+      "example": "INCHES"
+    },
+    "MeasurementData": {
+      "description": "Package weight and dimension.",
+      "properties": {
+        "dimensions": {
+          "description": "Dimensions of the package. Dimensions are required when creating an inbound or outbound order.",
+          "$ref": "#/definitions/PackageDimensions"
+        },
+        "volume": {
+          "description": "Volume of the package.",
+          "$ref": "#/definitions/PackageVolume"
+        },
+        "weight": {
+          "description": "Weight of the package.",
+          "$ref": "#/definitions/PackageWeight"
+        }
+      },
+      "required": [
+        "weight"
+      ],
+      "type": "object"
+    },
+    "WeightUnitOfMeasurement": {
+      "description": "Unit of measurement for the package weight.",
+      "enum": [
+        "POUNDS",
+        "KILOGRAMS"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Denotes weight measurement in pounds.",
+          "value": "POUNDS"
+        },
+        {
+          "description": "Denotes weight measurement in kilograms.",
+          "value": "KILOGRAMS"
+        }
+      ]
+    },
+    "OutboundOrder": {
+      "description": "Represents an AWD outbound order.",
+      "properties": {
+        "confirmedOn": {
+          "description": "Date on which this outbound order was confirmed.",
+          "format": "date-time",
+          "type": "string",
+          "example": "2023-01-12T10:00:00.000Z"
+        },
+        "createdAt": {
+          "description": "Date on which this outbound order was created.",
+          "format": "date-time",
+          "type": "string",
+          "example": "2023-01-12T10:00:00.000Z"
+        },
+        "eligiblePackagesToOutbound": {
+          "description": "List of packages that are eligible for outbound.",
+          "items": {
+            "$ref": "#/definitions/DistributionPackageQuantity"
+          },
+          "type": "array"
+        },
+        "eligibleProductsToOutbound": {
+          "description": "List of product units that are eligible for outbound.",
+          "items": {
+            "$ref": "#/definitions/ProductQuantity"
+          },
+          "type": "array"
+        },
+        "executionErrors": {
+          "description": "Execution errors associated with the outbound order. This field will be populated if the order failed validation.",
+          "items": {
+            "$ref": "#/definitions/OutboundExecutionError"
+          },
+          "type": "array"
+        },
+        "orderId": {
+          "description": "Order ID for the outbound order.",
+          "type": "string"
+        },
+        "orderPreferences": {
+          "description": "Order preferences for this outbound order.",
+          "items": {
+            "$ref": "#/definitions/OrderAttribute"
+          },
+          "type": "array"
+        },
+        "orderStatus": {
+          "description": "Status for the outbound order.",
+          "$ref": "#/definitions/OutboundStatus"
+        },
+        "outboundShipments": {
+          "description": "List of outbound shipments that are part of this order.",
+          "items": {
+            "$ref": "#/definitions/OutboundShipment"
+          },
+          "type": "array"
+        },
+        "packagesToOutbound": {
+          "description": "List of packages to be outbound.",
+          "items": {
+            "$ref": "#/definitions/DistributionPackageQuantity"
+          },
+          "type": "array"
+        },
+        "productsToOutbound": {
+          "description": "List of product units to be outbound.",
+          "items": {
+            "$ref": "#/definitions/ProductQuantity"
+          },
+          "type": "array"
+        },
+        "shippedOutboundPackages": {
+          "description": "Outbound packages that are shipped after the execution has completed post confirmation.",
+          "items": {
+            "$ref": "#/definitions/DistributionPackageQuantity"
+          },
+          "type": "array"
+        },
+        "shippedOutboundProducts": {
+          "description": "Outbound product units that are shipped after the execution has completed post confirmation.",
+          "items": {
+            "$ref": "#/definitions/ProductQuantity"
+          },
+          "type": "array"
+        },
+        "updatedAt": {
+          "description": "Date on which this outbound order was last updated.",
+          "format": "date-time",
+          "type": "string",
+          "example": "2023-01-12T10:00:00.000Z"
+        }
+      },
+      "required": [
+        "orderId",
+        "orderStatus",
+        "outboundShipments"
+      ],
+      "type": "object"
+    },
+    "Address": {
+      "description": "Shipping address that represents the origin or destination location.",
+      "properties": {
+        "addressLine1": {
+          "description": "First line of the address text.",
+          "type": "string"
+        },
+        "addressLine2": {
+          "description": "Optional second line of the address text.",
+          "type": "string"
+        },
+        "addressLine3": {
+          "description": "Optional third line of the address text.",
+          "type": "string"
+        },
+        "city": {
+          "description": "Optional city where this address is located.",
+          "type": "string"
+        },
+        "countryCode": {
+          "description": "Two-digit, ISO 3166-1 alpha-2 formatted country code where this address is located.",
+          "type": "string"
+        },
+        "county": {
+          "description": "Optional county where this address is located.",
+          "type": "string",
+          "example": "Washington"
+        },
+        "district": {
+          "description": "Optional district where this address is located.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Name of the person, business, or institution at this address.",
+          "type": "string"
+        },
+        "phoneNumber": {
+          "description": "Optional E.164-formatted phone number for an available contact at this address.",
+          "type": "string",
+          "example": "+14155552671"
+        },
+        "postalCode": {
+          "description": "Optional postal code where this address is located.",
+          "type": "string"
+        },
+        "stateOrRegion": {
+          "description": "State or region where this address is located. Note that this is contextual to the specified country code.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "addressLine1",
+        "countryCode",
+        "name",
+        "stateOrRegion"
+      ],
+      "type": "object",
+      "example": {
+        "addressLine1": "address_1",
+        "addressLine2": "address_2",
+        "addressLine3": "address_3",
+        "city": "Seattle",
+        "countryCode": "US",
+        "county": "Washington",
+        "district": "District1",
+        "name": "address_name",
+        "phoneNumber": "+14155552671",
+        "postalCode": "123456",
+        "stateOrRegion": "Washington"
+      }
+    },
+    "OutboundStatus": {
+      "description": "Statuses supported for an outbound order.",
+      "enum": [
+        "CONFIRMED",
+        "DRAFT",
+        "ELIGIBLE",
+        "EXECUTING",
+        "FAILURE",
+        "INELIGIBLE",
+        "INVENTORY_OUTBOUND",
+        "SUCCESS",
+        "VALIDATING"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "The order enters this state as soon as the order is confirmed.",
+          "value": "CONFIRMED"
+        },
+        {
+          "description": "A newly created outbound order will always start in this state.",
+          "value": "DRAFT"
+        },
+        {
+          "description": "This is the only state when an order can be confirmed.",
+          "value": "ELIGIBLE"
+        },
+        {
+          "description": "The order is being processed in the system.",
+          "value": "EXECUTING"
+        },
+        {
+          "description": "If any of the shipment reports fail, or if a shipment doesn't reach its destination, the order status is marked as failed.",
+          "value": "FAILURE"
+        },
+        {
+          "description": "In this state, a validation errors field is provided. This field shows the order errors and provides guidance on fixing them.",
+          "value": "INELIGIBLE"
+        },
+        {
+          "description": "The order is complete and awaits inventory movement. In this status, the shipments for an order will be visible.",
+          "value": "INVENTORY_OUTBOUND"
+        },
+        {
+          "description": "If all the shipments are successfully received at the destination channel, the order is marked successful.",
+          "value": "SUCCESS"
+        },
+        {
+          "description": "The order is being validated asynchronously. The order will be in this state after every item update.",
+          "value": "VALIDATING"
+        }
+      ]
+    }
+  }
+}

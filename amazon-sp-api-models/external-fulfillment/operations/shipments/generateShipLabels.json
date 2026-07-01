@@ -1,0 +1,970 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon External Fulfillment Shipments Processing",
+    "description": "You can use the External Fulfillment Shipments API to retrieve, manage, and track shipments processed through Amazon's external fulfillment network. Use this API to get shipment details, monitor status changes, and access fulfillment requirements.",
+    "version": "2024-09-11",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html",
+      "email": "marketplaceapitest@amazon.com"
+    },
+    "license": {
+      "name": "Amazon Software License",
+      "url": "https://aws.amazon.com/asl/"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/externalFulfillment/2024-09-11/shipments/{shipmentId}/shipLabels": {
+      "put": {
+        "tags": [
+          "shipmentProcessing"
+        ],
+        "description": "Generate and retrieve all shipping labels for one or more packages in the shipment you specify.",
+        "operationId": "generateShipLabels",
+        "parameters": [
+          {
+            "name": "shipmentId",
+            "in": "path",
+            "description": "The ID of the shipment whose shipping labels you want to generate and retrieve.",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "shippingOptionId",
+            "in": "query",
+            "description": "The ID of the shipping option whose shipping labels you want.",
+            "type": "string",
+            "required": false
+          },
+          {
+            "name": "operation",
+            "in": "query",
+            "description": "Specify whether you want to generate or regenerate a label.",
+            "type": "string",
+            "enum": [
+              "GENERATE",
+              "REGENERATE"
+            ],
+            "x-docgen-enum-table-extension": [
+              {
+                "value": "GENERATE",
+                "description": "Generate a new shipping label for the first time."
+              },
+              {
+                "value": "REGENERATE",
+                "description": "Regenerate an existing shipping label."
+              }
+            ],
+            "required": true
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Shipping details for when shipping is not done by the marketplace channel.",
+            "schema": {
+              "$ref": "#/definitions/ShipLabelsInput"
+            },
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "shipmentId": {
+                        "value": "TEST_CASE_200_FBA_SHIPMENT_ID"
+                      },
+                      "body": {
+                        "value": {
+                          "packageIds": [
+                            "TEST_CASE_200_PACKAGE_ID"
+                          ],
+                          "courierSupportedAttributes": {
+                            "carrierName": "ATS",
+                            "trackingId": "151958276037"
+                          }
+                        }
+                      },
+                      "operation": {
+                        "value": "GENERATE"
+                      }
+                    }
+                  },
+                  "response": {
+                    "packageShipLabelList": [
+                      {
+                        "packageId": "TEST_CASE_200_PACKAGE_ID",
+                        "shipLabelMetadata": {
+                          "carrierName": "ATS",
+                          "trackingId": "151958276037",
+                          "pickupWindow": {
+                            "startTime": 162132660,
+                            "endTime": 162132660
+                          },
+                          "timeSlot": {
+                            "startTime": 1612933142,
+                            "endTime": 1612494142,
+                            "handoverMethod": "PICKUP"
+                          }
+                        },
+                        "fileData": {
+                          "url": "url"
+                        },
+                        "status": "SUCCESS"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "shipmentId": {
+                        "value": "TEST_CASE_200_FBA_SHIPMENT_ID"
+                      },
+                      "body": {
+                        "value": {
+                          "packageIds": [
+                            "TEST_CASE_200_PACKAGE_ID"
+                          ],
+                          "courierSupportedAttributes": {
+                            "carrierName": "ATS",
+                            "trackingId": "151958276037"
+                          }
+                        }
+                      },
+                      "operation": {
+                        "value": "REGENERATE"
+                      }
+                    }
+                  },
+                  "response": {
+                    "packageShipLabelList": [
+                      {
+                        "packageId": "TEST_CASE_200_PACKAGE_ID",
+                        "shipLabelMetadata": {
+                          "carrierName": "ATS",
+                          "trackingId": "151958276037",
+                          "pickupWindow": {
+                            "startTime": 162132660,
+                            "endTime": 162132660
+                          },
+                          "timeSlot": {
+                            "startTime": 1612933142,
+                            "endTime": 1612494142,
+                            "handoverMethod": "PICKUP"
+                          }
+                        },
+                        "fileData": {
+                          "url": "url"
+                        },
+                        "status": "SUCCESS"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "shipmentId": {
+                        "value": "TEST_CASE_200_MFN_SHIPMENT_ID"
+                      },
+                      "body": {
+                        "value": {
+                          "packageIds": [
+                            "TEST_CASE_200_PACKAGE_ID"
+                          ],
+                          "courierSupportedAttributes": {
+                            "carrierName": "ATSPL",
+                            "trackingId": "343284200328"
+                          }
+                        }
+                      },
+                      "shippingOptionId": {
+                        "value": "TEST_CASE_200_SHIPPING_OPTION_ID"
+                      },
+                      "operation": {
+                        "value": "GENERATE"
+                      }
+                    }
+                  },
+                  "response": {
+                    "packageShipLabelList": [
+                      {
+                        "packageId": "TEST_CASE_200_PACKAGE_ID",
+                        "shipLabelMetadata": {
+                          "carrierName": "ATSPL",
+                          "trackingId": "343284200328",
+                          "pickupWindow": {
+                            "startTime": 163132120,
+                            "endTime": 162132660
+                          },
+                          "timeSlot": {
+                            "startTime": 1612933142,
+                            "endTime": 1612494142,
+                            "handoverMethod": "PICKUP"
+                          }
+                        },
+                        "fileData": {
+                          "url": "url"
+                        },
+                        "status": "SUCCESS"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "shipmentId": {
+                        "value": "TEST_CASE_200_MFN_SHIPMENT_ID"
+                      },
+                      "body": {
+                        "value": {
+                          "packageIds": [
+                            "TEST_CASE_200_PACKAGE_ID"
+                          ],
+                          "courierSupportedAttributes": {
+                            "carrierName": "ATSPL",
+                            "trackingId": "343284200328"
+                          }
+                        }
+                      },
+                      "shippingOptionId": {
+                        "value": "TEST_CASE_200_SHIPPING_OPTION_ID"
+                      },
+                      "operation": {
+                        "value": "REGENERATE"
+                      }
+                    }
+                  },
+                  "response": {
+                    "packageShipLabelList": [
+                      {
+                        "packageId": "TEST_CASE_200_PACKAGE_ID",
+                        "shipLabelMetadata": {
+                          "carrierName": "ATSPL",
+                          "trackingId": "343284200328",
+                          "pickupWindow": {
+                            "startTime": 163132120,
+                            "endTime": 162132660
+                          },
+                          "timeSlot": {
+                            "startTime": 1612933142,
+                            "endTime": 1612494142,
+                            "handoverMethod": "PICKUP"
+                          }
+                        },
+                        "fileData": {
+                          "url": "url"
+                        },
+                        "status": "SUCCESS"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "examples": {
+              "application/json": {
+                "packageShipLabelList": [
+                  {
+                    "packageId": "string",
+                    "shipLabelMetadata": {
+                      "carrierName": "string",
+                      "trackingId": "string",
+                      "pickupWindow": {
+                        "startTime": 0,
+                        "endTime": 0
+                      },
+                      "timeSlot": {
+                        "startTime": 1612933142,
+                        "endTime": 1612494142,
+                        "handoverMethod": "PICKUP"
+                      }
+                    },
+                    "fileData": {
+                      "url": "string"
+                    },
+                    "status": "FAILURE",
+                    "errorDetails": {
+                      "code": "00001",
+                      "message": "A temporary failure occurred in the SmartConnect product."
+                    }
+                  }
+                ]
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ShipLabelsResponse"
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {}
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid Input."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "409": {
+            "description": "The resource specified conflicts with the current state",
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity. Unable to process the contained instructions",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Geocodes": {
+      "description": "Geographic coordinates.",
+      "type": "object",
+      "properties": {
+        "latitude": {
+          "description": "The latitude coordinate.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "longitude": {
+          "description": "The longitude coordinate.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "elevation": {
+          "description": "The elevation in meters.",
+          "$ref": "#/definitions/Decimal"
+        }
+      },
+      "example": {
+        "latitude": "47.6062",
+        "longitude": "-122.3321",
+        "elevation": "56.0"
+      },
+      "required": [
+        "latitude",
+        "longitude"
+      ]
+    },
+    "Distance": {
+      "description": "A distance measurement.",
+      "type": "object",
+      "properties": {
+        "value": {
+          "description": "The numerical value of the distance.",
+          "$ref": "#/definitions/Decimal"
+        },
+        "distanceUnit": {
+          "description": "The unit of measurement of the distance.",
+          "type": "string",
+          "enum": [
+            "MI",
+            "KM"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "MI",
+              "description": "Miles."
+            },
+            {
+              "value": "KM",
+              "description": "Kilometers."
+            }
+          ]
+        }
+      },
+      "example": {
+        "value": "3.5",
+        "distanceUnit": "MI"
+      },
+      "required": [
+        "value",
+        "distanceUnit"
+      ]
+    },
+    "CourierSupportedAttributes": {
+      "description": "The tracking details of the package if it is shipped by a third party courier. This attribute should only be provided when the value of `shipBy` is `THIRD_PARTY_CARRIER`.",
+      "type": "object",
+      "properties": {
+        "carrierName": {
+          "description": "The name of the courier service used to ship the package",
+          "type": "string"
+        },
+        "trackingId": {
+          "description": "The tracking number of the package.",
+          "type": "string"
+        }
+      },
+      "example": {
+        "carrierName": "ATSPL",
+        "trackingId": "343284200328"
+      },
+      "required": [
+        "carrierName",
+        "trackingId"
+      ]
+    },
+    "PackageShipLabelList": {
+      "description": "A list of label documents for each package specified in the request. In case of partial failures when generating labels, the `isErrored` and `errorDetails` attributes detail the cause of failure.",
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/PackageShipLabel"
+      }
+    },
+    "Decimal": {
+      "description": "A decimal number with no loss of precision. Useful when precision loss is unacceptable, as with currencies.",
+      "type": "string"
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "An object containing a list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "A list of error responses returned when a request is unsuccessful.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "PackageShipLabel": {
+      "description": "A shipping label with a label document for a single package. If label generation fails, you can use the `status` and `errorDetails` attributes to determine the cause of failure.",
+      "type": "object",
+      "properties": {
+        "packageId": {
+          "description": "The package ID of the package.",
+          "type": "string"
+        },
+        "shipLabelMetadata": {
+          "$ref": "#/definitions/ShipLabelMetadata"
+        },
+        "fileData": {
+          "$ref": "#/definitions/DocumentV2"
+        },
+        "status": {
+          "description": "Whether label generation failed for the current package. If `FAILURE`, use `errorDetails` to determine details of the failure.",
+          "$ref": "#/definitions/Status"
+        },
+        "errorDetails": {
+          "$ref": "#/definitions/Error"
+        }
+      },
+      "example": {
+        "packageId": "TEST_CASE_200_PACKAGE_ID",
+        "shipLabelMetadata": {
+          "carrierName": "ATSPL",
+          "trackingId": "343284200328",
+          "pickupWindow": {
+            "startTime": 163132120,
+            "endTime": 162132660
+          },
+          "timeSlot": {
+            "startTime": 1612933142,
+            "endTime": 1612494142,
+            "handoverMethod": "PICKUP"
+          }
+        },
+        "fileData": {
+          "url": "string"
+        },
+        "status": "FAILURE",
+        "errorDetails": {
+          "code": "00001",
+          "message": "A temporary failure occurred in the SmartConnect product."
+        }
+      }
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "DocumentV2": {
+      "description": "An [S3-Presigned URL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/using-presigned-url.html) you can use to retrieve file contents.",
+      "type": "object",
+      "properties": {
+        "url": {
+          "description": "A presigned URL to fetch the ship label file using an HTTP GET request. To determine file type, use the `contentType` header of the file response. The file retrieved will be in one of the following supported formats:\n\n- **ZPL**: `x.application/zpl`\n- **PDF**: `application/pdf`\n- **PNG**: `image/png`\n- **Plain Text**: `text/plain`",
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ]
+    },
+    "ShipLabelMetadata": {
+      "description": "Metadata for a ship label document.",
+      "type": "object",
+      "properties": {
+        "shippingOptionId": {
+          "description": "The selected slot for the ship label.",
+          "type": "string"
+        },
+        "carrierName": {
+          "description": "The name of the carrier.",
+          "type": "string"
+        },
+        "trackingId": {
+          "description": "The tracking number of the package.",
+          "type": "string"
+        },
+        "pickupWindow": {
+          "description": "The time window during which the package was picked up.",
+          "$ref": "#/definitions/TimeWindow"
+        },
+        "timeSlot": {
+          "description": "A time window during which to hand over the package to Amazon Logistics.",
+          "$ref": "#/definitions/TimeWindow"
+        },
+        "handoverLocation": {
+          "description": "The drop-off location details. This value is populated when `handoverMethod` is `DROPOFF`.",
+          "$ref": "#/definitions/HandoverLocation"
+        }
+      },
+      "example": {
+        "shippingOptionId": "TEST_CASE_200_SHIPPING_OPTION_ID",
+        "trackingId": "343284200329",
+        "carrierName": "ATSPL",
+        "shipBy": "MARKETPLACE",
+        "pickupWindow": {
+          "startTime": 1612933142,
+          "endTime": 1612494142
+        },
+        "timeSlot": {
+          "startTime": 1612933142,
+          "endTime": 1612494142,
+          "handoverMethod": "DROPOFF"
+        },
+        "handoverLocation": {
+          "address": {
+            "postalCode": "98101",
+            "addressLine1": "123 Main St",
+            "city": "Seattle",
+            "stateOrRegion": "WA",
+            "countryCode": "US",
+            "geocodes": {
+              "latitude": "47.6062",
+              "longitude": "-122.3321"
+            }
+          },
+          "distance": {
+            "value": "3.5",
+            "distanceUnit": "MI"
+          },
+          "mapUrl": "https://maps.example.com/location?lat=47.6062&lng=-122.3321"
+        }
+      },
+      "required": [
+        "carrierName",
+        "trackingId"
+      ]
+    },
+    "Status": {
+      "description": "The outcome of the operation.",
+      "type": "string",
+      "enum": [
+        "SUCCESS",
+        "FAILURE"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "SUCCESS",
+          "description": "The operation succeeded."
+        },
+        {
+          "value": "FAILURE",
+          "description": "The operation failed."
+        }
+      ]
+    },
+    "HandoverLocation": {
+      "description": "The drop-off location details for package handover.",
+      "type": "object",
+      "properties": {
+        "address": {
+          "description": "The address of the drop-off location.",
+          "$ref": "#/definitions/Address"
+        },
+        "distance": {
+          "description": "The distance from the seller's location to the drop-off point.",
+          "$ref": "#/definitions/Distance"
+        },
+        "mapUrl": {
+          "description": "URL to the map that shows the drop-off location.",
+          "type": "string"
+        }
+      },
+      "example": {
+        "address": {
+          "postalCode": "98101",
+          "addressLine1": "123 Main St",
+          "city": "Seattle",
+          "stateOrRegion": "WA",
+          "countryCode": "US",
+          "geocodes": {
+            "latitude": "47.6062",
+            "longitude": "-122.3321"
+          }
+        },
+        "distance": {
+          "value": "3.5",
+          "distanceUnit": "MI"
+        },
+        "mapUrl": "https://maps.example.com/location?lat=47.6062&lng=-122.3321"
+      }
+    },
+    "TimeWindow": {
+      "description": "Time duration used to specify the interval of an event, such as pick up and delivery.",
+      "type": "object",
+      "properties": {
+        "startTime": {
+          "description": "The start time of the window.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "endTime": {
+          "description": "The end time of the window.",
+          "type": "integer",
+          "format": "int64"
+        },
+        "handoverMethod": {
+          "description": "Whether the seller picks up from Amazon Logistics or drops off to Amazon Logistics.",
+          "type": "string",
+          "enum": [
+            "PICKUP",
+            "DROPOFF"
+          ],
+          "x-docgen-enum-table-extension": [
+            {
+              "value": "PICKUP",
+              "description": "The seller picks up the package from Amazon Logistics."
+            },
+            {
+              "value": "DROPOFF",
+              "description": "The seller drops off the package to Amazon Logistics."
+            }
+          ]
+        }
+      },
+      "example": {
+        "startTime": 1612933142,
+        "endTime": 1612494142,
+        "handoverMethod": "DROPOFF"
+      },
+      "required": [
+        "startTime",
+        "endTime"
+      ]
+    },
+    "Address": {
+      "description": "The address.",
+      "properties": {
+        "name": {
+          "description": "The name of the person, business or institution at that address.",
+          "minLength": 1,
+          "maxLength": 50,
+          "type": "string"
+        },
+        "addressLine1": {
+          "description": "The first line of the address.",
+          "minLength": 1,
+          "maxLength": 60,
+          "type": "string"
+        },
+        "addressLine2": {
+          "description": "Additional address information, if required.",
+          "minLength": 1,
+          "maxLength": 60,
+          "type": "string"
+        },
+        "addressLine3": {
+          "description": "Additional address information, if required.",
+          "minLength": 1,
+          "maxLength": 60,
+          "type": "string"
+        },
+        "district": {
+          "description": "The district or state where the person, business, or institution is located.",
+          "type": "string"
+        },
+        "municipality": {
+          "description": "The municipality where the person, business, or institution is located.",
+          "type": "string"
+        },
+        "state": {
+          "description": "The state or region where the person, business, or institution is located.",
+          "type": "string"
+        },
+        "city": {
+          "description": "The city where the person, business, or institution is located.",
+          "minLength": 1,
+          "maxLength": 50,
+          "type": "string"
+        },
+        "countryCode": {
+          "description": "The two digit country code. In ISO 3166-1 alpha-2 format.",
+          "minLength": 2,
+          "maxLength": 2,
+          "type": "string"
+        },
+        "postalCode": {
+          "description": "The postal code of the address. It contains a series of letters or digits or both, sometimes including spaces or punctuation.",
+          "minLength": 1,
+          "maxLength": 20,
+          "type": "string"
+        },
+        "email": {
+          "description": "The email address of the contact associated with the address.",
+          "maxLength": 64,
+          "type": "string"
+        },
+        "copyEmails": {
+          "description": "The email cc addresses of the contact associated with the address.",
+          "maxItems": 2,
+          "type": "array",
+          "items": {
+            "maxLength": 64,
+            "type": "string"
+          }
+        },
+        "phoneNumber": {
+          "description": "The phone number of the person, business, or institution located at the address.",
+          "minLength": 1,
+          "maxLength": 20,
+          "type": "string"
+        },
+        "addressType": {
+          "description": "The type of address.",
+          "minLength": 1,
+          "maxLength": 20,
+          "type": "string"
+        },
+        "geocodes": {
+          "description": "The geographic coordinates of the address.",
+          "$ref": "#/definitions/Geocodes"
+        }
+      },
+      "required": [
+        "postalCode"
+      ],
+      "type": "object"
+    },
+    "ShipLabelsInput": {
+      "description": "Tracking details for multiple packages.",
+      "type": "object",
+      "properties": {
+        "packageIds": {
+          "description": "The subset of package IDs used to generate a label.",
+          "type": "array",
+          "maxItems": 50,
+          "items": {
+            "description": "The ID of a package for which you want a shipping label.",
+            "type": "string"
+          }
+        },
+        "courierSupportedAttributes": {
+          "$ref": "#/definitions/CourierSupportedAttributes"
+        }
+      },
+      "example": {
+        "packageIds": [
+          "TEST_CASE_200_PACKAGE_ID"
+        ],
+        "courierSupportedAttributes": {
+          "carrierName": "ATS",
+          "trackingId": "151958276037"
+        }
+      },
+      "required": [
+        "packageIds"
+      ]
+    },
+    "ShipLabelsResponse": {
+      "description": "The response to the `generateShipLabels` operation.",
+      "type": "object",
+      "required": [
+        "packageShipLabelList"
+      ],
+      "properties": {
+        "packageShipLabelList": {
+          "$ref": "#/definitions/PackageShipLabelList"
+        }
+      }
+    }
+  }
+}

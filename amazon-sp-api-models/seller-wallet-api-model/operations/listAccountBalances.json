@@ -1,0 +1,555 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon Seller Wallet Open Banking API",
+    "description": "The Selling Partner API for Seller Wallet (Seller Wallet API) provides financial information that is relevant to a seller's Seller Wallet account. You can obtain financial events, balances, and transfer schedules for Seller Wallet accounts. You can also schedule and initiate transactions.",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "2024-03-01"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Accounts",
+      "description": "Everything about Amazon Seller Wallet customer accounts"
+    },
+    {
+      "name": "Transfer Preview",
+      "description": "Access to all transfers with fees and the final amount with FX details in Amazon Seller Wallet"
+    },
+    {
+      "name": "Transactions",
+      "description": "Access to all transactions in Amazon Seller Wallet account"
+    },
+    {
+      "name": "Transfer Schedule",
+      "description": "Access to all transfer schedules in Amazon Seller Wallet account"
+    }
+  ],
+  "paths": {
+    "/finances/transfers/wallet/2024-03-01/accounts/{accountId}/balance": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Find balance in particular Amazon Seller Wallet account by Amazon account identifier",
+        "description": "Retrieve the balance in a given Seller Wallet bank account.",
+        "operationId": "listAccountBalances",
+        "parameters": [
+          {
+            "name": "accountId",
+            "in": "path",
+            "description": "The ID of the Amazon Seller Wallet account.",
+            "required": true,
+            "type": "string",
+            "x-example": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ"
+          },
+          {
+            "name": "marketplaceId",
+            "in": "query",
+            "description": "The marketplace for which items are returned. The marketplace ID is the globally unique identifier of a marketplace. To find the ID for your marketplace, refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids).",
+            "required": true,
+            "type": "string",
+            "x-example": "A1RKKUPIHCS9HS"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "accountIdCase200"
+                      },
+                      "marketplaceId": {
+                        "value": "A1RKKUPIHCS9HS"
+                      }
+                    }
+                  },
+                  "response": {
+                    "balances": [
+                      {
+                        "accountId": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ",
+                        "balanceType": "AVAILABLE",
+                        "balanceAmount": 123.45,
+                        "balanceCurrency": "USD",
+                        "lastUpdateDate": "2024-03-01T10:30:00Z"
+                      },
+                      {
+                        "accountId": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ",
+                        "balanceType": "LOCKED_IN",
+                        "balanceAmount": 500.0,
+                        "balanceCurrency": "USD",
+                        "lastUpdateDate": "2024-03-01T10:30:00Z"
+                      },
+                      {
+                        "accountId": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ",
+                        "balanceType": "TOTAL",
+                        "balanceAmount": 623.45,
+                        "balanceCurrency": "USD",
+                        "lastUpdateDate": "2024-03-01T10:30:00Z"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/BalanceListing"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "accountIdCase400"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid or Missing wacCertificate.",
+                        "details": "WAC certificate is missing for the request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "accountIdCase403"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "UnauthorizedRequest",
+                        "message": "Invalid WAC certificate.",
+                        "details": "NCA Status for the certificate is invalid"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "accountIdCase404"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "NotFound",
+                        "message": "BankAccount not found.",
+                        "details": "BankAccount doesn't exists for InvalidAccountId"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "408": {
+            "description": "Request Timed Out.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "accountIdCase408"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "RequestTimedOut",
+                        "message": "Request Timed Out",
+                        "details": "Server did not respond within given SLA"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "accountIdCase429"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "RequestThrottled",
+                        "message": "Request Throttled",
+                        "details": "Server Throttled Request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "accountIdCase500"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InternalServerError",
+                        "message": "Internal Server Error",
+                        "details": "Internal Server Error Occurred"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "accountId": {
+                        "value": "accountIdCase503"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "ServiceUnavailable",
+                        "message": "Server Unavailable",
+                        "details": "Server is not accepting request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Balance": {
+      "type": "object",
+      "description": "The balance amount in the Amazon Seller Wallet bank account.",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "description": "The unique identifier provided by Amazon to identify the account.",
+          "example": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ"
+        },
+        "balanceType": {
+          "description": "The type of balance.",
+          "$ref": "#/definitions/BalanceType"
+        },
+        "balanceAmount": {
+          "description": "The balance amount in number format.",
+          "$ref": "#/definitions/BigDecimal"
+        },
+        "balanceCurrency": {
+          "type": "string",
+          "description": "The Amazon Seller Wallet bank account currency code in ISO 4217 format.",
+          "example": "USD"
+        },
+        "lastUpdateDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The date of the most recent account balance update."
+        }
+      },
+      "required": [
+        "accountId",
+        "balanceAmount",
+        "balanceCurrency",
+        "lastUpdateDate"
+      ],
+      "example": {
+        "accountId": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ",
+        "balanceType": "AVAILABLE",
+        "balanceAmount": 123.45,
+        "balanceCurrency": "USD",
+        "lastUpdateDate": "2024-03-01T10:30:00Z"
+      }
+    },
+    "BigDecimal": {
+      "type": "number",
+      "description": "A decimal number, such as an amount or FX rate."
+    },
+    "BalanceType": {
+      "type": "string",
+      "description": "The type of bank account balance.",
+      "enum": [
+        "AVAILABLE",
+        "LOCKED_IN",
+        "LOCKED_OUT",
+        "TOTAL"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "AVAILABLE",
+          "description": "The available balance that is accessible to the seller."
+        },
+        {
+          "value": "LOCKED_IN",
+          "description": "The incoming balance in the seller's account."
+        },
+        {
+          "value": "LOCKED_OUT",
+          "description": "The outgoing balance from seller's account"
+        },
+        {
+          "value": "TOTAL",
+          "description": "The total balance in the seller's account."
+        }
+      ]
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of errors",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "BalanceListing": {
+      "type": "object",
+      "description": "A list of balances in the seller account.",
+      "properties": {
+        "balances": {
+          "type": "array",
+          "description": "A list of balances in the seller account.",
+          "items": {
+            "$ref": "#/definitions/Balance"
+          }
+        }
+      },
+      "example": {
+        "balances": [
+          {
+            "accountId": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ",
+            "balanceType": "AVAILABLE",
+            "balanceAmount": 123.45,
+            "balanceCurrency": "USD",
+            "lastUpdateDate": "2024-03-01T10:30:00Z"
+          },
+          {
+            "accountId": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ",
+            "balanceType": "LOCKED_IN",
+            "balanceAmount": 500.0,
+            "balanceCurrency": "USD",
+            "lastUpdateDate": "2024-03-01T10:30:00Z"
+          },
+          {
+            "accountId": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ",
+            "balanceType": "TOTAL",
+            "balanceAmount": 623.45,
+            "balanceCurrency": "USD",
+            "lastUpdateDate": "2024-03-01T10:30:00Z"
+          }
+        ]
+      }
+    }
+  }
+}

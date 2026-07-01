@@ -1,0 +1,684 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "With the Selling Partner API for Merchant Fulfillment, you can build applications that sellers can use to purchase shipping for non-Prime and Prime orders using Amazon's Buy Shipping Services.",
+    "version": "v0",
+    "title": "Selling Partner API for Merchant Fulfillment",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/mfn/v0/additionalSellerInputs": {
+      "post": {
+        "tags": [
+          "merchantFulfillment"
+        ],
+        "description": "Gets a list of additional seller inputs required for a ship method. This is generally used for international shipping.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 1 | 1 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that are applied to the requested operation when available. The preceding table indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the SP-API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getAdditionalSellerInputs",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The request schema for the `GetAdditionalSellerInputs` operation.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetAdditionalSellerInputsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/GetAdditionalSellerInputsResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "ShippingServiceId": "UPS_PTP_GND",
+                          "ShipFromAddress": {
+                            "Name": "John Doe",
+                            "AddressLine1": "300 Turnbull Ave",
+                            "Email": "jdoeasdfllkj@yahoo.com",
+                            "City": "Detroit",
+                            "StateOrProvinceCode": "MI",
+                            "PostalCode": "48123",
+                            "CountryCode": "US",
+                            "Phone": "7132341234"
+                          },
+                          "OrderId": "903-5563053-5647845"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "payload": {
+                      "ShipmentLevelFields": [
+                        {
+                          "AdditionalInputFieldName": "John Doe"
+                        }
+                      ],
+                      "ItemLevelFieldsList": [
+                        {
+                          "Asin": "ASIN_ID_200",
+                          "AdditionalInputs": []
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/GetAdditionalSellerInputsResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "ShippingServiceId": "UPS_PTP_GND",
+                          "ShipFromAddress": {
+                            "Name": "John Doe",
+                            "AddressLine1": "300 Turnbull Ave",
+                            "Email": "jdoeasdfllkj@yahoo.com",
+                            "City": "Detroit",
+                            "StateOrProvinceCode": "MI",
+                            "PostalCode": "48123",
+                            "CountryCode": "XX",
+                            "Phone": "7132341234"
+                          },
+                          "OrderId": "901-5563053-5647845"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid Ship From Address when calling GetAdditionalSellerInputs",
+                        "details": ""
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "The request's authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/GetAdditionalSellerInputsResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/GetAdditionalSellerInputsResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/GetAdditionalSellerInputsResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/GetAdditionalSellerInputsResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/GetAdditionalSellerInputsResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/GetAdditionalSellerInputsResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AddressLine1": {
+      "type": "string",
+      "description": "The street address information.",
+      "maxLength": 180
+    },
+    "WeightValue": {
+      "type": "number",
+      "format": "double",
+      "description": "The weight value."
+    },
+    "DistrictOrCounty": {
+      "type": "string",
+      "description": "The district or county."
+    },
+    "CountryCode": {
+      "type": "string",
+      "description": "The two-letter country code in [ISO 3166-1 alpha-2](https://www.iban.com/country-codes) format."
+    },
+    "AdditionalInputsList": {
+      "type": "array",
+      "description": "A list of additional inputs.",
+      "items": {
+        "$ref": "#/definitions/AdditionalInputs"
+      }
+    },
+    "ShippingServiceIdentifier": {
+      "type": "string",
+      "description": "An Amazon-defined shipping service identifier."
+    },
+    "AddressLine2": {
+      "type": "string",
+      "description": "Additional street address information.",
+      "maxLength": 60
+    },
+    "ItemLevelFields": {
+      "type": "object",
+      "description": "A list of item level fields.",
+      "required": [
+        "AdditionalInputs",
+        "Asin"
+      ],
+      "properties": {
+        "Asin": {
+          "type": "string",
+          "description": "The Amazon Standard Identification Number (ASIN) of the item."
+        },
+        "AdditionalInputs": {
+          "$ref": "#/definitions/AdditionalInputsList"
+        }
+      }
+    },
+    "UnitOfLength": {
+      "type": "string",
+      "description": "The unit of length.",
+      "enum": [
+        "inches",
+        "centimeters"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "inches",
+          "description": "The unit of length is inches."
+        },
+        {
+          "value": "centimeters",
+          "description": "The unit of length is centimeters."
+        }
+      ]
+    },
+    "StateOrProvinceCode": {
+      "type": "string",
+      "description": "The state or province code. This is a required field in Canada, US, and UK marketplaces, and for shipments that originate in China.",
+      "maxLength": 30
+    },
+    "GetAdditionalSellerInputsResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "$ref": "#/definitions/GetAdditionalSellerInputsResult"
+        },
+        "errors": {
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "Response schema."
+    },
+    "SellerInputDefinition": {
+      "type": "object",
+      "required": [
+        "Constraints",
+        "DataType",
+        "InputDisplayText",
+        "IsRequired",
+        "StoredValue"
+      ],
+      "properties": {
+        "IsRequired": {
+          "type": "boolean",
+          "description": "When true, the additional input field is required."
+        },
+        "DataType": {
+          "type": "string",
+          "description": "The data type of the additional input field."
+        },
+        "Constraints": {
+          "$ref": "#/definitions/Constraints"
+        },
+        "InputDisplayText": {
+          "type": "string",
+          "description": "The display text for the additional input field."
+        },
+        "InputTarget": {
+          "description": "Whether the seller input applies to the item or the shipment.",
+          "$ref": "#/definitions/InputTargetType"
+        },
+        "StoredValue": {
+          "$ref": "#/definitions/AdditionalSellerInput"
+        },
+        "RestrictedSetValues": {
+          "$ref": "#/definitions/RestrictedSetValues"
+        }
+      },
+      "description": "Specifies characteristics that apply to a seller input."
+    },
+    "RestrictedSetValues": {
+      "type": "array",
+      "description": "The set of fixed values in an additional seller input.",
+      "items": {
+        "type": "string",
+        "description": "A single fixed value."
+      }
+    },
+    "City": {
+      "type": "string",
+      "description": "The city.",
+      "maxLength": 30
+    },
+    "ItemLevelFieldsList": {
+      "type": "array",
+      "description": "A list of item level fields.",
+      "items": {
+        "$ref": "#/definitions/ItemLevelFields"
+      }
+    },
+    "AmazonOrderId": {
+      "type": "string",
+      "description": "An Amazon-defined order identifier, in 3-7-7 format."
+    },
+    "CurrencyAmount": {
+      "type": "object",
+      "required": [
+        "Amount",
+        "CurrencyCode"
+      ],
+      "properties": {
+        "CurrencyCode": {
+          "type": "string",
+          "description": "Three-digit currency code in ISO 4217 format.",
+          "maxLength": 3
+        },
+        "Amount": {
+          "type": "number",
+          "format": "double",
+          "description": "The currency amount."
+        }
+      },
+      "description": "Currency type and amount."
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "EmailAddress": {
+      "type": "string",
+      "description": "The email address."
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition in a human-readable form."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "Constraint": {
+      "type": "object",
+      "required": [
+        "ValidationString"
+      ],
+      "properties": {
+        "ValidationRegEx": {
+          "type": "string",
+          "description": "A regular expression."
+        },
+        "ValidationString": {
+          "type": "string",
+          "description": "A validation string."
+        }
+      },
+      "description": "A validation constraint."
+    },
+    "PhoneNumber": {
+      "type": "string",
+      "description": "The phone number.",
+      "maxLength": 30
+    },
+    "AdditionalInputs": {
+      "type": "object",
+      "properties": {
+        "AdditionalInputFieldName": {
+          "type": "string",
+          "description": "The field name."
+        },
+        "SellerInputDefinition": {
+          "$ref": "#/definitions/SellerInputDefinition"
+        }
+      },
+      "description": "Maps the additional seller input to the definition. The key to the map is the field name."
+    },
+    "AdditionalSellerInput": {
+      "type": "object",
+      "properties": {
+        "DataType": {
+          "type": "string",
+          "description": "The data type of the additional information."
+        },
+        "ValueAsString": {
+          "type": "string",
+          "description": "The value when the data type is string."
+        },
+        "ValueAsBoolean": {
+          "type": "boolean",
+          "description": "The value when the data type is boolean."
+        },
+        "ValueAsInteger": {
+          "type": "integer",
+          "description": "The value when the data type is integer."
+        },
+        "ValueAsTimestamp": {
+          "description": "The value when the data type is a date-time formatted string.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "ValueAsAddress": {
+          "$ref": "#/definitions/Address"
+        },
+        "ValueAsWeight": {
+          "$ref": "#/definitions/Weight"
+        },
+        "ValueAsDimension": {
+          "$ref": "#/definitions/Length"
+        },
+        "ValueAsCurrency": {
+          "$ref": "#/definitions/CurrencyAmount"
+        }
+      },
+      "description": "Additional information required to purchase shipping."
+    },
+    "Constraints": {
+      "type": "array",
+      "description": "List of constraints.",
+      "items": {
+        "$ref": "#/definitions/Constraint"
+      }
+    },
+    "Length": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "number",
+          "description": "The value in units."
+        },
+        "unit": {
+          "$ref": "#/definitions/UnitOfLength"
+        }
+      },
+      "description": "The length."
+    },
+    "PostalCode": {
+      "type": "string",
+      "description": "The zip code or postal code.",
+      "maxLength": 30
+    },
+    "Weight": {
+      "type": "object",
+      "required": [
+        "Unit",
+        "Value"
+      ],
+      "properties": {
+        "Value": {
+          "$ref": "#/definitions/WeightValue"
+        },
+        "Unit": {
+          "$ref": "#/definitions/UnitOfWeight"
+        }
+      },
+      "description": "The weight."
+    },
+    "AddressLine3": {
+      "type": "string",
+      "description": "Additional street address information.",
+      "maxLength": 60
+    },
+    "Timestamp": {
+      "type": "string",
+      "description": "Date-time formatted timestamp.",
+      "format": "date-time"
+    },
+    "UnitOfWeight": {
+      "type": "string",
+      "description": "The unit of weight.",
+      "enum": [
+        "oz",
+        "g"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "oz",
+          "description": "The unit of weight is ounces."
+        },
+        {
+          "value": "g",
+          "description": "The unit of weight is grams."
+        }
+      ]
+    },
+    "AddressName": {
+      "type": "string",
+      "description": "The name of the addressee, or business name.",
+      "maxLength": 30
+    },
+    "GetAdditionalSellerInputsRequest": {
+      "type": "object",
+      "required": [
+        "OrderId",
+        "ShipFromAddress",
+        "ShippingServiceId"
+      ],
+      "properties": {
+        "ShippingServiceId": {
+          "$ref": "#/definitions/ShippingServiceIdentifier"
+        },
+        "ShipFromAddress": {
+          "description": "The address from which to ship.",
+          "$ref": "#/definitions/Address"
+        },
+        "OrderId": {
+          "description": "An Amazon defined order identifier",
+          "$ref": "#/definitions/AmazonOrderId"
+        }
+      },
+      "description": "Request schema."
+    },
+    "InputTargetType": {
+      "type": "string",
+      "description": "Indicates whether the additional seller input is at the item or shipment level.",
+      "enum": [
+        "SHIPMENT_LEVEL",
+        "ITEM_LEVEL"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "SHIPMENT_LEVEL",
+          "description": "The additional seller input is at the shipment level."
+        },
+        {
+          "value": "ITEM_LEVEL",
+          "description": "The additional seller input is at the item level."
+        }
+      ]
+    },
+    "Address": {
+      "type": "object",
+      "required": [
+        "AddressLine1",
+        "City",
+        "CountryCode",
+        "Email",
+        "Name",
+        "Phone",
+        "PostalCode"
+      ],
+      "properties": {
+        "Name": {
+          "$ref": "#/definitions/AddressName"
+        },
+        "AddressLine1": {
+          "$ref": "#/definitions/AddressLine1"
+        },
+        "AddressLine2": {
+          "$ref": "#/definitions/AddressLine2"
+        },
+        "AddressLine3": {
+          "$ref": "#/definitions/AddressLine3"
+        },
+        "DistrictOrCounty": {
+          "$ref": "#/definitions/DistrictOrCounty"
+        },
+        "Email": {
+          "$ref": "#/definitions/EmailAddress"
+        },
+        "City": {
+          "$ref": "#/definitions/City"
+        },
+        "StateOrProvinceCode": {
+          "$ref": "#/definitions/StateOrProvinceCode"
+        },
+        "PostalCode": {
+          "$ref": "#/definitions/PostalCode"
+        },
+        "CountryCode": {
+          "$ref": "#/definitions/CountryCode"
+        },
+        "Phone": {
+          "$ref": "#/definitions/PhoneNumber"
+        }
+      },
+      "description": "The postal address information."
+    },
+    "GetAdditionalSellerInputsResult": {
+      "type": "object",
+      "properties": {
+        "ShipmentLevelFields": {
+          "$ref": "#/definitions/AdditionalInputsList"
+        },
+        "ItemLevelFieldsList": {
+          "$ref": "#/definitions/ItemLevelFieldsList"
+        }
+      },
+      "description": "The payload for the `getAdditionalSellerInputs` operation."
+    }
+  }
+}

@@ -1,0 +1,1083 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon Seller Wallet Open Banking API",
+    "description": "The Selling Partner API for Seller Wallet (Seller Wallet API) provides financial information that is relevant to a seller's Seller Wallet account. You can obtain financial events, balances, and transfer schedules for Seller Wallet accounts. You can also schedule and initiate transactions.",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "2024-03-01"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Accounts",
+      "description": "Everything about Amazon Seller Wallet customer accounts"
+    },
+    {
+      "name": "Transfer Preview",
+      "description": "Access to all transfers with fees and the final amount with FX details in Amazon Seller Wallet"
+    },
+    {
+      "name": "Transactions",
+      "description": "Access to all transactions in Amazon Seller Wallet account"
+    },
+    {
+      "name": "Transfer Schedule",
+      "description": "Access to all transfer schedules in Amazon Seller Wallet account"
+    }
+  ],
+  "paths": {
+    "/finances/transfers/wallet/2024-03-01/transferSchedules": {
+      "put": {
+        "tags": [
+          "Transfer Schedule"
+        ],
+        "summary": "Update a transfer schedule information. Only fields (i.e; transferScheduleInformation, paymentPreference, transferScheduleStatus) in the request body can be updated.",
+        "description": "Update transfer schedule information. Returns a transfer belonging to the updated scheduled transfer request.",
+        "operationId": "updateTransferSchedule",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "The payload of the scheduled transfer request that is to be updated.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TransferSchedule"
+            }
+          },
+          {
+            "name": "destAccountDigitalSignature",
+            "in": "header",
+            "description": "Digital signature for the destination bank account details.",
+            "required": true,
+            "type": "string",
+            "x-example": "U8AsRXdh5fvjozFIv6vRUal1EHdFHhrCArIgmWbPtW0HuTlN_LPteg8G8tbvF4QmoRekOO84nQxg8j4gs0wEyAktg2Sm80a_FaTswv-U8XUXGHZ1UBagGD9zEPrGBbia_N5gm4fCOW-V3mSieblwBiUyq8frUYL606WtuStHtE3zJgaj9-B1ObhudxxQALuBKjPeksc7-qyrT8lwchdkiaprNwsqpv3aKid7Ux3uwEzxiEedO3QWvv6nCZnNNxK-zz2Zj6tPDE_mgQk5tJv4xRgMxtcTMmr7_ce4A9wqRxQqwBerIHpOIzpZizmXAG56uG8-hJojmPwnsPif7ihMuw"
+          },
+          {
+            "name": "amountDigitalSignature",
+            "in": "header",
+            "description": "Digital signature for the source currency transaction amount.",
+            "required": true,
+            "type": "string",
+            "x-example": "1EHdFHhrCArIgmWbPtW0HuTlN_LPteg8G8tbvF4QmoRekOO84nQxg8j4gs0wEyAktg2Sm80a_FaTswv-U8XUXGHZ1UBagGD9zEPrGBbia_N5gm4fCOW-qyrT8lwchdkiaprNwsqpv3aKid7Ux3uwEzxiEedO3QWvv6nCZnNNxK-zz2Zj6tPDE_mgQk5tJv4xRgMxtcTMmr7"
+          },
+          {
+            "name": "marketplaceId",
+            "in": "query",
+            "description": "The marketplace for which items are returned. The marketplace ID is the globally unique identifier of a marketplace. To find the ID for your marketplace, refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids).",
+            "required": true,
+            "type": "string",
+            "x-example": "A1RKKUPIHCS9HS"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "A1RKKUPIHCS9HS"
+                      },
+                      "body": {
+                        "value": {
+                          "transferScheduleId": "transferScheduleIdCase200",
+                          "transactionType": "DEBIT",
+                          "transactionDestinationAccount": {
+                            "bankAccountHolderName": "Dane Shipping",
+                            "bankName": "Royal Bank of Scotland",
+                            "bankAccountNumberFormat": "IBAN",
+                            "bankAccountNumberTail": "819",
+                            "bankAccountCurrency": "GBP",
+                            "bankAccountCountryCode": "EU"
+                          },
+                          "transferScheduleStatus": "ENABLED",
+                          "transferScheduleInformation": {
+                            "scheduleStartDate": "2024-03-01T00:00:00Z",
+                            "scheduleEndDate": "2027-03-01T00:00:00Z",
+                            "scheduleExpression": {
+                              "scheduleExpressionType": "RECURRING",
+                              "recurringFrequency": "WEEKLY"
+                            },
+                            "scheduleType": "TIME_BASED"
+                          },
+                          "paymentPreference": {
+                            "paymentPreferencePaymentType": "PERCENTAGE",
+                            "value": 25.5
+                          },
+                          "transferScheduleFailures": [
+                            {
+                              "transferScheduleFailureDate": "2024-03-01T10:30:00Z",
+                              "transferScheduleFailureReason": "INSUFFICIENT_BALANCE"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "transferScheduleId": "amzn1.transferschedule.SMUGN2EN3ZHWSRJKH2KCJPII5JEI",
+                    "transactionType": "DEBIT",
+                    "transactionDestinationAccount": {
+                      "bankAccountHolderName": "Dane Shipping",
+                      "bankName": "Royal Bank of Scotland",
+                      "bankAccountNumberFormat": "IBAN",
+                      "bankAccountNumberTail": "819",
+                      "bankAccountCurrency": "GBP",
+                      "bankAccountCountryCode": "EU"
+                    },
+                    "transferScheduleStatus": "ENABLED",
+                    "transferScheduleInformation": {
+                      "scheduleStartDate": "2024-03-01T00:00:00Z",
+                      "scheduleEndDate": "2027-03-01T00:00:00Z",
+                      "scheduleExpression": {
+                        "scheduleExpressionType": "RECURRING",
+                        "recurringFrequency": "WEEKLY"
+                      },
+                      "scheduleType": "TIME_BASED"
+                    },
+                    "paymentPreference": {
+                      "paymentPreferencePaymentType": "PERCENTAGE",
+                      "value": 25.5
+                    },
+                    "transferScheduleFailures": [
+                      {
+                        "transferScheduleFailureDate": "2024-03-01T10:30:00Z",
+                        "transferScheduleFailureReason": "INSUFFICIENT_BALANCE"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/TransferSchedule"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "transferScheduleId": "transferScheduleIdCase400",
+                          "transactionType": "DEBIT",
+                          "transactionDestinationAccount": {
+                            "bankAccountHolderName": "Dane Shipping",
+                            "bankName": "Royal Bank of Scotland",
+                            "bankAccountNumberFormat": "IBAN",
+                            "bankAccountNumberTail": "819",
+                            "bankAccountCurrency": "GBP",
+                            "bankAccountCountryCode": "EU"
+                          },
+                          "transferScheduleStatus": "ENABLED",
+                          "transferScheduleInformation": {
+                            "scheduleStartDate": "2024-03-01T00:00:00Z",
+                            "scheduleEndDate": "2027-03-01T00:00:00Z",
+                            "scheduleExpression": {
+                              "scheduleExpressionType": "RECURRING",
+                              "recurringFrequency": "WEEKLY"
+                            },
+                            "scheduleType": "TIME_BASED"
+                          },
+                          "paymentPreference": {
+                            "paymentPreferencePaymentType": "PERCENTAGE",
+                            "value": 25.5
+                          },
+                          "transferScheduleFailures": [
+                            {
+                              "transferScheduleFailureDate": "2024-03-01T10:30:00Z",
+                              "transferScheduleFailureReason": "INSUFFICIENT_BALANCE"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid or Missing signature.",
+                        "details": "Missing addressDigitalSignature"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "transferScheduleId": "transferScheduleIdCase403",
+                          "transactionType": "DEBIT",
+                          "transactionDestinationAccount": {
+                            "bankAccountHolderName": "Dane Shipping",
+                            "bankName": "Royal Bank of Scotland",
+                            "bankAccountNumberFormat": "IBAN",
+                            "bankAccountNumberTail": "819",
+                            "bankAccountCurrency": "GBP",
+                            "bankAccountCountryCode": "EU"
+                          },
+                          "transferScheduleStatus": "ENABLED",
+                          "transferScheduleInformation": {
+                            "scheduleStartDate": "2024-03-01T00:00:00Z",
+                            "scheduleEndDate": "2027-03-01T00:00:00Z",
+                            "scheduleExpression": {
+                              "scheduleExpressionType": "RECURRING",
+                              "recurringFrequency": "WEEKLY"
+                            },
+                            "scheduleType": "TIME_BASED"
+                          },
+                          "paymentPreference": {
+                            "paymentPreferencePaymentType": "PERCENTAGE",
+                            "value": 25.5
+                          },
+                          "transferScheduleFailures": [
+                            {
+                              "transferScheduleFailureDate": "2024-03-01T10:30:00Z",
+                              "transferScheduleFailureReason": "INSUFFICIENT_BALANCE"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "UnauthorizedRequest",
+                        "message": "Invalid request.",
+                        "details": "Request body provided is invalid."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "transferScheduleId": "transferScheduleIdCase404",
+                          "transactionType": "DEBIT",
+                          "transactionDestinationAccount": {
+                            "bankAccountHolderName": "Dane Shipping",
+                            "bankName": "Royal Bank of Scotland",
+                            "bankAccountNumberFormat": "IBAN",
+                            "bankAccountNumberTail": "819",
+                            "bankAccountCurrency": "GBP",
+                            "bankAccountCountryCode": "EU"
+                          },
+                          "transferScheduleStatus": "ENABLED",
+                          "transferScheduleInformation": {
+                            "scheduleStartDate": "2024-03-01T00:00:00Z",
+                            "scheduleEndDate": "2027-03-01T00:00:00Z",
+                            "scheduleExpression": {
+                              "scheduleExpressionType": "RECURRING",
+                              "recurringFrequency": "WEEKLY"
+                            },
+                            "scheduleType": "TIME_BASED"
+                          },
+                          "paymentPreference": {
+                            "paymentPreferencePaymentType": "PERCENTAGE",
+                            "value": 25.5
+                          },
+                          "transferScheduleFailures": [
+                            {
+                              "transferScheduleFailureDate": "2024-03-01T10:30:00Z",
+                              "transferScheduleFailureReason": "INSUFFICIENT_BALANCE"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "NotFound",
+                        "message": "Transfer Schedule not found.",
+                        "details": "Transfer schedule id doesn't exists for invalid TransferScheduleId"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "408": {
+            "description": "Request Timed Out.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "transferScheduleId": "transferScheduleIdCase408",
+                          "transactionType": "DEBIT",
+                          "transactionDestinationAccount": {
+                            "bankAccountHolderName": "Dane Shipping",
+                            "bankName": "Royal Bank of Scotland",
+                            "bankAccountNumberFormat": "IBAN",
+                            "bankAccountNumberTail": "819",
+                            "bankAccountCurrency": "GBP",
+                            "bankAccountCountryCode": "EU"
+                          },
+                          "transferScheduleStatus": "ENABLED",
+                          "transferScheduleInformation": {
+                            "scheduleStartDate": "2024-03-01T00:00:00Z",
+                            "scheduleEndDate": "2027-03-01T00:00:00Z",
+                            "scheduleExpression": {
+                              "scheduleExpressionType": "RECURRING",
+                              "recurringFrequency": "WEEKLY"
+                            },
+                            "scheduleType": "TIME_BASED"
+                          },
+                          "paymentPreference": {
+                            "paymentPreferencePaymentType": "PERCENTAGE",
+                            "value": 25.5
+                          },
+                          "transferScheduleFailures": [
+                            {
+                              "transferScheduleFailureDate": "2024-03-01T10:30:00Z",
+                              "transferScheduleFailureReason": "INSUFFICIENT_BALANCE"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "RequestTimedOut",
+                        "message": "Request Timed Out",
+                        "details": "Server did not respond in time"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "transferScheduleId": "transferScheduleIdCase429",
+                          "transactionType": "DEBIT",
+                          "transactionDestinationAccount": {
+                            "bankAccountHolderName": "Dane Shipping",
+                            "bankName": "Royal Bank of Scotland",
+                            "bankAccountNumberFormat": "IBAN",
+                            "bankAccountNumberTail": "819",
+                            "bankAccountCurrency": "GBP",
+                            "bankAccountCountryCode": "EU"
+                          },
+                          "transferScheduleStatus": "ENABLED",
+                          "transferScheduleInformation": {
+                            "scheduleStartDate": "2024-03-01T00:00:00Z",
+                            "scheduleEndDate": "2027-03-01T00:00:00Z",
+                            "scheduleExpression": {
+                              "scheduleExpressionType": "RECURRING",
+                              "recurringFrequency": "WEEKLY"
+                            },
+                            "scheduleType": "TIME_BASED"
+                          },
+                          "paymentPreference": {
+                            "paymentPreferencePaymentType": "PERCENTAGE",
+                            "value": 25.5
+                          },
+                          "transferScheduleFailures": [
+                            {
+                              "transferScheduleFailureDate": "2024-03-01T10:30:00Z",
+                              "transferScheduleFailureReason": "INSUFFICIENT_BALANCE"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "RequestThrottled",
+                        "message": "Request Throttled",
+                        "details": "Server throttled the request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "transferScheduleId": "transferScheduleIdCase500",
+                          "transactionType": "DEBIT",
+                          "transactionDestinationAccount": {
+                            "bankAccountHolderName": "Dane Shipping",
+                            "bankName": "Royal Bank of Scotland",
+                            "bankAccountNumberFormat": "IBAN",
+                            "bankAccountNumberTail": "819",
+                            "bankAccountCurrency": "GBP",
+                            "bankAccountCountryCode": "EU"
+                          },
+                          "transferScheduleStatus": "ENABLED",
+                          "transferScheduleInformation": {
+                            "scheduleStartDate": "2024-03-01T00:00:00Z",
+                            "scheduleEndDate": "2027-03-01T00:00:00Z",
+                            "scheduleExpression": {
+                              "scheduleExpressionType": "RECURRING",
+                              "recurringFrequency": "WEEKLY"
+                            },
+                            "scheduleType": "TIME_BASED"
+                          },
+                          "paymentPreference": {
+                            "paymentPreferencePaymentType": "PERCENTAGE",
+                            "value": 25.5
+                          },
+                          "transferScheduleFailures": [
+                            {
+                              "transferScheduleFailureDate": "2024-03-01T10:30:00Z",
+                              "transferScheduleFailureReason": "INSUFFICIENT_BALANCE"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InternalServerError",
+                        "message": "Internal Server Error",
+                        "details": "Internal Server Error Occurred"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "transferScheduleId": "transferScheduleIdCase503",
+                          "transactionType": "DEBIT",
+                          "transactionDestinationAccount": {
+                            "bankAccountHolderName": "Dane Shipping",
+                            "bankName": "Royal Bank of Scotland",
+                            "bankAccountNumberFormat": "IBAN",
+                            "bankAccountNumberTail": "819",
+                            "bankAccountCurrency": "GBP",
+                            "bankAccountCountryCode": "EU"
+                          },
+                          "transferScheduleStatus": "ENABLED",
+                          "transferScheduleInformation": {
+                            "scheduleStartDate": "2024-03-01T00:00:00Z",
+                            "scheduleEndDate": "2027-03-01T00:00:00Z",
+                            "scheduleExpression": {
+                              "scheduleExpressionType": "RECURRING",
+                              "recurringFrequency": "WEEKLY"
+                            },
+                            "scheduleType": "TIME_BASED"
+                          },
+                          "paymentPreference": {
+                            "paymentPreferencePaymentType": "PERCENTAGE",
+                            "value": 25.5
+                          },
+                          "transferScheduleFailures": [
+                            {
+                              "transferScheduleFailureDate": "2024-03-01T10:30:00Z",
+                              "transferScheduleFailureReason": "INSUFFICIENT_BALANCE"
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "ServiceUnavailable",
+                        "message": "Server Unavailable",
+                        "details": "Server is not accepting request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ScheduleExpression": {
+      "type": "object",
+      "description": "The configuration of the schedule.",
+      "required": [
+        "scheduleExpressionType"
+      ],
+      "properties": {
+        "scheduleExpressionType": {
+          "description": "The type of the scheduled transfer.",
+          "$ref": "#/definitions/ScheduleExpressionType"
+        },
+        "recurringFrequency": {
+          "description": "How often the scheduled transfer happens. This field is required if `scheduleExpressionType` is `RECURRING`; otherwise it should be empty.",
+          "$ref": "#/definitions/RecurringFrequency"
+        }
+      }
+    },
+    "TransactionAccount": {
+      "type": "object",
+      "description": "Details of the bank account involved in the transaction.",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "description": "The unique identifier provided by Amazon to identify the account."
+        },
+        "bankAccountHolderName": {
+          "type": "string",
+          "description": "The account holder's name."
+        },
+        "bankName": {
+          "type": "string",
+          "description": "The name of the bank."
+        },
+        "bankAccountNumberFormat": {
+          "description": "The format for the bank account number.",
+          "$ref": "#/definitions/BankAccountNumberFormat"
+        },
+        "bankAccountNumberTail": {
+          "type": "string",
+          "description": "The last three digits of the bank account number."
+        },
+        "bankAccountCountryCode": {
+          "type": "string",
+          "description": "The two-digit country code, in ISO 3166 format. This field is optional for `transactionSourceAccount`, but is mandatory for `transactionDestinationAccount`."
+        },
+        "bankAccountCurrency": {
+          "type": "string",
+          "description": "The currency code in ISO 4217 format."
+        }
+      },
+      "required": [
+        "bankName",
+        "bankAccountNumberFormat",
+        "bankAccountCurrency"
+      ]
+    },
+    "BigDecimal": {
+      "type": "number",
+      "description": "A decimal number, such as an amount or FX rate."
+    },
+    "BankAccountNumberFormat": {
+      "type": "string",
+      "description": "The format of the bank account number.",
+      "enum": [
+        "IBAN",
+        "BBAN"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "IBAN",
+          "description": "International bank account number."
+        },
+        {
+          "value": "BBAN",
+          "description": "Basic bank account number for domestic bank accounts."
+        }
+      ]
+    },
+    "PaymentPreferencePaymentType": {
+      "type": "string",
+      "description": "The type of payment preference.",
+      "enum": [
+        "PERCENTAGE",
+        "AMOUNT"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "PERCENTAGE",
+          "description": "The scheduled transfer is a percentage of the account total."
+        },
+        {
+          "value": "AMOUNT",
+          "description": "The scheduled transfer is a specific amount."
+        }
+      ]
+    },
+    "PaymentPreference": {
+      "type": "object",
+      "description": "The type of payment preference in which the transfer is being scheduled.",
+      "required": [
+        "paymentPreferencePaymentType",
+        "value"
+      ],
+      "properties": {
+        "paymentPreferencePaymentType": {
+          "description": "The preferred payment type for the scheduled transaction. Can be `PERCENTAGE` or `AMOUNT`.",
+          "$ref": "#/definitions/PaymentPreferencePaymentType"
+        },
+        "value": {
+          "description": "The value of the payment preference.",
+          "$ref": "#/definitions/BigDecimal"
+        }
+      }
+    },
+    "RecurringFrequency": {
+      "type": "string",
+      "description": "The frequency at which the transaction is repeated.",
+      "enum": [
+        "DAILY",
+        "WEEKLY",
+        "BIWEEKLY",
+        "MONTHLY"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "DAILY",
+          "description": "The transfer repeats every day."
+        },
+        {
+          "value": "WEEKLY",
+          "description": "The transfer will repeat every week."
+        },
+        {
+          "value": "BIWEEKLY",
+          "description": "The transfer will repeat every two weeks."
+        },
+        {
+          "value": "MONTHLY",
+          "description": "The transfer will repeat every month."
+        }
+      ]
+    },
+    "TransactionType": {
+      "type": "string",
+      "description": "The type of transaction.",
+      "enum": [
+        "CREDIT",
+        "DEBIT"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "CREDIT",
+          "description": "Money is deposited into the Seller Wallet account."
+        },
+        {
+          "value": "DEBIT",
+          "description": "Money is taken out of the Seller Wallet account."
+        }
+      ]
+    },
+    "TransferScheduleStatus": {
+      "type": "string",
+      "description": "The schedule status of the transfer.",
+      "enum": [
+        "ENABLED",
+        "DISABLED",
+        "EXPIRED",
+        "DELETED"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "ENABLED",
+          "description": "The transfer schedule is enabled."
+        },
+        {
+          "value": "DISABLED",
+          "description": "The transfer schedule is disabled."
+        },
+        {
+          "value": "EXPIRED",
+          "description": "The transfer has expired and is no longer scheduled."
+        },
+        {
+          "value": "DELETED",
+          "description": "The transfer was scheduled but has been deleted."
+        }
+      ]
+    },
+    "TransferScheduleFailures": {
+      "type": "object",
+      "description": "The time of and reason for the transfer schedule failure.",
+      "required": [
+        "transferScheduleFailureDate",
+        "transferScheduleFailureReason"
+      ],
+      "properties": {
+        "transferScheduleFailureDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The transfer schedule failure date.",
+          "x-example": "2024-03-01T10:30:00Z"
+        },
+        "transferScheduleFailureReason": {
+          "type": "string",
+          "description": "The reason listed for the failure of the transfer schedule.",
+          "example": "INSUFFICIENT_BALANCE"
+        }
+      },
+      "example": {
+        "transferScheduleFailureDate": "2024-03-01T10:30:00Z",
+        "transferScheduleFailureReason": "INSUFFICIENT_BALANCE"
+      }
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of errors",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "ScheduleTransferType": {
+      "type": "string",
+      "description": "The type of schedule the transfer is on. Schedules based on time patterns use EventBridge.",
+      "enum": [
+        "TIME_BASED"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "TIME_BASED",
+          "description": "The schedule is based on time patterns using EventBridge. Supports recurring patterns (daily, weekly, biweekly, monthly) and one-time events. "
+        }
+      ]
+    },
+    "ScheduleExpressionType": {
+      "type": "string",
+      "description": "The type of scheduled transfer expression.",
+      "enum": [
+        "RECURRING",
+        "ONE_TIME"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "RECURRING",
+          "description": "The scheduled transfer is a recurring event."
+        },
+        {
+          "value": "ONE_TIME",
+          "description": "The scheduled transfer is a one-time event."
+        }
+      ]
+    },
+    "TransferScheduleInformation": {
+      "type": "object",
+      "description": "Mandatory information for initiating a schedule transfer.",
+      "properties": {
+        "scheduleStartDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The start date of the scheduled transfer.",
+          "example": "2024-03-01T00:00:00Z"
+        },
+        "scheduleEndDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The end date of the scheduled transfer.",
+          "example": "2027-03-01T00:00:00Z"
+        },
+        "scheduleExpression": {
+          "description": "How often the scheduled transfer repeats.",
+          "$ref": "#/definitions/ScheduleExpression"
+        },
+        "scheduleType": {
+          "description": "The type of schedule.",
+          "$ref": "#/definitions/ScheduleTransferType"
+        }
+      },
+      "example": {
+        "scheduleStartDate": "2024-03-01T00:00:00Z",
+        "scheduleEndDate": "2027-03-01T00:00:00Z",
+        "scheduleExpression": {
+          "scheduleExpressionType": "RECURRING",
+          "recurringFrequency": "WEEKLY"
+        },
+        "scheduleType": "TIME_BASED"
+      }
+    },
+    "TransferSchedule": {
+      "type": "object",
+      "description": "Transfer schedule details and related historical details.",
+      "properties": {
+        "transferScheduleId": {
+          "type": "string",
+          "description": "The unique identifier provided by Amazon to the scheduled transfer."
+        },
+        "transactionType": {
+          "description": "The type of transfer.",
+          "$ref": "#/definitions/TransactionType"
+        },
+        "transactionSourceAccount": {
+          "description": "Details of the source bank account in the scheduled transfer.",
+          "$ref": "#/definitions/TransactionAccount"
+        },
+        "transactionDestinationAccount": {
+          "description": "Details of the destination bank account in the scheduled transfer. Here `bankAccountCountryCode` is a required field.",
+          "$ref": "#/definitions/TransactionAccount"
+        },
+        "transferScheduleStatus": {
+          "description": "The type of transfer schedule. This information can be modified when you update a transfer schedule.",
+          "$ref": "#/definitions/TransferScheduleStatus"
+        },
+        "transferScheduleInformation": {
+          "description": "The fields required for the scheduled transfer. This information can be modified when you update a transfer schedule.",
+          "$ref": "#/definitions/TransferScheduleInformation"
+        },
+        "paymentPreference": {
+          "description": "The payment preference of the scheduled transfer. This information can be modified when you update a transfer schedule.",
+          "$ref": "#/definitions/PaymentPreference"
+        },
+        "transferScheduleFailures": {
+          "type": "array",
+          "description": "A list of transfer schedule failures.",
+          "items": {
+            "$ref": "#/definitions/TransferScheduleFailures"
+          }
+        }
+      },
+      "required": [
+        "transferScheduleId",
+        "transactionType",
+        "transactionDestinationAccount",
+        "transferScheduleStatus",
+        "transferScheduleInformation",
+        "transferScheduleFailures"
+      ],
+      "example": {
+        "transferScheduleId": "amzn1.transferschedule.SMUGN2EN3ZHWSRJKH2KCJPII5JEI",
+        "transactionType": "DEBIT",
+        "transactionSourceAccount": {
+          "accountId": "sourceAccountIdCase200",
+          "bankAccountHolderName": "John Doe",
+          "bankName": "Amazon Seller Wallet",
+          "bankAccountNumberFormat": "IBAN",
+          "bankAccountNumberTail": "123",
+          "bankAccountCurrency": "GBP"
+        },
+        "transactionDestinationAccount": {
+          "bankAccountHolderName": "Dane Shipping",
+          "bankName": "Royal Bank of Scotland",
+          "bankAccountNumberFormat": "IBAN",
+          "bankAccountNumberTail": "819",
+          "bankAccountCurrency": "GBP",
+          "bankAccountCountryCode": "EU"
+        },
+        "transferScheduleStatus": "ENABLED",
+        "transferScheduleInformation": {
+          "scheduleStartDate": "2024-03-01T00:00:00Z",
+          "scheduleEndDate": "2027-03-01T00:00:00Z",
+          "scheduleExpression": {
+            "scheduleExpressionType": "RECURRING",
+            "recurringFrequency": "WEEKLY"
+          },
+          "scheduleType": "TIME_BASED"
+        },
+        "paymentPreference": {
+          "paymentPreferencePaymentType": "PERCENTAGE",
+          "value": 25.5
+        },
+        "transferScheduleFailures": [
+          {
+            "transferScheduleFailureDate": "2024-04-01T10:30:00Z",
+            "transferScheduleFailureReason": "INSUFFICIENT_BALANCE"
+          }
+        ]
+      }
+    }
+  }
+}

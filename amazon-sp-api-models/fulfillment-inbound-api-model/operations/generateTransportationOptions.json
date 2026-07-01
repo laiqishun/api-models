@@ -1,0 +1,704 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/transportationOptions": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Identifier of an inbound plan.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "inboundPlanId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GenerateTransportationOptionsRequest"
+            },
+            "description": "The body of the request to `generateTransportationOptions`."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "GenerateTransportationOptions 202 response",
+            "schema": {
+              "$ref": "#/definitions/GenerateTransportationOptionsResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "body": {
+                        "value": {
+                          "placementOptionId": "pl1234abcd-1234-abcd-5678-1234abcd5678",
+                          "shipmentTransportationConfigurations": [
+                            {
+                              "shipmentId": "sh1234abcd-1234-abcd-5678-1234abcd5678",
+                              "readyToShipWindow": {
+                                "start": "2024-01-01T00:00Z"
+                              },
+                              "contactInformation": {
+                                "name": "name",
+                                "phoneNumber": "1234567890",
+                                "email": "email@email.com"
+                              },
+                              "freightInformation": {
+                                "freightClass": "FC_50",
+                                "declaredValue": {
+                                  "code": "USD",
+                                  "amount": 500.0
+                                }
+                              },
+                              "pallets": [
+                                {
+                                  "stackability": "STACKABLE",
+                                  "weight": {
+                                    "unit": "KG",
+                                    "value": 5.5
+                                  },
+                                  "dimensions": {
+                                    "unitOfMeasurement": "CM",
+                                    "length": 3.0,
+                                    "width": 4.0,
+                                    "height": 5.0
+                                  },
+                                  "quantity": 2
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "operationId": "1234abcd-1234-abcd-5678-1234abcd5678"
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "body": {
+                        "value": {
+                          "placementOptionId": "pl1234abcd-1234-abcd-5678-1234abcd5678",
+                          "shipmentTransportationConfigurations": [
+                            {
+                              "shipmentId": "bad234abcd-1234-abcd-5678-1234abcd5678",
+                              "readyToShipWindow": {
+                                "start": "2024-01-01T00:00Z"
+                              },
+                              "contactInformation": {
+                                "name": "name",
+                                "phoneNumber": "1234567890",
+                                "email": "email@email.com"
+                              },
+                              "freightInformation": {
+                                "freightClass": "FC_50",
+                                "declaredValue": {
+                                  "code": "USD",
+                                  "amount": 500.0
+                                }
+                              },
+                              "pallets": [
+                                {
+                                  "stackability": "STACKABLE",
+                                  "weight": {
+                                    "unit": "KG",
+                                    "value": 5.5
+                                  },
+                                  "dimensions": {
+                                    "unitOfMeasurement": "CM",
+                                    "length": 3.0,
+                                    "width": 4.0,
+                                    "height": 5.0
+                                  },
+                                  "quantity": 2
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The requested shipmentId does not exist under the provided placement option."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "Generates available transportation options for a given placement option.",
+        "operationId": "generateTransportationOptions"
+      }
+    }
+  },
+  "definitions": {
+    "Weight": {
+      "description": "The weight of a package.",
+      "properties": {
+        "unit": {
+          "$ref": "#/definitions/UnitOfWeight"
+        },
+        "value": {
+          "description": "Value of a weight.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "unit",
+        "value"
+      ],
+      "type": "object"
+    },
+    "GenerateTransportationOptionsResponse": {
+      "description": "The `generateTransportationOptions` response.",
+      "properties": {
+        "operationId": {
+          "description": "UUID for the given operation.",
+          "maxLength": 38,
+          "minLength": 36,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operationId"
+      ],
+      "type": "object"
+    },
+    "PalletInput": {
+      "description": "Contains input information about a pallet to be used in the inbound plan.",
+      "properties": {
+        "dimensions": {
+          "$ref": "#/definitions/Dimensions"
+        },
+        "quantity": {
+          "description": "The number of containers where all other properties like weight or dimensions are identical.",
+          "maximum": 10000,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "stackability": {
+          "$ref": "#/definitions/Stackability"
+        },
+        "weight": {
+          "$ref": "#/definitions/Weight"
+        }
+      },
+      "required": [
+        "quantity"
+      ],
+      "type": "object",
+      "example": {
+        "dimensions": {
+          "height": 5,
+          "length": 3,
+          "unitOfMeasurement": "CM",
+          "width": 4
+        },
+        "quantity": 2,
+        "stackability": "STACKABLE",
+        "weight": {
+          "unit": "KG",
+          "value": 5.5
+        }
+      }
+    },
+    "ShipmentTransportationConfiguration": {
+      "description": "Details needed to generate the transportation options.",
+      "properties": {
+        "contactInformation": {
+          "$ref": "#/definitions/ContactInformation"
+        },
+        "freightInformation": {
+          "$ref": "#/definitions/FreightInformation"
+        },
+        "pallets": {
+          "description": "List of pallet configuration inputs.",
+          "items": {
+            "$ref": "#/definitions/PalletInput"
+          },
+          "type": "array"
+        },
+        "readyToShipWindow": {
+          "$ref": "#/definitions/WindowInput",
+          "description": "The range of dates within which the seller intends to ship their items. This is the pick-up date or 'ready to ship' date, not an estimated delivery date."
+        },
+        "shipmentId": {
+          "description": "Identifier of a shipment. A shipment contains the boxes and units being inbounded.",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "readyToShipWindow",
+        "shipmentId"
+      ],
+      "type": "object"
+    },
+    "Stackability": {
+      "description": "Indicates whether pallets will be stacked when carrier arrives for pick-up.",
+      "enum": [
+        "STACKABLE",
+        "NON_STACKABLE"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "STACKABLE",
+          "description": "A pallet that can be stacked on top of another pallet."
+        },
+        {
+          "value": "NON_STACKABLE",
+          "description": "A pallet that cannot be stacked on top of another pallet."
+        }
+      ]
+    },
+    "UnitOfMeasurement": {
+      "description": "Unit of linear measure.",
+      "enum": [
+        "IN",
+        "CM"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "IN",
+          "description": "Inches."
+        },
+        {
+          "value": "CM",
+          "description": "Centimeters."
+        }
+      ]
+    },
+    "FreightInformation": {
+      "description": "Freight information describes the SKUs that are in transit. Freight carrier options and quotes will only be returned if the freight information is provided.",
+      "properties": {
+        "declaredValue": {
+          "$ref": "#/definitions/Currency"
+        },
+        "freightClass": {
+          "description": "Freight class.\n\nPossible values: `NONE`, `FC_50`, `FC_55`, `FC_60`, `FC_65`, `FC_70`, `FC_77_5`, `FC_85`, `FC_92_5`, `FC_100`, `FC_110`, `FC_125`, `FC_150`, `FC_175`, `FC_200`, `FC_250`, `FC_300`, `FC_400`, `FC_500`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "example": {
+        "declaredValue": {
+          "amount": 5.5,
+          "code": "CAD"
+        },
+        "freightClass": "FC_50"
+      }
+    },
+    "UnitOfWeight": {
+      "description": "Unit of the weight being measured.",
+      "enum": [
+        "LB",
+        "KG"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "LB",
+          "description": "Pounds."
+        },
+        {
+          "value": "KG",
+          "description": "Kilograms."
+        }
+      ]
+    },
+    "ContactInformation": {
+      "description": "The seller's contact information.",
+      "properties": {
+        "email": {
+          "description": "The email address.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "description": "The contact's name.",
+          "maxLength": 50,
+          "minLength": 1,
+          "type": "string"
+        },
+        "phoneNumber": {
+          "description": "The phone number.",
+          "maxLength": 20,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "phoneNumber"
+      ],
+      "type": "object",
+      "example": {
+        "email": "email@email.com",
+        "name": "name",
+        "phoneNumber": "1234567890"
+      }
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "WindowInput": {
+      "description": "Contains only a starting DateTime.",
+      "properties": {
+        "start": {
+          "description": "The start date of the window. In [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) datetime format with minute precision. Supports patterns `yyyy-MM-ddTHH:mmZ`, `yyyy-MM-ddTHH:mm:ssZ`, or `yyyy-MM-ddTHH:mm:ss.sssZ`. Note that non-zero second and millisecond components are removed.",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "start"
+      ],
+      "type": "object"
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "Dimensions": {
+      "description": "Measurement of a package's dimensions.",
+      "properties": {
+        "height": {
+          "description": "The height of a package.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "length": {
+          "description": "The length of a package.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        },
+        "unitOfMeasurement": {
+          "$ref": "#/definitions/UnitOfMeasurement"
+        },
+        "width": {
+          "description": "The width of a package.",
+          "maximum": 100000,
+          "minimum": 0,
+          "type": "number"
+        }
+      },
+      "required": [
+        "height",
+        "length",
+        "unitOfMeasurement",
+        "width"
+      ],
+      "type": "object"
+    },
+    "Currency": {
+      "description": "The type and amount of currency.",
+      "properties": {
+        "amount": {
+          "description": "Decimal value of the currency.",
+          "type": "number"
+        },
+        "code": {
+          "description": "ISO 4217 standard of a currency code.",
+          "maxLength": 3,
+          "minLength": 3,
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "code"
+      ],
+      "type": "object"
+    },
+    "GenerateTransportationOptionsRequest": {
+      "description": "The `generateTransportationOptions` request.",
+      "properties": {
+        "placementOptionId": {
+          "description": "The placement option to generate transportation options for.",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        },
+        "shipmentTransportationConfigurations": {
+          "description": "List of shipment transportation configurations.",
+          "items": {
+            "$ref": "#/definitions/ShipmentTransportationConfiguration"
+          },
+          "minItems": 1,
+          "type": "array"
+        }
+      },
+      "required": [
+        "placementOptionId",
+        "shipmentTransportationConfigurations"
+      ],
+      "type": "object",
+      "example": {
+        "placementOptionId": "pl1234abcd-1234-abcd-5678-1234abcd5678",
+        "shipmentTransportationConfigurations": [
+          {
+            "contactInformation": {
+              "email": "email@email.com",
+              "name": "John Smithy",
+              "phoneNumber": "1234567890"
+            },
+            "freightInformation": {
+              "declaredValue": {
+                "amount": 5.5,
+                "code": "CAD"
+              },
+              "freightClass": "FC_50"
+            },
+            "pallets": [
+              {
+                "dimensions": {
+                  "height": 5,
+                  "length": 3,
+                  "unitOfMeasurement": "CM",
+                  "width": 4
+                },
+                "quantity": 2,
+                "stackability": "STACKABLE",
+                "weight": {
+                  "unit": "KG",
+                  "value": 5.5
+                }
+              }
+            ],
+            "readyToShipWindow": {
+              "start": "2024-01-01T00:00Z"
+            },
+            "shipmentId": "sh1234abcd-1234-abcd-5678-1234abcd5678"
+          }
+        ]
+      }
+    }
+  }
+}

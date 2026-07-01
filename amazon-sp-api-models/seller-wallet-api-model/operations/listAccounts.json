@@ -1,0 +1,589 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon Seller Wallet Open Banking API",
+    "description": "The Selling Partner API for Seller Wallet (Seller Wallet API) provides financial information that is relevant to a seller's Seller Wallet account. You can obtain financial events, balances, and transfer schedules for Seller Wallet accounts. You can also schedule and initiate transactions.",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "2024-03-01"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "tags": [
+    {
+      "name": "Accounts",
+      "description": "Everything about Amazon Seller Wallet customer accounts"
+    },
+    {
+      "name": "Transfer Preview",
+      "description": "Access to all transfers with fees and the final amount with FX details in Amazon Seller Wallet"
+    },
+    {
+      "name": "Transactions",
+      "description": "Access to all transactions in Amazon Seller Wallet account"
+    },
+    {
+      "name": "Transfer Schedule",
+      "description": "Access to all transfer schedules in Amazon Seller Wallet account"
+    }
+  ],
+  "paths": {
+    "/finances/transfers/wallet/2024-03-01/accounts": {
+      "get": {
+        "tags": [
+          "Accounts"
+        ],
+        "summary": "Get all Amazon Seller Wallet accounts for the seller",
+        "description": "Get Seller Wallet accounts for a seller.",
+        "operationId": "listAccounts",
+        "parameters": [
+          {
+            "name": "marketplaceId",
+            "in": "query",
+            "description": "The marketplace for which items are returned. The marketplace ID is the globally unique identifier of a marketplace. To find the ID for your marketplace, refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids).",
+            "required": true,
+            "type": "string",
+            "x-example": "A1RKKUPIHCS9HS"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "marketplaceIdCase200"
+                      }
+                    }
+                  },
+                  "response": {
+                    "accounts": [
+                      {
+                        "accountId": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ",
+                        "bankAccountNumberFormat": "BBAN",
+                        "bankName": "Amazon Seller Wallet",
+                        "bankAccountOwnershipType": "SELF",
+                        "routingNumber": "000000000",
+                        "bankNumberFormat": "BASIC",
+                        "accountCountryCode": "US",
+                        "accountCurrency": "USD",
+                        "bankAccountNumberTail": "000",
+                        "bankAccountHolderStatus": "ACTIVE"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/BankAccountListing"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "marketplaceIdCase400"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid or Missing digitalSignature.",
+                        "details": "Digital Signature is missing for the request"
+                      },
+                      {
+                        "code": "InvalidInput",
+                        "message": "Invalid or Missing wacCertificate.",
+                        "details": "WAC Certificate is missing for the request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "marketplaceIdCase403"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "UnauthorizedRequest",
+                        "message": "Invalid WAC certificate.",
+                        "details": "NCA Status for the certificate is invalid"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "marketplaceIdCase404"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "NotFound",
+                        "message": "BankAccount not found.",
+                        "details": "BankAccount doesn't exists for USMarketplace"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "408": {
+            "description": "Request Timed Out.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "marketplaceIdCase408"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "RequestTimedOut",
+                        "message": "Request Timed Out",
+                        "details": "Server did not respond within given SLA"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "marketplaceIdCase429"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "RequestThrottled",
+                        "message": "Request Throttled",
+                        "details": "Server Throttled Request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "marketplaceIdCase500"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InternalServerError",
+                        "message": "Internal Server Error",
+                        "details": "Internal Server Error Occurred"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "marketplaceIdCase503"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "ServiceUnavailable",
+                        "message": "Server Unavailable",
+                        "details": "Server is not accepting request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BankAccountNumberFormat": {
+      "type": "string",
+      "description": "The format of the bank account number.",
+      "enum": [
+        "IBAN",
+        "BBAN"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "IBAN",
+          "description": "International bank account number."
+        },
+        {
+          "value": "BBAN",
+          "description": "Basic bank account number for domestic bank accounts."
+        }
+      ]
+    },
+    "BankAccountListing": {
+      "type": "object",
+      "description": "A list of bank accounts.",
+      "required": [
+        "accounts"
+      ],
+      "properties": {
+        "accounts": {
+          "type": "array",
+          "description": "A list of bank accounts.",
+          "items": {
+            "$ref": "#/definitions/BankAccount"
+          }
+        }
+      }
+    },
+    "BankNumberFormat": {
+      "type": "string",
+      "description": "The format of the bank number. Also known as the routing number type.",
+      "enum": [
+        "BIC",
+        "BASIC"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "BIC",
+          "description": "Business Identifier Code. In ISO 9362 format."
+        },
+        {
+          "value": "BASIC",
+          "description": "The bank number has a special format specific to the country code provided, such as ABA routing number."
+        }
+      ]
+    },
+    "BankAccount": {
+      "type": "object",
+      "description": "Details of an Amazon Seller Wallet bank account. This account is used to hold the money that a Seller Wallet customer earns by selling items.",
+      "properties": {
+        "accountId": {
+          "type": "string",
+          "description": "The unique bank account identifier provided by Amazon. To initiate a `SELF` transaction with Seller Wallet, you must choose `BANK_ACCOUNT` as the payment method type in the [getPaymentMethod](https://developer-docs.amazon.com/sp-api/reference/getpaymentmethods) request. Your Amazon Seller Wallet bank account identifier should match the `paymentMethodId` in the response. This field is required.",
+          "example": "amzn1.account.AGUGL2EM3ZHYSRJWH2UCRPIM5JFQ"
+        },
+        "accountHolderName": {
+          "type": "string",
+          "description": "The bank account holder's name (expected to be an Amazon customer). There is a 50 character limit.",
+          "example": "John Doe"
+        },
+        "bankAccountNumberFormat": {
+          "description": "The format in which the bank account number is provided for `THIRD_PARTY` transaction requests.",
+          "$ref": "#/definitions/BankAccountNumberFormat"
+        },
+        "bankName": {
+          "type": "string",
+          "description": "The name of the bank. This value is Amazon Seller Wallet for Amazon Seller Wallet accounts.",
+          "example": "DEUTSCHE BANK AG"
+        },
+        "bankAccountOwnershipType": {
+          "description": "Type of ownership of the bank account. This value is `SELF` for Amazon Seller Wallet accounts.",
+          "$ref": "#/definitions/BankAccountOwnershipType"
+        },
+        "routingNumber": {
+          "type": "string",
+          "description": "Routing number for automated clearing house transfers for `THIRD_PARTY` transaction requests. This value is nine consecutive zeros for Amazon Seller Wallet accounts.",
+          "example": "026009593"
+        },
+        "bankNumberFormat": {
+          "description": "The bank number format or routing number type for `THIRD_PARTY` transaction requests.",
+          "$ref": "#/definitions/BankNumberFormat"
+        },
+        "accountCountryCode": {
+          "type": "string",
+          "description": "The two-digit country code in ISO 3166 format.",
+          "example": "US"
+        },
+        "accountCurrency": {
+          "type": "string",
+          "description": "Bank account currency code in ISO 4217 format.",
+          "example": "USD"
+        },
+        "bankAccountNumberTail": {
+          "type": "string",
+          "description": "The last 3 digit of the bank account number. This value is three consecutive zeros for Amazon Seller Wallet accounts.",
+          "example": "123"
+        },
+        "bankAccountHolderStatus": {
+          "description": "The compliance status of the bank account holder.",
+          "$ref": "#/definitions/BankAccountHolderStatus"
+        }
+      },
+      "required": [
+        "bankAccountOwnershipType",
+        "accountCountryCode",
+        "accountCurrency",
+        "bankAccountNumberTail"
+      ]
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "List of errors",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "BankAccountHolderStatus": {
+      "type": "string",
+      "description": "The status of the Amazon Seller Wallet account holder.",
+      "enum": [
+        "ACTIVE",
+        "INACTIVE",
+        "UNDER_REVIEW",
+        "VERIFICATION_FAILED"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "ACTIVE",
+          "description": "The account holder is Active."
+        },
+        {
+          "value": "INACTIVE",
+          "description": "The account holder is inactive and cannot make transactions."
+        },
+        {
+          "value": "UNDER_REVIEW",
+          "description": "The account holder is currently under review."
+        },
+        {
+          "value": "VERIFICATION_FAILED",
+          "description": "The account holder KYC (Know Your Customer) verification has failed."
+        }
+      ]
+    },
+    "BankAccountOwnershipType": {
+      "type": "string",
+      "description": "The destination bank account's ownership type.",
+      "enum": [
+        "THIRD_PARTY",
+        "SELF"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "THIRD_PARTY",
+          "description": "The account is not officially owned by the Payment Service User who is viewing the account and initiating the transaction."
+        },
+        {
+          "value": "SELF",
+          "description": "The account is officially owned by the Payment Service User who is viewing the account and initiating the transaction."
+        }
+      ]
+    }
+  }
+}

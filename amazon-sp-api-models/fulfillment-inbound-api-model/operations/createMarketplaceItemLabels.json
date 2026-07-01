@@ -1,0 +1,544 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/items/labels": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateMarketplaceItemLabelsRequest"
+            },
+            "description": "The body of the request to `createMarketplaceItemLabels`."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CreateMarketplaceItemLabels 200 response",
+            "schema": {
+              "$ref": "#/definitions/CreateMarketplaceItemLabelsResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "marketplaceId": "ATVPDKIKX0DER",
+                          "mskuQuantities": [
+                            {
+                              "msku": "msku1",
+                              "quantity": 1
+                            },
+                            {
+                              "msku": "msku2",
+                              "quantity": 1
+                            }
+                          ],
+                          "labelType": "STANDARD_FORMAT",
+                          "pageType": "A4_21",
+                          "localeCode": "en_US"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "documentDownloads": [
+                      {
+                        "uri": "https://s3.amazonaws.com/bucket",
+                        "downloadType": "URL",
+                        "expiration": "2024-01-01T00:00:00.000Z"
+                      }
+                    ]
+                  }
+                },
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "marketplaceId": "ATVPDKIKX0DER",
+                          "mskuQuantities": [
+                            {
+                              "msku": "msku1",
+                              "quantity": 1
+                            },
+                            {
+                              "msku": "msku2",
+                              "quantity": 1
+                            }
+                          ],
+                          "labelType": "THERMAL_PRINTING",
+                          "height": 25.0,
+                          "width": 100.0,
+                          "localeCode": "en_US"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "documentDownloads": [
+                      {
+                        "uri": "https://s3.amazonaws.com/bucket",
+                        "downloadType": "URL",
+                        "expiration": "2024-01-01T00:00:00.000Z"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "marketplaceId": "ATVPDKIKX0DER",
+                          "mskuQuantities": [
+                            {
+                              "msku": "badMsku",
+                              "quantity": 1
+                            }
+                          ],
+                          "labelType": "THERMAL_PRINTING",
+                          "height": 25.0,
+                          "width": 100.0,
+                          "localeCode": "en_US"
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The requested MSKU is not valid."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "For a given marketplace - creates labels for a list of MSKUs.",
+        "operationId": "createMarketplaceItemLabels"
+      }
+    }
+  },
+  "definitions": {
+    "CreateMarketplaceItemLabelsRequest": {
+      "description": "The `createMarketplaceItemLabels` request.",
+      "properties": {
+        "height": {
+          "description": "The height of the item label.",
+          "maximum": 100,
+          "minimum": 25,
+          "type": "number"
+        },
+        "labelType": {
+          "$ref": "#/definitions/LabelPrintType"
+        },
+        "localeCode": {
+          "description": "The locale code constructed from ISO 639 language code and ISO 3166-1 alpha-2 standard of country codes separated by an underscore character.",
+          "pattern": "^[a-z]{2}_[A-Z]{2}$",
+          "type": "string",
+          "default": "en_US"
+        },
+        "marketplaceId": {
+          "description": "The Marketplace ID. For a list of possible values, refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids).",
+          "maxLength": 20,
+          "minLength": 1,
+          "type": "string"
+        },
+        "mskuQuantities": {
+          "description": "Represents the quantity of an MSKU to print item labels for.",
+          "items": {
+            "$ref": "#/definitions/MskuQuantity"
+          },
+          "maxItems": 100,
+          "minItems": 1,
+          "type": "array"
+        },
+        "pageType": {
+          "$ref": "#/definitions/ItemLabelPageType"
+        },
+        "width": {
+          "description": "The width of the item label.",
+          "maximum": 100,
+          "minimum": 25,
+          "type": "number"
+        }
+      },
+      "required": [
+        "labelType",
+        "marketplaceId",
+        "mskuQuantities"
+      ],
+      "type": "object",
+      "example": {
+        "height": 25,
+        "labelType": "STANDARD_FORMAT",
+        "localeCode": "en_US",
+        "marketplaceId": "A2EUQ1WTGCTBG2",
+        "mskuQuantities": [
+          {
+            "msku": "msku",
+            "quantity": 5
+          }
+        ],
+        "pageType": "A4_21",
+        "width": 100
+      }
+    },
+    "MskuQuantity": {
+      "description": "Represents an MSKU and the related quantity.",
+      "properties": {
+        "msku": {
+          "description": "The merchant SKU, a merchant-supplied identifier for a specific SKU.",
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "quantity": {
+          "description": "A positive integer.",
+          "maximum": 10000,
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "msku",
+        "quantity"
+      ],
+      "type": "object",
+      "example": {
+        "msku": "msku",
+        "quantity": 5
+      }
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "ItemLabelPageType": {
+      "description": "The page type to use to print the labels. Possible values: 'A4_21', 'A4_24', 'A4_24_64x33', 'A4_24_66x35', 'A4_24_70x36', 'A4_24_70x37', 'A4_24i', 'A4_27', 'A4_40_52x29', 'A4_44_48x25', 'Letter_30'.",
+      "enum": [
+        "A4_21",
+        "A4_24",
+        "A4_24_64x33",
+        "A4_24_66x35",
+        "A4_24_70x36",
+        "A4_24_70x37",
+        "A4_24i",
+        "A4_27",
+        "A4_40_52x29",
+        "A4_44_48x25",
+        "Letter_30"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "A4_21",
+          "description": "-"
+        },
+        {
+          "value": "A4_24",
+          "description": "-"
+        },
+        {
+          "value": "A4_24_64x33",
+          "description": "-"
+        },
+        {
+          "value": "A4_24_66x35",
+          "description": "-"
+        },
+        {
+          "value": "A4_24_70x36",
+          "description": "-"
+        },
+        {
+          "value": "A4_24_70x37",
+          "description": "-"
+        },
+        {
+          "value": "A4_24i",
+          "description": "-"
+        },
+        {
+          "value": "A4_27",
+          "description": "-"
+        },
+        {
+          "value": "A4_40_52x29",
+          "description": "-"
+        },
+        {
+          "value": "A4_44_48x25",
+          "description": "-"
+        },
+        {
+          "value": "Letter_30",
+          "description": "-"
+        }
+      ],
+      "example": "A4_21"
+    },
+    "CreateMarketplaceItemLabelsResponse": {
+      "description": "The `createMarketplaceItemLabels` response.",
+      "properties": {
+        "documentDownloads": {
+          "description": "Resources to download the requested document.",
+          "items": {
+            "$ref": "#/definitions/DocumentDownload"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "documentDownloads"
+      ],
+      "type": "object"
+    },
+    "DocumentDownload": {
+      "description": "Resource to download the requested document.",
+      "properties": {
+        "downloadType": {
+          "description": "The type of download. Possible values: `URL`.",
+          "type": "string"
+        },
+        "expiration": {
+          "description": "The URI's expiration time. In [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) datetime format with pattern `yyyy-MM-ddTHH:mm:ss.sssZ`.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "uri": {
+          "description": "Uniform resource identifier to identify where the document is located.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "downloadType",
+        "uri"
+      ],
+      "type": "object"
+    },
+    "LabelPrintType": {
+      "description": "Indicates the type of print type for a given label.",
+      "enum": [
+        "STANDARD_FORMAT",
+        "THERMAL_PRINTING"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "STANDARD_FORMAT",
+          "description": "-"
+        },
+        {
+          "value": "THERMAL_PRINTING",
+          "description": "-"
+        }
+      ],
+      "example": "STANDARD_FORMAT"
+    }
+  }
+}

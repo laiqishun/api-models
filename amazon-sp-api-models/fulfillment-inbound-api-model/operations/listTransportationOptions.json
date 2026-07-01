@@ -1,0 +1,544 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/inboundPlans/{inboundPlanId}/transportationOptions": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "Identifier of an inbound plan.",
+            "in": "path",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "inboundPlanId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "The number of transportation options to return in the response matching the given query.",
+            "in": "query",
+            "maximum": 20,
+            "minimum": 1,
+            "name": "pageSize",
+            "type": "integer",
+            "default": 10
+          },
+          {
+            "description": "A token to fetch a certain page when there are multiple pages worth of results. The value of this token is fetched from the `pagination` returned in the API response. In the absence of the token value from the query parameter the API returns the first page of the result.",
+            "in": "query",
+            "maxLength": 1024,
+            "minLength": 0,
+            "name": "paginationToken",
+            "type": "string"
+          },
+          {
+            "description": "The placement option to get transportation options for. Either `placementOptionId` or `shipmentId` must be specified.",
+            "in": "query",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "placementOptionId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "type": "string"
+          },
+          {
+            "description": "The shipment to get transportation options for. Either `placementOptionId` or `shipmentId` must be specified.",
+            "in": "query",
+            "maxLength": 38,
+            "minLength": 38,
+            "name": "shipmentId",
+            "pattern": "^[a-zA-Z0-9-]*$",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ListTransportationOptions 200 response",
+            "schema": {
+              "$ref": "#/definitions/ListTransportationOptionsResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "placementOptionId": {
+                        "value": "pl1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "shipmentId": {
+                        "value": "sh1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "pageSize": {
+                        "value": 2
+                      },
+                      "paginationToken": {
+                        "value": "paginationToken"
+                      }
+                    }
+                  },
+                  "response": {
+                    "transportationOptions": [
+                      {
+                        "shipmentId": "sh1234abcd-1234-abcd-5678-1234abcd5678",
+                        "transportationOptionId": "to1234abcd-1234-abcd-5678-1234abcd5678",
+                        "shippingSolution": "AMAZON_PARTNERED_CARRIER",
+                        "carrier": {
+                          "name": "name",
+                          "alphaCode": "USPS"
+                        },
+                        "shippingMode": "GROUND_SMALL_PARCEL",
+                        "quote": {
+                          "cost": {
+                            "code": "USD",
+                            "amount": 500.0
+                          },
+                          "voidableUntil": "2024-01-01T00:00:00.000Z",
+                          "expiration": "2024-01-01T00:00:00.000Z"
+                        },
+                        "carrierAppointment": {
+                          "startTime": "2024-01-01T00:00:00.000Z",
+                          "endTime": "2024-01-02T00:00:00.000Z"
+                        },
+                        "preconditions": [
+                          "CONFIRMED_DELIVERY_WINDOW"
+                        ]
+                      }
+                    ],
+                    "pagination": {
+                      "nextToken": "nextPaginationToken"
+                    }
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "inboundPlanId": {
+                        "value": "wf1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "placementOptionId": {
+                        "value": "pl1234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "shipmentId": {
+                        "value": "bad234abcd-1234-abcd-5678-1234abcd5678"
+                      },
+                      "pageSize": {
+                        "value": 2
+                      },
+                      "paginationToken": {
+                        "value": "paginationToken"
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The requested shipmentId does not exist for the specified inbound plan."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "Retrieves all transportation options for a shipment. Transportation options must first be generated by the `generateTransportationOptions` operation before becoming available.",
+        "operationId": "listTransportationOptions"
+      }
+    }
+  },
+  "definitions": {
+    "CarrierAppointment": {
+      "description": "Contains details for a transportation carrier appointment. This appointment is vended out by Amazon and is an indicator for when a transportation carrier is accepting shipments to be picked up.",
+      "properties": {
+        "endTime": {
+          "description": "The end timestamp of the appointment in UTC.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "startTime": {
+          "description": "The start timestamp of the appointment in UTC.",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "endTime",
+        "startTime"
+      ],
+      "type": "object"
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "ListTransportationOptionsResponse": {
+      "description": "The `listTransportationOptions` response.",
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/Pagination"
+        },
+        "transportationOptions": {
+          "description": "Transportation options generated for the placement option.",
+          "items": {
+            "$ref": "#/definitions/TransportationOption"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "transportationOptions"
+      ],
+      "type": "object"
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "Pagination": {
+      "description": "Contains tokens to fetch from a certain page.",
+      "properties": {
+        "nextToken": {
+          "description": "When present, pass this string token in the next request to return the next response page.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Currency": {
+      "description": "The type and amount of currency.",
+      "properties": {
+        "amount": {
+          "description": "Decimal value of the currency.",
+          "type": "number"
+        },
+        "code": {
+          "description": "ISO 4217 standard of a currency code.",
+          "maxLength": 3,
+          "minLength": 3,
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "code"
+      ],
+      "type": "object"
+    },
+    "Carrier": {
+      "description": "The carrier for the inbound shipment.",
+      "properties": {
+        "alphaCode": {
+          "description": "The carrier code. For example, USPS or DHLEX.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "name": {
+          "description": "The name of the carrier.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "Quote": {
+      "description": "The estimated shipping cost associated with the transportation option.",
+      "properties": {
+        "cost": {
+          "$ref": "#/definitions/Currency"
+        },
+        "expiration": {
+          "description": "The time at which this transportation option quote expires. In [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) datetime with pattern `yyyy-MM-ddTHH:mm:ss.sssZ`.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "voidableUntil": {
+          "description": "Voidable until timestamp.",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "cost"
+      ],
+      "type": "object"
+    },
+    "TransportationOption": {
+      "description": "Contains information pertaining to a transportation option and the related carrier.",
+      "properties": {
+        "carrier": {
+          "$ref": "#/definitions/Carrier"
+        },
+        "carrierAppointment": {
+          "$ref": "#/definitions/CarrierAppointment"
+        },
+        "preconditions": {
+          "description": "Identifies a list of preconditions for confirming the transportation option.",
+          "items": {
+            "description": "Identifies type of Transportation Option precondition. Values: `CONFIRMED_DELIVERY_WINDOW`",
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "quote": {
+          "$ref": "#/definitions/Quote"
+        },
+        "shipmentId": {
+          "description": "Identifier of a shipment. A shipment contains the boxes and units being inbounded.",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        },
+        "shippingMode": {
+          "description": "Mode of shipment transportation that this option will provide.\n\nPossible values: `GROUND_SMALL_PARCEL`, `FREIGHT_LTL`, `FREIGHT_FTL_PALLET`, `FREIGHT_FTL_NONPALLET`, `OCEAN_LCL`, `OCEAN_FCL`, `AIR_SMALL_PARCEL`, `AIR_SMALL_PARCEL_EXPRESS`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "shippingSolution": {
+          "description": "Shipping program for the option. Possible values: `AMAZON_PARTNERED_CARRIER`, `USE_YOUR_OWN_CARRIER`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "transportationOptionId": {
+          "description": "Identifier of a transportation option. A transportation option represent one option for how to send a shipment.",
+          "maxLength": 38,
+          "minLength": 38,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "carrier",
+        "preconditions",
+        "shipmentId",
+        "shippingMode",
+        "shippingSolution",
+        "transportationOptionId"
+      ],
+      "type": "object",
+      "example": {
+        "carrier": {
+          "alphaCode": "ABCD",
+          "name": "Carrier Name"
+        },
+        "carrierAppointment": {
+          "endTime": "2024-01-06T14:48:00.000Z",
+          "startTime": "2024-01-05T14:48:00.000Z"
+        },
+        "preconditions": [
+          "CONFIRMED_DELIVERY_WINDOW"
+        ],
+        "quote": {
+          "cost": {
+            "amount": 5.5,
+            "code": "CAD"
+          },
+          "expiration": "2024-01-06T14:48:00.000Z",
+          "voidableUntil": "2024-01-05T14:48:00.000Z"
+        },
+        "shipmentId": "sh1234abcd-1234-abcd-5678-1234abcd5678",
+        "shippingMode": "GROUND_SMALL_PARCEL",
+        "shippingSolution": "AMAZON_PARTNERED_CARRIER",
+        "transportationOptionId": "to1234abcd-1234-abcd-5678-1234abcd5678"
+      }
+    }
+  }
+}

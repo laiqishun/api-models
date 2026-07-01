@@ -1,0 +1,560 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon Warehousing and Distribution",
+    "version": "2024-05-09",
+    "description": "The Selling Partner API for Amazon Warehousing and Distribution (AWD) provides programmatic access to information about AWD shipments and inventory. ",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/awd/2024-05-09/replenishmentOrders/{orderId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "ID of the replenishment order to be retrieved.",
+            "in": "path",
+            "name": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "GetReplenishmentOrder 200 response.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ReplenishmentOrder"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "orderId": {
+                        "value": "TEST_ORDER_ID"
+                      }
+                    }
+                  },
+                  "response": {
+                    "confirmedOn": "2024-08-11T23:20:50.520Z",
+                    "createdAt": "2024-08-10T23:20:50.520Z",
+                    "eligibleProducts": [],
+                    "distributionIneligibleReasons": [],
+                    "orderId": "TEST_ORDER_ID",
+                    "status": "SUCCESS",
+                    "outboundShipments": [],
+                    "products": [],
+                    "shippedProducts": []
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "orderId": {
+                        "value": " "
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BAD_REQUEST",
+                        "details": "This exception is thrown when client inputs are invalid",
+                        "message": "OrderId should be present for this request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        },
+        "tags": [
+          "awd"
+        ],
+        "description": "Retrieves an AWD Replenishment order with a set of shipments containing items that is/was planned to be replenished into an FBA node.",
+        "operationId": "getReplenishmentOrder"
+      }
+    }
+  },
+  "definitions": {
+    "DistributionIneligibleReason": {
+      "description": "Execution errors associated with the replenishment order. This field will be populated if the order failed validation.",
+      "properties": {
+        "failureCode": {
+          "description": "Failure code details of the error.",
+          "type": "string",
+          "example": "TestErrorCode"
+        },
+        "failureReasons": {
+          "description": "Failure reasons of the error.",
+          "items": {
+            "type": "string"
+          },
+          "type": "array",
+          "example": [
+            "Test failure reason"
+          ]
+        },
+        "sku": {
+          "description": "SKU associated with the error.",
+          "type": "string",
+          "example": "SampleSKU"
+        }
+      },
+      "required": [
+        "failureCode",
+        "failureReasons"
+      ],
+      "type": "object",
+      "example": {
+        "failureCode": "TestErrorCode",
+        "failureReasons": [
+          "Test failure reason"
+        ],
+        "sku": "SampleSKU"
+      }
+    },
+    "ReplenishmentOrder": {
+      "description": "Represents an AWD replenishment order.",
+      "properties": {
+        "confirmedOn": {
+          "description": "Date on which this replenishment order was confirmed.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "createdAt": {
+          "description": "Date on which this replenishment order was created.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "distributionIneligibleReasons": {
+          "description": "Distribution errors associated with the order related to the products or packages to replenish.\nThis field will be populated if the order has products or packages which failed validation.",
+          "items": {
+            "$ref": "#/definitions/DistributionIneligibleReason"
+          },
+          "type": "array"
+        },
+        "eligibleProducts": {
+          "description": "List of product units that are eligible for replenishment.",
+          "items": {
+            "$ref": "#/definitions/DistributionProduct"
+          },
+          "type": "array"
+        },
+        "orderId": {
+          "description": "Order Id of the replenishment order.",
+          "type": "string"
+        },
+        "status": {
+          "$ref": "#/definitions/ReplenishmentOrderStatus"
+        },
+        "outboundShipments": {
+          "description": "List of outbound shipments that are part of this order.",
+          "items": {
+            "$ref": "#/definitions/OutboundShipmentSummary"
+          },
+          "type": "array"
+        },
+        "products": {
+          "description": "Requested amount of single product units to be replenished.",
+          "items": {
+            "$ref": "#/definitions/DistributionProduct"
+          },
+          "type": "array"
+        },
+        "shippedProducts": {
+          "description": "Outbound product units that are shipped after the execution has completed post confirmation.",
+          "items": {
+            "$ref": "#/definitions/DistributionProduct"
+          },
+          "type": "array"
+        },
+        "updatedAt": {
+          "description": "Date on which this replenishment order was last updated.",
+          "format": "date-time",
+          "type": "string",
+          "example": "2023-01-12T10:00:00.000Z"
+        }
+      },
+      "required": [
+        "orderId",
+        "status",
+        "outboundShipments"
+      ],
+      "type": "object"
+    },
+    "ErrorList": {
+      "description": "This exception is thrown when client inputs are invalid.",
+      "properties": {
+        "errors": {
+          "description": "A list of errors describing the failures.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      "required": [
+        "errors"
+      ]
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "OutboundShipmentStatus": {
+      "description": "Possible shipment statuses for outbound shipments.",
+      "enum": [
+        "CREATED",
+        "IN_TRANSIT",
+        "DELIVERED",
+        "RECEIVING",
+        "RECEIVED",
+        "CLOSED",
+        "CANCELLED",
+        "FAILED"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Shipment is created. No inventory has been picked up at the source node.",
+          "value": "CREATED"
+        },
+        {
+          "description": "Carrier acknowledged that the shipment is in transit between the origin node and destination node.",
+          "value": "IN_TRANSIT"
+        },
+        {
+          "description": "Carrier indicated that the shipment has arrived at the destination node, but the destination node has not acknowledged the delivery.",
+          "value": "DELIVERED"
+        },
+        {
+          "description": "Destination node acknowledged the arrival of the shipment.",
+          "value": "RECEIVING"
+        },
+        {
+          "description": "Destination node has received the items.",
+          "value": "RECEIVED"
+        },
+        {
+          "description": "No more actions are required for the shipment. This is a final state.",
+          "value": "CLOSED"
+        },
+        {
+          "description": "Shipment has been cancelled by order owner. This is a final state.",
+          "value": "CANCELLED"
+        },
+        {
+          "description": "Shipment delivery has failed. This is a final state.",
+          "value": "FAILED"
+        }
+      ],
+      "example": "CREATED"
+    },
+    "ProductAttribute": {
+      "description": "Product instance attribute that is not described at the SKU level in the catalog.",
+      "properties": {
+        "name": {
+          "description": "Product attribute name.",
+          "type": "string",
+          "example": "TestAttribute"
+        },
+        "value": {
+          "description": "Product attribute value.",
+          "type": "string",
+          "example": "TestAttributeValue"
+        }
+      },
+      "type": "object",
+      "example": {
+        "name": "TestAttribute",
+        "value": "TestAttributeValue"
+      }
+    },
+    "DistributionProduct": {
+      "description": "Represents a product with sku details and corresponding quantity",
+      "properties": {
+        "attributes": {
+          "description": "Attributes for this instance of the product, i.e. already-prepped, or other\nattributes that distinguish the product beyond the SKU.",
+          "items": {
+            "$ref": "#/definitions/ProductAttribute"
+          },
+          "type": "array",
+          "example": {
+            "name": "TestAttribute",
+            "value": "TestAttributeValue"
+          }
+        },
+        "quantity": {
+          "description": "Quantity of the product",
+          "format": "int32",
+          "type": "integer"
+        },
+        "sku": {
+          "description": "The seller/merchant stock keeping unit (SKU).",
+          "type": "string"
+        }
+      },
+      "required": [
+        "quantity",
+        "sku"
+      ],
+      "type": "object"
+    },
+    "OutboundShipmentSummary": {
+      "description": "Summary of an AWD inbound shipment containing the shipment ID which can be used to\nfetch the actual shipment",
+      "properties": {
+        "createdAt": {
+          "description": "Timestamp denoting when the shipment was created",
+          "format": "date-time",
+          "type": "string",
+          "example": "2023-01-12T10:00:00.000Z"
+        },
+        "orderId": {
+          "description": "Order ID of AWD inbound order this inbound shipment belongs to",
+          "minLength": 1,
+          "type": "string",
+          "example": "TestOrderId"
+        },
+        "shipmentId": {
+          "description": "Unique shipment ID",
+          "minLength": 1,
+          "type": "string",
+          "example": "TestShipmentId"
+        },
+        "shipmentStatus": {
+          "$ref": "#/definitions/OutboundShipmentStatus"
+        },
+        "updatedAt": {
+          "description": "Timestamp denoting when the shipment was updated",
+          "format": "date-time",
+          "type": "string",
+          "example": "2023-01-12T10:00:00.000Z"
+        }
+      },
+      "required": [
+        "orderId",
+        "shipmentId",
+        "shipmentStatus"
+      ],
+      "type": "object",
+      "example": {
+        "createdAt": "2023-01-12T10:00:00.000Z",
+        "orderId": "TestOrderId",
+        "shipmentId": "TestShipmentId",
+        "shipmentStatus": "CREATED",
+        "updatedAt": "2023-01-12T10:00:00.000Z"
+      }
+    },
+    "ReplenishmentOrderStatus": {
+      "description": "Statuses supported for an replenishment order.",
+      "enum": [
+        "CONFIRMED",
+        "CREATED",
+        "ELIGIBLE",
+        "EXECUTING",
+        "FAILURE",
+        "INELIGIBLE",
+        "INVENTORY_OUTBOUND",
+        "SUCCESS",
+        "VALIDATING"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "The order enters this state as soon as the order is confirmed.",
+          "value": "CONFIRMED"
+        },
+        {
+          "description": "A newly created replenishment order will always start in this state. On UI, this status is called DRAFT",
+          "value": "CREATED"
+        },
+        {
+          "description": "This is the only state when an order can be confirmed.",
+          "value": "ELIGIBLE"
+        },
+        {
+          "description": "The order is being executed in the system.",
+          "value": "EXECUTING"
+        },
+        {
+          "description": "If any of the shipment reports failure or does not reach the destination,\nthe order status is marked as failed",
+          "value": "FAILURE"
+        },
+        {
+          "description": "If the validation results in a failure, the order will be in this state.\nIn this state, a validation errors field will be provided to show the\nerrors with the order and potential guidance on fixing them.",
+          "value": "INELIGIBLE"
+        },
+        {
+          "description": "The order executing is complete and the order is awaiting the moving of inventory.\nIn this status, the shipments for an order will be visible.",
+          "value": "INVENTORY_OUTBOUND"
+        },
+        {
+          "description": "If all the shipments are successfully received at the destination channel, the order is marked successful.",
+          "value": "SUCCESS"
+        },
+        {
+          "description": "The order is being validated asynchronously.\nThe order will be in this state after every item update.",
+          "value": "VALIDATING"
+        }
+      ]
+    }
+  }
+}

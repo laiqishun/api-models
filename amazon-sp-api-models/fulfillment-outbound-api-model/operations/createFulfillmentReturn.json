@@ -1,0 +1,598 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "The Selling Partner API for Fulfillment Outbound lets you create applications that help a seller fulfill Multi-Channel Fulfillment orders using their inventory in Amazon's fulfillment network. You can get information on both potential and existing fulfillment orders.",
+    "version": "2020-07-01",
+    "title": "Selling Partner APIs for Fulfillment Outbound",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/fba/outbound/2020-07-01/fulfillmentOrders/{sellerFulfillmentOrderId}/return": {
+      "put": {
+        "tags": [
+          "fbaOutbound"
+        ],
+        "description": "Creates a fulfillment return.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 2 | 30 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "createFulfillmentReturn",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentReturnRequest"
+            },
+            "description": "The request body of the `createFulfillmentReturn` operation."
+          },
+          {
+            "name": "sellerFulfillmentOrderId",
+            "in": "path",
+            "description": "An identifier the seller assigns to the fulfillment order at the time it was created. The seller uses their own records to find the correct `sellerFulfillmentOrderId` value based on the buyer's request to return items.",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentReturnResponse"
+            },
+            "examples": {
+              "payload": {
+                "returnItems": [
+                  {
+                    "sellerReturnItemId": "testReturn11",
+                    "sellerFulfillmentOrderItemId": "OrderItemID2",
+                    "amazonShipmentId": "D4yZjWZVN",
+                    "returnComment": "TestReturn",
+                    "amazonReturnReasonCode": "UNKNOWN_OTHER_REASON",
+                    "status": "New",
+                    "statusChangedDate": "2020-02-07T04:14:38Z",
+                    "returnAuthorizationId": "RMA3JTIPBJM42UU6"
+                  }
+                ],
+                "invalidReturnItems": [],
+                "returnAuthorizations": [
+                  {
+                    "returnAuthorizationId": "RMA3JTIPBJM42UU6",
+                    "fulfillmentCenterId": "TUS1",
+                    "returnToAddress": {
+                      "name": "Returns Department",
+                      "addressLine1": "5333 W. Lower Buckeye Road",
+                      "districtOrCounty": "US",
+                      "city": "Phoenix",
+                      "stateOrRegion": "AZ",
+                      "countryCode": "US",
+                      "postalCode": "85043"
+                    },
+                    "amazonRmaId": "D50WttPHRRMA",
+                    "rmaPageURL": "https://www.amazon.com/gp/orc/rml/D50WttPHRRMA"
+                  }
+                ]
+              }
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentReturnResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentReturnResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentReturnResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentReturnResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentReturnResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentReturnResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/CreateFulfillmentReturnResponse"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ReturnItemList": {
+      "type": "array",
+      "description": "An array of items that Amazon accepted for return. Returns empty if no items were accepted for return.",
+      "items": {
+        "$ref": "#/definitions/ReturnItem"
+      }
+    },
+    "InvalidItemReason": {
+      "type": "object",
+      "required": [
+        "description",
+        "invalidItemReasonCode"
+      ],
+      "properties": {
+        "invalidItemReasonCode": {
+          "$ref": "#/definitions/InvalidItemReasonCode"
+        },
+        "description": {
+          "type": "string",
+          "description": "A human readable description of the invalid item reason code."
+        }
+      },
+      "description": "The reason that the item is invalid for return."
+    },
+    "ReturnAuthorization": {
+      "type": "object",
+      "required": [
+        "amazonRmaId",
+        "fulfillmentCenterId",
+        "returnAuthorizationId",
+        "returnToAddress",
+        "rmaPageURL"
+      ],
+      "properties": {
+        "returnAuthorizationId": {
+          "type": "string",
+          "description": "An identifier for the return authorization. This identifier associates return items with the return authorization used to return them."
+        },
+        "fulfillmentCenterId": {
+          "type": "string",
+          "description": "An identifier for the Amazon fulfillment center to which the return items should be sent."
+        },
+        "returnToAddress": {
+          "description": "The address of the Amazon fulfillment center that the return items should be sent to.",
+          "$ref": "#/definitions/Address"
+        },
+        "amazonRmaId": {
+          "type": "string",
+          "description": "The return merchandise authorization (RMA) that Amazon needs to process the return."
+        },
+        "rmaPageURL": {
+          "type": "string",
+          "description": "A URL for a web page that contains the return authorization barcode and the mailing label. This does not include pre-paid shipping."
+        }
+      },
+      "description": "Return authorization information for items accepted for return."
+    },
+    "ReturnItem": {
+      "type": "object",
+      "required": [
+        "amazonShipmentId",
+        "sellerFulfillmentOrderItemId",
+        "sellerReturnItemId",
+        "sellerReturnReasonCode",
+        "status",
+        "statusChangedDate"
+      ],
+      "properties": {
+        "sellerReturnItemId": {
+          "type": "string",
+          "description": "An identifier the seller assigns to the return item."
+        },
+        "sellerFulfillmentOrderItemId": {
+          "type": "string",
+          "description": "The identifier assigned to the item by the seller when the fulfillment order was created."
+        },
+        "amazonShipmentId": {
+          "type": "string",
+          "description": "The identifier for the shipment that is associated with the return item."
+        },
+        "sellerReturnReasonCode": {
+          "type": "string",
+          "description": "The return reason code assigned to the return item by the seller."
+        },
+        "returnComment": {
+          "type": "string",
+          "description": "An optional comment about the return item."
+        },
+        "amazonReturnReasonCode": {
+          "type": "string",
+          "description": "The return reason code that the Amazon fulfillment center assigned to the return item."
+        },
+        "status": {
+          "description": "Indicates if the return item has been processed by an Amazon fulfillment center.",
+          "$ref": "#/definitions/FulfillmentReturnItemStatus"
+        },
+        "statusChangedDate": {
+          "description": "Indicates when the status last changed.",
+          "$ref": "#/definitions/Timestamp"
+        },
+        "returnAuthorizationId": {
+          "type": "string",
+          "description": "Identifies the return authorization used to return this item. Refer to `ReturnAuthorization`."
+        },
+        "returnReceivedCondition": {
+          "$ref": "#/definitions/ReturnItemDisposition"
+        },
+        "fulfillmentCenterId": {
+          "type": "string",
+          "description": "The identifier for the Amazon fulfillment center that processed the return item."
+        }
+      },
+      "description": "An item that Amazon accepted for return."
+    },
+    "CreateReturnItemList": {
+      "type": "array",
+      "description": "An array of items to be returned.",
+      "items": {
+        "$ref": "#/definitions/CreateReturnItem"
+      }
+    },
+    "InvalidReturnItem": {
+      "type": "object",
+      "required": [
+        "invalidItemReason",
+        "sellerFulfillmentOrderItemId",
+        "sellerReturnItemId"
+      ],
+      "properties": {
+        "sellerReturnItemId": {
+          "type": "string",
+          "description": "An identifier the seller assigns to the return item."
+        },
+        "sellerFulfillmentOrderItemId": {
+          "type": "string",
+          "description": "The identifier assigned to the item by the seller when the fulfillment order was created."
+        },
+        "invalidItemReason": {
+          "$ref": "#/definitions/InvalidItemReason"
+        }
+      },
+      "description": "An item that is invalid for return."
+    },
+    "ReturnAuthorizationList": {
+      "type": "array",
+      "description": "An array of return authorization information.",
+      "items": {
+        "$ref": "#/definitions/ReturnAuthorization"
+      }
+    },
+    "CreateFulfillmentReturnResponse": {
+      "type": "object",
+      "properties": {
+        "payload": {
+          "description": "The payload for the `createFulfillmentReturn` operation.",
+          "$ref": "#/definitions/CreateFulfillmentReturnResult"
+        },
+        "errors": {
+          "description": "One or more unexpected errors occurred during the `createFulfillmentReturn` operation.",
+          "$ref": "#/definitions/ErrorList"
+        }
+      },
+      "description": "The response schema for the `createFulfillmentReturn` operation."
+    },
+    "InvalidItemReasonCode": {
+      "type": "string",
+      "description": "A code for why the item is invalid for return.",
+      "enum": [
+        "InvalidValues",
+        "DuplicateRequest",
+        "NoCompletedShipItems",
+        "NoReturnableQuantity"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "InvalidValues",
+          "description": "The item was not found in a fulfillment order."
+        },
+        {
+          "value": "DuplicateRequest",
+          "description": "A fulfillment return has already been requested for this item."
+        },
+        {
+          "value": "NoCompletedShipItems",
+          "description": "The fulfillment order containing this item has not yet shipped."
+        },
+        {
+          "value": "NoReturnableQuantity",
+          "description": "All item quantity available for return has been allocated to other return items."
+        }
+      ]
+    },
+    "CreateReturnItem": {
+      "type": "object",
+      "required": [
+        "amazonShipmentId",
+        "returnReasonCode",
+        "sellerFulfillmentOrderItemId",
+        "sellerReturnItemId"
+      ],
+      "properties": {
+        "sellerReturnItemId": {
+          "type": "string",
+          "description": "An identifier the seller assigns to the return item.",
+          "maxLength": 80
+        },
+        "sellerFulfillmentOrderItemId": {
+          "type": "string",
+          "description": "The identifier assigned to the item by the seller when the fulfillment order was created."
+        },
+        "amazonShipmentId": {
+          "type": "string",
+          "description": "The identifier for the shipment that is associated with the return item."
+        },
+        "returnReasonCode": {
+          "type": "string",
+          "description": "The return reason code assigned to the return item by the seller."
+        },
+        "returnComment": {
+          "type": "string",
+          "description": "An optional comment about the return item.",
+          "maxLength": 1000
+        }
+      },
+      "description": "An item that Amazon accepted for return."
+    },
+    "ReturnItemDisposition": {
+      "type": "string",
+      "description": "The condition of the return item when received by an Amazon fulfillment center.",
+      "enum": [
+        "Sellable",
+        "Defective",
+        "CustomerDamaged",
+        "CarrierDamaged",
+        "FulfillerDamaged"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "Sellable",
+          "description": "Item is in sellable condition."
+        },
+        {
+          "value": "Defective",
+          "description": "Item is defective."
+        },
+        {
+          "value": "CustomerDamaged",
+          "description": "Item was damaged by the buyer or the seller."
+        },
+        {
+          "value": "CarrierDamaged",
+          "description": "Item was damaged by the carrier."
+        },
+        {
+          "value": "FulfillerDamaged",
+          "description": "Item was damaged by Amazon."
+        }
+      ]
+    },
+    "ErrorList": {
+      "type": "array",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "items": {
+        "$ref": "#/definitions/Error"
+      }
+    },
+    "InvalidReturnItemList": {
+      "type": "array",
+      "description": "An array of invalid return item information.",
+      "items": {
+        "$ref": "#/definitions/InvalidReturnItem"
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "An error code that identifies the type of error that occurred."
+        },
+        "message": {
+          "type": "string",
+          "description": "A message that describes the error condition."
+        },
+        "details": {
+          "type": "string",
+          "description": "Additional details that can help the caller understand or fix the issue."
+        }
+      },
+      "description": "Error response returned when the request is unsuccessful."
+    },
+    "FulfillmentReturnItemStatus": {
+      "type": "string",
+      "description": "Indicates if the return item has been processed by a fulfillment center.",
+      "enum": [
+        "New",
+        "Processed"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "New",
+          "description": "The return item has not yet been processed by a fulfillment center."
+        },
+        {
+          "value": "Processed",
+          "description": "The return item has been processed by a fulfillment center."
+        }
+      ]
+    },
+    "CreateFulfillmentReturnResult": {
+      "description": "The result for the `createFulfillmentReturn` operation.",
+      "type": "object",
+      "properties": {
+        "returnItems": {
+          "$ref": "#/definitions/ReturnItemList"
+        },
+        "invalidReturnItems": {
+          "$ref": "#/definitions/InvalidReturnItemList"
+        },
+        "returnAuthorizations": {
+          "$ref": "#/definitions/ReturnAuthorizationList"
+        }
+      }
+    },
+    "Timestamp": {
+      "description": "Date timestamp",
+      "type": "string",
+      "format": "date-time"
+    },
+    "Address": {
+      "type": "object",
+      "required": [
+        "addressLine1",
+        "countryCode",
+        "name",
+        "postalCode"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "The name of the person, business or institution at the address."
+        },
+        "addressLine1": {
+          "type": "string",
+          "description": "The first line of the address."
+        },
+        "addressLine2": {
+          "type": "string",
+          "description": "Additional address information, if required."
+        },
+        "addressLine3": {
+          "type": "string",
+          "description": "Additional address information, if required."
+        },
+        "city": {
+          "type": "string",
+          "description": "The city where the person, business, or institution is located. This property is required in all countries except Japan. It should not be used in Japan."
+        },
+        "districtOrCounty": {
+          "type": "string",
+          "description": "The district or county where the person, business, or institution is located."
+        },
+        "stateOrRegion": {
+          "type": "string",
+          "description": "The state or region where the person, business or institution is located."
+        },
+        "postalCode": {
+          "type": "string",
+          "description": "The postal code of the address."
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "The two digit country code. In ISO 3166-1 alpha-2 format."
+        },
+        "phone": {
+          "type": "string",
+          "description": "The phone number of the person, business, or institution located at the address."
+        }
+      },
+      "description": "A physical address."
+    },
+    "CreateFulfillmentReturnRequest": {
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "$ref": "#/definitions/CreateReturnItemList"
+        }
+      },
+      "description": "The `createFulfillmentReturn` operation creates a fulfillment return for items that were fulfilled using the `createFulfillmentOrder` operation. For calls to `createFulfillmentReturn`, you must include `returnReasonCode` values returned by a previous call to the `listReturnReasonCodes` operation."
+    }
+  }
+}

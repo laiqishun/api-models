@@ -1,0 +1,873 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "2022-11-07",
+    "title": "Selling Partner API for Replenishment",
+    "description": "The Selling Partner API for Replenishment (Replenishment API) provides programmatic access to replenishment program metrics and offers. These programs provide recurring delivery of any replenishable item at a frequency chosen by the customer.\n\nThe Replenishment API is available worldwide wherever Amazon Subscribe & Save is available or is supported. The API is available to vendors and FBA selling partners.",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/replenishment/2022-11-07/offers/metrics/search": {
+      "post": {
+        "tags": [
+          "offers"
+        ],
+        "description": "Returns aggregated replenishment program metrics for a selling partner's offers.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 1 | 1 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The table above indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may see higher rate and burst values than those shown here. For more information, see [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "listOfferMetrics",
+        "parameters": [
+          {
+            "name": "body",
+            "description": "The request body for the `listOfferMetrics` operation.",
+            "in": "body",
+            "schema": {
+              "$ref": "#/definitions/ListOfferMetricsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success.",
+            "schema": {
+              "$ref": "#/definitions/ListOfferMetricsResponse"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "examples": {
+              "application/json": {
+                "offers": [
+                  {
+                    "notDeliveredDueToOOS": 30.78,
+                    "shippedSubscriptionUnits": 20,
+                    "totalSubscriptionsRevenue": 12.89,
+                    "asin": "B000TMUDOW",
+                    "revenuePenetration": 10.34,
+                    "lostRevenueDueToOOS": 12.32,
+                    "couponsRevenuePenetration": 10,
+                    "shareOfCouponSubscriptions": 24.04,
+                    "sku": "SD-RES-101973",
+                    "fulfillmentChannelType": "AMAZON",
+                    "timeInterval": {
+                      "endDate": "2023-03-11T00:00:00Z",
+                      "startDate": "2023-03-05T00:00:00Z"
+                    },
+                    "currencyCode": "USD"
+                  },
+                  {
+                    "notDeliveredDueToOOS": 40.78,
+                    "shippedSubscriptionUnits": 40,
+                    "totalSubscriptionsRevenue": 34.03,
+                    "asin": "B004CLH5CY",
+                    "revenuePenetration": 9.87,
+                    "lostRevenueDueToOOS": 17.82,
+                    "couponsRevenuePenetration": 17,
+                    "shareOfCouponSubscriptions": 20.04,
+                    "sku": "SD-RES-121973",
+                    "fulfillmentChannelType": "MERCHANT",
+                    "timeInterval": {
+                      "endDate": "2023-03-11T00:00:00Z",
+                      "startDate": "2023-03-05T00:00:00Z"
+                    },
+                    "currencyCode": "USD"
+                  }
+                ],
+                "pagination": {
+                  "totalResults": 17
+                }
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "filters": {
+                            "aggregationFrequency": "YEAR",
+                            "timeInterval": {
+                              "startDate": "2022-01-01T00:00:00Z",
+                              "endDate": "2022-12-31T00:00:00Z"
+                            },
+                            "marketplaceId": "ATVPDKIKX0DER",
+                            "programTypes": [
+                              "SUBSCRIBE_AND_SAVE"
+                            ],
+                            "timePeriodType": "PERFORMANCE",
+                            "asins": [
+                              "B07CYBR5GZ",
+                              "B07CYJJW8H"
+                            ]
+                          },
+                          "pagination": {
+                            "limit": 2,
+                            "offset": 0
+                          },
+                          "sort": {
+                            "order": "ASC",
+                            "key": "TOTAL_SUBSCRIPTIONS_REVENUE"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "offers": [
+                      {
+                        "asin": "B07CYBR5GZ",
+                        "sku": "SD-RES-101973",
+                        "fulfillmentChannelType": "AMAZON",
+                        "notDeliveredDueToOOS": 10.2,
+                        "totalSubscriptionsRevenue": 100.45,
+                        "revenuePenetration": 23.6,
+                        "shippedSubscriptionUnits": 100,
+                        "activeSubscriptions": 100,
+                        "lostRevenueDueToOOS": 12.32,
+                        "couponsRevenuePenetration": 10,
+                        "shareOfCouponSubscriptions": 20.04,
+                        "timeInterval": {
+                          "startDate": "2022-01-01T00:00:00Z",
+                          "endDate": "2022-12-31T00:00:00Z"
+                        },
+                        "currencyCode": "USD"
+                      },
+                      {
+                        "asin": "B07CYJJW8H",
+                        "sku": "SD-RES-121973",
+                        "fulfillmentChannelType": "MERCHANT",
+                        "notDeliveredDueToOOS": 12.78,
+                        "totalSubscriptionsRevenue": 80.11,
+                        "revenuePenetration": 35.9,
+                        "shippedSubscriptionUnits": 100,
+                        "activeSubscriptions": 100,
+                        "lostRevenueDueToOOS": 17.82,
+                        "couponsRevenuePenetration": 17,
+                        "shareOfCouponSubscriptions": 19.2,
+                        "timeInterval": {
+                          "startDate": "2022-01-01T00:00:00Z",
+                          "endDate": "2022-12-31T00:00:00Z"
+                        },
+                        "currencyCode": "USD"
+                      }
+                    ],
+                    "pagination": {
+                      "totalResults": 17
+                    }
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "body": {
+                        "value": {
+                          "filters": {
+                            "aggregationFrequency": "DAY",
+                            "timeInterval": {
+                              "startDate": "2022-01-01T00:00:00Z",
+                              "endDate": "2022-12-31T00:00:00Z"
+                            },
+                            "marketplaceId": "ATVPDKIKX0DER",
+                            "programTypes": [
+                              "SUBSCRIBE_AND_SAVE"
+                            ],
+                            "timePeriodType": "PERFORMANCE",
+                            "asins": [
+                              "B07CYBR5GZ"
+                            ]
+                          },
+                          "pagination": {
+                            "limit": 1,
+                            "offset": 0
+                          },
+                          "sort": {
+                            "order": "ASC",
+                            "key": "TOTAL_SUBSCRIPTIONS_REVENUE"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "InvalidInput",
+                        "message": "Unsupported aggregationFrequency is provided. Only WEEK, MONTH, QUARTER and YEAR are supported"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "401": {
+            "description": "The request's Authorization header is not formatted correctly or does not contain a valid token.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "404": {
+            "description": "The specified resource does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "type": "string",
+                "description": "Your rate limit (requests per second) for this operation."
+              },
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "type": "string",
+                "description": "Unique request reference identifier."
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "ListOfferMetricsRequestPagination": {
+      "description": "Use these parameters to paginate through the response.",
+      "type": "object",
+      "required": [
+        "limit",
+        "offset"
+      ],
+      "properties": {
+        "limit": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The maximum number of results to return in the response.",
+          "minimum": 1,
+          "maximum": 500
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The offset from which to retrieve the number of results specified by the `limit` value. The first result is at offset 0.",
+          "minimum": 0,
+          "maximum": 9000
+        }
+      }
+    },
+    "ListOfferMetricsResponse": {
+      "description": "The response schema for the `listOfferMetrics` operation.",
+      "type": "object",
+      "properties": {
+        "offers": {
+          "type": "array",
+          "description": "A list of offers and associated metrics.",
+          "items": {
+            "$ref": "#/definitions/ListOfferMetricsResponseOffer"
+          }
+        },
+        "pagination": {
+          "description": "Use these parameters to paginate through the response.",
+          "$ref": "#/definitions/PaginationResponse"
+        }
+      }
+    },
+    "PaginationResponse": {
+      "description": "Use these parameters to paginate through the response.",
+      "type": "object",
+      "properties": {
+        "totalResults": {
+          "type": "integer",
+          "format": "int64",
+          "minimum": 0,
+          "description": "Total number of results matching the given filter criteria."
+        }
+      }
+    },
+    "MarketplaceId": {
+      "type": "string",
+      "description": "The marketplace identifier. The supported marketplaces for both sellers and vendors are US, CA, ES, UK, FR, IT, IN, DE, and JP. The supported marketplaces for vendors only are BR, AU, MX, AE, and NL. Refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids) to find the identifier for the marketplace."
+    },
+    "FulfillmentChannelType": {
+      "type": "string",
+      "description": "The fulfillment channel type of an offer. Note that this is only valid for sellers and not for vendors.",
+      "enum": [
+        "AMAZON",
+        "MERCHANT"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "AMAZON",
+          "description": "Orders for this offer are fulfilled by Amazon."
+        },
+        {
+          "value": "MERCHANT",
+          "description": "Orders for this offer are fulfilled by the merchant."
+        }
+      ]
+    },
+    "ErrorList": {
+      "type": "object",
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "required": [
+        "errors"
+      ],
+      "properties": {
+        "errors": {
+          "type": "array",
+          "description": "A list of error responses returned when a request is unsuccessful.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          }
+        }
+      }
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ]
+    },
+    "TimeInterval": {
+      "type": "object",
+      "description": "A date-time interval in ISO 8601 format used to compute metrics. Only the date is required, but you must pass the complete date and time value. For example, November 11, 2022 should be passed as \"2022-11-11T00:00:00Z\". Note that only data for the trailing 2 years is supported.\n\n**Note**:\n* The `listOfferMetrics` operation only supports a time interval which covers a single unit of the aggregation frequency. For example, for a MONTH aggregation frequency, the duration of the interval between the startDate and endDate can not be more than 1 month.\n* For the `getSellingPartnerMetrics` operation with DAY aggregation frequency, the time interval cannot exceed 31 days.",
+      "required": [
+        "startDate",
+        "endDate"
+      ],
+      "properties": {
+        "startDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this object is used as a request parameter, the specified `startDate` is adjusted based on the aggregation frequency.\n\n* For `DAY` the metric is computed from the specific day indicated by the `startDate`.\n* For `WEEK` the metric is computed from the first day of the week (Monday, based on ISO 8601) that contains the `startDate`.\n* For `MONTH` the metric is computed from the first day of the month that contains the `startDate`.\n* For `QUARTER` the metric is computed from the first day of the quarter that contains the `startDate`.\n* For `YEAR` the metric is computed from the first day of the year that contains the `startDate`."
+        },
+        "endDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "When this object is used as a request parameter, the specified `endDate` is adjusted based on the aggregation frequency.\n\n* For `DAY` the metric is computed up to the specific day indicated by the `endDate`.\n* For `WEEK` the metric is computed up to the last day of the week (Sunday, based on ISO 8601) that contains the `endDate`.\n* For `MONTH`, the metric is computed up to the last day of the month that contains the `endDate`.\n* For `QUARTER` the metric is computed up to the last day of the quarter that contains the `endDate`.\n* For `YEAR` the metric is computed up to the last day of the year that contains the `endDate`.\n Note: The end date may be adjusted to a lower value based on the data available in our system."
+        }
+      }
+    },
+    "TimePeriodType": {
+      "type": "string",
+      "description": "The time period type that determines whether the metrics requested are backward-looking (performance) or forward-looking (forecast).",
+      "enum": [
+        "PERFORMANCE",
+        "FORECAST"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "PERFORMANCE",
+          "description": "Indicates past performance metrics."
+        },
+        {
+          "value": "FORECAST",
+          "description": "Indicates forecasted metrics. Only `TOTAL_SUBSCRIPTIONS_REVENUE` and `SHIPPED_SUBSCRIPTION_UNITS` are supported. Forecast data is supported for sellers but not for vendors."
+        }
+      ]
+    },
+    "ListOfferMetricsRequestFilters": {
+      "type": "object",
+      "description": "Use these parameters to filter results. Any result must match all provided parameters. For parameters that accept multiple values (arrays), the API returns results that match at least one value in the array.",
+      "required": [
+        "timeInterval",
+        "timePeriodType",
+        "programTypes",
+        "marketplaceId"
+      ],
+      "properties": {
+        "aggregationFrequency": {
+          "$ref": "#/definitions/AggregationFrequency"
+        },
+        "timeInterval": {
+          "description": "A time interval used to compute metrics.",
+          "$ref": "#/definitions/TimeInterval"
+        },
+        "timePeriodType": {
+          "$ref": "#/definitions/TimePeriodType"
+        },
+        "marketplaceId": {
+          "description": "The marketplace identifier. The supported marketplaces for both sellers and vendors are US, CA, ES, UK, FR, IT, IN, DE, and JP. The supported marketplaces for vendors only are BR, AU, MX, AE, and NL. Refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids) to find the identifier for the marketplace.",
+          "$ref": "#/definitions/MarketplaceId"
+        },
+        "programTypes": {
+          "$ref": "#/definitions/ProgramTypes"
+        },
+        "asins": {
+          "type": "array",
+          "description": "A list of Amazon Standard Identification Numbers (ASINs) to filter by.",
+          "items": {
+            "type": "string",
+            "description": "Amazon Standard Identification Number."
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 20
+        },
+        "skus": {
+          "type": "array",
+          "description": "[Applicable only for Sellers] A list of SKUs to filter by.",
+          "items": {
+            "type": "string",
+            "description": "Stock Keeping Unit."
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 20
+        },
+        "fulfillmentChannelTypes": {
+          "type": "array",
+          "description": "[Applicable only for Sellers] The fulfillment channel types to filter by.",
+          "items": {
+            "$ref": "#/definitions/FulfillmentChannelType"
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "brandNames": {
+          "type": "array",
+          "description": "[Applicable only for US marketplace] A list of brand names to filter by.",
+          "items": {
+            "type": "string",
+            "description": "Brand name."
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 20
+        },
+        "productGroups": {
+          "type": "array",
+          "description": "[Applicable only for Vendors] A list of product group names to filter by.",
+          "items": {
+            "type": "string",
+            "description": "Product group name."
+          },
+          "uniqueItems": true,
+          "minItems": 1,
+          "maxItems": 20
+        }
+      }
+    },
+    "ProgramTypes": {
+      "type": "array",
+      "description": "A list of replenishment program types.",
+      "items": {
+        "$ref": "#/definitions/ProgramType"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "ListOfferMetricsRequest": {
+      "description": "The request body for the `listOfferMetrics` operation.",
+      "type": "object",
+      "required": [
+        "pagination",
+        "filters"
+      ],
+      "properties": {
+        "pagination": {
+          "$ref": "#/definitions/ListOfferMetricsRequestPagination",
+          "description": "Use these parameters to paginate through the response."
+        },
+        "sort": {
+          "description": "Use these parameters to sort the response.",
+          "$ref": "#/definitions/ListOfferMetricsRequestSort"
+        },
+        "filters": {
+          "description": "Use these parameters to filter results. Any result must match all provided parameters. For parameters that accept multiple values (arrays), the API returns results that match at least one value in the array.",
+          "$ref": "#/definitions/ListOfferMetricsRequestFilters"
+        }
+      }
+    },
+    "ListOfferMetricsSortKey": {
+      "type": "string",
+      "description": "The attribute to use to sort the results.",
+      "enum": [
+        "SHIPPED_SUBSCRIPTION_UNITS",
+        "TOTAL_SUBSCRIPTIONS_REVENUE",
+        "ACTIVE_SUBSCRIPTIONS",
+        "NEXT_90DAYS_SHIPPED_SUBSCRIPTION_UNITS",
+        "NEXT_60DAYS_SHIPPED_SUBSCRIPTION_UNITS",
+        "NEXT_30DAYS_SHIPPED_SUBSCRIPTION_UNITS",
+        "NEXT_90DAYS_TOTAL_SUBSCRIPTIONS_REVENUE",
+        "NEXT_60DAYS_TOTAL_SUBSCRIPTIONS_REVENUE",
+        "NEXT_30DAYS_TOTAL_SUBSCRIPTIONS_REVENUE"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "SHIPPED_SUBSCRIPTION_UNITS",
+          "description": "The number of units shipped to the subscribers over a period of time. Applicable to `PERFORMANCE` `timePeriodType`."
+        },
+        {
+          "value": "TOTAL_SUBSCRIPTIONS_REVENUE",
+          "description": "The revenue generated from subscriptions over a period of time. Applicable to `PERFORMANCE` `timePeriodType`."
+        },
+        {
+          "value": "ACTIVE_SUBSCRIPTIONS",
+          "description": "The number of active subscriptions present at the end of the period. Applicable to `PERFORMANCE` `timePeriodType`."
+        },
+        {
+          "value": "NEXT_90DAYS_SHIPPED_SUBSCRIPTION_UNITS",
+          "description": "The forecasted shipped subscription units for the next 90 days. Applicable to `FORECAST` `timePeriodType`."
+        },
+        {
+          "value": "NEXT_60DAYS_SHIPPED_SUBSCRIPTION_UNITS",
+          "description": "The forecasted shipped subscription units for the next 60 days. Applicable to `FORECAST` `timePeriodType`."
+        },
+        {
+          "value": "NEXT_30DAYS_SHIPPED_SUBSCRIPTION_UNITS",
+          "description": "The forecasted shipped subscription units for the next 30 days. Applicable to `FORECAST` `timePeriodType`."
+        },
+        {
+          "value": "NEXT_90DAYS_TOTAL_SUBSCRIPTIONS_REVENUE",
+          "description": "The forecasted total subscription revenue for the next 90 days. Applicable to `FORECAST` `timePeriodType`."
+        },
+        {
+          "value": "NEXT_60DAYS_TOTAL_SUBSCRIPTIONS_REVENUE",
+          "description": "The forecasted total subscription revenue for the next 60 days. Applicable to `FORECAST` `timePeriodType`."
+        },
+        {
+          "value": "NEXT_30DAYS_TOTAL_SUBSCRIPTIONS_REVENUE",
+          "description": "The forecasted total subscription revenue for the next 30 days. Applicable to `FORECAST` `timePeriodType`."
+        }
+      ]
+    },
+    "SortOrder": {
+      "type": "string",
+      "description": "The sort order.",
+      "enum": [
+        "ASC",
+        "DESC"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "ASC",
+          "description": "Sort the results in ascending order."
+        },
+        {
+          "value": "DESC",
+          "description": "Sort the results in descending order."
+        }
+      ]
+    },
+    "ProgramType": {
+      "type": "string",
+      "description": "The replenishment program type.",
+      "enum": [
+        "SUBSCRIBE_AND_SAVE"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "SUBSCRIBE_AND_SAVE",
+          "description": "Subscribe and Save Program."
+        }
+      ]
+    },
+    "ListOfferMetricsResponseOffer": {
+      "type": "object",
+      "description": "An object which contains offer metrics.",
+      "properties": {
+        "asin": {
+          "type": "string",
+          "description": "The Amazon Standard Identification Number (ASIN)."
+        },
+        "sku": {
+          "type": "string",
+          "description": "The SKU. This property is only supported for sellers and not for vendors."
+        },
+        "fulfillmentChannelType": {
+          "description": "The fulfillment channel type of an offer. This property is only supported for sellers and not for vendors.",
+          "$ref": "#/definitions/FulfillmentChannelType"
+        },
+        "brandName": {
+          "type": "string",
+          "description": "The brand name associated with the offer."
+        },
+        "productGroup": {
+          "type": "string",
+          "description": "The product group associated with the offer. This property is only supported for vendors and not for sellers."
+        },
+        "notDeliveredDueToOOS": {
+          "description": "The percentage of items that were not shipped out of the total shipped units over a period of time due to being out of stock. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "totalSubscriptionsRevenue": {
+          "description": "The revenue generated from subscriptions over a period of time. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "shippedSubscriptionUnits": {
+          "description": "The number of units shipped to the subscribers over a period of time. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "int64",
+          "minimum": 0
+        },
+        "activeSubscriptions": {
+          "description": "The number of active subscriptions present at the end of the period. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "int64",
+          "minimum": 0
+        },
+        "revenuePenetration": {
+          "description": "The percentage of total program revenue out of total product revenue. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "lostRevenueDueToOOS": {
+          "description": "The revenue that would have been generated had there not been out of stock. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "couponsRevenuePenetration": {
+          "description": "The percentage of revenue from ASINs with coupons out of total revenue from all ASINs. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "shareOfCouponSubscriptions": {
+          "description": "The percentage of new subscriptions from coupons. Applicable to `PERFORMANCE` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "next30DayTotalSubscriptionsRevenue": {
+          "description": "The forecasted total subscription revenue for the next 30 days. Applicable to `FORECAST` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "next60DayTotalSubscriptionsRevenue": {
+          "description": "The forecasted total subscription revenue for the next 60 days. Applicable to `FORECAST` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "next90DayTotalSubscriptionsRevenue": {
+          "description": "The forecasted total subscription revenue for the next 90 days. Applicable to `FORECAST` `timePeriodType`.",
+          "type": "number",
+          "format": "double",
+          "minimum": 0
+        },
+        "next30DayShippedSubscriptionUnits": {
+          "description": "The forecasted shipped subscription units for the next 30 days. Applicable to `FORECAST` `timePeriodType`.",
+          "type": "number",
+          "format": "int64",
+          "minimum": 0
+        },
+        "next60DayShippedSubscriptionUnits": {
+          "description": "The forecasted shipped subscription units for the next 60 days. Applicable to `FORECAST` `timePeriodType`.",
+          "type": "number",
+          "format": "int64",
+          "minimum": 0
+        },
+        "next90DayShippedSubscriptionUnits": {
+          "description": "The forecasted shipped subscription units for the next 90 days. Applicable to `FORECAST` `timePeriodType`.",
+          "type": "number",
+          "format": "int64",
+          "minimum": 0
+        },
+        "timeInterval": {
+          "description": "A time interval used to compute metrics.",
+          "$ref": "#/definitions/TimeInterval"
+        },
+        "currencyCode": {
+          "type": "string",
+          "description": "The currency code in ISO 4217 format."
+        }
+      }
+    },
+    "AggregationFrequency": {
+      "description": "The time period used to group data in the response. Note that this is only valid for the `PERFORMANCE` time period type.",
+      "type": "string",
+      "enum": [
+        "DAY",
+        "WEEK",
+        "MONTH",
+        "QUARTER",
+        "YEAR"
+      ],
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "DAY",
+          "description": "ISO Calendar Day."
+        },
+        {
+          "value": "WEEK",
+          "description": "ISO Calendar Week."
+        },
+        {
+          "value": "MONTH",
+          "description": "ISO Calendar Month."
+        },
+        {
+          "value": "QUARTER",
+          "description": "ISO Calendar Quarter."
+        },
+        {
+          "value": "YEAR",
+          "description": "ISO Calendar Year."
+        }
+      ]
+    },
+    "ListOfferMetricsRequestSort": {
+      "type": "object",
+      "description": "Use these parameters to sort the response.",
+      "required": [
+        "order",
+        "key"
+      ],
+      "properties": {
+        "order": {
+          "description": "The sort order.",
+          "$ref": "#/definitions/SortOrder"
+        },
+        "key": {
+          "$ref": "#/definitions/ListOfferMetricsSortKey"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,419 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "description": "The Selling Partner API for Fulfillment By Amazon (FBA) Inbound. The FBA Inbound API enables building inbound workflows to create, manage, and send shipments into Amazon's fulfillment network. The API has interoperability with the Send-to-Amazon user interface.",
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "title": "The Selling Partner API for FBA inbound operations.",
+    "version": "2024-03-20"
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "x-components": {},
+  "paths": {
+    "/inbound/fba/2024-03-20/items/compliance": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The Marketplace ID. For a list of possible values, refer to [Marketplace IDs](https://developer-docs.amazon.com/sp-api/docs/marketplace-ids).",
+            "in": "query",
+            "maxLength": 20,
+            "minLength": 1,
+            "name": "marketplaceId",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateItemComplianceDetailsRequest"
+            },
+            "description": "The body of the request to `updateItemComplianceDetails`."
+          }
+        ],
+        "responses": {
+          "202": {
+            "description": "UpdateItemComplianceDetails 202 response",
+            "schema": {
+              "$ref": "#/definitions/UpdateItemComplianceDetailsResponse"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "ATVPDKIKX0DER"
+                      },
+                      "body": {
+                        "value": {
+                          "msku": "msku",
+                          "taxDetails": {
+                            "hsnCode": "720299",
+                            "declaredValue": {
+                              "code": "USD",
+                              "amount": 50.0
+                            },
+                            "taxRates": [
+                              {
+                                "taxType": "TOTAL_TAX",
+                                "gstRate": 1.0,
+                                "cessRate": 1.0
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "operationId": "1234abcd-1234-abcd-5678-1234abcd5678"
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "marketplaceId": {
+                        "value": "ATVPDKIKX0DER"
+                      },
+                      "body": {
+                        "value": {
+                          "msku": "badmsku",
+                          "taxDetails": {
+                            "hsnCode": "720299",
+                            "declaredValue": {
+                              "code": "USD",
+                              "amount": 50.0
+                            },
+                            "taxRates": [
+                              {
+                                "taxType": "TOTAL_TAX",
+                                "gstRate": 1.0,
+                                "cessRate": 1.0
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BadRequest",
+                        "message": "The requested msku does not exist for the specified marketplace."
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              },
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              }
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "tags": [
+          "fbaInbound"
+        ],
+        "description": "Update compliance details for a list of MSKUs. The details provided here are only used for the India (IN - A21TJRUUN4KGV) marketplace compliance validation.",
+        "operationId": "updateItemComplianceDetails"
+      }
+    }
+  },
+  "definitions": {
+    "TaxRate": {
+      "description": "Contains the type and rate of tax.",
+      "properties": {
+        "cessRate": {
+          "description": "Rate of cess tax.",
+          "type": "number"
+        },
+        "gstRate": {
+          "description": "Rate of gst tax.",
+          "type": "number"
+        },
+        "taxType": {
+          "description": "Type of tax. Possible values: `CGST`, `SGST`, `IGST`, `TOTAL_TAX`.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "ErrorList": {
+      "description": "A list of error responses returned when a request is unsuccessful.",
+      "properties": {
+        "errors": {
+          "description": "List of errors.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "required": [
+        "errors"
+      ],
+      "type": "object"
+    },
+    "Error": {
+      "description": "Error object containing information about what went wrong.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "maxLength": 256,
+          "minLength": 1,
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "maxLength": 8192,
+          "minLength": 0,
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "maxLength": 2048,
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object",
+      "example": {
+        "code": "FBA_ERROR_001",
+        "details": "The shipment is in a status that does not allow it to be edited.",
+        "message": "Invalid Request"
+      }
+    },
+    "Currency": {
+      "description": "The type and amount of currency.",
+      "properties": {
+        "amount": {
+          "description": "Decimal value of the currency.",
+          "type": "number"
+        },
+        "code": {
+          "description": "ISO 4217 standard of a currency code.",
+          "maxLength": 3,
+          "minLength": 3,
+          "type": "string"
+        }
+      },
+      "required": [
+        "amount",
+        "code"
+      ],
+      "type": "object"
+    },
+    "UpdateItemComplianceDetailsRequest": {
+      "description": "The `updateItemComplianceDetails` request.",
+      "properties": {
+        "msku": {
+          "description": "The merchant SKU, a merchant-supplied identifier for a specific SKU.",
+          "maxLength": 255,
+          "minLength": 1,
+          "type": "string"
+        },
+        "taxDetails": {
+          "$ref": "#/definitions/TaxDetails"
+        }
+      },
+      "required": [
+        "msku",
+        "taxDetails"
+      ],
+      "type": "object",
+      "example": {
+        "msku": "Sunglasses",
+        "taxDetails": {
+          "declaredValue": {
+            "amount": 5.5,
+            "code": "CAD"
+          },
+          "hsnCode": "hsnCode"
+        }
+      }
+    },
+    "TaxDetails": {
+      "description": "Information used to determine the tax compliance.",
+      "properties": {
+        "declaredValue": {
+          "$ref": "#/definitions/Currency"
+        },
+        "hsnCode": {
+          "description": "Harmonized System of Nomenclature code.",
+          "maxLength": 1024,
+          "minLength": 1,
+          "type": "string"
+        },
+        "taxRates": {
+          "description": "List of tax rates.",
+          "items": {
+            "$ref": "#/definitions/TaxRate"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "UpdateItemComplianceDetailsResponse": {
+      "description": "The `updateItemComplianceDetails` response.",
+      "properties": {
+        "operationId": {
+          "description": "UUID for the given operation.",
+          "maxLength": 38,
+          "minLength": 36,
+          "pattern": "^[a-zA-Z0-9-]*$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "operationId"
+      ],
+      "type": "object"
+    }
+  }
+}

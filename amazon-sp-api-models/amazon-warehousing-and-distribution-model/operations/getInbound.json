@@ -1,0 +1,1134 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "The Selling Partner API for Amazon Warehousing and Distribution",
+    "version": "2024-05-09",
+    "description": "The Selling Partner API for Amazon Warehousing and Distribution (AWD) provides programmatic access to information about AWD shipments and inventory. ",
+    "contact": {
+      "name": "Selling Partner API Developer Support",
+      "url": "https://sellercentral.amazon.com/gp/mws/contactus.html"
+    },
+    "license": {
+      "name": "Apache License 2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0"
+    }
+  },
+  "host": "sellingpartnerapi-na.amazon.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/awd/2024-05-09/inboundOrders/{orderId}": {
+      "get": {
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "description": "The ID of the inbound order that you want to retrieve.",
+            "in": "path",
+            "name": "orderId",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The 200 response for `getInbound`.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/InboundOrder"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "orderId": {
+                        "value": "TestOrderId"
+                      }
+                    }
+                  },
+                  "response": {
+                    "destinationDetails": {
+                      "destinationAddress": {
+                        "addressLine1": "address_1",
+                        "addressLine2": "address_2",
+                        "addressLine3": "address_3",
+                        "city": "Seattle",
+                        "countryCode": "US",
+                        "county": "Washington",
+                        "district": "District1",
+                        "name": "address_name",
+                        "phoneNumber": "+14155552671",
+                        "postalCode": "123456",
+                        "stateOrRegion": "Washington"
+                      },
+                      "destinationRegion": "us-east"
+                    },
+                    "createdAt": "2023-06-07T12:12:09.061Z",
+                    "externalReferenceId": "TestReferenceId",
+                    "orderId": "TestOrderId",
+                    "orderStatus": "DRAFT",
+                    "originAddress": {
+                      "addressLine1": "address_1",
+                      "addressLine2": "address_2",
+                      "addressLine3": "address_3",
+                      "city": "Seattle",
+                      "countryCode": "US",
+                      "county": "Washington",
+                      "district": "District1",
+                      "name": "address_name",
+                      "phoneNumber": "+14155552671",
+                      "postalCode": "123456",
+                      "stateOrRegion": "Washington"
+                    },
+                    "packagesToInbound": [
+                      {
+                        "count": 1,
+                        "distributionPackage": {
+                          "contents": {
+                            "packages": [],
+                            "products": [
+                              {
+                                "quantity": 1,
+                                "sku": "testPen",
+                                "expiration": "2025-06-07T12:12:09.061Z",
+                                "prepDetails": {
+                                  "prepCategory": "PERFORATED",
+                                  "prepOwner": "AMAZON",
+                                  "labelOwner": "SELF",
+                                  "prepInstructions": [
+                                    {
+                                      "prepType": "ITEM_POLYBAGGING",
+                                      "prepOwner": "AMAZON"
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          },
+                          "measurements": {
+                            "dimensions": {
+                              "height": 2.54,
+                              "length": 2.54,
+                              "unitOfMeasurement": "CENTIMETERS",
+                              "width": 2.54
+                            },
+                            "weight": {
+                              "unitOfMeasurement": "KILOGRAMS",
+                              "weight": 0.453592
+                            }
+                          },
+                          "type": "CASE"
+                        }
+                      }
+                    ],
+                    "updatedAt": "2023-06-07T12:12:09.061Z"
+                  }
+                }
+              ]
+            }
+          },
+          "400": {
+            "description": "Request has missing or invalid parameters and cannot be parsed.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            },
+            "x-amzn-api-sandbox": {
+              "static": [
+                {
+                  "request": {
+                    "parameters": {
+                      "orderId": {
+                        "value": " "
+                      }
+                    }
+                  },
+                  "response": {
+                    "errors": [
+                      {
+                        "code": "BAD_REQUEST",
+                        "details": "This exception is thrown when client inputs are invalid",
+                        "message": "Required parameter 'orderId' is missing in the request"
+                      }
+                    ]
+                  }
+                }
+              ]
+            }
+          },
+          "403": {
+            "description": "Indicates that access to the resource is forbidden. Possible reasons include Access Denied, Unauthorized, Expired Token, or Invalid Signature.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "404": {
+            "description": "The resource specified does not exist.",
+            "headers": {
+              "x-amzn-RateLimit-Limit": {
+                "description": "Your rate limit (requests per second) for this operation.",
+                "type": "string"
+              },
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "413": {
+            "description": "The request size exceeded the maximum accepted size.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "415": {
+            "description": "The request payload is in an unsupported format.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "429": {
+            "description": "The frequency of requests was greater than allowed.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "500": {
+            "description": "An unexpected condition occurred that prevented the server from fulfilling the request.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          },
+          "503": {
+            "description": "Temporary overloading or maintenance of the server.",
+            "headers": {
+              "x-amzn-RequestId": {
+                "description": "Unique request reference identifier.",
+                "type": "string"
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/ErrorList"
+            }
+          }
+        },
+        "tags": [
+          "awd"
+        ],
+        "description": "Retrieves an AWD inbound order.\n\n**Usage Plan:**\n\n| Rate (requests per second) | Burst |\n| ---- | ---- |\n| 2 | 2 |\n\nThe `x-amzn-RateLimit-Limit` response header returns the usage plan rate limits that were applied to the requested operation, when available. The preceding table indicates the default rate and burst values for this operation. Selling partners whose business demands require higher throughput may have higher rate and burst values than those shown here. For more information, refer to [Usage Plans and Rate Limits in the Selling Partner API](https://developer-docs.amazon.com/sp-api/docs/usage-plans-and-rate-limits-in-the-sp-api).",
+        "operationId": "getInbound"
+      }
+    }
+  },
+  "definitions": {
+    "PackageVolume": {
+      "description": "Represents the volume of the package with a unit of measurement.",
+      "properties": {
+        "unitOfMeasurement": {
+          "description": "Unit of measurement for the package volume.",
+          "$ref": "#/definitions/VolumeUnitOfMeasurement"
+        },
+        "volume": {
+          "description": "The package volume value.",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "unitOfMeasurement",
+        "volume"
+      ],
+      "type": "object"
+    },
+    "PackageDimensions": {
+      "description": "Dimensions of the package.",
+      "properties": {
+        "height": {
+          "description": "Height of the package.",
+          "format": "double",
+          "type": "number"
+        },
+        "length": {
+          "description": "Length of the package.",
+          "format": "double",
+          "type": "number"
+        },
+        "unitOfMeasurement": {
+          "description": "Unit of measurement for package dimensions.",
+          "$ref": "#/definitions/DimensionUnitOfMeasurement"
+        },
+        "width": {
+          "description": "Width of the package.",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "height",
+        "length",
+        "unitOfMeasurement",
+        "width"
+      ],
+      "type": "object"
+    },
+    "ProductQuantity": {
+      "description": "Represents a product with the SKU details and the corresponding quantity.",
+      "properties": {
+        "attributes": {
+          "description": "Contains attributes for this instance of the product. For example, item color, or other attributes that distinguish the product beyond the SKU. This is metadata for the product and Amazon does not process this data.",
+          "items": {
+            "$ref": "#/definitions/ProductAttribute"
+          },
+          "type": "array",
+          "example": {
+            "name": "TestAttribute",
+            "value": "TestAttributeValue"
+          }
+        },
+        "quantity": {
+          "description": "Product quantity.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "sku": {
+          "description": "The seller or merchant SKU.",
+          "type": "string"
+        },
+        "expiration": {
+          "description": "The expiration date for the SKU. Values are in [ISO 8601](https://developer-docs.amazon.com/sp-api/docs/iso-8601) date-time format.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "prepDetails": {
+          "description": "Preparation details of a product which contains the prep category, prep owner and the label owner.\nIf not passed while creating an inbound order, NO_PREP will be used on the product by-default.\nPrep instructions will be generated based on the category passed",
+          "$ref": "#/definitions/PrepDetails"
+        }
+      },
+      "required": [
+        "quantity",
+        "sku"
+      ],
+      "type": "object"
+    },
+    "ProductAttribute": {
+      "description": "Product instance attribute that is not described at the SKU level in the catalog.",
+      "properties": {
+        "name": {
+          "description": "Product attribute name.",
+          "type": "string",
+          "example": "TestAttribute"
+        },
+        "value": {
+          "description": "Product attribute value.",
+          "type": "string",
+          "example": "TestAttributeValue"
+        }
+      },
+      "type": "object",
+      "example": {
+        "name": "TestAttribute",
+        "value": "TestAttributeValue"
+      }
+    },
+    "DistributionPackageContents": {
+      "description": "Represents the contents inside a package, which can be products or a nested package.",
+      "properties": {
+        "packages": {
+          "description": "This is required only when `DistributionPackageType=PALLET`.",
+          "items": {
+            "$ref": "#/definitions/DistributionPackageQuantity"
+          },
+          "type": "array"
+        },
+        "products": {
+          "description": "This is required only when `DistributionPackageType=CASE`.",
+          "items": {
+            "$ref": "#/definitions/ProductQuantity"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "DistributionPackage": {
+      "description": "Represents an AWD distribution package.",
+      "properties": {
+        "contents": {
+          "description": "The contents appropriate for the type.",
+          "$ref": "#/definitions/DistributionPackageContents"
+        },
+        "measurements": {
+          "description": "Measurements of a package, including weight, volume, and dimensions.",
+          "$ref": "#/definitions/MeasurementData"
+        },
+        "type": {
+          "description": "Type of distribution package.",
+          "$ref": "#/definitions/DistributionPackageType"
+        }
+      },
+      "required": [
+        "contents",
+        "measurements",
+        "type"
+      ],
+      "type": "object",
+      "example": {
+        "contents": {
+          "products": [
+            {
+              "quantity": 1,
+              "sku": "testPen",
+              "expiration": "2025-06-07T12:12:09.061Z",
+              "prepDetails": {
+                "prepCategory": "PERFORATED",
+                "prepOwner": "AMAZON",
+                "labelOwner": "SELF",
+                "prepInstructions": [
+                  {
+                    "prepType": "ITEM_POLYBAGGING",
+                    "prepOwner": "AMAZON"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "measurements": {
+          "dimensions": {
+            "height": 1,
+            "length": 1,
+            "unitOfMeasurement": "INCHES",
+            "width": 1
+          },
+          "volume": {
+            "unitOfMeasurement": "CUIN",
+            "volume": 1
+          },
+          "weight": {
+            "unitOfMeasurement": "POUNDS",
+            "weight": 1
+          }
+        },
+        "type": "CASE"
+      }
+    },
+    "PrepInstruction": {
+      "description": "Information pertaining to the preparation of inbound products.",
+      "properties": {
+        "prepOwner": {
+          "$ref": "#/definitions/PrepOwner"
+        },
+        "prepType": {
+          "description": "The type of preparation to be done. For more information about preparing items, refer to [Prep guidance](https://sellercentral.amazon.com/help/hub/reference/external/GF4G7547KSLDX2KC) on Seller Central.",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "LabelOwner": {
+      "description": "The entity that labels the products. `AMAZON` is not an accepted value in the US marketplace.",
+      "enum": [
+        "AMAZON",
+        "SELF"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Amazon labels the products.",
+          "value": "AMAZON"
+        },
+        {
+          "description": "The seller labels the products.",
+          "value": "SELF"
+        }
+      ]
+    },
+    "PrepOwner": {
+      "description": "The owner of the preparations, if special preparations are required. `AMAZON` is not an accepted value in the US marketplace.",
+      "enum": [
+        "AMAZON",
+        "SELF"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Amazon owns the preparation.",
+          "value": "AMAZON"
+        },
+        {
+          "description": "The seller owns the preparation",
+          "value": "SELF"
+        }
+      ]
+    },
+    "DistributionPackageType": {
+      "description": "Type of distribution packages.",
+      "enum": [
+        "CASE",
+        "PALLET"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Package type `CASE`.",
+          "value": "CASE"
+        },
+        {
+          "description": "Package type `PALLET`. Currently, the `PALLET` package type is not supported.",
+          "value": "PALLET"
+        }
+      ],
+      "example": "CASE"
+    },
+    "DistributionPackageQuantity": {
+      "description": "Represents a distribution package with its respective quantity.",
+      "properties": {
+        "count": {
+          "description": "Number of cases or pallets with the same package configuration.",
+          "format": "int32",
+          "type": "integer"
+        },
+        "distributionPackage": {
+          "$ref": "#/definitions/DistributionPackage"
+        }
+      },
+      "required": [
+        "count",
+        "distributionPackage"
+      ],
+      "type": "object",
+      "example": {
+        "count": 1,
+        "distributionPackage": {
+          "contents": {
+            "products": [
+              {
+                "quantity": 1,
+                "sku": "testPen",
+                "expiration": "2025-06-07T12:12:09.061Z",
+                "prepDetails": {
+                  "prepCategory": "PERFORATED",
+                  "prepOwner": "AMAZON",
+                  "labelOwner": "SELF",
+                  "prepInstructions": [
+                    {
+                      "prepType": "ITEM_POLYBAGGING",
+                      "prepOwner": "AMAZON"
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "measurements": {
+            "dimensions": {
+              "height": 1,
+              "length": 1,
+              "unitOfMeasurement": "INCHES",
+              "width": 1
+            },
+            "volume": {
+              "unitOfMeasurement": "CUIN",
+              "volume": 1
+            },
+            "weight": {
+              "unitOfMeasurement": "POUNDS",
+              "weight": 1
+            }
+          },
+          "type": "CASE"
+        }
+      }
+    },
+    "PrepCategory": {
+      "description": "The preparation category for shipping an item to Amazon's fulfillment network.",
+      "enum": [
+        "ADULT",
+        "BABY",
+        "FC_PROVIDED",
+        "FRAGILE",
+        "GRANULAR",
+        "HANGER",
+        "LIQUID",
+        "PERFORATED",
+        "SET",
+        "SHARP",
+        "SMALL",
+        "TEXTILE",
+        "NO_PREP",
+        "UNKNOWN"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "value": "ADULT",
+          "description": "Displays potentially offensive material such as profanity or nudity."
+        },
+        {
+          "value": "BABY",
+          "description": "Made for a child aged three years or younger, packaging with cutouts greater than one square inch."
+        },
+        {
+          "value": "FC_PROVIDED",
+          "description": "A prep type has been defined by the Fulfillment Center. This value is provided by Amazon and cannot be used as an input."
+        },
+        {
+          "value": "FRAGILE",
+          "description": "Glass or otherwise fragile, or a liquid in a glass container."
+        },
+        {
+          "value": "GRANULAR",
+          "description": "Made of powder, pellets, or granular material."
+        },
+        {
+          "value": "HANGER",
+          "description": "Made of cloth or fabric and intended to be put on a hanger."
+        },
+        {
+          "value": "LIQUID",
+          "description": "Liquid or viscous without a double seal."
+        },
+        {
+          "value": "PERFORATED",
+          "description": "In packaging that has a perforated opening."
+        },
+        {
+          "value": "SET",
+          "description": "Multiple items that are sold as one unit."
+        },
+        {
+          "value": "SHARP",
+          "description": "Sharp and easily exposed, not already contained in protective packaging."
+        },
+        {
+          "value": "SMALL",
+          "description": "Longest side less than 2 1/8 inches (width of a credit card)."
+        },
+        {
+          "value": "TEXTILE",
+          "description": "Made of cloth or fabric that could be damaged by dirt, dust, moisture, or liquid."
+        },
+        {
+          "value": "NO_PREP",
+          "description": "Does not require prep."
+        },
+        {
+          "value": "UNKNOWN",
+          "description": "An unknown prep category was found. This value is provided by Amazon and cannot be used as an input."
+        }
+      ]
+    },
+    "ErrorList": {
+      "description": "This exception is thrown when client inputs are invalid.",
+      "properties": {
+        "errors": {
+          "description": "A list of errors describing the failures.",
+          "items": {
+            "$ref": "#/definitions/Error"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object",
+      "required": [
+        "errors"
+      ]
+    },
+    "InboundOrder": {
+      "description": "Represents an AWD inbound order.",
+      "properties": {
+        "createdAt": {
+          "description": "Date when this order was created.",
+          "format": "date-time",
+          "type": "string"
+        },
+        "destinationDetails": {
+          "description": "Destination details of an inbound order based on the assigned region and DC for the order.",
+          "$ref": "#/definitions/DestinationDetails"
+        },
+        "externalReferenceId": {
+          "description": "Reference ID that can be used to correlate the order with partner resources.",
+          "type": "string",
+          "example": "TestReferenceId"
+        },
+        "orderId": {
+          "description": "Inbound order ID.",
+          "type": "string"
+        },
+        "orderStatus": {
+          "description": "Inbound order status.",
+          "$ref": "#/definitions/InboundStatus"
+        },
+        "originAddress": {
+          "description": "Origin address from where the inbound order will be shipped.",
+          "$ref": "#/definitions/Address"
+        },
+        "packagesToInbound": {
+          "description": "List of packages to be inbounded.",
+          "items": {
+            "$ref": "#/definitions/DistributionPackageQuantity"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "preferences": {
+          "$ref": "#/definitions/InboundPreferences"
+        },
+        "updatedAt": {
+          "description": "Date when this order was last updated.",
+          "format": "date-time",
+          "type": "string"
+        }
+      },
+      "required": [
+        "createdAt",
+        "orderId",
+        "orderStatus",
+        "originAddress",
+        "packagesToInbound"
+      ],
+      "type": "object",
+      "example": {
+        "destinationDetails": {
+          "destinationAddress": {
+            "addressLine1": "address_1",
+            "addressLine2": "address_2",
+            "addressLine3": "address_3",
+            "city": "Seattle",
+            "countryCode": "US",
+            "county": "Washington",
+            "district": "District1",
+            "name": "address_name",
+            "phoneNumber": "+14155552671",
+            "postalCode": "123456",
+            "stateOrRegion": "Washington"
+          },
+          "destinationRegion": "us-east",
+          "shipmentId": "TestShipmentId"
+        },
+        "createdAt": "2023-06-07T12:12:09.061Z",
+        "externalReferenceId": "TestReferenceId",
+        "orderId": "TestOrderId",
+        "orderStatus": "DRAFT",
+        "originAddress": {
+          "addressLine1": "address_1",
+          "addressLine2": "address_2",
+          "addressLine3": "address_3",
+          "city": "Seattle",
+          "countryCode": "US",
+          "county": "Washington",
+          "district": "District1",
+          "name": "address_name",
+          "phoneNumber": "+14155552671",
+          "postalCode": "123456",
+          "stateOrRegion": "Washington"
+        },
+        "packagesToInbound": [
+          {
+            "count": 1,
+            "distributionPackage": {
+              "contents": {
+                "packages": [],
+                "products": [
+                  {
+                    "quantity": 1,
+                    "sku": "testPen",
+                    "expiration": "2025-06-07T12:12:09.061Z",
+                    "prepDetails": {
+                      "prepCategory": "PERFORATED",
+                      "prepOwner": "AMAZON",
+                      "labelOwner": "SELF",
+                      "prepInstructions": [
+                        {
+                          "prepType": "ITEM_POLYBAGGING",
+                          "prepOwner": "AMAZON"
+                        }
+                      ]
+                    }
+                  }
+                ]
+              },
+              "measurements": {
+                "dimensions": {
+                  "height": 2.54,
+                  "length": 2.54,
+                  "unitOfMeasurement": "CENTIMETERS",
+                  "width": 2.54
+                },
+                "weight": {
+                  "unitOfMeasurement": "KILOGRAMS",
+                  "weight": 0.453592
+                }
+              },
+              "type": "CASE"
+            }
+          }
+        ],
+        "updatedAt": "2023-06-07T12:12:09.061Z",
+        "preferences": {
+          "destinationRegion": "us-west"
+        }
+      }
+    },
+    "Error": {
+      "description": "Error response returned when the request is unsuccessful.",
+      "properties": {
+        "code": {
+          "description": "An error code that identifies the type of error that occurred.",
+          "type": "string"
+        },
+        "details": {
+          "description": "Additional details that can help the caller understand or fix the issue.",
+          "type": "string"
+        },
+        "message": {
+          "description": "A message that describes the error condition.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code",
+        "message"
+      ],
+      "type": "object"
+    },
+    "PrepDetails": {
+      "description": "The preparation details for a product. This contains the prep category, prep owner, and label owner.\nPrep instructions are generated based on the specified category.",
+      "properties": {
+        "labelOwner": {
+          "$ref": "#/definitions/LabelOwner"
+        },
+        "prepCategory": {
+          "description": "The preparation category for shipping an item to Amazon's fulfillment network.",
+          "$ref": "#/definitions/PrepCategory"
+        },
+        "prepInstructions": {
+          "description": "Contains information about the preparation of the inbound products. The system auto-generates this field with the use of the `prepCategory`, and if you attempt to pass a value for this field, the system will ignore it.",
+          "items": {
+            "$ref": "#/definitions/PrepInstruction"
+          },
+          "type": "array"
+        },
+        "prepOwner": {
+          "$ref": "#/definitions/PrepOwner"
+        }
+      },
+      "type": "object"
+    },
+    "VolumeUnitOfMeasurement": {
+      "description": "Unit of measurement for the package volume.",
+      "enum": [
+        "CU_IN",
+        "CBM",
+        "CC"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Denotes volume measurement in cubic inches.",
+          "value": "CU_IN"
+        },
+        {
+          "description": "Denotes volume measurement in cubic meters.",
+          "value": "CBM"
+        },
+        {
+          "description": "Denotes volume measurement in cubic centimeters.",
+          "value": "CC"
+        }
+      ]
+    },
+    "PackageWeight": {
+      "description": "Represents the weight of the package with a unit of measurement.",
+      "properties": {
+        "unitOfMeasurement": {
+          "description": "Unit of measurement for the package weight.",
+          "$ref": "#/definitions/WeightUnitOfMeasurement"
+        },
+        "weight": {
+          "description": "The package weight value.",
+          "format": "double",
+          "type": "number"
+        }
+      },
+      "required": [
+        "unitOfMeasurement",
+        "weight"
+      ],
+      "type": "object"
+    },
+    "InboundPreferences": {
+      "description": "Preferences that can be passed in context of an inbound order",
+      "properties": {
+        "destinationRegion": {
+          "description": "Pass a preferred region so that the inbound order can be shipped to an AWD warehouse located in that region. This doesn't guarantee the order to be assigned in the specified destination region as it depends on warehouse capacity availability. AWD currently supports following region IDs: [us-west, us-east, us-southcentral, us-southeast]",
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "DimensionUnitOfMeasurement": {
+      "description": "Unit of measurement for package dimensions.",
+      "enum": [
+        "INCHES",
+        "CENTIMETERS"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Denotes package dimensions in inches.",
+          "value": "INCHES"
+        },
+        {
+          "description": "Denotes package dimensions in centimeters.",
+          "value": "CENTIMETERS"
+        }
+      ],
+      "example": "INCHES"
+    },
+    "DestinationDetails": {
+      "description": "Destination details of an inbound order based on the assigned region and DC for the order.",
+      "properties": {
+        "destinationAddress": {
+          "description": "Destination address of the AWD facility where the shipment will be shipped to",
+          "$ref": "#/definitions/Address"
+        },
+        "destinationRegion": {
+          "description": "Assigned region where the order will be shipped. This can differ from what was passed as preference. AWD currently supports following region IDs: [us-west, us-east, us-southcentral, us-southeast]",
+          "type": "string",
+          "example": "us-west"
+        },
+        "shipmentId": {
+          "description": "Unique ID of the confirmed shipment being shipped to the assigned destination. This will be available only after an inbound order is confirmed and can be used to track the shipment.",
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "type": "object",
+      "example": {
+        "destinationAddress": {
+          "addressLine1": "address_1",
+          "addressLine2": "address_2",
+          "addressLine3": "address_3",
+          "city": "Seattle",
+          "countryCode": "US",
+          "county": "Washington",
+          "district": "District1",
+          "name": "address_name",
+          "phoneNumber": "+14155552671",
+          "postalCode": "123456",
+          "stateOrRegion": "Washington"
+        },
+        "destinationRegion": "us-east"
+      }
+    },
+    "InboundStatus": {
+      "description": "The supported statuses for an inbound order.",
+      "enum": [
+        "DRAFT",
+        "VALIDATING",
+        "CONFIRMED",
+        "CLOSED",
+        "EXPIRED",
+        "CANCELLED"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "A newly created inbound order will start in this state.",
+          "value": "DRAFT"
+        },
+        {
+          "description": "The order is in this state while being updated. Once updated, the order will enter the updated state.",
+          "value": "VALIDATING"
+        },
+        {
+          "description": "The order enters this state as soon as the order is confirmed.",
+          "value": "CONFIRMED"
+        },
+        {
+          "description": "The order enters this state when all associated shipments are closed.",
+          "value": "CLOSED"
+        },
+        {
+          "description": "The order enters this state if it is not confirmed within a time limit.",
+          "value": "EXPIRED"
+        },
+        {
+          "description": "The order enters this state when it is cancelled.",
+          "value": "CANCELLED"
+        }
+      ]
+    },
+    "MeasurementData": {
+      "description": "Package weight and dimension.",
+      "properties": {
+        "dimensions": {
+          "description": "Dimensions of the package. Dimensions are required when creating an inbound or outbound order.",
+          "$ref": "#/definitions/PackageDimensions"
+        },
+        "volume": {
+          "description": "Volume of the package.",
+          "$ref": "#/definitions/PackageVolume"
+        },
+        "weight": {
+          "description": "Weight of the package.",
+          "$ref": "#/definitions/PackageWeight"
+        }
+      },
+      "required": [
+        "weight"
+      ],
+      "type": "object"
+    },
+    "WeightUnitOfMeasurement": {
+      "description": "Unit of measurement for the package weight.",
+      "enum": [
+        "POUNDS",
+        "KILOGRAMS"
+      ],
+      "type": "string",
+      "x-docgen-enum-table-extension": [
+        {
+          "description": "Denotes weight measurement in pounds.",
+          "value": "POUNDS"
+        },
+        {
+          "description": "Denotes weight measurement in kilograms.",
+          "value": "KILOGRAMS"
+        }
+      ]
+    },
+    "Address": {
+      "description": "Shipping address that represents the origin or destination location.",
+      "properties": {
+        "addressLine1": {
+          "description": "First line of the address text.",
+          "type": "string"
+        },
+        "addressLine2": {
+          "description": "Optional second line of the address text.",
+          "type": "string"
+        },
+        "addressLine3": {
+          "description": "Optional third line of the address text.",
+          "type": "string"
+        },
+        "city": {
+          "description": "Optional city where this address is located.",
+          "type": "string"
+        },
+        "countryCode": {
+          "description": "Two-digit, ISO 3166-1 alpha-2 formatted country code where this address is located.",
+          "type": "string"
+        },
+        "county": {
+          "description": "Optional county where this address is located.",
+          "type": "string",
+          "example": "Washington"
+        },
+        "district": {
+          "description": "Optional district where this address is located.",
+          "type": "string"
+        },
+        "name": {
+          "description": "Name of the person, business, or institution at this address.",
+          "type": "string"
+        },
+        "phoneNumber": {
+          "description": "Optional E.164-formatted phone number for an available contact at this address.",
+          "type": "string",
+          "example": "+14155552671"
+        },
+        "postalCode": {
+          "description": "Optional postal code where this address is located.",
+          "type": "string"
+        },
+        "stateOrRegion": {
+          "description": "State or region where this address is located. Note that this is contextual to the specified country code.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "addressLine1",
+        "countryCode",
+        "name",
+        "stateOrRegion"
+      ],
+      "type": "object",
+      "example": {
+        "addressLine1": "address_1",
+        "addressLine2": "address_2",
+        "addressLine3": "address_3",
+        "city": "Seattle",
+        "countryCode": "US",
+        "county": "Washington",
+        "district": "District1",
+        "name": "address_name",
+        "phoneNumber": "+14155552671",
+        "postalCode": "123456",
+        "stateOrRegion": "Washington"
+      }
+    }
+  }
+}
