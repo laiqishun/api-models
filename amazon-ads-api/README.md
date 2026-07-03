@@ -1,5 +1,5 @@
 ---
-title: Amazon Ads API ALL Merged
+title: Amazon Ads API Models
 description: "AI-friendly entry point for Amazon Ads API models; follow an API group README to its API list, then open the linked operation-level OpenAPI JSON file for endpoint details, schemas, and security requirements."
 ---
 
@@ -22,6 +22,7 @@ description: "AI-friendly entry point for Amazon Ads API models; follow an API g
 - [Geo Locations](geo-locations/README.md)：Amazon Ads API group for Geo Locations operations.
 - [Keyword Reservation Validations](keyword-reservation-validations/README.md)：Amazon Ads API group for Keyword Reservation Validations operations.
 - [Location Indexes](location-indexes/README.md)：Amazon Ads API group for Location Indexes operations.
+- [Profiles](profiles/README.md)：Profiles represent an advertiser and their account's marketplace, and are used in all subsequent API calls via a management scope, `Amazon-Advertising-API-Scope`.
 - [Recommendation Types](recommendation-types/README.md)：Amazon Ads API group for Recommendation Types operations.
 - [Recommendations](recommendations/README.md)：Amazon Ads API group for Recommendations operations.
 - [Reserved Target Pricings](reserved-target-pricings/README.md)：Amazon Ads API group for Reserved Target Pricings operations.
