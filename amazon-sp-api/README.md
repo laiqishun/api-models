@@ -4,6 +4,11 @@ description: "AI-friendly entry point for Amazon Selling Partner API models; fol
 ---
 
 # API Models
+
+**Offline Reference Values:** Some operation descriptions point to local offline reference pages indexed by [offline-docs/README.md](offline-docs/README.md) for values that are normally documented only online, such as report types, feed types, notification types, and marketplace IDs.
+
+When filling parameters like `reportType`, `reportTypes`, `feedType`, `feedTypes`, `notificationType`, `eventFilterType`, `marketplaceId`, or `marketplaceIds`, prefer these local offline docs.
+
 - [Amazon Shipping API](shipping-api/README.md)：The Amazon Shipping API is designed to support outbound shipping use cases both for orders originating on Amazon-owned marketplaces as well as external channels/marketplaces. With these APIs, you can request shipping rates, create shipments, cancel shipments, and track shipments.
 - [Authorization](authorization-api/authorization.md)
 - [External Fulfillment](external-fulfillment/README.md)：External Fulfillment API groups: Inventory, Returns, Shipments.
