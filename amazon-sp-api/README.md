@@ -10,9 +10,7 @@ description: "AI-friendly entry point for Amazon Selling Partner API models; fol
 When filling parameters like `reportType`, `reportTypes`, `feedType`, `feedTypes`, `notificationType`, `eventFilterType`, `marketplaceId`, or `marketplaceIds`, prefer these local offline docs.
 
 - [Amazon Shipping API](shipping-api/README.md)：The Amazon Shipping API is designed to support outbound shipping use cases both for orders originating on Amazon-owned marketplaces as well as external channels/marketplaces. With these APIs, you can request shipping rates, create shipments, cancel shipments, and track shipments.
-- [Authorization](authorization-api/authorization.md)
 - [External Fulfillment](external-fulfillment/README.md)：External Fulfillment API groups: Inventory, Returns, Shipments.
-- [Fba Small And Light](fba-small-and-light-api/fbaSmallandLight.md)
 - [Finances](finances-api/README.md)：Finances API groups: Finances, Transfers.
 - [Selling Partner API for A+ Content Management](aplus-content-api/README.md)：Use the A+ Content API to build applications that help selling partners add rich marketing content to their Amazon product detail pages. Selling partners can use A+ content to share their brand and product story, which helps buyers make informed purchasing decisions. Selling partners use content modules to add images and text.
 - [Selling Partner API for Application Management](application-management-api/README.md)：The Selling Partner API for Application Management lets you programmatically update the client secret on registered applications.

@@ -1,1 +1,0 @@
-This API has been removed. Refer to the [SP-API Deprecations](https://developer-docs.amazon.com/sp-api/docs/sp-api-deprecations) table for more information. 

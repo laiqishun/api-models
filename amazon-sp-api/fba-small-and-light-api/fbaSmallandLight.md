@@ -1,1 +1,0 @@
-This API has been removed. You can retrieve the new fees for affected products by using the [Product Fees API](https://developer-docs.amazon.com/sp-api/docs/product-fees-api-v0-reference) and/or the relevant FBA and Referral Fee reports. Update your bookmarks to the new location for future reference.
