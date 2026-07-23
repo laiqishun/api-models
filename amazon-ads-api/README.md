@@ -25,5 +25,6 @@ description: "AI-friendly entry point for Amazon Ads API models; follow an API g
 - [Profiles](profiles/README.md)：Profiles represent an advertiser and their account's marketplace, and are used in all subsequent API calls via a management scope, `Amazon-Advertising-API-Scope`.
 - [Recommendation Types](recommendation-types/README.md)：Amazon Ads API group for Recommendation Types operations.
 - [Recommendations](recommendations/README.md)：Amazon Ads API group for Recommendations operations.
+- [Reporting](reporting/README.md)：Amazon Ads API group for asynchronous reporting operations.
 - [Reserved Target Pricings](reserved-target-pricings/README.md)：Amazon Ads API group for Reserved Target Pricings operations.
 - [Targets](targets/README.md)：Amazon Ads API group for Targets operations.
