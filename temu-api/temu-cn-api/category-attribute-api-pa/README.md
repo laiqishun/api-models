@@ -2,6 +2,12 @@
 
 Source group: `类目属性API组-PA`.
 
+## 使用范围
+
+Partner 网关类目必填项、运费模板与商品纠错查询（category requirements, freight template）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.glo.goods.catsmandatory.get](operations/bg.glo.goods.catsmandatory.get.json) - 类目必填信息查询接口

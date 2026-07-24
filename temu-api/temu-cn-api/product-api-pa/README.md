@@ -2,6 +2,12 @@
 
 Source group: `货品API组-PA`.
 
+## 使用范围
+
+Partner 网关发品、商品查询与货品搬运（product publish, detail, migrate）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.glo.goods.add](operations/bg.glo.goods.add.json) - 用于发布货品

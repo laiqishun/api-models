@@ -109,9 +109,7 @@
             "name": "imageUrl",
             "type": "STRING",
             "required": false,
-            "description": "尺码表图片URL，需要通过图片上传接口转内网",
-            "offlineReference": "../../offline-docs/data-dictionary.md#尺码表分类",
-            "offlineReferenceReason": "size-chart class mapping"
+            "description": "尺码表图片URL，需要通过图片上传接口转内网"
           },
           {
             "name": "sizeParameters",
@@ -273,14 +271,13 @@
         "imageUrl": {
           "type": "string",
           "x-temu-type": "STRING",
-          "description": "尺码表图片URL，需要通过图片上传接口转内网",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#尺码表分类",
-          "x-temu-offline-reference-reason": "size-chart class mapping"
+          "description": "尺码表图片URL，需要通过图片上传接口转内网"
         },
         "sizeParameters": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "string",
+            "x-temu-type": "STRING"
           },
           "x-temu-type": "LIST",
           "description": "要抽取的尺码参数，填 '裤长', '袖长', '裙摆宽' 'Waist' 等等"
@@ -288,7 +285,8 @@
         "sizeEnums": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "string",
+            "x-temu-type": "STRING"
           },
           "x-temu-type": "LIST",
           "description": "要抽取哪些尺码，填 'XS'，'S'，'M'等"
@@ -311,40 +309,38 @@
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "result"
-        },
-        "detailsMap": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "MAP",
-          "description": "-"
-        },
-        "$key": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "-"
-        },
-        "$value": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "MAP",
-          "description": "-"
-        },
-        "extraData": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "MAP",
-          "description": "-"
-        },
-        "value": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "-"
-        },
-        "unit": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "-"
+          "description": "result",
+          "properties": {
+            "detailsMap": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "object",
+                "additionalProperties": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "properties": {
+                    "extraData": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "string"
+                      },
+                      "x-temu-type": "MAP"
+                    },
+                    "value": {
+                      "type": "string",
+                      "x-temu-type": "STRING"
+                    },
+                    "unit": {
+                      "type": "string",
+                      "x-temu-type": "STRING"
+                    }
+                  }
+                }
+              },
+              "x-temu-type": "MAP",
+              "description": "-"
+            }
+          }
         },
         "success": {
           "type": "boolean",

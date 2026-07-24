@@ -2,6 +2,12 @@
 
 Source group: `5、Logistics`.
 
+## 使用范围
+
+区域物流商、物流服务、仓库与物流类型（carrier, shipping service, warehouse）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.logistics.companies.get](operations/bg.logistics.companies.get.json) - Obtain full logistics providers that support shipping at the corresponding regoin

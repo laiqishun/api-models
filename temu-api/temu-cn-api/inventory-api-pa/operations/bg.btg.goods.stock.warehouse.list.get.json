@@ -285,23 +285,31 @@
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "用户信息"
-        },
-        "supplierId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "供应商id"
-        },
-        "siteIdList": {
-          "type": "array",
-          "items": {
-            "type": "object"
+          "description": "用户信息",
+          "properties": {
+            "supplierId": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "供应商id"
+            },
+            "siteIdList": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER"
+              },
+              "x-temu-type": "LIST",
+              "description": "站点列表.",
+              "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+              "x-temu-offline-reference-reason": "siteId list"
+            }
           },
-          "x-temu-type": "LIST",
-          "description": "站点列表.",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
-          "x-temu-offline-reference-reason": "siteId list"
+          "required": [
+            "supplierId",
+            "siteIdList"
+          ]
         }
       },
       "required": [
@@ -311,9 +319,7 @@
         "sign",
         "access_token",
         "version",
-        "openApiUser",
-        "supplierId",
-        "siteIdList"
+        "openApiUser"
       ]
     },
     "bg_btg_goods_stock_warehouse_list_getResponse": {
@@ -324,54 +330,62 @@
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "result"
-        },
-        "warehouseDTOList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "站点可选发货仓列表"
-        },
-        "validWarehouseList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "可选发货仓列表"
-        },
-        "warehouseDisable": {
-          "type": "boolean",
-          "x-temu-type": "BOOLEAN",
-          "description": "仓库是否失效"
-        },
-        "warehouseId": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "仓库id"
-        },
-        "warehouseName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "仓库名称"
-        },
-        "managementType": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "仓库类型 0: 三方仓,1:自建仓,2:家庭仓,3:其他(仅适用于9个工作日发货时效的商品)"
-        },
-        "siteId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "站点id"
-        },
-        "siteName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "站点名称"
+          "description": "result",
+          "properties": {
+            "warehouseDTOList": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "validWarehouseList": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "properties": {
+                        "warehouseDisable": {
+                          "type": "boolean",
+                          "x-temu-type": "BOOLEAN",
+                          "description": "仓库是否失效"
+                        },
+                        "warehouseId": {
+                          "type": "string",
+                          "x-temu-type": "STRING",
+                          "description": "仓库id"
+                        },
+                        "warehouseName": {
+                          "type": "string",
+                          "x-temu-type": "STRING",
+                          "description": "仓库名称"
+                        },
+                        "managementType": {
+                          "type": "string",
+                          "x-temu-type": "STRING",
+                          "description": "仓库类型 0: 三方仓,1:自建仓,2:家庭仓,3:其他(仅适用于9个工作日发货时效的商品)"
+                        }
+                      }
+                    },
+                    "x-temu-type": "LIST",
+                    "description": "可选发货仓列表"
+                  },
+                  "siteId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER",
+                    "description": "站点id"
+                  },
+                  "siteName": {
+                    "type": "string",
+                    "x-temu-type": "STRING",
+                    "description": "站点名称"
+                  }
+                }
+              },
+              "x-temu-type": "LIST",
+              "description": "站点可选发货仓列表"
+            }
+          }
         },
         "success": {
           "type": "boolean",

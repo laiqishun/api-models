@@ -2,6 +2,12 @@
 
 Source group: `2、Product`.
 
+## 使用范围
+
+区域本土商品发布、编辑、上下架、库存与合规（local product, listing, compliance）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.freight.template.list.query](operations/bg.freight.template.list.query.json) - query freight template list by Temu seller, use for claim that goods logistics fee rules when listing items

@@ -2,6 +2,12 @@
 
 Source group: `货品API组`.
 
+## 使用范围
+
+仍在 CN 网关的商品补充查询与清关校验（product lookup, customs validation）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.goods.brand.get](operations/bg.goods.brand.get.json) - 大卖家，对应货品发布的时候，设置自己品牌

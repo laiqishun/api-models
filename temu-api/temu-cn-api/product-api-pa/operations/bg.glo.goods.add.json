@@ -2423,6 +2423,18 @@
         },
         "x-temu-alternate-api-types": [
           "temu.goods.add"
+        ],
+        "x-temu-examples": [
+          {
+            "language": "json",
+            "content": "{\n  \"type\": \"bg.glo.goods.add\",\n  \"timestamp\": \"1765269794\",\n  \"app_key\": \"<app_key>\",\n  \"data_type\": \"JSON\",\n  \"access_token\": \"<access_token>\",\n  \"version\": \"V1\",\n  \"cat1Id\": 1464,\n  \"cat2Id\": 1650,\n  \"cat3Id\": 1651,\n  \"cat4Id\": 1655,\n  \"cat5Id\": 1656,\n  \"cat6Id\": 0,\n  \"cat7Id\": 0,\n  \"cat8Id\": 0,\n  \"cat9Id\": 0,\n  \"cat10Id\": 0,\n  \"productName\": \"Example product\",\n  \"productPropertyReqs\": [\n    {\n      \"templatePid\": 1376917,\n      \"pid\": 736,\n      \"refPid\": 777,\n      \"propName\": \"Example property\",\n      \"vid\": 60501,\n      \"propValue\": \"Example value\",\n      \"valueUnit\": \"\"\n    }\n  ],\n  \"productSpecPropertyReqs\": [\n    {\n      \"parentSpecId\": 3001,\n      \"parentSpecName\": \"Size\",\n      \"specId\": 17014,\n      \"specName\": \"One size\",\n      \"refPid\": 65,\n      \"pid\": 14,\n      \"templatePid\": 1376913,\n      \"propName\": \"Size\",\n      \"propValue\": \"One size\",\n      \"vid\": 26018,\n      \"valueUnit\": \"\",\n      \"valueGroupId\": 2,\n      \"valueGroupName\": \"CN size\"\n    }\n  ],\n  \"productSkcReqs\": [\n    {\n      \"previewImgUrls\": [\n        \"https://img.example/product.jpg\"\n      ],\n      \"extCode\": \"EXAMPLE-SKC\",\n      \"mainProductSkuSpecReqs\": [\n        {\n          \"parentSpecId\": 0,\n          \"parentSpecName\": \"\",\n          \"specId\": 0,\n          \"specName\": \"\"\n        }\n      ],\n      \"productSkuReqs\": [\n        {\n          \"currencyType\": \"CNY\",\n          \"thumbUrl\": \"https://img.example/sku.jpg\",\n          \"extCode\": \"EXAMPLE-SKU\",\n          \"supplierPrice\": 100,\n          \"productSkuSpecReqs\": [\n            {\n              \"parentSpecId\": 3001,\n              \"parentSpecName\": \"Size\",\n              \"specId\": 17014,\n              \"specName\": \"One size\"\n            }\n          ],\n          \"productSkuWhExtAttrReq\": {\n            \"productSkuVolumeReq\": {\n              \"len\": 100,\n              \"width\": 100,\n              \"height\": 100\n            },\n            \"productSkuWeightReq\": {\n              \"value\": 1000\n            }\n          }\n        }\n      ]\n    }\n  ],\n  \"productSemiManagedReq\": {\n    \"bindSiteIds\": [\n      100\n    ]\n  },\n  \"productWarehouseRouteReq\": {\n    \"targetRouteList\": [\n      {\n        \"siteIdList\": [\n          100\n        ],\n        \"warehouseId\": \"WH-EXAMPLE\"\n      }\n    ]\n  },\n  \"productShipmentReq\": {\n    \"freightTemplateId\": \"HFT-EXAMPLE\",\n    \"shipmentLimitSecond\": 172800\n  },\n  \"materialImgUrl\": \"https://img.example/material.jpg\",\n  \"sign\": \"<SIGN>\"\n}",
+            "truncated": false
+          },
+          {
+            "language": "json",
+            "content": "{\n  \"result\": {\n    \"productSkuList\": [\n      {\n        \"productSkuId\": 10001,\n        \"extCode\": \"EXAMPLE-SKU\",\n        \"skuSpecList\": [\n          {\n            \"specId\": 17014,\n            \"parentSpecName\": \"Size\",\n            \"specName\": \"One size\",\n            \"parentSpecId\": 3001\n          }\n        ],\n        \"productSkcId\": 20001\n      }\n    ],\n    \"productId\": 30001,\n    \"productSkcList\": [\n      {\n        \"productSkcId\": 20001\n      }\n    ]\n  },\n  \"success\": true,\n  \"requestId\": \"pa-example-request-id\",\n  \"errorCode\": 1000000,\n  \"errorMsg\": \"\"\n}",
+            "truncated": false
+          }
         ]
       }
     }
@@ -2475,1295 +2487,1911 @@
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "Semi-managed Merchant Information"
-        },
-        "semiLanguageStrategy": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Semi-Managed - Material Language Strategy"
-        },
-        "bindSiteIds": {
-          "type": "array",
-          "items": {
-            "type": "object"
+          "properties": {
+            "semiLanguageStrategy": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "Material language strategy"
+            },
+            "bindSiteIds": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER"
+              },
+              "x-temu-type": "LIST",
+              "description": "Site ID list",
+              "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+              "x-temu-offline-reference-reason": "siteId list"
+            },
+            "semiManagedSiteMode": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "Site sales mode"
+            }
           },
-          "x-temu-type": "LIST",
-          "description": "Bound Site List",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
-          "x-temu-offline-reference-reason": "semi-managed siteId list"
-        },
-        "semiManagedSiteMode": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Semi-managed Site Sales Mode",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
-          "x-temu-offline-reference-reason": "semi-managed pan-EU/non-pan-EU site mode"
+          "description": "Semi-managed merchant information",
+          "required": [
+            "bindSiteIds"
+          ]
         },
         "productCarouseVideoReqList": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "vid": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Video VID"
+              },
+              "coverUrl": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Video cover image"
+              },
+              "videoUrl": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Video URL"
+              },
+              "width": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Video width"
+              },
+              "height": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Video height"
+              }
+            },
+            "required": [
+              "vid",
+              "coverUrl",
+              "videoUrl",
+              "width",
+              "height"
+            ]
           },
           "x-temu-type": "LIST",
-          "description": "Carousel Video"
+          "description": "Carousel videos"
         },
-        "vid": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Video VID"
-        },
-        "coverUrl": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Video Cover Image (B-side stores the first frame image)"
-        },
-        "videoUrl": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Video URL"
-        },
-        "width": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Video Width"
-        },
-        "height": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Video Height"
+        "productDetailVideoReqList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "vid": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Video VID"
+              },
+              "coverUrl": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Video cover image"
+              },
+              "videoUrl": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Video URL"
+              },
+              "width": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Video width"
+              },
+              "height": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Video height"
+              }
+            },
+            "required": [
+              "vid",
+              "coverUrl",
+              "videoUrl",
+              "width",
+              "height"
+            ]
+          },
+          "x-temu-type": "LIST",
+          "description": "Detail videos"
         },
         "goodsLayerDecorationReqs": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "floorId": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Floor ID"
+              },
+              "goodsId": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Product ID"
+              },
+              "lang": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Language"
+              },
+              "type": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Component type"
+              },
+              "priority": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Sort priority"
+              },
+              "contentList": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "x-temu-type": "OBJECT",
+                  "properties": {
+                    "imgUrl": {
+                      "type": "string",
+                      "x-temu-type": "STRING",
+                      "description": "Image URL"
+                    },
+                    "textModuleDetails": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "properties": {
+                        "backgroundColor": {
+                          "type": "string",
+                          "x-temu-type": "STRING",
+                          "description": "Background color"
+                        },
+                        "fontFamily": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Font type"
+                        },
+                        "fontSize": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Font size"
+                        },
+                        "align": {
+                          "type": "string",
+                          "x-temu-type": "STRING",
+                          "description": "Text alignment"
+                        },
+                        "fontColor": {
+                          "type": "string",
+                          "x-temu-type": "STRING",
+                          "description": "Text color"
+                        }
+                      },
+                      "required": [
+                        "backgroundColor",
+                        "fontSize",
+                        "align",
+                        "fontColor"
+                      ]
+                    },
+                    "width": {
+                      "type": "integer",
+                      "format": "int32",
+                      "x-temu-type": "INTEGER",
+                      "description": "Image width"
+                    },
+                    "height": {
+                      "type": "integer",
+                      "format": "int32",
+                      "x-temu-type": "INTEGER",
+                      "description": "Image height"
+                    },
+                    "text": {
+                      "type": "string",
+                      "x-temu-type": "STRING",
+                      "description": "Text content"
+                    },
+                    "key": {
+                      "type": "string",
+                      "x-temu-type": "STRING",
+                      "description": "Floor type key"
+                    }
+                  },
+                  "required": [
+                    "key"
+                  ]
+                },
+                "x-temu-type": "LIST",
+                "description": "Floor content"
+              }
+            },
+            "required": [
+              "lang",
+              "type",
+              "priority",
+              "contentList"
+            ]
           },
           "x-temu-type": "LIST",
-          "description": "Product Details Decoration"
-        },
-        "floorId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Floor ID, null: Create new, otherwise Update"
-        },
-        "goodsId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Product ID"
-        },
-        "lang": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Language Type"
-        },
-        "priority": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Floor Sorting"
-        },
-        "contentList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Floor Content"
-        },
-        "imgUrl": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Image Address--General"
-        },
-        "textModuleDetails": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Text Module Details"
-        },
-        "backgroundColor": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Background Color"
-        },
-        "fontFamily": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Font Type"
-        },
-        "fontSize": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Text Module Font Size"
-        },
-        "align": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Text Alignment, left--Left Aligned；right--Right Aligned；center--Centered；justify--Justified"
-        },
-        "fontColor": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Text Color"
-        },
-        "text": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Text Information--Text Module"
-        },
-        "key": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Floor Type Key, currently defaults to 'DecImage'"
+          "description": "Product detail decoration"
         },
         "productPropertyReqs": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "vid": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Attribute value ID"
+              },
+              "valueUnit": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Attribute value unit"
+              },
+              "pid": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Attribute ID"
+              },
+              "templatePid": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Template attribute ID"
+              },
+              "numberInputValue": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Numeric input"
+              },
+              "propValue": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Attribute value"
+              },
+              "propName": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Reference attribute name"
+              },
+              "refPid": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Reference attribute ID"
+              },
+              "valueExtendInfo": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Extended attribute value"
+              }
+            },
+            "required": [
+              "vid",
+              "valueUnit",
+              "pid",
+              "templatePid",
+              "propValue",
+              "propName",
+              "refPid"
+            ]
           },
           "x-temu-type": "LIST",
-          "description": "Product Attributes"
-        },
-        "valueUnit": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Unit of Attribute Value, empty string if not available"
-        },
-        "pid": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Attribute ID"
-        },
-        "templatePid": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Template Attribute ID"
-        },
-        "numberInputValue": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Numerical Input"
-        },
-        "propValue": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Basic Property Value"
-        },
-        "propName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Reference Property Name"
-        },
-        "refPid": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Reference Property ID"
+          "description": "Product attributes"
         },
         "carouselImageUrls": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "string",
+            "x-temu-type": "STRING"
           },
           "x-temu-type": "LIST",
-          "description": "Commodity Carousel, not required for apparel category, will be aggregated from skc"
+          "description": "Product carousel images"
+        },
+        "carouselImageI18nReqs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "imgUrlList": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "x-temu-type": "STRING"
+                },
+                "x-temu-type": "LIST",
+                "description": "Image URL list"
+              },
+              "language": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Language"
+              },
+              "colorImageUrl": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Color image URL"
+              }
+            },
+            "required": [
+              "language"
+            ]
+          },
+          "x-temu-type": "LIST",
+          "description": "Multilingual carousel images"
         },
         "productOuterPackageImageReqs": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "imageUrl": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Image URL"
+              }
+            },
+            "required": [
+              "imageUrl"
+            ]
           },
           "x-temu-type": "LIST",
-          "description": "Outer Packaging Image"
-        },
-        "imageUrl": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Image Link"
+          "description": "Outer-package images"
         },
         "copyFromProductId": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Replicated Source Product ID"
+          "description": "Source product ID to copy"
         },
         "source": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Product Source"
+          "description": "Product source"
         },
         "productGuideFileReqs": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "fileName": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "File name"
+              },
+              "pdfMaterialId": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "PDF material ID"
+              },
+              "languages": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "x-temu-type": "STRING"
+                },
+                "x-temu-type": "LIST",
+                "description": "Languages"
+              }
+            },
+            "required": [
+              "fileName",
+              "pdfMaterialId",
+              "languages"
+            ]
           },
           "x-temu-type": "LIST",
-          "description": "Product Manual File Multilingual"
-        },
-        "fileName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "File Name"
-        },
-        "pdfMaterialId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "PDF File ID"
-        },
-        "languages": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Language"
+          "description": "Product guide files"
         },
         "productName": {
           "type": "string",
           "x-temu-type": "STRING",
-          "description": "Product Name",
+          "description": "Product name",
           "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#货品名称长度限制规则",
           "x-temu-offline-reference-reason": "product name length limits by category"
         },
         "materialMultiLanguages": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "string",
+            "x-temu-type": "STRING"
           },
           "x-temu-type": "LIST",
-          "description": "Image Multilingual List"
+          "description": "Material image languages"
         },
         "productI18nReqs": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "language": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Language"
+              },
+              "productName": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Product name"
+              }
+            },
+            "required": [
+              "language",
+              "productName"
+            ]
           },
           "x-temu-type": "LIST",
-          "description": "Product Multilingual Information Request"
-        },
-        "language": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Language Code"
+          "description": "Multilingual product names"
         },
         "productWarehouseRouteReq": {
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "Commodity Warehouse Routing Request"
-        },
-        "targetRouteList": {
-          "type": "array",
-          "items": {
-            "type": "object"
+          "properties": {
+            "targetRouteList": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "x-temu-type": "OBJECT",
+                "properties": {
+                  "siteIdList": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32",
+                      "x-temu-type": "INTEGER"
+                    },
+                    "x-temu-type": "LIST",
+                    "description": "Site ID list",
+                    "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+                    "x-temu-offline-reference-reason": "siteId list"
+                  },
+                  "warehouseId": {
+                    "type": "string",
+                    "x-temu-type": "STRING",
+                    "description": "Warehouse ID"
+                  }
+                },
+                "required": [
+                  "siteIdList",
+                  "warehouseId"
+                ]
+              },
+              "x-temu-type": "LIST",
+              "description": "Target routes"
+            },
+            "currentRouteList": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "x-temu-type": "OBJECT",
+                "properties": {
+                  "siteIdList": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32",
+                      "x-temu-type": "INTEGER"
+                    },
+                    "x-temu-type": "LIST",
+                    "description": "Site ID list",
+                    "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+                    "x-temu-offline-reference-reason": "siteId list"
+                  },
+                  "warehouseId": {
+                    "type": "string",
+                    "x-temu-type": "STRING",
+                    "description": "Warehouse ID"
+                  }
+                },
+                "required": [
+                  "siteIdList",
+                  "warehouseId"
+                ]
+              },
+              "x-temu-type": "LIST",
+              "description": "Current routes"
+            }
           },
-          "x-temu-type": "LIST",
-          "description": "Target Self-Delivery Site-Warehouse Relationship"
-        },
-        "siteIdList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Site ID.",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
-          "x-temu-offline-reference-reason": "siteId list"
-        },
-        "warehouseId": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Warehouse ID"
-        },
-        "currentRouteList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Current Self-Delivery Station-Warehouse Relationship"
+          "required": [
+            "targetRouteList"
+          ]
         },
         "sellOutProductIdSrc": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Sold Out Product ID Src"
+          "description": "Sold-out product ID source"
+        },
+        "sellOutProductId": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Sold-out product ID"
         },
         "goodsModelReqs": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "modelProfileUrl": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Model portrait URL"
+              },
+              "sizeSpecName": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Trial size name"
+              },
+              "modelId": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Model ID"
+              },
+              "sizeSpecId": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Fitting size ID"
+              },
+              "modelWaist": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Model waist"
+              },
+              "modelType": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Model type"
+              },
+              "modelName": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Model name"
+              },
+              "modelHeight": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Model height"
+              },
+              "modelFeature": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Real or virtual model"
+              },
+              "modelFootWidth": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Foot width"
+              },
+              "modelBust": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Bust"
+              },
+              "modelFootLength": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Foot length"
+              },
+              "tryOnResult": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Try-on result"
+              },
+              "modelHip": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Hip"
+              }
+            },
+            "required": [
+              "modelProfileUrl",
+              "sizeSpecName",
+              "modelId",
+              "sizeSpecId",
+              "modelName"
+            ]
           },
           "x-temu-type": "LIST",
-          "description": "Product Model List Request"
-        },
-        "modelProfileUrl": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Model Portrait"
-        },
-        "sizeSpecName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Trial Size Specification Name"
-        },
-        "modelId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Model ID, not transmitted for new virtual model scenarios",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#部分类目模特信息必填",
-          "x-temu-offline-reference-reason": "model information requirements"
-        },
-        "sizeSpecId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Fitting Size Specification ID"
-        },
-        "modelWaist": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Model Waistline Text"
-        },
-        "modelType": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Model Type, 1: Garment Model, 2: Shoe Model",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#部分类目模特信息必填",
-          "x-temu-offline-reference-reason": "model information requirements"
-        },
-        "modelName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Model Name"
-        },
-        "modelHeight": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Model Height Text"
-        },
-        "modelFeature": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Model Properties, 1: Real Model, 2: Virtual Model",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#部分类目模特信息必填",
-          "x-temu-offline-reference-reason": "model information requirements"
-        },
-        "modelFootWidth": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Model Foot Width Text"
-        },
-        "modelBust": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Model Bust Text"
-        },
-        "modelFootLength": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Model Long Text"
-        },
-        "tryOnResult": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Try-on Experience，TRUE_TO_SIZE(1, \"Comfortable\")TOO_SMALL(2, \"Tight-fitting\")TOO_LARGE(3, \\\"Relaxed\\\")"
-        },
-        "modelHip": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Model Hip Text"
+          "description": "Product models"
         },
         "sizeTemplateId": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Size Chart Template ID"
+          "description": "Size template ID"
+        },
+        "sizeTemplateIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32",
+            "x-temu-type": "INTEGER"
+          },
+          "x-temu-type": "LIST",
+          "description": "Size template IDs"
+        },
+        "showSizeTemplateIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32",
+            "x-temu-type": "INTEGER"
+          },
+          "x-temu-type": "LIST",
+          "description": "Displayed size templates"
         },
         "productOuterPackageReq": {
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "Product Outer Packaging Information"
-        },
-        "packageShape": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Outer Packaging Shape"
-        },
-        "packageType": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Outer Packaging Type"
+          "properties": {
+            "packageShape": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "Package shape"
+            },
+            "packageType": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "Package type"
+            }
+          }
         },
         "productShipmentReq": {
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "Product Delivery Information Request"
-        },
-        "freightTemplateId": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Shipping Template ID"
-        },
-        "shipmentLimitSecond": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Promised Delivery Time (unit: s). Basic options: 86400, 172800, 259200 (available only for custom items).",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#承诺发货时效说明",
-          "x-temu-offline-reference-reason": "promised shipping time values"
+          "properties": {
+            "freightTemplateId": {
+              "type": "string",
+              "x-temu-type": "STRING",
+              "description": "Freight template ID"
+            },
+            "shipmentLimitSecond": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "Promised ship time"
+            }
+          },
+          "required": [
+            "freightTemplateId",
+            "shipmentLimitSecond"
+          ]
         },
         "sourceInvitationId": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Source Invitation ID"
+          "description": "Source invitation ID"
         },
         "sensitiveTransNormalFileReqs": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "fileName": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "File name"
+              },
+              "fileUrl": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "File URL"
+              }
+            },
+            "required": [
+              "fileName",
+              "fileUrl"
+            ]
           },
           "x-temu-type": "LIST",
-          "description": "Sensitive Product Conversion to General Proof Document List"
-        },
-        "fileUrl": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "File Path"
-        },
-        "cat7Id": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Seventh-Level Category ID, pass 0 if none"
-        },
-        "sellOutProductId": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Sold Out Product ID"
-        },
-        "cat8Id": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Eight-level Category ID, pass 0 if none"
-        },
-        "cat9Id": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "9th Level Category ID, pass 0 if none"
-        },
-        "cat3Id": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Third-Level Category ID, pass 0 if none"
-        },
-        "cat4Id": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Fourth-Level Category ID, pass 0 if none"
-        },
-        "cat5Id": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Fifth-Level Category ID, pass 0 if none"
-        },
-        "cat6Id": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Sixth-Level Category ID, pass 0 if none"
-        },
-        "showSizeTemplateIds": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Key Display Size Table Template ID List"
+          "description": "Sensitive-to-normal proof files"
         },
         "cat1Id": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "First-Level Category ID"
-        },
-        "carouselImageI18nReqs": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Product Carousel Multi-Language Info Request"
-        },
-        "imgUrlList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Image List, empty list implies deletion, null implies no change"
+          "description": "First-level category ID"
         },
         "cat2Id": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Secondary Category ID, pass 0 if none"
+          "description": "Second-level category ID"
         },
-        "sizeTemplateIds": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Size Chart Template ID List"
-        },
-        "productSpecPropertyReqs": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Product Specification Attribute"
-        },
-        "specId": {
+        "cat3Id": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Specification ID"
+          "description": "Third-level category ID"
         },
-        "valueGroupId": {
+        "cat4Id": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Attribute Value Group ID, 0 if none"
+          "description": "Fourth-level category ID"
         },
-        "parentSpecId": {
+        "cat5Id": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Parent Specification ID"
+          "description": "Fifth-level category ID"
         },
-        "valueGroupName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Attribute Group Name, pass empty string if none"
-        },
-        "productWhExtAttrReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Commodity Warehouse and Supply Chain Extension Properties Request"
-        },
-        "productOriginCertFiles": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Product Origin Certificate Files"
-        },
-        "outerGoodsUrl": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Off-Site Product Link (Pass Empty String as Fallback)"
-        },
-        "productOrigin": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product Origin"
-        },
-        "region2Id": {
+        "cat6Id": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Secondary Region ID",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#发品-省份枚举值",
-          "x-temu-offline-reference-reason": "province enum for product origin"
+          "description": "Sixth-level category ID"
         },
-        "region1ShortName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "First-Level Region Abbreviation (Two-Character Code)"
-        },
-        "productSkcReqs": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Product SKC List"
-        },
-        "extCode": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Product SKC External Code, pass empty string if not available"
-        },
-        "productSkuReqs": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Product SKU List (up to 10 for Apparel Category)"
-        },
-        "currencyType": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Currency (CNY: Chinese Yuan, USD: US Dollar) (Default: Chinese Yuan)"
-        },
-        "productSkuMultiPackReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product Multi-Package Request"
-        },
-        "numberOfPieces": {
+        "cat7Id": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Quantity, default is 1 for single item"
+          "description": "Seventh-level category ID"
         },
-        "individuallyPacked": {
+        "cat8Id": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Whether to use independent packaging (pass -1 to clear)"
+          "description": "Eighth-level category ID"
         },
-        "productSkuNetContentReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Net Content Request, passing an empty object indicates clearing",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#净含量必填叶子类目",
-          "x-temu-offline-reference-reason": "net-content requirements"
-        },
-        "netContentUnitCode": {
+        "cat9Id": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Net Content Unit, 1: Fluid Ounce, 2: Milliliter, 3: Gallon, 4: Liter, 5: Gram, 6: Kilogram, 7: Troy Ounce, 8: Pound",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#净含量必填叶子类目",
-          "x-temu-offline-reference-reason": "net-content requirements"
-        },
-        "netContentNumber": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Net Content Value, the target value needs to be multiplied by 1000 before passing the value. For example, if you are passing \"1 L\", you need to pass \"1000\" in \"netContentNumber\".",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#净含量必填叶子类目",
-          "x-temu-offline-reference-reason": "net-content required leaf categories"
-        },
-        "mixedType": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Mixed set type, 1: different products, 2: same product with different specifications"
-        },
-        "totalNetContent": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Total Net Content",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#净含量必填叶子类目",
-          "x-temu-offline-reference-reason": "net-content requirements"
-        },
-        "pieceNewUnitCode": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Unit, 1: piece"
-        },
-        "skuClassification": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Sku Category, 1: Single Product, 2: Combination Set, 3: Mixed Suite",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管发品sku分类必传的叶子类目",
-          "x-temu-offline-reference-reason": "skuClassification leaf-category list"
-        },
-        "numberOfPiecesNew": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Total quantity contained"
-        },
-        "pieceUnitCode": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Unit per Item, 1: Piece, 2: Pair, 3: Pack"
-        },
-        "productSkuSuggestedPriceReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product SKU Suggested Price Request"
-        },
-        "suggestedPriceCurrencyType": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Recommended Price Currency"
-        },
-        "suggestedPrice": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Suggested Price"
-        },
-        "specialSuggestedPrice": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Special Suggested Price"
-        },
-        "siteSupplierPrices": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Site Supply Price List, for semi_managed merchant scenario only"
-        },
-        "siteId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Declared Price Site ID",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
-          "x-temu-offline-reference-reason": "siteId list"
-        },
-        "supplierPrice": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Site Declared Price, Unit: RMB: Fen, USD: Cent"
-        },
-        "productSkuUsSuggestedPriceReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product SKU US Suggested Price Request"
-        },
-        "productSkuStockQuantityReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product SKU Inventory Request"
-        },
-        "warehouseStockQuantityReqs": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Outbound Warehouse Inventory Request List"
-        },
-        "targetStockAvailable": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Target Inventory"
-        },
-        "currentStockAvailable": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Current Stock"
-        },
-        "productSkuThumbUrlI18nReqs": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "SKU Preview Image Multilingual Information Request"
-        },
-        "productSkuAccessoriesReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product SKU Accessories Request"
-        },
-        "productSkuAccessories": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Accessories List"
-        },
-        "num": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Accessory Quantity"
-        },
-        "unitCode": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Unit Code"
-        },
-        "thumbUrl": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Preview Image"
-        },
-        "productSkuWhExtAttrReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product SKU Extended Attributes"
-        },
-        "productSkuWeightReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product SKU Weight"
-        },
-        "inputUnit": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Input Unit"
-        },
-        "inputValue": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Input Weight Value"
-        },
-        "value": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Weight Value, unit mg"
-        },
-        "productSkuSameReferPriceReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Same Style Reference"
-        },
-        "url": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Same Style URL"
-        },
-        "productSkuSensitiveLimitReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product SKU Sensitive Attribute Restriction Request"
-        },
-        "maxBatteryCapacityHp": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Maximum Battery Capacity (mWh)"
-        },
-        "maxBatteryCapacity": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Maximum Battery Capacity (Wh) (Prioritizes maxBatteryCapacityHp)"
-        },
-        "maxLiquidCapacity": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Maximum Liquid Capacity (mL) (Prefer using maxLiquidCapacityHp)"
-        },
-        "maxLiquidCapacityHp": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Maximum Liquid Capacity (μL)"
-        },
-        "maxKnifeLength": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Maximum Tool Length (mm) (Prefer using maxKnifeLengthHp)"
-        },
-        "maxKnifeLengthHp": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Maximum Tool Length (μm)"
-        },
-        "knifeTipAngle": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Blade Angle"
-        },
-        "degrees": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Degree"
-        },
-        "productSkuVolumeReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product SKU Volume"
-        },
-        "len": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Shortest Side, unit mm"
-        },
-        "inputLen": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Length of the Longest Input Side"
-        },
-        "inputHeight": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Length of the Shortest Input Side"
-        },
-        "inputWidth": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Input Secondary Length"
-        },
-        "productSkuBarCodeReqs": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Product SKU Barcode"
-        },
-        "code": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Barcode"
-        },
-        "codeType": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Barcode Type (1: EAN, 2: UPC, 3: ISBN)"
-        },
-        "productSkuSensitiveAttrReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product SKU Sensitive Attribute Request"
-        },
-        "sensitiveTypes": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Sensitive Type PURE_ELECTRIC(1, \"Pure Electric\"), INTERNAL_ELECTRIC(2, \"Internal Electric\"), MAGNETISM(3, \"Magnetism\"), LIQUID(4, \"Liquid\"), POWDER(5, \"Powder\"), PASTE(6, \"Paste\"), CUTTER(7, \"Tool\")"
-        },
-        "isSensitive": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Whether Sensitive Attribute, 0: Non-Sensitive, 1: Sensitive"
-        },
-        "sensitiveList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Sensitive Type PURE_ELECTRIC(110001,\"Pure Electric\"), INTERNAL_ELECTRIC(120001, \"Internal Electric\"), MAGNETISM(130001, \"Magnetism\"), LIQUID(140001, \"Liquid\"), POWDER(150001, \"Powder\"), PASTE(160001, \"Ointment\"), CUTTER(170001, \"Tool\")"
-        },
-        "productSkuSpecReqs": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Product SKU Specification List"
-        },
-        "parentSpecName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Parent Specification Name"
-        },
-        "specName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Specification Name"
-        },
-        "mainProductSkuSpecReqs": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Main Sales Specification List"
-        },
-        "previewImgUrls": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "List of Preview Images, not required for non-apparel categories"
-        },
-        "productSkcCarouselImageI18nReqs": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "SKC Carousel Multi-Language Information Request"
-        },
-        "isBasePlate": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Whether Baseplate",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#支持底板套板的类目",
-          "x-temu-offline-reference-reason": "base-plate supported categories"
-        },
-        "colorImageUrl": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "SKC Color Block Diagram"
-        },
-        "productSaleExtAttrReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product Sales Side Extended Attribute Request"
-        },
-        "inventoryRegion": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Inventory Area"
-        },
-        "productSecondHandReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Second-hand Goods Information"
-        },
-        "isSecondHand": {
-          "type": "boolean",
-          "x-temu-type": "BOOLEAN",
-          "description": "Whether Second-hand"
-        },
-        "secondHandLevel": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Second-hand Grade (Condition)"
-        },
-        "discreetShipping": {
-          "type": "boolean",
-          "x-temu-type": "BOOLEAN",
-          "description": "This parameter is required for adult products (category ID: 16571). Setting this service will display the corresponding logo on the consumer order page, which can improve payment conversion rates. Merchants cannot display the details of the purchased items on the shipping packaging. If a consumer complains about failure to maintain confidentiality and the complaint is verified, the merchant may be held liable for after-sales service."
-        },
-        "customizedTechnologyReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Customized Craft Request"
-        },
-        "twiceType": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Secondary Process",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#定制品定制工艺层级关系",
-          "x-temu-offline-reference-reason": "customization second-level process enum"
-        },
-        "firstType": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Primary Process",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#定制品定制工艺层级关系",
-          "x-temu-offline-reference-reason": "customization first-level process enum"
-        },
-        "technologyType": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Craft Type"
-        },
-        "productNoChargerReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Product No Charger Version Information (empty list must be sent to clear from has to none)"
-        },
-        "noChargerProductIds": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "No Charger Version Product ID (pass empty list to clear)"
-        },
-        "personalizationSwitch": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Whether to Support Customized Template, 0: Not Supported, 1: Supported"
-        },
-        "productCustomReq": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Commodity Customs Information"
-        },
-        "goodsLabelName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Product Tag"
-        },
-        "isRecommendedTag": {
-          "type": "boolean",
-          "x-temu-type": "BOOLEAN",
-          "description": "Whether to select recommended tags"
-        },
-        "vehicleLibraryRelationReqList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Vehicle Model Library Configuration"
-        },
-        "productPropValueDependencyReqList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Attribute Value Dependency Configuration"
-        },
-        "propertyValueDependencyId5": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Attribute Value Depends on id5"
-        },
-        "propertyValueDependencyId4": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Attribute Value Depends on id4"
-        },
-        "propertyValueDependencyId3": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Attribute Value Dependent on id3"
-        },
-        "propertyValueDependencyId2": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Attribute Value Depends on id2"
-        },
-        "propertyValueDependencyId9": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Attribute Value Depends on id9"
-        },
-        "propertyValueDependencyId8": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Attribute Value Depends on id8"
-        },
-        "propertyValueDependencyId7": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Attribute Value Depends on id7"
-        },
-        "propertyValueDependencyId6": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Attribute Value Depends on id6"
-        },
-        "propertyValueDependencyId10": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Attribute Value Depends on id10"
-        },
-        "propertyValueDependencyId1": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Attribute Value Dependent ID 1"
-        },
-        "vehicleLibraryId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Vehicle Model ID"
+          "description": "Ninth-level category ID"
         },
         "cat10Id": {
           "type": "integer",
           "format": "int32",
           "x-temu-type": "INTEGER",
-          "description": "Tenth-Level Category ID, pass 0 if none"
+          "description": "Tenth-level category ID"
+        },
+        "productSpecPropertyReqs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "vid": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Attribute value ID"
+              },
+              "valueUnit": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Attribute value unit"
+              },
+              "pid": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Attribute ID"
+              },
+              "templatePid": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Template attribute ID"
+              },
+              "numberInputValue": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Numeric input"
+              },
+              "propValue": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Attribute value"
+              },
+              "propName": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Reference attribute name"
+              },
+              "refPid": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Reference attribute ID"
+              },
+              "valueExtendInfo": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Extended attribute value"
+              },
+              "parentSpecId": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Parent specification ID"
+              },
+              "parentSpecName": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Parent specification name"
+              },
+              "specId": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Specification ID"
+              },
+              "specName": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Specification name"
+              },
+              "groupId": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Specification group ID"
+              },
+              "valueGroupId": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Attribute value group ID"
+              },
+              "valueGroupName": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Attribute value group name"
+              }
+            },
+            "required": [
+              "vid",
+              "specId",
+              "valueGroupId",
+              "parentSpecId",
+              "valueGroupName",
+              "valueUnit",
+              "pid",
+              "templatePid",
+              "propValue",
+              "propName",
+              "refPid"
+            ]
+          },
+          "x-temu-type": "LIST",
+          "description": "Product specification attributes"
+        },
+        "productWhExtAttrReq": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "properties": {
+            "productOriginCertFiles": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "x-temu-type": "OBJECT",
+                "properties": {
+                  "fileName": {
+                    "type": "string",
+                    "x-temu-type": "STRING",
+                    "description": "File name"
+                  },
+                  "fileUrl": {
+                    "type": "string",
+                    "x-temu-type": "STRING",
+                    "description": "File URL"
+                  }
+                },
+                "required": [
+                  "fileName",
+                  "fileUrl"
+                ]
+              },
+              "x-temu-type": "LIST",
+              "description": "Origin certificate files"
+            },
+            "outerGoodsUrl": {
+              "type": "string",
+              "x-temu-type": "STRING",
+              "description": "External product URL"
+            },
+            "productOrigin": {
+              "type": "object",
+              "additionalProperties": true,
+              "x-temu-type": "OBJECT",
+              "properties": {
+                "region1ShortName": {
+                  "type": "string",
+                  "x-temu-type": "STRING",
+                  "description": "Country or region code"
+                },
+                "region2Id": {
+                  "type": "integer",
+                  "format": "int32",
+                  "x-temu-type": "INTEGER",
+                  "description": "Province or second-level region ID"
+                }
+              },
+              "required": [
+                "region1ShortName"
+              ]
+            }
+          },
+          "required": [
+            "outerGoodsUrl",
+            "productOrigin"
+          ]
+        },
+        "productSkcReqs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT",
+            "properties": {
+              "productSkcId": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Product SKC ID"
+              },
+              "previewImgUrls": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "x-temu-type": "STRING"
+                },
+                "x-temu-type": "LIST",
+                "description": "Carousel images"
+              },
+              "originalPreviewImgUrls": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "x-temu-type": "STRING"
+                },
+                "x-temu-type": "LIST",
+                "description": "Original images"
+              },
+              "productSkcCarouselImageI18nReqs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "x-temu-type": "OBJECT",
+                  "properties": {
+                    "imgUrlList": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "x-temu-type": "STRING"
+                      },
+                      "x-temu-type": "LIST",
+                      "description": "Image URL list"
+                    },
+                    "language": {
+                      "type": "string",
+                      "x-temu-type": "STRING",
+                      "description": "Language"
+                    },
+                    "colorImageUrl": {
+                      "type": "string",
+                      "x-temu-type": "STRING",
+                      "description": "Color image URL"
+                    }
+                  },
+                  "required": [
+                    "language"
+                  ]
+                },
+                "x-temu-type": "LIST",
+                "description": "Multilingual SKC carousel images"
+              },
+              "colorImageUrl": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "Color image URL"
+              },
+              "extCode": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "External SKC code"
+              },
+              "mainProductSkuSpecReqs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "x-temu-type": "OBJECT",
+                  "properties": {
+                    "parentSpecId": {
+                      "type": "integer",
+                      "format": "int32",
+                      "x-temu-type": "INTEGER",
+                      "description": "Parent specification ID"
+                    },
+                    "parentSpecName": {
+                      "type": "string",
+                      "x-temu-type": "STRING",
+                      "description": "Parent specification name"
+                    },
+                    "specId": {
+                      "type": "integer",
+                      "format": "int32",
+                      "x-temu-type": "INTEGER",
+                      "description": "Specification ID"
+                    },
+                    "specName": {
+                      "type": "string",
+                      "x-temu-type": "STRING",
+                      "description": "Specification name"
+                    },
+                    "groupId": {
+                      "type": "integer",
+                      "format": "int32",
+                      "x-temu-type": "INTEGER",
+                      "description": "Specification group ID"
+                    }
+                  },
+                  "required": [
+                    "parentSpecId",
+                    "parentSpecName",
+                    "specId",
+                    "specName"
+                  ]
+                },
+                "x-temu-type": "LIST",
+                "description": "Main SKC specifications"
+              },
+              "productSkuReqs": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "x-temu-type": "OBJECT",
+                  "properties": {
+                    "productSkuId": {
+                      "type": "integer",
+                      "format": "int32",
+                      "x-temu-type": "INTEGER",
+                      "description": "Product SKU ID"
+                    },
+                    "currencyType": {
+                      "type": "string",
+                      "x-temu-type": "STRING",
+                      "description": "Currency"
+                    },
+                    "thumbUrl": {
+                      "type": "string",
+                      "x-temu-type": "STRING",
+                      "description": "SKU thumbnail"
+                    },
+                    "productSkuThumbUrlI18nReqs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "properties": {
+                          "imgUrlList": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "x-temu-type": "STRING"
+                            },
+                            "x-temu-type": "LIST",
+                            "description": "Image URLs"
+                          },
+                          "language": {
+                            "type": "string",
+                            "x-temu-type": "STRING",
+                            "description": "Language"
+                          },
+                          "thumbUrl": {
+                            "type": "string",
+                            "x-temu-type": "STRING",
+                            "description": "Thumbnail URL"
+                          }
+                        },
+                        "required": [
+                          "language",
+                          "thumbUrl"
+                        ]
+                      },
+                      "x-temu-type": "LIST",
+                      "description": "Multilingual thumbnails"
+                    },
+                    "extCode": {
+                      "type": "string",
+                      "x-temu-type": "STRING",
+                      "description": "External SKU code"
+                    },
+                    "supplierPrice": {
+                      "type": "integer",
+                      "format": "int32",
+                      "x-temu-type": "INTEGER",
+                      "description": "Supplier price"
+                    },
+                    "siteSupplierPrices": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "properties": {
+                          "siteId": {
+                            "type": "integer",
+                            "format": "int32",
+                            "x-temu-type": "INTEGER",
+                            "description": "Site ID"
+                          },
+                          "supplierPrice": {
+                            "type": "integer",
+                            "format": "int32",
+                            "x-temu-type": "INTEGER",
+                            "description": "Supplier price"
+                          }
+                        },
+                        "required": [
+                          "siteId",
+                          "supplierPrice"
+                        ]
+                      },
+                      "x-temu-type": "LIST",
+                      "description": "Per-site supplier prices"
+                    },
+                    "productSkuSpecReqs": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "properties": {
+                          "parentSpecId": {
+                            "type": "integer",
+                            "format": "int32",
+                            "x-temu-type": "INTEGER",
+                            "description": "Parent specification ID"
+                          },
+                          "parentSpecName": {
+                            "type": "string",
+                            "x-temu-type": "STRING",
+                            "description": "Parent specification name"
+                          },
+                          "specId": {
+                            "type": "integer",
+                            "format": "int32",
+                            "x-temu-type": "INTEGER",
+                            "description": "Specification ID"
+                          },
+                          "specName": {
+                            "type": "string",
+                            "x-temu-type": "STRING",
+                            "description": "Specification name"
+                          },
+                          "groupId": {
+                            "type": "integer",
+                            "format": "int32",
+                            "x-temu-type": "INTEGER",
+                            "description": "Specification group ID"
+                          }
+                        },
+                        "required": [
+                          "parentSpecId",
+                          "parentSpecName",
+                          "specId",
+                          "specName"
+                        ]
+                      },
+                      "x-temu-type": "LIST",
+                      "description": "SKU specifications"
+                    },
+                    "productSkuWhExtAttrReq": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "properties": {
+                        "productSkuVolumeReq": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "properties": {
+                            "len": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "Length"
+                            },
+                            "width": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "Width"
+                            },
+                            "height": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "Height"
+                            },
+                            "inputLen": {
+                              "type": "string",
+                              "x-temu-type": "STRING",
+                              "description": "Original length"
+                            },
+                            "inputWidth": {
+                              "type": "string",
+                              "x-temu-type": "STRING",
+                              "description": "Original width"
+                            },
+                            "inputHeight": {
+                              "type": "string",
+                              "x-temu-type": "STRING",
+                              "description": "Original height"
+                            },
+                            "inputUnit": {
+                              "type": "string",
+                              "x-temu-type": "STRING",
+                              "description": "Original unit"
+                            }
+                          },
+                          "required": [
+                            "len",
+                            "width",
+                            "height"
+                          ]
+                        },
+                        "productSkuWeightReq": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "properties": {
+                            "value": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "Weight value"
+                            },
+                            "inputValue": {
+                              "type": "string",
+                              "x-temu-type": "STRING",
+                              "description": "Original weight"
+                            },
+                            "inputUnit": {
+                              "type": "string",
+                              "x-temu-type": "STRING",
+                              "description": "Original unit"
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ]
+                        },
+                        "productSkuSensitiveAttrReq": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "properties": {
+                            "isSensitive": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "Sensitive flag"
+                            },
+                            "sensitiveList": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer",
+                                "format": "int32",
+                                "x-temu-type": "INTEGER"
+                              },
+                              "x-temu-type": "LIST",
+                              "description": "Sensitive types"
+                            },
+                            "sensitiveTypes": {
+                              "type": "array",
+                              "items": {
+                                "type": "integer",
+                                "format": "int32",
+                                "x-temu-type": "INTEGER"
+                              },
+                              "x-temu-type": "LIST",
+                              "description": "Sensitive type categories"
+                            }
+                          }
+                        },
+                        "productSkuSensitiveLimitReq": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "properties": {
+                            "maxBatteryCapacityHp": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "Maximum battery capacity in mWh"
+                            },
+                            "maxBatteryCapacity": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "Maximum battery capacity in Wh"
+                            },
+                            "maxLiquidCapacity": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "Maximum liquid capacity in mL"
+                            },
+                            "maxLiquidCapacityHp": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "Maximum liquid capacity in μL"
+                            },
+                            "maxKnifeLength": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "Maximum knife length in mm"
+                            },
+                            "maxKnifeLengthHp": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "Maximum knife length in μm"
+                            },
+                            "knifeTipAngle": {
+                              "type": "object",
+                              "additionalProperties": true,
+                              "x-temu-type": "OBJECT",
+                              "description": "Blade angle",
+                              "properties": {
+                                "degrees": {
+                                  "type": "integer",
+                                  "format": "int32",
+                                  "x-temu-type": "INTEGER",
+                                  "description": "Degree"
+                                }
+                              },
+                              "required": [
+                                "degrees"
+                              ]
+                            }
+                          }
+                        },
+                        "productSkuBarCodeReqs": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "x-temu-type": "OBJECT",
+                            "properties": {
+                              "code": {
+                                "type": "string",
+                                "x-temu-type": "STRING",
+                                "description": "Barcode"
+                              },
+                              "codeType": {
+                                "type": "integer",
+                                "format": "int32",
+                                "x-temu-type": "INTEGER",
+                                "description": "Barcode type"
+                              }
+                            },
+                            "description": "Barcode request"
+                          },
+                          "x-temu-type": "LIST",
+                          "description": "Barcode requests"
+                        }
+                      },
+                      "required": [
+                        "productSkuVolumeReq",
+                        "productSkuWeightReq",
+                        "productSkuSensitiveLimitReq",
+                        "productSkuSensitiveAttrReq"
+                      ]
+                    },
+                    "productSkuStockQuantityReq": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "properties": {
+                        "warehouseStockQuantityReqs": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "x-temu-type": "OBJECT",
+                            "properties": {
+                              "warehouseId": {
+                                "type": "string",
+                                "x-temu-type": "STRING",
+                                "description": "Warehouse ID"
+                              },
+                              "targetStockAvailable": {
+                                "type": "integer",
+                                "format": "int32",
+                                "x-temu-type": "INTEGER",
+                                "description": "Target stock"
+                              },
+                              "currentStockAvailable": {
+                                "type": "integer",
+                                "format": "int32",
+                                "x-temu-type": "INTEGER",
+                                "description": "Current stock"
+                              }
+                            },
+                            "required": [
+                              "warehouseId",
+                              "targetStockAvailable"
+                            ]
+                          },
+                          "x-temu-type": "LIST",
+                          "description": "Warehouse stock"
+                        }
+                      },
+                      "required": [
+                        "warehouseStockQuantityReqs"
+                      ]
+                    },
+                    "productSkuMultiPackReq": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "properties": {
+                        "numberOfPieces": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Number of pieces"
+                        },
+                        "individuallyPacked": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Individually packed flag"
+                        },
+                        "mixedType": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Mixed set type"
+                        },
+                        "skuClassification": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "SKU classification"
+                        },
+                        "numberOfPiecesNew": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Total quantity"
+                        },
+                        "pieceNewUnitCode": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "New piece unit"
+                        },
+                        "pieceUnitCode": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Piece unit"
+                        }
+                      }
+                    },
+                    "productSkuNetContentReq": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "properties": {
+                        "netContentUnitCode": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Net content unit"
+                        },
+                        "netContentNumber": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Net content value"
+                        }
+                      }
+                    },
+                    "totalNetContent": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "properties": {
+                        "netContentUnitCode": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Net content unit"
+                        },
+                        "netContentNumber": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Net content value"
+                        }
+                      }
+                    },
+                    "productSkuSuggestedPriceReq": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "properties": {
+                        "suggestedPrice": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Suggested price"
+                        },
+                        "specialSuggestedPrice": {
+                          "type": "string",
+                          "x-temu-type": "STRING",
+                          "description": "Special suggested price"
+                        },
+                        "suggestedPriceCurrencyType": {
+                          "type": "string",
+                          "x-temu-type": "STRING",
+                          "description": "Currency"
+                        }
+                      }
+                    },
+                    "productSkuAccessoriesReq": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "properties": {
+                        "productSkuAccessories": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "additionalProperties": true,
+                            "x-temu-type": "OBJECT",
+                            "properties": {
+                              "vid": {
+                                "type": "integer",
+                                "format": "int32",
+                                "x-temu-type": "INTEGER",
+                                "description": "Accessory value ID"
+                              },
+                              "num": {
+                                "type": "integer",
+                                "format": "int32",
+                                "x-temu-type": "INTEGER",
+                                "description": "Quantity"
+                              },
+                              "unitCode": {
+                                "type": "integer",
+                                "format": "int32",
+                                "x-temu-type": "INTEGER",
+                                "description": "Unit code"
+                              }
+                            },
+                            "required": [
+                              "vid",
+                              "num",
+                              "unitCode"
+                            ]
+                          },
+                          "x-temu-type": "LIST",
+                          "description": "SKU accessories"
+                        }
+                      },
+                      "required": [
+                        "productSkuAccessories"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "currencyType",
+                    "thumbUrl",
+                    "extCode",
+                    "supplierPrice",
+                    "productSkuSpecReqs",
+                    "productSkuWhExtAttrReq"
+                  ]
+                },
+                "x-temu-type": "LIST",
+                "description": "Product SKU list"
+              },
+              "isBasePlate": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "Base-plate flag"
+              }
+            },
+            "required": [
+              "previewImgUrls",
+              "extCode",
+              "mainProductSkuSpecReqs",
+              "productSkuReqs"
+            ]
+          },
+          "x-temu-type": "LIST",
+          "description": "Product SKC list"
+        },
+        "productSaleExtAttrReq": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Product sales-side extended attributes",
+          "properties": {
+            "inventoryRegion": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "Inventory area"
+            },
+            "productSecondHandReq": {
+              "type": "object",
+              "additionalProperties": true,
+              "x-temu-type": "OBJECT",
+              "description": "Second-hand product information",
+              "properties": {
+                "isSecondHand": {
+                  "type": "boolean",
+                  "x-temu-type": "BOOLEAN",
+                  "description": "Whether the product is second-hand"
+                },
+                "secondHandLevel": {
+                  "type": "integer",
+                  "format": "int32",
+                  "x-temu-type": "INTEGER",
+                  "description": "Second-hand condition"
+                }
+              }
+            },
+            "discreetShipping": {
+              "type": "boolean",
+              "x-temu-type": "BOOLEAN",
+              "description": "Discreet shipping service"
+            },
+            "customizedTechnologyReq": {
+              "type": "object",
+              "additionalProperties": true,
+              "x-temu-type": "OBJECT",
+              "description": "Customized craft request",
+              "properties": {
+                "twiceType": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER"
+                  },
+                  "x-temu-type": "LIST",
+                  "description": "Secondary processes"
+                },
+                "firstType": {
+                  "type": "integer",
+                  "format": "int32",
+                  "x-temu-type": "INTEGER",
+                  "description": "Primary process"
+                },
+                "technologyType": {
+                  "type": "integer",
+                  "format": "int32",
+                  "x-temu-type": "INTEGER",
+                  "description": "Craft type"
+                }
+              },
+              "required": [
+                "firstType",
+                "technologyType"
+              ]
+            },
+            "productNoChargerReq": {
+              "type": "object",
+              "additionalProperties": true,
+              "x-temu-type": "OBJECT",
+              "description": "No-charger product information",
+              "properties": {
+                "noChargerProductIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER"
+                  },
+                  "x-temu-type": "LIST",
+                  "description": "No-charger product IDs"
+                }
+              },
+              "required": [
+                "noChargerProductIds"
+              ]
+            },
+            "personalizationSwitch": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "Personalization template switch"
+            },
+            "productCustomReq": {
+              "type": "object",
+              "additionalProperties": true,
+              "x-temu-type": "OBJECT",
+              "description": "Product customs information",
+              "properties": {
+                "goodsLabelName": {
+                  "type": "string",
+                  "x-temu-type": "STRING",
+                  "description": "Product label"
+                },
+                "isRecommendedTag": {
+                  "type": "boolean",
+                  "x-temu-type": "BOOLEAN",
+                  "description": "Whether to select recommended tags"
+                }
+              },
+              "required": [
+                "isRecommendedTag"
+              ]
+            },
+            "vehicleLibraryRelationReqList": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "productPropValueDependencyReqList": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "properties": {
+                        "propertyValueDependencyId1": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "propertyValueDependencyId2": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "propertyValueDependencyId3": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "propertyValueDependencyId4": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "propertyValueDependencyId5": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "propertyValueDependencyId6": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "propertyValueDependencyId7": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "propertyValueDependencyId8": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "propertyValueDependencyId9": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "propertyValueDependencyId10": {
+                          "type": "integer",
+                          "format": "int32"
+                        },
+                        "vehicleLibraryId": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Vehicle model ID"
+                        }
+                      },
+                      "required": [
+                        "vehicleLibraryId"
+                      ]
+                    },
+                    "x-temu-type": "LIST",
+                    "description": "Attribute-value dependency configuration"
+                  }
+                }
+              },
+              "x-temu-type": "LIST",
+              "description": "Vehicle-library configuration"
+            }
+          }
         },
         "materialImgUrl": {
           "type": "string",
           "x-temu-type": "STRING",
-          "description": "Material Image"
+          "description": "Material image"
         },
         "productComplianceStatementReq": {
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "Compliance Signing Agreement"
-        },
-        "protocolVersion": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Protocol Version Number"
-        },
-        "protocolUrl": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Protocol Link"
+          "properties": {
+            "protocolVersion": {
+              "type": "string",
+              "x-temu-type": "STRING",
+              "description": "Protocol version"
+            },
+            "protocolUrl": {
+              "type": "string",
+              "x-temu-type": "STRING",
+              "description": "Protocol URL"
+            }
+          },
+          "required": [
+            "protocolVersion",
+            "protocolUrl"
+          ]
         }
       },
       "required": [
@@ -3773,95 +4401,21 @@
         "sign",
         "access_token",
         "version",
-        "bindSiteIds",
-        "vid",
-        "coverUrl",
-        "videoUrl",
-        "width",
-        "height",
-        "lang",
-        "priority",
-        "contentList",
-        "backgroundColor",
-        "fontSize",
-        "align",
-        "fontColor",
-        "key",
         "productPropertyReqs",
-        "valueUnit",
-        "pid",
-        "templatePid",
-        "propValue",
-        "propName",
-        "refPid",
-        "imageUrl",
-        "fileName",
-        "pdfMaterialId",
-        "languages",
         "productName",
-        "language",
-        "targetRouteList",
-        "siteIdList",
-        "warehouseId",
-        "modelProfileUrl",
-        "sizeSpecName",
-        "modelId",
-        "sizeSpecId",
-        "modelName",
-        "freightTemplateId",
-        "shipmentLimitSecond",
-        "fileUrl",
-        "cat7Id",
-        "cat8Id",
-        "cat9Id",
+        "cat1Id",
+        "cat2Id",
         "cat3Id",
         "cat4Id",
         "cat5Id",
         "cat6Id",
-        "cat1Id",
-        "cat2Id",
-        "productSpecPropertyReqs",
-        "specId",
-        "valueGroupId",
-        "parentSpecId",
-        "valueGroupName",
-        "outerGoodsUrl",
-        "productOrigin",
-        "region1ShortName",
-        "productSkcReqs",
-        "extCode",
-        "productSkuReqs",
-        "currencyType",
-        "siteId",
-        "supplierPrice",
-        "warehouseStockQuantityReqs",
-        "targetStockAvailable",
-        "productSkuAccessories",
-        "num",
-        "unitCode",
-        "thumbUrl",
-        "productSkuWhExtAttrReq",
-        "productSkuWeightReq",
-        "value",
-        "productSkuSensitiveLimitReq",
-        "degrees",
-        "productSkuVolumeReq",
-        "len",
-        "productSkuSensitiveAttrReq",
-        "productSkuSpecReqs",
-        "parentSpecName",
-        "specName",
-        "mainProductSkuSpecReqs",
-        "previewImgUrls",
-        "firstType",
-        "technologyType",
-        "noChargerProductIds",
-        "isRecommendedTag",
-        "vehicleLibraryId",
+        "cat7Id",
+        "cat8Id",
+        "cat9Id",
         "cat10Id",
-        "materialImgUrl",
-        "protocolVersion",
-        "protocolUrl"
+        "productSpecPropertyReqs",
+        "productSkcReqs",
+        "materialImgUrl"
       ]
     },
     "bg_glo_goods_addResponse": {
@@ -3872,76 +4426,108 @@
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "result"
-        },
-        "productSkuList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "SKU List"
-        },
-        "productSkuId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "sku id"
-        },
-        "extCode": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Sku External Code"
-        },
-        "skuSpecList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "Sku Specification"
-        },
-        "specId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Specification ID"
-        },
-        "parentSpecName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Parent Specification Name"
-        },
-        "parentSpecId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Parent Specification ID"
-        },
-        "specName": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "Specification Name"
-        },
-        "productSkcId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "skc id"
-        },
-        "productId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "Product ID"
-        },
-        "productSkcList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "SKC List"
+          "description": "result",
+          "properties": {
+            "productSkuList": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "x-temu-type": "OBJECT",
+                "properties": {
+                  "productSkuId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER",
+                    "description": "Product SKU ID"
+                  },
+                  "extCode": {
+                    "type": "string",
+                    "x-temu-type": "STRING",
+                    "description": "External SKU code"
+                  },
+                  "skuSpecList": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "properties": {
+                        "parentSpecId": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Parent specification ID"
+                        },
+                        "parentSpecName": {
+                          "type": "string",
+                          "x-temu-type": "STRING",
+                          "description": "Parent specification name"
+                        },
+                        "specId": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Specification ID"
+                        },
+                        "specName": {
+                          "type": "string",
+                          "x-temu-type": "STRING",
+                          "description": "Specification name"
+                        },
+                        "groupId": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "Specification group ID"
+                        }
+                      },
+                      "required": [
+                        "parentSpecId",
+                        "parentSpecName",
+                        "specId",
+                        "specName"
+                      ]
+                    },
+                    "x-temu-type": "LIST",
+                    "description": "SKU specs"
+                  },
+                  "productSkcId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER",
+                    "description": "Product SKC ID"
+                  }
+                }
+              },
+              "x-temu-type": "LIST",
+              "description": "SKU list"
+            },
+            "productId": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "Product ID"
+            },
+            "productSkcList": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "x-temu-type": "OBJECT",
+                "properties": {
+                  "productSkcId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER",
+                    "description": "Product SKC ID"
+                  }
+                }
+              },
+              "x-temu-type": "LIST",
+              "description": "SKC list"
+            }
+          }
         },
         "success": {
           "type": "boolean",

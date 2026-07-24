@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Price Review PA - bg.semi.price.review.reject.order",
-    "description": "支持商家不同意全托管核价单建议价（并给出新的申报价） PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.",
+    "description": "半托管不同意核价单建议价（并给出新的申报价）",
     "version": "2025-07-31 11:30:29"
   },
   "host": "openapi-b-partner.temu.com",
@@ -23,8 +23,8 @@
           "Price Review PA"
         ],
         "operationId": "bg_semi_price_review_reject_order",
-        "summary": "不同意核价单建议价（并给出新的申报价）",
-        "description": "支持商家不同意全托管核价单建议价（并给出新的申报价） PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.",
+        "summary": "半托管不同意核价单建议价（并给出新的申报价）",
+        "description": "半托管不同意核价单建议价（并给出新的申报价）",
         "parameters": [
           {
             "name": "body",
@@ -231,9 +231,7 @@
           "description": "半托管不同意核价单建议价（并给出新的申报价）",
           "partnerGatewayUrl": "https://openapi-b-partner.temu.com/openapi/router",
           "legacyStillActiveForFullManaged": true
-        },
-        "x-temu-schema-copied-from-legacy-type": "bg.price.review.reject",
-        "x-temu-synthetic": true
+        }
       }
     }
   },
@@ -284,50 +282,77 @@
         "bargainReasonList": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "componentList": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "properties": {
+                    "reason": {
+                      "type": "string",
+                      "x-temu-type": "STRING",
+                      "description": "具体原因"
+                    },
+                    "type": {
+                      "type": "integer",
+                      "format": "int32",
+                      "x-temu-type": "INTEGER",
+                      "description": "重新报价原因类型. 可选值含义说明:[0:材质;1:功能;2:其他;3:品类;4:外观;5:版型;6:图案;7:规格尺寸;8:品牌;]"
+                    }
+                  },
+                  "required": [
+                    "reason",
+                    "type"
+                  ]
+                },
+                "x-temu-type": "LIST",
+                "description": "原因列表，允许录入1~20条"
+              },
+              "externalLinkList": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "x-temu-type": "STRING"
+                },
+                "x-temu-type": "LIST",
+                "description": "外部链接，最多录入5个链接"
+              }
+            },
+            "required": [
+              "componentList"
+            ]
           },
           "x-temu-type": "LIST",
           "description": "重新报价原因列表"
         },
-        "componentList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "原因列表，允许录入1~20条"
-        },
-        "reason": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "具体原因"
-        },
-        "externalLinkList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "外部链接，最多录入5个链接"
-        },
         "priceItemList": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+              "productSkuId": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER",
+                "description": "skuId"
+              },
+              "price": {
+                "type": "string",
+                "x-temu-type": "STRING",
+                "description": "价格 分"
+              }
+            },
+            "required": [
+              "productSkuId",
+              "price"
+            ]
           },
           "x-temu-type": "LIST",
           "description": "-"
-        },
-        "productSkuId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "skuId"
-        },
-        "price": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "价格 分"
         },
         "orderId": {
           "type": "integer",
@@ -343,10 +368,6 @@
         "sign",
         "access_token",
         "version",
-        "componentList",
-        "reason",
-        "productSkuId",
-        "price",
         "orderId"
       ]
     },

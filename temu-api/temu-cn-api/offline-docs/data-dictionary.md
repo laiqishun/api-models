@@ -9,13 +9,18 @@ This file is a cleaned local copy of `Temu CN 数据字典(1).md` for offline ag
 | [半托管发品sku分类必传的叶子类目](#半托管发品sku分类必传的叶子类目) | `skuClassification` |
 | [尺码表分类](#尺码表分类) | `classId`, `className` |
 | [发品-省份枚举值](#发品-省份枚举值) | `productWhExtAttrReq.productOrigin.region2Id`, `provinceCode` |
+| [部分类目模特信息必填](#部分类目模特信息必填) | `goodsModelReqs`, `modelId`, `modelType`, `modelFeature` |
 | [定制品定制工艺层级关系](#定制品定制工艺层级关系) | `firstType`, `twiceType` |
+| [定制品工艺层级表](#层级关系) | first/second-level customization process mapping |
 | [半托管站点列表](#半托管站点列表) | `siteId`, `siteIdList`, `bindSiteIds`, `semiManagedSiteMode` |
 | [货品名称长度限制规则](#货品名称长度限制规则) | `productName` |
 | [净含量必填叶子类目](#净含量必填叶子类目) | net-content fields |
+| [单码鞋类尺码与脚长映射](#单码鞋类尺码脚长映射配置) | single-size shoe size/foot-length mapping |
+| [双码鞋类尺码与脚长映射](#双码鞋类尺码脚长映射配置) | dual-size shoe size/foot-length mapping |
 | [承诺发货时效说明](#承诺发货时效说明) | `shipmentLimitSecond` |
 | [车型库必填类目](#车型库必填类目) | vehicle library required categories |
 | [支持底板套板的类目](#支持底板套板的类目) | `isBasePlate` and base-plate category checks |
+| [常见问题](#常见问题) | authorization, product publication, full-managed stock/shipping |
 
 Notes:
 
@@ -278,8 +283,7 @@ classId与className映射关系如下
 
 # 发品-省份枚举值
 
-适用于[上传货品（bg.goods.add）](https://agentpartner.temu.com/document?cataId=875198836203&docId=875202591662)接口省份字段枚举值[
-](https://)
+适用于上传货品接口 `bg.glo.goods.add` 的省份字段枚举值。
 
 字段名：productWhExtAttrReq.productOrigin.region2Id
 
@@ -339,7 +343,7 @@ classId与className映射关系如下
 
 # 层级关系
 
-用于[bg.goods.add](https://agentpartner.temu.com/document?cataId=875198836203&docId=875202591662)接口中productSaleExtAttrReq.customizedTechnologyReq定制工艺
+用于 `bg.glo.goods.add` 接口中 `productSaleExtAttrReq.customizedTechnologyReq` 定制工艺。
 
 | 工艺类型               | 一级工艺firstType                                | 二级工艺（子工艺）twiceType |
 | ---------------------- | ------------------------------------------------ | --------------------------- |
@@ -19628,21 +19632,21 @@ footLength 脚长 //单位mm
 
 1-1. 接口报错"errorMsg":"type not exists."
 
-请检查入参的接口type值是否在CN区接口范围内，可通过bg.open.accesstoken.info.get查询接口范围
+检查 type 与网关是否匹配。CN 网关可用 `bg.open.accesstoken.info.get` 查询授权范围；PA 网关使用 `bg.open.accesstoken.info.get.global`。
 
 ## 2. 货品常见报错
 
-2-1. 发品接口bg.goods.add报错提示"errorMsg":"主销售属性不合法"
+2-1. 发品接口 `bg.glo.goods.add` 报错提示"errorMsg":"主销售属性不合法"
 
 非服饰默认传值："mainProductSkuSpecReqs":[{"parentSpecId":0,"parentSpecName":"","specId":0,"specName":""}]
 
-2-2. 发品接口bg.goods.add报错提示"尺码表包含不合法的尺码规格"
+2-2. 发品接口 `bg.glo.goods.add` 报错提示"尺码表包含不合法的尺码规格"
 
 发品的尺码必须和尺码表中的尺码一致，例如发品传入S、M、L三种尺码，那么尺码表必须为S、M、L三种尺码
 
 2-3. 发品接口报错提示“URL域名校验不通过或URL包含不合法字符串"
 
-图片需要先调用图片上传接口（bg.goods.image.upload），将返回的URL作为发品接口入参
+图片需要先调用图片上传接口 `bg.goods.image.upload.global`，将返回的 URL 作为发品接口入参。
 
 2-4. 属性模版接口bg.goods.attrs.get返回为空
 

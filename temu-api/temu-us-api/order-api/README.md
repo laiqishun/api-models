@@ -1,16 +1,33 @@
+---
+title: Temu US Order API
+description: "US order search, detail, shipping-address, customization, consolidation, and cancellation workflows."
+---
+
 # Order API
 
-Source group: `3、Order`.
+适用于美国本土店铺，以及目标站点为美国的中国跨境半托消费者订单（orders, order detail, shipping address, cancellation）。
+
+## 选择规则
+
+- 批量分页查订单：`bg.order.list.v2.get`
+- 查单个订单完整详情：`bg.order.detail.v2.get`
+- 查普通收货信息：`bg.order.shippinginfo.v2.get`
+- 查敏感解密地址：`bg.order.decryptshippinginfo.get`，需要对应权限
+- 查定制内容：`bg.order.customization.get`
+- 查可合并发货订单组：`bg.order.combinedshipment.list.get`
+- 缺货取消或取消申诉：使用对应 `temu.order.cancel.*` 提交接口，再调用 result 接口轮询异步结果
+
+库存不足但尚未确定取消时，不要用订单取消接口代替 [CN 半托库存更新](../../temu-cn-api/inventory-api-pa/README.md)。
 
 ## API List
 
-- [bg.order.combinedshipment.list.get](operations/bg.order.combinedshipment.list.get.json) - The bg.order.combinedshipment.list.get interface is designed for merchants to retrieve combined shipping groups including lists of parent orders that can be combined for shipping.
-- [bg.order.customization.get](operations/bg.order.customization.get.json) - Self developed sellers and third-party ISVs obtain customized product content information in bulk through Open API
-- [bg.order.decryptshippinginfo.get](operations/bg.order.decryptshippinginfo.get.json) - bg.order.decryptshippinginfo.get interface is designed to retrieve sensitive shipping address information for a specific order.
-- [bg.order.detail.v2.get](operations/bg.order.detail.v2.get.json) - The bg.order.detail.v2.get interface is designed for merchants to retrieve detailed information about a specific order within their respective stores. This functionality provide...
-- [bg.order.list.v2.get](operations/bg.order.list.v2.get.json) - The bg.order.list.v2.get interface is designed for support batch return of corresponding order lists based on filtering criteria.
-- [bg.order.shippinginfo.v2.get](operations/bg.order.shippinginfo.v2.get.json) - The bg.order.shippinginfo.get.V2 interface is designed to retrieve shipping address information for a specific order. This functionality is crucial for merchants and logistics p...
-- [temu.order.cancel.appeal.apply](operations/temu.order.cancel.appeal.apply.json) - Support merchants to initiate cancellation requests through the interface
-- [temu.order.cancel.appeal.result.get](operations/temu.order.cancel.appeal.result.get.json) - Merchant queries the status of cancellation order appeal records
-- [temu.order.cancel.outofstock.apply](operations/temu.order.cancel.outofstock.apply.json) - The user takes the initiative to initiate a stock-out situation, which will be submitted to the risk control department for review.
-- [temu.order.cancel.outofstock.result.get](operations/temu.order.cancel.outofstock.result.get.json) - After applying for out-of-stock, since out-of-stock itself is an asynchronous operation, you need to obtain the latest out-of-stock review status through the query interface
+- [bg.order.combinedshipment.list.get](operations/bg.order.combinedshipment.list.get.json) — 查询可合并发货的父订单组
+- [bg.order.customization.get](operations/bg.order.customization.get.json) — 批量获取定制商品内容
+- [bg.order.decryptshippinginfo.get](operations/bg.order.decryptshippinginfo.get.json) — 获取订单敏感收货地址
+- [bg.order.detail.v2.get](operations/bg.order.detail.v2.get.json) — 获取指定订单详情
+- [bg.order.list.v2.get](operations/bg.order.list.v2.get.json) — 按筛选条件分页查询订单
+- [bg.order.shippinginfo.v2.get](operations/bg.order.shippinginfo.v2.get.json) — 获取指定订单收货信息
+- [temu.order.cancel.appeal.apply](operations/temu.order.cancel.appeal.apply.json) — 提交订单取消申诉
+- [temu.order.cancel.appeal.result.get](operations/temu.order.cancel.appeal.result.get.json) — 查询取消申诉结果
+- [temu.order.cancel.outofstock.apply](operations/temu.order.cancel.outofstock.apply.json) — 提交缺货取消申请
+- [temu.order.cancel.outofstock.result.get](operations/temu.order.cancel.outofstock.result.get.json) — 查询缺货取消审核结果

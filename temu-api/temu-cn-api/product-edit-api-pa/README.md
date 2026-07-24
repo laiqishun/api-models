@@ -2,6 +2,12 @@
 
 Source group: `编辑API组-PA`.
 
+## 使用范围
+
+Partner 网关商品资料、图片、属性与运费模板修改（product edit）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.glo.goods.add.property](operations/bg.glo.goods.add.property.json) - 支持开平新增货品上的属性信息

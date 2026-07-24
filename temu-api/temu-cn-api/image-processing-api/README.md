@@ -2,6 +2,12 @@
 
 Source group: `图片处理API组`.
 
+## 使用范围
+
+商品图片上传、翻译、压缩与图像处理（image upload, translate, compress）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.algo.dimension.image.check](operations/bg.algo.dimension.image.check.json) - 部分类目要求在商品轮播图必须上传尺寸图，尺寸图要求必须使用公制和英制单位，需要提供对应的尺寸图校验接口给外部商家

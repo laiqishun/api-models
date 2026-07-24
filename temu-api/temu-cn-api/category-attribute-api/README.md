@@ -2,6 +2,12 @@
 
 Source group: `类目属性API组`.
 
+## 使用范围
+
+仍在 CN 网关的类目、属性、规格与映射查询（category, attribute, specification）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.glo.goods.photorecommendationcategory.get](operations/bg.glo.goods.photorecommendationcategory.get.json) - 外部商品图片映射temu类目

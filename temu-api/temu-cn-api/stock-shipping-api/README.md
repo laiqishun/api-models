@@ -2,6 +2,12 @@
 
 Source group: `备货及发货API组`.
 
+## 使用范围
+
+全托备货单、发货单、地址、物流与包裹操作（stock order, shipping order）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.logistics.company.get](operations/bg.logistics.company.get.json) - 快递公司查询

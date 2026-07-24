@@ -2,6 +2,12 @@
 
 Source group: `7、Fulfillment`.
 
+## 使用范围
+
+区域发货、面单、包裹确认、揽收与履约（fulfillment, shipment, label, pickup）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.logistics.shipment.create](operations/bg.logistics.shipment.create.json) - The bg.logistics.shipment.create interface is for sellers to place online logistics orders and receive package numbers, which enables to effortlessly place logistics orders with...

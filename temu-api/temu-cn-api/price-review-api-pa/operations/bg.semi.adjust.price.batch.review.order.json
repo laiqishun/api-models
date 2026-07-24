@@ -2,7 +2,7 @@
   "swagger": "2.0",
   "info": {
     "title": "Price Review PA - bg.semi.adjust.price.batch.review.order",
-    "description": "商家通过开平接口处理调价单 PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.",
+    "description": "半托管批量确认或拒绝调价单",
     "version": "2025-03-20 20:03:42"
   },
   "host": "openapi-b-partner.temu.com",
@@ -23,8 +23,8 @@
           "Price Review PA"
         ],
         "operationId": "bg_semi_adjust_price_batch_review_order",
-        "summary": "半托管批量确认/拒绝调价单",
-        "description": "商家通过开平接口处理调价单 PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.",
+        "summary": "半托管批量确认或拒绝调价单",
+        "description": "半托管批量确认或拒绝调价单",
         "parameters": [
           {
             "name": "body",
@@ -224,9 +224,7 @@
           "period": "2025-6 迁移",
           "description": "半托管批量确认/拒绝调价单",
           "partnerGatewayUrl": "https://openapi-b-partner.temu.com/openapi/router"
-        },
-        "x-temu-schema-copied-from-legacy-type": "bg.semi.adjust.price.batch.review",
-        "x-temu-synthetic": true
+        }
       }
     }
   },
@@ -283,26 +281,20 @@
         "submitOrders": {
           "type": "array",
           "items": {
-            "type": "object"
+            "type": "string",
+            "x-temu-type": "STRING"
           },
           "x-temu-type": "LIST",
           "description": "批量提交的所有调价单"
         },
         "rejectReasons": {
           "type": "object",
-          "additionalProperties": true,
+          "additionalProperties": {
+            "type": "string",
+            "x-temu-type": "STRING"
+          },
           "x-temu-type": "MAP",
           "description": "拒绝原因, key=调价单号, value=原因"
-        },
-        "$key": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "调价单号"
-        },
-        "$value": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "拒绝原因"
         }
       },
       "required": [
@@ -324,31 +316,27 @@
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "result"
-        },
-        "successOrders": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "提交成功的调价单"
-        },
-        "failedOrders": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "MAP",
-          "description": "提交失败的调价单"
-        },
-        "$key": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "-"
-        },
-        "$value": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "-"
+          "description": "result",
+          "properties": {
+            "successOrders": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "x-temu-type": "STRING"
+              },
+              "x-temu-type": "LIST",
+              "description": "提交成功的调价单"
+            },
+            "failedOrders": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string",
+                "x-temu-type": "STRING"
+              },
+              "x-temu-type": "MAP",
+              "description": "提交失败的调价单"
+            }
+          }
         },
         "success": {
           "type": "boolean",

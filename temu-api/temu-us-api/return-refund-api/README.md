@@ -2,6 +2,12 @@
 
 Source group: `6、Return and Refund`.
 
+## 使用范围
+
+区域退货、退款、退货地址与售后处理（return, refund, aftersales）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.aftersales.aftersales.list.get](operations/bg.aftersales.aftersales.list.get.json) - This interface is designed for use in an e-commerce platform, specifically for handling after-sales service requests related to product returns and refunds. The interface allows...

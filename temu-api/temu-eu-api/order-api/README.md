@@ -2,6 +2,12 @@
 
 Source group: `3、Order`.
 
+## 使用范围
+
+区域消费者订单列表、详情、地址与取消流程（orders, shipping address, cancellation）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.order.combinedshipment.list.get](operations/bg.order.combinedshipment.list.get.json) - The bg.order.combinedshipment.list.get interface is designed for merchants to retrieve combined shipping groups including lists of parent orders that can be combined for shipping.

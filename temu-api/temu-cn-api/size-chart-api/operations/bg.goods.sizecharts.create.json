@@ -159,9 +159,7 @@
             "name": "records",
             "type": "LIST",
             "required": true,
-            "description": "商品尺码表元数据-值映射关系",
-            "offlineReference": "../../offline-docs/data-dictionary.md#尺码表分类",
-            "offlineReferenceReason": "size-chart class mapping"
+            "description": "商品尺码表元数据-值映射关系"
           },
           {
             "name": "$item",
@@ -446,20 +444,24 @@
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "附加信息"
-        },
-        "isDoubleSize": {
-          "type": "boolean",
-          "x-temu-type": "BOOLEAN",
-          "description": "是否为双码 (不传默认否)"
-        },
-        "manualGroupIdList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "手动录入的尺码组"
+          "description": "附加信息",
+          "properties": {
+            "isDoubleSize": {
+              "type": "boolean",
+              "x-temu-type": "BOOLEAN",
+              "description": "是否为双码 (不传默认否)"
+            },
+            "manualGroupIdList": {
+              "type": "array",
+              "items": {
+                "type": "integer",
+                "format": "int32",
+                "x-temu-type": "INTEGER"
+              },
+              "x-temu-type": "LIST",
+              "description": "手动录入的尺码组"
+            }
+          }
         },
         "catId": {
           "type": "integer",
@@ -484,92 +486,199 @@
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "内容"
-        },
-        "records": {
-          "type": "array",
-          "items": {
-            "type": "object"
+          "description": "内容",
+          "properties": {
+            "records": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string",
+                      "x-temu-type": "STRING"
+                    },
+                    "x-temu-type": "MAP",
+                    "description": "元数据ID与值的映射关系"
+                  }
+                }
+              },
+              "x-temu-type": "LIST",
+              "description": "商品尺码表元数据-值映射关系"
+            },
+            "meta": {
+              "type": "object",
+              "additionalProperties": true,
+              "x-temu-type": "OBJECT",
+              "description": "尺码组与尺码参数元数据",
+              "properties": {
+                "groupList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "x-temu-type": "STRING",
+                        "description": "名称"
+                      },
+                      "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "x-temu-type": "INTEGER",
+                        "description": "ID"
+                      },
+                      "elementList": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "x-temu-type": "STRING",
+                              "description": "名称"
+                            },
+                            "id": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "ID"
+                            },
+                            "generalSizeType": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "发布码类型 (同尺码组id)"
+                            },
+                            "localSizeSource": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "本地码来源"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "id"
+                          ]
+                        },
+                        "x-temu-type": "LIST",
+                        "description": "尺码参数元数据"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "id",
+                      "elementList"
+                    ]
+                  },
+                  "x-temu-type": "LIST",
+                  "description": "尺码组元数据"
+                }
+              },
+              "required": [
+                "groupList"
+              ]
+            },
+            "bodyRecords": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "values": {
+                    "type": "object",
+                    "additionalProperties": {
+                      "type": "string",
+                      "x-temu-type": "STRING"
+                    },
+                    "x-temu-type": "MAP",
+                    "description": "元数据ID与值的映射关系"
+                  }
+                }
+              },
+              "x-temu-type": "LIST",
+              "description": "基码表元数据-值映射关系"
+            },
+            "bodyMeta": {
+              "type": "object",
+              "additionalProperties": true,
+              "x-temu-type": "OBJECT",
+              "description": "基码表尺码组与尺码参数元数据",
+              "properties": {
+                "groupList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "x-temu-type": "STRING",
+                        "description": "名称"
+                      },
+                      "id": {
+                        "type": "integer",
+                        "format": "int32",
+                        "x-temu-type": "INTEGER",
+                        "description": "ID"
+                      },
+                      "elementList": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "properties": {
+                            "name": {
+                              "type": "string",
+                              "x-temu-type": "STRING",
+                              "description": "名称"
+                            },
+                            "id": {
+                              "type": "integer",
+                              "format": "int32",
+                              "x-temu-type": "INTEGER",
+                              "description": "ID"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "id"
+                          ]
+                        },
+                        "x-temu-type": "LIST",
+                        "description": "尺码参数元数据"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "id",
+                      "elementList"
+                    ]
+                  },
+                  "x-temu-type": "LIST",
+                  "description": "尺码组元数据"
+                }
+              },
+              "required": [
+                "groupList"
+              ]
+            },
+            "reusable": {
+              "type": "boolean",
+              "x-temu-type": "BOOLEAN",
+              "description": "是否可复用"
+            }
           },
-          "x-temu-type": "LIST",
-          "description": "商品尺码表元数据-值映射关系",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#尺码表分类",
-          "x-temu-offline-reference-reason": "size-chart class mapping"
-        },
-        "values": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "MAP",
-          "description": "元数据ID与值的映射关系"
-        },
-        "$key": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "元数据ID"
-        },
-        "$value": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "值"
-        },
-        "meta": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "尺码组与尺码参数元数据"
-        },
-        "groupList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "尺码组元数据"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "ID"
-        },
-        "elementList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "尺码参数元数据"
-        },
-        "generalSizeType": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "发布码类型 (同尺码组id)"
-        },
-        "localSizeSource": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "本地码来源"
-        },
-        "bodyRecords": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "基码表元数据-值映射关系"
-        },
-        "bodyMeta": {
-          "type": "object",
-          "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "基码表尺码组与尺码参数元数据"
-        },
-        "reusable": {
-          "type": "boolean",
-          "x-temu-type": "BOOLEAN",
-          "description": "是否可复用"
+          "required": [
+            "records",
+            "meta",
+            "reusable"
+          ]
         }
       },
       "required": [
@@ -579,13 +688,7 @@
         "sign",
         "access_token",
         "version",
-        "content",
-        "records",
-        "meta",
-        "groupList",
-        "id",
-        "elementList",
-        "reusable"
+        "content"
       ]
     },
     "bg_goods_sizecharts_createResponse": {
@@ -596,13 +699,15 @@
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "result"
-        },
-        "businessId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "模板ID"
+          "description": "result",
+          "properties": {
+            "businessId": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "模板ID"
+            }
+          }
         },
         "success": {
           "type": "boolean",

@@ -2,6 +2,12 @@
 
 Source group: `尺码表API组`.
 
+## 使用范围
+
+CN 尺码表分类、模板、创建与图片识别（size chart）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.goods.imagesizechart.get](operations/bg.goods.imagesizechart.get.json) - 图片提取尺码表

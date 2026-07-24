@@ -2,6 +2,12 @@
 
 Source group: `2、Price`.
 
+## 使用范围
+
+区域报价、价格单、价格申诉与订单金额（pricing, price order, appeal）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.local.goods.priceorder.accept](operations/bg.local.goods.priceorder.accept.json) - Support merchants within the white list to accept the price offer through the interface.

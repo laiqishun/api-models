@@ -2,6 +2,12 @@
 
 Source group: `寄样/质检/退供API组`.
 
+## 使用范围
+
+样品单、质检单与供应链退供包裹（sample, quality inspection, supplier return）。
+
+先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+
 ## API List
 
 - [bg.goods.qualityinspection.get](operations/bg.goods.qualityinspection.get.json) - 新增卖家中心直接结果查询接口，用于卖家跟进不合格质检备货单，优化生产

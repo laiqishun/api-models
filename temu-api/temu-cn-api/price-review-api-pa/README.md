@@ -1,12 +1,25 @@
+---
+title: Temu CN Semi-Managed Price Review PA API
+description: "Partner-gateway supply-price, semi-managed price-review, and semi-managed price-adjustment operations."
+---
+
 # Price Review PA API
 
-Source group: `申报价/核价/调价API-PA`.
+适用于 Partner 网关的供货价查询，以及中国跨境**半托管**核价/调价（semi-managed price review, price adjustment）。全托核价仍使用 [CN Price Review](../price-review-api/README.md) 中保留的 `bg.price.review.*` type。
+
+Gateway: `https://openapi-b-partner.temu.com/openapi/router`
+
+## 选择规则
+
+- 查 SKU 供货价：`bg.glo.goods.price.list.get`
+- 查询/批量处理半托调价单：`bg.semi.adjust.price.*.order`
+- 查询/同意/拒绝半托核价单：`bg.semi.price.review.*.order`
 
 ## API List
 
-- [bg.glo.goods.price.list.get](operations/bg.glo.goods.price.list.get.json) - 供应商批量查询货品sku的供货价 PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.
-- [bg.semi.adjust.price.batch.review.order](operations/bg.semi.adjust.price.batch.review.order.json) - 商家通过开平接口处理调价单 PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.
-- [bg.semi.adjust.price.page.query.order](operations/bg.semi.adjust.price.page.query.order.json) - 商家通过开平接口查询调价单 PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.
-- [bg.semi.price.review.confirm.order](operations/bg.semi.price.review.confirm.order.json) - 同意核价单建议价 PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.
-- [bg.semi.price.review.page.query.order](operations/bg.semi.price.review.page.query.order.json) - 支持商家查询核价单 PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.
-- [bg.semi.price.review.reject.order](operations/bg.semi.price.review.reject.order.json) - 支持商家不同意全托管核价单建议价（并给出新的申报价） PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.
+- [bg.glo.goods.price.list.get](operations/bg.glo.goods.price.list.get.json) — 批量查询货品 SKU 供货价
+- [bg.semi.adjust.price.batch.review.order](operations/bg.semi.adjust.price.batch.review.order.json) — 批量确认或拒绝半托调价单
+- [bg.semi.adjust.price.page.query.order](operations/bg.semi.adjust.price.page.query.order.json) — 分页查询半托调价单
+- [bg.semi.price.review.confirm.order](operations/bg.semi.price.review.confirm.order.json) — 半托同意核价单建议价
+- [bg.semi.price.review.page.query.order](operations/bg.semi.price.review.page.query.order.json) — 分页查询半托核价单
+- [bg.semi.price.review.reject.order](operations/bg.semi.price.review.reject.order.json) — 半托拒绝核价单建议价并提交新申报价

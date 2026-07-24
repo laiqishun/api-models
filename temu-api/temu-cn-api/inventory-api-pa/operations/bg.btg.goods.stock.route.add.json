@@ -299,62 +299,91 @@
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "用户信息"
-        },
-        "supplierId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "供应商id"
-        },
-        "productId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "货品ID"
-        },
-        "addwarehouseSkuStockList": {
-          "type": "array",
-          "items": {
-            "type": "object"
+          "description": "用户信息",
+          "properties": {
+            "supplierId": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "供应商id"
+            },
+            "productId": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "货品ID"
+            },
+            "addwarehouseSkuStockList": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "productSkuId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER",
+                    "description": "半托管货品 SKU ID. 预校验且新增货品sku场景可以不传"
+                  },
+                  "targetStockAvailable": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER",
+                    "description": "目标库存"
+                  },
+                  "warehouseId": {
+                    "type": "string",
+                    "x-temu-type": "STRING",
+                    "description": "半托管仓库ID."
+                  }
+                },
+                "required": [
+                  "targetStockAvailable",
+                  "warehouseId"
+                ]
+              },
+              "x-temu-type": "LIST",
+              "description": "新增发货仓库存"
+            },
+            "addWarehouseSiteList": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "siteIdList": {
+                    "type": "array",
+                    "items": {
+                      "type": "integer",
+                      "format": "int32",
+                      "x-temu-type": "INTEGER"
+                    },
+                    "x-temu-type": "LIST",
+                    "description": "站点ID.",
+                    "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+                    "x-temu-offline-reference-reason": "siteId list"
+                  },
+                  "warehouseId": {
+                    "type": "string",
+                    "x-temu-type": "STRING",
+                    "description": "仓库ID"
+                  }
+                },
+                "required": [
+                  "siteIdList",
+                  "warehouseId"
+                ]
+              },
+              "x-temu-type": "LIST",
+              "description": "新增路由关系"
+            }
           },
-          "x-temu-type": "LIST",
-          "description": "新增发货仓库存"
-        },
-        "productSkuId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "半托管货品 SKU ID. 预校验且新增货品sku场景可以不传"
-        },
-        "targetStockAvailable": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "目标库存"
-        },
-        "warehouseId": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "半托管仓库ID."
-        },
-        "addWarehouseSiteList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "新增路由关系"
-        },
-        "siteIdList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "站点ID.",
-          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
-          "x-temu-offline-reference-reason": "siteId list"
+          "required": [
+            "supplierId",
+            "productId",
+            "addwarehouseSkuStockList",
+            "addWarehouseSiteList"
+          ]
         }
       },
       "required": [
@@ -364,14 +393,7 @@
         "sign",
         "access_token",
         "version",
-        "openApiUser",
-        "supplierId",
-        "productId",
-        "addwarehouseSkuStockList",
-        "targetStockAvailable",
-        "warehouseId",
-        "addWarehouseSiteList",
-        "siteIdList"
+        "openApiUser"
       ]
     },
     "bg_btg_goods_stock_route_addResponse": {

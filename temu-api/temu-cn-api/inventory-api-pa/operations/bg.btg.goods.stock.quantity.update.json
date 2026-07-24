@@ -328,83 +328,126 @@
           "type": "object",
           "additionalProperties": true,
           "x-temu-type": "OBJECT",
-          "description": "用户信息"
-        },
-        "supplierId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "供应商id"
-        },
-        "quantityChangeMode": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "更新库存数量方式（1-增减变更 2-覆盖变更）"
-        },
-        "skuStockChangeList": {
-          "type": "array",
-          "items": {
-            "type": "object"
+          "description": "用户信息",
+          "properties": {
+            "supplierId": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "供应商id"
+            },
+            "quantityChangeMode": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "更新库存数量方式（1-增减变更 2-覆盖变更）"
+            },
+            "skuStockChangeList": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "productSkuId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER",
+                    "description": "半托管货品 SKU ID."
+                  },
+                  "targetStockAvailable": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER",
+                    "description": "覆盖变更方式：覆盖变更目标库存值"
+                  },
+                  "warehouseId": {
+                    "type": "string",
+                    "x-temu-type": "STRING",
+                    "description": "发货仓ID-必填字段"
+                  },
+                  "stockDiff": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER",
+                    "description": "增减变更方式：库存变更，大于0代表增加，小于0代表减少"
+                  }
+                },
+                "required": [
+                  "productSkuId"
+                ]
+              },
+              "x-temu-type": "LIST",
+              "description": "半托管SKU库存变更信息"
+            },
+            "skuPreSaleStockChangeList": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "properties": {
+                  "preSaleStockList": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "properties": {
+                        "productSkuId": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "半托管货品 SKU ID."
+                        },
+                        "warehouseId": {
+                          "type": "string",
+                          "x-temu-type": "STRING",
+                          "description": "发货仓ID-必传"
+                        },
+                        "targetPreSaleStockAvailable": {
+                          "type": "integer",
+                          "format": "int32",
+                          "x-temu-type": "INTEGER",
+                          "description": "覆盖变更目标预售库存值"
+                        }
+                      },
+                      "required": [
+                        "productSkuId",
+                        "warehouseId",
+                        "targetPreSaleStockAvailable"
+                      ]
+                    },
+                    "x-temu-type": "LIST",
+                    "description": "各个发货仓预售库存"
+                  },
+                  "productSkuId": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER",
+                    "description": "半托管货品 SKU ID."
+                  },
+                  "enablePreSale": {
+                    "type": "boolean",
+                    "x-temu-type": "BOOLEAN",
+                    "description": "是否开启预售（true开启，false关闭）"
+                  },
+                  "preSaleDeliveryDay": {
+                    "type": "integer",
+                    "format": "int32",
+                    "x-temu-type": "INTEGER",
+                    "description": "在途库存补货日期（时间戳，仅支持传入某一日期最后一秒，关闭预售时无需传入)"
+                  }
+                },
+                "required": [
+                  "productSkuId",
+                  "enablePreSale"
+                ]
+              },
+              "x-temu-type": "LIST",
+              "description": "半托管SKU预售库存信息"
+            }
           },
-          "x-temu-type": "LIST",
-          "description": "半托管SKU库存变更信息"
-        },
-        "productSkuId": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "半托管货品 SKU ID."
-        },
-        "targetStockAvailable": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "覆盖变更方式：覆盖变更目标库存值"
-        },
-        "warehouseId": {
-          "type": "string",
-          "x-temu-type": "STRING",
-          "description": "发货仓ID-必填字段"
-        },
-        "stockDiff": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "增减变更方式：库存变更，大于0代表增加，小于0代表减少"
-        },
-        "skuPreSaleStockChangeList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "半托管SKU预售库存信息"
-        },
-        "preSaleStockList": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          },
-          "x-temu-type": "LIST",
-          "description": "各个发货仓预售库存"
-        },
-        "targetPreSaleStockAvailable": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "覆盖变更目标预售库存值"
-        },
-        "enablePreSale": {
-          "type": "boolean",
-          "x-temu-type": "BOOLEAN",
-          "description": "是否开启预售（true开启，false关闭）"
-        },
-        "preSaleDeliveryDay": {
-          "type": "integer",
-          "format": "int32",
-          "x-temu-type": "INTEGER",
-          "description": "在途库存补货日期（时间戳，仅支持传入某一日期最后一秒，关闭预售时无需传入)"
+          "required": [
+            "supplierId"
+          ]
         }
       },
       "required": [
@@ -414,11 +457,7 @@
         "sign",
         "access_token",
         "version",
-        "openApiUser",
-        "supplierId",
-        "productSkuId",
-        "targetPreSaleStockAvailable",
-        "enablePreSale"
+        "openApiUser"
       ]
     },
     "bg_btg_goods_stock_quantity_updateResponse": {
