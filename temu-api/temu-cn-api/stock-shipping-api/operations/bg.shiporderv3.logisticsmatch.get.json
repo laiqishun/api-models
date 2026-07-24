@@ -1,0 +1,746 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Stock And Shipping - bg.shiporderv3.logisticsmatch.get",
+    "description": "卖家发货-装箱发货-获取推荐物流承运商",
+    "version": "2025-11-02 22:46:18"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Stock And Shipping"
+        ],
+        "operationId": "bg_shiporderv3_logisticsmatch_get",
+        "summary": "平台推荐物流商匹配接口V3",
+        "description": "卖家发货-装箱发货-获取推荐物流承运商",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.shiporderv3.logisticsmatch.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_shiporderv3_logisticsmatch_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_shiporderv3_logisticsmatch_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.shiporderv3.logisticsmatch.get",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Stock And Shipping",
+          "sourceTitle": "备货及发货API组",
+          "directory": "stock-shipping-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-11-02 22:46:18",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "deliveryAddressId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "发货地址"
+          },
+          {
+            "name": "predictTotalPackageWeight",
+            "type": "INTEGER",
+            "required": true,
+            "description": "预估总包裹重量，单位g"
+          },
+          {
+            "name": "predictVolume",
+            "type": "STRING",
+            "required": false,
+            "description": "预估体积，立方米"
+          },
+          {
+            "name": "urgencyType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "是否是紧急发货单，0-普通 1-急采"
+          },
+          {
+            "name": "subWarehouseId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "收货子仓id"
+          },
+          {
+            "name": "totalPackageNum",
+            "type": "INTEGER",
+            "required": true,
+            "description": "包裹件数"
+          },
+          {
+            "name": "receiveAddressInfo",
+            "type": "OBJECT",
+            "required": true,
+            "description": "收货地址"
+          },
+          {
+            "name": "districtCode",
+            "type": "INTEGER",
+            "required": false,
+            "description": "区编码"
+          },
+          {
+            "name": "cityName",
+            "type": "STRING",
+            "required": false,
+            "description": "市"
+          },
+          {
+            "name": "districtName",
+            "type": "STRING",
+            "required": false,
+            "description": "区"
+          },
+          {
+            "name": "phone",
+            "type": "STRING",
+            "required": false,
+            "description": "联系电话"
+          },
+          {
+            "name": "provinceCode",
+            "type": "INTEGER",
+            "required": false,
+            "description": "省份编码",
+            "offlineReference": "../../offline-docs/data-dictionary.md#发品-省份枚举值",
+            "offlineReferenceReason": "province enum for addresses"
+          },
+          {
+            "name": "cityCode",
+            "type": "INTEGER",
+            "required": false,
+            "description": "市编码"
+          },
+          {
+            "name": "receiverName",
+            "type": "STRING",
+            "required": false,
+            "description": "收货人"
+          },
+          {
+            "name": "detailAddress",
+            "type": "STRING",
+            "required": false,
+            "description": "详细地址"
+          },
+          {
+            "name": "provinceName",
+            "type": "STRING",
+            "required": false,
+            "description": "省"
+          },
+          {
+            "name": "deliveryOrderSns",
+            "type": "LIST",
+            "required": true,
+            "description": "发货单列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "mostUsedExpressCompany",
+            "type": "OBJECT",
+            "description": "常用物流 可能为空"
+          },
+          {
+            "name": "servicerCode",
+            "type": "STRING",
+            "description": "服务商编码"
+          },
+          {
+            "name": "expressCompanyId",
+            "type": "INTEGER",
+            "description": "快递公司Id"
+          },
+          {
+            "name": "canSaveChargeAmount",
+            "type": "STRING",
+            "description": "可节省费用 单位元"
+          },
+          {
+            "name": "expressCompanyName",
+            "type": "STRING",
+            "description": "快递公司名称[后续迭代为服务商名称]"
+          },
+          {
+            "name": "usePricePrivileges",
+            "type": "BOOLEAN",
+            "description": "是否使用供价侧权益"
+          },
+          {
+            "name": "list",
+            "type": "LIST",
+            "description": "TMS平台推荐物流列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "maxSupplierChargeAmount",
+            "type": "STRING",
+            "description": "最大预估商家承担运费（单位元）"
+          },
+          {
+            "name": "advantageDescList",
+            "type": "LIST",
+            "description": "该物流相比常用物流的优势点 可能为空"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "hasUsedThisLogistics",
+            "type": "BOOLEAN",
+            "description": "供应商是否使用过该物流"
+          },
+          {
+            "name": "tmsPickupVOList",
+            "type": "LIST",
+            "description": "揽收信息列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "selfDeliverSiteCompanyCode",
+            "type": "STRING",
+            "description": "自送网点公司编码"
+          },
+          {
+            "name": "selfDeliverSitePhone",
+            "type": "STRING",
+            "description": "自送网点电话"
+          },
+          {
+            "name": "selfDeliverSiteAddress",
+            "type": "STRING",
+            "description": "自送网点地址"
+          },
+          {
+            "name": "selfDeliverSiteUserCode",
+            "type": "STRING",
+            "description": "自送网点用户编码"
+          },
+          {
+            "name": "pickupMethod",
+            "type": "INTEGER",
+            "description": "揽收方式 : 0代表默认 1代表自送"
+          },
+          {
+            "name": "carrierAttention",
+            "type": "STRING",
+            "description": "承运注意事项"
+          },
+          {
+            "name": "expressCompanyName",
+            "type": "STRING",
+            "description": "快递公司名称"
+          },
+          {
+            "name": "channelScheduleTimeList",
+            "type": "LIST",
+            "description": "可预约揽收时间"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "bjDate",
+            "type": "STRING",
+            "description": "可预约日期 北京时间 格式yyyy-MM-dd"
+          },
+          {
+            "name": "bjStartTime",
+            "type": "STRING",
+            "description": "可预约日期的时间起点 北京时间 格式HH:mm"
+          },
+          {
+            "name": "bjEndTime",
+            "type": "STRING",
+            "description": "可预约日期的时间终点 北京时间 格式HH:mm"
+          },
+          {
+            "name": "predictId",
+            "type": "INTEGER",
+            "description": "预测ID"
+          },
+          {
+            "name": "promisedDeliveryHourTime",
+            "type": "STRING",
+            "description": "承诺送达时间"
+          },
+          {
+            "name": "minSupplierChargeAmount",
+            "type": "STRING",
+            "description": "最小预估商家承担运费（单位元）"
+          },
+          {
+            "name": "expressCompanyId",
+            "type": "INTEGER",
+            "description": "快递公司Id"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "500000001",
+                "错误描述": "query recommend express company error, please try again later",
+                "解决办法": "please try again later"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 9365,
+          "endLine": 9470,
+          "contentSha256": "c8334600323e9570164e375a03c28efd399f0bbbbb6f77ca547ae6ac01880b67"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_shiporderv3_logisticsmatch_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.shiporderv3.logisticsmatch.get` for this operation.",
+          "enum": [
+            "bg.shiporderv3.logisticsmatch.get"
+          ],
+          "default": "bg.shiporderv3.logisticsmatch.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "deliveryAddressId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货地址"
+        },
+        "predictTotalPackageWeight": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "预估总包裹重量，单位g"
+        },
+        "predictVolume": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "预估体积，立方米"
+        },
+        "urgencyType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否是紧急发货单，0-普通 1-急采"
+        },
+        "subWarehouseId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "收货子仓id"
+        },
+        "totalPackageNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "包裹件数"
+        },
+        "receiveAddressInfo": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "收货地址"
+        },
+        "districtCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "区编码"
+        },
+        "cityName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "市"
+        },
+        "districtName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "区"
+        },
+        "phone": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "联系电话"
+        },
+        "provinceCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "省份编码",
+          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#发品-省份枚举值",
+          "x-temu-offline-reference-reason": "province enum for addresses"
+        },
+        "cityCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "市编码"
+        },
+        "receiverName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "收货人"
+        },
+        "detailAddress": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "详细地址"
+        },
+        "provinceName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "省"
+        },
+        "deliveryOrderSns": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "发货单列表"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "deliveryAddressId",
+        "predictTotalPackageWeight",
+        "subWarehouseId",
+        "totalPackageNum",
+        "receiveAddressInfo",
+        "deliveryOrderSns"
+      ]
+    },
+    "bg_shiporderv3_logisticsmatch_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "mostUsedExpressCompany": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "常用物流 可能为空"
+        },
+        "servicerCode": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "服务商编码"
+        },
+        "expressCompanyId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "快递公司Id"
+        },
+        "canSaveChargeAmount": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "可节省费用 单位元"
+        },
+        "expressCompanyName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "快递公司名称[后续迭代为服务商名称]"
+        },
+        "usePricePrivileges": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否使用供价侧权益"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "TMS平台推荐物流列表"
+        },
+        "maxSupplierChargeAmount": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "最大预估商家承担运费（单位元）"
+        },
+        "advantageDescList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "该物流相比常用物流的优势点 可能为空"
+        },
+        "hasUsedThisLogistics": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "供应商是否使用过该物流"
+        },
+        "tmsPickupVOList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "揽收信息列表"
+        },
+        "selfDeliverSiteCompanyCode": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "自送网点公司编码"
+        },
+        "selfDeliverSitePhone": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "自送网点电话"
+        },
+        "selfDeliverSiteAddress": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "自送网点地址"
+        },
+        "selfDeliverSiteUserCode": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "自送网点用户编码"
+        },
+        "pickupMethod": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "揽收方式 : 0代表默认 1代表自送"
+        },
+        "carrierAttention": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "承运注意事项"
+        },
+        "channelScheduleTimeList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "可预约揽收时间"
+        },
+        "bjDate": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "可预约日期 北京时间 格式yyyy-MM-dd"
+        },
+        "bjStartTime": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "可预约日期的时间起点 北京时间 格式HH:mm"
+        },
+        "bjEndTime": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "可预约日期的时间终点 北京时间 格式HH:mm"
+        },
+        "predictId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "预测ID"
+        },
+        "promisedDeliveryHourTime": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "承诺送达时间"
+        },
+        "minSupplierChargeAmount": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "最小预估商家承担运费（单位元）"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 9365,
+    "endLine": 9470,
+    "contentSha256": "c8334600323e9570164e375a03c28efd399f0bbbbb6f77ca547ae6ac01880b67"
+  },
+  "x-temu-api-type": "bg.shiporderv3.logisticsmatch.get",
+  "x-temu-region-module": "temu-cn-api"
+}

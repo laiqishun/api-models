@@ -1,0 +1,350 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Product - bg.local.goods.sale.status.set",
+    "description": "Support goods/SKU dimension for listing and delisting operations",
+    "version": "2025-07-03 22:29:14"
+  },
+  "host": "openapi-b-global.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "operationId": "bg_local_goods_sale_status_set",
+        "summary": "Support goods/SKU dimension for listing and delisting operations",
+        "description": "Support goods/SKU dimension for listing and delisting operations",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.local.goods.sale.status.set`.",
+            "schema": {
+              "$ref": "#/definitions/bg_local_goods_sale_status_setRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_local_goods_sale_status_setResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.local.goods.sale.status.set",
+        "x-temu-region-module": "temu-global-api",
+        "x-temu-group": {
+          "title": "Product",
+          "sourceTitle": "2、Product",
+          "directory": "product-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-global.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-global.temu.com/openapi/router",
+            "Site Region": "GLOBAL"
+          }
+        ],
+        "x-temu-audience": [
+          "Local"
+        ],
+        "x-temu-last-update-time": "2025-07-03 22:29:14",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "request",
+            "type": "OBJECT",
+            "required": false
+          },
+          {
+            "name": "goodsId",
+            "type": "LONG",
+            "required": true,
+            "description": "Goods Id"
+          },
+          {
+            "name": "skuIdList",
+            "type": "LONG[]",
+            "required": false,
+            "description": "Support the inclusion of multiple SKUs. If included, only the SKU will be used for up and down operations"
+          },
+          {
+            "name": "onsale",
+            "type": "INTEGER",
+            "required": true,
+            "description": "On/Off shelf status: 0 for off-shelf, 1 for on-shelf"
+          },
+          {
+            "name": "operationType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "The operation type for delisting and listing has the following values: null or 1 for goods, and 2 for SKUs."
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "response",
+            "type": "OBJECT"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "Current request success status: returns True if successful, otherwise returns False."
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "Error code: Used to refer to the error codes below, which can help find the corresponding solutions for each error."
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "Error message: The feedback content corresponding to the error code."
+          },
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "150010002",
+                "Error Message": "System error, please try again later",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "150010003",
+                "Error Message": "Invalid Request Parameters",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "150010005",
+                "Error Message": "Try again later",
+                "Error SOP": ""
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Local Product Management",
+                "App type": "private,public"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-global.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"app_key\" : \"test\",\n  \"goodsId\" : 1,\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"operationType\" : 1,\n  \"onsale\" : 1,\n  \"type\" : \"test\",\n  \"version\" : \"test\",\n  \"skuIdList\" : [ 1, 1 ],\n  \"timestamp\" : \"test\"\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\": {\n    \"success\": true\n  },\n  \"errorCode\": 1,\n  \"success\": true,\n  \"errorMsg\": \"test\"\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu全球API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu全球API文档.md",
+          "startLine": 6253,
+          "endLine": 6378,
+          "contentSha256": "62e02d83d27dc26de40f30ba3b8ce0bdc5ed12f9b5352332ceb54d8bdd079b4e"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_local_goods_sale_status_setRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `bg.local.goods.sale.status.set` for this operation.",
+          "enum": [
+            "bg.local.goods.sale.status.set"
+          ],
+          "default": "bg.local.goods.sale.status.set"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "goodsId": {
+          "type": "integer",
+          "format": "int64",
+          "x-temu-type": "LONG",
+          "description": "Goods Id"
+        },
+        "skuIdList": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64",
+            "x-temu-type": "LONG"
+          },
+          "x-temu-type": "LONG[]",
+          "description": "Support the inclusion of multiple SKUs. If included, only the SKU will be used for up and down operations"
+        },
+        "onsale": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "On/Off shelf status: 0 for off-shelf, 1 for on-shelf"
+        },
+        "operationType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "The operation type for delisting and listing has the following values: null or 1 for goods, and 2 for SKUs."
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp",
+        "goodsId",
+        "onsale"
+      ]
+    },
+    "bg_local_goods_sale_status_setResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "response": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "Current request success status: returns True if successful, otherwise returns False."
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Error code: Used to refer to the error codes below, which can help find the corresponding solutions for each error."
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Error message: The feedback content corresponding to the error code."
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu全球API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu全球API文档.md",
+    "startLine": 6253,
+    "endLine": 6378,
+    "contentSha256": "62e02d83d27dc26de40f30ba3b8ce0bdc5ed12f9b5352332ceb54d8bdd079b4e"
+  },
+  "x-temu-api-type": "bg.local.goods.sale.status.set",
+  "x-temu-region-module": "temu-global-api"
+}

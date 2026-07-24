@@ -1,0 +1,355 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sample Quality Return - bg.refund.returnpackagedetail.get",
+    "description": "当前开平外部商家对接，需要查询发货至仓库，被退货的数据情况，确保自有库存数据准确",
+    "version": "2025-03-11 23:35:20"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Sample Quality Return"
+        ],
+        "operationId": "bg_refund_returnpackagedetail_get",
+        "summary": "退货包裹详情查询",
+        "description": "当前开平外部商家对接，需要查询发货至仓库，被退货的数据情况，确保自有库存数据准确",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.refund.returnpackagedetail.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_refund_returnpackagedetail_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_refund_returnpackagedetail_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.refund.returnpackagedetail.get",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Sample Quality Return",
+          "sourceTitle": "寄样/质检/退供API组",
+          "directory": "sample-quality-return-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-11 23:35:20",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "supplierId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "商家id"
+          },
+          {
+            "name": "returnSupplierPackageNo",
+            "type": "STRING",
+            "required": true,
+            "description": "包裹号"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "returnPackageInfos",
+            "type": "LIST",
+            "description": "-"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "secondarySaleSpec",
+            "type": "STRING",
+            "description": "次销售属性， e.g: key:尺寸，value: XL"
+          },
+          {
+            "name": "returnSupplierQuantity",
+            "type": "INTEGER",
+            "description": "退供数量"
+          },
+          {
+            "name": "mainSaleSpec",
+            "type": "STRING",
+            "description": "主销售属性， e.g: key:颜色，value: 白色"
+          },
+          {
+            "name": "thumbUrl",
+            "type": "STRING",
+            "description": "sku图片"
+          },
+          {
+            "name": "productSkcId",
+            "type": "INTEGER",
+            "description": "SKC"
+          },
+          {
+            "name": "returnSupplierPackageNo",
+            "type": "STRING",
+            "description": "包裹号"
+          },
+          {
+            "name": "returnSupplierQuantity",
+            "type": "INTEGER",
+            "description": "退供数量"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "100000002",
+                "错误描述": "No operation permission",
+                "解决办法": "check supplierId"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 7179,
+          "endLine": 7247,
+          "contentSha256": "8065dbf25b5c72a21f317c3fbca68fa031b77f5a747ac27c20c1b4dfe4624f33"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_refund_returnpackagedetail_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.refund.returnpackagedetail.get` for this operation.",
+          "enum": [
+            "bg.refund.returnpackagedetail.get"
+          ],
+          "default": "bg.refund.returnpackagedetail.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "supplierId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "商家id"
+        },
+        "returnSupplierPackageNo": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "包裹号"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "supplierId",
+        "returnSupplierPackageNo"
+      ]
+    },
+    "bg_refund_returnpackagedetail_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "returnPackageInfos": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "-"
+        },
+        "secondarySaleSpec": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "次销售属性， e.g: key:尺寸，value: XL"
+        },
+        "returnSupplierQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "退供数量"
+        },
+        "mainSaleSpec": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "主销售属性， e.g: key:颜色，value: 白色"
+        },
+        "thumbUrl": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "sku图片"
+        },
+        "productSkcId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "SKC"
+        },
+        "returnSupplierPackageNo": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "包裹号"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 7179,
+    "endLine": 7247,
+    "contentSha256": "8065dbf25b5c72a21f317c3fbca68fa031b77f5a747ac27c20c1b4dfe4624f33"
+  },
+  "x-temu-api-type": "bg.refund.returnpackagedetail.get",
+  "x-temu-region-module": "temu-cn-api"
+}

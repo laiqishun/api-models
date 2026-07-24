@@ -1,0 +1,674 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Price Review - bg.full.adjust.price.page.query",
+    "description": "支持大卖自研商家查询调价单",
+    "version": "2025-03-24 20:50:52"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Price Review"
+        ],
+        "operationId": "bg_full_adjust_price_page_query",
+        "summary": "分页查询全托管调价单",
+        "description": "支持大卖自研商家查询调价单",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.full.adjust.price.page.query`.",
+            "schema": {
+              "$ref": "#/definitions/bg_full_adjust_price_page_queryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_full_adjust_price_page_queryResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.full.adjust.price.page.query",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Price Review",
+          "sourceTitle": "申报价/核价/调价API",
+          "directory": "price-review-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-24 20:50:52",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "skcId",
+            "type": "LIST",
+            "required": false,
+            "description": "skcid"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "extCodeType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "货号类型 1-skc货号 2-sku货号"
+          },
+          {
+            "name": "priceOrderSn",
+            "type": "LIST",
+            "required": false,
+            "description": "调价单号"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "priceType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "价格类型, 0-日常价，1-活动价"
+          },
+          {
+            "name": "filterProductSource",
+            "type": "INTEGER",
+            "required": false,
+            "description": "调价来源. 可选值含义说明:[1:超越爆款计划;2:绿通优先发货;3:其他;47:广告渠道补贴;]"
+          },
+          {
+            "name": "pageSize",
+            "type": "INTEGER",
+            "required": true,
+            "description": "页容量, 1-100"
+          },
+          {
+            "name": "source",
+            "type": "INTEGER",
+            "required": false,
+            "description": "申请来源 1-运营，2-供应商"
+          },
+          {
+            "name": "productName",
+            "type": "STRING",
+            "required": false,
+            "description": "货品名称",
+            "offlineReference": "../../offline-docs/data-dictionary.md#货品名称长度限制规则",
+            "offlineReferenceReason": "product name length limits by category"
+          },
+          {
+            "name": "supportPersonal",
+            "type": "INTEGER",
+            "required": false,
+            "description": "是否支持定制化商品，1的时候是定制,0 是查非定制，为空不做筛选"
+          },
+          {
+            "name": "pageNo",
+            "type": "INTEGER",
+            "required": true,
+            "description": "页码，1-100"
+          },
+          {
+            "name": "extCodes",
+            "type": "LIST",
+            "required": false,
+            "description": "货号列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "createdAtEnd",
+            "type": "INTEGER",
+            "required": false,
+            "description": "创建日期-结束，精确到毫秒(13位)"
+          },
+          {
+            "name": "status",
+            "type": "INTEGER",
+            "required": true,
+            "description": "状态 0-待调价，1-带供应商确认，2-调价成功，3-调价失败"
+          },
+          {
+            "name": "createdAtBegin",
+            "type": "INTEGER",
+            "required": false,
+            "description": "创建日期-开始，精确到毫秒(13位)"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "total",
+            "type": "INTEGER",
+            "description": "总数"
+          },
+          {
+            "name": "list",
+            "type": "LIST",
+            "description": "list"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "skcId",
+            "type": "INTEGER",
+            "description": "skc id"
+          },
+          {
+            "name": "skcExtCode",
+            "type": "STRING",
+            "description": "skc 货号"
+          },
+          {
+            "name": "priceOrderSn",
+            "type": "STRING",
+            "description": "调价单号"
+          },
+          {
+            "name": "productId",
+            "type": "INTEGER",
+            "description": "货品id"
+          },
+          {
+            "name": "orderCreateTime",
+            "type": "INTEGER",
+            "description": "调价单创建时间"
+          },
+          {
+            "name": "priceType",
+            "type": "INTEGER",
+            "description": "价格类型, 0-日常价；1-活动价"
+          },
+          {
+            "name": "adjustReason",
+            "type": "STRING",
+            "description": "调价原因"
+          },
+          {
+            "name": "source",
+            "type": "STRING",
+            "description": "来源"
+          },
+          {
+            "name": "productName",
+            "type": "STRING",
+            "description": "货品名称"
+          },
+          {
+            "name": "newSupplyPrice",
+            "type": "STRING",
+            "description": "调价后申报价格"
+          },
+          {
+            "name": "priceCurrency",
+            "type": "STRING",
+            "description": "币种"
+          },
+          {
+            "name": "skuInfoItemList",
+            "type": "LIST",
+            "description": "sku信息"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "productSkuId",
+            "type": "INTEGER",
+            "description": "sku id"
+          },
+          {
+            "name": "priceCurrency",
+            "type": "STRING",
+            "description": "币种"
+          },
+          {
+            "name": "price",
+            "type": "INTEGER",
+            "description": "价格"
+          },
+          {
+            "name": "skuExtCode",
+            "type": "STRING",
+            "description": "sku 货号"
+          },
+          {
+            "name": "spec",
+            "type": "STRING",
+            "description": "规格信息"
+          },
+          {
+            "name": "imageList",
+            "type": "LIST",
+            "description": "图片列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "500000001",
+                "错误描述": "请求参数有误",
+                "解决办法": "核对接口入参是否正确"
+              },
+              {
+                "错误码": "500000003",
+                "错误描述": "批量处理调价单失败",
+                "解决办法": "检查调价单状态"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 13281,
+          "endLine": 13379,
+          "contentSha256": "5535c11943a26e3eb02541f41b64f74a8de43a9daea43e290b673e3b625d9b60"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_full_adjust_price_page_queryRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.full.adjust.price.page.query` for this operation.",
+          "enum": [
+            "bg.full.adjust.price.page.query"
+          ],
+          "default": "bg.full.adjust.price.page.query"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "skcId": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "skcid"
+        },
+        "extCodeType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "货号类型 1-skc货号 2-sku货号"
+        },
+        "priceOrderSn": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "调价单号"
+        },
+        "priceType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "价格类型, 0-日常价，1-活动价"
+        },
+        "filterProductSource": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "调价来源. 可选值含义说明:[1:超越爆款计划;2:绿通优先发货;3:其他;47:广告渠道补贴;]"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "页容量, 1-100"
+        },
+        "source": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "申请来源 1-运营，2-供应商"
+        },
+        "productName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "货品名称",
+          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#货品名称长度限制规则",
+          "x-temu-offline-reference-reason": "product name length limits by category"
+        },
+        "supportPersonal": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否支持定制化商品，1的时候是定制,0 是查非定制，为空不做筛选"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "页码，1-100"
+        },
+        "extCodes": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "货号列表"
+        },
+        "createdAtEnd": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "创建日期-结束，精确到毫秒(13位)"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "状态 0-待调价，1-带供应商确认，2-调价成功，3-调价失败"
+        },
+        "createdAtBegin": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "创建日期-开始，精确到毫秒(13位)"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "pageSize",
+        "pageNo",
+        "status"
+      ]
+    },
+    "bg_full_adjust_price_page_queryResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "list"
+        },
+        "skcId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "skc id"
+        },
+        "skcExtCode": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "skc 货号"
+        },
+        "priceOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "调价单号"
+        },
+        "productId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "货品id"
+        },
+        "orderCreateTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "调价单创建时间"
+        },
+        "priceType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "价格类型, 0-日常价；1-活动价"
+        },
+        "adjustReason": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "调价原因"
+        },
+        "source": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "来源"
+        },
+        "productName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "货品名称"
+        },
+        "newSupplyPrice": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "调价后申报价格"
+        },
+        "priceCurrency": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "币种"
+        },
+        "skuInfoItemList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "sku信息"
+        },
+        "productSkuId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "sku id"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "价格"
+        },
+        "skuExtCode": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "sku 货号"
+        },
+        "spec": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "规格信息"
+        },
+        "imageList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "图片列表"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 13281,
+    "endLine": 13379,
+    "contentSha256": "5535c11943a26e3eb02541f41b64f74a8de43a9daea43e290b673e3b625d9b60"
+  },
+  "x-temu-api-type": "bg.full.adjust.price.page.query",
+  "x-temu-region-module": "temu-cn-api"
+}

@@ -1,0 +1,472 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Price Review - bg.price.review.page.query",
+    "description": "支持商家查询核价单",
+    "version": "2025-07-31 11:28:46"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Price Review"
+        ],
+        "operationId": "bg_price_review_page_query",
+        "summary": "分页查询核价单",
+        "description": "支持商家查询核价单",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.price.review.page.query`.",
+            "schema": {
+              "$ref": "#/definitions/bg_price_review_page_queryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_price_review_page_queryResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.price.review.page.query",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Price Review",
+          "sourceTitle": "申报价/核价/调价API",
+          "directory": "price-review-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-07-31 11:28:46",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "idLt",
+            "type": "INTEGER",
+            "required": false,
+            "description": "id范围查询最大值"
+          },
+          {
+            "name": "pageNo",
+            "type": "INTEGER",
+            "required": true,
+            "description": "页码"
+          },
+          {
+            "name": "orderStatusList",
+            "type": "LIST",
+            "required": false,
+            "description": "核价单状态列表. 可选值含义说明:[0:待核价;1:待供应商确认;2:核价通过;3:核价驳回;4:废弃;5:价格同步中;]"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "idGt",
+            "type": "INTEGER",
+            "required": false,
+            "description": "id范围查询最小值"
+          },
+          {
+            "name": "pageSize",
+            "type": "INTEGER",
+            "required": true,
+            "description": "分页大小"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "total",
+            "type": "INTEGER",
+            "description": "总数"
+          },
+          {
+            "name": "reviewSamplePriceList",
+            "type": "LIST",
+            "description": "核价单sku及建议价"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "productSkuIdList",
+            "type": "LIST",
+            "description": "货品skuId"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "description": "-"
+          },
+          {
+            "name": "priceCurrency",
+            "type": "STRING",
+            "description": "申报价格币种"
+          },
+          {
+            "name": "supplyPrice",
+            "type": "INTEGER",
+            "description": "申报价格（分）"
+          },
+          {
+            "name": "orderId",
+            "type": "INTEGER",
+            "description": "核价单id"
+          },
+          {
+            "name": "suggestPriceCurrency",
+            "type": "STRING",
+            "description": "建议价格币种"
+          },
+          {
+            "name": "suggestSupplyPrice",
+            "type": "INTEGER",
+            "description": "建议价格（分）"
+          },
+          {
+            "name": "orderStatus",
+            "type": "INTEGER",
+            "description": "核价单的状态. 可选值含义说明:[0:待核价;1:待供应商确认;2:核价通过;3:核价驳回;4:废弃;5:价格同步中;]"
+          },
+          {
+            "name": "siteIds",
+            "type": "LIST",
+            "description": "站点id"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "description": "-"
+          },
+          {
+            "name": "canBargain",
+            "type": "BOOLEAN",
+            "description": "是否可重新报价"
+          },
+          {
+            "name": "siteNameList",
+            "type": "LIST",
+            "description": "站点名称"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": []
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 12840,
+          "endLine": 12921,
+          "contentSha256": "ea3a781394e3118feee25e5d8aebc242b7bc7c7daa88e7e1877ac74ebb4b5d21"
+        },
+        "x-temu-migration": {
+          "note": "Source migration table says this legacy type is still used for full-managed flows; use the PA replacement for semi-managed flows.",
+          "semiManagedReplacementTypes": [
+            "bg.semi.price.review.page.query.order"
+          ]
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_price_review_page_queryRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.price.review.page.query` for this operation.",
+          "enum": [
+            "bg.price.review.page.query"
+          ],
+          "default": "bg.price.review.page.query"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "idLt": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "id范围查询最大值"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "页码"
+        },
+        "orderStatusList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "核价单状态列表. 可选值含义说明:[0:待核价;1:待供应商确认;2:核价通过;3:核价驳回;4:废弃;5:价格同步中;]"
+        },
+        "idGt": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "id范围查询最小值"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "分页大小"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "pageNo",
+        "pageSize"
+      ]
+    },
+    "bg_price_review_page_queryResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "总数"
+        },
+        "reviewSamplePriceList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "核价单sku及建议价"
+        },
+        "productSkuIdList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "货品skuId"
+        },
+        "priceCurrency": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "申报价格币种"
+        },
+        "supplyPrice": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "申报价格（分）"
+        },
+        "orderId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "核价单id"
+        },
+        "suggestPriceCurrency": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "建议价格币种"
+        },
+        "suggestSupplyPrice": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "建议价格（分）"
+        },
+        "orderStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "核价单的状态. 可选值含义说明:[0:待核价;1:待供应商确认;2:核价通过;3:核价驳回;4:废弃;5:价格同步中;]"
+        },
+        "siteIds": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "站点id"
+        },
+        "canBargain": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否可重新报价"
+        },
+        "siteNameList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "站点名称"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 12840,
+    "endLine": 12921,
+    "contentSha256": "ea3a781394e3118feee25e5d8aebc242b7bc7c7daa88e7e1877ac74ebb4b5d21"
+  },
+  "x-temu-api-type": "bg.price.review.page.query",
+  "x-temu-region-module": "temu-cn-api"
+}

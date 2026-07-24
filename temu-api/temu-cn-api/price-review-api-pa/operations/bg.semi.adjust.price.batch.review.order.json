@@ -1,0 +1,382 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Price Review PA - bg.semi.adjust.price.batch.review.order",
+    "description": "商家通过开平接口处理调价单 PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.",
+    "version": "2025-03-20 20:03:42"
+  },
+  "host": "openapi-b-partner.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Price Review PA"
+        ],
+        "operationId": "bg_semi_adjust_price_batch_review_order",
+        "summary": "半托管批量确认/拒绝调价单",
+        "description": "商家通过开平接口处理调价单 PA gateway replacement generated from the legacy schema because the source migration table lists the new type but the detailed PA section is not present.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.semi.adjust.price.batch.review.order`.",
+            "schema": {
+              "$ref": "#/definitions/bg_semi_adjust_price_batch_review_orderRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_semi_adjust_price_batch_review_orderResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.semi.adjust.price.batch.review.order",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Price Review PA",
+          "sourceTitle": "申报价/核价/调价API-PA",
+          "directory": "price-review-api-pa"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-partner.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-20 20:03:42",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "batchResult",
+            "type": "INTEGER",
+            "required": true,
+            "description": "批量提交的结果. 可选值含义说明:[1:通过;2:驳回;]"
+          },
+          {
+            "name": "submitOrders",
+            "type": "LIST",
+            "required": true,
+            "description": "批量提交的所有调价单"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "rejectReasons",
+            "type": "MAP",
+            "required": false,
+            "description": "拒绝原因, key=调价单号, value=原因"
+          },
+          {
+            "name": "$key",
+            "type": "STRING",
+            "required": false,
+            "description": "调价单号"
+          },
+          {
+            "name": "$value",
+            "type": "STRING",
+            "required": false,
+            "description": "拒绝原因"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "successOrders",
+            "type": "LIST",
+            "description": "提交成功的调价单"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "failedOrders",
+            "type": "MAP",
+            "description": "提交失败的调价单"
+          },
+          {
+            "name": "$key",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "$value",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "500000001",
+                "错误描述": "请求参数有误",
+                "解决办法": "核对接口入参是否正确"
+              },
+              {
+                "错误码": "500000002",
+                "错误描述": "批量处理调价单失败",
+                "解决办法": "检查调价单状态"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 13148,
+          "endLine": 13217,
+          "contentSha256": "85b75f842bd93feb9fa21872e86334c18b6fb170dcb0f065fee24f5435bc3c07",
+          "generatedFromMigrationRow": "| 半托调价API组（仅自研应用） | 半托管批量确认/拒绝调价单 | bg.semi.adjust.price.batch.review.order | bg.semi.adjust.price.batch.review |"
+        },
+        "x-temu-migration": {
+          "replacesLegacyTypes": [
+            "bg.semi.adjust.price.batch.review"
+          ],
+          "period": "2025-6 迁移",
+          "description": "半托管批量确认/拒绝调价单",
+          "partnerGatewayUrl": "https://openapi-b-partner.temu.com/openapi/router"
+        },
+        "x-temu-schema-copied-from-legacy-type": "bg.semi.adjust.price.batch.review",
+        "x-temu-synthetic": true
+      }
+    }
+  },
+  "definitions": {
+    "bg_semi_adjust_price_batch_review_orderRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.semi.adjust.price.batch.review.order` for this operation.",
+          "enum": [
+            "bg.semi.adjust.price.batch.review.order"
+          ],
+          "default": "bg.semi.adjust.price.batch.review.order"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "batchResult": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "批量提交的结果. 可选值含义说明:[1:通过;2:驳回;]"
+        },
+        "submitOrders": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "批量提交的所有调价单"
+        },
+        "rejectReasons": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "MAP",
+          "description": "拒绝原因, key=调价单号, value=原因"
+        },
+        "$key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "调价单号"
+        },
+        "$value": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "拒绝原因"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "batchResult",
+        "submitOrders"
+      ]
+    },
+    "bg_semi_adjust_price_batch_review_orderResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "successOrders": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "提交成功的调价单"
+        },
+        "failedOrders": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "MAP",
+          "description": "提交失败的调价单"
+        },
+        "$key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "-"
+        },
+        "$value": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "-"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 13148,
+    "endLine": 13217,
+    "contentSha256": "85b75f842bd93feb9fa21872e86334c18b6fb170dcb0f065fee24f5435bc3c07",
+    "generatedFromMigrationRow": "| 半托调价API组（仅自研应用） | 半托管批量确认/拒绝调价单 | bg.semi.adjust.price.batch.review.order | bg.semi.adjust.price.batch.review |"
+  },
+  "x-temu-api-type": "bg.semi.adjust.price.batch.review.order",
+  "x-temu-region-module": "temu-cn-api"
+}

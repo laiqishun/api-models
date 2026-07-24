@@ -1,0 +1,854 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Category Attribute - bg.goods.attrs.get",
+    "description": "用于查询发布时的类目属性模板",
+    "version": "2025-03-13 15:57:46"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Category Attribute"
+        ],
+        "operationId": "bg_goods_attrs_get",
+        "summary": "货品模板查询",
+        "description": "用于查询发布时的类目属性模板",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.goods.attrs.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_goods_attrs_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_goods_attrs_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.goods.attrs.get",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Category Attribute",
+          "sourceTitle": "类目属性API组",
+          "directory": "category-attribute-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-13 15:57:46",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "catId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "叶子类目id"
+          },
+          {
+            "name": "productCreateTime",
+            "type": "INTEGER",
+            "required": false,
+            "description": "货品创建时间 (毫秒时间戳)"
+          },
+          {
+            "name": "supportedType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "渠道类型，如果传了优先认这个字段，不识别mallId"
+          },
+          {
+            "name": "langList",
+            "type": "LIST",
+            "required": false,
+            "description": "语言列表 (查询多语言信息, 中文不用传, 特殊场景使用, 会影响性能, 一般情况下不传)"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "inputMaxSpecNum",
+            "type": "INTEGER",
+            "description": "模板允许的最大的自定义规格数量"
+          },
+          {
+            "name": "chooseAllQualifySpec",
+            "type": "BOOLEAN",
+            "description": "限定规格是否全选:0否,1是"
+          },
+          {
+            "name": "singleSpecValueNum",
+            "type": "INTEGER",
+            "description": "单个自定义规格值上限"
+          },
+          {
+            "name": "properties",
+            "type": "LIST",
+            "description": "模板属性"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "numberInputTitle",
+            "type": "STRING",
+            "description": "数值录入Title"
+          },
+          {
+            "name": "templatePropertyValueParentList",
+            "type": "LIST",
+            "description": "属性值关联关系"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "parentVidList",
+            "type": "LIST",
+            "description": "关联属性值id"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "description": "-"
+          },
+          {
+            "name": "vidList",
+            "type": "LIST",
+            "description": "属性值id"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "description": "-"
+          },
+          {
+            "name": "values",
+            "type": "LIST",
+            "description": "模板属性值"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "vid",
+            "type": "INTEGER",
+            "description": "属性值id"
+          },
+          {
+            "name": "specId",
+            "type": "INTEGER",
+            "description": "规格id"
+          },
+          {
+            "name": "lang2Value",
+            "type": "MAP",
+            "description": "多语言属性值"
+          },
+          {
+            "name": "$key",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "$value",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "parentVidList",
+            "type": "LIST",
+            "description": "对应的父属性值id"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "description": "-"
+          },
+          {
+            "name": "extendInfo",
+            "type": "STRING",
+            "description": "扩展信息"
+          },
+          {
+            "name": "value",
+            "type": "STRING",
+            "description": "属性值"
+          },
+          {
+            "name": "group",
+            "type": "OBJECT",
+            "description": "分组信息"
+          },
+          {
+            "name": "name",
+            "type": "STRING",
+            "description": "分组名称"
+          },
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "description": "分组id"
+          },
+          {
+            "name": "valueUnit",
+            "type": "LIST",
+            "description": "属性值单位"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "referenceType",
+            "type": "INTEGER",
+            "description": "属性引用类型"
+          },
+          {
+            "name": "pid",
+            "type": "INTEGER",
+            "description": "基础属性id"
+          },
+          {
+            "name": "templatePid",
+            "type": "INTEGER",
+            "description": "模板属性id"
+          },
+          {
+            "name": "required",
+            "type": "BOOLEAN",
+            "description": "必填"
+          },
+          {
+            "name": "inputMaxNum",
+            "type": "INTEGER",
+            "description": "最大可输入数目,为0时代表不可输入"
+          },
+          {
+            "name": "propertyValueType",
+            "type": "INTEGER",
+            "description": "属性值类型"
+          },
+          {
+            "name": "minValue",
+            "type": "STRING",
+            "description": "输入最小值"
+          },
+          {
+            "name": "feature",
+            "type": "INTEGER",
+            "description": "属性特性"
+          },
+          {
+            "name": "valueRule",
+            "type": "INTEGER",
+            "description": "数值规则：SUM_OF_VALUES_IS_100(1, \"数值之和等于100\")"
+          },
+          {
+            "name": "propertyChooseTitle",
+            "type": "STRING",
+            "description": "属性勾选Title"
+          },
+          {
+            "name": "showType",
+            "type": "INTEGER",
+            "description": "B端展示规则"
+          },
+          {
+            "name": "parentTemplatePid",
+            "type": "INTEGER",
+            "description": "模板父属性ID"
+          },
+          {
+            "name": "mainSale",
+            "type": "BOOLEAN",
+            "description": "是否为主销售属性"
+          },
+          {
+            "name": "parentSpecId",
+            "type": "INTEGER",
+            "description": "规格id"
+          },
+          {
+            "name": "maxValue",
+            "type": "STRING",
+            "description": "输入最大值：文本类型代表文本最长长度、 数值类型代表数字最大值、时间类型代表时间最大值"
+          },
+          {
+            "name": "lang2Name",
+            "type": "MAP",
+            "description": "多语言属性名称"
+          },
+          {
+            "name": "$key",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "$value",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "chooseMaxNum",
+            "type": "INTEGER",
+            "description": "最大可勾选数目"
+          },
+          {
+            "name": "valuePrecision",
+            "type": "INTEGER",
+            "description": "小数点允许最大精度,为0时代表不允许输入小数"
+          },
+          {
+            "name": "showCondition",
+            "type": "LIST",
+            "description": "属性展示条件，或者关系"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "parentRefPid",
+            "type": "INTEGER",
+            "description": "父属性id"
+          },
+          {
+            "name": "parentVids",
+            "type": "LIST",
+            "description": "若属性按条件展示,则只有parent_vids中的值被选择时属性才可使用"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "description": "-"
+          },
+          {
+            "name": "controlType",
+            "type": "INTEGER",
+            "description": "控件类型： INPUT(0, \"可输入\"), CHOOSE(1, \"可勾选\"), INPUT_CHOOSE(3, \"可输入又可勾选\"), SINGLE_YMD_DATE(5, \"单项时间选择器-年月日\"), MULTIPLE_YMD_DATE(6, \"双项时间选择器-年月日\"), SINGLE_YM_DATE(7, \"单项时间选择器-年月\"), MULTIPLE_YM_DATE(8, \"双项时间选择器-年月\"), COLOR_SELECTOR(9, \"调色盘\"), SIZE_SELECTOR(10, \"尺码选择器\"), NUMBER_RANGE(11, \"输入数值范围\"), NUMBER_PRODUCT_DOUBLE(12, \"输入数值乘积-2维\"), NUMBER_PRODUCT_TRIPLE(13, \"输入数值乘积-3维\"), AUTO_COMPUTE(14, \"自动计算框\"), REGION_CHOOSE(15, \"地区选择器\"), PROPERTY_CHOOSE_AND_INPUT(16, \"属性勾选和数值录入\"),"
+          },
+          {
+            "name": "name",
+            "type": "STRING",
+            "description": "属性名称"
+          },
+          {
+            "name": "isSale",
+            "type": "BOOLEAN",
+            "description": "是否销售属性(区分普通属性与规格属性)"
+          },
+          {
+            "name": "refPid",
+            "type": "INTEGER",
+            "description": "属性id"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "1000001",
+                "错误描述": "服务器开小差",
+                "解决办法": "一般为系统抖动，可尝试重试，如果还是不行请联系管理员"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 4656,
+          "endLine": 4775,
+          "contentSha256": "281349a1ba5d5a250be20c905d01fbe8f4fd81ddfa482e9718111bc267c87c21"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_goods_attrs_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.goods.attrs.get` for this operation.",
+          "enum": [
+            "bg.goods.attrs.get"
+          ],
+          "default": "bg.goods.attrs.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "catId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "叶子类目id"
+        },
+        "productCreateTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "货品创建时间 (毫秒时间戳)"
+        },
+        "supportedType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "渠道类型，如果传了优先认这个字段，不识别mallId"
+        },
+        "langList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "语言列表 (查询多语言信息, 中文不用传, 特殊场景使用, 会影响性能, 一般情况下不传)"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "catId"
+      ]
+    },
+    "bg_goods_attrs_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "inputMaxSpecNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "模板允许的最大的自定义规格数量"
+        },
+        "chooseAllQualifySpec": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "限定规格是否全选:0否,1是"
+        },
+        "singleSpecValueNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "单个自定义规格值上限"
+        },
+        "properties": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "模板属性"
+        },
+        "numberInputTitle": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "数值录入Title"
+        },
+        "templatePropertyValueParentList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "属性值关联关系"
+        },
+        "parentVidList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "关联属性值id"
+        },
+        "vidList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "属性值id"
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "模板属性值"
+        },
+        "vid": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "属性值id"
+        },
+        "specId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "规格id"
+        },
+        "lang2Value": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "MAP",
+          "description": "多语言属性值"
+        },
+        "$key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "-"
+        },
+        "$value": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "-"
+        },
+        "extendInfo": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "扩展信息"
+        },
+        "value": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "属性值"
+        },
+        "group": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "分组信息"
+        },
+        "name": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "分组名称"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "分组id"
+        },
+        "valueUnit": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "属性值单位"
+        },
+        "referenceType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "属性引用类型"
+        },
+        "pid": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "基础属性id"
+        },
+        "templatePid": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "模板属性id"
+        },
+        "required": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "必填"
+        },
+        "inputMaxNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "最大可输入数目,为0时代表不可输入"
+        },
+        "propertyValueType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "属性值类型"
+        },
+        "minValue": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "输入最小值"
+        },
+        "feature": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "属性特性"
+        },
+        "valueRule": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "数值规则：SUM_OF_VALUES_IS_100(1, \"数值之和等于100\")"
+        },
+        "propertyChooseTitle": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "属性勾选Title"
+        },
+        "showType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "B端展示规则"
+        },
+        "parentTemplatePid": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "模板父属性ID"
+        },
+        "mainSale": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否为主销售属性"
+        },
+        "parentSpecId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "规格id"
+        },
+        "maxValue": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "输入最大值：文本类型代表文本最长长度、 数值类型代表数字最大值、时间类型代表时间最大值"
+        },
+        "lang2Name": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "MAP",
+          "description": "多语言属性名称"
+        },
+        "chooseMaxNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "最大可勾选数目"
+        },
+        "valuePrecision": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "小数点允许最大精度,为0时代表不允许输入小数"
+        },
+        "showCondition": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "属性展示条件，或者关系"
+        },
+        "parentRefPid": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "父属性id"
+        },
+        "parentVids": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "若属性按条件展示,则只有parent_vids中的值被选择时属性才可使用"
+        },
+        "controlType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "控件类型： INPUT(0, \"可输入\"), CHOOSE(1, \"可勾选\"), INPUT_CHOOSE(3, \"可输入又可勾选\"), SINGLE_YMD_DATE(5, \"单项时间选择器-年月日\"), MULTIPLE_YMD_DATE(6, \"双项时间选择器-年月日\"), SINGLE_YM_DATE(7, \"单项时间选择器-年月\"), MULTIPLE_YM_DATE(8, \"双项时间选择器-年月\"), COLOR_SELECTOR(9, \"调色盘\"), SIZE_SELECTOR(10, \"尺码选择器\"), NUMBER_RANGE(11, \"输入数值范围\"), NUMBER_PRODUCT_DOUBLE(12, \"输入数值乘积-2维\"), NUMBER_PRODUCT_TRIPLE(13, \"输入数值乘积-3维\"), AUTO_COMPUTE(14, \"自动计算框\"), REGION_CHOOSE(15, \"地区选择器\"), PROPERTY_CHOOSE_AND_INPUT(16, \"属性勾选和数值录入\"),"
+        },
+        "isSale": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否销售属性(区分普通属性与规格属性)"
+        },
+        "refPid": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "属性id"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 4656,
+    "endLine": 4775,
+    "contentSha256": "281349a1ba5d5a250be20c905d01fbe8f4fd81ddfa482e9718111bc267c87c21"
+  },
+  "x-temu-api-type": "bg.goods.attrs.get",
+  "x-temu-region-module": "temu-cn-api"
+}

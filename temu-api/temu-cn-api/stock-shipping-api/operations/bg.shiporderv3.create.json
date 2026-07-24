@@ -1,0 +1,601 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Stock And Shipping - bg.shiporderv3.create",
+    "description": "当前openapi为老发货流程，需要支持创建发货单、物流下单分步操作",
+    "version": "2025-03-21 20:04:29"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Stock And Shipping"
+        ],
+        "operationId": "bg_shiporderv3_create",
+        "summary": "创建发货单接口v3",
+        "description": "当前openapi为老发货流程，需要支持创建发货单、物流下单分步操作",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.shiporderv3.create`.",
+            "schema": {
+              "$ref": "#/definitions/bg_shiporderv3_createRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_shiporderv3_createResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.shiporderv3.create",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Stock And Shipping",
+          "sourceTitle": "备货及发货API组",
+          "directory": "stock-shipping-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-21 20:04:29",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "deliveryOrderCreateGroupList",
+            "type": "LIST",
+            "required": true,
+            "description": "发货单创建组列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "subWarehouseId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "子仓id"
+          },
+          {
+            "name": "deliveryOrderCreateInfos",
+            "type": "LIST",
+            "required": true,
+            "description": "采购单创建信息列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "deliveryAddressId",
+            "type": "INTEGER",
+            "required": false,
+            "description": "发货地址ID 待灰度key_cn_BG_137831全量后 该字段不能为空"
+          },
+          {
+            "name": "deliverOrderDetailInfos",
+            "type": "LIST",
+            "required": true,
+            "description": "发货单详情列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "productSkuId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "skuId"
+          },
+          {
+            "name": "deliverSkuNum",
+            "type": "INTEGER",
+            "required": true,
+            "description": "发货sku数目"
+          },
+          {
+            "name": "packageInfos",
+            "type": "LIST",
+            "required": true,
+            "description": "包裹信息列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "packageDetailSaveInfos",
+            "type": "LIST",
+            "required": true,
+            "description": "包裹明细"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "productSkuId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "skuId"
+          },
+          {
+            "name": "skuNum",
+            "type": "INTEGER",
+            "required": true,
+            "description": "发货sku数目"
+          },
+          {
+            "name": "subPurchaseOrderSn",
+            "type": "STRING",
+            "required": true,
+            "description": "采购子单号"
+          },
+          {
+            "name": "receiveAddressInfo",
+            "type": "OBJECT",
+            "required": true,
+            "description": "收货地址"
+          },
+          {
+            "name": "districtCode",
+            "type": "INTEGER",
+            "required": false,
+            "description": "区编码"
+          },
+          {
+            "name": "cityName",
+            "type": "STRING",
+            "required": false,
+            "description": "市"
+          },
+          {
+            "name": "districtName",
+            "type": "STRING",
+            "required": false,
+            "description": "区"
+          },
+          {
+            "name": "phone",
+            "type": "STRING",
+            "required": false,
+            "description": "联系电话"
+          },
+          {
+            "name": "provinceCode",
+            "type": "INTEGER",
+            "required": false,
+            "description": "省份编码",
+            "offlineReference": "../../offline-docs/data-dictionary.md#发品-省份枚举值",
+            "offlineReferenceReason": "province enum for addresses"
+          },
+          {
+            "name": "cityCode",
+            "type": "INTEGER",
+            "required": false,
+            "description": "市编码"
+          },
+          {
+            "name": "receiverName",
+            "type": "STRING",
+            "required": false,
+            "description": "收货人"
+          },
+          {
+            "name": "detailAddress",
+            "type": "STRING",
+            "required": false,
+            "description": "详细地址"
+          },
+          {
+            "name": "provinceName",
+            "type": "STRING",
+            "required": false,
+            "description": "省"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "cancelUrgencyTypeSubPurchaseOrderSnList",
+            "type": "LIST",
+            "description": "取消急采标的采购单列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "deliveryOrders",
+            "type": "LIST",
+            "description": "创建成功的发货单列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "isUrgencyType",
+            "type": "BOOLEAN",
+            "description": "是否是急采"
+          },
+          {
+            "name": "cancelUrgencyType",
+            "type": "BOOLEAN",
+            "description": "是否有取消急采标"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": []
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 7853,
+          "endLine": 7945,
+          "contentSha256": "79c41ffcd8dacf19c7c78d5c93646fe1acce57769a93a49d8c24447ecec33691"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_shiporderv3_createRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.shiporderv3.create` for this operation.",
+          "enum": [
+            "bg.shiporderv3.create"
+          ],
+          "default": "bg.shiporderv3.create"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "deliveryOrderCreateGroupList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "发货单创建组列表"
+        },
+        "subWarehouseId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "子仓id"
+        },
+        "deliveryOrderCreateInfos": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "采购单创建信息列表"
+        },
+        "deliveryAddressId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货地址ID 待灰度key_cn_BG_137831全量后 该字段不能为空"
+        },
+        "deliverOrderDetailInfos": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "发货单详情列表"
+        },
+        "productSkuId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "skuId"
+        },
+        "deliverSkuNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货sku数目"
+        },
+        "packageInfos": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "包裹信息列表"
+        },
+        "packageDetailSaveInfos": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "包裹明细"
+        },
+        "skuNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货sku数目"
+        },
+        "subPurchaseOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "采购子单号"
+        },
+        "receiveAddressInfo": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "收货地址"
+        },
+        "districtCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "区编码"
+        },
+        "cityName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "市"
+        },
+        "districtName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "区"
+        },
+        "phone": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "联系电话"
+        },
+        "provinceCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "省份编码",
+          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#发品-省份枚举值",
+          "x-temu-offline-reference-reason": "province enum for addresses"
+        },
+        "cityCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "市编码"
+        },
+        "receiverName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "收货人"
+        },
+        "detailAddress": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "详细地址"
+        },
+        "provinceName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "省"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "deliveryOrderCreateGroupList",
+        "subWarehouseId",
+        "deliveryOrderCreateInfos",
+        "deliverOrderDetailInfos",
+        "productSkuId",
+        "deliverSkuNum",
+        "packageInfos",
+        "packageDetailSaveInfos",
+        "skuNum",
+        "subPurchaseOrderSn",
+        "receiveAddressInfo"
+      ]
+    },
+    "bg_shiporderv3_createResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "cancelUrgencyTypeSubPurchaseOrderSnList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "取消急采标的采购单列表"
+        },
+        "deliveryOrders": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "创建成功的发货单列表"
+        },
+        "isUrgencyType": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否是急采"
+        },
+        "cancelUrgencyType": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否有取消急采标"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 7853,
+    "endLine": 7945,
+    "contentSha256": "79c41ffcd8dacf19c7c78d5c93646fe1acce57769a93a49d8c24447ecec33691"
+  },
+  "x-temu-api-type": "bg.shiporderv3.create",
+  "x-temu-region-module": "temu-cn-api"
+}

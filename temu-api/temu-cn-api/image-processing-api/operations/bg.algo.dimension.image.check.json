@@ -1,0 +1,307 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Image Processing - bg.algo.dimension.image.check",
+    "description": "部分类目要求在商品轮播图必须上传尺寸图，尺寸图要求必须使用公制和英制单位，需要提供对应的尺寸图校验接口给外部商家",
+    "version": "2025-03-10 16:10:41"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Image Processing"
+        ],
+        "operationId": "bg_algo_dimension_image_check",
+        "summary": "尺寸图校验",
+        "description": "部分类目要求在商品轮播图必须上传尺寸图，尺寸图要求必须使用公制和英制单位，需要提供对应的尺寸图校验接口给外部商家",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.algo.dimension.image.check`.",
+            "schema": {
+              "$ref": "#/definitions/bg_algo_dimension_image_checkRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_algo_dimension_image_checkResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.algo.dimension.image.check",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Image Processing",
+          "sourceTitle": "图片处理API组",
+          "directory": "image-processing-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-10 16:10:41",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "mallId",
+            "type": "STRING",
+            "required": false,
+            "description": "商家Id"
+          },
+          {
+            "name": "imageUrl",
+            "type": "STRING",
+            "required": false,
+            "description": "原始图片"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "错误码"
+          },
+          {
+            "name": "uniqueId",
+            "type": "STRING",
+            "description": "唯一键"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "错误信息"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "1000000",
+                "错误描述": "成功",
+                "解决办法": "图片尺寸图请求校验成功"
+              },
+              {
+                "错误码": "2000000",
+                "错误描述": "业务异常",
+                "解决办法": "业务异常，联系对应产品进行处理"
+              },
+              {
+                "错误码": "3000000",
+                "错误描述": "参数错误",
+                "解决办法": "检查传入的业务参数是否正确"
+              },
+              {
+                "错误码": "4000000",
+                "错误描述": "系统异常",
+                "解决办法": "系统异常，联系对应产品进行处理"
+              },
+              {
+                "错误码": "4000004",
+                "错误描述": "请求超出限额",
+                "解决办法": "翻译配额超额，联系产品增加翻译配额"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 3533,
+          "endLine": 3599,
+          "contentSha256": "a79bb36874641d600f927346863ab07f317f4bd917f8edeb6169a0916e2def4c"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_algo_dimension_image_checkRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.algo.dimension.image.check` for this operation.",
+          "enum": [
+            "bg.algo.dimension.image.check"
+          ],
+          "default": "bg.algo.dimension.image.check"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "mallId": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "商家Id"
+        },
+        "imageUrl": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "原始图片"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version"
+      ]
+    },
+    "bg_algo_dimension_image_checkResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "错误码"
+        },
+        "uniqueId": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "唯一键"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "错误信息"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 3533,
+    "endLine": 3599,
+    "contentSha256": "a79bb36874641d600f927346863ab07f317f4bd917f8edeb6169a0916e2def4c"
+  },
+  "x-temu-api-type": "bg.algo.dimension.image.check",
+  "x-temu-region-module": "temu-cn-api"
+}

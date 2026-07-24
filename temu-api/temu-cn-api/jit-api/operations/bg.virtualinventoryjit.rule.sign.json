@@ -1,0 +1,296 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "JIT - bg.virtualinventoryjit.rule.sign",
+    "description": "jit预售规则签署接口",
+    "version": "2025-01-16 16:23:21"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "JIT"
+        ],
+        "operationId": "bg_virtualinventoryjit_rule_sign",
+        "summary": "jit预售规则签署接口",
+        "description": "jit预售规则签署接口",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.virtualinventoryjit.rule.sign`.",
+            "schema": {
+              "$ref": "#/definitions/bg_virtualinventoryjit_rule_signRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_virtualinventoryjit_rule_signResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.virtualinventoryjit.rule.sign",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "JIT",
+          "sourceTitle": "JIT组",
+          "directory": "jit-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-01-16 16:23:21",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "productId",
+            "type": "LONG",
+            "required": true,
+            "description": "货品id"
+          },
+          {
+            "name": "agtVersion",
+            "type": "INTEGER",
+            "required": true,
+            "description": "JIT预售协议版本号"
+          },
+          {
+            "name": "productAgtType",
+            "type": "INTEGER",
+            "required": true,
+            "description": "货品协议类型，1-JIT模式快速售卖协议"
+          },
+          {
+            "name": "url",
+            "type": "STRING",
+            "required": true,
+            "description": "JIT协议链接"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "100000001",
+                "错误描述": "system error",
+                "解决办法": "wait and retry for a few times, otherwise contact us"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 13568,
+          "endLine": 13629,
+          "contentSha256": "c9dfa206e494cb1b4c26fb01063f06adab054466558a851bba9e4ffc7bfd52c2"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_virtualinventoryjit_rule_signRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.virtualinventoryjit.rule.sign` for this operation.",
+          "enum": [
+            "bg.virtualinventoryjit.rule.sign"
+          ],
+          "default": "bg.virtualinventoryjit.rule.sign"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "productId": {
+          "type": "integer",
+          "format": "int64",
+          "x-temu-type": "LONG",
+          "description": "货品id"
+        },
+        "agtVersion": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "JIT预售协议版本号"
+        },
+        "productAgtType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "货品协议类型，1-JIT模式快速售卖协议"
+        },
+        "url": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "JIT协议链接"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "productId",
+        "agtVersion",
+        "productAgtType",
+        "url"
+      ]
+    },
+    "bg_virtualinventoryjit_rule_signResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 13568,
+    "endLine": 13629,
+    "contentSha256": "c9dfa206e494cb1b4c26fb01063f06adab054466558a851bba9e4ffc7bfd52c2"
+  },
+  "x-temu-api-type": "bg.virtualinventoryjit.rule.sign",
+  "x-temu-region-module": "temu-cn-api"
+}

@@ -1,0 +1,769 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Waybill And Box Label - bg.logistics.boxmarkinfo.get",
+    "description": "更新OPEN API箱唛返回格式，新增发货状态和灰度key命中情況2个字段，用于控制不同的箱唛打印样式使用。",
+    "version": "2025-03-21 20:04:37"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Waybill And Box Label"
+        ],
+        "operationId": "bg_logistics_boxmarkinfo_get",
+        "summary": "箱唛查询",
+        "description": "更新OPEN API箱唛返回格式，新增发货状态和灰度key命中情況2个字段，用于控制不同的箱唛打印样式使用。",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.logistics.boxmarkinfo.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_logistics_boxmarkinfo_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_logistics_boxmarkinfo_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.logistics.boxmarkinfo.get",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Waybill And Box Label",
+          "sourceTitle": "运单标签&箱唛",
+          "directory": "waybill-box-label-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-21 20:04:37",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "deliveryOrderSnList",
+            "type": "LIST",
+            "required": true,
+            "description": "发货单号列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "LIST",
+            "description": "result"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "volumeType",
+            "type": "INTEGER",
+            "description": "体积类型 10小 20大"
+          },
+          {
+            "name": "supplierId",
+            "type": "INTEGER",
+            "description": "供应商id"
+          },
+          {
+            "name": "isCustomProduct",
+            "type": "BOOLEAN",
+            "description": "是否是定制品"
+          },
+          {
+            "name": "deliveryMethod",
+            "type": "INTEGER",
+            "description": "发货方式 1-自送 2-第三方物流"
+          },
+          {
+            "name": "packageIndex",
+            "type": "INTEGER",
+            "description": "第X箱"
+          },
+          {
+            "name": "nonClothMainSpecVOList",
+            "type": "LIST",
+            "description": "非服务类目主销售属性，只有一个"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "specId",
+            "type": "INTEGER",
+            "description": "规格id"
+          },
+          {
+            "name": "parentSpecName",
+            "type": "STRING",
+            "description": "父规格名称"
+          },
+          {
+            "name": "parentSpecId",
+            "type": "INTEGER",
+            "description": "父规格id"
+          },
+          {
+            "name": "specName",
+            "type": "STRING",
+            "description": "规格名称"
+          },
+          {
+            "name": "expressDeliverySn",
+            "type": "STRING",
+            "description": "物流单号"
+          },
+          {
+            "name": "productName",
+            "type": "STRING",
+            "description": "货品名称"
+          },
+          {
+            "name": "subWarehouseEnglishName",
+            "type": "STRING",
+            "description": "收货仓库英文名称"
+          },
+          {
+            "name": "isClothCat",
+            "type": "BOOLEAN",
+            "description": "是否是服饰类目，true:服饰类目"
+          },
+          {
+            "name": "isFirst",
+            "type": "BOOLEAN",
+            "description": "是否首单"
+          },
+          {
+            "name": "purchaseStockType",
+            "type": "INTEGER",
+            "description": "备货类型 0-普通备货 1-jit备货"
+          },
+          {
+            "name": "totalPackageNum",
+            "type": "INTEGER",
+            "description": "总箱数"
+          },
+          {
+            "name": "expressCompany",
+            "type": "STRING",
+            "description": "快递公司名称"
+          },
+          {
+            "name": "productSkcId",
+            "type": "INTEGER",
+            "description": "skcId"
+          },
+          {
+            "name": "nonClothSkuExtCode",
+            "type": "STRING",
+            "description": "非服饰类目sku货号，只有非服饰类目才有且只有一个值"
+          },
+          {
+            "name": "deliveryOrderSn",
+            "type": "STRING",
+            "description": "发货单号"
+          },
+          {
+            "name": "supplierName",
+            "type": "STRING",
+            "description": "供应商名称"
+          },
+          {
+            "name": "settlementType",
+            "type": "INTEGER",
+            "description": "结算类型 0-非vmi 1-vmi"
+          },
+          {
+            "name": "skcExtCode",
+            "type": "STRING",
+            "description": "skc货号"
+          },
+          {
+            "name": "productSkuIdList",
+            "type": "LIST",
+            "description": "货品skuId列表"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "description": "-"
+          },
+          {
+            "name": "deliverTime",
+            "type": "INTEGER",
+            "description": "发货时间：毫秒"
+          },
+          {
+            "name": "subWarehouseId",
+            "type": "INTEGER",
+            "description": "收货仓库Id"
+          },
+          {
+            "name": "urgencyType",
+            "type": "INTEGER",
+            "description": "是否是紧急发货单，0-普通 1-急采"
+          },
+          {
+            "name": "productSkcName",
+            "type": "STRING",
+            "description": "skc名称"
+          },
+          {
+            "name": "packageSn",
+            "type": "STRING",
+            "description": "包裹号"
+          },
+          {
+            "name": "expressEnglishCompany",
+            "type": "STRING",
+            "description": "快递公司英文名称"
+          },
+          {
+            "name": "packageSkcNum",
+            "type": "INTEGER",
+            "description": "包裹中件数"
+          },
+          {
+            "name": "nonClothSecondarySpecVOList",
+            "type": "LIST",
+            "description": "非服务类目次销售属性，只有一个"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "specId",
+            "type": "INTEGER",
+            "description": "规格id"
+          },
+          {
+            "name": "parentSpecName",
+            "type": "STRING",
+            "description": "父规格名称"
+          },
+          {
+            "name": "parentSpecId",
+            "type": "INTEGER",
+            "description": "父规格id"
+          },
+          {
+            "name": "specName",
+            "type": "STRING",
+            "description": "规格名称"
+          },
+          {
+            "name": "subWarehouseName",
+            "type": "STRING",
+            "description": "收货仓库名称"
+          },
+          {
+            "name": "subPurchaseOrderSn",
+            "type": "STRING",
+            "description": "采购子单号"
+          },
+          {
+            "name": "driverName",
+            "type": "STRING",
+            "description": "司机姓名"
+          },
+          {
+            "name": "driverPhone",
+            "type": "STRING",
+            "description": "司机手机号"
+          },
+          {
+            "name": "purchaseTime",
+            "type": "INTEGER",
+            "description": "下单时间（时间戳：毫秒）"
+          },
+          {
+            "name": "greyKeyHitMap",
+            "type": "MAP",
+            "description": "灰度key命中情況"
+          },
+          {
+            "name": "$key",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "$value",
+            "type": "BOOLEAN",
+            "description": "-"
+          },
+          {
+            "name": "storageAttrName",
+            "type": "STRING",
+            "description": "存储属性名称"
+          },
+          {
+            "name": "deliverSkcNum",
+            "type": "INTEGER",
+            "description": "发货件数"
+          },
+          {
+            "name": "deliveryStatus",
+            "type": "INTEGER",
+            "description": "发货状态"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": []
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 9597,
+          "endLine": 9710,
+          "contentSha256": "c10f7fc78693a424ecc4e0fa0f2493a3f30d4b32ad47493b33792b89149b726d"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_logistics_boxmarkinfo_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.logistics.boxmarkinfo.get` for this operation.",
+          "enum": [
+            "bg.logistics.boxmarkinfo.get"
+          ],
+          "default": "bg.logistics.boxmarkinfo.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "deliveryOrderSnList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "发货单号列表"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "deliveryOrderSnList"
+      ]
+    },
+    "bg_logistics_boxmarkinfo_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "result"
+        },
+        "volumeType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "体积类型 10小 20大"
+        },
+        "supplierId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "供应商id"
+        },
+        "isCustomProduct": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否是定制品"
+        },
+        "deliveryMethod": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货方式 1-自送 2-第三方物流"
+        },
+        "packageIndex": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "第X箱"
+        },
+        "nonClothMainSpecVOList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "非服务类目主销售属性，只有一个"
+        },
+        "specId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "规格id"
+        },
+        "parentSpecName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "父规格名称"
+        },
+        "parentSpecId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "父规格id"
+        },
+        "specName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "规格名称"
+        },
+        "expressDeliverySn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "物流单号"
+        },
+        "productName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "货品名称"
+        },
+        "subWarehouseEnglishName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "收货仓库英文名称"
+        },
+        "isClothCat": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否是服饰类目，true:服饰类目"
+        },
+        "isFirst": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否首单"
+        },
+        "purchaseStockType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "备货类型 0-普通备货 1-jit备货"
+        },
+        "totalPackageNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "总箱数"
+        },
+        "expressCompany": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "快递公司名称"
+        },
+        "productSkcId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "skcId"
+        },
+        "nonClothSkuExtCode": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "非服饰类目sku货号，只有非服饰类目才有且只有一个值"
+        },
+        "deliveryOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "发货单号"
+        },
+        "supplierName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "供应商名称"
+        },
+        "settlementType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "结算类型 0-非vmi 1-vmi"
+        },
+        "skcExtCode": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "skc货号"
+        },
+        "productSkuIdList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "货品skuId列表"
+        },
+        "deliverTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货时间：毫秒"
+        },
+        "subWarehouseId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "收货仓库Id"
+        },
+        "urgencyType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否是紧急发货单，0-普通 1-急采"
+        },
+        "productSkcName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "skc名称"
+        },
+        "packageSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "包裹号"
+        },
+        "expressEnglishCompany": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "快递公司英文名称"
+        },
+        "packageSkcNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "包裹中件数"
+        },
+        "nonClothSecondarySpecVOList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "非服务类目次销售属性，只有一个"
+        },
+        "subWarehouseName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "收货仓库名称"
+        },
+        "subPurchaseOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "采购子单号"
+        },
+        "driverName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "司机姓名"
+        },
+        "driverPhone": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "司机手机号"
+        },
+        "purchaseTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "下单时间（时间戳：毫秒）"
+        },
+        "greyKeyHitMap": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "MAP",
+          "description": "灰度key命中情況"
+        },
+        "$key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "-"
+        },
+        "$value": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "-"
+        },
+        "storageAttrName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "存储属性名称"
+        },
+        "deliverSkcNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货件数"
+        },
+        "deliveryStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货状态"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 9597,
+    "endLine": 9710,
+    "contentSha256": "c10f7fc78693a424ecc4e0fa0f2493a3f30d4b32ad47493b33792b89149b726d"
+  },
+  "x-temu-api-type": "bg.logistics.boxmarkinfo.get",
+  "x-temu-region-module": "temu-cn-api"
+}

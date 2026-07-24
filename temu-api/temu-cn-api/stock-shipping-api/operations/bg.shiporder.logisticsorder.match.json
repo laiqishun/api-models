@@ -1,0 +1,272 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Stock And Shipping - bg.shiporder.logisticsorder.match",
+    "description": "当发货方式为自行委托第三方物流时，商家录入物流单号后需要提供接口校验所选择的物流公司是否匹配",
+    "version": "2025-03-21 20:04:29"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Stock And Shipping"
+        ],
+        "operationId": "bg_shiporder_logisticsorder_match",
+        "summary": "物流单号与可用物流公司校验",
+        "description": "当发货方式为自行委托第三方物流时，商家录入物流单号后需要提供接口校验所选择的物流公司是否匹配",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.shiporder.logisticsorder.match`.",
+            "schema": {
+              "$ref": "#/definitions/bg_shiporder_logisticsorder_matchRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_shiporder_logisticsorder_matchResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.shiporder.logisticsorder.match",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Stock And Shipping",
+          "sourceTitle": "备货及发货API组",
+          "directory": "stock-shipping-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-21 20:04:29",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "shippingId",
+            "type": "INTEGER",
+            "required": false,
+            "description": "物流公司id"
+          },
+          {
+            "name": "expressNo",
+            "type": "STRING",
+            "required": false,
+            "description": "物流单号"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "checkResultMsg",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": []
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 8864,
+          "endLine": 8926,
+          "contentSha256": "3307180018a5308dce2a119727bbc24653034febc1773a9805703d1873dd6d40"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_shiporder_logisticsorder_matchRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.shiporder.logisticsorder.match` for this operation.",
+          "enum": [
+            "bg.shiporder.logisticsorder.match"
+          ],
+          "default": "bg.shiporder.logisticsorder.match"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "shippingId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "物流公司id"
+        },
+        "expressNo": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "物流单号"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version"
+      ]
+    },
+    "bg_shiporder_logisticsorder_matchResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "checkResultMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "-"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 8864,
+    "endLine": 8926,
+    "contentSha256": "3307180018a5308dce2a119727bbc24653034febc1773a9805703d1873dd6d40"
+  },
+  "x-temu-api-type": "bg.shiporder.logisticsorder.match",
+  "x-temu-region-module": "temu-cn-api"
+}

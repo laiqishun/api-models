@@ -1,0 +1,507 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sample Quality Return - bg.goods.qualityinspection.get",
+    "description": "新增卖家中心直接结果查询接口，用于卖家跟进不合格质检备货单，优化生产",
+    "version": "2025-03-24 00:40:16"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Sample Quality Return"
+        ],
+        "operationId": "bg_goods_qualityinspection_get",
+        "summary": "质检列表查询",
+        "description": "新增卖家中心直接结果查询接口，用于卖家跟进不合格质检备货单，优化生产",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.goods.qualityinspection.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_goods_qualityinspection_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_goods_qualityinspection_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.goods.qualityinspection.get",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Sample Quality Return",
+          "sourceTitle": "寄样/质检/退供API组",
+          "directory": "sample-quality-return-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-24 00:40:16",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "pageInfo",
+            "type": "OBJECT",
+            "required": true,
+            "description": "分页信息"
+          },
+          {
+            "name": "pageNo",
+            "type": "INTEGER",
+            "required": true,
+            "description": "页码"
+          },
+          {
+            "name": "pageSize",
+            "type": "INTEGER",
+            "required": true,
+            "description": "页容量"
+          },
+          {
+            "name": "purchaseNo",
+            "type": "LIST",
+            "required": false,
+            "description": "采购单号"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "skuQcResult",
+            "type": "INTEGER",
+            "required": false,
+            "description": "质检结果 1-合格 2-不合格"
+          },
+          {
+            "name": "skuIdList",
+            "type": "LIST",
+            "required": false,
+            "description": "skuId"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "qcResultUpdateTimeBegin",
+            "type": "INTEGER",
+            "required": false,
+            "description": "质检结果更新时间 ms 起始值"
+          },
+          {
+            "name": "qcResultUpdateTimeEnd",
+            "type": "INTEGER",
+            "required": false,
+            "description": "质检结果更新时间 ms 结束值"
+          },
+          {
+            "name": "skcIdList",
+            "type": "LIST",
+            "required": false,
+            "description": "skcId"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "total",
+            "type": "INTEGER",
+            "description": "-"
+          },
+          {
+            "name": "skuList",
+            "type": "LIST",
+            "description": "sku列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "skuName",
+            "type": "STRING",
+            "description": "sku名称"
+          },
+          {
+            "name": "qcResultUpdateTime",
+            "type": "STRING",
+            "description": "质检结果更新时间"
+          },
+          {
+            "name": "productSkuId",
+            "type": "INTEGER",
+            "description": "skuId"
+          },
+          {
+            "name": "qcBillId",
+            "type": "INTEGER",
+            "description": "质检子单id"
+          },
+          {
+            "name": "catName",
+            "type": "STRING",
+            "description": "叶子类目名称"
+          },
+          {
+            "name": "purchaseNo",
+            "type": "STRING",
+            "description": "采购单号"
+          },
+          {
+            "name": "spuId",
+            "type": "INTEGER",
+            "description": "spuId"
+          },
+          {
+            "name": "productSkcId",
+            "type": "INTEGER",
+            "description": "skcId"
+          },
+          {
+            "name": "thumbUrl",
+            "type": "STRING",
+            "description": "sku缩略图"
+          },
+          {
+            "name": "spec",
+            "type": "STRING",
+            "description": "规格"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": []
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 7336,
+          "endLine": 7420,
+          "contentSha256": "8218a495a7a916f46825b2c56637c0ef36484808a09fbc3d02f8fc8ae5878bfd"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_goods_qualityinspection_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.goods.qualityinspection.get` for this operation.",
+          "enum": [
+            "bg.goods.qualityinspection.get"
+          ],
+          "default": "bg.goods.qualityinspection.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "pageInfo": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "分页信息"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "页码"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "页容量"
+        },
+        "purchaseNo": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "采购单号"
+        },
+        "skuQcResult": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检结果 1-合格 2-不合格"
+        },
+        "skuIdList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "skuId"
+        },
+        "qcResultUpdateTimeBegin": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检结果更新时间 ms 起始值"
+        },
+        "qcResultUpdateTimeEnd": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检结果更新时间 ms 结束值"
+        },
+        "skcIdList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "skcId"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "pageInfo",
+        "pageNo",
+        "pageSize"
+      ]
+    },
+    "bg_goods_qualityinspection_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "-"
+        },
+        "skuList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "sku列表"
+        },
+        "skuName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "sku名称"
+        },
+        "qcResultUpdateTime": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "质检结果更新时间"
+        },
+        "productSkuId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "skuId"
+        },
+        "qcBillId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检子单id"
+        },
+        "catName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "叶子类目名称"
+        },
+        "purchaseNo": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "采购单号"
+        },
+        "spuId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "spuId"
+        },
+        "productSkcId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "skcId"
+        },
+        "thumbUrl": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "sku缩略图"
+        },
+        "spec": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "规格"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 7336,
+    "endLine": 7420,
+    "contentSha256": "8218a495a7a916f46825b2c56637c0ef36484808a09fbc3d02f8fc8ae5878bfd"
+  },
+  "x-temu-api-type": "bg.goods.qualityinspection.get",
+  "x-temu-region-module": "temu-cn-api"
+}

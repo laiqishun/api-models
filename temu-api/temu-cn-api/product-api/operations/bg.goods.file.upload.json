@@ -1,0 +1,311 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Product - bg.goods.file.upload",
+    "description": "货品文件上传接口",
+    "version": "2025-05-11 21:59:58"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "operationId": "bg_goods_file_upload",
+        "summary": "货品文件上传接口",
+        "description": "货品文件上传接口",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.goods.file.upload`.",
+            "schema": {
+              "$ref": "#/definitions/bg_goods_file_uploadRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_goods_file_uploadResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.goods.file.upload",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Product",
+          "sourceTitle": "货品API组",
+          "directory": "product-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-05-11 21:59:58",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "fileName",
+            "type": "STRING",
+            "required": true,
+            "description": "文件名称，需要带文件扩展，eg: test.pdf"
+          },
+          {
+            "name": "bizScene",
+            "type": "STRING",
+            "required": true,
+            "description": "文件使用场景. 可选值含义说明:[CERTIFICATE_OF_ORIGIN:产地证明，支持文件格式：['pdf', 'png', 'jpeg', 'jpg']，文件最大3MB;]"
+          },
+          {
+            "name": "fileBase64",
+            "type": "STRING",
+            "required": true,
+            "description": "文件base64"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "fileUrl",
+            "type": "STRING",
+            "description": "文件链接"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "120000000",
+                "错误描述": "系统异常，请稍后再试",
+                "解决办法": "一般为系统抖动，请稍后重试"
+              },
+              {
+                "错误码": "120000024",
+                "错误描述": "文件上传传入使用场景非法",
+                "解决办法": "请检查上传文件使用场景是否支持"
+              },
+              {
+                "错误码": "120000025",
+                "错误描述": "文件类型非法",
+                "解决办法": "请检查文件类型是否支持"
+              },
+              {
+                "错误码": "120000026",
+                "错误描述": "文件大小超过限制",
+                "解决办法": "请检查文件大小是否满足条件"
+              },
+              {
+                "错误码": "120000027",
+                "错误描述": "文件上传失败，请稍后再试",
+                "解决办法": "一般为系统抖动，请稍后重试"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 1574,
+          "endLine": 1639,
+          "contentSha256": "37d5a9dbfcf1161dc6ec73e1cb5494b3c7a675f67939e6f6839d359e4e8ba25a"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_goods_file_uploadRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.goods.file.upload` for this operation.",
+          "enum": [
+            "bg.goods.file.upload"
+          ],
+          "default": "bg.goods.file.upload"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "fileName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "文件名称，需要带文件扩展，eg: test.pdf"
+        },
+        "bizScene": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "文件使用场景. 可选值含义说明:[CERTIFICATE_OF_ORIGIN:产地证明，支持文件格式：['pdf', 'png', 'jpeg', 'jpg']，文件最大3MB;]"
+        },
+        "fileBase64": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "文件base64"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "fileName",
+        "bizScene",
+        "fileBase64"
+      ]
+    },
+    "bg_goods_file_uploadResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "fileUrl": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "文件链接"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 1574,
+    "endLine": 1639,
+    "contentSha256": "37d5a9dbfcf1161dc6ec73e1cb5494b3c7a675f67939e6f6839d359e4e8ba25a"
+  },
+  "x-temu-api-type": "bg.goods.file.upload",
+  "x-temu-region-module": "temu-cn-api"
+}

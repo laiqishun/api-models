@@ -1,0 +1,340 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Order - temu.order.cancel.appeal.apply",
+    "description": "Support merchants to initiate cancellation requests through the interface",
+    "version": "2025-07-20 11:47:53"
+  },
+  "host": "openapi-b-eu.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "temu_order_cancel_appeal_apply",
+        "summary": "Support merchants to initiate cancellation requests through the interface",
+        "description": "Support merchants to initiate cancellation requests through the interface",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `temu.order.cancel.appeal.apply`.",
+            "schema": {
+              "$ref": "#/definitions/temu_order_cancel_appeal_applyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/temu_order_cancel_appeal_applyResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "temu.order.cancel.appeal.apply",
+        "x-temu-region-module": "temu-eu-api",
+        "x-temu-group": {
+          "title": "Order",
+          "sourceTitle": "3、Order",
+          "directory": "order-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-eu.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-eu.temu.com/openapi/router",
+            "Site Region": "EU"
+          }
+        ],
+        "x-temu-audience": [
+          "Cross Border",
+          "Local"
+        ],
+        "x-temu-last-update-time": "2025-07-20 11:47:53",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "request",
+            "type": "OBJECT",
+            "required": false
+          },
+          {
+            "name": "cancelType",
+            "type": "INTEGER",
+            "required": true,
+            "description": "The types of application for cancellation are as follows, corresponding to the enumeration: 2: Suspected batch refund 3: Incorrect address"
+          },
+          {
+            "name": "applyOrder",
+            "type": "OBJECT",
+            "required": true,
+            "description": "Details of the application to cancel the order"
+          },
+          {
+            "name": "reason",
+            "type": "OBJECT",
+            "required": true,
+            "description": "Explanation of Application Reasons"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "response",
+            "type": "OBJECT"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "success"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "120050003",
+                "Error Message": "Cancel appeal failed",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120050002",
+                "Error Message": "Invalid parent order sn",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120050001",
+                "Error Message": "Invalid cancel type",
+                "Error SOP": ""
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Semi Order Management",
+                "App type": "public"
+              },
+              {
+                "Permission Package": "Local Order Management",
+                "App type": "private,public"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-eu.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"reason\" : {\n    \"description\" : \"test\",\n    \"proofUrlList\" : [ \"test\", \"test\" ]\n  },\n  \"applyOrder\" : {\n    \"parentOrderSn\" : \"test\"\n  },\n  \"app_key\" : \"test\",\n  \"cancelType\" : 1,\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"type\" : \"test\",\n  \"version\" : \"test\",\n  \"timestamp\" : \"test\"\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\": {\n    \"applySn\": \"test\"\n  },\n  \"errorCode\": 1,\n  \"success\": true,\n  \"errorMsg\": \"test\"\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu欧洲本土API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu欧洲本土API文档.md",
+          "startLine": 8810,
+          "endLine": 8939,
+          "contentSha256": "2b5282dcf9a8db3a374217218b28c8a6cd44540b4dcd00370d7630275336beef"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "temu_order_cancel_appeal_applyRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `temu.order.cancel.appeal.apply` for this operation.",
+          "enum": [
+            "temu.order.cancel.appeal.apply"
+          ],
+          "default": "temu.order.cancel.appeal.apply"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "cancelType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "The types of application for cancellation are as follows, corresponding to the enumeration: 2: Suspected batch refund 3: Incorrect address"
+        },
+        "applyOrder": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Details of the application to cancel the order"
+        },
+        "reason": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Explanation of Application Reasons"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp",
+        "cancelType",
+        "applyOrder",
+        "reason"
+      ]
+    },
+    "temu_order_cancel_appeal_applyResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "response": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "success"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu欧洲本土API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu欧洲本土API文档.md",
+    "startLine": 8810,
+    "endLine": 8939,
+    "contentSha256": "2b5282dcf9a8db3a374217218b28c8a6cd44540b4dcd00370d7630275336beef"
+  },
+  "x-temu-api-type": "temu.order.cancel.appeal.apply",
+  "x-temu-region-module": "temu-eu-api"
+}

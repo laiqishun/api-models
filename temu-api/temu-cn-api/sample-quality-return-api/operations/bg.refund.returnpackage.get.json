@@ -1,0 +1,591 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sample Quality Return - bg.refund.returnpackage.get",
+    "description": "当前开平外部商家对接，需要查询发货至仓库，被退货的数据情况，确保自有库存数据准确",
+    "version": "2025-03-11 23:35:20"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Sample Quality Return"
+        ],
+        "operationId": "bg_refund_returnpackage_get",
+        "summary": "退货包裹查询接口",
+        "description": "当前开平外部商家对接，需要查询发货至仓库，被退货的数据情况，确保自有库存数据准确",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.refund.returnpackage.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_refund_returnpackage_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_refund_returnpackage_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.refund.returnpackage.get",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Sample Quality Return",
+          "sourceTitle": "寄样/质检/退供API组",
+          "directory": "sample-quality-return-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-11 23:35:20",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "outboundTimeEnd",
+            "type": "INTEGER",
+            "required": false,
+            "description": "出库时间范围右区间"
+          },
+          {
+            "name": "supplierId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "商家id"
+          },
+          {
+            "name": "pageSize",
+            "type": "INTEGER",
+            "required": true,
+            "description": "页面大小, 值范围：1~ 200"
+          },
+          {
+            "name": "returnSupplierReason",
+            "type": "STRING",
+            "required": false,
+            "description": "退供原因"
+          },
+          {
+            "name": "packageTimeStart",
+            "type": "INTEGER",
+            "required": false,
+            "description": "打包完成时间范围左区间"
+          },
+          {
+            "name": "expressDeLiverySns",
+            "type": "LIST",
+            "required": false,
+            "description": "运单号"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "purchaseSubOrderSns",
+            "type": "LIST",
+            "required": false,
+            "description": "订单号（对应采购子单号）"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "returnHandOverType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "退供类型枚举 0-自提,1-邮寄"
+          },
+          {
+            "name": "pageNo",
+            "type": "INTEGER",
+            "required": true,
+            "description": "页码"
+          },
+          {
+            "name": "payMethod",
+            "type": "INTEGER",
+            "required": false,
+            "description": "支付方式 1-寄付 2-到付"
+          },
+          {
+            "name": "outboundTimeStart",
+            "type": "INTEGER",
+            "required": false,
+            "description": "出库时间范围左区间"
+          },
+          {
+            "name": "packageTimeEnd",
+            "type": "INTEGER",
+            "required": false,
+            "description": "打包完成时间范围右区间"
+          },
+          {
+            "name": "logisticsType",
+            "type": "STRING",
+            "required": false,
+            "description": "物流商类型"
+          },
+          {
+            "name": "returnSupplierPackageNos",
+            "type": "LIST",
+            "required": false,
+            "description": "退供包裹号列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "status",
+            "type": "INTEGER",
+            "required": false,
+            "description": "包裹状态(1-待提货,2-已出库)"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "total",
+            "type": "INTEGER",
+            "description": "数据总量"
+          },
+          {
+            "name": "openReturnPackageDTOS",
+            "type": "LIST",
+            "description": "退供包裹数据"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "purchaseSubOrderSn",
+            "type": "STRING",
+            "description": "订单号（对应采购子单号）"
+          },
+          {
+            "name": "reason",
+            "type": "STRING",
+            "description": "备注"
+          },
+          {
+            "name": "returnSupplierReasonDesc",
+            "type": "STRING",
+            "description": "退供原因描述"
+          },
+          {
+            "name": "outboundTime",
+            "type": "INTEGER",
+            "description": "出库时间"
+          },
+          {
+            "name": "expressDeLiverySn",
+            "type": "STRING",
+            "description": "运单号"
+          },
+          {
+            "name": "returnSupplierPackageNo",
+            "type": "STRING",
+            "description": "退供包裹号"
+          },
+          {
+            "name": "packageStatusDesc",
+            "type": "STRING",
+            "description": "退供包裹状态描述"
+          },
+          {
+            "name": "logisticsTypeDesc",
+            "type": "STRING",
+            "description": "物流商描述"
+          },
+          {
+            "name": "returnSupplierQuantity",
+            "type": "INTEGER",
+            "description": "退供数量"
+          },
+          {
+            "name": "payMethodDesc",
+            "type": "STRING",
+            "description": "快递支付方式 1-寄付 2-到付"
+          },
+          {
+            "name": "returnHandOverTypeDesc",
+            "type": "STRING",
+            "description": "退供方式描述"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "100000001",
+                "错误描述": "The number of queries exceeds 50000",
+                "解决办法": "reduce query page"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 7089,
+          "endLine": 7178,
+          "contentSha256": "a0ced566f8f5576fcc018102b4bc7f9d4d102e4cef3b7b111d4c215e2b5ff1d3"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_refund_returnpackage_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.refund.returnpackage.get` for this operation.",
+          "enum": [
+            "bg.refund.returnpackage.get"
+          ],
+          "default": "bg.refund.returnpackage.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "outboundTimeEnd": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "出库时间范围右区间"
+        },
+        "supplierId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "商家id"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "页面大小, 值范围：1~ 200"
+        },
+        "returnSupplierReason": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "退供原因"
+        },
+        "packageTimeStart": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "打包完成时间范围左区间"
+        },
+        "expressDeLiverySns": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "运单号"
+        },
+        "purchaseSubOrderSns": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "订单号（对应采购子单号）"
+        },
+        "returnHandOverType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "退供类型枚举 0-自提,1-邮寄"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "页码"
+        },
+        "payMethod": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "支付方式 1-寄付 2-到付"
+        },
+        "outboundTimeStart": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "出库时间范围左区间"
+        },
+        "packageTimeEnd": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "打包完成时间范围右区间"
+        },
+        "logisticsType": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "物流商类型"
+        },
+        "returnSupplierPackageNos": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "退供包裹号列表"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "包裹状态(1-待提货,2-已出库)"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "supplierId",
+        "pageSize",
+        "pageNo"
+      ]
+    },
+    "bg_refund_returnpackage_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "数据总量"
+        },
+        "openReturnPackageDTOS": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "退供包裹数据"
+        },
+        "purchaseSubOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "订单号（对应采购子单号）"
+        },
+        "reason": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "备注"
+        },
+        "returnSupplierReasonDesc": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "退供原因描述"
+        },
+        "outboundTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "出库时间"
+        },
+        "expressDeLiverySn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "运单号"
+        },
+        "returnSupplierPackageNo": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "退供包裹号"
+        },
+        "packageStatusDesc": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "退供包裹状态描述"
+        },
+        "logisticsTypeDesc": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "物流商描述"
+        },
+        "returnSupplierQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "退供数量"
+        },
+        "payMethodDesc": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "快递支付方式 1-寄付 2-到付"
+        },
+        "returnHandOverTypeDesc": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "退供方式描述"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 7089,
+    "endLine": 7178,
+    "contentSha256": "a0ced566f8f5576fcc018102b4bc7f9d4d102e4cef3b7b111d4c215e2b5ff1d3"
+  },
+  "x-temu-api-type": "bg.refund.returnpackage.get",
+  "x-temu-region-module": "temu-cn-api"
+}

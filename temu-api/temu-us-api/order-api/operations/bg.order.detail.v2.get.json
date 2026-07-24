@@ -1,0 +1,332 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Order - bg.order.detail.v2.get",
+    "description": "The bg.order.detail.v2.get interface is designed for merchants to retrieve detailed information about a specific order within their respective stores. This functionality provides merchants with access to comprehensive order details, enabling them to process, fulfill, and manage individual orders with precision.",
+    "version": "2025-11-24 21:28:55"
+  },
+  "host": "openapi-b-us.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "bg_order_detail_v2_get",
+        "summary": "The bg.order.detail.v2.get interface is designed for merchants to retrieve detailed information about a specific order within their respective stores. This functionality provides merchants with access to comprehensive order details, enabling them to process, fulfill, and manage individual orders with precision.",
+        "description": "The bg.order.detail.v2.get interface is designed for merchants to retrieve detailed information about a specific order within their respective stores. This functionality provides merchants with access to comprehensive order details, enabling them to process, fulfill, and manage individual orders with precision.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.order.detail.v2.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_order_detail_v2_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_order_detail_v2_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.order.detail.v2.get",
+        "x-temu-region-module": "temu-us-api",
+        "x-temu-group": {
+          "title": "Order",
+          "sourceTitle": "3、Order",
+          "directory": "order-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-us.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-us.temu.com/openapi/router",
+            "Site Region": "US"
+          }
+        ],
+        "x-temu-audience": [
+          "Cross Border",
+          "Local"
+        ],
+        "x-temu-last-update-time": "2025-11-24 21:28:55",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "request",
+            "type": "OBJECT",
+            "required": false
+          },
+          {
+            "name": "parentOrderSn",
+            "type": "STRING",
+            "required": true,
+            "description": "Parent order number"
+          },
+          {
+            "name": "fulfillmentTypeList",
+            "type": "STRING[]",
+            "required": false,
+            "description": "the type of order fulfillment.enum values: fulfillBySeller :fulfill by seller, fulfillByCooperativeWarehouse : fulfill by CooperativeWarehouse."
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "response",
+            "type": "OBJECT"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "success"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "140020001",
+                "Error Message": "This interface does not support cross-border sellers. Please check whether the store bound to the token is a SEMI or LOCAL store!",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "140020002",
+                "Error Message": "Order not found",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "140020003",
+                "Error Message": "The provider has at least one unsigned agreement. Please go to the home page to sign.",
+                "Error SOP": ""
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Semi Order Management",
+                "App type": "public"
+              },
+              {
+                "Permission Package": "Local Order Management",
+                "App type": "private,public"
+              },
+              {
+                "Permission Package": "Semi Seller in House System Management",
+                "App type": "private"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-us.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"app_key\" : \"test\",\n  \"fulfillmentTypeList\" : [ \"test\", \"test\" ],\n  \"parentOrderSn\" : \"test\",\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"type\" : \"test\",\n  \"version\" : \"test\",\n  \"timestamp\" : \"test\"\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\": {\n    \"parentOrderMap\": {\n      \"regionName3\": \"test\",\n      \"parentOrderLabel\": [\n        {\n          \"name\": \"test\",\n          \"value\": 1\n        }\n      ],\n      \"regionName1\": \"test\",\n      \"regionName2\": \"test\",\n      \"shippingMethod\": 1,\n      \"parentShippingTime\": 1,\n      \"latestDeliveryTime\": 1,\n      \"isShipmentConsolidatedByMainMall\": true,\n      \"parentConfirmTime\": 1,\n      \"fulfillmentWarning\": [\n        \"test\",\n        \"test\"\n      ],\n      \"parentOrderTime\": 1,\n      \"orderPaymentType\": \"test\",\n      \"batchOrderNumberList\": [\n        \"test\",\n        \"test\"\n      ],\n      \"regionId\": 1,\n      \"parentOrderSn\": \"test\",\n      \"parentOrderPendingFinishTime\": 1,\n      \"siteId\": 1,\n      \"expectShipLatestTime\": 1,\n      \"parentOrderStatus\": 1,\n      \"hasShippingFee\": true\n    },\n    \"orderList\": [\n      {\n        \"orderSn\": \"test\",\n        \"goodsId\": 1,\n        \"orderLabel\": [\n          {\n            \"name\": \"test\",\n            \"value\": 1\n          }\n        ],\n        \"orderStatus\": 1,\n        \"isShipmentConsolidatedByMainMall\": true,\n        \"fulfillmentType\": \"test\",\n        \"isCancelledDuringPending\": true,\n        \"spec\": \"test\",\n        \"orderPaymentType\": \"test\",\n        \"earliestTimeBuyShippingLabel\": 1,\n        \"thumbUrl\": \"test\",\n        \"goodsName\": \"test\",\n        \"skuId\": 1,\n        \"canceledQuantityBeforeShipment\": 1,\n        \"quantity\": 1,\n        \"earliestTimeGetShippingDocument\": 1,\n        \"orderCreateTime\": 1,\n        \"inventoryDeductionWarehouseId\": \"test\",\n        \"originalGoodsName\": \"test\",\n        \"fulfillmentWarning\": [\n          \"test\",\n          \"test\"\n        ],\n        \"originalSpecName\": \"test\",\n        \"originalOrderQuantity\": 1,\n        \"packageSnInfo\": [\n          {\n            \"packageSn\": \"test\",\n            \"packageDeliveryType\": 1,\n            \"callSuccess\": true\n          }\n        ],\n        \"inventoryDeductionWarehouseName\": \"test\",\n        \"productList\": [\n          {\n            \"productSkuId\": 1,\n            \"soldFactor\": 1,\n            \"extCode\": \"test\",\n            \"productId\": 1\n          }\n        ],\n        \"orderShippingTime\": 1\n      }\n    ]\n  },\n  \"errorCode\": 1,\n  \"success\": true,\n  \"errorMsg\": \"test\"\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu美国本土API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu美国本土API文档.md",
+          "startLine": 10011,
+          "endLine": 10217,
+          "contentSha256": "1de04803938618a73ddbf5ab99026ede9a5b639d1c5dc9817863ebcc9d88fc01"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_order_detail_v2_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `bg.order.detail.v2.get` for this operation.",
+          "enum": [
+            "bg.order.detail.v2.get"
+          ],
+          "default": "bg.order.detail.v2.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "parentOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Parent order number"
+        },
+        "fulfillmentTypeList": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-temu-type": "STRING"
+          },
+          "x-temu-type": "STRING[]",
+          "description": "the type of order fulfillment.enum values: fulfillBySeller :fulfill by seller, fulfillByCooperativeWarehouse : fulfill by CooperativeWarehouse."
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp",
+        "parentOrderSn"
+      ]
+    },
+    "bg_order_detail_v2_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "response": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "success"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu美国本土API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu美国本土API文档.md",
+    "startLine": 10011,
+    "endLine": 10217,
+    "contentSha256": "1de04803938618a73ddbf5ab99026ede9a5b639d1c5dc9817863ebcc9d88fc01"
+  },
+  "x-temu-api-type": "bg.order.detail.v2.get",
+  "x-temu-region-module": "temu-us-api"
+}

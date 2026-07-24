@@ -1,0 +1,371 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Product - temu.local.goods.pre.sale.status.edit",
+    "description": "This API allows batch enabling or disabling the pre-sale status for multiple SKUs belonging to a product item.",
+    "version": "2025-07-31 21:28:30"
+  },
+  "host": "openapi-b-global.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "operationId": "temu_local_goods_pre_sale_status_edit",
+        "summary": "This API allows batch enabling or disabling the pre-sale status for multiple SKUs belonging to a product item.",
+        "description": "This API allows batch enabling or disabling the pre-sale status for multiple SKUs belonging to a product item.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `temu.local.goods.pre.sale.status.edit`.",
+            "schema": {
+              "$ref": "#/definitions/temu_local_goods_pre_sale_status_editRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/temu_local_goods_pre_sale_status_editResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "temu.local.goods.pre.sale.status.edit",
+        "x-temu-region-module": "temu-global-api",
+        "x-temu-group": {
+          "title": "Product",
+          "sourceTitle": "2、Product",
+          "directory": "product-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-global.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-global.temu.com/openapi/router",
+            "Site Region": "GLOBAL"
+          }
+        ],
+        "x-temu-audience": [
+          "Local"
+        ],
+        "x-temu-last-update-time": "2025-07-31 21:28:30",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "request",
+            "type": "OBJECT",
+            "required": false
+          },
+          {
+            "name": "goodsId",
+            "type": "LONG",
+            "required": true,
+            "description": "Goods Id"
+          },
+          {
+            "name": "targetPreSaleStatus",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Target Pre Sale Status, 1:open, 2:close"
+          },
+          {
+            "name": "skuInfoList",
+            "type": "OBJECT[]",
+            "required": true,
+            "description": "SKU info List. Maximum allowable Num: 100"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "response",
+            "type": "OBJECT"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "Whether it was successful or not"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "Error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "Error message"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "Specific information"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "No data",
+                "Error Message": "",
+                "Error SOP": ""
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Local Product Management",
+                "App type": "private,public"
+              }
+            ]
+          },
+          {
+            "label": "- The total amount seller may be received = Base price * quantity + Shipping total − Estimated revenue deduction",
+            "rows": [
+              {
+                "Fields": "`basePrice`",
+                "Meaning": "One of the amounts that the seller can receive, representing the actual amount the seller gets for the sold item"
+              },
+              {
+                "Fields": "`shippingAmountTotal`",
+                "Meaning": "One of the amounts a seller can receive, representing the shipping fee income the seller gets from selling the item"
+              },
+              {
+                "Fields": "`taxTotal`",
+                "Meaning": "United States: Because Temu does not collect and pay taxes on behalf of the seller, the seller cannot receive this amount.Europe: In Europe, sellers report their own taxes, so they can receive this amount."
+              },
+              {
+                "Fields": "`taxTotalAfterDiscount`",
+                "Meaning": "For taxes, the discount on the order sales amount will affect the tax amount, so this field represents the total tax amount after the discount"
+              },
+              {
+                "Fields": "`discountFromSeller`",
+                "Meaning": "Discount amount from the seller"
+              },
+              {
+                "Fields": "`discountFromTemu`",
+                "Meaning": "The discount amount from Temu"
+              },
+              {
+                "Fields": "`estimatedRevenue`",
+                "Meaning": "The estimated total amount the seller can receive`estimatedRevenue`=`basePrice`+ `shippingAmountTotal`- `estimatedRevenueDeduction`"
+              },
+              {
+                "Fields": "Amount actually paid by the consumer",
+                "Meaning": "Amount actually paid by the consumer= `unitRetailPriceVatExcl` × `quantity`+ `taxTotal`+ `shippingAmountTotal`- `discountFromSeller`- `discountFromTemu`- `refundsTotal`"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-global.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"app_key\" : \"test\",\n  \"goodsId\" : 1,\n  \"targetPreSaleStatus\" : 1,\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"type\" : \"test\",\n  \"version\" : \"test\",\n  \"skuInfoList\" : [ {\n    \"targetPreSaleStock\" : 1,\n    \"preSaleEndTime\" : 1,\n    \"skuId\" : 1\n  } ],\n  \"timestamp\" : \"test\"\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\": {\n    \"msg\": \"test\",\n    \"skuOperateResultInfoList\": [\n      {\n        \"msg\": \"test\",\n        \"skuId\": 1,\n        \"code\": 1\n      }\n    ],\n    \"code\": 1,\n    \"goodsId\": 1\n  },\n  \"errorCode\": 1,\n  \"success\": true,\n  \"errorMsg\": \"test\"\n}",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n \"errorCode\": 1000000,\n \"errorMsg\": \"\",\n \"requestId\": \"eu-4950f054-a0d8-4d7b-897e-7882c88b2338\",\n \"result\": {\n  \"orderList\": [\n   {\n    \"basePrice\": {\n     \"amount\": 1000,\n     \"currency\": \"EUR\"\n    },\n    \"orderSn\": \"076-06583468577830550\",\n    \"quantity\": 1,\n    \"unitBasePrice\": {\n     \"amount\": 1000,\n     \"currency\": \"EUR\"\n    },\n    \"unitRetailPriceVatExcl\": {\n     \"amount\": 1122,\n     \"currency\": \"EUR\"\n    },\n    \"unitRetailPriceVatIncl\": {\n     \"amount\": 1335,\n     \"currency\": \"EUR\"\n    }\n   }\n  ],\n  \"parentOrderMap\": {\n   \"basePriceTotal\": {\n    \"amount\": 1000,\n    \"currency\": \"EUR\"\n   },\n   \"discountFromSeller\": {\n    \"amount\": 0,\n    \"currency\": \"EUR\"\n   },\n   \"discountFromTEMU\": {\n    \"amount\": 0,\n    \"currency\": \"EUR\"\n   },\n   \"estimatedRevenue\": {\n    \"amount\": 1512,\n    \"currency\": \"EUR\"\n   },\n   \"estimatedRevenueDeduction\": {\n    \"amount\": 0,\n    \"currency\": \"EUR\"\n   },\n   \"parentOrderSn\": \"PO-076-06583510520870550\",\n   \"refundsTotal\": {\n    \"amount\": null,\n    \"currency\": \"EUR\"\n   },\n   \"shippingAmountTotal\": {\n    \"amount\": 251,\n    \"currency\": \"EUR\"\n   },\n   \"taxTotal\": {\n    \"amount\": 261,\n    \"currency\": \"EUR\"\n   },\n   \"taxTotalAfterDiscount\": {\n    \"amount\": 261,\n    \"currency\": \"EUR\"\n   }\n  }\n },\n \"success\": true\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu全球API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu全球API文档.md",
+          "startLine": 8126,
+          "endLine": 8391,
+          "contentSha256": "1518e3290dc68f5c86d645faee26dca52e7a4f3d1d03ef72114c9979bed9251b"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "temu_local_goods_pre_sale_status_editRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `temu.local.goods.pre.sale.status.edit` for this operation.",
+          "enum": [
+            "temu.local.goods.pre.sale.status.edit"
+          ],
+          "default": "temu.local.goods.pre.sale.status.edit"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "goodsId": {
+          "type": "integer",
+          "format": "int64",
+          "x-temu-type": "LONG",
+          "description": "Goods Id"
+        },
+        "targetPreSaleStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Target Pre Sale Status, 1:open, 2:close"
+        },
+        "skuInfoList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT"
+          },
+          "x-temu-type": "OBJECT[]",
+          "description": "SKU info List. Maximum allowable Num: 100"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp",
+        "goodsId",
+        "targetPreSaleStatus",
+        "skuInfoList"
+      ]
+    },
+    "temu_local_goods_pre_sale_status_editResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "response": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "Whether it was successful or not"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Error message"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Specific information"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu全球API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu全球API文档.md",
+    "startLine": 8126,
+    "endLine": 8391,
+    "contentSha256": "1518e3290dc68f5c86d645faee26dca52e7a4f3d1d03ef72114c9979bed9251b"
+  },
+  "x-temu-api-type": "temu.local.goods.pre.sale.status.edit",
+  "x-temu-region-module": "temu-global-api"
+}

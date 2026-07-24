@@ -1,0 +1,295 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Price Review - bg.full.adjust.price.batch.review",
+    "description": "支持大卖自研商家批量操作调价单",
+    "version": "2025-03-27 20:36:48"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Price Review"
+        ],
+        "operationId": "bg_full_adjust_price_batch_review",
+        "summary": "全托管批量确认调价单",
+        "description": "支持大卖自研商家批量操作调价单",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.full.adjust.price.batch.review`.",
+            "schema": {
+              "$ref": "#/definitions/bg_full_adjust_price_batch_reviewRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_full_adjust_price_batch_reviewResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.full.adjust.price.batch.review",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Price Review",
+          "sourceTitle": "申报价/核价/调价API",
+          "directory": "price-review-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-27 20:36:48",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "adjustList",
+            "type": "LIST",
+            "required": false,
+            "description": "调价列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "result",
+            "type": "INTEGER",
+            "required": true,
+            "description": "审核结果 1-通过"
+          },
+          {
+            "name": "priceOrderSn",
+            "type": "STRING",
+            "required": true,
+            "description": "调价单号"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "500000001",
+                "错误描述": "请求参数有误",
+                "解决办法": "核对接口入参是否正确"
+              },
+              {
+                "错误码": "500000003",
+                "错误描述": "批量处理调价单失败",
+                "解决办法": "检查调价单状态"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 13218,
+          "endLine": 13280,
+          "contentSha256": "f5b4b63122d86e6f9f523f8be8d8c54d13472e24b2a9e14e34020b1877b3b138"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_full_adjust_price_batch_reviewRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.full.adjust.price.batch.review` for this operation.",
+          "enum": [
+            "bg.full.adjust.price.batch.review"
+          ],
+          "default": "bg.full.adjust.price.batch.review"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "adjustList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "调价列表"
+        },
+        "result": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "审核结果 1-通过"
+        },
+        "priceOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "调价单号"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "result",
+        "priceOrderSn"
+      ]
+    },
+    "bg_full_adjust_price_batch_reviewResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 13218,
+    "endLine": 13280,
+    "contentSha256": "f5b4b63122d86e6f9f523f8be8d8c54d13472e24b2a9e14e34020b1877b3b138"
+  },
+  "x-temu-api-type": "bg.full.adjust.price.batch.review",
+  "x-temu-region-module": "temu-cn-api"
+}

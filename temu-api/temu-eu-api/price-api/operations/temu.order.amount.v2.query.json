@@ -1,0 +1,367 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Price - temu.order.amount.v2.query",
+    "description": "Provide the supply price information corresponding to the orders for the self-developed ERP",
+    "version": "2025-11-07 07:43:42"
+  },
+  "host": "openapi-b-eu.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Price"
+        ],
+        "operationId": "temu_order_amount_v2_query",
+        "summary": "Provide the supply price information corresponding to the orders for the self-developed ERP",
+        "description": "Provide the supply price information corresponding to the orders for the self-developed ERP",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `temu.order.amount.v2.query`.",
+            "schema": {
+              "$ref": "#/definitions/temu_order_amount_v2_queryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/temu_order_amount_v2_queryResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "temu.order.amount.v2.query",
+        "x-temu-region-module": "temu-eu-api",
+        "x-temu-group": {
+          "title": "Price",
+          "sourceTitle": "4、Price",
+          "directory": "price-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-eu.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-eu.temu.com/openapi/router",
+            "Site Region": "EU"
+          }
+        ],
+        "x-temu-audience": [
+          "Local"
+        ],
+        "x-temu-last-update-time": "2025-11-07 07:43:42",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "request",
+            "type": "OBJECT",
+            "required": false
+          },
+          {
+            "name": "parentOrderSn",
+            "type": "STRING",
+            "required": true,
+            "description": "Parent order number."
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "response",
+            "type": "OBJECT"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "success"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "140020002",
+                "Error Message": "Order not found",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "140020008",
+                "Error Message": "Some amount fields are still undergoing system calculation. Please try again later.",
+                "Error SOP": ""
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Local Price Management",
+                "App type": "private,public"
+              },
+              {
+                "Permission Package": "Local Order Management",
+                "App type": "private,public"
+              }
+            ]
+          },
+          {
+            "label": "You can get transaction details for a given order or date range. You can also get payment details for a given date range.",
+            "rows": [
+              {
+                "API": "bg.order.list.v2.getbg.order.detail.v2.get",
+                "Description": "Obtain information on order status, order time, traded goods, performance progress, and other related transactions"
+              },
+              {
+                "API": "bg.order.shippinginfo.v2.getbg.order.decryptshippinginfo.get",
+                "Description": "Obtain consumer information for the corresponding purchase order: recipient name, shipping address, email"
+              },
+              {
+                "API": "bg.order.amount.query",
+                "Description": "Obtain data such as order transaction amount and tax amount"
+              },
+              {
+                "API": "bg.aftersales.parentaftersales.list.getbg.aftersales.aftersales.list.get",
+                "Description": "Obtain order after-sales information and refund amount"
+              }
+            ]
+          },
+          {
+            "label": "- The total amount seller may be received = Base price * Quantity + Shipping Amount Total + Tax Total After Discount - Estimated Revenue Deduction.",
+            "rows": [
+              {
+                "Fields": "`basePrice`",
+                "Meaning": "One of the amounts that the seller can receive, representing the actual amount the seller gets for the sold item"
+              },
+              {
+                "Fields": "`shippingAmountTotal`",
+                "Meaning": "One of the amounts a seller can receive, representing the shipping fee income the seller gets from selling the item"
+              },
+              {
+                "Fields": "`taxTotal`",
+                "Meaning": "United States: Because Temu does not collect and pay taxes on behalf of the seller, the seller cannot receive this amount.Europe: In Europe, sellers report their own taxes, so they can receive this amount."
+              },
+              {
+                "Fields": "`taxTotalAfterDiscount`",
+                "Meaning": "For taxes, the discount on the order sales amount will affect the tax amount, so this field represents the total tax amount after the discount"
+              },
+              {
+                "Fields": "`discountFromSeller`",
+                "Meaning": "Discount amount from the seller"
+              },
+              {
+                "Fields": "`discountFromTemu`",
+                "Meaning": "The discount amount from Temu"
+              },
+              {
+                "Fields": "`estimatedRevenue`",
+                "Meaning": "The estimated total amount the seller can receive`estimatedRevenue`= `basePrice` × `quantity`+ `shippingAmountTotal`+ `taxTotalAfterDiscount`- `estimatedRevenueDeduction`"
+              },
+              {
+                "Fields": "Amount actually paid by the consumer",
+                "Meaning": "Amount actually paid by the consumer= `unitRetailPriceVatExcl` × `quantity`+ `taxTotal`+ `shippingAmountTotal`- `discountFromSeller`- `discountFromTemu`- `refundsTotal`"
+              },
+              {
+                "Fields": "refundSummary",
+                "Meaning": "Refund summary= Retail price total (tax excl.)+Shipping total (tax excl.)+Tax total"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-eu.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"app_key\" : \"test\",\n  \"parentOrderSn\" : \"test\",\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"type\" : \"test\",\n  \"version\" : \"test\",\n  \"timestamp\" : \"test\"\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\": {\n    \"parentOrderMap\": {\n      \"parentOrderSn\": \"test\",\n      \"salesProceeds\": {\n        \"productTax\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"productTaxCustomerDiscounted\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTaxCustomerDiscounted\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"basePriceSellerDiscount\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"basePriceOff\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"basePriceDiscountedTotal\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"estimatedSettlementTotal\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTax\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"productTaxTemu\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTaxTemu\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingCustomerTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"estimatedDeduction\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"basePriceTotal\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTemuDiscountTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        }\n      },\n      \"customerPaid\": {\n        \"retailPriceDiscountedTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"productRefundsTotal\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"retailPriceTemuDiscountTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"retailPriceSellerDiscountTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"retailPriceTotalTaxIncl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingDiscountedTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTaxTemuDiscount\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTax\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"customerPaidTotal\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"retailPriceTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTaxDiscounted\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"productTaxDiscounted\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTemuDiscountTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTotalTaxIncl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        }\n      }\n    },\n    \"orderList\": [\n      {\n        \"productTax\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"productTaxCustomerDiscounted\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"orderSn\": \"test\",\n        \"shippingTaxCustomerDiscounted\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"retailPriceTotalTaxIncl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"basePriceSellerDiscount\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"basePriceOff\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"estimatedSettlementTotal\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTax\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"productTaxTemu\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingCustomerTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"unitRetailPriceTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"productTaxRate\": 1,\n        \"shippingTemuDiscountTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shippingTotalTaxIncl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"retailPriceDiscountedTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"quantity\": 1,\n        \"retailPriceTemuDiscountTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"unitRetailPriceTaxIncl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"basePriceDiscountedTotal\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"unitBasePrice\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"shipTaxRate\": 1,\n        \"shippingTaxTemu\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"retailPriceTotalTaxExcl\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"estimatedDeduction\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        },\n        \"basePriceTotal\": {\n          \"currency\": \"test\",\n          \"amount\": 1\n        }\n      }\n    ],\n    \"warning\": [\n      \"test\",\n      \"test\"\n    ]\n  },\n  \"errorCode\": 1,\n  \"success\": true,\n  \"errorMsg\": \"test\"\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu欧洲本土API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu欧洲本土API文档.md",
+          "startLine": 11771,
+          "endLine": 12167,
+          "contentSha256": "f022ea200e0cd23d83b459edcbdd6494ce4f64ebc4029ed04584b6f61d3f88ad"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "temu_order_amount_v2_queryRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `temu.order.amount.v2.query` for this operation.",
+          "enum": [
+            "temu.order.amount.v2.query"
+          ],
+          "default": "temu.order.amount.v2.query"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "parentOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Parent order number."
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp",
+        "parentOrderSn"
+      ]
+    },
+    "temu_order_amount_v2_queryResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "response": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "success"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu欧洲本土API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu欧洲本土API文档.md",
+    "startLine": 11771,
+    "endLine": 12167,
+    "contentSha256": "f022ea200e0cd23d83b459edcbdd6494ce4f64ebc4029ed04584b6f61d3f88ad"
+  },
+  "x-temu-api-type": "temu.order.amount.v2.query",
+  "x-temu-region-module": "temu-eu-api"
+}

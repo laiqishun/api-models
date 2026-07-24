@@ -1,0 +1,811 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Sample Quality Return - bg.goods.qualityinspectiondetail.get",
+    "description": "备货单质检详细信息，用于卖家跟进不合格质检备货单，优化生产",
+    "version": "2025-03-24 00:40:16"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Sample Quality Return"
+        ],
+        "operationId": "bg_goods_qualityinspectiondetail_get",
+        "summary": "质检结果详情查看",
+        "description": "备货单质检详细信息，用于卖家跟进不合格质检备货单，优化生产",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.goods.qualityinspectiondetail.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_goods_qualityinspectiondetail_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_goods_qualityinspectiondetail_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.goods.qualityinspectiondetail.get",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Sample Quality Return",
+          "sourceTitle": "寄样/质检/退供API组",
+          "directory": "sample-quality-return-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-24 00:40:16",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "qcBillId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "质检单id"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "historyVOS",
+            "type": "LIST",
+            "description": "质检历史 按时间倒序排序"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "qcType",
+            "type": "INTEGER",
+            "description": "单据类型 1-质检单 2-稽查单 3-更正单"
+          },
+          {
+            "name": "finishTime",
+            "type": "STRING",
+            "description": "完成时间"
+          },
+          {
+            "name": "startTime",
+            "type": "STRING",
+            "description": "开始时间"
+          },
+          {
+            "name": "qcBillNo",
+            "type": "STRING",
+            "description": "单号 可能是质检单,稽查单,更正单"
+          },
+          {
+            "name": "qcResult",
+            "type": "INTEGER",
+            "description": "质检结果"
+          },
+          {
+            "name": "qcDetail",
+            "type": "OBJECT",
+            "description": "质检详情"
+          },
+          {
+            "name": "auditId",
+            "type": "INTEGER",
+            "description": "审核人id"
+          },
+          {
+            "name": "qcType",
+            "type": "INTEGER",
+            "description": "单据类型"
+          },
+          {
+            "name": "deliveryQcTime",
+            "type": "INTEGER",
+            "description": "送检时间"
+          },
+          {
+            "name": "totalQuantity",
+            "type": "INTEGER",
+            "description": "发货单总数量"
+          },
+          {
+            "name": "qcStatusV2",
+            "type": "INTEGER",
+            "description": "质检单号 v2"
+          },
+          {
+            "name": "sizeDTOList",
+            "type": "LIST",
+            "description": "sku尺码表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "locationTypeName",
+            "type": "STRING",
+            "description": "部位名称"
+          },
+          {
+            "name": "sizeName",
+            "type": "STRING",
+            "description": "尺码名称"
+          },
+          {
+            "name": "maxQcSize",
+            "type": "STRING",
+            "description": "最大质检尺码"
+          },
+          {
+            "name": "couldEdit",
+            "type": "BOOLEAN",
+            "description": "是否可编辑"
+          },
+          {
+            "name": "locationType",
+            "type": "INTEGER",
+            "description": "部位类型"
+          },
+          {
+            "name": "expectMaxSize",
+            "type": "STRING",
+            "description": "标准尺码最大值"
+          },
+          {
+            "name": "expectMinSize",
+            "type": "STRING",
+            "description": "标准尺码最小值"
+          },
+          {
+            "name": "minQcSize",
+            "type": "STRING",
+            "description": "最小质检尺码"
+          },
+          {
+            "name": "id",
+            "type": "INTEGER",
+            "description": "-"
+          },
+          {
+            "name": "expectQcQuantity",
+            "type": "INTEGER",
+            "description": "应检数"
+          },
+          {
+            "name": "productSkcId",
+            "type": "INTEGER",
+            "description": "货品skcId"
+          },
+          {
+            "name": "qcGroupName",
+            "type": "STRING",
+            "description": "质检组别名"
+          },
+          {
+            "name": "qcBillNo",
+            "type": "STRING",
+            "description": "质检单号"
+          },
+          {
+            "name": "qcOperatorName",
+            "type": "STRING",
+            "description": "质检人花名"
+          },
+          {
+            "name": "qcEndTime",
+            "type": "INTEGER",
+            "description": "质检结束时间"
+          },
+          {
+            "name": "defectiveQcQuantity",
+            "type": "INTEGER",
+            "description": "次品数"
+          },
+          {
+            "name": "qcResult",
+            "type": "INTEGER",
+            "description": "质检结果"
+          },
+          {
+            "name": "flawDTOList",
+            "type": "LIST",
+            "description": "疵点"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "flawDesc",
+            "type": "STRING",
+            "description": "疵点类型"
+          },
+          {
+            "name": "productSkuId",
+            "type": "LIST",
+            "description": "货品skuId"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "description": "-"
+          },
+          {
+            "name": "attachments",
+            "type": "LIST",
+            "description": "疵点图"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "flawType",
+            "type": "INTEGER",
+            "description": "疵点类型id"
+          },
+          {
+            "name": "flawDegree",
+            "type": "INTEGER",
+            "description": "严重程度"
+          },
+          {
+            "name": "remark",
+            "type": "STRING",
+            "description": "备注"
+          },
+          {
+            "name": "flawNameDesc",
+            "type": "STRING",
+            "description": "疵点名称"
+          },
+          {
+            "name": "flawDegreeDesc",
+            "type": "STRING",
+            "description": "疵点描述"
+          },
+          {
+            "name": "flawNameId",
+            "type": "INTEGER",
+            "description": "疵点名称id"
+          },
+          {
+            "name": "qcBillId",
+            "type": "INTEGER",
+            "description": "质检单id"
+          },
+          {
+            "name": "auditTime",
+            "type": "INTEGER",
+            "description": "质检审核时间"
+          },
+          {
+            "name": "receiptNo",
+            "type": "STRING",
+            "description": "收货单号"
+          },
+          {
+            "name": "qcGroupId",
+            "type": "INTEGER",
+            "description": "质检组别id"
+          },
+          {
+            "name": "qcStartTime",
+            "type": "INTEGER",
+            "description": "质检开始时间"
+          },
+          {
+            "name": "auditName",
+            "type": "STRING",
+            "description": "审核人花名"
+          },
+          {
+            "name": "skuDTOList",
+            "type": "LIST",
+            "description": "sku详情"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "productSkuId",
+            "type": "INTEGER",
+            "description": "货品skuId"
+          },
+          {
+            "name": "totalQuantity",
+            "type": "INTEGER",
+            "description": "发货数"
+          },
+          {
+            "name": "sizeName",
+            "type": "STRING",
+            "description": "尺码名称"
+          },
+          {
+            "name": "defectiveQcQuantity",
+            "type": "INTEGER",
+            "description": "次品数"
+          },
+          {
+            "name": "expectQcQuantity",
+            "type": "INTEGER",
+            "description": "应检数"
+          },
+          {
+            "name": "qcOperatorId",
+            "type": "INTEGER",
+            "description": "质检人id"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": []
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 7421,
+          "endLine": 7540,
+          "contentSha256": "8192728811bfe4f9514d044d1ab91e9ade974a7c5755db5379336f0bfcba3dfd"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_goods_qualityinspectiondetail_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.goods.qualityinspectiondetail.get` for this operation.",
+          "enum": [
+            "bg.goods.qualityinspectiondetail.get"
+          ],
+          "default": "bg.goods.qualityinspectiondetail.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "qcBillId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检单id"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "qcBillId"
+      ]
+    },
+    "bg_goods_qualityinspectiondetail_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "historyVOS": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "质检历史 按时间倒序排序"
+        },
+        "qcType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "单据类型 1-质检单 2-稽查单 3-更正单"
+        },
+        "finishTime": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "完成时间"
+        },
+        "startTime": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "开始时间"
+        },
+        "qcBillNo": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "单号 可能是质检单,稽查单,更正单"
+        },
+        "qcResult": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检结果"
+        },
+        "qcDetail": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "质检详情"
+        },
+        "auditId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "审核人id"
+        },
+        "deliveryQcTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "送检时间"
+        },
+        "totalQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货单总数量"
+        },
+        "qcStatusV2": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检单号 v2"
+        },
+        "sizeDTOList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "sku尺码表"
+        },
+        "locationTypeName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "部位名称"
+        },
+        "sizeName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "尺码名称"
+        },
+        "maxQcSize": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "最大质检尺码"
+        },
+        "couldEdit": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否可编辑"
+        },
+        "locationType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "部位类型"
+        },
+        "expectMaxSize": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "标准尺码最大值"
+        },
+        "expectMinSize": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "标准尺码最小值"
+        },
+        "minQcSize": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "最小质检尺码"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "-"
+        },
+        "expectQcQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "应检数"
+        },
+        "productSkcId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "货品skcId"
+        },
+        "qcGroupName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "质检组别名"
+        },
+        "qcOperatorName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "质检人花名"
+        },
+        "qcEndTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检结束时间"
+        },
+        "defectiveQcQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "次品数"
+        },
+        "flawDTOList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "疵点"
+        },
+        "flawDesc": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "疵点类型"
+        },
+        "productSkuId": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "货品skuId"
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "疵点图"
+        },
+        "flawType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "疵点类型id"
+        },
+        "flawDegree": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "严重程度"
+        },
+        "remark": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "备注"
+        },
+        "flawNameDesc": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "疵点名称"
+        },
+        "flawDegreeDesc": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "疵点描述"
+        },
+        "flawNameId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "疵点名称id"
+        },
+        "qcBillId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检单id"
+        },
+        "auditTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检审核时间"
+        },
+        "receiptNo": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "收货单号"
+        },
+        "qcGroupId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检组别id"
+        },
+        "qcStartTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检开始时间"
+        },
+        "auditName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "审核人花名"
+        },
+        "skuDTOList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "sku详情"
+        },
+        "qcOperatorId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检人id"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 7421,
+    "endLine": 7540,
+    "contentSha256": "8192728811bfe4f9514d044d1ab91e9ade974a7c5755db5379336f0bfcba3dfd"
+  },
+  "x-temu-api-type": "bg.goods.qualityinspectiondetail.get",
+  "x-temu-region-module": "temu-cn-api"
+}

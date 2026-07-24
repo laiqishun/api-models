@@ -1,0 +1,332 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Price - temu.local.goods.recommendedprice.query",
+    "description": "Support merchants in querying the recommended supply prices.",
+    "version": "2025-06-30 13:40:27"
+  },
+  "host": "openapi-b-us.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Price"
+        ],
+        "operationId": "temu_local_goods_recommendedprice_query",
+        "summary": "Support merchants in querying the recommended supply prices.",
+        "description": "Support merchants in querying the recommended supply prices.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `temu.local.goods.recommendedprice.query`.",
+            "schema": {
+              "$ref": "#/definitions/temu_local_goods_recommendedprice_queryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/temu_local_goods_recommendedprice_queryResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "temu.local.goods.recommendedprice.query",
+        "x-temu-region-module": "temu-us-api",
+        "x-temu-group": {
+          "title": "Price",
+          "sourceTitle": "2、Price",
+          "directory": "price-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-us.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-us.temu.com/openapi/router",
+            "Site Region": "US"
+          }
+        ],
+        "x-temu-audience": [
+          "Local"
+        ],
+        "x-temu-last-update-time": "2025-06-30 13:40:27",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "request",
+            "type": "OBJECT",
+            "required": false
+          },
+          {
+            "name": "language",
+            "type": "STRING",
+            "required": false,
+            "description": "Language"
+          },
+          {
+            "name": "recommendedPriceType",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Recommended price type: 10-Low traffic, 20-Restricted traffic"
+          },
+          {
+            "name": "goodsIdList",
+            "type": "LONG[]",
+            "required": true,
+            "description": "Search param: list of Goods ID. The list size should be between 1 and 100"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "response",
+            "type": "OBJECT"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "Whether it was successful or not"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "Error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "Error message"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "Specific information"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "150010002",
+                "Error Message": "System error, please try again later",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "150010003",
+                "Error Message": "Invalid Request Parameters",
+                "Error SOP": ""
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Local Price Management",
+                "App type": "private,public"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-us.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"app_key\" : \"test\",\n  \"recommendedPriceType\" : 1,\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"language\" : \"test\",\n  \"type\" : \"test\",\n  \"version\" : \"test\",\n  \"goodsIdList\" : [ 1, 1 ],\n  \"timestamp\" : \"test\"\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\": {\n    \"goodsList\": [\n      {\n        \"goodsId\": 1,\n        \"skuList\": [\n          {\n            \"skuId\": 1,\n            \"recommendedSupplyPrice\": {\n              \"amount\": \"test\",\n              \"currency\": \"test\"\n            }\n          }\n        ]\n      }\n    ]\n  },\n  \"errorCode\": 1,\n  \"success\": true,\n  \"errorMsg\": \"test\"\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu美国本土API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu美国本土API文档.md",
+          "startLine": 8080,
+          "endLine": 8215,
+          "contentSha256": "52b7df84c1adf7c1a72c3f1cb144f225d0219ec76be5aee04a8e8092a0a0a7f8"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "temu_local_goods_recommendedprice_queryRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `temu.local.goods.recommendedprice.query` for this operation.",
+          "enum": [
+            "temu.local.goods.recommendedprice.query"
+          ],
+          "default": "temu.local.goods.recommendedprice.query"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "language": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Language"
+        },
+        "recommendedPriceType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Recommended price type: 10-Low traffic, 20-Restricted traffic"
+        },
+        "goodsIdList": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64",
+            "x-temu-type": "LONG"
+          },
+          "x-temu-type": "LONG[]",
+          "description": "Search param: list of Goods ID. The list size should be between 1 and 100"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp",
+        "recommendedPriceType",
+        "goodsIdList"
+      ]
+    },
+    "temu_local_goods_recommendedprice_queryResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "response": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "Whether it was successful or not"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Error message"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Specific information"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu美国本土API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu美国本土API文档.md",
+    "startLine": 8080,
+    "endLine": 8215,
+    "contentSha256": "52b7df84c1adf7c1a72c3f1cb144f225d0219ec76be5aee04a8e8092a0a0a7f8"
+  },
+  "x-temu-api-type": "temu.local.goods.recommendedprice.query",
+  "x-temu-region-module": "temu-us-api"
+}

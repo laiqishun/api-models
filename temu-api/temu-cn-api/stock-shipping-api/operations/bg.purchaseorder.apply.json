@@ -1,0 +1,399 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Stock And Shipping - bg.purchaseorder.apply",
+    "description": "卖家创建备货单",
+    "version": "2025-03-19 21:55:27"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Stock And Shipping"
+        ],
+        "operationId": "bg_purchaseorder_apply",
+        "summary": "采购备货申请",
+        "description": "卖家创建备货单",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.purchaseorder.apply`.",
+            "schema": {
+              "$ref": "#/definitions/bg_purchaseorder_applyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_purchaseorder_applyResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.purchaseorder.apply",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Stock And Shipping",
+          "sourceTitle": "备货及发货API组",
+          "directory": "stock-shipping-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-19 21:55:27",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "purchaseDetailList",
+            "type": "LIST",
+            "required": true,
+            "description": "sku下单量"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "productSkuId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "货品skuId"
+          },
+          {
+            "name": "productSkuPurchaseQuantity",
+            "type": "INTEGER",
+            "required": true,
+            "description": "货品sku下单数量"
+          },
+          {
+            "name": "expectLatestDeliverTime",
+            "type": "INTEGER",
+            "required": false,
+            "description": "要求最晚发货时间（时间戳 单位：毫秒）"
+          },
+          {
+            "name": "productSkcId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "skcId"
+          },
+          {
+            "name": "expectLatestArrivalTime",
+            "type": "INTEGER",
+            "required": false,
+            "description": "要求最晚到达时间（时间戳 单位：毫秒）"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "1001",
+                "错误描述": "核价未通过不支持(批量)备货",
+                "解决办法": "等核价通过才能操作备货。"
+              },
+              {
+                "错误码": "1002",
+                "错误描述": "超过建议备货量",
+                "解决办法": "调整备货量，不要超过建议备货量。"
+              },
+              {
+                "错误码": "1007",
+                "错误描述": "下单量不能为0",
+                "解决办法": "下单量不能为0"
+              },
+              {
+                "错误码": "1008",
+                "错误描述": "货品SKU已下架",
+                "解决办法": "货品SKU已下架"
+              },
+              {
+                "错误码": "1009",
+                "错误描述": "货品SKU不缺货",
+                "解决办法": "货品SKU不缺货"
+              },
+              {
+                "错误码": "1011",
+                "错误描述": "货品SKU因核价限制备货",
+                "解决办法": "货品SKU因核价限制备货"
+              },
+              {
+                "错误码": "2001",
+                "错误描述": "图片审核状态未通过不支持(批量)备货",
+                "解决办法": "图片审核状态未通过不支持(批量)备货"
+              },
+              {
+                "错误码": "2002",
+                "错误描述": "库存被锁不支持(批量)备货",
+                "解决办法": "库存被锁不支持(批量)备货"
+              },
+              {
+                "错误码": "2004",
+                "错误描述": "SKC下没有需要下单的SKU",
+                "解决办法": "SKC下没有需要下单的SKU"
+              },
+              {
+                "错误码": "2008",
+                "错误描述": "按照返单规则，SKC下没有需要下单的SKU",
+                "解决办法": "按照返单规则，SKC下没有需要下单的SKU"
+              },
+              {
+                "错误码": "2010",
+                "错误描述": "竞价失败SKC不支持备货",
+                "解决办法": "竞价失败SKC不支持备货"
+              },
+              {
+                "错误码": "2016",
+                "错误描述": "货品SKC因核价限制备货",
+                "解决办法": "货品SKC因核价限制备货"
+              },
+              {
+                "错误码": "4007",
+                "错误描述": "已申请退店，不支持下单",
+                "解决办法": "已申请退店，不支持下单"
+              },
+              {
+                "错误码": "5005",
+                "错误描述": "该商品存在违规情形，不可加入发货台/不可申请备货",
+                "解决办法": "该商品存在违规情形，不可加入发货台/不可申请备货"
+              },
+              {
+                "错误码": "61001",
+                "错误描述": "当日备货总额已超出上限值，下单失败",
+                "解决办法": "当日备货总额已超出上限值，下单失败"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 9286,
+          "endLine": 9364,
+          "contentSha256": "c6f63c7526a9f5fd2dd81903eb33bd2d090b17d0129bbb3c02dd99430130b309"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_purchaseorder_applyRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.purchaseorder.apply` for this operation.",
+          "enum": [
+            "bg.purchaseorder.apply"
+          ],
+          "default": "bg.purchaseorder.apply"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "purchaseDetailList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "sku下单量"
+        },
+        "productSkuId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "货品skuId"
+        },
+        "productSkuPurchaseQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "货品sku下单数量"
+        },
+        "expectLatestDeliverTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "要求最晚发货时间（时间戳 单位：毫秒）"
+        },
+        "productSkcId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "skcId"
+        },
+        "expectLatestArrivalTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "要求最晚到达时间（时间戳 单位：毫秒）"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "purchaseDetailList",
+        "productSkuId",
+        "productSkuPurchaseQuantity",
+        "productSkcId"
+      ]
+    },
+    "bg_purchaseorder_applyResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 9286,
+    "endLine": 9364,
+    "contentSha256": "c6f63c7526a9f5fd2dd81903eb33bd2d090b17d0129bbb3c02dd99430130b309"
+  },
+  "x-temu-api-type": "bg.purchaseorder.apply",
+  "x-temu-region-module": "temu-cn-api"
+}

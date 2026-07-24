@@ -1,0 +1,384 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Category Attribute PA - bg.goods.redress.optionalcategory.correct",
+    "description": "提供给商家端，用于主动选择商品的推荐类目",
+    "version": "2025-10-30 16:36:39"
+  },
+  "host": "openapi-b-partner.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Category Attribute PA"
+        ],
+        "operationId": "bg_goods_redress_optionalcategory_correct",
+        "summary": "纠正商品类目",
+        "description": "提供给商家端，用于主动选择商品的推荐类目",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.goods.redress.optionalcategory.correct`.",
+            "schema": {
+              "$ref": "#/definitions/bg_goods_redress_optionalcategory_correctRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_goods_redress_optionalcategory_correctResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.goods.redress.optionalcategory.correct",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Category Attribute PA",
+          "sourceTitle": "类目属性API组-PA",
+          "directory": "category-attribute-api-pa"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-partner.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-10-30 16:36:39",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "list",
+            "type": "LIST",
+            "required": true,
+            "description": "selected category list"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "productId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Product ID"
+          },
+          {
+            "name": "correctRecordId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Correct record Id"
+          },
+          {
+            "name": "selectedCategoryId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Selected leaf category ID"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "total",
+            "type": "INTEGER",
+            "description": "The quantity of items in the batch operation"
+          },
+          {
+            "name": "successCount",
+            "type": "INTEGER",
+            "description": "Count of successful operations"
+          },
+          {
+            "name": "list",
+            "type": "LIST",
+            "description": "Result details list"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "reason",
+            "type": "STRING",
+            "description": "The reason for the operation result"
+          },
+          {
+            "name": "productId",
+            "type": "INTEGER",
+            "description": "Product ID"
+          },
+          {
+            "name": "isSuccess",
+            "type": "BOOLEAN",
+            "description": "Is this operation successful"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "100000003",
+                "错误描述": "Batch operation partially failed",
+                "解决办法": "Please check the response parameter result#list#reason to get error details"
+              },
+              {
+                "错误码": "100000005",
+                "错误描述": "Bad params",
+                "解决办法": "Please check the request parameters 1. selected categories size 2. selected category list item"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 5757,
+          "endLine": 5829,
+          "contentSha256": "90c3d332e8c0802b52c0b17faf87e29eb4d308d196efdad65ef1498b226cc0a0"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_goods_redress_optionalcategory_correctRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.goods.redress.optionalcategory.correct` for this operation.",
+          "enum": [
+            "bg.goods.redress.optionalcategory.correct"
+          ],
+          "default": "bg.goods.redress.optionalcategory.correct"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "selected category list"
+        },
+        "productId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Product ID"
+        },
+        "correctRecordId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Correct record Id"
+        },
+        "selectedCategoryId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Selected leaf category ID"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "list",
+        "productId",
+        "correctRecordId",
+        "selectedCategoryId"
+      ]
+    },
+    "bg_goods_redress_optionalcategory_correctResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "The quantity of items in the batch operation"
+        },
+        "successCount": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Count of successful operations"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "Result details list"
+        },
+        "reason": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The reason for the operation result"
+        },
+        "productId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Product ID"
+        },
+        "isSuccess": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "Is this operation successful"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 5757,
+    "endLine": 5829,
+    "contentSha256": "90c3d332e8c0802b52c0b17faf87e29eb4d308d196efdad65ef1498b226cc0a0"
+  },
+  "x-temu-api-type": "bg.goods.redress.optionalcategory.correct",
+  "x-temu-region-module": "temu-cn-api"
+}

@@ -1,0 +1,775 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Product PA - bg.glo.goods.migrate",
+    "description": "半托管店铺搬运同主体下全托管店铺的货品",
+    "version": "2025-08-27 16:57:38"
+  },
+  "host": "openapi-b-partner.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Product PA"
+        ],
+        "operationId": "bg_glo_goods_migrate",
+        "summary": "货品搬运接口",
+        "description": "半托管店铺搬运同主体下全托管店铺的货品",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.glo.goods.migrate`.",
+            "schema": {
+              "$ref": "#/definitions/bg_glo_goods_migrateRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_glo_goods_migrateResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.glo.goods.migrate",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Product PA",
+          "sourceTitle": "货品API组-PA",
+          "directory": "product-api-pa"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-partner.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-08-27 16:57:38",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "migrationList",
+            "type": "LIST",
+            "required": true,
+            "description": "Copy Request List"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "productSemiManagedReq",
+            "type": "OBJECT",
+            "required": true,
+            "description": "Product Semi Managed Request"
+          },
+          {
+            "name": "bindSiteIds",
+            "type": "LIST",
+            "required": true,
+            "description": "Bound Site List",
+            "offlineReference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+            "offlineReferenceReason": "semi-managed siteId list"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "semiManagedSiteMode",
+            "type": "INTEGER",
+            "required": false,
+            "description": "Semi-managed Site Sales Mode",
+            "offlineReference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+            "offlineReferenceReason": "semi-managed pan-EU/non-pan-EU site mode"
+          },
+          {
+            "name": "productWarehouseRouteReq",
+            "type": "OBJECT",
+            "required": true,
+            "description": "Product Warehouse Route Request"
+          },
+          {
+            "name": "targetRouteList",
+            "type": "LIST",
+            "required": true,
+            "description": "Target Self-Delivery Site-Warehouse Relationship"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "siteIdList",
+            "type": "LIST",
+            "required": true,
+            "description": "Site ID.",
+            "offlineReference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+            "offlineReferenceReason": "siteId list"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "warehouseId",
+            "type": "STRING",
+            "required": true,
+            "description": "Warehouse ID"
+          },
+          {
+            "name": "skcDetails",
+            "type": "LIST",
+            "required": true,
+            "description": "Skc Detail List"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "skuDetails",
+            "type": "LIST",
+            "required": true,
+            "description": "Sku Detail List"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "currencyType",
+            "type": "STRING",
+            "required": true,
+            "description": "Currency Type"
+          },
+          {
+            "name": "specList",
+            "type": "LIST",
+            "required": true,
+            "description": "SKU Spec List"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "specId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Specification ID"
+          },
+          {
+            "name": "parentSpecName",
+            "type": "STRING",
+            "required": true,
+            "description": "Parent Specification Name"
+          },
+          {
+            "name": "parentSpecId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Parent Specification ID"
+          },
+          {
+            "name": "specName",
+            "type": "STRING",
+            "required": true,
+            "description": "Specification Name"
+          },
+          {
+            "name": "siteSupplierPrices",
+            "type": "LIST",
+            "required": true,
+            "description": "Site Supplier Price List"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "siteId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Declared Price Site ID",
+            "offlineReference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+            "offlineReferenceReason": "siteId list"
+          },
+          {
+            "name": "supplierPrice",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Site Declared Price, Unit: RMB: Fen, USD: Cent"
+          },
+          {
+            "name": "specList",
+            "type": "LIST",
+            "required": true,
+            "description": "SKC Spec List"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "specId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Specification ID"
+          },
+          {
+            "name": "parentSpecName",
+            "type": "STRING",
+            "required": true,
+            "description": "Parent Specification Name"
+          },
+          {
+            "name": "parentSpecId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Parent Specification ID"
+          },
+          {
+            "name": "specName",
+            "type": "STRING",
+            "required": true,
+            "description": "Specification Name"
+          },
+          {
+            "name": "sourceProductId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Source Product ID"
+          },
+          {
+            "name": "productShipmentReq",
+            "type": "OBJECT",
+            "required": true,
+            "description": "Product Shipment Request"
+          },
+          {
+            "name": "freightTemplateId",
+            "type": "STRING",
+            "required": true,
+            "description": "Shipping Template ID"
+          },
+          {
+            "name": "shipmentLimitSecond",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Promised Delivery Time (unit: s)",
+            "offlineReference": "../../offline-docs/data-dictionary.md#承诺发货时效说明",
+            "offlineReferenceReason": "promised shipping time values"
+          },
+          {
+            "name": "warehouseSkuStockAvailable",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Warehouse Sku Stock Available"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "migrationRetList",
+            "type": "LIST",
+            "description": "Copy Fully Managed Product Result List"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "productDraftId",
+            "type": "INTEGER",
+            "description": "Product Draft ID"
+          },
+          {
+            "name": "sourceProductId",
+            "type": "INTEGER",
+            "description": "Source Product ID`"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "991000001",
+                "错误描述": "服务器开小差",
+                "解决办法": "请根据详细报错文案做相应调整，如有疑问联系管理员"
+              },
+              {
+                "错误码": "991000002",
+                "错误描述": "参数错误",
+                "解决办法": "检查传参是否满足接口协议"
+              },
+              {
+                "错误码": "991000003",
+                "错误描述": "bad paramater",
+                "解决办法": "see the detail of the parameter error"
+              },
+              {
+                "错误码": "991000005",
+                "错误描述": "system exception",
+                "解决办法": "try again later, if that doesn't work, contact the administrator"
+              },
+              {
+                "错误码": "991000011",
+                "错误描述": "forbidden request, current supplier cannot query another supplier's data",
+                "解决办法": "query your own data"
+              },
+              {
+                "错误码": "991000012",
+                "错误描述": "system busy, please try again later",
+                "解决办法": "try again later"
+              },
+              {
+                "错误码": "992000000",
+                "错误描述": "invalid product",
+                "解决办法": "ProductId not exist, or system busy. Check productId and retry"
+              },
+              {
+                "错误码": "992000125",
+                "错误描述": "illegal freightTemplateId or query freightTemplateId failed",
+                "解决办法": "set correct freightTemplateId, then retry"
+              },
+              {
+                "错误码": "992000127",
+                "错误描述": "freight template verification failed",
+                "解决办法": "check the cause of the verification failure"
+              },
+              {
+                "错误码": "992000202",
+                "错误描述": "goods do not meet the bulky freight template standard",
+                "解决办法": "only bulky goods can use bulky freight template"
+              },
+              {
+                "错误码": "996000080",
+                "错误描述": "query product warehouse and router information failed",
+                "解决办法": "please retry"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 2528,
+          "endLine": 2637,
+          "contentSha256": "f58cfe3365f0b39b09c65a75542125c591ed91a2d74cb5424eb9eef04b7f5d74"
+        },
+        "x-temu-migration": {
+          "replacesLegacyTypes": [
+            "bg.goods.migrate"
+          ],
+          "period": "2025-9 迁移",
+          "description": "货品搬运接口",
+          "partnerGatewayUrl": "https://openapi-b-partner.temu.com/openapi/router"
+        },
+        "x-temu-alternate-api-types": [
+          "temu.goods.migrate"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "bg_glo_goods_migrateRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.glo.goods.migrate` for this operation.",
+          "enum": [
+            "bg.glo.goods.migrate"
+          ],
+          "default": "bg.glo.goods.migrate"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "migrationList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "Copy Request List"
+        },
+        "productSemiManagedReq": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Product Semi Managed Request"
+        },
+        "bindSiteIds": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "Bound Site List",
+          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+          "x-temu-offline-reference-reason": "semi-managed siteId list"
+        },
+        "semiManagedSiteMode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Semi-managed Site Sales Mode",
+          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+          "x-temu-offline-reference-reason": "semi-managed pan-EU/non-pan-EU site mode"
+        },
+        "productWarehouseRouteReq": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Product Warehouse Route Request"
+        },
+        "targetRouteList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "Target Self-Delivery Site-Warehouse Relationship"
+        },
+        "siteIdList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "Site ID.",
+          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+          "x-temu-offline-reference-reason": "siteId list"
+        },
+        "warehouseId": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Warehouse ID"
+        },
+        "skcDetails": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "Skc Detail List"
+        },
+        "skuDetails": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "Sku Detail List"
+        },
+        "currencyType": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Currency Type"
+        },
+        "specList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "SKU Spec List"
+        },
+        "specId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Specification ID"
+        },
+        "parentSpecName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Parent Specification Name"
+        },
+        "parentSpecId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Parent Specification ID"
+        },
+        "specName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Specification Name"
+        },
+        "siteSupplierPrices": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "Site Supplier Price List"
+        },
+        "siteId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Declared Price Site ID",
+          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#半托管站点列表",
+          "x-temu-offline-reference-reason": "siteId list"
+        },
+        "supplierPrice": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Site Declared Price, Unit: RMB: Fen, USD: Cent"
+        },
+        "sourceProductId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Source Product ID"
+        },
+        "productShipmentReq": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Product Shipment Request"
+        },
+        "freightTemplateId": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Shipping Template ID"
+        },
+        "shipmentLimitSecond": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Promised Delivery Time (unit: s)",
+          "x-temu-offline-reference": "../../offline-docs/data-dictionary.md#承诺发货时效说明",
+          "x-temu-offline-reference-reason": "promised shipping time values"
+        },
+        "warehouseSkuStockAvailable": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Warehouse Sku Stock Available"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "migrationList",
+        "productSemiManagedReq",
+        "bindSiteIds",
+        "productWarehouseRouteReq",
+        "targetRouteList",
+        "siteIdList",
+        "warehouseId",
+        "skcDetails",
+        "skuDetails",
+        "currencyType",
+        "specList",
+        "specId",
+        "parentSpecName",
+        "parentSpecId",
+        "specName",
+        "siteSupplierPrices",
+        "siteId",
+        "supplierPrice",
+        "sourceProductId",
+        "productShipmentReq",
+        "freightTemplateId",
+        "shipmentLimitSecond",
+        "warehouseSkuStockAvailable"
+      ]
+    },
+    "bg_glo_goods_migrateResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "migrationRetList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "Copy Fully Managed Product Result List"
+        },
+        "productDraftId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Product Draft ID"
+        },
+        "sourceProductId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Source Product ID`"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 2528,
+    "endLine": 2637,
+    "contentSha256": "f58cfe3365f0b39b09c65a75542125c591ed91a2d74cb5424eb9eef04b7f5d74"
+  },
+  "x-temu-api-type": "bg.glo.goods.migrate",
+  "x-temu-region-module": "temu-cn-api"
+}

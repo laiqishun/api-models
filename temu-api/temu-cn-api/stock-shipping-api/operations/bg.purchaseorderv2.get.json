@@ -1,0 +1,1639 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Stock And Shipping - bg.purchaseorderv2.get",
+    "description": "查询卖家的备货单列表",
+    "version": "2025-03-19 21:55:09"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Stock And Shipping"
+        ],
+        "operationId": "bg_purchaseorderv2_get",
+        "summary": "采购单查询v2",
+        "description": "查询卖家的备货单列表",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.purchaseorderv2.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_purchaseorderv2_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_purchaseorderv2_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.purchaseorderv2.get",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Stock And Shipping",
+          "sourceTitle": "备货及发货API组",
+          "directory": "stock-shipping-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-03-19 21:55:09",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "purchaseTimeTo",
+            "type": "INTEGER",
+            "required": false,
+            "description": "下单时间-结束：毫秒"
+          },
+          {
+            "name": "originalPurchaseOrderSnList",
+            "type": "LIST",
+            "required": false,
+            "description": "母订单号列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "deliverOrArrivalDelayStatusList",
+            "type": "LIST",
+            "required": false,
+            "description": "发货或者到货逾期状态 101-发货即将逾期，102-发货已逾期，201-到货即将逾期，202-到货已逾期"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "pageSize",
+            "type": "INTEGER",
+            "required": true,
+            "description": "每页记录数,范围[1,500]"
+          },
+          {
+            "name": "isSystemAutoPurchaseSource",
+            "type": "BOOLEAN",
+            "required": false,
+            "description": "是否系统下单 是-系统自动下单 否-其他"
+          },
+          {
+            "name": "isFirst",
+            "type": "BOOLEAN",
+            "required": false,
+            "description": "是否首单 0-否 1-是"
+          },
+          {
+            "name": "pageNo",
+            "type": "INTEGER",
+            "required": true,
+            "description": "页号， 从1开始"
+          },
+          {
+            "name": "customizationType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "定制类型,0-文字，1-图片. 可选值含义说明:[0:文字;1:图片;]"
+          },
+          {
+            "name": "isCloseJit",
+            "type": "BOOLEAN",
+            "required": false,
+            "description": "是否JIT转备货"
+          },
+          {
+            "name": "productSnList",
+            "type": "LIST",
+            "required": false,
+            "description": "货号列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "expectLatestDeliverTimeTo",
+            "type": "INTEGER",
+            "required": false,
+            "description": "要求最晚发货时间-结束（时间戳 单位：毫秒）"
+          },
+          {
+            "name": "supplierIdList",
+            "type": "LIST",
+            "required": false,
+            "description": "店铺id列表"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "qcOption",
+            "type": "INTEGER",
+            "required": false,
+            "description": "是否存在质检不合格的sku，10-是，20-否"
+          },
+          {
+            "name": "productSkcIdList",
+            "type": "LIST",
+            "required": false,
+            "description": "skc列表"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "expectLatestArrivalTimeFrom",
+            "type": "INTEGER",
+            "required": false,
+            "description": "要求最晚到达时间-开始（时间戳 单位：毫秒）"
+          },
+          {
+            "name": "isDelayArrival",
+            "type": "BOOLEAN",
+            "required": false,
+            "description": "是否延迟到货"
+          },
+          {
+            "name": "lackOrSoldOutTagList",
+            "type": "LIST",
+            "required": false,
+            "description": "标签：1-含缺货SKU；2-含售罄SKU"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "qcReject",
+            "type": "INTEGER",
+            "required": false,
+            "description": "创单时是否存在质检不合格sku，0-不存在 1-存在"
+          },
+          {
+            "name": "purchaseStockType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "是否是JIT备货， 0-普通，1-JIT备货"
+          },
+          {
+            "name": "isDelayDeliver",
+            "type": "BOOLEAN",
+            "required": false,
+            "description": "是否延迟发货"
+          },
+          {
+            "name": "warehouseGroupIdList",
+            "type": "LIST",
+            "required": false,
+            "description": "备货仓组列表"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "subPurchaseOrderSnList",
+            "type": "LIST",
+            "required": false,
+            "description": "订单号（采购子单号）"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "productLabelCodeStyle",
+            "type": "INTEGER",
+            "required": false,
+            "description": "筛选的商品条码样式，0-全选，1-旧样式，2-新样式"
+          },
+          {
+            "name": "skuLackSnapshot",
+            "type": "INTEGER",
+            "required": false,
+            "description": "创单时是否存在缺货sku，0-不存在 1-存在"
+          },
+          {
+            "name": "settlementType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "结算类型 0-非vmi(采购) 1-vmi(备货)"
+          },
+          {
+            "name": "supplierName",
+            "type": "STRING",
+            "required": false,
+            "description": "店铺名称"
+          },
+          {
+            "name": "purchaseTimeFrom",
+            "type": "INTEGER",
+            "required": false,
+            "description": "下单时间-开始：毫秒"
+          },
+          {
+            "name": "urgencyType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "是否紧急 0-否 1-是"
+          },
+          {
+            "name": "sourceList",
+            "type": "LIST",
+            "required": false,
+            "description": "下单来源，0-运营下单，1-卖家下单，9999-平台下单"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "deliverOrderSnList",
+            "type": "LIST",
+            "required": false,
+            "description": "发货单号列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "expectLatestDeliverTimeFrom",
+            "type": "INTEGER",
+            "required": false,
+            "description": "要求最晚发货时间-开始（时间戳 单位：毫秒）"
+          },
+          {
+            "name": "todayCanDeliver",
+            "type": "BOOLEAN",
+            "required": false,
+            "description": "是否今日可发货"
+          },
+          {
+            "name": "expectLatestArrivalTimeTo",
+            "type": "INTEGER",
+            "required": false,
+            "description": "要求最晚到达时间-结束（时间戳 单位：毫秒）"
+          },
+          {
+            "name": "statusList",
+            "type": "LIST",
+            "required": false,
+            "description": "订单状态 0-待接单；1-已接单，待发货；2-已送货；3-已收货；4-已拒收；5-已验收，全部退回；6-已验收；7-已入库；8-作废；9-已超时"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "isCustomGoods",
+            "type": "BOOLEAN",
+            "required": false,
+            "description": "是否为定制品"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "total",
+            "type": "INTEGER",
+            "description": "总数"
+          },
+          {
+            "name": "subOrderForSupplierList",
+            "type": "LIST",
+            "description": "订单信息"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "originalPurchaseOrderSn",
+            "type": "STRING",
+            "description": "母订单号（原始采购母单号）"
+          },
+          {
+            "name": "source",
+            "type": "INTEGER",
+            "description": "下单来源；0-运营，1-供应商，2-系统, 3-excel上传, 4-系统规则"
+          },
+          {
+            "name": "productName",
+            "type": "STRING",
+            "description": "货品名称"
+          },
+          {
+            "name": "fulfilmentFormStatus",
+            "type": "INTEGER",
+            "description": "关联履约函状态，0-待确认，1-已确认，2-已拒绝，3-已取消"
+          },
+          {
+            "name": "isFirst",
+            "type": "BOOLEAN",
+            "description": "是否首单"
+          },
+          {
+            "name": "skuQuantityDetailList",
+            "type": "LIST",
+            "description": "sku维度数量信息-非定制品"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "currencyType",
+            "type": "STRING",
+            "description": "货币类型(参考 ISO 4217) CNY-人民币 USD-美元"
+          },
+          {
+            "name": "processTypeVO",
+            "type": "OBJECT",
+            "description": "定制品工艺信息"
+          },
+          {
+            "name": "processTypeDesc",
+            "type": "STRING",
+            "description": "工艺类型名称"
+          },
+          {
+            "name": "firstProcessTypeDesc",
+            "type": "STRING",
+            "description": "一级工艺名称"
+          },
+          {
+            "name": "secondProcessTypeDesc",
+            "type": "LIST",
+            "description": "二级工艺"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "className",
+            "type": "STRING",
+            "description": "尺码名称"
+          },
+          {
+            "name": "supportIncreaseNum",
+            "type": "BOOLEAN",
+            "description": "是否支持上浮"
+          },
+          {
+            "name": "realReceiveAuthenticQuantity",
+            "type": "INTEGER",
+            "description": "入库数量"
+          },
+          {
+            "name": "fulfilmentProductSkuId",
+            "type": "INTEGER",
+            "description": "履约货品skuId"
+          },
+          {
+            "name": "customizationType",
+            "type": "INTEGER",
+            "description": "定制类型,0-文字，1-图片"
+          },
+          {
+            "name": "productSkuId",
+            "type": "INTEGER",
+            "description": "productSkuId"
+          },
+          {
+            "name": "deliverQuantity",
+            "type": "INTEGER",
+            "description": "已送货待收货数量"
+          },
+          {
+            "name": "thumbUrlList",
+            "type": "LIST",
+            "description": "sku缩略图列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "qcResult",
+            "type": "INTEGER",
+            "description": "质检结果，0-暂无结果，1-合格，2-不合格，3-无需质检，4-质检让步，5-重新上床视频，6-部分合格"
+          },
+          {
+            "name": "extCode",
+            "type": "STRING",
+            "description": "sku货号"
+          },
+          {
+            "name": "adviceQuantity",
+            "type": "INTEGER",
+            "description": "下单时建议量"
+          },
+          {
+            "name": "purchaseUpLimit",
+            "type": "INTEGER",
+            "description": "下单上限（系统自动下单时按照规则设置）"
+          },
+          {
+            "name": "purchaseQuantity",
+            "type": "INTEGER",
+            "description": "下单数量"
+          },
+          {
+            "name": "deliverInfo",
+            "type": "OBJECT",
+            "description": "发货信息"
+          },
+          {
+            "name": "receiveTime",
+            "type": "INTEGER",
+            "description": "收货时间（单位：毫秒）"
+          },
+          {
+            "name": "deliverTime",
+            "type": "INTEGER",
+            "description": "发货时间（单位：毫秒）"
+          },
+          {
+            "name": "receiveWarehouseId",
+            "type": "INTEGER",
+            "description": "实际收货仓库Id"
+          },
+          {
+            "name": "receiveWarehouseName",
+            "type": "STRING",
+            "description": "实际收货仓库名称"
+          },
+          {
+            "name": "expectLatestDeliverTimeOrDefault",
+            "type": "INTEGER",
+            "description": "要求最晚发货时间带默认值（时间戳 单位：毫秒）"
+          },
+          {
+            "name": "expectLatestArrivalTimeOrDefault",
+            "type": "INTEGER",
+            "description": "要求最晚到达时间带默认值（时间戳 单位：毫秒）"
+          },
+          {
+            "name": "deliveryOrderSn",
+            "type": "STRING",
+            "description": "发货单号"
+          },
+          {
+            "name": "productSkcId",
+            "type": "INTEGER",
+            "description": "skcId"
+          },
+          {
+            "name": "isCloseJit",
+            "type": "BOOLEAN",
+            "description": "是否JIT转备货"
+          },
+          {
+            "name": "warehouseGroupId",
+            "type": "INTEGER",
+            "description": "备货仓组"
+          },
+          {
+            "name": "productId",
+            "type": "INTEGER",
+            "description": "productId"
+          },
+          {
+            "name": "hasQcBill",
+            "type": "INTEGER",
+            "description": "是否有质检报告，0-否，1-是"
+          },
+          {
+            "name": "supplyStatus",
+            "type": "INTEGER",
+            "description": "供应状态 0-正常供货 1-暂时无货 2-停产"
+          },
+          {
+            "name": "applyDeleteStatus",
+            "type": "INTEGER",
+            "description": "申请作废状态 0-未申请作废，1-作废审核中，2-作废审核通过, 3-作废审核不通过"
+          },
+          {
+            "name": "skuQuantityTotalInfo",
+            "type": "OBJECT",
+            "description": "sku维度数量汇总信息"
+          },
+          {
+            "name": "currencyType",
+            "type": "STRING",
+            "description": "货币类型(参考 ISO 4217) CNY-人民币 USD-美元"
+          },
+          {
+            "name": "processTypeVO",
+            "type": "OBJECT",
+            "description": "定制品工艺信息"
+          },
+          {
+            "name": "processTypeDesc",
+            "type": "STRING",
+            "description": "工艺类型名称"
+          },
+          {
+            "name": "firstProcessTypeDesc",
+            "type": "STRING",
+            "description": "一级工艺名称"
+          },
+          {
+            "name": "secondProcessTypeDesc",
+            "type": "LIST",
+            "description": "二级工艺"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "className",
+            "type": "STRING",
+            "description": "尺码名称"
+          },
+          {
+            "name": "supportIncreaseNum",
+            "type": "BOOLEAN",
+            "description": "是否支持上浮"
+          },
+          {
+            "name": "realReceiveAuthenticQuantity",
+            "type": "INTEGER",
+            "description": "入库数量"
+          },
+          {
+            "name": "customizationType",
+            "type": "INTEGER",
+            "description": "定制类型,0-文字，1-图片"
+          },
+          {
+            "name": "productSkuId",
+            "type": "INTEGER",
+            "description": "productSkuId"
+          },
+          {
+            "name": "deliverQuantity",
+            "type": "INTEGER",
+            "description": "已送货待收货数量"
+          },
+          {
+            "name": "extCode",
+            "type": "STRING",
+            "description": "sku货号"
+          },
+          {
+            "name": "adviceQuantity",
+            "type": "INTEGER",
+            "description": "下单时建议量"
+          },
+          {
+            "name": "purchaseQuantity",
+            "type": "INTEGER",
+            "description": "下单数量"
+          },
+          {
+            "name": "isCanJoinDeliverPlatform",
+            "type": "BOOLEAN",
+            "description": "是否可以加入发货台"
+          },
+          {
+            "name": "categoryType",
+            "type": "INTEGER",
+            "description": "类目类型, 0-未分类、1-服饰"
+          },
+          {
+            "name": "subPurchaseOrderSn",
+            "type": "STRING",
+            "description": "采购子单号"
+          },
+          {
+            "name": "status",
+            "type": "INTEGER",
+            "description": "状态"
+          },
+          {
+            "name": "supplierId",
+            "type": "INTEGER",
+            "description": "卖家id"
+          },
+          {
+            "name": "isCustomProduct",
+            "type": "BOOLEAN",
+            "description": "是否定制品，0-否，1-是"
+          },
+          {
+            "name": "appealStatus",
+            "type": "INTEGER",
+            "description": "申述状态，1000-审核中,1010-审核通过,1020-审核驳回"
+          },
+          {
+            "name": "fulfilmentFormId",
+            "type": "INTEGER",
+            "description": "关联履约函id"
+          },
+          {
+            "name": "productSkcPicture",
+            "type": "STRING",
+            "description": "货品图片"
+          },
+          {
+            "name": "supportIncreaseNum",
+            "type": "BOOLEAN",
+            "description": "是否支持上浮"
+          },
+          {
+            "name": "lackOrSoldOutTagList",
+            "type": "LIST",
+            "description": "是否含缺货或售罄sku"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "isLack",
+            "type": "BOOLEAN",
+            "description": "是否缺货"
+          },
+          {
+            "name": "skuDisplay",
+            "type": "STRING",
+            "description": "属性"
+          },
+          {
+            "name": "soldOut",
+            "type": "INTEGER",
+            "description": "售罄状态"
+          },
+          {
+            "name": "qcReject",
+            "type": "INTEGER",
+            "description": "创单时是否存在质检不合格sku，0-不存在 1-存在"
+          },
+          {
+            "name": "purchaseStockType",
+            "type": "INTEGER",
+            "description": "是否是JIT备货， 0-普通，1-JIT备货"
+          },
+          {
+            "name": "skuLackItemList",
+            "type": "LIST",
+            "description": "缺货sku列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "skuDisplay",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "deliveryOrderSn",
+            "type": "STRING",
+            "description": "发货单号"
+          },
+          {
+            "name": "skuLackSnapshot",
+            "type": "INTEGER",
+            "description": "创单时是否存在缺货sku，0-不存在 1-存在"
+          },
+          {
+            "name": "supplierName",
+            "type": "STRING",
+            "description": "卖家名称"
+          },
+          {
+            "name": "settlementType",
+            "type": "INTEGER",
+            "description": "结算类型 0-非vmi(采购) 1-vmi(备货)"
+          },
+          {
+            "name": "productSn",
+            "type": "STRING",
+            "description": "货号"
+          },
+          {
+            "name": "urgencyType",
+            "type": "INTEGER",
+            "description": "是否紧急，0-否，1-是"
+          },
+          {
+            "name": "skuQcRejectItemList",
+            "type": "LIST",
+            "description": "质量隐患sku列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "skuDisplay",
+            "type": "STRING",
+            "description": "-"
+          },
+          {
+            "name": "expectLatestArrivalIntervalDays",
+            "type": "INTEGER",
+            "description": "预计最晚送达间隔天数"
+          },
+          {
+            "name": "defectiveTime",
+            "type": "INTEGER",
+            "description": "退货时间（时间戳 单位：毫秒）"
+          },
+          {
+            "name": "todayCanDeliver",
+            "type": "BOOLEAN",
+            "description": "是否今日可发货"
+          },
+          {
+            "name": "purchaseTime",
+            "type": "INTEGER",
+            "description": "下单时间（时间戳：毫秒）"
+          },
+          {
+            "name": "applyChangeSupplyStatus",
+            "type": "INTEGER",
+            "description": "申请变更供应状态的审批状态, 0-无需审核，1-审核中，2-审核通过，3-审核驳回，4-撤销"
+          },
+          {
+            "name": "category",
+            "type": "STRING",
+            "description": "类目"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "2000000",
+                "错误描述": "业务异常，请稍后再试。",
+                "解决办法": "调用依赖接口有异常，一般短期内会恢复，建议稍后再试。"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 9086,
+          "endLine": 9285,
+          "contentSha256": "8d0f6ba5f102f5cfe72fcc7cd9da4e5c67963c05389248174ebd2dcabedc57cf"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_purchaseorderv2_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.purchaseorderv2.get` for this operation.",
+          "enum": [
+            "bg.purchaseorderv2.get"
+          ],
+          "default": "bg.purchaseorderv2.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "purchaseTimeTo": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "下单时间-结束：毫秒"
+        },
+        "originalPurchaseOrderSnList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "母订单号列表"
+        },
+        "deliverOrArrivalDelayStatusList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "发货或者到货逾期状态 101-发货即将逾期，102-发货已逾期，201-到货即将逾期，202-到货已逾期"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "每页记录数,范围[1,500]"
+        },
+        "isSystemAutoPurchaseSource": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否系统下单 是-系统自动下单 否-其他"
+        },
+        "isFirst": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否首单 0-否 1-是"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "页号， 从1开始"
+        },
+        "customizationType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "定制类型,0-文字，1-图片. 可选值含义说明:[0:文字;1:图片;]"
+        },
+        "isCloseJit": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否JIT转备货"
+        },
+        "productSnList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "货号列表"
+        },
+        "expectLatestDeliverTimeTo": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "要求最晚发货时间-结束（时间戳 单位：毫秒）"
+        },
+        "supplierIdList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "店铺id列表"
+        },
+        "qcOption": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否存在质检不合格的sku，10-是，20-否"
+        },
+        "productSkcIdList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "skc列表"
+        },
+        "expectLatestArrivalTimeFrom": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "要求最晚到达时间-开始（时间戳 单位：毫秒）"
+        },
+        "isDelayArrival": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否延迟到货"
+        },
+        "lackOrSoldOutTagList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "标签：1-含缺货SKU；2-含售罄SKU"
+        },
+        "qcReject": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "创单时是否存在质检不合格sku，0-不存在 1-存在"
+        },
+        "purchaseStockType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否是JIT备货， 0-普通，1-JIT备货"
+        },
+        "isDelayDeliver": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否延迟发货"
+        },
+        "warehouseGroupIdList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "备货仓组列表"
+        },
+        "subPurchaseOrderSnList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "订单号（采购子单号）"
+        },
+        "productLabelCodeStyle": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "筛选的商品条码样式，0-全选，1-旧样式，2-新样式"
+        },
+        "skuLackSnapshot": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "创单时是否存在缺货sku，0-不存在 1-存在"
+        },
+        "settlementType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "结算类型 0-非vmi(采购) 1-vmi(备货)"
+        },
+        "supplierName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "店铺名称"
+        },
+        "purchaseTimeFrom": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "下单时间-开始：毫秒"
+        },
+        "urgencyType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否紧急 0-否 1-是"
+        },
+        "sourceList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "下单来源，0-运营下单，1-卖家下单，9999-平台下单"
+        },
+        "deliverOrderSnList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "发货单号列表"
+        },
+        "expectLatestDeliverTimeFrom": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "要求最晚发货时间-开始（时间戳 单位：毫秒）"
+        },
+        "todayCanDeliver": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否今日可发货"
+        },
+        "expectLatestArrivalTimeTo": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "要求最晚到达时间-结束（时间戳 单位：毫秒）"
+        },
+        "statusList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "订单状态 0-待接单；1-已接单，待发货；2-已送货；3-已收货；4-已拒收；5-已验收，全部退回；6-已验收；7-已入库；8-作废；9-已超时"
+        },
+        "isCustomGoods": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否为定制品"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "pageSize",
+        "pageNo"
+      ]
+    },
+    "bg_purchaseorderv2_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "总数"
+        },
+        "subOrderForSupplierList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "订单信息"
+        },
+        "originalPurchaseOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "母订单号（原始采购母单号）"
+        },
+        "source": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "下单来源；0-运营，1-供应商，2-系统, 3-excel上传, 4-系统规则"
+        },
+        "productName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "货品名称"
+        },
+        "fulfilmentFormStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "关联履约函状态，0-待确认，1-已确认，2-已拒绝，3-已取消"
+        },
+        "isFirst": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否首单"
+        },
+        "skuQuantityDetailList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "sku维度数量信息-非定制品"
+        },
+        "currencyType": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "货币类型(参考 ISO 4217) CNY-人民币 USD-美元"
+        },
+        "processTypeVO": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "定制品工艺信息"
+        },
+        "processTypeDesc": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "工艺类型名称"
+        },
+        "firstProcessTypeDesc": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "一级工艺名称"
+        },
+        "secondProcessTypeDesc": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "二级工艺"
+        },
+        "className": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "尺码名称"
+        },
+        "supportIncreaseNum": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否支持上浮"
+        },
+        "realReceiveAuthenticQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "入库数量"
+        },
+        "fulfilmentProductSkuId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "履约货品skuId"
+        },
+        "customizationType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "定制类型,0-文字，1-图片"
+        },
+        "productSkuId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "productSkuId"
+        },
+        "deliverQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "已送货待收货数量"
+        },
+        "thumbUrlList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "sku缩略图列表"
+        },
+        "qcResult": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "质检结果，0-暂无结果，1-合格，2-不合格，3-无需质检，4-质检让步，5-重新上床视频，6-部分合格"
+        },
+        "extCode": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "sku货号"
+        },
+        "adviceQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "下单时建议量"
+        },
+        "purchaseUpLimit": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "下单上限（系统自动下单时按照规则设置）"
+        },
+        "purchaseQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "下单数量"
+        },
+        "deliverInfo": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "发货信息"
+        },
+        "receiveTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "收货时间（单位：毫秒）"
+        },
+        "deliverTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货时间（单位：毫秒）"
+        },
+        "receiveWarehouseId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "实际收货仓库Id"
+        },
+        "receiveWarehouseName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "实际收货仓库名称"
+        },
+        "expectLatestDeliverTimeOrDefault": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "要求最晚发货时间带默认值（时间戳 单位：毫秒）"
+        },
+        "expectLatestArrivalTimeOrDefault": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "要求最晚到达时间带默认值（时间戳 单位：毫秒）"
+        },
+        "deliveryOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "发货单号"
+        },
+        "productSkcId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "skcId"
+        },
+        "isCloseJit": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否JIT转备货"
+        },
+        "warehouseGroupId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "备货仓组"
+        },
+        "productId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "productId"
+        },
+        "hasQcBill": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否有质检报告，0-否，1-是"
+        },
+        "supplyStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "供应状态 0-正常供货 1-暂时无货 2-停产"
+        },
+        "applyDeleteStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "申请作废状态 0-未申请作废，1-作废审核中，2-作废审核通过, 3-作废审核不通过"
+        },
+        "skuQuantityTotalInfo": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "sku维度数量汇总信息"
+        },
+        "isCanJoinDeliverPlatform": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否可以加入发货台"
+        },
+        "categoryType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "类目类型, 0-未分类、1-服饰"
+        },
+        "subPurchaseOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "采购子单号"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "状态"
+        },
+        "supplierId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "卖家id"
+        },
+        "isCustomProduct": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否定制品，0-否，1-是"
+        },
+        "appealStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "申述状态，1000-审核中,1010-审核通过,1020-审核驳回"
+        },
+        "fulfilmentFormId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "关联履约函id"
+        },
+        "productSkcPicture": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "货品图片"
+        },
+        "lackOrSoldOutTagList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "是否含缺货或售罄sku"
+        },
+        "isLack": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否缺货"
+        },
+        "skuDisplay": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "属性"
+        },
+        "soldOut": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "售罄状态"
+        },
+        "qcReject": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "创单时是否存在质检不合格sku，0-不存在 1-存在"
+        },
+        "purchaseStockType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否是JIT备货， 0-普通，1-JIT备货"
+        },
+        "skuLackItemList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "缺货sku列表"
+        },
+        "skuLackSnapshot": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "创单时是否存在缺货sku，0-不存在 1-存在"
+        },
+        "supplierName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "卖家名称"
+        },
+        "settlementType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "结算类型 0-非vmi(采购) 1-vmi(备货)"
+        },
+        "productSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "货号"
+        },
+        "urgencyType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否紧急，0-否，1-是"
+        },
+        "skuQcRejectItemList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "质量隐患sku列表"
+        },
+        "expectLatestArrivalIntervalDays": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "预计最晚送达间隔天数"
+        },
+        "defectiveTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "退货时间（时间戳 单位：毫秒）"
+        },
+        "todayCanDeliver": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否今日可发货"
+        },
+        "purchaseTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "下单时间（时间戳：毫秒）"
+        },
+        "applyChangeSupplyStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "申请变更供应状态的审批状态, 0-无需审核，1-审核中，2-审核通过，3-审核驳回，4-撤销"
+        },
+        "category": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "类目"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 9086,
+    "endLine": 9285,
+    "contentSha256": "8d0f6ba5f102f5cfe72fcc7cd9da4e5c67963c05389248174ebd2dcabedc57cf"
+  },
+  "x-temu-api-type": "bg.purchaseorderv2.get",
+  "x-temu-region-module": "temu-cn-api"
+}

@@ -1,0 +1,545 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Fulfillment - bg.logistics.shipment.v2.confirm",
+    "description": "The bg.logistics.shipment.v2.confirm interface is designed to synchronize and return order fulfillment information through this interface. Switch the order status from pending shipment to shipped.",
+    "version": "2025-12-03 10:14:35"
+  },
+  "host": "openapi-b-us.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Fulfillment"
+        ],
+        "operationId": "bg_logistics_shipment_v2_confirm",
+        "summary": "The bg.logistics.shipment.v2.confirm interface is designed to synchronize and return order fulfillment information through this interface. Switch the order status from pending shipment to shipped.",
+        "description": "The bg.logistics.shipment.v2.confirm interface is designed to synchronize and return order fulfillment information through this interface. Switch the order status from pending shipment to shipped.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.logistics.shipment.v2.confirm`.",
+            "schema": {
+              "$ref": "#/definitions/bg_logistics_shipment_v2_confirmRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_logistics_shipment_v2_confirmResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.logistics.shipment.v2.confirm",
+        "x-temu-region-module": "temu-us-api",
+        "x-temu-group": {
+          "title": "Fulfillment",
+          "sourceTitle": "5、Fulfillment",
+          "directory": "fulfillment-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-us.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-us.temu.com/openapi/router",
+            "Site Region": "US"
+          }
+        ],
+        "x-temu-audience": [
+          "Cross Border",
+          "Local"
+        ],
+        "x-temu-last-update-time": "2025-12-03 10:14:35",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "request",
+            "type": "OBJECT",
+            "required": false
+          },
+          {
+            "name": "sendType",
+            "type": "INTEGER",
+            "required": true,
+            "description": "SendType,enumerated as follows: 0:All the products in one parent order are shipped in one package with one tracking number 1:Partical products in one parent order are shipped in multiple packages with multiple tracking numbers and all the products in one order should be shipped in one API call. 2:All the products in multiple parent orders are shipped in one package with one tracking number."
+          },
+          {
+            "name": "sendRequestList",
+            "type": "OBJECT[]",
+            "required": true,
+            "description": "Shipment package details"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "response",
+            "type": "OBJECT"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "success"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "120014001",
+                "Error Message": "Tracking number is blank.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120014023",
+                "Error Message": "Tracking number is invalid: {*}.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120014005",
+                "Error Message": "Tracking number may be invalid. Please verify before proceeding.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120012064",
+                "Error Message": "The parentOrderSn is not valid for the selected selfShippingWarehouseId.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120012063",
+                "Error Message": "The parentOrderSn is not valid for the selected selfShippingWarehouseId.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120012041",
+                "Error Message": "A duplicate sub-order number has been entered for tracking number {*}.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120018069",
+                "Error Message": "Main mall does not support self-importing shipping orders for sub-mall. Please change the shipping method or operate via sub-mall.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120014022",
+                "Error Message": "Incorrect trackingNumber/carrierId. Please check and retry.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120011098",
+                "Error Message": "A package is allowed to add a maximum of only 10 sub tracking numbers.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120011045",
+                "Error Message": "For splitSubPackage quantity needs to be 1.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120015543",
+                "Error Message": "The Order with label \"signature_required_on_delivery\" and other orders cannot be fulfilled at the same time. Please fulfill the order with label \"signature_required_on_delivery\" separately.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120015037",
+                "Error Message": "This logistics provider does not support this business scenario.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120012035",
+                "Error Message": "Your store has been restricted from using the Confirm shipment function. Because you store has a high number of packages that were marked delivered but not actually received by customers.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120011030",
+                "Error Message": "Cooperative warehouse order fulfillment restricted.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120015530",
+                "Error Message": "Order with \"Y2_advance_sale\" label can be only fulfilled by Temu integrated logistics.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120011086",
+                "Error Message": "Please fill in the warehouse management type and warehouse brand in the Temu seller center first. Then you can confirm shipment as usual.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120011085",
+                "Error Message": "selfShippingWarehouseId is invalid, please have a check",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120011092",
+                "Error Message": "Your store has been restricted from confirming shipment by FedEx tracking number. Please use the online buy shipping function to buy FedEx shipping label instead.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120011091",
+                "Error Message": "Your store has been restricted from confirming shipment by tracking number. Please use the online buy shipping function instead.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120012020",
+                "Error Message": "Buy shipping failed. Package number {*} is existent. Courier and tracking number cannot be entered directly. Please edit or try again on the order details page.",
+                "Error SOP": "Please request \"bg.logistics.shipment.shppingtype.update\" to fulfill by non-integrated channel."
+              },
+              {
+                "Error Code": "120011059",
+                "Error Message": "Your store has been restricted from confirming shipment by USPS tracking number. Please use the online buy shipping function to buy USPS shipping label instead.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120014020",
+                "Error Message": "Delivery failed because the tracking number cannot be recognized. Please delete specific symbol such as -, %, # etc.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120011031",
+                "Error Message": "The provider has at least one unsigned agreement. Please go to the home page to sign.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120015518",
+                "Error Message": "The order with \"US-to-CA\" Label and the order without \"US-to-CA\" Label can't be shipped together.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120012023",
+                "Error Message": "Address change pending. Please process before shipping.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120012030",
+                "Error Message": "Order cancel pending. Please process before shipping.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120011065",
+                "Error Message": "Please fill in the shipping address.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120014019",
+                "Error Message": "Cannot ship with Platform-Generated tracking number.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120011006",
+                "Error Message": "The parameter warehouseId is invalid.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120015026",
+                "Error Message": "A large items template has been used for the items in this package. Only specified logistics providers can be used for shipping.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120015527",
+                "Error Message": "Missing required parameter selfShippingWarehouseId",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120012031",
+                "Error Message": "The current parent order has a pending risk control alert.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120018021",
+                "Error Message": "The BC order is not allowed.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120012007",
+                "Error Message": "The parentOrder or Order is invalid. Please check if the parentOrder matches the Order, the parentOrder or Order is nonexistent etc.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120017007",
+                "Error Message": "The cancellation application is under review and cannot be shipped.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120011072",
+                "Error Message": "The request area is incorrect. Please check the request area and replace it with the correct request area. The request area for the United States is US, and the request area for other non-European countries is global.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120012016",
+                "Error Message": "The parentOrder or Order is invalid. Please check if the parentOrder matches the Order, the parentOrder or Order is nonexistent etc.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120015528",
+                "Error Message": "O-orders of COD type exist in body, and COD type O-orders can only be shipped with Temu Label.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120012034",
+                "Error Message": "Your store has been restricted from confirming shipment by tracking number. Please use the online buy shipping function instead. For more details, please refer to the message in the Seller Center regarding the notice on the restriction of the \"confirm shipment by tracking number\".",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120015030",
+                "Error Message": "A large items template has been used for the items in this package. Only specified logistics providers can be used for shipping.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120015531",
+                "Error Message": "Only order with \"Y2_advance_sale\" label can be fulfilled by warehouse in \"other\" type.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120014003",
+                "Error Message": "Duplicate tracking number",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120014004",
+                "Error Message": "Tracking number has been used",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120014006",
+                "Error Message": "System abnormality, please try again later",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "120014008",
+                "Error Message": "Delivery failed because the tracking number cannot be recognized. Please check and try again.",
+                "Error SOP": ""
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Local Order Fulfillment Management",
+                "App type": "private,public"
+              },
+              {
+                "Permission Package": "Semi Seller in House System Management",
+                "App type": "private"
+              },
+              {
+                "Permission Package": "Semi Order Fulfillment Management",
+                "App type": "public"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-us.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"sendRequestList\" : [ {\n    \"orderSendInfoList\" : [ {\n      \"quantity\" : 1,\n      \"orderSn\" : \"test\",\n      \"parentOrderSn\" : \"test\",\n      \"goodsId\" : 1,\n      \"skuId\" : 1\n    } ],\n    \"selfShippingWarehouseId\" : \"test\",\n    \"subSendRequests\" : [ {\n      \"carrierId\" : 1,\n      \"trackingNumber\" : \"test\",\n      \"selfShippingWarehouseId\" : \"test\"\n    } ],\n    \"confirmAcceptance\" : [ \"test\", \"test\" ],\n    \"carrierId\" : 1,\n    \"trackingNumber\" : \"test\"\n  } ],\n  \"app_key\" : \"test\",\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"sendType\" : 1,\n  \"type\" : \"test\",\n  \"version\" : \"test\",\n  \"timestamp\" : \"test\"\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\": {\n    \"assistantAgreementText\": \"test\",\n    \"warningMessage\": [\n      \"test\",\n      \"test\"\n    ]\n  },\n  \"errorCode\": 1,\n  \"success\": true,\n  \"errorMsg\": \"test\"\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu美国本土API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu美国本土API文档.md",
+          "startLine": 12169,
+          "endLine": 12355,
+          "contentSha256": "3235626db94f505b1571033b7cb7dabe632526e511dd06bd59029388773a6469"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_logistics_shipment_v2_confirmRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `bg.logistics.shipment.v2.confirm` for this operation.",
+          "enum": [
+            "bg.logistics.shipment.v2.confirm"
+          ],
+          "default": "bg.logistics.shipment.v2.confirm"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "sendType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "SendType,enumerated as follows: 0:All the products in one parent order are shipped in one package with one tracking number 1:Partical products in one parent order are shipped in multiple packages with multiple tracking numbers and all the products in one order should be shipped in one API call. 2:All the products in multiple parent orders are shipped in one package with one tracking number."
+        },
+        "sendRequestList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT"
+          },
+          "x-temu-type": "OBJECT[]",
+          "description": "Shipment package details"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp",
+        "sendType",
+        "sendRequestList"
+      ]
+    },
+    "bg_logistics_shipment_v2_confirmResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "response": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "success"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu美国本土API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu美国本土API文档.md",
+    "startLine": 12169,
+    "endLine": 12355,
+    "contentSha256": "3235626db94f505b1571033b7cb7dabe632526e511dd06bd59029388773a6469"
+  },
+  "x-temu-api-type": "bg.logistics.shipment.v2.confirm",
+  "x-temu-region-module": "temu-us-api"
+}

@@ -1,0 +1,335 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Price - temu.local.goods.priceorder.reject",
+    "description": "Support merchants in rejecting price orders",
+    "version": "2025-07-20 06:04:05"
+  },
+  "host": "openapi-b-eu.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Price"
+        ],
+        "operationId": "temu_local_goods_priceorder_reject",
+        "summary": "Support merchants in rejecting price orders",
+        "description": "Support merchants in rejecting price orders",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `temu.local.goods.priceorder.reject`.",
+            "schema": {
+              "$ref": "#/definitions/temu_local_goods_priceorder_rejectRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/temu_local_goods_priceorder_rejectResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "temu.local.goods.priceorder.reject",
+        "x-temu-region-module": "temu-eu-api",
+        "x-temu-group": {
+          "title": "Price",
+          "sourceTitle": "4、Price",
+          "directory": "price-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-eu.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-eu.temu.com/openapi/router",
+            "Site Region": "EU"
+          }
+        ],
+        "x-temu-audience": [
+          "Local"
+        ],
+        "x-temu-last-update-time": "2025-07-20 06:04:05",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "request",
+            "type": "OBJECT",
+            "required": false
+          },
+          {
+            "name": "language",
+            "type": "STRING",
+            "required": false,
+            "description": "Language"
+          },
+          {
+            "name": "priceOrderBaseList",
+            "type": "OBJECT[]",
+            "required": true,
+            "description": "Price offer list"
+          },
+          {
+            "name": "rejectDelist",
+            "type": "BOOLEAN",
+            "required": false,
+            "description": "Whether to reject the price order and delist the sku"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "response",
+            "type": "OBJECT"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "Whether it was successful or not"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "Error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "Error message"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "Specific information"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "150011020",
+                "Error Message": "There is an abnormal number of product operations. Related actions have been temporarily restricted for today. If you have any questions, please contact your sales representative for help.",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "150010002",
+                "Error Message": "System error, please try again later",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "150010003",
+                "Error Message": "Invalid Request Parameters",
+                "Error SOP": ""
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Local Price Management",
+                "App type": "private,public"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-eu.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"priceOrderBaseList\" : [ {\n    \"priceCommitVersion\" : 1,\n    \"goodsId\" : 1,\n    \"priceOrderSn\" : \"test\"\n  } ],\n  \"app_key\" : \"test\",\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"language\" : \"test\",\n  \"type\" : \"test\",\n  \"version\" : \"test\",\n  \"timestamp\" : \"test\",\n  \"rejectDelist\" : true\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\": {\n    \"success\": true\n  },\n  \"errorCode\": 1,\n  \"success\": true,\n  \"errorMsg\": \"test\"\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu欧洲本土API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu欧洲本土API文档.md",
+          "startLine": 10778,
+          "endLine": 10905,
+          "contentSha256": "c37dc191430b5283ffd2b6a962c98dc54eba761e2252de7ac812c36b20f7a573"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "temu_local_goods_priceorder_rejectRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `temu.local.goods.priceorder.reject` for this operation.",
+          "enum": [
+            "temu.local.goods.priceorder.reject"
+          ],
+          "default": "temu.local.goods.priceorder.reject"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "language": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Language"
+        },
+        "priceOrderBaseList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT"
+          },
+          "x-temu-type": "OBJECT[]",
+          "description": "Price offer list"
+        },
+        "rejectDelist": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "Whether to reject the price order and delist the sku"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp",
+        "priceOrderBaseList"
+      ]
+    },
+    "temu_local_goods_priceorder_rejectResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "response": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "Whether it was successful or not"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Error message"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Specific information"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu欧洲本土API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu欧洲本土API文档.md",
+    "startLine": 10778,
+    "endLine": 10905,
+    "contentSha256": "c37dc191430b5283ffd2b6a962c98dc54eba761e2252de7ac812c36b20f7a573"
+  },
+  "x-temu-api-type": "temu.local.goods.priceorder.reject",
+  "x-temu-region-module": "temu-eu-api"
+}

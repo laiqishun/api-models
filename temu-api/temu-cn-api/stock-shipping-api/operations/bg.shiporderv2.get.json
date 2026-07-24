@@ -1,0 +1,1476 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Stock And Shipping - bg.shiporderv2.get",
+    "description": "按批次查询对应发货单信息",
+    "version": "2025-11-02 21:29:11"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Stock And Shipping"
+        ],
+        "operationId": "bg_shiporderv2_get",
+        "summary": "查询发货单v2",
+        "description": "按批次查询对应发货单信息",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.shiporderv2.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_shiporderv2_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_shiporderv2_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.shiporderv2.get",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "Stock And Shipping",
+          "sourceTitle": "备货及发货API组",
+          "directory": "stock-shipping-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-11-02 21:29:11",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "productSkcIdList",
+            "type": "LIST",
+            "required": false,
+            "description": "skcId列表"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "isCustomProduct",
+            "type": "BOOLEAN",
+            "required": false,
+            "description": "是否为定制品 false-非定制品 true-定制品"
+          },
+          {
+            "name": "pageSize",
+            "type": "INTEGER",
+            "required": true,
+            "description": "每页记录数不能为空"
+          },
+          {
+            "name": "expressDeliverySnList",
+            "type": "LIST",
+            "required": false,
+            "description": "快递单号列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "expressWeightFeedbackStatus",
+            "type": "LIST",
+            "required": false,
+            "description": "运单计费重量异常状态 1-异常待确认 2-已提交异常反馈，待物流商处理 3-物流商处理完成 4-平台介入处理中 5-平台处理完成. 可选值含义说明:[0:未定义（数据库默认值）或无异常;1:异常待确认;2:已提交异常反馈，待物流商处理;3:物流商处理完成;4:平台介入处理中;5:平台处理完成;6:卖家已确认;7:卖家超期自动确认;8:物流商介入处理，卖家确认或超时自动确认;9:结算消息驱动卖家确认;10:无需公示;11:结算物流单计算重量查询失败;12:结算理论计费重拦截;13:SKU重量体积拦截;]"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "pageNo",
+            "type": "INTEGER",
+            "required": true,
+            "description": "页号， 从1开始"
+          },
+          {
+            "name": "isPrintBoxMark",
+            "type": "INTEGER",
+            "required": false,
+            "description": "是否已打印商品打包标签 0-未打印 1-已打印"
+          },
+          {
+            "name": "targetDeliveryAddress",
+            "type": "STRING",
+            "required": false,
+            "description": "筛选项-发货地址（精准匹配）"
+          },
+          {
+            "name": "onlyTaxWarehouseWaitApply",
+            "type": "BOOLEAN",
+            "required": false,
+            "description": "仅查看保税仓资料待上传"
+          },
+          {
+            "name": "subWarehouseIdList",
+            "type": "LIST",
+            "required": false,
+            "description": "收货子仓列表"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "subPurchaseOrderSnList",
+            "type": "LIST",
+            "required": false,
+            "description": "子采购单号列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "latestFeedbackStatusList",
+            "type": "LIST",
+            "required": false,
+            "description": "最新反馈状态列表 0-当前无异常 1-已提交 2-物流商处理中 4-已反馈 3-已撤销"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "urgencyType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "是否是紧急发货单，0-普通 1-急采"
+          },
+          {
+            "name": "targetReceiveAddress",
+            "type": "STRING",
+            "required": false,
+            "description": "筛选项-收货地址（精准匹配）"
+          },
+          {
+            "name": "deliverTimeFrom",
+            "type": "INTEGER",
+            "required": false,
+            "description": "发货时间-开始时间"
+          },
+          {
+            "name": "skcExtCodeList",
+            "type": "LIST",
+            "required": false,
+            "description": "货号列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "deliveryOrderSnList",
+            "type": "LIST",
+            "required": false,
+            "description": "发货单号列表"
+          },
+          {
+            "name": "$item",
+            "type": "STRING",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "inventoryRegion",
+            "type": "LIST",
+            "required": false,
+            "description": "备货区域 1-国内备货，2-海外备货，3-保税仓备货"
+          },
+          {
+            "name": "$item",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "deliverTimeTo",
+            "type": "INTEGER",
+            "required": false,
+            "description": "发货时间-结束时间"
+          },
+          {
+            "name": "isVmi",
+            "type": "INTEGER",
+            "required": false,
+            "description": "是否是vmi 0-非VMI 1-VMI"
+          },
+          {
+            "name": "sortType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "排序类型 0-创建时间最新在上 1-要求发货时间较早在上 2-按照仓库名称排序"
+          },
+          {
+            "name": "isJit",
+            "type": "BOOLEAN",
+            "required": false,
+            "description": "是否是jit，true:jit"
+          },
+          {
+            "name": "sortFieldName",
+            "type": "STRING",
+            "required": false,
+            "description": "排序字段名"
+          },
+          {
+            "name": "status",
+            "type": "INTEGER",
+            "required": false,
+            "description": "发货单状态 查询发货批次时仅支持查询发货单状态=1"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "total",
+            "type": "INTEGER",
+            "description": "-"
+          },
+          {
+            "name": "list",
+            "type": "LIST",
+            "description": "-"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "receiveSkcNum",
+            "type": "INTEGER",
+            "description": "实收skc数目"
+          },
+          {
+            "name": "expressPackageNum",
+            "type": "INTEGER",
+            "description": "交接给快递公司的包裹数量"
+          },
+          {
+            "name": "latestFeedbackStatus",
+            "type": "INTEGER",
+            "description": "物流异常反馈最新反馈状态"
+          },
+          {
+            "name": "expectLatestPickTime",
+            "type": "INTEGER",
+            "description": "要求最晚揽收时间"
+          },
+          {
+            "name": "expressDeliverySn",
+            "type": "STRING",
+            "description": "快递单号"
+          },
+          {
+            "name": "deliveryOrderCancelLeftTime",
+            "type": "INTEGER",
+            "description": "发货单超时取消剩余时间,单位毫秒. 只针对非加急发货单,加急发货单(urgencyType=1)该字段为null"
+          },
+          {
+            "name": "deliveryAddressId",
+            "type": "INTEGER",
+            "description": "发货地址id"
+          },
+          {
+            "name": "expressWeightFeedbackStatus",
+            "type": "INTEGER",
+            "description": "运单计费重量异常状态. 可选值含义说明:[0:未定义（数据库默认值）或无异常;1:异常待确认;2:已提交异常反馈，待物流商处理;3:物流商处理完成;4:平台介入处理中;5:平台处理完成;6:卖家已确认;7:卖家超期自动确认;8:物流商介入处理，卖家确认或超时自动确认;9:结算消息驱动卖家确认;10:无需公示;11:结算物流单计算重量查询失败;12:结算理论计费重拦截;13:SKU重量体积拦截;]"
+          },
+          {
+            "name": "expressRejectStatus",
+            "type": "INTEGER",
+            "description": "物流单拒收状态 0-无拒收信息 1-存在拒收，待物流商处理 2-存在拒收，物流商已处理. 可选值含义说明:[0:无拒收信息;1:存在拒收，待物流商处理;2:存在拒收，物流商已处理;]"
+          },
+          {
+            "name": "packageReceiveInfoVOList",
+            "type": "LIST",
+            "description": "包裹收货信息（包裹收货时间）"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "receiveTime",
+            "type": "INTEGER",
+            "description": "收货时间"
+          },
+          {
+            "name": "packageSn",
+            "type": "STRING",
+            "description": "包裹号"
+          },
+          {
+            "name": "taxWarehouseApplyOperateType",
+            "type": "INTEGER",
+            "description": "入保税仓申请操作类型 0-不可操作 1-可申请 2-可查看"
+          },
+          {
+            "name": "productSkcId",
+            "type": "INTEGER",
+            "description": "skcId"
+          },
+          {
+            "name": "skcExtCode",
+            "type": "STRING",
+            "description": "skc货号信息"
+          },
+          {
+            "name": "inboundTime",
+            "type": "INTEGER",
+            "description": "发货单入库时间"
+          },
+          {
+            "name": "subWarehouseId",
+            "type": "INTEGER",
+            "description": "子仓id"
+          },
+          {
+            "name": "packageList",
+            "type": "LIST",
+            "description": "包裹列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "skcNum",
+            "type": "INTEGER",
+            "description": "skc数量"
+          },
+          {
+            "name": "packageSn",
+            "type": "STRING",
+            "description": "包裹号"
+          },
+          {
+            "name": "inventoryRegion",
+            "type": "INTEGER",
+            "description": "备货区域 1-国内备货，2-海外备货，3-保税仓备货"
+          },
+          {
+            "name": "deliverPackageNum",
+            "type": "INTEGER",
+            "description": "实发包裹数"
+          },
+          {
+            "name": "subPurchaseOrderSn",
+            "type": "STRING",
+            "description": "采购子单号"
+          },
+          {
+            "name": "driverName",
+            "type": "STRING",
+            "description": "司机姓名"
+          },
+          {
+            "name": "expressCompanyId",
+            "type": "INTEGER",
+            "description": "快递公司id"
+          },
+          {
+            "name": "defectiveSkcNum",
+            "type": "INTEGER",
+            "description": "次品skc数目"
+          },
+          {
+            "name": "status",
+            "type": "INTEGER",
+            "description": "状态"
+          },
+          {
+            "name": "expectPickUpGoodsTime",
+            "type": "INTEGER",
+            "description": "预约取货时间"
+          },
+          {
+            "name": "predictTotalPackageWeight",
+            "type": "INTEGER",
+            "description": "预估总包裹重量，单位g"
+          },
+          {
+            "name": "supplierId",
+            "type": "INTEGER",
+            "description": "供应商id"
+          },
+          {
+            "name": "isDisplayCourier",
+            "type": "BOOLEAN",
+            "description": "是否可以展示快递小哥联系方式，部分快递未接入"
+          },
+          {
+            "name": "deliveryMethod",
+            "type": "INTEGER",
+            "description": "发货方式. 可选值含义说明:[0:无;1:自送;2:公司指定物流;3:第三方物流;]"
+          },
+          {
+            "name": "isCustomProduct",
+            "type": "BOOLEAN",
+            "description": "是否为定制品 false-非定制品 true-定制品"
+          },
+          {
+            "name": "expressWeightFeedbackTip",
+            "type": "STRING",
+            "description": "运单计费重量异常提示文案 运单重量异常，待确认 \\"
+          },
+          {
+            "name": "exceptionFeedBackTotalCount",
+            "type": "INTEGER",
+            "description": "异常反馈总记录数"
+          },
+          {
+            "name": "otherDeliveryPackageNum",
+            "type": "INTEGER",
+            "description": "其他发货单的包裹数目"
+          },
+          {
+            "name": "purchaseStockType",
+            "type": "INTEGER",
+            "description": "备货类型 0-普通备货 1-jit备货"
+          },
+          {
+            "name": "ifCanOperateDeliver",
+            "type": "BOOLEAN",
+            "description": "是否可以操作发货"
+          },
+          {
+            "name": "receivePackageNum",
+            "type": "INTEGER",
+            "description": "实收包裹数"
+          },
+          {
+            "name": "isPrintBoxMark",
+            "type": "BOOLEAN",
+            "description": "是否打印箱唛"
+          },
+          {
+            "name": "expressCompany",
+            "type": "STRING",
+            "description": "快递公司名称"
+          },
+          {
+            "name": "isClothCategory",
+            "type": "BOOLEAN",
+            "description": "是否服饰类目"
+          },
+          {
+            "name": "deliveryOrderSn",
+            "type": "STRING",
+            "description": "发货单号"
+          },
+          {
+            "name": "deliverTime",
+            "type": "INTEGER",
+            "description": "发货单发货时间"
+          },
+          {
+            "name": "urgencyType",
+            "type": "INTEGER",
+            "description": "是否是紧急发货单，0-普通 1-急采"
+          },
+          {
+            "name": "expressBatchSn",
+            "type": "STRING",
+            "description": "发货批次号"
+          },
+          {
+            "name": "receiveAddressInfo",
+            "type": "OBJECT",
+            "description": "收货仓详细地址"
+          },
+          {
+            "name": "districtCode",
+            "type": "INTEGER",
+            "description": "区编码"
+          },
+          {
+            "name": "cityName",
+            "type": "STRING",
+            "description": "市"
+          },
+          {
+            "name": "districtName",
+            "type": "STRING",
+            "description": "区"
+          },
+          {
+            "name": "phone",
+            "type": "STRING",
+            "description": "联系电话"
+          },
+          {
+            "name": "provinceCode",
+            "type": "INTEGER",
+            "description": "省份编码"
+          },
+          {
+            "name": "cityCode",
+            "type": "INTEGER",
+            "description": "市编码"
+          },
+          {
+            "name": "receiverName",
+            "type": "STRING",
+            "description": "收货人"
+          },
+          {
+            "name": "detailAddress",
+            "type": "STRING",
+            "description": "详细地址"
+          },
+          {
+            "name": "provinceName",
+            "type": "STRING",
+            "description": "省"
+          },
+          {
+            "name": "plateNumber",
+            "type": "STRING",
+            "description": "车牌号"
+          },
+          {
+            "name": "receiveTime",
+            "type": "INTEGER",
+            "description": "发货单收货时间"
+          },
+          {
+            "name": "packageDetailList",
+            "type": "LIST",
+            "description": "包裹详情列表"
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "description": "-"
+          },
+          {
+            "name": "productSkuId",
+            "type": "INTEGER",
+            "description": "skuId"
+          },
+          {
+            "name": "productOriginalSkuId",
+            "type": "INTEGER",
+            "description": "原skuId"
+          },
+          {
+            "name": "personalText",
+            "type": "STRING",
+            "description": "定制内容"
+          },
+          {
+            "name": "skuNum",
+            "type": "INTEGER",
+            "description": "sku数量"
+          },
+          {
+            "name": "subPurchaseOrderBasicVO",
+            "type": "OBJECT",
+            "description": "采购单信息"
+          },
+          {
+            "name": "supplierId",
+            "type": "INTEGER",
+            "description": "供应商id"
+          },
+          {
+            "name": "isCustomProduct",
+            "type": "BOOLEAN",
+            "description": "是否为定制品"
+          },
+          {
+            "name": "productSkcPicture",
+            "type": "STRING",
+            "description": "货品图片"
+          },
+          {
+            "name": "isFirst",
+            "type": "BOOLEAN",
+            "description": "是否首单"
+          },
+          {
+            "name": "purchaseStockType",
+            "type": "INTEGER",
+            "description": "备货类型 0-普通备货 1-jit备货"
+          },
+          {
+            "name": "isClothCategory",
+            "type": "BOOLEAN",
+            "description": "是否服饰类目"
+          },
+          {
+            "name": "productSkcId",
+            "type": "INTEGER",
+            "description": "skcId"
+          },
+          {
+            "name": "settlementType",
+            "type": "INTEGER",
+            "description": "结算类型 0-非vmi 1-vmi"
+          },
+          {
+            "name": "skcExtCode",
+            "type": "STRING",
+            "description": "货号"
+          },
+          {
+            "name": "urgencyType",
+            "type": "INTEGER",
+            "description": "是否是紧急发货单，0-普通 1-急采"
+          },
+          {
+            "name": "subWarehouseId",
+            "type": "INTEGER",
+            "description": "子仓id"
+          },
+          {
+            "name": "fragileTag",
+            "type": "BOOLEAN",
+            "description": "易碎品打标"
+          },
+          {
+            "name": "purchaseQuantity",
+            "type": "INTEGER",
+            "description": "下单数量"
+          },
+          {
+            "name": "subWarehouseName",
+            "type": "STRING",
+            "description": "子仓名称"
+          },
+          {
+            "name": "subPurchaseOrderSn",
+            "type": "STRING",
+            "description": "采购子单号"
+          },
+          {
+            "name": "purchaseTime",
+            "type": "INTEGER",
+            "description": "下单时间：毫秒"
+          },
+          {
+            "name": "subWarehouseName",
+            "type": "STRING",
+            "description": "子仓名称"
+          },
+          {
+            "name": "purchaseTime",
+            "type": "INTEGER",
+            "description": "下单时间（时间戳：毫秒）"
+          },
+          {
+            "name": "skcPurchaseNum",
+            "type": "INTEGER",
+            "description": "下单数量"
+          },
+          {
+            "name": "deliverSkcNum",
+            "type": "INTEGER",
+            "description": "实发skc数目"
+          },
+          {
+            "name": "deliveryOrderCreateTime",
+            "type": "INTEGER",
+            "description": "发货单创建时间"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": []
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 8081,
+          "endLine": 8264,
+          "contentSha256": "8fb1634033fc08feb966852b900c5f9314154ea134d506d154690e7668bce28b"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_shiporderv2_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.shiporderv2.get` for this operation.",
+          "enum": [
+            "bg.shiporderv2.get"
+          ],
+          "default": "bg.shiporderv2.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "productSkcIdList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "skcId列表"
+        },
+        "isCustomProduct": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否为定制品 false-非定制品 true-定制品"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "每页记录数不能为空"
+        },
+        "expressDeliverySnList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "快递单号列表"
+        },
+        "expressWeightFeedbackStatus": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "运单计费重量异常状态 1-异常待确认 2-已提交异常反馈，待物流商处理 3-物流商处理完成 4-平台介入处理中 5-平台处理完成. 可选值含义说明:[0:未定义（数据库默认值）或无异常;1:异常待确认;2:已提交异常反馈，待物流商处理;3:物流商处理完成;4:平台介入处理中;5:平台处理完成;6:卖家已确认;7:卖家超期自动确认;8:物流商介入处理，卖家确认或超时自动确认;9:结算消息驱动卖家确认;10:无需公示;11:结算物流单计算重量查询失败;12:结算理论计费重拦截;13:SKU重量体积拦截;]"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "页号， 从1开始"
+        },
+        "isPrintBoxMark": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否已打印商品打包标签 0-未打印 1-已打印"
+        },
+        "targetDeliveryAddress": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "筛选项-发货地址（精准匹配）"
+        },
+        "onlyTaxWarehouseWaitApply": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "仅查看保税仓资料待上传"
+        },
+        "subWarehouseIdList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "收货子仓列表"
+        },
+        "subPurchaseOrderSnList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "子采购单号列表"
+        },
+        "latestFeedbackStatusList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "最新反馈状态列表 0-当前无异常 1-已提交 2-物流商处理中 4-已反馈 3-已撤销"
+        },
+        "urgencyType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否是紧急发货单，0-普通 1-急采"
+        },
+        "targetReceiveAddress": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "筛选项-收货地址（精准匹配）"
+        },
+        "deliverTimeFrom": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货时间-开始时间"
+        },
+        "skcExtCodeList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "货号列表"
+        },
+        "deliveryOrderSnList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "发货单号列表"
+        },
+        "inventoryRegion": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "备货区域 1-国内备货，2-海外备货，3-保税仓备货"
+        },
+        "deliverTimeTo": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货时间-结束时间"
+        },
+        "isVmi": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否是vmi 0-非VMI 1-VMI"
+        },
+        "sortType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "排序类型 0-创建时间最新在上 1-要求发货时间较早在上 2-按照仓库名称排序"
+        },
+        "isJit": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否是jit，true:jit"
+        },
+        "sortFieldName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "排序字段名"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货单状态 查询发货批次时仅支持查询发货单状态=1"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "pageSize",
+        "pageNo"
+      ]
+    },
+    "bg_shiporderv2_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "-"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "-"
+        },
+        "receiveSkcNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "实收skc数目"
+        },
+        "expressPackageNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "交接给快递公司的包裹数量"
+        },
+        "latestFeedbackStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "物流异常反馈最新反馈状态"
+        },
+        "expectLatestPickTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "要求最晚揽收时间"
+        },
+        "expressDeliverySn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "快递单号"
+        },
+        "deliveryOrderCancelLeftTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货单超时取消剩余时间,单位毫秒. 只针对非加急发货单,加急发货单(urgencyType=1)该字段为null"
+        },
+        "deliveryAddressId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货地址id"
+        },
+        "expressWeightFeedbackStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "运单计费重量异常状态. 可选值含义说明:[0:未定义（数据库默认值）或无异常;1:异常待确认;2:已提交异常反馈，待物流商处理;3:物流商处理完成;4:平台介入处理中;5:平台处理完成;6:卖家已确认;7:卖家超期自动确认;8:物流商介入处理，卖家确认或超时自动确认;9:结算消息驱动卖家确认;10:无需公示;11:结算物流单计算重量查询失败;12:结算理论计费重拦截;13:SKU重量体积拦截;]"
+        },
+        "expressRejectStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "物流单拒收状态 0-无拒收信息 1-存在拒收，待物流商处理 2-存在拒收，物流商已处理. 可选值含义说明:[0:无拒收信息;1:存在拒收，待物流商处理;2:存在拒收，物流商已处理;]"
+        },
+        "packageReceiveInfoVOList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "包裹收货信息（包裹收货时间）"
+        },
+        "receiveTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "收货时间"
+        },
+        "packageSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "包裹号"
+        },
+        "taxWarehouseApplyOperateType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "入保税仓申请操作类型 0-不可操作 1-可申请 2-可查看"
+        },
+        "productSkcId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "skcId"
+        },
+        "skcExtCode": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "skc货号信息"
+        },
+        "inboundTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货单入库时间"
+        },
+        "subWarehouseId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "子仓id"
+        },
+        "packageList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "包裹列表"
+        },
+        "skcNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "skc数量"
+        },
+        "inventoryRegion": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "备货区域 1-国内备货，2-海外备货，3-保税仓备货"
+        },
+        "deliverPackageNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "实发包裹数"
+        },
+        "subPurchaseOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "采购子单号"
+        },
+        "driverName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "司机姓名"
+        },
+        "expressCompanyId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "快递公司id"
+        },
+        "defectiveSkcNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "次品skc数目"
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "状态"
+        },
+        "expectPickUpGoodsTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "预约取货时间"
+        },
+        "predictTotalPackageWeight": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "预估总包裹重量，单位g"
+        },
+        "supplierId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "供应商id"
+        },
+        "isDisplayCourier": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否可以展示快递小哥联系方式，部分快递未接入"
+        },
+        "deliveryMethod": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货方式. 可选值含义说明:[0:无;1:自送;2:公司指定物流;3:第三方物流;]"
+        },
+        "isCustomProduct": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否为定制品 false-非定制品 true-定制品"
+        },
+        "expressWeightFeedbackTip": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "运单计费重量异常提示文案 运单重量异常，待确认 \\"
+        },
+        "exceptionFeedBackTotalCount": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "异常反馈总记录数"
+        },
+        "otherDeliveryPackageNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "其他发货单的包裹数目"
+        },
+        "purchaseStockType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "备货类型 0-普通备货 1-jit备货"
+        },
+        "ifCanOperateDeliver": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否可以操作发货"
+        },
+        "receivePackageNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "实收包裹数"
+        },
+        "isPrintBoxMark": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否打印箱唛"
+        },
+        "expressCompany": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "快递公司名称"
+        },
+        "isClothCategory": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否服饰类目"
+        },
+        "deliveryOrderSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "发货单号"
+        },
+        "deliverTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货单发货时间"
+        },
+        "urgencyType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "是否是紧急发货单，0-普通 1-急采"
+        },
+        "expressBatchSn": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "发货批次号"
+        },
+        "receiveAddressInfo": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "收货仓详细地址"
+        },
+        "districtCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "区编码"
+        },
+        "cityName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "市"
+        },
+        "districtName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "区"
+        },
+        "phone": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "联系电话"
+        },
+        "provinceCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "省份编码"
+        },
+        "cityCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "市编码"
+        },
+        "receiverName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "收货人"
+        },
+        "detailAddress": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "详细地址"
+        },
+        "provinceName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "省"
+        },
+        "plateNumber": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "车牌号"
+        },
+        "packageDetailList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "包裹详情列表"
+        },
+        "productSkuId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "skuId"
+        },
+        "productOriginalSkuId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "原skuId"
+        },
+        "personalText": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "定制内容"
+        },
+        "skuNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "sku数量"
+        },
+        "subPurchaseOrderBasicVO": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "采购单信息"
+        },
+        "productSkcPicture": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "货品图片"
+        },
+        "isFirst": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "是否首单"
+        },
+        "settlementType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "结算类型 0-非vmi 1-vmi"
+        },
+        "fragileTag": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "易碎品打标"
+        },
+        "purchaseQuantity": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "下单数量"
+        },
+        "subWarehouseName": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "子仓名称"
+        },
+        "purchaseTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "下单时间：毫秒"
+        },
+        "skcPurchaseNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "下单数量"
+        },
+        "deliverSkcNum": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "实发skc数目"
+        },
+        "deliveryOrderCreateTime": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "发货单创建时间"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 8081,
+    "endLine": 8264,
+    "contentSha256": "8fb1634033fc08feb966852b900c5f9314154ea134d506d154690e7668bce28b"
+  },
+  "x-temu-api-type": "bg.shiporderv2.get",
+  "x-temu-region-module": "temu-cn-api"
+}

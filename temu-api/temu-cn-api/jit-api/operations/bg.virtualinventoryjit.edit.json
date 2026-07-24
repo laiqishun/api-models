@@ -1,0 +1,331 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "JIT - bg.virtualinventoryjit.edit",
+    "description": "用于更新jit商品的库存",
+    "version": "2025-12-10 17:07:34"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "JIT"
+        ],
+        "operationId": "bg_virtualinventoryjit_edit",
+        "summary": "虚拟库存编辑",
+        "description": "用于更新jit商品的库存",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.virtualinventoryjit.edit`.",
+            "schema": {
+              "$ref": "#/definitions/bg_virtualinventoryjit_editRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_virtualinventoryjit_editResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.virtualinventoryjit.edit",
+        "x-temu-region-module": "temu-cn-api",
+        "x-temu-group": {
+          "title": "JIT",
+          "sourceTitle": "JIT组",
+          "directory": "jit-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "/openapi/router",
+          "routerTypeParameter": "type",
+          "note": "CN source tables state /openapi/router. Use the CN host configured for the seller application."
+        },
+        "x-temu-endpoint-table": [
+          {
+            "调用地址/地区": "/openapi/router",
+            "数据存储": "CN"
+          }
+        ],
+        "x-temu-last-update-time": "2025-12-10 17:07:34",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API接口名, 形如:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true,
+            "description": "已创建成功的应用标志"
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true,
+            "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "请求返回的数据格式，可选参数固定为JSON"
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": true,
+            "description": "API版本，默认为V1，无要求不传此参数"
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "skuVirtualStockChangeList",
+            "type": "LIST",
+            "required": true,
+            "description": "虚拟库存模式下使用，虚拟库存调整信息."
+          },
+          {
+            "name": "$item",
+            "type": "OBJECT",
+            "required": false,
+            "description": "-"
+          },
+          {
+            "name": "virtualStockDiff",
+            "type": "INTEGER",
+            "required": true,
+            "description": "虚拟库存(含商家自管库存)变更，大于0代表增加，小于0代表减少"
+          },
+          {
+            "name": "productSkuId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "货品 SKU ID."
+          },
+          {
+            "name": "productSkcId",
+            "type": "INTEGER",
+            "required": true,
+            "description": "货品SKC ID."
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "result"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "status"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "返回错误码说明",
+            "rows": [
+              {
+                "错误码": "2000037",
+                "错误描述": "商品正在活动促销中，不允许库存调减",
+                "解决办法": "商品正在活动促销中，不允许库存调减"
+              },
+              {
+                "错误码": "2000038",
+                "错误描述": "库存不允许减少",
+                "解决办法": "商家不能减少库存"
+              },
+              {
+                "错误码": "23000001",
+                "错误描述": "当前暂不可添加预售库存，建议备货以实物库存销售",
+                "解决办法": "当前暂不可添加预售库存，建议备货以实物库存销售"
+              }
+            ]
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu CN API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+          "startLine": 13503,
+          "endLine": 13567,
+          "contentSha256": "fc7a8660377aad50b0990057837252a1040d8215d79954d4fb0f73aa6a8ba1a5"
+        },
+        "x-temu-deduplicated-sources": [
+          {
+            "document": "Temu CN API文档.md",
+            "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+            "startLine": 13503,
+            "endLine": 13567,
+            "contentSha256": "fc7a8660377aad50b0990057837252a1040d8215d79954d4fb0f73aa6a8ba1a5"
+          },
+          {
+            "document": "Temu CN API文档.md",
+            "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+            "startLine": 2810,
+            "endLine": 2872,
+            "contentSha256": "fc7a8660377aad50b0990057837252a1040d8215d79954d4fb0f73aa6a8ba1a5"
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "bg_virtualinventoryjit_editRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API接口名, 形如:bg.* Must be `bg.virtualinventoryjit.edit` for this operation.",
+          "enum": [
+            "bg.virtualinventoryjit.edit"
+          ],
+          "default": "bg.virtualinventoryjit.edit"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "已创建成功的应用标志"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "时间戳，格式为UNIX时间（秒） ，长度10位，当前时间-300秒<=入参时间<=当前时间+300秒"
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API入参参数签名，签名值根据如下算法给出计算过程"
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "请求返回的数据格式，可选参数固定为JSON"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "用户授权令牌access_token，卖家中心—授权管理，申请授权生成"
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API版本，默认为V1，无要求不传此参数"
+        },
+        "skuVirtualStockChangeList": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          },
+          "x-temu-type": "LIST",
+          "description": "虚拟库存模式下使用，虚拟库存调整信息."
+        },
+        "virtualStockDiff": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "虚拟库存(含商家自管库存)变更，大于0代表增加，小于0代表减少"
+        },
+        "productSkuId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "货品 SKU ID."
+        },
+        "productSkcId": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "货品SKC ID."
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "timestamp",
+        "sign",
+        "access_token",
+        "version",
+        "skuVirtualStockChangeList",
+        "virtualStockDiff",
+        "productSkuId",
+        "productSkcId"
+      ]
+    },
+    "bg_virtualinventoryjit_editResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "result"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "status"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu CN API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu CN API文档.md",
+    "startLine": 13503,
+    "endLine": 13567,
+    "contentSha256": "fc7a8660377aad50b0990057837252a1040d8215d79954d4fb0f73aa6a8ba1a5"
+  },
+  "x-temu-api-type": "bg.virtualinventoryjit.edit",
+  "x-temu-region-module": "temu-cn-api"
+}

@@ -1,0 +1,508 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Order - bg.order.list.v2.get",
+    "description": "The bg.order.list.v2.get interface is designed for support batch return of corresponding order lists based on filtering criteria.",
+    "version": "2025-11-24 21:28:55"
+  },
+  "host": "openapi-b-us.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "bg_order_list_v2_get",
+        "summary": "The bg.order.list.v2.get interface is designed for support batch return of corresponding order lists based on filtering criteria.",
+        "description": "The bg.order.list.v2.get interface is designed for support batch return of corresponding order lists based on filtering criteria.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.order.list.v2.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_order_list_v2_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_order_list_v2_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.order.list.v2.get",
+        "x-temu-region-module": "temu-us-api",
+        "x-temu-group": {
+          "title": "Order",
+          "sourceTitle": "3、Order",
+          "directory": "order-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-us.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-us.temu.com/openapi/router",
+            "Site Region": "US"
+          }
+        ],
+        "x-temu-audience": [
+          "Cross Border",
+          "Local"
+        ],
+        "x-temu-last-update-time": "2025-11-24 21:28:55",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "request",
+            "type": "OBJECT",
+            "required": false
+          },
+          {
+            "name": "pageNumber",
+            "type": "INTEGER",
+            "required": false,
+            "description": "Page number for pagination, default is 1."
+          },
+          {
+            "name": "pageSize",
+            "type": "INTEGER",
+            "required": false,
+            "description": "Page size for pagination, default is 10, max is 100."
+          },
+          {
+            "name": "parentOrderStatus",
+            "type": "INTEGER",
+            "required": false,
+            "description": "Parent order status, default is to query all. Enum values: 0 :All, 1 :PENDING, Pending status 2 :UN_SHIPPING, Awaiting shipment 3 :CANCELED, Order canceled, 4 :SHIPPED, Order shipped, 5 : RECEIPTED, Order received 41: Partially shipped(only for local mall), 51 :Partially received(only for local mall)."
+          },
+          {
+            "name": "parentOrderSnList",
+            "type": "STRING[]",
+            "required": false,
+            "description": "List of parent order numbers, max 20 per request."
+          },
+          {
+            "name": "createAfter",
+            "type": "INTEGER",
+            "required": false,
+            "description": "Start time for querying parent order creation, in seconds(timestamp). Defines the starting range of the creation time when querying parent orders. -Must be used in conjunction with createBefore."
+          },
+          {
+            "name": "createBefore",
+            "type": "INTEGER",
+            "required": false,
+            "description": "End time for querying parent order creation, in seconds(timestamp). Defines the ending range (closed interval) of the creation time when querying parent orders. -Must be used in conjunction with createAfter."
+          },
+          {
+            "name": "expectShipLatestTimeStart",
+            "type": "INTEGER",
+            "required": false,
+            "description": "Start time for querying expected latest shipment, in seconds."
+          },
+          {
+            "name": "expectShipLatestTimeEnd",
+            "type": "INTEGER",
+            "required": false,
+            "description": "End time for querying expected latest shipment, in seconds."
+          },
+          {
+            "name": "updateAtStart",
+            "type": "INTEGER",
+            "required": false,
+            "description": "Start time for querying order update, in seconds(timestamp). Defines the starting range of the status change time when querying parent orders. -Must be used in conjunction with updateAtEnd."
+          },
+          {
+            "name": "updateAtEnd",
+            "type": "INTEGER",
+            "required": false,
+            "description": "End time for querying order update, in seconds(timestamp). Defines the ending range (closed interval) of the status change time when querying parent orders. -Must be used in conjunction with updateAtStart."
+          },
+          {
+            "name": "parentConfirmTimeStart",
+            "type": "INTEGER",
+            "required": false,
+            "description": "- Query the confirmed start time of the parentorder, with the input parameter in seconds (timestamp) - Define the starting range for the final confirmation time when querying the parentorder - Must be used together with parentConfirmTimeEnd"
+          },
+          {
+            "name": "parentConfirmTimeEnd",
+            "type": "INTEGER",
+            "required": false,
+            "description": "-Query the confirmation end time of the parentorder in seconds (timestamp) as a parameter -Define the end range of confirmation time when querying parentorder -Must be used together with parentConfirmTimeStart"
+          },
+          {
+            "name": "regionId",
+            "type": "LONG",
+            "required": false,
+            "description": "Region ID, e.g., USA - 211."
+          },
+          {
+            "name": "fulfillmentTypeList",
+            "type": "STRING[]",
+            "required": false,
+            "description": "the type of order fulfillment.enum values: fulfillBySeller :fulfill by seller, fulfillByCooperativeWarehouse : fulfill by CooperativeWarehouse."
+          },
+          {
+            "name": "parentOrderLabel",
+            "type": "STRING[]",
+            "required": false,
+            "description": "List of PO order status labels: soon_to_be_overdue past_due pending_buyer_cancellation pending_buyer_address_change pending_risk_control_alert signature_required_on_delivery"
+          },
+          {
+            "name": "sortby",
+            "type": "STRING",
+            "required": false,
+            "description": "Sort by, output in reverse order. By default, the order creation time is used. The corresponding enumeration is:updateTime,createTime."
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "response",
+            "type": "OBJECT"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "success"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "140020012",
+                "Error Message": "parentConfirmTimeEnd needs to be greater than the parentConfirmTimeStart",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "140020013",
+                "Error Message": "{*} not passed in",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "140020014",
+                "Error Message": "The format of {*} is inaccurate and requires a second level timestamp",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "140020001",
+                "Error Message": "This interface does not support cross-border sellers. Please check whether the store bound to the token is a SEMI or LOCAL store!",
+                "Error SOP": ""
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Semi Order Management",
+                "App type": "public"
+              },
+              {
+                "Permission Package": "Local Order Management",
+                "App type": "private,public"
+              },
+              {
+                "Permission Package": "Semi Seller in House System Management",
+                "App type": "private"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-us.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"pageNumber\" : 1,\n  \"parentOrderLabel\" : [ \"test\", \"test\" ],\n  \"createAfter\" : 1,\n  \"sign\" : \"test\",\n  \"pageSize\" : 1,\n  \"updateAtStart\" : 1,\n  \"type\" : \"test\",\n  \"version\" : \"test\",\n  \"expectShipLatestTimeStart\" : 1,\n  \"expectShipLatestTimeEnd\" : 1,\n  \"access_token\" : \"test\",\n  \"parentOrderSnList\" : [ \"test\", \"test\" ],\n  \"app_key\" : \"test\",\n  \"createBefore\" : 1,\n  \"parentConfirmTimeStart\" : 1,\n  \"updateAtEnd\" : 1,\n  \"regionId\" : 1,\n  \"fulfillmentTypeList\" : [ \"test\", \"test\" ],\n  \"data_type\" : \"test\",\n  \"parentConfirmTimeEnd\" : 1,\n  \"sortby\" : \"test\",\n  \"parentOrderStatus\" : 1,\n  \"timestamp\" : \"test\"\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\": {\n    \"totalItemNum\": 1,\n    \"pageItems\": [\n      {\n        \"parentOrderMap\": {\n          \"parentOrderLabel\": [\n            {\n              \"name\": \"test\",\n              \"value\": 1\n            }\n          ],\n          \"shippingMethod\": 1,\n          \"parentShippingTime\": 1,\n          \"updateTime\": 1,\n          \"latestDeliveryTime\": 1,\n          \"isShipmentConsolidatedByMainMall\": true,\n          \"parentConfirmTime\": 1,\n          \"fulfillmentWarning\": [\n            \"test\",\n            \"test\"\n          ],\n          \"parentOrderTime\": 1,\n          \"orderPaymentType\": \"test\",\n          \"batchOrderNumberList\": [\n            \"test\",\n            \"test\"\n          ],\n          \"regionId\": 1,\n          \"parentOrderSn\": \"test\",\n          \"parentOrderPendingFinishTime\": 1,\n          \"siteId\": 1,\n          \"expectShipLatestTime\": 1,\n          \"parentOrderStatus\": 1,\n          \"hasShippingFee\": true\n        },\n        \"orderList\": [\n          {\n            \"orderSn\": \"test\",\n            \"goodsId\": 1,\n            \"orderLabel\": [\n              {\n                \"name\": \"test\",\n                \"value\": 1\n              }\n            ],\n            \"orderStatus\": 1,\n            \"isShipmentConsolidatedByMainMall\": true,\n            \"fulfillmentType\": \"test\",\n            \"isCancelledDuringPending\": true,\n            \"spec\": \"test\",\n            \"orderPaymentType\": \"test\",\n            \"earliestTimeBuyShippingLabel\": 1,\n            \"thumbUrl\": \"test\",\n            \"goodsName\": \"test\",\n            \"skuId\": 1,\n            \"canceledQuantityBeforeShipment\": 1,\n            \"quantity\": 1,\n            \"earliestTimeGetShippingDocument\": 1,\n            \"orderCreateTime\": 1,\n            \"inventoryDeductionWarehouseId\": \"test\",\n            \"originalGoodsName\": \"test\",\n            \"fulfillmentWarning\": [\n              \"test\",\n              \"test\"\n            ],\n            \"originalSpecName\": \"test\",\n            \"originalOrderQuantity\": 1,\n            \"inventoryDeductionWarehouseName\": \"test\",\n            \"productList\": [\n              {\n                \"productSkuId\": 1,\n                \"soldFactor\": 1,\n                \"extCode\": \"test\",\n                \"productId\": 1\n              }\n            ],\n            \"orderShippingTime\": 1\n          }\n        ]\n      }\n    ]\n  },\n  \"errorCode\": 1,\n  \"success\": true,\n  \"errorMsg\": \"test\"\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu美国本土API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu美国本土API文档.md",
+          "startLine": 9779,
+          "endLine": 10010,
+          "contentSha256": "a48bb7ee67bcdf03240a67e70b71d35737057ac0abffb6b37fbb8f1eafe0ad36"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_order_list_v2_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `bg.order.list.v2.get` for this operation.",
+          "enum": [
+            "bg.order.list.v2.get"
+          ],
+          "default": "bg.order.list.v2.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "pageNumber": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Page number for pagination, default is 1."
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Page size for pagination, default is 10, max is 100."
+        },
+        "parentOrderStatus": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Parent order status, default is to query all. Enum values: 0 :All, 1 :PENDING, Pending status 2 :UN_SHIPPING, Awaiting shipment 3 :CANCELED, Order canceled, 4 :SHIPPED, Order shipped, 5 : RECEIPTED, Order received 41: Partially shipped(only for local mall), 51 :Partially received(only for local mall)."
+        },
+        "parentOrderSnList": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-temu-type": "STRING"
+          },
+          "x-temu-type": "STRING[]",
+          "description": "List of parent order numbers, max 20 per request."
+        },
+        "createAfter": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Start time for querying parent order creation, in seconds(timestamp). Defines the starting range of the creation time when querying parent orders. -Must be used in conjunction with createBefore."
+        },
+        "createBefore": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "End time for querying parent order creation, in seconds(timestamp). Defines the ending range (closed interval) of the creation time when querying parent orders. -Must be used in conjunction with createAfter."
+        },
+        "expectShipLatestTimeStart": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Start time for querying expected latest shipment, in seconds."
+        },
+        "expectShipLatestTimeEnd": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "End time for querying expected latest shipment, in seconds."
+        },
+        "updateAtStart": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Start time for querying order update, in seconds(timestamp). Defines the starting range of the status change time when querying parent orders. -Must be used in conjunction with updateAtEnd."
+        },
+        "updateAtEnd": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "End time for querying order update, in seconds(timestamp). Defines the ending range (closed interval) of the status change time when querying parent orders. -Must be used in conjunction with updateAtStart."
+        },
+        "parentConfirmTimeStart": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "- Query the confirmed start time of the parentorder, with the input parameter in seconds (timestamp) - Define the starting range for the final confirmation time when querying the parentorder - Must be used together with parentConfirmTimeEnd"
+        },
+        "parentConfirmTimeEnd": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "-Query the confirmation end time of the parentorder in seconds (timestamp) as a parameter -Define the end range of confirmation time when querying parentorder -Must be used together with parentConfirmTimeStart"
+        },
+        "regionId": {
+          "type": "integer",
+          "format": "int64",
+          "x-temu-type": "LONG",
+          "description": "Region ID, e.g., USA - 211."
+        },
+        "fulfillmentTypeList": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-temu-type": "STRING"
+          },
+          "x-temu-type": "STRING[]",
+          "description": "the type of order fulfillment.enum values: fulfillBySeller :fulfill by seller, fulfillByCooperativeWarehouse : fulfill by CooperativeWarehouse."
+        },
+        "parentOrderLabel": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-temu-type": "STRING"
+          },
+          "x-temu-type": "STRING[]",
+          "description": "List of PO order status labels: soon_to_be_overdue past_due pending_buyer_cancellation pending_buyer_address_change pending_risk_control_alert signature_required_on_delivery"
+        },
+        "sortby": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Sort by, output in reverse order. By default, the order creation time is used. The corresponding enumeration is:updateTime,createTime."
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp"
+      ]
+    },
+    "bg_order_list_v2_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "response": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "success"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu美国本土API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu美国本土API文档.md",
+    "startLine": 9779,
+    "endLine": 10010,
+    "contentSha256": "a48bb7ee67bcdf03240a67e70b71d35737057ac0abffb6b37fbb8f1eafe0ad36"
+  },
+  "x-temu-api-type": "bg.order.list.v2.get",
+  "x-temu-region-module": "temu-us-api"
+}

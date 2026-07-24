@@ -1,0 +1,347 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Product - bg.local.goods.property.relations",
+    "description": "Query the relational database data associated with goods, such as vehicle library.",
+    "version": "2025-07-03 11:51:25"
+  },
+  "host": "openapi-b-us.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Product"
+        ],
+        "operationId": "bg_local_goods_property_relations",
+        "summary": "Query the relational database data associated with goods, such as vehicle library.",
+        "description": "Query the relational database data associated with goods, such as vehicle library.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.local.goods.property.relations`.",
+            "schema": {
+              "$ref": "#/definitions/bg_local_goods_property_relationsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_local_goods_property_relationsResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.local.goods.property.relations",
+        "x-temu-region-module": "temu-us-api",
+        "x-temu-group": {
+          "title": "Product",
+          "sourceTitle": "1、Product",
+          "directory": "product-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-us.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-us.temu.com/openapi/router",
+            "Site Region": "US"
+          }
+        ],
+        "x-temu-audience": [
+          "Local"
+        ],
+        "x-temu-last-update-time": "2025-07-03 11:51:25",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "request",
+            "type": "OBJECT",
+            "required": false
+          },
+          {
+            "name": "relationType",
+            "type": "INTEGER",
+            "required": true,
+            "description": "For relation type, select \"1\" to query the database of compatible vehicle models."
+          },
+          {
+            "name": "goodsId",
+            "type": "LONG",
+            "required": true,
+            "description": "goods id"
+          },
+          {
+            "name": "relationId",
+            "type": "LONG",
+            "required": true,
+            "description": "The compatible vehicle models of different countries and categories are different. You can use relation id, the Id for compatible vehicle models database, to query."
+          },
+          {
+            "name": "queryLastVersion",
+            "type": "BOOLEAN",
+            "required": true,
+            "description": "query last version: True, return the latest product version query last version: False, return the active product version first. if there is no active version, the latest product version will be returned."
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "response",
+            "type": "OBJECT"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "Specific information"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "success"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "150010003",
+                "Error Message": "Invalid Request Parameters",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "150010213",
+                "Error Message": "The goods property relation not exist",
+                "Error SOP": ""
+              },
+              {
+                "Error Code": "150010210",
+                "Error Message": "The property value id is not exist",
+                "Error SOP": ""
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Local Product Management",
+                "App type": "private,public"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-us.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"relationType\" : 1,\n  \"app_key\" : \"test\",\n  \"goodsId\" : 1,\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"relationId\" : 1,\n  \"type\" : \"test\",\n  \"version\" : \"test\",\n  \"queryLastVersion\" : true,\n  \"timestamp\" : \"test\"\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\": {\n    \"relationType\": 1,\n    \"goodsLinkPropValList\": [\n      {\n        \"goodsPropValList\": [\n          {\n            \"propertyValue\": \"test\",\n            \"propValDepId\": 1\n          }\n        ]\n      }\n    ],\n    \"relationId\": 1\n  },\n  \"errorCode\": 1,\n  \"success\": true,\n  \"errorMsg\": \"test\"\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu美国本土API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu美国本土API文档.md",
+          "startLine": 7278,
+          "endLine": 7414,
+          "contentSha256": "ec984a4a8ff7f58f681319e1083584642c5b010ede40765a4f58ced8631c83e4"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_local_goods_property_relationsRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `bg.local.goods.property.relations` for this operation.",
+          "enum": [
+            "bg.local.goods.property.relations"
+          ],
+          "default": "bg.local.goods.property.relations"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "relationType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "For relation type, select \"1\" to query the database of compatible vehicle models."
+        },
+        "goodsId": {
+          "type": "integer",
+          "format": "int64",
+          "x-temu-type": "LONG",
+          "description": "goods id"
+        },
+        "relationId": {
+          "type": "integer",
+          "format": "int64",
+          "x-temu-type": "LONG",
+          "description": "The compatible vehicle models of different countries and categories are different. You can use relation id, the Id for compatible vehicle models database, to query."
+        },
+        "queryLastVersion": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "query last version: True, return the latest product version query last version: False, return the active product version first. if there is no active version, the latest product version will be returned."
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp",
+        "relationType",
+        "goodsId",
+        "relationId",
+        "queryLastVersion"
+      ]
+    },
+    "bg_local_goods_property_relationsResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "response": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Specific information"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "success"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu美国本土API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu美国本土API文档.md",
+    "startLine": 7278,
+    "endLine": 7414,
+    "contentSha256": "ec984a4a8ff7f58f681319e1083584642c5b010ede40765a4f58ced8631c83e4"
+  },
+  "x-temu-api-type": "bg.local.goods.property.relations",
+  "x-temu-region-module": "temu-us-api"
+}

@@ -1,0 +1,374 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Order - bg.order.customization.get",
+    "description": "Self developed sellers and third-party ISVs obtain customized product content information in bulk through Open API",
+    "version": "2025-07-11 10:26:09"
+  },
+  "host": "openapi-b-eu.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "operationId": "bg_order_customization_get",
+        "summary": "Self developed sellers and third-party ISVs obtain customized product content information in bulk through Open API",
+        "description": "Self developed sellers and third-party ISVs obtain customized product content information in bulk through Open API",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `bg.order.customization.get`.",
+            "schema": {
+              "$ref": "#/definitions/bg_order_customization_getRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/bg_order_customization_getResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "bg.order.customization.get",
+        "x-temu-region-module": "temu-eu-api",
+        "x-temu-group": {
+          "title": "Order",
+          "sourceTitle": "3、Order",
+          "directory": "order-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-eu.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-eu.temu.com/openapi/router",
+            "Site Region": "EU"
+          }
+        ],
+        "x-temu-audience": [
+          "Cross Border",
+          "Local"
+        ],
+        "x-temu-last-update-time": "2025-07-11 10:26:09",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "request",
+            "type": "OBJECT",
+            "required": false
+          },
+          {
+            "name": "orderSnList",
+            "type": "STRING[]",
+            "required": false,
+            "description": "orderSnList, up to 10 orders can be queried at once"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "response",
+            "type": "OBJECT"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT[]"
+          },
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "success"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "error message"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "120020001",
+                "Error Message": "API service exception, please try again later.",
+                "Error SOP": "API service exception, please try again later."
+              },
+              {
+                "Error Code": "120020002",
+                "Error Message": "Invalid request.",
+                "Error SOP": "Please check the request parameters."
+              },
+              {
+                "Error Code": "120020003",
+                "Error Message": "There are no orderSns in body.",
+                "Error SOP": "Please pass the correct orderSns value."
+              },
+              {
+                "Error Code": "120020004",
+                "Error Message": "The passed OrderSns value do not contain a custom type order.",
+                "Error SOP": "Please pass the correct custom product orderSn value."
+              },
+              {
+                "Error Code": "120020005",
+                "Error Message": "OrderSns are invalid.",
+                "Error SOP": "OrderSns are invalid, please have a check."
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Semi Seller in House System Management",
+                "App type": "private"
+              },
+              {
+                "Permission Package": "Semi Order Management",
+                "App type": "public"
+              },
+              {
+                "Permission Package": "Local Order Management",
+                "App type": "private,public"
+              }
+            ]
+          },
+          {
+            "label": "- The total amount seller may be received = Base price * Quantity + Shipping Amount Total + Tax Total After Discount - Estimated Revenue Deduction.",
+            "rows": [
+              {
+                "Fields": "`basePrice`",
+                "Meaning": "One of the amounts that the seller can receive, representing the actual amount the seller gets for the sold item"
+              },
+              {
+                "Fields": "`shippingAmountTotal`",
+                "Meaning": "One of the amounts a seller can receive, representing the shipping fee income the seller gets from selling the item"
+              },
+              {
+                "Fields": "`taxTotal`",
+                "Meaning": "United States: Because Temu does not collect and pay taxes on behalf of the seller, the seller cannot receive this amount.Europe: In Europe, sellers report their own taxes, so they can receive this amount."
+              },
+              {
+                "Fields": "`taxTotalAfterDiscount`",
+                "Meaning": "For taxes, the discount on the order sales amount will affect the tax amount, so this field represents the total tax amount after the discount"
+              },
+              {
+                "Fields": "`discountFromSeller`",
+                "Meaning": "Discount amount from the seller"
+              },
+              {
+                "Fields": "`discountFromTemu`",
+                "Meaning": "The discount amount from Temu"
+              },
+              {
+                "Fields": "`estimatedRevenue`",
+                "Meaning": "The estimated total amount the seller can receive`estimatedRevenue`= `basePrice` × `quantity`+ `shippingAmountTotal`+ `taxTotalAfterDiscount`- `estimatedRevenueDeduction`"
+              },
+              {
+                "Fields": "Amount actually paid by the consumer",
+                "Meaning": "Amount actually paid by the consumer= `unitRetailPriceVatExcl` × `quantity`+ `taxTotal`+ `shippingAmountTotal`- `discountFromSeller`- `discountFromTemu`- `refundsTotal`"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-eu.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"app_key\" : \"test\",\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"type\" : \"test\",\n  \"version\" : \"test\",\n  \"orderSnList\" : [ \"test\", \"test\" ],\n  \"timestamp\" : \"test\"\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\": [\n    {\n      \"templateType\": 1,\n      \"previewList\": [\n        {\n          \"customizedText\": \"test\",\n          \"customizedAreaId\": \"test\",\n          \"previewType\": 1,\n          \"imageUrl\": \"test\"\n        }\n      ],\n      \"customizedData\": \"test\",\n      \"orderSn\": \"test\",\n      \"customizedText\": \"test\",\n      \"templateId\": 1,\n      \"customizedType\": 1\n    }\n  ],\n  \"errorCode\": 1,\n  \"success\": true,\n  \"errorMsg\": \"test\"\n}",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n \"errorCode\": 1000000,\n \"errorMsg\": \"\",\n \"requestId\": \"eu-4950f054-a0d8-4d7b-897e-7882c88b2338\",\n \"result\": {\n  \"orderList\": [\n   {\n    \"basePrice\": {\n     \"amount\": 1000,\n     \"currency\": \"EUR\"\n    },\n    \"orderSn\": \"076-06583468577830550\",\n    \"quantity\": 1,\n    \"unitBasePrice\": {\n     \"amount\": 1000,\n     \"currency\": \"EUR\"\n    },\n    \"unitRetailPriceVatExcl\": {\n     \"amount\": 1122,\n     \"currency\": \"EUR\"\n    },\n    \"unitRetailPriceVatIncl\": {\n     \"amount\": 1335,\n     \"currency\": \"EUR\"\n    }\n   }\n  ],\n  \"parentOrderMap\": {\n   \"basePriceTotal\": {\n    \"amount\": 1000,\n    \"currency\": \"EUR\"\n   },\n   \"discountFromSeller\": {\n    \"amount\": 0,\n    \"currency\": \"EUR\"\n   },\n   \"discountFromTEMU\": {\n    \"amount\": 0,\n    \"currency\": \"EUR\"\n   },\n   \"estimatedRevenue\": {\n    \"amount\": 1512,\n    \"currency\": \"EUR\"\n   },\n   \"estimatedRevenueDeduction\": {\n    \"amount\": 0,\n    \"currency\": \"EUR\"\n   },\n   \"parentOrderSn\": \"PO-076-06583510520870550\",\n   \"refundsTotal\": {\n    \"amount\": null,\n    \"currency\": \"EUR\"\n   },\n   \"shippingAmountTotal\": {\n    \"amount\": 251,\n    \"currency\": \"EUR\"\n   },\n   \"taxTotal\": {\n    \"amount\": 261,\n    \"currency\": \"EUR\"\n   },\n   \"taxTotalAfterDiscount\": {\n    \"amount\": 261,\n    \"currency\": \"EUR\"\n   }\n  }\n },\n \"success\": true\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu欧洲本土API文档.md",
+          "path": "C:\\Users\\Administrator\\Downloads\\Temu欧洲本土API文档.md",
+          "startLine": 9782,
+          "endLine": 10049,
+          "contentSha256": "72af51bc7ef0ac9ca4ae415865fa761427922ea1d74962701bc31228643ceb33"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "bg_order_customization_getRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `bg.order.customization.get` for this operation.",
+          "enum": [
+            "bg.order.customization.get"
+          ],
+          "default": "bg.order.customization.get"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "request": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "orderSnList": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-temu-type": "STRING"
+          },
+          "x-temu-type": "STRING[]",
+          "description": "orderSnList, up to 10 orders can be queried at once"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp"
+      ]
+    },
+    "bg_order_customization_getResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "response": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT"
+        },
+        "result": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "x-temu-type": "OBJECT"
+          },
+          "x-temu-type": "OBJECT[]"
+        },
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "success"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "error message"
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu欧洲本土API文档.md",
+    "path": "C:\\Users\\Administrator\\Downloads\\Temu欧洲本土API文档.md",
+    "startLine": 9782,
+    "endLine": 10049,
+    "contentSha256": "72af51bc7ef0ac9ca4ae415865fa761427922ea1d74962701bc31228643ceb33"
+  },
+  "x-temu-api-type": "bg.order.customization.get",
+  "x-temu-region-module": "temu-eu-api"
+}
