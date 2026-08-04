@@ -17,7 +17,7 @@ description: "US order search, detail, shipping-address, customization, consolid
 - 查可合并发货订单组：`bg.order.combinedshipment.list.get`
 - 缺货取消或取消申诉：使用对应 `temu.order.cancel.*` 提交接口，再调用 result 接口轮询异步结果
 
-库存不足但尚未确定取消时，不要用订单取消接口代替 [CN 半托库存更新](../../temu-cn-api/inventory-api-pa/README.md)。
+库存不足但尚未确定取消时，不要用订单取消接口代替 [CN 半托库存更新](../../temu-cn-api/inventory-api/README.md)。
 
 ## API List
 

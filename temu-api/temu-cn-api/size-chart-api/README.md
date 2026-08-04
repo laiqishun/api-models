@@ -1,15 +1,16 @@
 # Size Chart API
 
-Source group: `尺码表API组`.
+Source groups: `尺码表API组`, `尺码表API组-PA`.
 
 ## 使用范围
 
-CN 尺码表分类、模板、创建与图片识别（size chart）。
+尺码表创建、模板、元信息与图片识别仍在 CN；货品尺码表编辑走 Partner。调用前按 operation 的 host/`x-temu-migration` 选择对应 token。
 
 先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
 
 ## API List
 
+- [bg.glo.goods.size.template.edit](operations/bg.glo.goods.size.template.edit.json) - 用于编辑货品尺码表
 - [bg.goods.imagesizechart.get](operations/bg.goods.imagesizechart.get.json) - 图片提取尺码表
 - [bg.goods.sizecharts.class.get](operations/bg.goods.sizecharts.class.get.json) - 用于查询尺码分组配置
 - [bg.goods.sizecharts.create](operations/bg.goods.sizecharts.create.json) - 用于新增尺码表

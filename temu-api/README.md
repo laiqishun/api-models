@@ -33,15 +33,15 @@ description: "AI-friendly Temu API entry point: determine seller mode and destin
 
 | 用户意图 / Intent | 中国跨境全托或半托 | US/EU/Global 本土或半托订单侧 |
 | --- | --- | --- |
-| 查库存、改库存、绑定仓库 / inventory, stock | 半托销售库存使用 CN `inventory-api-pa`；全托 JIT/备货库存按单据场景使用 `jit-api` 或 `stock-shipping-api`，不要把全托路由到半托 Inventory PA | 本土店铺使用所选区域的 `product-api` 库存 operation；中国半托库存不要走区域 API |
-| 发品、改商品、类目属性、图片、尺码 / listing, product | CN 的 `product-api-pa`、`product-edit-api-pa`、`category-attribute-api-pa` 及相关组 | 所选区域的 `product-api` |
-| 核价、调价、供货价 / price review, pricing | CN 的 `price-review-api` 或 `price-review-api-pa`，先判断全托/半托 | 所选区域的 `price-api` |
+| 查库存、改库存、绑定仓库 / inventory, stock | 半托销售库存使用 CN `inventory-api`；全托 JIT/备货库存按单据场景使用 `jit-api` 或 `stock-shipping-api`，不要把全托路由到半托 Inventory | 本土店铺使用所选区域的 `product-api` 库存 operation；中国半托库存不要走区域 API |
+| 发品、改商品、类目属性、图片、尺码 / listing, product | CN 的 `product-api`、`product-edit-api`、`category-attribute-api` 及相关组；组内按 operation 区分 CN/PA 网关 | 所选区域的 `product-api` |
+| 核价、调价、供货价 / price review, pricing | CN 的 `price-review-api`，先判断全托/半托再选 type | 所选区域的 `price-api` |
 | 查订单、订单详情、收货地址 / orders | 半托按目标站点进入区域 `order-api`；全托 CN 供货单不是消费者订单 | 所选区域的 `order-api` |
 | 发货、面单、合单、scanform / fulfillment, shipping label | 全托 CN 供货链使用 `stock-shipping-api`、`waybill-box-label-api` | 所选区域的 `fulfillment-api` 或 `logistics-api` |
 | 退货、退款、售后 / return, refund, aftersales | CN 的质检退供等供应链场景使用 `sample-quality-return-api` | 所选区域的 `return-refund-api` |
-| 活动报名、促销 / promotion, campaign | CN 的 `marketing-activity-api-pa` | 所选区域的 `promotion-api` |
+| 活动报名、促销 / promotion, campaign | CN 的 `marketing-activity-api` | 所选区域的 `promotion-api` |
 | 税务 / tax | 按 operation 说明；CN 发品字段按 CN 文档 | EU 独有 `tax-api`，其他区域先检查 `product-api` 中的税码能力 |
-| 授权信息 / authorization, token permissions | 先选择 CN 或 PA 授权 type | 所选区域的 `authorization-api` |
+| 授权信息 / authorization, token permissions | CN `authorization-api` 中按 CN/PA type 选择 | 所选区域的 `authorization-api` |
 
 选择业务组后，读取该组 README；只打开与意图匹配的 operation JSON。需要固定枚举时，再按 operation 的离线引用读取数据字典对应锚点，不要一次加载整份字典。
 
