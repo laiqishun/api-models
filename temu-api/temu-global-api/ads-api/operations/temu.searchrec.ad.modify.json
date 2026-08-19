@@ -1,0 +1,380 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Ads - temu.searchrec.ad.modify",
+    "description": "Advertisement modify",
+    "version": "2025-11-25 20:30:24"
+  },
+  "host": "openapi-b-global.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Ads"
+        ],
+        "operationId": "temu_searchrec_ad_modify",
+        "summary": "Advertisement modify",
+        "description": "Advertisement modify",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `temu.searchrec.ad.modify`.",
+            "schema": {
+              "$ref": "#/definitions/temu_searchrec_ad_modifyRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/temu_searchrec_ad_modifyResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "temu.searchrec.ad.modify",
+        "x-temu-region-module": "temu-global-api",
+        "x-temu-group": {
+          "title": "Ads",
+          "sourceTitle": "Ads",
+          "directory": "ads-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-global.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-global.temu.com/openapi/router",
+            "Site Region": "GLOBAL"
+          }
+        ],
+        "x-temu-audience": [
+          "Fully Manage",
+          "Cross Border"
+        ],
+        "x-temu-last-update-time": "2025-11-25 20:30:24",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "modifyAdDTO",
+            "type": "OBJECT",
+            "required": true,
+            "description": "ModifyAdDTO request body"
+          },
+          {
+            "name": "status",
+            "type": "INTEGER",
+            "required": true,
+            "description": "Modification type: 1:delete, 2:pause, 3:open, 4:modify budget, 5:modify roas"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "Success"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "Error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "Error message"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "Specific information"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "230012000",
+                "Error Message": "bad query params",
+                "Error SOP": "Please check the input parameter format"
+              },
+              {
+                "Error Code": "230012003",
+                "Error Message": "unmatch mall and goods",
+                "Error SOP": "Please enter the matching mallid and goodsid"
+              },
+              {
+                "Error Code": "230013000",
+                "Error Message": "business exception",
+                "Error SOP": "Business exception, please try again"
+              },
+              {
+                "Error Code": "230014000",
+                "Error Message": "system exception",
+                "Error SOP": "System exception, please try again"
+              },
+              {
+                "Error Code": "230016701",
+                "Error Message": "has no permission",
+                "Error SOP": "Ad operation failed, please try again"
+              },
+              {
+                "Error Code": "230016103",
+                "Error Message": "not signed because of not main account",
+                "Error SOP": "The account has not been signed, please sign the advertising agreement"
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Semi Advertising Management",
+                "App type": "private,public"
+              },
+              {
+                "Permission Package": "Local Advertising Management",
+                "App type": "private,public"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-global.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"app_key\" : \"test\",\n  \"modifyAdDTO\" : {\n    \"roas\" : 1,\n    \"goodsId\" : 1,\n    \"budget\" : 1\n  },\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"type\" : \"temu.searchrec.ad.modify\",\n  \"version\" : \"test\",\n  \"timestamp\" : \"test\",\n  \"status\" : 1\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\" : {\n    \"successModifyProductNum\" : 1,\n    \"modifyGoodsRespList\" : [ {\n      \"reason\" : \"test\",\n      \"goodsId\" : 1,\n      \"success\" : true\n    } ]\n  },\n  \"errorCode\" : 1,\n  \"success\" : true,\n  \"errorMsg\" : \"test\"\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu Partner API Doc",
+          "path": "https://partner.temu.com/riemann/api/v2/api/doc/detail/get",
+          "api_id": "temu.searchrec.ad.modify",
+          "contentSha256": "295aada46a1c587ab153720016a718c695969a4a35fd63e4d17ab99553e77ca7"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "temu_searchrec_ad_modifyRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `temu.searchrec.ad.modify` for this operation.",
+          "enum": [
+            "temu.searchrec.ad.modify"
+          ],
+          "default": "temu.searchrec.ad.modify"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "modifyAdDTO": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "ModifyAdDTO request body",
+          "properties": {
+            "roas": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "Roas"
+            },
+            "goodsId": {
+              "type": "integer",
+              "format": "int64",
+              "x-temu-type": "LONG",
+              "description": "GoodsId"
+            },
+            "budget": {
+              "type": "integer",
+              "format": "int64",
+              "x-temu-type": "LONG",
+              "description": "Budget"
+            }
+          },
+          "required": [
+            "goodsId"
+          ]
+        },
+        "status": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Modification type: 1:delete, 2:pause, 3:open, 4:modify budget, 5:modify roas"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp",
+        "modifyAdDTO",
+        "status"
+      ]
+    },
+    "temu_searchrec_ad_modifyResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "Success"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Error message"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Specific information",
+          "properties": {
+            "successModifyProductNum": {
+              "type": "integer",
+              "format": "int32",
+              "x-temu-type": "INTEGER",
+              "description": "The number of goods successfully modified"
+            },
+            "modifyGoodsRespList": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": true,
+                "x-temu-type": "OBJECT",
+                "properties": {
+                  "goodsId": {
+                    "type": "integer",
+                    "format": "int64",
+                    "x-temu-type": "LONG",
+                    "description": "GoodsId"
+                  },
+                  "reason": {
+                    "type": "string",
+                    "x-temu-type": "STRING",
+                    "description": "Modify failure reason"
+                  },
+                  "success": {
+                    "type": "boolean",
+                    "x-temu-type": "BOOLEAN",
+                    "description": "Whether it was successful or not"
+                  }
+                }
+              },
+              "x-temu-type": "OBJECT[]",
+              "description": "Specific information"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu Partner API Doc",
+    "path": "https://partner.temu.com/riemann/api/v2/api/doc/detail/get",
+    "api_id": "temu.searchrec.ad.modify",
+    "contentSha256": "295aada46a1c587ab153720016a718c695969a4a35fd63e4d17ab99553e77ca7"
+  },
+  "x-temu-api-type": "temu.searchrec.ad.modify",
+  "x-temu-region-module": "temu-global-api"
+}

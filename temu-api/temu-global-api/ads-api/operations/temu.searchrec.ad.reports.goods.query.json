@@ -1,0 +1,1712 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Ads - temu.searchrec.ad.reports.goods.query",
+    "description": "Advertisement goods data report (goods dimension)",
+    "version": "2026-06-30 22:15:40"
+  },
+  "host": "openapi-b-global.temu.com",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/openapi/router": {
+      "post": {
+        "tags": [
+          "Ads"
+        ],
+        "operationId": "temu_searchrec_ad_reports_goods_query",
+        "summary": "Advertisement goods data report (goods dimension)",
+        "description": "Advertisement goods data report (goods dimension)",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Temu router request body. The `type` field must be `temu.searchrec.ad.reports.goods.query`.",
+            "schema": {
+              "$ref": "#/definitions/temu_searchrec_ad_reports_goods_queryRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Temu API response.",
+            "schema": {
+              "$ref": "#/definitions/temu_searchrec_ad_reports_goods_queryResponse"
+            }
+          }
+        },
+        "x-temu-api-type": "temu.searchrec.ad.reports.goods.query",
+        "x-temu-region-module": "temu-global-api",
+        "x-temu-group": {
+          "title": "Ads",
+          "sourceTitle": "Ads",
+          "directory": "ads-api"
+        },
+        "x-temu-gateway": {
+          "method": "POST",
+          "url": "https://openapi-b-global.temu.com/openapi/router",
+          "routerTypeParameter": "type"
+        },
+        "x-temu-endpoint-table": [
+          {
+            "Request URL": "POSThttps://openapi-b-global.temu.com/openapi/router",
+            "Site Region": "GLOBAL"
+          }
+        ],
+        "x-temu-audience": [
+          "Fully Manage",
+          "Cross Border"
+        ],
+        "x-temu-last-update-time": "2026-06-30 22:15:40",
+        "x-temu-common-parameters": [
+          {
+            "name": "type",
+            "type": "STRING",
+            "required": true,
+            "description": "API name,eg:bg.*"
+          },
+          {
+            "name": "app_key",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "access_token",
+            "type": "STRING",
+            "required": true,
+            "description": "A secure token for access control."
+          },
+          {
+            "name": "sign",
+            "type": "STRING",
+            "required": true
+          },
+          {
+            "name": "timestamp",
+            "type": "STRING",
+            "required": true,
+            "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+          },
+          {
+            "name": "data_type",
+            "type": "STRING",
+            "required": false,
+            "description": "The data format of the request response is fixed as JSON for optional parameters."
+          },
+          {
+            "name": "version",
+            "type": "STRING",
+            "required": false,
+            "description": "API version, defaults to V1, no need to pass this parameter if not required."
+          }
+        ],
+        "x-temu-request-parameters": [
+          {
+            "name": "startTs",
+            "type": "LONG",
+            "required": true,
+            "description": "Query start time, millisecond level timestamp (the value starts at 0:00 local time)"
+          },
+          {
+            "name": "endTs",
+            "type": "LONG",
+            "required": true,
+            "description": "Query end time, millisecond-level timestamp (the value is based on local time 23:59:59 seconds 999 milliseconds)"
+          },
+          {
+            "name": "goodsId",
+            "type": "LONG",
+            "required": true,
+            "description": "Goods id"
+          }
+        ],
+        "x-temu-response-parameters": [
+          {
+            "name": "success",
+            "type": "BOOLEAN",
+            "description": "Success"
+          },
+          {
+            "name": "errorCode",
+            "type": "INTEGER",
+            "description": "Error code"
+          },
+          {
+            "name": "errorMsg",
+            "type": "STRING",
+            "description": "Error message"
+          },
+          {
+            "name": "result",
+            "type": "OBJECT",
+            "description": "Specific information"
+          }
+        ],
+        "x-temu-additional-tables": [
+          {
+            "label": "Error Code",
+            "rows": [
+              {
+                "Error Code": "230012000",
+                "Error Message": "bad query params",
+                "Error SOP": "Please check the input parameter format"
+              },
+              {
+                "Error Code": "230012003",
+                "Error Message": "unmatch mall and goods",
+                "Error SOP": "Please enter the matching mallid and goodsid"
+              },
+              {
+                "Error Code": "230013000",
+                "Error Message": "business exception",
+                "Error SOP": "Business exception, please try again"
+              },
+              {
+                "Error Code": "230014000",
+                "Error Message": "system exception",
+                "Error SOP": "System exception, please try again"
+              },
+              {
+                "Error Code": "230016701",
+                "Error Message": "has no permission",
+                "Error SOP": "Ad operation failed, please try again"
+              },
+              {
+                "Error Code": "230016103",
+                "Error Message": "not signed because of not main account",
+                "Error SOP": "The account has not been signed, please sign the advertising agreement"
+              }
+            ]
+          },
+          {
+            "label": "Permission Package",
+            "rows": [
+              {
+                "Permission Package": "Semi Advertising Management",
+                "App type": "private,public"
+              },
+              {
+                "Permission Package": "Local Advertising Management",
+                "App type": "private,public"
+              }
+            ]
+          }
+        ],
+        "x-temu-examples": [
+          {
+            "language": "text",
+            "content": "curl -X POST \\\n'https://openapi-b-global.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"app_key\" : \"test\",\n  \"goodsId\" : 1,\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"endTs\" : 1,\n  \"startTs\" : 1,\n  \"type\" : \"temu.searchrec.ad.reports.goods.query\",\n  \"version\" : \"test\",\n  \"timestamp\" : \"test\"\n}'",
+            "truncated": false
+          },
+          {
+            "language": "text",
+            "content": "{\n  \"result\" : {\n    \"goodsInfo\" : {\n      \"goodsId\" : 1\n    },\n    \"reportInfo\" : {\n      \"summary\" : {\n        \"ctr\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        },\n        \"cartCnt\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        },\n        \"clkCnt\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        },\n        \"orderPayAmt\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        },\n        \"spend\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        },\n        \"orderPayCnt\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        },\n        \"roas\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        },\n        \"acos\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        },\n        \"transactionCost\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        },\n        \"goodsNum\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        },\n        \"imprCnt\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        },\n        \"cvr\" : {\n          \"total\" : {\n            \"val\" : 1\n          },\n          \"ad\" : {\n            \"val\" : 1\n          },\n          \"netTotal\" : {\n            \"val\" : 1\n          },\n          \"netAd\" : {\n            \"val\" : 1\n          }\n        }\n      },\n      \"reportsItemList\" : [ {\n        \"totalRoas\" : {\n          \"val\" : 1\n        },\n        \"goodsId\" : 1,\n        \"orderPayCnt\" : {\n          \"val\" : 1\n        },\n        \"transactionCost\" : {\n          \"val\" : 1\n        },\n        \"netAcos\" : {\n          \"val\" : 1\n        },\n        \"totalOrderPayAmt\" : {\n          \"val\" : 1\n        },\n        \"totalGoodsNum\" : {\n          \"val\" : 1\n        },\n        \"roas\" : {\n          \"val\" : 1\n        },\n        \"adSpend\" : {\n          \"val\" : 1\n        },\n        \"goodsNum\" : {\n          \"val\" : 1\n        },\n        \"netOrderPayCnt\" : {\n          \"val\" : 1\n        },\n        \"totalImprCnt\" : {\n          \"val\" : 1\n        },\n        \"cvr\" : {\n          \"val\" : 1\n        },\n        \"ctr\" : {\n          \"val\" : 1\n        },\n        \"cartCnt\" : {\n          \"val\" : 1\n        },\n        \"totalAcos\" : {\n          \"val\" : 1\n        },\n        \"netGoodsNum\" : {\n          \"val\" : 1\n        },\n        \"totalCartCnt\" : {\n          \"val\" : 1\n        },\n        \"orderPayAmt\" : {\n          \"val\" : 1\n        },\n        \"netAdSpend\" : {\n          \"val\" : 1\n        },\n        \"totalCtr\" : {\n          \"val\" : 1\n        },\n        \"acos\" : {\n          \"val\" : 1\n        },\n        \"totalCvr\" : {\n          \"val\" : 1\n        },\n        \"totalClkCnt\" : {\n          \"val\" : 1\n        },\n        \"imprCnt\" : {\n          \"val\" : 1\n        },\n        \"totalTransactionCost\" : {\n          \"val\" : 1\n        },\n        \"totalOrderPayCnt\" : {\n          \"val\" : 1\n        },\n        \"netTransactionCost\" : {\n          \"val\" : 1\n        },\n        \"clkCnt\" : {\n          \"val\" : 1\n        },\n        \"netRoas\" : {\n          \"val\" : 1\n        },\n        \"netOrderPayAmt\" : {\n          \"val\" : 1\n        },\n        \"ts\" : 1\n      } ],\n      \"reportsSummary\" : {\n        \"clkCntAll\" : {\n          \"val\" : 1\n        },\n        \"orderPayCntAll\" : {\n          \"val\" : 1\n        },\n        \"adSpendAll\" : {\n          \"val\" : 1\n        },\n        \"acosAll\" : {\n          \"val\" : 1\n        },\n        \"ctrAll\" : {\n          \"val\" : 1\n        },\n        \"imprCntAll\" : {\n          \"val\" : 1\n        },\n        \"orderPayAmtAll\" : {\n          \"val\" : 1\n        },\n        \"cartCntAll\" : {\n          \"val\" : 1\n        },\n        \"roasAll\" : {\n          \"val\" : 1\n        }\n      }\n    }\n  },\n  \"errorCode\" : 1,\n  \"success\" : true,\n  \"errorMsg\" : \"test\"\n}",
+            "truncated": false
+          }
+        ],
+        "x-temu-source": {
+          "document": "Temu Partner API Doc",
+          "path": "https://partner.temu.com/riemann/api/v2/api/doc/detail/get",
+          "api_id": "temu.searchrec.ad.reports.goods.query",
+          "contentSha256": "ed43d8c26c47bcc8b356bb10f4947481fb8d8fb380369ccaca0655027f6e1b71"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "temu_searchrec_ad_reports_goods_queryRequest": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API name,eg:bg.* Must be `temu.searchrec.ad.reports.goods.query` for this operation.",
+          "enum": [
+            "temu.searchrec.ad.reports.goods.query"
+          ],
+          "default": "temu.searchrec.ad.reports.goods.query"
+        },
+        "app_key": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "access_token": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "A secure token for access control."
+        },
+        "sign": {
+          "type": "string",
+          "x-temu-type": "STRING"
+        },
+        "timestamp": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The timestamp is in UNIX time format (seconds), with a length of 10 digits, and should be within a range of 300 seconds before the current time to 300 seconds after the current time."
+        },
+        "data_type": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "The data format of the request response is fixed as JSON for optional parameters."
+        },
+        "version": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "API version, defaults to V1, no need to pass this parameter if not required."
+        },
+        "startTs": {
+          "type": "integer",
+          "format": "int64",
+          "x-temu-type": "LONG",
+          "description": "Query start time, millisecond level timestamp (the value starts at 0:00 local time)"
+        },
+        "endTs": {
+          "type": "integer",
+          "format": "int64",
+          "x-temu-type": "LONG",
+          "description": "Query end time, millisecond-level timestamp (the value is based on local time 23:59:59 seconds 999 milliseconds)"
+        },
+        "goodsId": {
+          "type": "integer",
+          "format": "int64",
+          "x-temu-type": "LONG",
+          "description": "Goods id"
+        }
+      },
+      "required": [
+        "type",
+        "app_key",
+        "access_token",
+        "sign",
+        "timestamp",
+        "startTs",
+        "endTs",
+        "goodsId"
+      ]
+    },
+    "temu_searchrec_ad_reports_goods_queryResponse": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "x-temu-type": "BOOLEAN",
+          "description": "Success"
+        },
+        "errorCode": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Error code"
+        },
+        "errorMsg": {
+          "type": "string",
+          "x-temu-type": "STRING",
+          "description": "Error message"
+        },
+        "result": {
+          "type": "object",
+          "additionalProperties": true,
+          "x-temu-type": "OBJECT",
+          "description": "Specific information",
+          "properties": {
+            "goodsInfo": {
+              "type": "object",
+              "additionalProperties": true,
+              "x-temu-type": "OBJECT",
+              "description": "Goods information",
+              "properties": {
+                "goodsId": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-temu-type": "LONG",
+                  "description": "Goods id"
+                }
+              }
+            },
+            "reportInfo": {
+              "type": "object",
+              "additionalProperties": true,
+              "x-temu-type": "OBJECT",
+              "description": "Report information",
+              "properties": {
+                "reportsSummary": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "x-temu-type": "OBJECT",
+                  "description": "Overall report information",
+                  "properties": {
+                    "imprCntAll": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "Impressions return body",
+                      "properties": {
+                        "val": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-temu-type": "LONG",
+                          "description": "Impressions return value"
+                        }
+                      }
+                    },
+                    "cartCntAll": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "Add-to-cart number",
+                      "properties": {
+                        "val": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-temu-type": "LONG",
+                          "description": "Add-to-cart number return value"
+                        }
+                      }
+                    },
+                    "clkCntAll": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "Clicks return body",
+                      "properties": {
+                        "val": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-temu-type": "LONG",
+                          "description": "Clicks return value"
+                        }
+                      }
+                    },
+                    "adSpendAll": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "Spend return body",
+                      "properties": {
+                        "val": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-temu-type": "LONG",
+                          "description": "Spend return value"
+                        }
+                      }
+                    },
+                    "orderPayAmtAll": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "Base price sales return body",
+                      "properties": {
+                        "val": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-temu-type": "LONG",
+                          "description": "Base price sales return value"
+                        }
+                      }
+                    },
+                    "orderPayCntAll": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "Orders return body",
+                      "properties": {
+                        "val": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-temu-type": "LONG",
+                          "description": "Orders return value"
+                        }
+                      }
+                    },
+                    "roasAll": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "ROAS return body",
+                      "properties": {
+                        "val": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-temu-type": "LONG",
+                          "description": "ROAS return value"
+                        }
+                      }
+                    },
+                    "ctrAll": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "CTR return body",
+                      "properties": {
+                        "val": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-temu-type": "LONG",
+                          "description": "CTR return value"
+                        }
+                      }
+                    },
+                    "acosAll": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "ACOS return body",
+                      "properties": {
+                        "val": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-temu-type": "LONG",
+                          "description": "ACOS return value"
+                        }
+                      }
+                    }
+                  }
+                },
+                "reportsItemList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": true,
+                    "x-temu-type": "OBJECT",
+                    "properties": {
+                      "ts": {
+                        "type": "integer",
+                        "format": "int64",
+                        "x-temu-type": "LONG",
+                        "description": "Time period starts"
+                      },
+                      "imprCnt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "Impressions return body",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "Impressions return value"
+                          }
+                        }
+                      },
+                      "clkCnt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "Clicks return body",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "Clicks return value"
+                          }
+                        }
+                      },
+                      "cartCnt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "Add-to-cart number return body",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "Add-to-cart number return value"
+                          }
+                        }
+                      },
+                      "orderPayCnt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "Orders return body",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "Orders return value"
+                          }
+                        }
+                      },
+                      "orderPayAmt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "Base price sales return body",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "Base price sales return value"
+                          }
+                        }
+                      },
+                      "ctr": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "CTR return body",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "CTR return value"
+                          }
+                        }
+                      },
+                      "adSpend": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "Spend return body",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "Spend return value"
+                          }
+                        }
+                      },
+                      "goodsId": {
+                        "type": "integer",
+                        "format": "int64",
+                        "x-temu-type": "LONG",
+                        "description": "Goods id"
+                      },
+                      "acos": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "ACOS return body",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "ACOS return value"
+                          }
+                        }
+                      },
+                      "roas": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "ROAS return body",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "ROAS return value"
+                          }
+                        }
+                      },
+                      "transactionCost": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "transactionCost",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "goodsNum": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "goodsNum",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "netGoodsNum": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "netGoodsNum",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "netAdSpend": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "netAdSpend",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "netOrderPayAmt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "netOrderPayAmt",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "netRoas": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "netRoas",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "netAcos": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "netAcos",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "netOrderPayCnt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "netOrderPayCnt",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "netTransactionCost": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "netTransactionCost",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "cvr": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "cvr",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "totalImprCnt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "totalImprCnt",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "totalClkCnt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "totalClkCnt",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "totalOrderPayAmt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "totalOrderPayAmt",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "totalOrderPayCnt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "totalOrderPayCnt",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "totalRoas": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "totalRoas",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "totalCtr": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "totalCtr",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "totalAcos": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "totalAcos",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "totalTransactionCost": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "totalTransactionCost",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "totalGoodsNum": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "totalGoodsNum",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "totalCvr": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "totalCvr",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      },
+                      "totalCartCnt": {
+                        "type": "object",
+                        "additionalProperties": true,
+                        "x-temu-type": "OBJECT",
+                        "description": "totalCartCnt",
+                        "properties": {
+                          "val": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-temu-type": "LONG",
+                            "description": "val"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "x-temu-type": "OBJECT[]",
+                  "description": "Report information by time period, report information divided by day level or hour level (request time span is divided by day level if it is greater than one day, and if it is equal to one day, it is divided by hour level)"
+                },
+                "summary": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "x-temu-type": "OBJECT",
+                  "description": "summary",
+                  "properties": {
+                    "spend": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "spend",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "orderPayAmt": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "orderPayAmt",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "orderPayCnt": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "orderPayCnt",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "goodsNum": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "goodsNum",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "cartCnt": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "cartCnt",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "imprCnt": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "imprCnt",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "clkCnt": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "clkCnt",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "ctr": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "ctr",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "cvr": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "cvr",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "roas": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "roas",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "acos": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "acos",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "transactionCost": {
+                      "type": "object",
+                      "additionalProperties": true,
+                      "x-temu-type": "OBJECT",
+                      "description": "transactionCost",
+                      "properties": {
+                        "ad": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "ad",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "total": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netAd": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        },
+                        "netTotal": {
+                          "type": "object",
+                          "additionalProperties": true,
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal",
+                          "properties": {
+                            "val": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-temu-type": "LONG",
+                              "description": "val"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-temu-source": {
+    "document": "Temu Partner API Doc",
+    "path": "https://partner.temu.com/riemann/api/v2/api/doc/detail/get",
+    "api_id": "temu.searchrec.ad.reports.goods.query",
+    "contentSha256": "ed43d8c26c47bcc8b356bb10f4947481fb8d8fb380369ccaca0655027f6e1b71"
+  },
+  "x-temu-api-type": "temu.searchrec.ad.reports.goods.query",
+  "x-temu-region-module": "temu-global-api"
+}

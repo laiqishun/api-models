@@ -6,6 +6,8 @@ Source group: `8、Promotion`.
 
 区域促销活动、候选商品、报名与活动商品维护（promotion, campaign）。
 
+搜索推荐广告 / Temu Ads / Product Ads 不在本组，转到 [Ads](../ads-api/README.md)。
+
 先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
 
 ## API List
