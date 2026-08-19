@@ -4,7 +4,9 @@ Source group: `2、Product`.
 
 ## 使用范围
 
-区域本土商品发布、编辑、上下架、库存与合规（local product, listing, compliance）。
+区域本土商品发布、编辑、上下架、库存与发品过程中的本土合规校验（local product, listing, local compliance）。
+
+跨境商品合规标签、合规信息填写、认证证书与材料上传不在本组，转到 [Compliance](../compliance-api/README.md)。
 
 先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
 

@@ -17,11 +17,12 @@ Default gateway: `https://openapi-b-global.temu.com/openapi/router`
 - **欧洲本土或欧洲目标站点**：使用 [Temu EU API](../temu-eu-api/README.md)。
 - **中国跨境半托库存**：不使用本模块，返回 [Temu CN API](../temu-cn-api/README.md)。
 - **中国跨境半托发品/供货链**：优先按 CN/PA 文档选择；Global 中仅标为 `Local` 的商品接口不能自动用于半托。
+- **商品合规标签、合规信息、认证证书/材料**：使用本模块 [Compliance](./compliance-api/README.md)。这批 type 只收录在 Global，不要到 CN/US/EU 的 `product-api` 中查找。
 
 ## 渐进式选择
 
-1. 排除 US 和欧洲目标站点。
-2. 根据用户意图进入一个业务组。
+1. 商品合规标签/证书/认证材料：直接进入 [Compliance](./compliance-api/README.md)，不必先排除 US/EU。
+2. 其他意图：排除 US 和欧洲目标站点后，根据用户意图进入一个业务组。
 3. 在组 README 中选择 operation。
 4. 打开一个 operation JSON，使用其中的 Global host、type、audience、字段和示例。
 
@@ -40,6 +41,7 @@ Global 与 US/EU 有大量同名 type。已进入本模块后，唯一调用身�
 - **创建/更新发货、确认包裹、预约揽收 / fulfillment**：[Fulfillment](./fulfillment-api/README.md)
 - **物流商、物流服务、仓库 / logistics**：[Logistics](./logistics-api/README.md)
 - **本土商品发布、编辑、上下架、库存 / local product**：[Product](./product-api/README.md)
+- **商品合规标签、合规信息、认证证书 / product compliance**：[Compliance](./compliance-api/README.md)
 - **报价、基础价、订单金额 / price**：[Price](./price-api/README.md)
 - **退货、退款、售后 / return and refund**：[Return And Refund](./return-refund-api/README.md)
 - **活动、报名、促销 / promotion**：[Promotion](./promotion-api/README.md)
@@ -56,6 +58,7 @@ Global 与 US/EU 有大量同名 type。已进入本模块后，唯一调用身�
 ## API Groups
 
 - [Authorization](./authorization-api/README.md) — 2 operations
+- [Compliance](./compliance-api/README.md) — 9 operations
 - [Fulfillment](./fulfillment-api/README.md) — 16 operations
 - [Logistics](./logistics-api/README.md) — 4 operations
 - [Order](./order-api/README.md) — 6 operations
