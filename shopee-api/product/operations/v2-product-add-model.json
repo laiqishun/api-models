@@ -1,0 +1,902 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2.product.add_model",
+    "version": "V2",
+    "description": "Add model. More detail please check: https://open.shopee.com/developer-guide/219"
+  },
+  "host": "partner.shopeemobile.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/api/v2/product/add_model": {
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "operationId": "v2_product_add_model",
+        "summary": "v2.product.add_model",
+        "description": "Add model. More detail please check: https://open.shopee.com/developer-guide/219",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours.",
+            "example": "c09222e3fc40ffb25fc947f738b1abf1"
+          },
+          {
+            "name": "days_to_ship",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Days to ship. Please get the days_to_ship range from the get_dts_limit API.",
+            "example": "2"
+          },
+          {
+            "name": "dimension",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The dimension of this model. If don't set the dimension of this model, will use the dimension of item by default."
+          },
+          {
+            "name": "gtin_code",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "- GTIN is an identifier for trade items, developed by the international organization GS1. - They have 8 to 14 digits. The most common are UPC, EAN, JAN and ISBN. - GTIN will help boost positioning in online marketing channels like Google and Facebook. - That incorporation with GTIN will also aid in Search and Recommendation in Shopee itself allowing buyers to have higher likelihood of finding one's listing. Note: If you want to set “Item without GTIN”, please pass the gtin_code as \"00\". The validation rule is based on the value return in gtin_validation_rule\" field in v2.product.get_item_limit API - Mandatory: This field is required and must contain a correctly formatted GTiN number. - Flexible: This field is required and must contain either a correctly formatted GTlN number or \"00\" to declare that the item/model has no valid GTlN. - Optional: This field is optional and can contain a correctly formatted GTiN number, \"00\" or be omitted entirely."
+          },
+          {
+            "name": "is_pre_order",
+            "in": "query",
+            "type": "boolean",
+            "required": true,
+            "description": "Whether the model is pre order.",
+            "example": "false"
+          },
+          {
+            "name": "item_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "ID of item",
+            "example": "1000"
+          },
+          {
+            "name": "location_id",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "location id, you can get the location id from v2.shop.get_warehouse_detail api, if seller don't have any warehouse, you don't need to upload this field."
+          },
+          {
+            "name": "model_list",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Model list"
+          },
+          {
+            "name": "model_sku",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Seller sku, model_sku length information needs to be no more than 100 characters.",
+            "example": "SKU"
+          },
+          {
+            "name": "original_price",
+            "in": "query",
+            "type": "number",
+            "required": true,
+            "description": "Normal stock for price",
+            "example": "38.3"
+          },
+          {
+            "name": "package_height",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "The height of package for this model, the unit is CM.",
+            "example": "11"
+          },
+          {
+            "name": "package_length",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "The length of package for this model, the unit is CM.",
+            "example": "11"
+          },
+          {
+            "name": "package_width",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "The width of package for this model, the unit is CM.",
+            "example": "11"
+          },
+          {
+            "name": "partner_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Partner ID is assigned upon registration is successful. Required for all requests.",
+            "example": "1"
+          },
+          {
+            "name": "pre_order",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Pre-order information of this model. Notes: If don't set the DTS of this model, will use the DTS of the item by default."
+          },
+          {
+            "name": "seller_stock",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "new stock info for model（Please notice that stock(including Seller Stock and Shopee Stock) should be larger than or equal to real-time reserved stock）"
+          },
+          {
+            "name": "shop_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Shopee's unique identifier for a shop. Required param for most APIs.",
+            "example": "600000"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2",
+            "example": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2"
+          },
+          {
+            "name": "stock",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "stock"
+          },
+          {
+            "name": "tier_index",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Tier index of model",
+            "example": "[0]"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes.",
+            "example": "1610000000"
+          },
+          {
+            "name": "weight",
+            "in": "query",
+            "type": "number",
+            "required": false,
+            "description": "The weight of this model, the unit is KG. If don't set the weight of this model, will use the weight of item by default. If set the dimension of this model, them must set the weight of this model.",
+            "example": "1.1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response documented by Shopee Open Platform.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "warning": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "model": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "model_sku": {
+                            "type": "string"
+                          },
+                          "price_info": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "original_price": {
+                                  "type": "number"
+                                }
+                              }
+                            }
+                          },
+                          "seller_stock": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "location_id": {
+                                  "type": "string"
+                                },
+                                "stock": {
+                                  "type": "integer",
+                                  "format": "int64"
+                                }
+                              }
+                            }
+                          },
+                          "weight": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-shopee-content-id": "649",
+        "x-shopee-content-name": "v2.product.add_model",
+        "x-shopee-version": "V2",
+        "x-shopee-module": "Product",
+        "x-shopee-module-id": "127",
+        "x-shopee-detail-status": "ok",
+        "x-shopee-request-address": {
+          "headers": [
+            "Environment",
+            "Location",
+            "HTTP Address"
+          ],
+          "rows": [
+            [
+              "Live",
+              "Global",
+              "https://partner.shopeemobile.com/api/v2/product/add_model"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.shopee.cn/api/v2/product/add_model"
+            ],
+            [
+              "Brazil",
+              "https://openplatform.shopee.com.br/api/v2/product/add_model"
+            ],
+            [
+              "Sandbox",
+              "Global",
+              "https://openplatform.sandbox.test-stable.shopee.sg/api/v2/product/add_model"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.sandbox.test-stable.shopee.cn/api/v2/product/add_model"
+            ]
+          ]
+        },
+        "x-shopee-common-parameters": [
+          {
+            "Name": "partner_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Partner ID is assigned upon registration is successful. Required for all requests."
+          },
+          {
+            "Name": "timestamp",
+            "Type": "timestamp",
+            "Sample": "1610000000",
+            "Description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes."
+          },
+          {
+            "Name": "access_token",
+            "Type": "string",
+            "Sample": "c09222e3fc40ffb25fc947f738b1abf1",
+            "Description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours."
+          },
+          {
+            "Name": "shop_id",
+            "Type": "int",
+            "Sample": "600000",
+            "Description": "Shopee's unique identifier for a shop. Required param for most APIs."
+          },
+          {
+            "Name": "sign",
+            "Type": "string",
+            "Sample": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2",
+            "Description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2"
+          }
+        ],
+        "x-shopee-request-parameters": [
+          {
+            "Name": "item_id",
+            "Type": "int64",
+            "Required": "True",
+            "Sample": "1000",
+            "Description": "ID of item"
+          },
+          {
+            "Name": "model_list",
+            "Type": "object[]",
+            "Required": "True",
+            "Sample": "",
+            "Description": "Model list"
+          },
+          {
+            "Name": "tier_index",
+            "Type": "int32[]",
+            "Required": "True",
+            "Sample": "[0]",
+            "Description": "Tier index of model"
+          },
+          {
+            "Name": "original_price",
+            "Type": "float",
+            "Required": "True",
+            "Sample": "38.3",
+            "Description": "Normal stock for price"
+          },
+          {
+            "Name": "model_sku",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "SKU",
+            "Description": "Seller sku, model_sku length information needs to be no more than 100 characters."
+          },
+          {
+            "Name": "seller_stock",
+            "Type": "object[]",
+            "Required": "True",
+            "Sample": "",
+            "Description": "new stock info for model（Please notice that stock(including Seller Stock and Shopee Stock) should be larger than or equal to real-time reserved stock）"
+          },
+          {
+            "Name": "location_id",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "location id, you can get the location id from v2.shop.get_warehouse_detail api, if seller don't have any warehouse, you don't need to upload this field."
+          },
+          {
+            "Name": "stock",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "",
+            "Description": "stock"
+          },
+          {
+            "Name": "gtin_code",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "- GTIN is an identifier for trade items, developed by the international organization GS1. - They have 8 to 14 digits. The most common are UPC, EAN, JAN and ISBN. - GTIN will help boost positioning in online marketing channels like Google and Facebook. - That incorporation with GTIN will also aid in Search and Recommendation in Shopee itself allowing buyers to have higher likelihood of finding one's listing. Note: If you want to set “Item without GTIN”, please pass the gtin_code as \"00\". The validation rule is based on the value return in gtin_validation_rule\" field in v2.product.get_item_limit API - Mandatory: This field is required and must contain a correctly formatted GTiN number. - Flexible: This field is required and must contain either a correctly formatted GTlN number or \"00\" to declare that the item/model has no valid GTlN. - Optional: This field is optional and can contain a correctly formatted GTiN number, \"00\" or be omitted entirely."
+          },
+          {
+            "Name": "weight",
+            "Type": "float",
+            "Required": "False",
+            "Sample": "1.1",
+            "Description": "The weight of this model, the unit is KG. If don't set the weight of this model, will use the weight of item by default. If set the dimension of this model, them must set the weight of this model."
+          },
+          {
+            "Name": "dimension",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "The dimension of this model. If don't set the dimension of this model, will use the dimension of item by default."
+          },
+          {
+            "Name": "package_height",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "11",
+            "Description": "The height of package for this model, the unit is CM."
+          },
+          {
+            "Name": "package_length",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "11",
+            "Description": "The length of package for this model, the unit is CM."
+          },
+          {
+            "Name": "package_width",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "11",
+            "Description": "The width of package for this model, the unit is CM."
+          },
+          {
+            "Name": "pre_order",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Pre-order information of this model. Notes: If don't set the DTS of this model, will use the DTS of the item by default."
+          },
+          {
+            "Name": "is_pre_order",
+            "Type": "boolean",
+            "Required": "True",
+            "Sample": "false",
+            "Description": "Whether the model is pre order."
+          },
+          {
+            "Name": "days_to_ship",
+            "Type": "int32",
+            "Required": "False",
+            "Sample": "2",
+            "Description": "Days to ship. Please get the days_to_ship range from the get_dts_limit API."
+          }
+        ],
+        "x-shopee-request-examples": {
+          "languages": [
+            "Payload",
+            "Java",
+            "PHP",
+            "cURL",
+            "Python"
+          ],
+          "values": [
+            "{\n\t\"model_list\": [\n\t\t{\n\t\t\t\"original_price\": 38.3,\n\t\t\t\"model_sku\": \"SKU\",\n\t\t\t\"seller_stock\": [\n\t\t\t\t{\n\t\t\t\t\t\"location_id\": \"-\",\n\t\t\t\t\t\"stock\": 0\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"gtin_code\": \"-\",\n\t\t\t\"weight\": 1.1\n\t\t}\n\t]\n}",
+            "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.post(\"https://partner.shopeemobile.com/api/v2/product/add_model?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp\")\n.header(\"Content-Type\",\"application/json\")\n.body(\"{\n   \\\"model_list\\\": [\n      {\n         \\\"gtin_code\\\": \\\"-\\\",\n         \\\"model_sku\\\": \\\"SKU\\\",\n         \\\"original_price\\\": 38.3,\n         \\\"seller_stock\\\": [\n            {\n               \\\"location_id\\\": \\\"-\\\",\n               \\\"stock\\\": 0\n            }\n         ],\n         \\\"weight\\\": 1.1\n      }\n   ]\n}\")\n.asString();",
+            "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n  CURLOPT_URL => 'https://partner.shopeemobile.com/api/v2/product/add_model?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp',\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_ENCODING => '',\n  CURLOPT_MAXREDIRS => 10,\n  CURLOPT_TIMEOUT => 0,\n  CURLOPT_FOLLOWLOCATION => true,\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n  CURLOPT_CUSTOMREQUEST => 'POST',\n  CURLOPT_POSTFIELDS => '{\n    \"model_list\": [\n        {\n            \"gtin_code\": \"-\",\n            \"model_sku\": \"SKU\",\n            \"original_price\": 38.3,\n            \"seller_stock\": [\n                {\n                    \"location_id\": \"-\",\n                    \"stock\": 0\n                }\n            ],\n            \"weight\": 1.1\n        }\n    ]\n}',\n  CURLOPT_HTTPHEADER => array(\n    'Content-Type: application/json'\n  ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;",
+            "curl --location --request POST 'https://partner.shopeemobile.com/api/v2/product/add_model?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n   \"model_list\": [\n      {\n         \"gtin_code\": \"-\",\n         \"model_sku\": \"SKU\",\n         \"original_price\": 38.3,\n         \"seller_stock\": [\n            {\n               \"location_id\": \"-\",\n               \"stock\": 0\n            }\n         ],\n         \"weight\": 1.1\n      }\n   ]\n}'",
+            "import requests\nimport json\n\nurl = \"https://partner.shopeemobile.com/api/v2/product/add_model?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp\"\n\npayload=json.dumps({\n  \"model_list\": [\n    {\n      \"gtin_code\": \"-\",\n      \"model_sku\": \"SKU\",\n      \"original_price\": 38.3,\n      \"seller_stock\": [\n        {\n          \"location_id\": \"-\",\n          \"stock\": 0\n        }\n      ],\n      \"weight\": 1.1\n    }\n  ]\n})\nheaders = {\n  'Content-Type': 'application/json'\n}\nresponse = requests.RPCRequest(\"POST\",url,headers=headers, data=payload, allow_redirects=False)\n\nprint(response.text)"
+          ]
+        },
+        "x-shopee-response-parameters": [
+          {
+            "Name": "error",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error type if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "message",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error details if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "warning",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Warning message."
+          },
+          {
+            "Name": "request_id",
+            "Type": "string",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "response",
+            "Type": "object",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "model",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "tier_index",
+            "Type": "int32[]",
+            "Sample": "[0]",
+            "Description": "model tier index"
+          },
+          {
+            "Name": "model_id",
+            "Type": "int64",
+            "Sample": "32341",
+            "Description": "ID of model"
+          },
+          {
+            "Name": "model_sku",
+            "Type": "string",
+            "Sample": "sku",
+            "Description": "Seller SKU of this model, model_sku length information needs to be no more than 100 characters."
+          },
+          {
+            "Name": "price_info",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "original_price",
+            "Type": "float",
+            "Sample": "52.4",
+            "Description": "Original Price. For CO local VAT responsible seller：Please remember the price you set in here must be VAT inclusive. If you have any doubts on how to calculate VAT for your product please refer to the Seller Education Hub（https://seller.shopee.com.co/edu/article/13565）"
+          },
+          {
+            "Name": "seller_stock",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": "new stock info"
+          },
+          {
+            "Name": "location_id",
+            "Type": "string",
+            "Sample": "",
+            "Description": "location id"
+          },
+          {
+            "Name": "stock",
+            "Type": "int32",
+            "Sample": "",
+            "Description": "stock"
+          },
+          {
+            "Name": "weight",
+            "Type": "float",
+            "Sample": "1.1",
+            "Description": "The weight of this model, the unit is KG. If don't set the weight of this model, will use the weight of item by default. If set the dimension of this model, them must set the weight of this model."
+          },
+          {
+            "Name": "dimension",
+            "Type": "object",
+            "Sample": "",
+            "Description": "The dimension of this model. If don't set the dimension of this model, will use the dimension of item by default."
+          },
+          {
+            "Name": "package_height",
+            "Type": "int32",
+            "Sample": "11",
+            "Description": "The height of package for this model, the unit is CM."
+          },
+          {
+            "Name": "package_length",
+            "Type": "int32",
+            "Sample": "11",
+            "Description": "The length of package for this model, the unit is CM."
+          },
+          {
+            "Name": "package_width",
+            "Type": "int32",
+            "Sample": "11",
+            "Description": "The width of package for this model, the unit is CM."
+          }
+        ],
+        "x-shopee-response-examples": [
+          "{\n\t\"error\": \"-\",\n\t\"message\": \"-\",\n\t\"warning\": \"-\",\n\t\"request_id\": \"-\",\n\t\"response\": {\n\t\t\"model\": [\n\t\t\t{\n\t\t\t\t\"model_sku\": \"sku\",\n\t\t\t\t\"price_info\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"original_price\": 52.4\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"seller_stock\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"location_id\": \"-\",\n\t\t\t\t\t\t\"stock\": 0\n\t\t\t\t\t}\n\t\t\t\t],\n\t\t\t\t\"weight\": 1.1\n\t\t\t}\n\t\t]\n\t}\n}"
+        ],
+        "x-shopee-error-codes": [
+          {
+            "Error": "product.error_busi",
+            "Error Description": "The GTIN code is mandatory, please check and upload again.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_network",
+            "Error Description": "Inner http call failed",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_data",
+            "Error Description": "parse data failed",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_data",
+            "Error Description": "data not exist",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "parameter invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "The information you queried is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Wrong parameters, detail: {msg}.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_server",
+            "Error Description": "Something wrong. Please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_shop",
+            "Error Description": "shopid is invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "request not from gateway",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth_product_is_pff",
+            "Error Description": "Item/Model Fulfillment by Shopee can not be update.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_item_not_belong_shop",
+            "Error Description": "Item not belong to shop.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param_shop_id_not_found",
+            "Error Description": "Shop_id is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "The level of tier-variation over 2.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Model tier_index error.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Item without tier_variation. Please use init_tier_variation api to upgrade the structure.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "Our system is taking some time to respond, please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "System error, please try again later or contact the OpenAPI support team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_item_not_found",
+            "Error Description": "Product not found",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_invalid_price",
+            "Error Description": "Invalid price, please use the correct format",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "Update item failed {{.error_info}}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "Update item failed {{.error_info}}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_invalid_price_for_logistic",
+            "Error Description": "Shipping channel cannot be enabled as product price exceeds limit.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "System error, please try again later or contact the OpenAPI support team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "System error, please try again later or contact the OpenAPI support team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "The current item belong to the full FBS or B2C shop, so normal stock must be equal to 0",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param_validate",
+            "Error Description": "This is not a valid GTIN. Please, inform a valid number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param_validate",
+            "Error Description": "This is not a valid GTIN. Please, inform a valid number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_busi_cannot_edit_vsku",
+            "Error Description": "Can not use OpenAPI to edit/create VSKU, please connect with your manager",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "The location_id input is not matched the shop's location_id(more/wrong). Please double check.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "Lack of location_id, please double check.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "Please wait for the holiday mode set then to edit item. Please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "Total stock must be more than reserved stock.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "{{.error_info}}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "Your shop can not use model level dts",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "You do not have right to use seller location_id, please only fill seller_stock filed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error.param",
+            "Error Description": "Can not update item with stock less than reserved stock",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "Invalid stock location ID",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Can not update item with different stock structure. Can only update seller stock with location id when existing seller stock have location id. Can only update seller stock without location id when existing seller stock without location id.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Can not update item with stock less than reserve stock",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_busi",
+            "Error Description": "The merchant/shop has multi warehouse, please input location id",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "Stock should be larger than reserved stock.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Invalid parameter for product.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_system_busy",
+            "Error Description": "Our system is taking some time to respond, please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_nil_shopid_or_itemid",
+            "Error Description": "Query information failed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_holiday_on_add_item",
+            "Error Description": "Shop is under vocation mode.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_nil_name_new_item_model",
+            "Error Description": "Item tier_variation name cannot be empty.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_price_exceed_min_limitt",
+            "Error Description": "Original_price is less than min price limit.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_price_exceed_max_limitt",
+            "Error Description": "Original_price is bigger than max price limit.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_wholesale_price_less_than_ratio_limit",
+            "Error Description": "Wholesale price is less than ratio limit.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Can not update item with different stock structure. Can only update seller stock with location id when existing seller stock have location id. Can only update seller stock without location id when existing seller stock without location id.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_server",
+            "Error Description": "Interal error, please contact openapi team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_slash_price_nomodel_to_models_lock",
+            "Error Description": "In slash sale, can't add model.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_price_should_be_same_for_wholesales",
+            "Error Description": "All model price should be the same when the item has been set wholesales.",
+            "Details and Guidance": ""
+          }
+        ],
+        "x-shopee-error-examples": [
+          "{\n    \"error\": \"product.error_param\",\n    \"message\": \"EOF\",\n    \"request_id\": \"004824f196f49b081e1d829b1bf15023\"\n}"
+        ],
+        "x-shopee-permissions": "API Permissions\nCollapse\nAPP types that can call this API.\nERP System\nSeller In House System\nProduct Management",
+        "x-shopee-api-tools": "API Tools\nCollapse\nAPI Test Tools\nAPI Access Log",
+        "x-shopee-update-log": {
+          "headers": [
+            "Date",
+            "Update Details"
+          ],
+          "rows": [
+            [
+              "2025-01-08",
+              "Update GTIN validation rule"
+            ],
+            [
+              "2024-06-21",
+              "add model level DTS"
+            ],
+            [
+              "2024-05-29",
+              "add model level weight and dimension"
+            ],
+            [
+              "2023-05-05",
+              "update the description of gtin_code"
+            ],
+            [
+              "2022-10-31",
+              "offline the normal_stock and stock_info fields"
+            ]
+          ]
+        },
+        "x-shopee-page": "https://open.shopee.com/documents/v2/v2.product.add_model?module=127&type=1",
+        "x-shopee-extraction": "Authenticated Shopee Open Platform DOM extraction; no Markdown download endpoint was provided."
+      }
+    }
+  },
+  "x-shopee-module": "product"
+}

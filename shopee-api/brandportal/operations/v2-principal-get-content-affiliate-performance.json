@@ -1,0 +1,833 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2.principal.get_content_affiliate_performance",
+    "version": "V2",
+    "description": "Queries affiliate performance data for the specified content items within the selected time range. Supports request granularity by day, week, month, quarter, year, or customize, and returns both overall summary metrics and content-level detailed metrics with placed-order and confirmed-order views."
+  },
+  "host": "partner.shopeemobile.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/api/v2/principal/get_content_affiliate_performance": {
+      "post": {
+        "tags": [
+          "brandportal"
+        ],
+        "operationId": "v2_principal_get_content_affiliate_performance",
+        "summary": "v2.principal.get_content_affiliate_performance",
+        "description": "Queries affiliate performance data for the specified content items within the selected time range. Supports request granularity by day, week, month, quarter, year, or customize, and returns both overall summary metrics and content-level detailed metrics with placed-order and confirmed-order views.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours.",
+            "example": "c09222e3fc40ffb25fc947f738b1abf1"
+          },
+          {
+            "name": "content_ids",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "List of content IDs under the specified shop_id to be queried. Limitations: - Required for every shop object in content_list. - Must contain 1 to 100 values. - Duplicate content_id values are not allowed within the request.",
+            "example": "[1388859,1388860]"
+          },
+          {
+            "name": "content_list",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "List of shops and content IDs to be queried. Limitations: - If omitted or set to [], the API returns all eligible content under the specified principal_id. - If provided, must contain 1 to 100 shop entries. - Duplicate shop_id values are not allowed. - page_size and cursor are only supported when content_list is omitted or empty."
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Currency used for amount-based metrics for the specified content items. Limitations: - Optional for every object in content_list. - Supported values are LOCAL and USD. - Invalid currency values are rejected as invalid_parameter. - Defaults to USD when omitted.",
+            "example": "LOCAL"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Zero-based offset of the first detail record to return. Limitations: - Only supported when content_list is omitted or an empty array. - Default value is 0. - Must be greater than or equal to 0.",
+            "example": "0"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "End date of the requested period in YYYY-MM-DD format. Limitations: - Must use the YYYY-MM-DD format. - Must be a valid calendar date. - Must not be earlier than start_date. - Validation is based on the requested timezone. - For customize, end_date must not be later than the day before the current day in the requested timezone. The inclusive date range from start_date to end_date must not exceed 366 days. - For day, end_date must equal start_date. - For week, end_date must be within the selected week range: from start_date (Sunday) to the end of that Sunday-to-Saturday week, or to the latest selectable day if the week extends beyond today. Formally: startDate ≤ endDate ≤ min(startDate + 6 days, today - 1 day). - For month, end_date must be within the selected month: from the 1st day of the month to the last calendar day of that month, or to the latest selectable day for the current month. Formally: startDate ≤ endDate ≤ min(month end, today - 1 day). - For quarter, end_date must be within the selected quarter: from the 1st day of the quarter to the last calendar day of that quarter, or to the latest selectable day for the current quarter. Formally: startDate ≤ endDate ≤ min(quarter end, today - 1 day). - For year, end_date must be within the selected year: from January 1st to December 31st of that year, or to the latest selectable day for the current year. Formally: startDate ≤ endDate ≤ min(Dec 31, today - 1 day).",
+            "example": "2026-01-01"
+          },
+          {
+            "name": "granularity",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Aggregation granularity that determines the validation rules for the requested date range and the reporting period. Limitations: - Supported values are customize, day, week, month, quarter, and year. - customize is validated as a free date range and is internally queried as daily data. - day represents a single calendar day. - week requires a Sunday-based calendar week. - month requires a calendar month range. - quarter requires a calendar quarter range. - year requires a calendar year range. - Any other value is rejected as invalid_parameter.",
+            "example": "day"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Number of detail records to return in the current response page. Limitations: - Only supported when content_list is omitted or an empty array. - Default value is 100. - Must be between 1 and 200, inclusive.",
+            "example": "100"
+          },
+          {
+            "name": "partner_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Partner ID is assigned upon registration is successful. Required for all requests.",
+            "example": "1"
+          },
+          {
+            "name": "principal_id",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Shopee's unique identifier for a principal.",
+            "example": "1"
+          },
+          {
+            "name": "shop_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Shop identifier of the target shop to be queried. Limitations: - Required for every shop object in content_list. - Must belong to the specified principal_id.",
+            "example": "181050132"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Signature generated by(depends on different APIs) partner_id, api path, timestamp, access_token, principal_id and partner_key via HMAC-SHA256 hashing algorithm.",
+            "example": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Start date of the requested period in YYYY-MM-DD format. Limitations: - Must use the YYYY-MM-DD format. - Must be a valid calendar date. - Must not be later than end_date. - Validation is based on the requested timezone. - The earliest selectable date is calculated as: current day in timezone - 1 day - 2 years. - The exact boundary rules depend on granularity: -- For customize, start_date must not be earlier than the earliest selectable date. -- For day, start_date must equal end_date. -- For week, start_date must be a Sunday. -- For month, start_date must be the first day of the month. -- For quarter, start_date must be the first day of the quarter. -- For year, start_date must be the first day of the year.",
+            "example": "2026-01-01"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes.",
+            "example": "1610000000"
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Timezone used for date boundary calculation, selectable date validation, and timestamp conversion. Limitations: - Enum values: [\\\"GMT+7\\\", \\\"GMT+8\\\", \\\"GMT-3\\\"] - All date validation rules are evaluated in the requested timezone.",
+            "example": "GMT+8"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response documented by Shopee Open Platform.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "request_id": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "summary": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "currency": {
+                            "type": "string"
+                          },
+                          "views": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "likes": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "comments": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "sales_placed": {
+                            "type": "number"
+                          },
+                          "sales_confirmed": {
+                            "type": "number"
+                          },
+                          "units_sold_placed": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "units_sold_confirmed": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "orders_placed": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "orders_confirmed": {
+                            "type": "integer",
+                            "format": "int64"
+                          }
+                        }
+                      }
+                    },
+                    "details": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "region": {
+                            "type": "string"
+                          },
+                          "currency": {
+                            "type": "string"
+                          },
+                          "shop_id": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "shop_name": {
+                            "type": "string"
+                          },
+                          "content_id": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "content_name": {
+                            "type": "string"
+                          },
+                          "views": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "likes": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "comments": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "sales_placed": {
+                            "type": "number"
+                          },
+                          "sales_confirmed": {
+                            "type": "number"
+                          },
+                          "units_sold_placed": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "units_sold_confirmed": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "orders_placed": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "orders_confirmed": {
+                            "type": "integer",
+                            "format": "int64"
+                          }
+                        }
+                      }
+                    },
+                    "next_cursor": {
+                      "type": "integer",
+                      "format": "int64"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-shopee-content-id": "3315",
+        "x-shopee-content-name": "v2.principal.get_content_affiliate_performance",
+        "x-shopee-version": "V2",
+        "x-shopee-module": "BrandPortal",
+        "x-shopee-module-id": "127",
+        "x-shopee-detail-status": "ok",
+        "x-shopee-request-address": {
+          "headers": [
+            "Environment",
+            "Location",
+            "HTTP Address"
+          ],
+          "rows": [
+            [
+              "Live",
+              "Global",
+              "https://partner.shopeemobile.com/api/v2/principal/get_content_affiliate_performance"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.shopee.cn/api/v2/principal/get_content_affiliate_performance"
+            ],
+            [
+              "Brazil",
+              "https://openplatform.shopee.com.br/api/v2/principal/get_content_affiliate_performance"
+            ],
+            [
+              "Sandbox",
+              "Global",
+              "https://openplatform.sandbox.test-stable.shopee.sg/api/v2/principal/get_content_affiliate_performance"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.sandbox.test-stable.shopee.cn/api/v2/principal/get_content_affiliate_performance"
+            ]
+          ]
+        },
+        "x-shopee-common-parameters": [
+          {
+            "Name": "partner_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Partner ID is assigned upon registration is successful. Required for all requests."
+          },
+          {
+            "Name": "timestamp",
+            "Type": "timestamp",
+            "Sample": "1610000000",
+            "Description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes."
+          },
+          {
+            "Name": "access_token",
+            "Type": "string",
+            "Sample": "c09222e3fc40ffb25fc947f738b1abf1",
+            "Description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours."
+          },
+          {
+            "Name": "principal_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Shopee's unique identifier for a principal."
+          },
+          {
+            "Name": "sign",
+            "Type": "string",
+            "Sample": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2",
+            "Description": "Signature generated by(depends on different APIs) partner_id, api path, timestamp, access_token, principal_id and partner_key via HMAC-SHA256 hashing algorithm."
+          }
+        ],
+        "x-shopee-request-parameters": [
+          {
+            "Name": "start_date",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "2026-01-01",
+            "Description": "Start date of the requested period in YYYY-MM-DD format. Limitations: - Must use the YYYY-MM-DD format. - Must be a valid calendar date. - Must not be later than end_date. - Validation is based on the requested timezone. - The earliest selectable date is calculated as: current day in timezone - 1 day - 2 years. - The exact boundary rules depend on granularity: -- For customize, start_date must not be earlier than the earliest selectable date. -- For day, start_date must equal end_date. -- For week, start_date must be a Sunday. -- For month, start_date must be the first day of the month. -- For quarter, start_date must be the first day of the quarter. -- For year, start_date must be the first day of the year."
+          },
+          {
+            "Name": "end_date",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "2026-01-01",
+            "Description": "End date of the requested period in YYYY-MM-DD format. Limitations: - Must use the YYYY-MM-DD format. - Must be a valid calendar date. - Must not be earlier than start_date. - Validation is based on the requested timezone. - For customize, end_date must not be later than the day before the current day in the requested timezone. The inclusive date range from start_date to end_date must not exceed 366 days. - For day, end_date must equal start_date. - For week, end_date must be within the selected week range: from start_date (Sunday) to the end of that Sunday-to-Saturday week, or to the latest selectable day if the week extends beyond today. Formally: startDate ≤ endDate ≤ min(startDate + 6 days, today - 1 day). - For month, end_date must be within the selected month: from the 1st day of the month to the last calendar day of that month, or to the latest selectable day for the current month. Formally: startDate ≤ endDate ≤ min(month end, today - 1 day). - For quarter, end_date must be within the selected quarter: from the 1st day of the quarter to the last calendar day of that quarter, or to the latest selectable day for the current quarter. Formally: startDate ≤ endDate ≤ min(quarter end, today - 1 day). - For year, end_date must be within the selected year: from January 1st to December 31st of that year, or to the latest selectable day for the current year. Formally: startDate ≤ endDate ≤ min(Dec 31, today - 1 day)."
+          },
+          {
+            "Name": "timezone",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "GMT+8",
+            "Description": "Timezone used for date boundary calculation, selectable date validation, and timestamp conversion. Limitations: - Enum values: [\\\"GMT+7\\\", \\\"GMT+8\\\", \\\"GMT-3\\\"] - All date validation rules are evaluated in the requested timezone."
+          },
+          {
+            "Name": "granularity",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "day",
+            "Description": "Aggregation granularity that determines the validation rules for the requested date range and the reporting period. Limitations: - Supported values are customize, day, week, month, quarter, and year. - customize is validated as a free date range and is internally queried as daily data. - day represents a single calendar day. - week requires a Sunday-based calendar week. - month requires a calendar month range. - quarter requires a calendar quarter range. - year requires a calendar year range. - Any other value is rejected as invalid_parameter."
+          },
+          {
+            "Name": "content_list",
+            "Type": "object[]",
+            "Required": "False",
+            "Sample": "",
+            "Description": "List of shops and content IDs to be queried. Limitations: - If omitted or set to [], the API returns all eligible content under the specified principal_id. - If provided, must contain 1 to 100 shop entries. - Duplicate shop_id values are not allowed. - page_size and cursor are only supported when content_list is omitted or empty."
+          },
+          {
+            "Name": "shop_id",
+            "Type": "int64",
+            "Required": "True",
+            "Sample": "181050132",
+            "Description": "Shop identifier of the target shop to be queried. Limitations: - Required for every shop object in content_list. - Must belong to the specified principal_id."
+          },
+          {
+            "Name": "content_ids",
+            "Type": "int64[]",
+            "Required": "True",
+            "Sample": "[1388859,1388860]",
+            "Description": "List of content IDs under the specified shop_id to be queried. Limitations: - Required for every shop object in content_list. - Must contain 1 to 100 values. - Duplicate content_id values are not allowed within the request."
+          },
+          {
+            "Name": "currency",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "LOCAL",
+            "Description": "Currency used for amount-based metrics for the specified content items. Limitations: - Optional for every object in content_list. - Supported values are LOCAL and USD. - Invalid currency values are rejected as invalid_parameter. - Defaults to USD when omitted."
+          },
+          {
+            "Name": "page_size",
+            "Type": "int64",
+            "Required": "False",
+            "Sample": "100",
+            "Description": "Number of detail records to return in the current response page. Limitations: - Only supported when content_list is omitted or an empty array. - Default value is 100. - Must be between 1 and 200, inclusive."
+          },
+          {
+            "Name": "cursor",
+            "Type": "int64",
+            "Required": "False",
+            "Sample": "0",
+            "Description": "Zero-based offset of the first detail record to return. Limitations: - Only supported when content_list is omitted or an empty array. - Default value is 0. - Must be greater than or equal to 0."
+          }
+        ],
+        "x-shopee-request-examples": {
+          "languages": [
+            "Payload",
+            "Java",
+            "PHP",
+            "cURL",
+            "Python"
+          ],
+          "values": [
+            "{\n\t\"start_date\": \"2026-01-01\",\n\t\"end_date\": \"2026-01-01\",\n\t\"timezone\": \"GMT+8\",\n\t\"granularity\": \"day\",\n\t\"page_size\": 100,\n\t\"cursor\": 0\n}",
+            "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.post(\"https://partner.shopeemobile.com/api/v2/principal/get_content_affiliate_performance?access_token=access_token&partner_id=partner_id&principal_id=principal_id&sign=sign&timestamp=timestamp\")\n.header(\"Content-Type\",\"application/json\")\n.body(\"{\n   \\\"content_list\\\": [\n      {\n         \\\"content_ids\\\": [\n            1388859,\n            1388860\n         ],\n         \\\"currency\\\": \\\"LOCAL\\\",\n         \\\"shop_id\\\": 181050132\n      }\n   ],\n   \\\"cursor\\\": 0,\n   \\\"end_date\\\": \\\"2026-01-01\\\",\n   \\\"granularity\\\": \\\"day\\\",\n   \\\"page_size\\\": 100,\n   \\\"start_date\\\": \\\"2026-01-01\\\",\n   \\\"timezone\\\": \\\"GMT+8\\\"\n}\")\n.asString();",
+            "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n  CURLOPT_URL => 'https://partner.shopeemobile.com/api/v2/principal/get_content_affiliate_performance?access_token=access_token&partner_id=partner_id&principal_id=principal_id&sign=sign&timestamp=timestamp',\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_ENCODING => '',\n  CURLOPT_MAXREDIRS => 10,\n  CURLOPT_TIMEOUT => 0,\n  CURLOPT_FOLLOWLOCATION => true,\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n  CURLOPT_CUSTOMREQUEST => 'POST',\n  CURLOPT_POSTFIELDS => '{\n    \"content_list\": [\n        {\n            \"content_ids\": [\n                1388859,\n                1388860\n            ],\n            \"currency\": \"LOCAL\",\n            \"shop_id\": 181050132\n        }\n    ],\n    \"cursor\": 0,\n    \"end_date\": \"2026-01-01\",\n    \"granularity\": \"day\",\n    \"page_size\": 100,\n    \"start_date\": \"2026-01-01\",\n    \"timezone\": \"GMT+8\"\n}',\n  CURLOPT_HTTPHEADER => array(\n    'Content-Type: application/json'\n  ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;",
+            "curl --location --request POST 'https://partner.shopeemobile.com/api/v2/principal/get_content_affiliate_performance?access_token=access_token&partner_id=partner_id&principal_id=principal_id&sign=sign&timestamp=timestamp' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n   \"content_list\": [\n      {\n         \"content_ids\": [\n            1388859,\n            1388860\n         ],\n         \"currency\": \"LOCAL\",\n         \"shop_id\": 181050132\n      }\n   ],\n   \"cursor\": 0,\n   \"end_date\": \"2026-01-01\",\n   \"granularity\": \"day\",\n   \"page_size\": 100,\n   \"start_date\": \"2026-01-01\",\n   \"timezone\": \"GMT+8\"\n}'",
+            "import requests\nimport json\n\nurl = \"https://partner.shopeemobile.com/api/v2/principal/get_content_affiliate_performance?access_token=access_token&partner_id=partner_id&principal_id=principal_id&sign=sign&timestamp=timestamp\"\n\npayload=json.dumps({\n  \"content_list\": [\n    {\n      \"content_ids\": [\n        1388859,\n        1388860\n      ],\n      \"currency\": \"LOCAL\",\n      \"shop_id\": 181050132\n    }\n  ],\n  \"cursor\": 0,\n  \"end_date\": \"2026-01-01\",\n  \"granularity\": \"day\",\n  \"page_size\": 100,\n  \"start_date\": \"2026-01-01\",\n  \"timezone\": \"GMT+8\"\n})\nheaders = {\n  'Content-Type': 'application/json'\n}\nresponse = requests.RPCRequest(\"POST\",url,headers=headers, data=payload, allow_redirects=False)\n\nprint(response.text)"
+          ]
+        },
+        "x-shopee-response-parameters": [
+          {
+            "Name": "request_id",
+            "Type": "string",
+            "Sample": "f40a50aa-a1fe-466a-b1b4-0a145590db52",
+            "Description": "The identifier for an API request, used for troubleshooting and log tracing."
+          },
+          {
+            "Name": "error",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error type if any error happened. Empty string if no error."
+          },
+          {
+            "Name": "message",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error details if any error happened. Empty string if no error."
+          },
+          {
+            "Name": "response",
+            "Type": "object",
+            "Sample": "",
+            "Description": "Business response payload. See Business Response Parameters below."
+          },
+          {
+            "Name": "summary",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": "Aggregated summary metrics for the requested date range, representing the overall affiliate performance of the selected content items. The summary currency is USD when multiple currencies are requested; otherwise it follows the single requested currency, or USD by default."
+          },
+          {
+            "Name": "currency",
+            "Type": "string",
+            "Sample": "LOCAL",
+            "Description": "Currency code used for all amount-based metrics in the summary."
+          },
+          {
+            "Name": "views",
+            "Type": "int64",
+            "Sample": "57843",
+            "Description": "Total content views generated during the selected period."
+          },
+          {
+            "Name": "likes",
+            "Type": "int64",
+            "Sample": "10278",
+            "Description": "Total content likes generated during the selected period."
+          },
+          {
+            "Name": "comments",
+            "Type": "int64",
+            "Sample": "459",
+            "Description": "Total content comments generated during the selected period."
+          },
+          {
+            "Name": "sales_placed",
+            "Type": "float",
+            "Sample": "6792.25",
+            "Description": "Total value of placed orders generated through affiliate marketing during the selected period. Placed orders are orders (COD and non-COD) that buyers have successfully placed, including paid and unpaid orders."
+          },
+          {
+            "Name": "sales_confirmed",
+            "Type": "float",
+            "Sample": "6792.25",
+            "Description": "Total value of confirmed orders generated through affiliate marketing during the selected period. Confirmed orders are either non-Cash On Delivery (non-COD) orders that have been paid for or COD orders that have been confirmed for shipping (usually 30 mins after placing the order)."
+          },
+          {
+            "Name": "units_sold_placed",
+            "Type": "int64",
+            "Sample": "24",
+            "Description": "Total number of items sold in placed orders generated through affiliate marketing during the selected period."
+          },
+          {
+            "Name": "units_sold_confirmed",
+            "Type": "int64",
+            "Sample": "24",
+            "Description": "Total number of items sold in confirmed orders generated through affiliate marketing during the selected period."
+          },
+          {
+            "Name": "orders_placed",
+            "Type": "int64",
+            "Sample": "26",
+            "Description": "Total number of placed orders generated through affiliate marketing during the selected period. Placed orders are orders (COD and non-COD) that buyers have successfully placed, including paid and unpaid orders."
+          },
+          {
+            "Name": "orders_confirmed",
+            "Type": "int64",
+            "Sample": "24",
+            "Description": "Total number of confirmed orders generated through affiliate marketing during the selected period. Confirmed orders are either non-Cash On Delivery (non-COD) orders that have been paid for or COD orders that have been confirmed for shipping (usually 30 mins after placing the order)."
+          },
+          {
+            "Name": "details",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": "List of content-level detail records that returns affiliate performance metrics for each selected content item within the requested date range. Details are sorted by shop_id and then content_id in ascending order."
+          },
+          {
+            "Name": "region",
+            "Type": "string",
+            "Sample": "SG",
+            "Description": "Region code of the shop that owns this content item."
+          },
+          {
+            "Name": "currency",
+            "Type": "string",
+            "Sample": "LOCAL",
+            "Description": "Currency code used for all amount-based metrics of this content item."
+          },
+          {
+            "Name": "shop_id",
+            "Type": "int64",
+            "Sample": "181050132",
+            "Description": "Shop identifier that owns this content item."
+          },
+          {
+            "Name": "shop_name",
+            "Type": "string",
+            "Sample": "Huawei Official Store",
+            "Description": "Shop name that owns this content item."
+          },
+          {
+            "Name": "content_id",
+            "Type": "int64",
+            "Sample": "1388859",
+            "Description": "Affiliate content identifier."
+          },
+          {
+            "Name": "content_name",
+            "Type": "string",
+            "Sample": "Huawei Brand Day sale!",
+            "Description": "Affiliate content name."
+          },
+          {
+            "Name": "views",
+            "Type": "int64",
+            "Sample": "57843",
+            "Description": "Total content views generated during the selected period for this content item."
+          },
+          {
+            "Name": "likes",
+            "Type": "int64",
+            "Sample": "10278",
+            "Description": "Total content likes generated during the selected period for this content item."
+          },
+          {
+            "Name": "comments",
+            "Type": "int64",
+            "Sample": "459",
+            "Description": "Total content comments generated during the selected period for this content item."
+          },
+          {
+            "Name": "sales_placed",
+            "Type": "float",
+            "Sample": "6792.25",
+            "Description": "Total value of placed orders generated through affiliate marketing during the selected period for this content item. Placed orders are orders (COD and non-COD) that buyers have successfully placed, including paid and unpaid orders."
+          },
+          {
+            "Name": "sales_confirmed",
+            "Type": "float",
+            "Sample": "6792.25",
+            "Description": "Total value of confirmed orders generated through affiliate marketing during the selected period for this content item. Confirmed orders are either non-Cash On Delivery (non-COD) orders that have been paid for or COD orders that have been confirmed for shipping (usually 30 mins after placing the order)."
+          },
+          {
+            "Name": "units_sold_placed",
+            "Type": "int64",
+            "Sample": "24",
+            "Description": "Total number of items sold in placed orders generated through affiliate marketing during the selected period for this content item."
+          },
+          {
+            "Name": "units_sold_confirmed",
+            "Type": "int64",
+            "Sample": "24",
+            "Description": "Total number of items sold in confirmed orders generated through affiliate marketing during the selected period for this content item."
+          },
+          {
+            "Name": "orders_placed",
+            "Type": "int64",
+            "Sample": "26",
+            "Description": "Total number of placed orders generated through affiliate marketing during the selected period for this content item. Placed orders are orders (COD and non-COD) that buyers have successfully placed, including paid and unpaid orders."
+          },
+          {
+            "Name": "orders_confirmed",
+            "Type": "int64",
+            "Sample": "24",
+            "Description": "Total number of confirmed orders generated through affiliate marketing during the selected period for this content item. Confirmed orders are either non-Cash On Delivery (non-COD) orders that have been paid for or COD orders that have been confirmed for shipping (usually 30 mins after placing the order)."
+          },
+          {
+            "Name": "next_cursor",
+            "Type": "int64",
+            "Sample": "100",
+            "Description": "Offset to be used in the next request for fetching the next page of detail records. Notes: - Returned only when content_list is omitted or an empty array. - Calculated as cursor + returned_detail_count. - If returned_detail_count is less than page_size, it indicates there may be no more records. - If the request is already beyond the end of the result set, the API returns 0 detail records and next_cursor remains equal to the input cursor."
+          }
+        ],
+        "x-shopee-response-examples": [
+          "{\n\t\"request_id\": \"f40a50aa-a1fe-466a-b1b4-0a145590db52\",\n\t\"error\": \"\",\n\t\"message\": \"\",\n\t\"response\": {\n\t\t\"summary\": [\n\t\t\t{\n\t\t\t\t\"currency\": \"LOCAL\",\n\t\t\t\t\"views\": 57843,\n\t\t\t\t\"likes\": 10278,\n\t\t\t\t\"comments\": 459,\n\t\t\t\t\"sales_placed\": 6792.25,\n\t\t\t\t\"sales_confirmed\": 6792.25,\n\t\t\t\t\"units_sold_placed\": 24,\n\t\t\t\t\"units_sold_confirmed\": 24,\n\t\t\t\t\"orders_placed\": 26,\n\t\t\t\t\"orders_confirmed\": 24\n\t\t\t}\n\t\t],\n\t\t\"details\": [\n\t\t\t{\n\t\t\t\t\"region\": \"SG\",\n\t\t\t\t\"currency\": \"LOCAL\",\n\t\t\t\t\"shop_id\": 181050132,\n\t\t\t\t\"shop_name\": \"Huawei Official Store\",\n\t\t\t\t\"content_id\": 1388859,\n\t\t\t\t\"content_name\": \"Huawei Brand Day sale!\",\n\t\t\t\t\"views\": 57843,\n\t\t\t\t\"likes\": 10278,\n\t\t\t\t\"comments\": 459,\n\t\t\t\t\"sales_placed\": 6792.25,\n\t\t\t\t\"sales_confirmed\": 6792.25,\n\t\t\t\t\"units_sold_placed\": 24,\n\t\t\t\t\"units_sold_confirmed\": 24,\n\t\t\t\t\"orders_placed\": 26,\n\t\t\t\t\"orders_confirmed\": 24\n\t\t\t}\n\t\t],\n\t\t\"next_cursor\": 100\n\t}\n}"
+        ],
+        "x-shopee-error-codes": [
+          {
+            "Error": "error_param",
+            "Error Description": "page_size is only supported when content_list is empty.",
+            "Details and Guidance": "Explanation: The page_size parameter allows paginated retrieval of affiliate content metrics. However, it is only valid when querying across all content items without specifying specific content IDs. When content_list is provided (non-empty), the API returns data for only those specified items, making pagination inapplicable. Possible causes: - You provided both content_list (with specific content IDs) and page_size in the request. - The request attempted to paginate results for a filtered subset of content items. Troubleshooting: - Remove the content_list parameter when using page_size to fetch data for all content items. - Alternatively, remove page_size and cursor when querying specific content IDs in content_list. - If large-scale data retrieval is needed, omit content_list and use page_size with optional cursor for cursor-based pagination. Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "timezone is required",
+            "Details and Guidance": "1. timezone field is missing from the request body - Cause: The JSON body of the POST request completely lacks the timezone field - Fix: Add the \"timezone\" field to the request body using one of the allowed timezone values: \"GMT+7\", \"GMT+8\", \"GMT-3\", for example {\"start_date\": \"2024-01-15\", \"end_date\": \"2024-01-31\", \"timezone\": \"GMT+8\", ...} 2. timezone value is empty or blank - Cause: The timezone field value is an empty string \"\" or contains only whitespace \" \", the @NotBlank validation detects this - Fix: Provide a valid timezone value, must be selected from the allowed list: \"GMT+7\", \"GMT+8\", \"GMT-3\", cannot be empty 3. timezone value is null - Cause: timezone is explicitly set to null - Fix: Provide a valid timezone value selected from the allowed list: \"GMT+7\", \"GMT+8\", \"GMT-3\" 4. timezone key name is misspelled - Cause: Using a different key name, such as \"timeZone\" (camelCase) or \"time_zone\", etc. - Fix: Use the correct key name \"timezone\" (all lowercase, no underscores) Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "timezone is invalid. allowed values: GMT+7, GMT+8, GMT-3.",
+            "Details and Guidance": "1.timezone value is not in the allowed list - Cause: The provided timezone value is not in the allowed timezone list (such as \"Asia/Shanghai\", \"UTC\", \"GMT+5\", etc.) - Fix: Only the following allowed timezone values are supported: \"GMT+7\", \"GMT+8\", \"GMT-3\" Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "granularity is required",
+            "Details and Guidance": "1. granularity field is missing from the request body - Cause: The JSON body of the POST request completely lacks the granularity field - Fix: Add the \"granularity\" field to the request body using one of the allowed granularity values: \"day\", \"week\", \"month\", \"quarter\", \"year\", \"customize\", for example {\"start_date\": \"2024-01-15\", \"end_date\": \"2024-01-31\", \"granularity\": \"day\", ...} 2. granularity value is empty or blank - Cause: The granularity field value is an empty string \"\" or contains only whitespace \" \", the @NotBlank validation detects this - Fix: Provide a valid granularity value, must be selected from the allowed list: \"day\", \"week\", \"month\", \"quarter\", \"year\", \"customize\", cannot be empty 3. granularity value is null - Cause: granularity is explicitly set to null - Fix: Provide a valid granularity value selected from the allowed list: \"day\", \"week\", \"month\", \"quarter\", \"year\", \"customize\" 4. granularity key name is misspelled - Cause: Using a different key name, such as \"Granularity\" or \"grain_ularity\" or \"time_granularity\", etc. - Fix: Use the correct key name \"granularity\" (all lowercase, no underscores) 5. granularity value is not in the allowed list - Cause: The provided granularity value is not in the allowed granularity list (such as \"DAILY\", \"Daily\", \"hours\", etc.) - Fix: Only the following allowed granularity values are supported (case-insensitive, but lowercase is recommended): - \"day\" - daily aggregation - \"week\" - weekly aggregation (starting on Sunday) - \"month\" - monthly aggregation - \"quarter\" - quarterly aggregation - \"year\" - yearly aggregation - \"customize\" - custom date range Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "request body is invalid",
+            "Details and Guidance": "1. request body JSON format is invalid - Cause: The JSON sent is incorrectly formatted, such as missing quotes, commas, mismatched brackets, etc. - Fix: Check if the JSON format is valid. Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "shop_id is required",
+            "Details and Guidance": "1. An element in the request list is missing the shop_id field 2. shop_id value is null - Fix: Provide a valid non-null shop_id value 3. shop_id key name is misspelled - Fix: Use \"shop_id\", not \"shopId\" or \"shop-id\" Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "currency is invalid",
+            "Details and Guidance": "1. currency value is not in the allowed list - Cause: The currency field value in a shop object in shop_list is not an allowed currency type, system throws exception when calling CurrencyEnum.valueOf() - Fix: currency supports only two values (case-insensitive): \"usd\" or \"local\". For example {\"shop_id\": 123456, \"currency\": \"usd\"} or {\"shop_id\": 123456, \"currency\": \"local\"} Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "cursor is only supported when content_list is empty.",
+            "Details and Guidance": "Explanation: The cursor parameter enables cursor-based pagination for fetching affiliate content metrics results in batches. It is designed for full-scope queries and is only valid when no specific content IDs are filtered. Possible causes: - A cursor value was provided together with a non-empty content_list. - The request attempted to continue pagination from a previous cursor while also filtering by specific content items. Troubleshooting: - Omit content_list when using cursor for pagination across all content. - To query specific content items, remove both page_size and cursor, and provide the content IDs directly in content_list. - For full-scope paginated retrieval: omit content_list, set page_size, and use the returned cursor value in subsequent requests. Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "content_ids is required",
+            "Details and Guidance": "1. an element in content_list is missing the content_ids field - Cause: A content object in the content_list array does not have the content_ids field - Fix: Ensure each object in content_list contains the content_ids field, format: {\"shop_id\": 123456, \"content_ids\": [1001, 1002]} 2. content_ids is an empty array - Cause: The content_ids field exists but its value is an empty array [] - Fix: Provide at least one content_id for each content object, content_ids cannot be empty 3. content_ids value is null - Cause: content_ids is explicitly set to null - Fix: Provide a valid content ID list array, cannot be null Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "end_date is not ready, please retry later",
+            "Details and Guidance": "1. the data corresponding to the requested end_date is still being processed and has not completed - Cause: The dashboard data update on the data platform has a delay (usually T-1 or T-2). The data corresponding to the end_date of the current request is still being processed. - Fix: Retry the request later. Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "for day granularity, start_date must equal end_date.",
+            "Details and Guidance": "1. start_date and end_date are not the same when using day granularity - Cause: When granularity is \"day\", the system requires querying data for a single date, therefore start_date and end_date must be the same - Fix: Set start_date and end_date to the same date. For example, if you want to query daily data for 2024-01-15, set \"start_date\": \"2024-01-15\" and \"end_date\": \"2024-01-15\" Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "day range is outside the allowed selectable range.",
+            "Details and Guidance": "1. selected date is earlier than the earliest allowed date (2 years ago) - Cause: The earliest date allowed for querying is 2 years before the current date (calculated according to the timezone). If start_date (for day granularity, start_date must equal end_date) is earlier than this date, this error is triggered - Fix: The selected date must be within the last 2 years. For example, if today is 2026-06-29, the earliest allowed date for querying is 2024-06-28. Ensure both start_date and end_date are not earlier than that date 2. selected date is later than the latest allowed date (yesterday) - Cause: Open API data has a 1-day delay. The latest date allowed for querying is yesterday. If start_date or end_date is today or a future date, this error is triggered - Fix: You can only query data up to yesterday. If today is 2026-06-29, you can only query data up to 2026-06-28. Adjust start_date and end_date to yesterday or an earlier date Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "for week granularity, end_date must be within the selected week range",
+            "Details and Guidance": "1. end_date is before start_date or outside the selected week range - Cause: When granularity is \"week\", end_date must be within the same week as start_date. The system checks that end_date is less than start_date or end_date exceeds the last day of that week - Fix: Ensure end_date >= start_date, and end_date does not exceed the last day of that week. For week granularity, the allowed end_date range is from start_date to 6 days after start_date (or the last day before latestSelectableDay, whichever is earlier) 2. end_date exceeds the last allowed queryable date (yesterday) - Cause: The last day of the week in which start_date falls may be a future date, but the system restricts end_date to not exceed yesterday - Fix: If the selected week spans yesterday, then end_date should be set to yesterday. For example, if start_date is 2026-06-28 (Sunday), the last day of that week is 2026-07-04 (Saturday), but if today is 2026-06-29, end_date can be at most 2026-06-28 (yesterday) Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "for week granularity, start_date must be a Sunday.",
+            "Details and Guidance": "1. start_date is not a Sunday - Cause: When granularity is \"week\", start_date must be a Sunday. The system checks that start_date is another day of the week (such as Monday, Tuesday, etc.) - Fix: Adjust start_date to be a Sunday. Sunday is the last day of the ISO week, with dayOfWeek value of 7. For example, if you want to query weekly data, start_date should be the Sunday of that week, such as \"start_date\": \"2026-06-28\" (assuming this is a Sunday) Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "week start_date is earlier than the earliest allowed week.",
+            "Details and Guidance": "1. start_date is earlier than the earliest allowed date (2 years ago) - Cause: Open API allows querying data for a maximum of 2 years. The earliest date allowed for querying is 2 years before the current date (calculated according to the timezone). If start_date is earlier than this date, this error is triggered - Fix: The selected week must be within the last 2 years. For example, if today is 2026-06-29, the earliest allowed Sunday for querying is 2024-06-28. Adjust start_date to a more recent Sunday Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "start_date cannot be later than end_date.",
+            "Details and Guidance": "1. start_date is later than end_date - Cause: The system checks that start_date is after end_date, which is illogical. For example, start_date is 2026-06-29 and end_date is 2026-06-28 - Fix: Ensure start_date <= end_date. Adjust the date order so that start_date is earlier than or equal to end_date. For example, the correct way is start_date as \"2026-06-28\" and end_date as \"2026-06-29\" Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "month range is outside the allowed selectable range.",
+            "Details and Guidance": "1. start_date is earlier than the earliest allowed month (month from 2 years ago) - Cause: Open API allows querying data for a maximum of 2 years. The earliest month allowed for querying is the 1st day of that month 2 years ago. If start_date is earlier than this date, this error is triggered - Fix: The selected month must be within the last 2 years. For example, if today is 2026-06-29, the earliest allowed month for querying is 2024-06-01 (June 2024). Adjust start_date to the 1st day of a more recent month 2. start_date is later than the latest allowed month (current month) - Cause: start_date must be the 1st day of a month and cannot exceed the 1st of the current month. If start_date is next month or later, it exceeds the allowed range - Fix: Ensure start_date is the 1st of a past or current month. For example, if today is 2026-06-29, start_date can be at most 2026-06-01 (current month) Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "for month granularity, start_date must be the first day of month.",
+            "Details and Guidance": "1. start_date is not the first day of the month - Cause: When granularity is \"month\", start_date must be the 1st of a month. The system checks that start_date is another day of that month (such as the 15th, 20th, etc.) - Fix: Adjust start_date to the 1st of a month. For example, if you want to query data for June 2026, start_date should be \"2026-06-01\", not \"2026-06-15\" or other dates Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "for month granularity, end_date must be within the selected month range.",
+            "Details and Guidance": "1. start_date is not the first day of the quarter - Cause: When granularity is \"quarter\", start_date must be the first day of a quarter. The first day of quarters are: Q1 (January 1st), Q2 (April 1st), Q3 (July 1st), Q4 (October 1st). The system checks that start_date is not one of these dates - Fix: Adjust start_date to the first day of a quarter. For example, if you want to query data for Q2 2026, start_date should be \"2026-04-01\"; if you want to query Q3, start_date should be \"2026-07-01\" Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "for quarter granularity, end_date must be within the selected quarter range.",
+            "Details and Guidance": "1. end_date is before start_date or outside the selected quarter range - Cause: When granularity is \"quarter\", end_date must be within the same quarter as start_date. The system checks that end_date is less than start_date or end_date exceeds the last day of that quarter - Fix: Ensure end_date >= start_date, and end_date does not exceed the last day of that quarter. For quarter granularity, the allowed end_date range is from start_date (first day of quarter) to the last day of that quarter (or yesterday, whichever is earlier). For example, Q2 (April 1 to June 30), Q3 (July 1 to September 30), etc. 2. end_date exceeds the latest allowed queryable date (yesterday) - Cause: The last day of the quarter in which start_date falls may be a future date, but the system restricts end_date to not exceed yesterday - Fix: If the selected quarter spans yesterday, then end_date should be set to yesterday. For example, if start_date is 2026-07-01 (Q3), the last day of that quarter is 2026-09-30, but if today is 2026-06-29, the allowed quarter is Q2 (2026-04-01 to 2026-06-28) Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "year range is outside the allowed selectable range.",
+            "Details and Guidance": "1. start_date is earlier than the earliest allowed year (year from 2 years ago) - Cause: Open API allows querying data for a maximum of 2 years. The earliest year allowed for querying is January 1 of the year 2 years ago. If start_date is earlier than this date, this error is triggered - Fix: The selected year must be within the last 2 years. For example, if today is 2026-06-29, the earliest allowed year for querying is 2024 (2024-01-01). Adjust start_date to 2024-01-01 or 2025-01-01 or 2026-01-01 2. start_date is later than the latest allowed year (current year) - Cause: start_date must be January 1 of a year and cannot exceed January 1 of the current year. If start_date is January 1 of a future year, it exceeds the allowed range - Fix: Ensure start_date is January 1 of a past or current year. For example, if today is 2026-06-29, start_date can be at most 2026-01-01 (current year), not 2027-01-01 Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "for quarter granularity, start_date must be the first day of quarter.",
+            "Details and Guidance": "1. start_date is not January 1 of the year - Cause: When granularity is \"year\", start_date must be January 1 of a year. The system checks that start_date is not January 1 (such as 2026-02-15, 2026-06-30, etc.) - Fix: Adjust start_date to January 1 of the year. For example, if you want to query data for 2026, start_date should be \"2026-01-01\", not any other date Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "for quarter granularity, end_date must be within the selected quarter range.",
+            "Details and Guidance": "1. end_date is before start_date or outside the selected year range - Cause: When granularity is \"year\", end_date must be within the same year as start_date. The system checks that end_date is less than start_date or end_date exceeds the last day of that year (December 31) - Fix: Ensure end_date >= start_date, and end_date does not exceed the last day of that year. For year granularity, the allowed end_date range is from start_date (January 1) to the last day of that year (or yesterday, whichever is earlier). For example, the allowed range for 2026 is 2026-01-01 to 2026-12-31 (or yesterday if near year-end) 2. end_date exceeds the latest allowed queryable date (yesterday) - Cause: The last day of the year in which start_date falls may be a future date, but the system restricts end_date to not exceed yesterday - Fix: If the selected year spans yesterday, then end_date should be set to yesterday. For example, if start_date is 2026-01-01, the last day of that year is 2026-12-31, but if today is 2026-06-29, end_date can be at most 2026-06-28 (yesterday Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "start_date is earlier than the earliest allowed date",
+            "Details and Guidance": "1. start_date is earlier than the earliest allowed date (2 years ago) - Cause: Open API allows querying data for a maximum of 2 years. The earliest date allowed for querying is 2 years before the current date (calculated according to the timezone). If start_date is earlier than this date, this error is triggered - Fix: The selected date must be within the last 2 years. For example, if today is 2026-06-29, the earliest allowed date for querying is 2024-06-28. Adjust start_date to a more recent date, ensuring it is not earlier than the date 2 years ago Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "for year granularity, end_date must be within the selected year range.",
+            "Details and Guidance": "1. start_date and end_date span different years - Cause: When granularity is \"year\", end_date must be within the same year as start_date. If start_date is 2025, end_date cannot be 2026 or any other year - Fix: Ensure start_date and end_date are in the same year. For example, if you want to query data for 2025, it should be start_date=\"2025-01-01\" and end_date=\"2025-12-31\" (or an earlier date); if you want to query 2026, it should be start_date=\"2026-01-01\" and end_date=\"2026-12-31\" (or an earlier date) 2. end_date is later than the latest allowed date (yesterday) - Cause: When using year granularity, end_date cannot be later than yesterday. If end_date equals today's date, it exceeds the allowed range for that year - Fix: Set end_date to a date not later than yesterday. For example, if today is 2026-06-29, set end_date to 2026-06-28 or earlier to ensure the query is within the allowed range Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "end_date must not be later than the latest selectable day.",
+            "Details and Guidance": "1. end_date is today or a future date - Cause: In customize granularity, end_date cannot exceed yesterday. Open API data has a 1-day delay, so you can only query data up to yesterday - Fix: Change end_date to yesterday or an earlier date. For example, if today is 2026-06-29, end_date can be at most 2026-06-28 Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "cursor must be greater than or equal to 0",
+            "Details and Guidance": "Details: The cursor parameter enables cursor-based pagination to fetch the next batch of records. The cursor value is an opaque offset token returned by the API in previous paginated responses. The minimum valid cursor value is 0. Possible causes: - A negative cursor value was provided in the request. Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "page_size must be between 1 and 200.",
+            "Details and Guidance": "page_size must be between 1 and 200."
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "content_list contains duplicate content_id.",
+            "Details and Guidance": "This error means the request contains duplicate identifiers in the same ID list. Possible causes: The same content_id appears more than once in the request. Duplicate values are included within a single shop object. The same identifier is repeated unintentionally when constructing the request payload. How to resolve: Check the corresponding ID list in the request body. Remove duplicate values before sending the request. Ensure each content_id appears only once in the request. Show more"
+          },
+          {
+            "Error": "error_permission",
+            "Error Description": "auth failed",
+            "Details and Guidance": "1. request is from an unauthorized gateway - Cause: The request is not forwarded from the open platform but sent directly from an unauthorized source - Fix: Ensure all API requests are forwarded through the open platform, do not call the API directly Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "start_date is required",
+            "Details and Guidance": "1. start_date field is missing from the request body - Cause: The JSON body of the POST request completely lacks the start_date field - Fix: Add \"start_date\": \"YYYY-MM-DD\" to the request body, for example {\"start_date\": \"2024-01-15\", \"end_date\": \"2024-01-31\", ...} 2. start_date value is empty or blank - Cause: The start_date field value is an empty string \"\" or contains only whitespace \" \" - Fix: Provide an actual date value in YYYY-MM-DD format, cannot be empty 3. start_date value is null - Cause: start_date is explicitly set to null - Fix: Provide a valid date value in YYYY-MM-DD format 4. start_date key name is misspelled - Cause: Using a different key name, such as \"startDate\" (camelCase) or \"start_Date\", etc. - Fix: Use the correct key name \"start_date\" (lowercase with underscores) Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "start_date is required; start_date must use YYYY-MM-DD",
+            "Details and Guidance": "1.start_date date format is incorrect - Cause: The date format is not YYYY-MM-DD, such as \"2024/01/15\" or \"01-15-2024\" or \"2024-1-15\" - Fix: Use the standard format YYYY-MM-DD, ensure both month and day are two digits, for example \"2024-01-15\" (not \"2024-1-15\") Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "end_date is required",
+            "Details and Guidance": "1. end_date field is missing from the request body - Cause: The JSON body of the POST request completely lacks the end_date field - Fix: Add \"end_date\": \"YYYY-MM-DD\" to the request body, for example {\"start_date\": \"2024-01-15\", \"end_date\": \"2024-01-31\", ...} 2. end_date value is empty or blank - Cause: The end_date field value is an empty string \"\" or contains only whitespace \" \" - Fix: Provide an actual date value in YYYY-MM-DD format, cannot be empty 3. end_date value is null - Cause: end_date is explicitly set to null - Fix: Provide a valid date value in YYYY-MM-DD format 4. end_date key name is misspelled - Cause: Using a different key name, such as \"endDate\" (camelCase) or \"end_Date\", etc. - Fix: Use the correct key name \"end_date\" (lowercase with underscores) Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "end_date must use YYYY-MM-DD",
+            "Details and Guidance": "1.end_date date format is incorrect - Cause: The date format is not YYYY-MM-DD, such as \"2024/01/31\" or \"01-31-2024\" or \"2024-1-31\" - Fix: Use the standard format YYYY-MM-DD, ensure both month and day are two digits, for example \"2024-01-31\" (not \"2024-1-31\") Show more"
+          }
+        ],
+        "x-shopee-error-examples": [
+          "{\n    \"request_id\": \"32156105-6502-42cd-bcbb-6472f1b31b02\",\n    \"error\": \"error_param\",\n    \"message\": \"page_size is only supported when content_list is empty.\",\n    \"response\": null\n}"
+        ],
+        "x-shopee-permissions": "API Permissions\nCollapse\nAPP types that can call this API.\nBrand Portal Service",
+        "x-shopee-api-tools": "API Tools\nCollapse\nAPI Test Tools\nAPI Access Log",
+        "x-shopee-update-log": {
+          "headers": [
+            "Date",
+            "Update Details"
+          ],
+          "rows": [
+            [
+              "2026-07-09",
+              "New API"
+            ]
+          ]
+        },
+        "x-shopee-page": "https://open.shopee.com/documents/v2/v2.principal.get_content_affiliate_performance?module=127&type=1",
+        "x-shopee-extraction": "Authenticated Shopee Open Platform DOM extraction; no Markdown download endpoint was provided."
+      }
+    }
+  },
+  "x-shopee-module": "brandportal"
+}

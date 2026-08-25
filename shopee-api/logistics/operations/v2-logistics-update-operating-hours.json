@@ -1,0 +1,1175 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2.logistics.update_operating_hours",
+    "version": "V2",
+    "description": "This API is designed to allow sellers to update their operating hours. It is essential that the values provided in this API align with the restrictions retrieved from the v2.logistics.get_operating_hour_restrictions API to ensure compliance with platform requirements. This API uses overwriting updates, when updating pickup operating hours, still need to include all parts even those not needing changes."
+  },
+  "host": "partner.shopeemobile.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/api/v2/logistics/update_operating_hours": {
+      "post": {
+        "tags": [
+          "logistics"
+        ],
+        "operationId": "v2_logistics_update_operating_hours",
+        "summary": "v2.logistics.update_operating_hours",
+        "description": "This API is designed to allow sellers to update their operating hours. It is essential that the values provided in this API align with the restrictions retrieved from the v2.logistics.get_operating_hour_restrictions API to ensure compliance with platform requirements. This API uses overwriting updates, when updating pickup operating hours, still need to include all parts even those not needing changes.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours.",
+            "example": "c09222e3fc40ffb25fc947f738b1abf1"
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Date: it should be include all date from start_date until end_date",
+            "example": "2025-03-03"
+          },
+          {
+            "name": "enable",
+            "in": "query",
+            "type": "boolean",
+            "required": true,
+            "description": "To specify this value as False if you're not operate on that date (close)",
+            "example": "true"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "The end date of the Special Operating Hours. The value should be within [start_date + 30 days]",
+            "example": "2025-03-05"
+          },
+          {
+            "name": "end_time",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59",
+            "example": "18:30"
+          },
+          {
+            "name": "friday",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Operating hours for Friday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "name": "instant_operating_hour",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Details of Instant Operating Hours : You can skip this parameter if you are not creating/updating Instant Operating Hours or if you do not have access to create/update Instant Operating Hours"
+          },
+          {
+            "name": "monday",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Operating hours for Monday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "name": "name",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "The name of Special Operating Hours",
+            "example": "3.3 Campaign"
+          },
+          {
+            "name": "operating_hours",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "To specify the operating hours for each date"
+          },
+          {
+            "name": "partner_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Partner ID is assigned upon registration is successful. Required for all requests.",
+            "example": "1"
+          },
+          {
+            "name": "public_holiday",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Operating hours for public holiday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "name": "regular_operating_hour",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Details of Pickup Operating Hours / Preferred Pickup Hours: You can skip this parameter if you are not updating the Pickup Operating Hours / Preferred Pickup Hours"
+          },
+          {
+            "name": "saturday",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Operating hours for Saturday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "name": "shop_collection_operating_hour",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Details of Shop Collection Operating Hours : You can skip this parameter if you are not creating/updating Shop Collection Operating Hours or if you do not have access to create/update Shop Collection Operating Hours"
+          },
+          {
+            "name": "shop_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Shopee's unique identifier for a shop. Required param for most APIs.",
+            "example": "600000"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2",
+            "example": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2"
+          },
+          {
+            "name": "special_operating_hour",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Details of Special Operating Hours : You can skip this parameter if you are not creating Special Operating Hours or if you do not have access to create Special Operating Hours"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "The start date of the Special Operating Hours. The value should be within [today + 1] and [today + 365 days].",
+            "example": "2025-03-03"
+          },
+          {
+            "name": "start_time",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30.",
+            "example": "09:00"
+          },
+          {
+            "name": "sunday",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Operating hours for Sunday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "name": "thrusday",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Operating hours for Thursday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "name": "thursday",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Operating hours for Thursday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes.",
+            "example": "1610000000"
+          },
+          {
+            "name": "tuesday",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Operating hours for Tuesday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "name": "wednesday",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Operating hours for Wednesday: You can skip this information if you want to mark the day as closed."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response documented by Shopee Open Platform.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "result_list": {
+                      "type": "object",
+                      "properties": {
+                        "regular_operating_hour": {
+                          "type": "object",
+                          "properties": {
+                            "status": {
+                              "type": "string"
+                            },
+                            "fail_message": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "special_operating_hour": {
+                          "type": "object",
+                          "properties": {
+                            "status": {
+                              "type": "string"
+                            },
+                            "fail_message": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "instant_operating_hour": {
+                          "type": "object",
+                          "properties": {
+                            "status": {
+                              "type": "string"
+                            },
+                            "fail_message": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "shop_collection_operating_hour": {
+                          "type": "object",
+                          "properties": {
+                            "status": {
+                              "type": "string"
+                            },
+                            "fail_message": {
+                              "type": "string"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-shopee-content-id": "2433",
+        "x-shopee-content-name": "v2.logistics.update_operating_hours",
+        "x-shopee-version": "V2",
+        "x-shopee-module": "Logistics",
+        "x-shopee-module-id": "127",
+        "x-shopee-detail-status": "ok",
+        "x-shopee-request-address": {
+          "headers": [
+            "Environment",
+            "Location",
+            "HTTP Address"
+          ],
+          "rows": [
+            [
+              "Live",
+              "Global",
+              "https://partner.shopeemobile.com/api/v2/logistics/update_operating_hours"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.shopee.cn/api/v2/logistics/update_operating_hours"
+            ],
+            [
+              "Brazil",
+              "https://openplatform.shopee.com.br/api/v2/logistics/update_operating_hours"
+            ],
+            [
+              "Sandbox",
+              "Global",
+              "https://openplatform.sandbox.test-stable.shopee.sg/api/v2/logistics/update_operating_hours"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.sandbox.test-stable.shopee.cn/api/v2/logistics/update_operating_hours"
+            ]
+          ]
+        },
+        "x-shopee-common-parameters": [
+          {
+            "Name": "partner_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Partner ID is assigned upon registration is successful. Required for all requests."
+          },
+          {
+            "Name": "timestamp",
+            "Type": "timestamp",
+            "Sample": "1610000000",
+            "Description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes."
+          },
+          {
+            "Name": "access_token",
+            "Type": "string",
+            "Sample": "c09222e3fc40ffb25fc947f738b1abf1",
+            "Description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours."
+          },
+          {
+            "Name": "shop_id",
+            "Type": "int",
+            "Sample": "600000",
+            "Description": "Shopee's unique identifier for a shop. Required param for most APIs."
+          },
+          {
+            "Name": "sign",
+            "Type": "string",
+            "Sample": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2",
+            "Description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2"
+          }
+        ],
+        "x-shopee-request-parameters": [
+          {
+            "Name": "regular_operating_hour",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Details of Pickup Operating Hours / Preferred Pickup Hours: You can skip this parameter if you are not updating the Pickup Operating Hours / Preferred Pickup Hours"
+          },
+          {
+            "Name": "monday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Monday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "tuesday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Tuesday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "wednesday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Wednesday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "thursday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Thursday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "friday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Friday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "saturday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Saturday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "sunday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Sunday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "public_holiday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for public holiday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "special_operating_hour",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Details of Special Operating Hours : You can skip this parameter if you are not creating Special Operating Hours or if you do not have access to create Special Operating Hours"
+          },
+          {
+            "Name": "name",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "3.3 Campaign",
+            "Description": "The name of Special Operating Hours"
+          },
+          {
+            "Name": "start_date",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "2025-03-03",
+            "Description": "The start date of the Special Operating Hours. The value should be within [today + 1] and [today + 365 days]."
+          },
+          {
+            "Name": "end_date",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "2025-03-05",
+            "Description": "The end date of the Special Operating Hours. The value should be within [start_date + 30 days]"
+          },
+          {
+            "Name": "operating_hours",
+            "Type": "object[]",
+            "Required": "True",
+            "Sample": "",
+            "Description": "To specify the operating hours for each date"
+          },
+          {
+            "Name": "date",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "2025-03-03",
+            "Description": "Date: it should be include all date from start_date until end_date"
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "00:00",
+            "Description": "Start time for operating hours on that date: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "23:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "enable",
+            "Type": "boolean",
+            "Required": "True",
+            "Sample": "true",
+            "Description": "To specify this value as False if you're not operate on that date (close)"
+          },
+          {
+            "Name": "instant_operating_hour",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Details of Instant Operating Hours : You can skip this parameter if you are not creating/updating Instant Operating Hours or if you do not have access to create/update Instant Operating Hours"
+          },
+          {
+            "Name": "monday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Monday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "tuesday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Tuesday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "wednesday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Wednesday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "thrusday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Thursday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "friday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Friday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "saturday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Saturday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "sunday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Sunday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "public_holiday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for public holiday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "shop_collection_operating_hour",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Details of Shop Collection Operating Hours : You can skip this parameter if you are not creating/updating Shop Collection Operating Hours or if you do not have access to create/update Shop Collection Operating Hours"
+          },
+          {
+            "Name": "monday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Monday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "tuesday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Tuesday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "wednesday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Wednesday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "thursday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Thursday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "friday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Friday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "saturday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Saturday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "sunday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Sunday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          },
+          {
+            "Name": "public_holiday",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Operating hours for Public Holiday: You can skip this information if you want to mark the day as closed."
+          },
+          {
+            "Name": "start_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "09:00",
+            "Description": "Start time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30."
+          },
+          {
+            "Name": "end_time",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "18:30",
+            "Description": "End time for operating hours on that day: The time should be in the format XX:YY, where YY is either 00 or 30. Except for a 24-hour, you can input a start_time of 00:00 and an end_time of 23:59"
+          }
+        ],
+        "x-shopee-request-examples": {
+          "languages": [
+            "Payload",
+            "Java",
+            "PHP",
+            "cURL",
+            "Python"
+          ],
+          "values": [
+            "{\n\t\"regular_operating_hour\": {\n\t\t\"monday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"tuesday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"wednesday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"thursday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"friday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"saturday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"sunday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"public_holiday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t}\n\t},\n\t\"special_operating_hour\": {\n\t\t\"name\": \"3.3 Campaign\",\n\t\t\"start_date\": \"2025-03-03\",\n\t\t\"end_date\": \"2025-03-05\",\n\t\t\"operating_hours\": [\n\t\t\t{\n\t\t\t\t\"date\": \"2025-03-03\",\n\t\t\t\t\"start_time\": \"00:00\",\n\t\t\t\t\"end_time\": \"23:30\",\n\t\t\t\t\"enable\": true\n\t\t\t}\n\t\t]\n\t},\n\t\"instant_operating_hour\": {\n\t\t\"monday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"tuesday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"wednesday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"thrusday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"friday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"saturday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"sunday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"public_holiday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t}\n\t},\n\t\"shop_collection_operating_hour\": {\n\t\t\"monday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"tuesday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"wednesday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"thursday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"friday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"saturday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"sunday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t},\n\t\t\"public_holiday\": {\n\t\t\t\"start_time\": \"09:00\",\n\t\t\t\"end_time\": \"18:30\"\n\t\t}\n\t}\n}",
+            "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.post(\"https://partner.shopeemobile.com/api/v2/logistics/update_operating_hours?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp\")\n.header(\"Content-Type\",\"application/json\")\n.body(\"{\n   \\\"instant_operating_hour\\\": {\n      \\\"friday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"monday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"public_holiday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"saturday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"sunday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"thrusday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"tuesday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"wednesday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      }\n   },\n   \\\"regular_operating_hour\\\": {\n      \\\"friday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"monday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"public_holiday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"saturday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"sunday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"thursday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"tuesday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"wednesday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      }\n   },\n   \\\"shop_collection_operating_hour\\\": {\n      \\\"friday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"monday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"public_holiday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"saturday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"sunday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"thursday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"tuesday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      },\n      \\\"wednesday\\\": {\n         \\\"end_time\\\": \\\"18:30\\\",\n         \\\"start_time\\\": \\\"09:00\\\"\n      }\n   },\n   \\\"special_operating_hour\\\": {\n      \\\"end_date\\\": \\\"2025-03-05\\\",\n      \\\"name\\\": \\\"3.3 Campaign\\\",\n      \\\"operating_hours\\\": [\n         {\n            \\\"date\\\": \\\"2025-03-03\\\",\n            \\\"enable\\\": true,\n            \\\"end_time\\\": \\\"23:30\\\",\n            \\\"start_time\\\": \\\"00:00\\\"\n         }\n      ],\n      \\\"start_date\\\": \\\"2025-03-03\\\"\n   }\n}\")\n.asString();",
+            "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n  CURLOPT_URL => 'https://partner.shopeemobile.com/api/v2/logistics/update_operating_hours?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp',\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_ENCODING => '',\n  CURLOPT_MAXREDIRS => 10,\n  CURLOPT_TIMEOUT => 0,\n  CURLOPT_FOLLOWLOCATION => true,\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n  CURLOPT_CUSTOMREQUEST => 'POST',\n  CURLOPT_POSTFIELDS => '{\n    \"instant_operating_hour\": {\n        \"friday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"monday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"public_holiday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"saturday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"sunday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"thrusday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"tuesday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"wednesday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        }\n    },\n    \"regular_operating_hour\": {\n        \"friday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"monday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"public_holiday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"saturday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"sunday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"thursday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"tuesday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"wednesday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        }\n    },\n    \"shop_collection_operating_hour\": {\n        \"friday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"monday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"public_holiday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"saturday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"sunday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"thursday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"tuesday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        },\n        \"wednesday\": {\n            \"end_time\": \"18:30\",\n            \"start_time\": \"09:00\"\n        }\n    },\n    \"special_operating_hour\": {\n        \"end_date\": \"2025-03-05\",\n        \"name\": \"3.3 Campaign\",\n        \"operating_hours\": [\n            {\n                \"date\": \"2025-03-03\",\n                \"enable\": true,\n                \"end_time\": \"23:30\",\n                \"start_time\": \"00:00\"\n            }\n        ],\n        \"start_date\": \"2025-03-03\"\n    }\n}',\n  CURLOPT_HTTPHEADER => array(\n    'Content-Type: application/json'\n  ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;",
+            "curl --location --request POST 'https://partner.shopeemobile.com/api/v2/logistics/update_operating_hours?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n   \"instant_operating_hour\": {\n      \"friday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"monday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"public_holiday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"saturday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"sunday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"thrusday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"tuesday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"wednesday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      }\n   },\n   \"regular_operating_hour\": {\n      \"friday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"monday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"public_holiday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"saturday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"sunday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"thursday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"tuesday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"wednesday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      }\n   },\n   \"shop_collection_operating_hour\": {\n      \"friday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"monday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"public_holiday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"saturday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"sunday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"thursday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"tuesday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      },\n      \"wednesday\": {\n         \"end_time\": \"18:30\",\n         \"start_time\": \"09:00\"\n      }\n   },\n   \"special_operating_hour\": {\n      \"end_date\": \"2025-03-05\",\n      \"name\": \"3.3 Campaign\",\n      \"operating_hours\": [\n         {\n            \"date\": \"2025-03-03\",\n            \"enable\": true,\n            \"end_time\": \"23:30\",\n            \"start_time\": \"00:00\"\n         }\n      ],\n      \"start_date\": \"2025-03-03\"\n   }\n}'",
+            "import requests\nimport json\n\nurl = \"https://partner.shopeemobile.com/api/v2/logistics/update_operating_hours?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp\"\n\npayload=json.dumps({\n  \"instant_operating_hour\": {\n    \"friday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"monday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"public_holiday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"saturday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"sunday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"thrusday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"tuesday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"wednesday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    }\n  },\n  \"regular_operating_hour\": {\n    \"friday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"monday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"public_holiday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"saturday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"sunday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"thursday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"tuesday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"wednesday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    }\n  },\n  \"shop_collection_operating_hour\": {\n    \"friday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"monday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"public_holiday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"saturday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"sunday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"thursday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"tuesday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    },\n    \"wednesday\": {\n      \"end_time\": \"18:30\",\n      \"start_time\": \"09:00\"\n    }\n  },\n  \"special_operating_hour\": {\n    \"end_date\": \"2025-03-05\",\n    \"name\": \"3.3 Campaign\",\n    \"operating_hours\": [\n      {\n        \"date\": \"2025-03-03\",\n        \"enable\": True,\n        \"end_time\": \"23:30\",\n        \"start_time\": \"00:00\"\n      }\n    ],\n    \"start_date\": \"2025-03-03\"\n  }\n})\nheaders = {\n  'Content-Type': 'application/json'\n}\nresponse = requests.RPCRequest(\"POST\",url,headers=headers, data=payload, allow_redirects=False)\n\nprint(response.text)"
+          ]
+        },
+        "x-shopee-response-parameters": [
+          {
+            "Name": "error",
+            "Type": "string",
+            "Sample": "error_auth",
+            "Description": "Indicate error type if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "message",
+            "Type": "string",
+            "Sample": "Invalid access_token.",
+            "Description": "Indicate error details if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "request_id",
+            "Type": "string",
+            "Sample": "3dad66f43b8447d282ae6da36626c6b7",
+            "Description": "The identifier for an API request for error tracking."
+          },
+          {
+            "Name": "response",
+            "Type": "object",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "result_list",
+            "Type": "object",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "regular_operating_hour",
+            "Type": "object",
+            "Sample": "",
+            "Description": "The result of create/update regular_operating_hour."
+          },
+          {
+            "Name": "status",
+            "Type": "string",
+            "Sample": "Success",
+            "Description": "The system will return \"Failed\" if there are any validation errors. Otherwise, it will return a blank response."
+          },
+          {
+            "Name": "fail_message",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Fail reason"
+          },
+          {
+            "Name": "special_operating_hour",
+            "Type": "object",
+            "Sample": "",
+            "Description": "The result of create/update speicial_operating_hour."
+          },
+          {
+            "Name": "status",
+            "Type": "string",
+            "Sample": "Success",
+            "Description": "The system will return \"Failed\" if there are any validation errors. Otherwise, it will return a blank response."
+          },
+          {
+            "Name": "fail_message",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Fail reason"
+          },
+          {
+            "Name": "instant_operating_hour",
+            "Type": "object",
+            "Sample": "",
+            "Description": "The result of create/update instant_operating_hour."
+          },
+          {
+            "Name": "status",
+            "Type": "string",
+            "Sample": "Success",
+            "Description": "The system will return \"Failed\" if there are any validation errors. Otherwise, it will return a blank response."
+          },
+          {
+            "Name": "fail_message",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Fail reason"
+          },
+          {
+            "Name": "shop_collection_operating_hour",
+            "Type": "object",
+            "Sample": "",
+            "Description": "The result of create/update shop_collection_operating_hour."
+          },
+          {
+            "Name": "status",
+            "Type": "string",
+            "Sample": "Success",
+            "Description": "The system will return \"Failed\" if there are any validation errors. Otherwise, it will return a blank response."
+          },
+          {
+            "Name": "fail_message",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Fail reason"
+          }
+        ],
+        "x-shopee-response-examples": [
+          "{\n\t\"error\": \"error_auth\",\n\t\"message\": \"Invalid access_token.\",\n\t\"request_id\": \"3dad66f43b8447d282ae6da36626c6b7\",\n\t\"response\": {\n\t\t\"result_list\": {\n\t\t\t\"regular_operating_hour\": {\n\t\t\t\t\"status\": \"Success\",\n\t\t\t\t\"fail_message\": \"-\"\n\t\t\t},\n\t\t\t\"special_operating_hour\": {\n\t\t\t\t\"status\": \"Success\",\n\t\t\t\t\"fail_message\": \"-\"\n\t\t\t},\n\t\t\t\"instant_operating_hour\": {\n\t\t\t\t\"status\": \"Success\",\n\t\t\t\t\"fail_message\": \"-\"\n\t\t\t},\n\t\t\t\"shop_collection_operating_hour\": {\n\t\t\t\t\"status\": \"Success\",\n\t\t\t\t\"fail_message\": \"-\"\n\t\t\t}\n\t\t}\n\t}\n}"
+        ],
+        "x-shopee-error-codes": [
+          {
+            "Error": "error_permission",
+            "Error Description": "Sorry you don't have the permission, detail: This shop isn't eligible to set up Instant Operating Hours.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_permission",
+            "Error Description": "Sorry you don't have the permission, detail: This shop isn't eligible to set up Regular Operating Hours.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_permission",
+            "Error Description": "Sorry you don't have the permission, detail: This shop isn't eligible to set up Special Operating Hours.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "All modifications to the operating hours were unsuccessful. Please check the result_list and try again.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.invalid_address_version",
+            "Error Description": "Some addresses are no longer supported per new regulation, please update to avoid wrong fulfilment",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_data",
+            "Error Description": "parse data failed",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_data",
+            "Error Description": "data not exist",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "parameter invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "The information you queried is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Wrong parameters, detail: {msg}.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_server",
+            "Error Description": "Something wrong. Please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_shop",
+            "Error Description": "shopid is invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "request not from gateway",
+            "Details and Guidance": ""
+          }
+        ],
+        "x-shopee-error-examples": [],
+        "x-shopee-permissions": "API Permissions\nCollapse\nAPP types that can call this API.\nERP System\nSeller In House System\nOrder Management\nSwam ERP",
+        "x-shopee-api-tools": "API Tools\nCollapse\nAPI Test Tools\nAPI Access Log",
+        "x-shopee-update-log": {
+          "headers": [
+            "Date",
+            "Update Details"
+          ],
+          "rows": [
+            [
+              "2025-12-09",
+              "Update description of end_time to support 24-hour case"
+            ],
+            [
+              "2025-09-18",
+              "Add shop_collection_operating_hour request and response fields"
+            ],
+            [
+              "2025-03-06",
+              "New API"
+            ]
+          ]
+        },
+        "x-shopee-page": "https://open.shopee.com/documents/v2/v2.logistics.update_operating_hours?module=127&type=1",
+        "x-shopee-extraction": "Authenticated Shopee Open Platform DOM extraction; no Markdown download endpoint was provided."
+      }
+    }
+  },
+  "x-shopee-module": "logistics"
+}

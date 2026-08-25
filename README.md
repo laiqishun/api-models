@@ -8,6 +8,7 @@ The current dataset contains:
 - [Amazon Ads API Models](amazon-ads-api/README.md)
 - [Temu API Models](temu-api/README.md)
 - [TikTok Shop API Models](tiktok-shop-api/README.md)
+- [Shopee API Models](shopee-api/README.md)
 
 ## Structure
 
@@ -19,6 +20,7 @@ api-models/
   amazon-ads-api/
   temu-api/
   tiktok-shop-api/
+  shopee-api/
 ```
 
 Inside an API family, the expected navigation pattern is:
@@ -41,6 +43,8 @@ This keeps broad discovery lightweight while still preserving the detailed endpo
 `temu-api` contains processed Temu CN, US local, EU local, and global local API documentation. It follows the same progressive disclosure pattern, with regional routing guidance, group READMEs, operation-level Swagger 2.0 JSON files, and a CN offline data dictionary for reference values that otherwise live in source docs.
 
 `tiktok-shop-api` contains processed TikTok Shop Partner Center API documentation. Each business module links to operation-level Swagger 2.0 JSON files; the corresponding official Download Markdown source remains beside each operation for traceability and complete business guidance.
+
+`shopee-api` contains Shopee Open Platform API documentation organized by business module. Each module links to operation-level Swagger 2.0 JSON files; rendered request, response, error, permission, tool, update-log, and example data are retained in `x-shopee-*` fields because Shopee does not provide a Markdown download source.
 
 ## Future Scope
 

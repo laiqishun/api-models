@@ -1,0 +1,672 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2.principal.get_principal_sales_performance_detail",
+    "version": "V2",
+    "description": "Queries the business performance data aggregated at principal level for the specified regions within the selected time range. Supports request granularity by day, week, month, quarter, year, or customize, and returns both overall summary metrics and region-level detailed metrics."
+  },
+  "host": "partner.shopeemobile.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/api/v2/principal/get_principal_sales_performance_detail": {
+      "post": {
+        "tags": [
+          "brandportal"
+        ],
+        "operationId": "v2_principal_get_principal_sales_performance_detail",
+        "summary": "v2.principal.get_principal_sales_performance_detail",
+        "description": "Queries the business performance data aggregated at principal level for the specified regions within the selected time range. Supports request granularity by day, week, month, quarter, year, or customize, and returns both overall summary metrics and region-level detailed metrics.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours.",
+            "example": "c09222e3fc40ffb25fc947f738b1abf1"
+          },
+          {
+            "name": "currency",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Currency used for amount-based metrics for the region. Limitations: - Optional for every region object in region_list. - Supported values are LOCAL and USD. - Invalid currency values are rejected as invalid_parameter. - Defaults to USD when omitted.",
+            "example": "USD"
+          },
+          {
+            "name": "end_date",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "End date of the requested period in YYYY-MM-DD format. Limitations: - Must use the YYYY-MM-DD format. - Must be a valid calendar date. - Must not be earlier than start_date. - Validation is based on the requested timezone. - For customize, end_date must not be later than the day before the current day in the requested timezone. The inclusive date range from start_date to end_date must not exceed 366 days. - For day, end_date must equal start_date. - For week, end_date must be within the selected week range: from start_date (Sunday) to the end of that Sunday-to-Saturday week, or to the latest selectable day if the week extends beyond today. Formally: startDate ≤ endDate ≤ min(startDate + 6 days, today - 1 day). - For month, end_date must be within the selected month: from the 1st day of the month to the last calendar day of that month, or to the latest selectable day for the current month. Formally: startDate ≤ endDate ≤ min(month end, today - 1 day). - For quarter, end_date must be within the selected quarter: from the 1st day of the quarter to the last calendar day of that quarter, or to the latest selectable day for the current quarter. Formally: startDate ≤ endDate ≤ min(quarter end, today - 1 day). - For year, end_date must be within the selected year: from January 1st to December 31st of that year, or to the latest selectable day for the current year. Formally: startDate ≤ endDate ≤ min(Dec 31, today - 1 day).",
+            "example": "2026-01-01"
+          },
+          {
+            "name": "granularity",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Aggregation granularity that determines the validation rules for the requested date range and the reporting period. Limitations: - Supported values are customize, day, week, month, quarter, and year. - customize is validated as a free date range and is internally queried as daily data. - day represents a single calendar day. - week requires a Sunday-based calendar week. - month requires a calendar month range. - quarter requires a calendar quarter range. - year requires a calendar year range. - Any other value is rejected as invalid_parameter.",
+            "example": "day"
+          },
+          {
+            "name": "partner_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Partner ID is assigned upon registration is successful. Required for all requests.",
+            "example": "1"
+          },
+          {
+            "name": "principal_id",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Shopee's unique identifier for a principal.",
+            "example": "1"
+          },
+          {
+            "name": "region",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Target region code of the principal to be queried. Limitations: - Required for every region object in region_list. - Must be a valid region code or region name recognized by the API, such as SG or ID.",
+            "example": "MY"
+          },
+          {
+            "name": "region_list",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "List of principal regions to be queried. Limitations: - Optional. If omitted or empty, the API queries all regions that belong to the specified principal. - Duplicate region entries are deduplicated internally. - The same region must not appear multiple times with different currency values."
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Signature generated by(depends on different APIs) partner_id, api path, timestamp, access_token, principal_id and partner_key via HMAC-SHA256 hashing algorithm.",
+            "example": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2"
+          },
+          {
+            "name": "start_date",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Start date of the requested period in YYYY-MM-DD format. Limitations: - Must use the YYYY-MM-DD format. - Must be a valid calendar date. - Must not be later than end_date. - Validation is based on the requested timezone. - The earliest selectable date is calculated as: current day in timezone - 1 day - 2 years. - The exact boundary rules depend on granularity: -- For customize, start_date must not be earlier than the earliest selectable date. -- For day, start_date must equal end_date. -- For week, start_date must be a Sunday. -- For month, start_date must be the first day of the month. -- For quarter, start_date must be the first day of the quarter. -- For year, start_date must be the first day of the year.",
+            "example": "2026-01-01"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes.",
+            "example": "1610000000"
+          },
+          {
+            "name": "timezone",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Timezone used for date boundary calculation, selectable date validation, and timestamp conversion. Limitations: - Enum values: [\\\"GMT+7\\\", \\\"GMT+8\\\", \\\"GMT-3\\\"] - All date validation rules are evaluated in the requested timezone.",
+            "example": "GMT+8"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response documented by Shopee Open Platform.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "request_id": {
+                  "type": "string"
+                },
+                "error": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "summary": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "currency": {
+                            "type": "string"
+                          },
+                          "sales": {
+                            "type": "number"
+                          },
+                          "orders": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "units_sold": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "average_basket_size": {
+                            "type": "number"
+                          },
+                          "items_per_order": {
+                            "type": "number"
+                          },
+                          "average_selling_price": {
+                            "type": "number"
+                          },
+                          "product_clicks": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "product_views": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "unique_visitors": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "item_conversion_rate": {
+                            "type": "number"
+                          },
+                          "order_conversion_rate": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    },
+                    "details": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "region": {
+                            "type": "string"
+                          },
+                          "currency": {
+                            "type": "string"
+                          },
+                          "sales": {
+                            "type": "number"
+                          },
+                          "orders": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "units_sold": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "average_basket_size": {
+                            "type": "number"
+                          },
+                          "items_per_order": {
+                            "type": "number"
+                          },
+                          "average_selling_price": {
+                            "type": "number"
+                          },
+                          "product_clicks": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "product_views": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "unique_visitors": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "item_conversion_rate": {
+                            "type": "number"
+                          },
+                          "order_conversion_rate": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-shopee-content-id": "3312",
+        "x-shopee-content-name": "v2.principal.get_principal_sales_performance_detail",
+        "x-shopee-version": "V2",
+        "x-shopee-module": "BrandPortal",
+        "x-shopee-module-id": "127",
+        "x-shopee-detail-status": "ok",
+        "x-shopee-request-address": {
+          "headers": [
+            "Environment",
+            "Location",
+            "HTTP Address"
+          ],
+          "rows": [
+            [
+              "Live",
+              "Global",
+              "https://partner.shopeemobile.com/api/v2/principal/get_principal_sales_performance_detail"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.shopee.cn/api/v2/principal/get_principal_sales_performance_detail"
+            ],
+            [
+              "Brazil",
+              "https://openplatform.shopee.com.br/api/v2/principal/get_principal_sales_performance_detail"
+            ],
+            [
+              "Sandbox",
+              "Global",
+              "https://openplatform.sandbox.test-stable.shopee.sg/api/v2/principal/get_principal_sales_performance_detail"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.sandbox.test-stable.shopee.cn/api/v2/principal/get_principal_sales_performance_detail"
+            ]
+          ]
+        },
+        "x-shopee-common-parameters": [
+          {
+            "Name": "partner_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Partner ID is assigned upon registration is successful. Required for all requests."
+          },
+          {
+            "Name": "timestamp",
+            "Type": "timestamp",
+            "Sample": "1610000000",
+            "Description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes."
+          },
+          {
+            "Name": "access_token",
+            "Type": "string",
+            "Sample": "c09222e3fc40ffb25fc947f738b1abf1",
+            "Description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours."
+          },
+          {
+            "Name": "principal_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Shopee's unique identifier for a principal."
+          },
+          {
+            "Name": "sign",
+            "Type": "string",
+            "Sample": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2",
+            "Description": "Signature generated by(depends on different APIs) partner_id, api path, timestamp, access_token, principal_id and partner_key via HMAC-SHA256 hashing algorithm."
+          }
+        ],
+        "x-shopee-request-parameters": [
+          {
+            "Name": "start_date",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "2026-01-01",
+            "Description": "Start date of the requested period in YYYY-MM-DD format. Limitations: - Must use the YYYY-MM-DD format. - Must be a valid calendar date. - Must not be later than end_date. - Validation is based on the requested timezone. - The earliest selectable date is calculated as: current day in timezone - 1 day - 2 years. - The exact boundary rules depend on granularity: -- For customize, start_date must not be earlier than the earliest selectable date. -- For day, start_date must equal end_date. -- For week, start_date must be a Sunday. -- For month, start_date must be the first day of the month. -- For quarter, start_date must be the first day of the quarter. -- For year, start_date must be the first day of the year."
+          },
+          {
+            "Name": "end_date",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "2026-01-01",
+            "Description": "End date of the requested period in YYYY-MM-DD format. Limitations: - Must use the YYYY-MM-DD format. - Must be a valid calendar date. - Must not be earlier than start_date. - Validation is based on the requested timezone. - For customize, end_date must not be later than the day before the current day in the requested timezone. The inclusive date range from start_date to end_date must not exceed 366 days. - For day, end_date must equal start_date. - For week, end_date must be within the selected week range: from start_date (Sunday) to the end of that Sunday-to-Saturday week, or to the latest selectable day if the week extends beyond today. Formally: startDate ≤ endDate ≤ min(startDate + 6 days, today - 1 day). - For month, end_date must be within the selected month: from the 1st day of the month to the last calendar day of that month, or to the latest selectable day for the current month. Formally: startDate ≤ endDate ≤ min(month end, today - 1 day). - For quarter, end_date must be within the selected quarter: from the 1st day of the quarter to the last calendar day of that quarter, or to the latest selectable day for the current quarter. Formally: startDate ≤ endDate ≤ min(quarter end, today - 1 day). - For year, end_date must be within the selected year: from January 1st to December 31st of that year, or to the latest selectable day for the current year. Formally: startDate ≤ endDate ≤ min(Dec 31, today - 1 day)."
+          },
+          {
+            "Name": "timezone",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "GMT+8",
+            "Description": "Timezone used for date boundary calculation, selectable date validation, and timestamp conversion. Limitations: - Enum values: [\\\"GMT+7\\\", \\\"GMT+8\\\", \\\"GMT-3\\\"] - All date validation rules are evaluated in the requested timezone."
+          },
+          {
+            "Name": "granularity",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "day",
+            "Description": "Aggregation granularity that determines the validation rules for the requested date range and the reporting period. Limitations: - Supported values are customize, day, week, month, quarter, and year. - customize is validated as a free date range and is internally queried as daily data. - day represents a single calendar day. - week requires a Sunday-based calendar week. - month requires a calendar month range. - quarter requires a calendar quarter range. - year requires a calendar year range. - Any other value is rejected as invalid_parameter."
+          },
+          {
+            "Name": "region_list",
+            "Type": "object[]",
+            "Required": "False",
+            "Sample": "",
+            "Description": "List of principal regions to be queried. Limitations: - Optional. If omitted or empty, the API queries all regions that belong to the specified principal. - Duplicate region entries are deduplicated internally. - The same region must not appear multiple times with different currency values."
+          },
+          {
+            "Name": "region",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "MY",
+            "Description": "Target region code of the principal to be queried. Limitations: - Required for every region object in region_list. - Must be a valid region code or region name recognized by the API, such as SG or ID."
+          },
+          {
+            "Name": "currency",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "USD",
+            "Description": "Currency used for amount-based metrics for the region. Limitations: - Optional for every region object in region_list. - Supported values are LOCAL and USD. - Invalid currency values are rejected as invalid_parameter. - Defaults to USD when omitted."
+          }
+        ],
+        "x-shopee-request-examples": {
+          "languages": [
+            "Payload",
+            "Java",
+            "PHP",
+            "cURL",
+            "Python"
+          ],
+          "values": [
+            "{\n\t\"start_date\": \"2026-01-01\",\n\t\"end_date\": \"2026-01-01\",\n\t\"timezone\": \"GMT+8\",\n\t\"granularity\": \"day\",\n\t\"region_list\": [\n\t\t{\n\t\t\t\"region\": \"MY\",\n\t\t\t\"currency\": \"USD\"\n\t\t},\n                {\n\t\t\t\"region\": \"SG\",\n\t\t\t\"currency\": \"USD\"\n\t\t}\n\t]\n}",
+            "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.post(\"https://partner.shopeemobile.com/api/v2/principal/get_principal_sales_performance_detail?access_token=access_token&partner_id=partner_id&principal_id=principal_id&sign=sign&timestamp=timestamp\")\n.header(\"Content-Type\",\"application/json\")\n.body(\"{\n   \\\"end_date\\\": \\\"2026-01-01\\\",\n   \\\"granularity\\\": \\\"day\\\",\n   \\\"region_list\\\": [\n      {\n         \\\"currency\\\": \\\"USD\\\",\n         \\\"region\\\": \\\"MY\\\"\n      }\n   ],\n   \\\"start_date\\\": \\\"2026-01-01\\\",\n   \\\"timezone\\\": \\\"GMT+8\\\"\n}\")\n.asString();",
+            "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n  CURLOPT_URL => 'https://partner.shopeemobile.com/api/v2/principal/get_principal_sales_performance_detail?access_token=access_token&partner_id=partner_id&principal_id=principal_id&sign=sign&timestamp=timestamp',\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_ENCODING => '',\n  CURLOPT_MAXREDIRS => 10,\n  CURLOPT_TIMEOUT => 0,\n  CURLOPT_FOLLOWLOCATION => true,\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n  CURLOPT_CUSTOMREQUEST => 'POST',\n  CURLOPT_POSTFIELDS => '{\n    \"end_date\": \"2026-01-01\",\n    \"granularity\": \"day\",\n    \"region_list\": [\n        {\n            \"currency\": \"USD\",\n            \"region\": \"MY\"\n        }\n    ],\n    \"start_date\": \"2026-01-01\",\n    \"timezone\": \"GMT+8\"\n}',\n  CURLOPT_HTTPHEADER => array(\n    'Content-Type: application/json'\n  ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;",
+            "curl --location --request POST 'https://partner.shopeemobile.com/api/v2/principal/get_principal_sales_performance_detail?access_token=access_token&partner_id=partner_id&principal_id=principal_id&sign=sign&timestamp=timestamp' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n   \"end_date\": \"2026-01-01\",\n   \"granularity\": \"day\",\n   \"region_list\": [\n      {\n         \"currency\": \"USD\",\n         \"region\": \"MY\"\n      }\n   ],\n   \"start_date\": \"2026-01-01\",\n   \"timezone\": \"GMT+8\"\n}'",
+            "import requests\nimport json\n\nurl = \"https://partner.shopeemobile.com/api/v2/principal/get_principal_sales_performance_detail?access_token=access_token&partner_id=partner_id&principal_id=principal_id&sign=sign&timestamp=timestamp\"\n\npayload=json.dumps({\n  \"end_date\": \"2026-01-01\",\n  \"granularity\": \"day\",\n  \"region_list\": [\n    {\n      \"currency\": \"USD\",\n      \"region\": \"MY\"\n    }\n  ],\n  \"start_date\": \"2026-01-01\",\n  \"timezone\": \"GMT+8\"\n})\nheaders = {\n  'Content-Type': 'application/json'\n}\nresponse = requests.RPCRequest(\"POST\",url,headers=headers, data=payload, allow_redirects=False)\n\nprint(response.text)"
+          ]
+        },
+        "x-shopee-response-parameters": [
+          {
+            "Name": "request_id",
+            "Type": "string",
+            "Sample": "d9572a36-1f32-4a81-8703-2626839661ff",
+            "Description": "The identifier for an API request, used for troubleshooting and log tracing."
+          },
+          {
+            "Name": "error",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error type if any error happened. Empty string if no error."
+          },
+          {
+            "Name": "message",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error details if any error happened. Empty string if no error."
+          },
+          {
+            "Name": "response",
+            "Type": "object",
+            "Sample": "",
+            "Description": "Business response payload. See Business Response Parameters below."
+          },
+          {
+            "Name": "summary",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": "Aggregated summary metrics for the requested date range and selected granularity, representing the overall performance of the requested principal across the selected regions."
+          },
+          {
+            "Name": "currency",
+            "Type": "string",
+            "Sample": "USD",
+            "Description": "Currency code used for all monetary metrics in the summary. When multiple regions are requested, the summary currency is always USD. When exactly one region is requested, the summary currency follows that region's requested currency."
+          },
+          {
+            "Name": "sales",
+            "Type": "float",
+            "Sample": "512345.6789",
+            "Description": "Total order value (paid and unpaid) within the selected time period, reflecting the sales amount received by sellers after deducting seller rebates. Note: This value includes sales from cancelled and return/refund orders."
+          },
+          {
+            "Name": "orders",
+            "Type": "int64",
+            "Sample": "2841",
+            "Description": "The number of placed orders, including unpaid orders."
+          },
+          {
+            "Name": "units_sold",
+            "Type": "int64",
+            "Sample": "3017",
+            "Description": "The number of units associated with the orders placed, including unpaid orders."
+          },
+          {
+            "Name": "average_basket_size",
+            "Type": "float",
+            "Sample": "180.33497606476592",
+            "Description": "Average Basket Size = Sales ÷ Orders. It measures average sales per order."
+          },
+          {
+            "Name": "items_per_order",
+            "Type": "float",
+            "Sample": "1.0619500175994368",
+            "Description": "Items Per Order = Units Sold ÷ Orders. It measures the average number of items sold per transaction."
+          },
+          {
+            "Name": "average_selling_price",
+            "Type": "float",
+            "Sample": "169.78683460391117",
+            "Description": "Average selling price = Sales ÷ Units Sold. It measures average sales per unit."
+          },
+          {
+            "Name": "product_clicks",
+            "Type": "int64",
+            "Sample": "245611",
+            "Description": "Total number of times your item cards were clicked over the selected time period, on both App and PC. This metric is only available after 31/12/2023."
+          },
+          {
+            "Name": "product_views",
+            "Type": "int64",
+            "Sample": "438204",
+            "Description": "The number of visits to the product page."
+          },
+          {
+            "Name": "unique_visitors",
+            "Type": "int64",
+            "Sample": "501922",
+            "Description": "Total number of unique visitors who viewed your shop or product pages over the selected time period. Multiple views by the same visitor are counted as 1 unique visitor. This metric is only available after 31/12/2023."
+          },
+          {
+            "Name": "item_conversion_rate",
+            "Type": "float",
+            "Sample": "0.006885012912712344",
+            "Description": "Item conversion rate = Units Sold ÷ Product Views."
+          },
+          {
+            "Name": "order_conversion_rate",
+            "Type": "float",
+            "Sample": "0.01156784118186897",
+            "Description": "Number of orders divided by total number of product clicks over the selected time period. This metric is only available after 31/12/2023."
+          },
+          {
+            "Name": "details",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": "List of region-level detail records that returns performance metrics for each selected region within the requested date range."
+          },
+          {
+            "Name": "region",
+            "Type": "string",
+            "Sample": "MY",
+            "Description": "Region code."
+          },
+          {
+            "Name": "currency",
+            "Type": "string",
+            "Sample": "USD",
+            "Description": "Currency code used for all monetary metrics of this region item."
+          },
+          {
+            "Name": "sales",
+            "Type": "float",
+            "Sample": "264223.328658",
+            "Description": "Total order value (paid and unpaid) within the selected time period, reflecting the sales amount received by sellers after deducting seller rebates. Note: This value includes sales from cancelled and return/refund orders."
+          },
+          {
+            "Name": "orders",
+            "Type": "int64",
+            "Sample": "1483",
+            "Description": "The number of placed orders, including unpaid orders."
+          },
+          {
+            "Name": "units_sold",
+            "Type": "int64",
+            "Sample": "1527",
+            "Description": "The number of units associated with the orders placed, including unpaid orders."
+          },
+          {
+            "Name": "average_basket_size",
+            "Type": "float",
+            "Sample": "178.16812451652055",
+            "Description": "Average Basket Size = Sales ÷ Orders. It measures average sales per order."
+          },
+          {
+            "Name": "items_per_order",
+            "Type": "float",
+            "Sample": "1.0296695886716116",
+            "Description": "Items Per Order = Units Sold ÷ Orders. It measures the average number of items sold per transaction."
+          },
+          {
+            "Name": "average_selling_price",
+            "Type": "float",
+            "Sample": "173.0342689312377",
+            "Description": "Average selling price = Sales ÷ Units Sold. It measures average sales per unit."
+          },
+          {
+            "Name": "product_clicks",
+            "Type": "int64",
+            "Sample": "144826",
+            "Description": "Total number of times your item cards were clicked over the selected time period, on both App and PC. This metric is only available after 31/12/2023."
+          },
+          {
+            "Name": "product_views",
+            "Type": "int64",
+            "Sample": "267188",
+            "Description": "The number of visits to the product page."
+          },
+          {
+            "Name": "unique_visitors",
+            "Type": "int64",
+            "Sample": "297432",
+            "Description": "Total number of unique visitors who viewed your shop or product pages over the selected time period. Multiple views by the same visitor are counted as 1 unique visitor. This metric is only available after 31/12/2023."
+          },
+          {
+            "Name": "item_conversion_rate",
+            "Type": "float",
+            "Sample": "0.005715077024417264",
+            "Description": "Item conversion rate = Units Sold ÷ Product Views."
+          },
+          {
+            "Name": "order_conversion_rate",
+            "Type": "float",
+            "Sample": "0.010239874055763468",
+            "Description": "Number of orders divided by total number of product clicks over the selected time period. This metric is only available after 31/12/2023."
+          }
+        ],
+        "x-shopee-response-examples": [
+          "{\n\t\"request_id\": \"d9572a36-1f32-4a81-8703-2626839661ff\",\n\t\"error\": \"-\",\n\t\"message\": \"-\",\n\t\"response\": {\n\t\t\"summary\": [\n\t\t\t{\n\t\t\t\t\"currency\": \"USD\",\n\t\t\t\t\"sales\": 512345.6789,\n\t\t\t\t\"orders\": 2841,\n\t\t\t\t\"units_sold\": 3017,\n\t\t\t\t\"average_basket_size\": 180.33497606476593,\n\t\t\t\t\"items_per_order\": 1.0619500175994367,\n\t\t\t\t\"average_selling_price\": 169.78683460391116,\n\t\t\t\t\"product_clicks\": 245611,\n\t\t\t\t\"product_views\": 438204,\n\t\t\t\t\"unique_visitors\": 501922,\n\t\t\t\t\"item_conversion_rate\": 0.006885012912712344,\n\t\t\t\t\"order_conversion_rate\": 0.01156784118186897\n\t\t\t}\n\t\t],\n\t\t\"details\": [\n\t\t\t{\n\t\t\t\t\"region\": \"MY\",\n\t\t\t\t\"currency\": \"USD\",\n\t\t\t\t\"sales\": 264223.328658,\n\t\t\t\t\"orders\": 1483,\n\t\t\t\t\"units_sold\": 1527,\n\t\t\t\t\"average_basket_size\": 178.16812451652055,\n\t\t\t\t\"items_per_order\": 1.0296695886716116,\n\t\t\t\t\"average_selling_price\": 173.0342689312377,\n\t\t\t\t\"product_clicks\": 144826,\n\t\t\t\t\"product_views\": 267188,\n\t\t\t\t\"unique_visitors\": 297432,\n\t\t\t\t\"item_conversion_rate\": 0.005715077024417264,\n\t\t\t\t\"order_conversion_rate\": 0.010239874055763468\n\t\t\t}\n\t\t]\n\t}\n}"
+        ],
+        "x-shopee-error-codes": [
+          {
+            "Error": "error_param",
+            "Error Description": "timezone is required",
+            "Details and Guidance": "1. timezone field is missing from the request body - Cause: The JSON body of the POST request completely lacks the timezone field - Fix: Add the \"timezone\" field to the request body using one of the allowed timezone values: \"GMT+7\", \"GMT+8\", \"GMT-3\", for example {\"start_date\": \"2024-01-15\", \"end_date\": \"2024-01-31\", \"timezone\": \"GMT+8\", ...} 2. timezone value is empty or blank - Cause: The timezone field value is an empty string \"\" or contains only whitespace \" \", the @NotBlank validation detects this - Fix: Provide a valid timezone value, must be selected from the allowed list: \"GMT+7\", \"GMT+8\", \"GMT-3\", cannot be empty 3. timezone value is null - Cause: timezone is explicitly set to null - Fix: Provide a valid timezone value selected from the allowed list: \"GMT+7\", \"GMT+8\", \"GMT-3\" 4. timezone key name is misspelled - Cause: Using a different key name, such as \"timeZone\" (camelCase) or \"time_zone\", etc. - Fix: Use the correct key name \"timezone\" (all lowercase, no underscores) Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "timezone is invalid. allowed values: GMT+7, GMT+8, GMT-3.",
+            "Details and Guidance": "1.timezone value is not in the allowed list - Cause: The provided timezone value is not in the allowed timezone list (such as \"Asia/Shanghai\", \"UTC\", \"GMT+5\", etc.) - Fix: Only the following allowed timezone values are supported: \"GMT+7\", \"GMT+8\", \"GMT-3\" Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "granularity is required",
+            "Details and Guidance": "1. granularity field is missing from the request body - Cause: The JSON body of the POST request completely lacks the granularity field - Fix: Add the \"granularity\" field to the request body using one of the allowed granularity values: \"day\", \"week\", \"month\", \"quarter\", \"year\", \"customize\", for example {\"start_date\": \"2024-01-15\", \"end_date\": \"2024-01-31\", \"granularity\": \"day\", ...} 2. granularity value is empty or blank - Cause: The granularity field value is an empty string \"\" or contains only whitespace \" \", the @NotBlank validation detects this - Fix: Provide a valid granularity value, must be selected from the allowed list: \"day\", \"week\", \"month\", \"quarter\", \"year\", \"customize\", cannot be empty 3. granularity value is null - Cause: granularity is explicitly set to null - Fix: Provide a valid granularity value selected from the allowed list: \"day\", \"week\", \"month\", \"quarter\", \"year\", \"customize\" 4. granularity key name is misspelled - Cause: Using a different key name, such as \"Granularity\" or \"grain_ularity\" or \"time_granularity\", etc. - Fix: Use the correct key name \"granularity\" (all lowercase, no underscores) 5. granularity value is not in the allowed list - Cause: The provided granularity value is not in the allowed granularity list (such as \"DAILY\", \"Daily\", \"hours\", etc.) - Fix: Only the following allowed granularity values are supported (case-insensitive, but lowercase is recommended): - \"day\" - daily aggregation - \"week\" - weekly aggregation (starting on Sunday) - \"month\" - monthly aggregation - \"quarter\" - quarterly aggregation - \"year\" - yearly aggregation - \"customize\" - custom date range Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "request body is invalid",
+            "Details and Guidance": "1. request body JSON format is invalid - Cause: The JSON sent is incorrectly formatted, such as missing quotes, commas, mismatched brackets, etc. - Fix: Check if the JSON format is valid. Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "currency is invalid",
+            "Details and Guidance": "1. currency value is not in the allowed list - Cause: The currency field value in a shop object in shop_list is not an allowed currency type, system throws exception when calling CurrencyEnum.valueOf() - Fix: currency supports only two values (case-insensitive): \"usd\" or \"local\". For example {\"shop_id\": 123456, \"currency\": \"usd\"} or {\"shop_id\": 123456, \"currency\": \"local\"} Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "region_list contains invalid region.",
+            "Details and Guidance": "1. a region value in region_list does not match any allowed region - Cause: The region field value in a region object in region_list does not match any allowed region (comparison is case-insensitive) - Fix: region supports only the following values (case-insensitive): \"id\", \"my\", \"th\", \"tw\", \"sg\", \"ph\", \"vn\", \"br\". For example {\"region\": \"sg\", \"currency\": \"usd\"} Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "region is required",
+            "Details and Guidance": "1. an element in region_list is missing the region field - Cause: A region object in the region_list array does not have the region field - Fix: Ensure each object in region_list contains the region field, format: {\"region\": \"sg\", \"currency\": \"usd\"} 2. region value is null - Cause: region is explicitly set to null, the @NotNull validation detects this - Fix: Provide a valid region value for each region, region must be one of the allowed region codes: \"id\", \"my\", \"th\", \"tw\", \"sg\", \"ph\", \"vn\", \"br\" Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "end_date is not ready, please retry later",
+            "Details and Guidance": "1. the data corresponding to the requested end_date is still being processed and has not completed - Cause: The dashboard data update on the data platform has a delay (usually T-1 or T-2). The data corresponding to the end_date of the current request is still being processed. - Fix: Retry the request later. Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "for day granularity, start_date must equal end_date.",
+            "Details and Guidance": "1. start_date and end_date are not the same when using day granularity - Cause: When granularity is \"day\", the system requires querying data for a single date, therefore start_date and end_date must be the same - Fix: Set start_date and end_date to the same date. For example, if you want to query daily data for 2024-01-15, set \"start_date\": \"2024-01-15\" and \"end_date\": \"2024-01-15\" Show more"
+          },
+          {
+            "Error": "error_permission",
+            "Error Description": "auth failed",
+            "Details and Guidance": "1. request is from an unauthorized gateway - Cause: The request is not forwarded from the open platform but sent directly from an unauthorized source - Fix: Ensure all API requests are forwarded through the open platform, do not call the API directly Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "start_date is required",
+            "Details and Guidance": "1. start_date field is missing from the request body - Cause: The JSON body of the POST request completely lacks the start_date field - Fix: Add \"start_date\": \"YYYY-MM-DD\" to the request body, for example {\"start_date\": \"2024-01-15\", \"end_date\": \"2024-01-31\", ...} 2. start_date value is empty or blank - Cause: The start_date field value is an empty string \"\" or contains only whitespace \" \" - Fix: Provide an actual date value in YYYY-MM-DD format, cannot be empty 3. start_date value is null - Cause: start_date is explicitly set to null - Fix: Provide a valid date value in YYYY-MM-DD format 4. start_date key name is misspelled - Cause: Using a different key name, such as \"startDate\" (camelCase) or \"start_Date\", etc. - Fix: Use the correct key name \"start_date\" (lowercase with underscores) Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "start_date is required; start_date must use YYYY-MM-DD",
+            "Details and Guidance": "1.start_date date format is incorrect - Cause: The date format is not YYYY-MM-DD, such as \"2024/01/15\" or \"01-15-2024\" or \"2024-1-15\" - Fix: Use the standard format YYYY-MM-DD, ensure both month and day are two digits, for example \"2024-01-15\" (not \"2024-1-15\") Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "end_date is required",
+            "Details and Guidance": "1. end_date field is missing from the request body - Cause: The JSON body of the POST request completely lacks the end_date field - Fix: Add \"end_date\": \"YYYY-MM-DD\" to the request body, for example {\"start_date\": \"2024-01-15\", \"end_date\": \"2024-01-31\", ...} 2. end_date value is empty or blank - Cause: The end_date field value is an empty string \"\" or contains only whitespace \" \" - Fix: Provide an actual date value in YYYY-MM-DD format, cannot be empty 3. end_date value is null - Cause: end_date is explicitly set to null - Fix: Provide a valid date value in YYYY-MM-DD format 4. end_date key name is misspelled - Cause: Using a different key name, such as \"endDate\" (camelCase) or \"end_Date\", etc. - Fix: Use the correct key name \"end_date\" (lowercase with underscores) Show more"
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "end_date must use YYYY-MM-DD",
+            "Details and Guidance": "1.end_date date format is incorrect - Cause: The date format is not YYYY-MM-DD, such as \"2024/01/31\" or \"01-31-2024\" or \"2024-1-31\" - Fix: Use the standard format YYYY-MM-DD, ensure both month and day are two digits, for example \"2024-01-31\" (not \"2024-1-31\") Show more"
+          }
+        ],
+        "x-shopee-error-examples": [
+          "{\n    \"error\": \"error_param\",\n    \"message\": \"end_date is not ready, please retry later\",\n    \"response\": null,\n    \"request_id\": \"04a0275b-c4d4-4558-a115-660115d74024\"\n}"
+        ],
+        "x-shopee-permissions": "API Permissions\nCollapse\nAPP types that can call this API.\nBrand Portal Service",
+        "x-shopee-api-tools": "API Tools\nCollapse\nAPI Test Tools\nAPI Access Log",
+        "x-shopee-update-log": {
+          "headers": [
+            "Date",
+            "Update Details"
+          ],
+          "rows": [
+            [
+              "2026-07-09",
+              "New API"
+            ]
+          ]
+        },
+        "x-shopee-page": "https://open.shopee.com/documents/v2/v2.principal.get_principal_sales_performance_detail?module=127&type=1",
+        "x-shopee-extraction": "Authenticated Shopee Open Platform DOM extraction; no Markdown download endpoint was provided."
+      }
+    }
+  },
+  "x-shopee-module": "brandportal"
+}

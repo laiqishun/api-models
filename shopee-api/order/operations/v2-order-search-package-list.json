@@ -1,0 +1,660 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2.order.search_package_list",
+    "version": "V2",
+    "description": "Use this API to search the list of packages that have not been SHIPPED to proceed arranging shipment, and it supports various filters and sort fields."
+  },
+  "host": "partner.shopeemobile.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/api/v2/order/search_package_list": {
+      "post": {
+        "tags": [
+          "order"
+        ],
+        "operationId": "v2_order_search_package_list",
+        "summary": "v2.order.search_package_list",
+        "description": "Use this API to search the list of packages that have not been SHIPPED to proceed arranging shipment, and it supports various filters and sort fields.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours.",
+            "example": "c09222e3fc40ffb25fc947f738b1abf1"
+          },
+          {
+            "name": "ascending",
+            "in": "query",
+            "type": "boolean",
+            "required": false,
+            "description": "Use this field to specify whether the returned package list is sorted in ascending or descending sort_type. Default value = true",
+            "example": "false"
+          },
+          {
+            "name": "cursor",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Specifies the starting entry of data to return in the current call. Default is \"\". If data is more than one page, the offset can be some entry to start next call.",
+            "example": "\"\""
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": ""
+          },
+          {
+            "name": "fulfillment_type",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Use this field to filter the packages fulfilled by shopee or seller. Applicable values: 0: None (not apply filter) 1: Shopee 2: Seller Default value = 2 (Seller)",
+            "example": "2"
+          },
+          {
+            "name": "invoice_pending",
+            "in": "query",
+            "type": "boolean",
+            "required": false,
+            "description": "Use this field to filter the packages under invoice_pending. Default value = false",
+            "example": "false"
+          },
+          {
+            "name": "is_pre_order",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Use this field to filter packages by pre-order status. Applicable values: 0: All 1: Pre-Order 2: Non Pre-Order Default value = 0 (All)",
+            "example": "0"
+          },
+          {
+            "name": "logistics_channel_ids",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "List of logistics_channel_id. Use this field to filter the packages under specific logistics channels.",
+            "example": "[50021]"
+          },
+          {
+            "name": "order_type",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Use this field to filter packages by order type. Applicable values: 0: All 1: Regular Order 2: Instant Order Default value = 0 (All) Note: For VN shops, using 2: Instant Order will return both Instant Delivery and Same-day Delivery packages.",
+            "example": "0"
+          },
+          {
+            "name": "package_status",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Use this field to filter the packages of specific status. Applicable values: 0: All 1: Pending 2: ToProcess 3: Processed Default value = 2 (ToProcess)",
+            "example": "2"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Each result set is returned as a page of entries. Use the \"page_size\" filters to control the maximum number of entries to retrieve per page (i.e., per call). This integer value is used to specify the maximum number of entries to return in a single \"page\" of data.The limit of page_size if between 1 and 100.",
+            "example": "5"
+          },
+          {
+            "name": "pagination",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": ""
+          },
+          {
+            "name": "partner_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Partner ID is assigned upon registration is successful. Required for all requests.",
+            "example": "1"
+          },
+          {
+            "name": "product_location_ids",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "List of product_location_id. Use this field to filter the packages under specific warehouses.",
+            "example": "[\"VN0005EIZ\"]"
+          },
+          {
+            "name": "shipping_priority",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Use this field to filter packages by shipping priority. Applicable values: - For MY/PH/TW/TH shops, and VN Preferred/Preferred Plus/Shopee Mall shops: 0: All 1: Overdue 2: Ship by Today 3: Ship by Tomorrow - For other shops： 0: All 1: Overdue 2: Within 24h 3: Beyond 24h Default value = 0 (All)",
+            "example": "0"
+          },
+          {
+            "name": "shop_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Shopee's unique identifier for a shop. Required param for most APIs.",
+            "example": "600000"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2",
+            "example": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2"
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": ""
+          },
+          {
+            "name": "sort_type",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Use this field to specify which field to use to sort the returned package list. Available values: 1: ShipByDate 2: CreateDate 3: ConfirmedDate Default value = 1 (ShipByDate)",
+            "example": "1"
+          },
+          {
+            "name": "sorting_group",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "[Only for TW 30029 channel] Use this field to filter the sorting group of parcel. This field is only available for package with package_status = 3 and logistics_channel_id = 30029. Applicable values: 0: All 1: North 2: South",
+            "example": "1"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes.",
+            "example": "1610000000"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response documented by Shopee Open Platform.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "packages_list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "order_sn": {
+                            "type": "string"
+                          },
+                          "package_number": {
+                            "type": "string"
+                          },
+                          "logistics_channel_id": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "product_location_id": {
+                            "type": "string"
+                          },
+                          "sorting_group": {
+                            "type": "string"
+                          },
+                          "is_shipment_arranged": {
+                            "type": "boolean"
+                          }
+                        }
+                      }
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "total_count": {
+                          "type": "integer",
+                          "format": "int64"
+                        },
+                        "next_cursor": {
+                          "type": "string"
+                        },
+                        "more": {
+                          "type": "boolean"
+                        }
+                      }
+                    },
+                    "sort": {
+                      "type": "object",
+                      "properties": {
+                        "sort_type": {
+                          "type": "integer",
+                          "format": "int64"
+                        },
+                        "is_asc": {
+                          "type": "boolean"
+                        }
+                      }
+                    }
+                  }
+                },
+                "request_id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-shopee-content-id": "2420",
+        "x-shopee-content-name": "v2.order.search_package_list",
+        "x-shopee-version": "V2",
+        "x-shopee-module": "Order",
+        "x-shopee-module-id": "127",
+        "x-shopee-detail-status": "ok",
+        "x-shopee-request-address": {
+          "headers": [
+            "Environment",
+            "Location",
+            "HTTP Address"
+          ],
+          "rows": [
+            [
+              "Live",
+              "Global",
+              "https://partner.shopeemobile.com/api/v2/order/search_package_list"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.shopee.cn/api/v2/order/search_package_list"
+            ],
+            [
+              "Brazil",
+              "https://openplatform.shopee.com.br/api/v2/order/search_package_list"
+            ],
+            [
+              "Sandbox",
+              "Global",
+              "https://openplatform.sandbox.test-stable.shopee.sg/api/v2/order/search_package_list"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.sandbox.test-stable.shopee.cn/api/v2/order/search_package_list"
+            ]
+          ]
+        },
+        "x-shopee-common-parameters": [
+          {
+            "Name": "partner_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Partner ID is assigned upon registration is successful. Required for all requests."
+          },
+          {
+            "Name": "timestamp",
+            "Type": "timestamp",
+            "Sample": "1610000000",
+            "Description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes."
+          },
+          {
+            "Name": "access_token",
+            "Type": "string",
+            "Sample": "c09222e3fc40ffb25fc947f738b1abf1",
+            "Description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours."
+          },
+          {
+            "Name": "shop_id",
+            "Type": "int",
+            "Sample": "600000",
+            "Description": "Shopee's unique identifier for a shop. Required param for most APIs."
+          },
+          {
+            "Name": "sign",
+            "Type": "string",
+            "Sample": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2",
+            "Description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2"
+          }
+        ],
+        "x-shopee-request-parameters": [
+          {
+            "Name": "filter",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "package_status",
+            "Type": "int32",
+            "Required": "False",
+            "Sample": "2",
+            "Description": "Use this field to filter the packages of specific status. Applicable values: 0: All 1: Pending 2: ToProcess 3: Processed Default value = 2 (ToProcess)"
+          },
+          {
+            "Name": "product_location_ids",
+            "Type": "string[]",
+            "Required": "False",
+            "Sample": "[\"VN0005EIZ\"]",
+            "Description": "List of product_location_id. Use this field to filter the packages under specific warehouses."
+          },
+          {
+            "Name": "logistics_channel_ids",
+            "Type": "int32[]",
+            "Required": "False",
+            "Sample": "[50021]",
+            "Description": "List of logistics_channel_id. Use this field to filter the packages under specific logistics channels."
+          },
+          {
+            "Name": "fulfillment_type",
+            "Type": "int32",
+            "Required": "False",
+            "Sample": "2",
+            "Description": "Use this field to filter the packages fulfilled by shopee or seller. Applicable values: 0: None (not apply filter) 1: Shopee 2: Seller Default value = 2 (Seller)"
+          },
+          {
+            "Name": "invoice_pending",
+            "Type": "boolean",
+            "Required": "False",
+            "Sample": "false",
+            "Description": "Use this field to filter the packages under invoice_pending. Default value = false"
+          },
+          {
+            "Name": "sorting_group",
+            "Type": "int32",
+            "Required": "False",
+            "Sample": "1",
+            "Description": "[Only for TW 30029 channel] Use this field to filter the sorting group of parcel. This field is only available for package with package_status = 3 and logistics_channel_id = 30029. Applicable values: 0: All 1: North 2: South"
+          },
+          {
+            "Name": "order_type",
+            "Type": "int32",
+            "Required": "False",
+            "Sample": "0",
+            "Description": "Use this field to filter packages by order type. Applicable values: 0: All 1: Regular Order 2: Instant Order Default value = 0 (All) Note: For VN shops, using 2: Instant Order will return both Instant Delivery and Same-day Delivery packages."
+          },
+          {
+            "Name": "is_pre_order",
+            "Type": "int32",
+            "Required": "False",
+            "Sample": "0",
+            "Description": "Use this field to filter packages by pre-order status. Applicable values: 0: All 1: Pre-Order 2: Non Pre-Order Default value = 0 (All)"
+          },
+          {
+            "Name": "shipping_priority",
+            "Type": "int32",
+            "Required": "False",
+            "Sample": "0",
+            "Description": "Use this field to filter packages by shipping priority. Applicable values: - For MY/PH/TW/TH shops, and VN Preferred/Preferred Plus/Shopee Mall shops: 0: All 1: Overdue 2: Ship by Today 3: Ship by Tomorrow - For other shops： 0: All 1: Overdue 2: Within 24h 3: Beyond 24h Default value = 0 (All)"
+          },
+          {
+            "Name": "pagination",
+            "Type": "object",
+            "Required": "True",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "page_size",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "5",
+            "Description": "Each result set is returned as a page of entries. Use the \"page_size\" filters to control the maximum number of entries to retrieve per page (i.e., per call). This integer value is used to specify the maximum number of entries to return in a single \"page\" of data.The limit of page_size if between 1 and 100."
+          },
+          {
+            "Name": "cursor",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "\"\"",
+            "Description": "Specifies the starting entry of data to return in the current call. Default is \"\". If data is more than one page, the offset can be some entry to start next call."
+          },
+          {
+            "Name": "sort",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "sort_type",
+            "Type": "int32",
+            "Required": "False",
+            "Sample": "1",
+            "Description": "Use this field to specify which field to use to sort the returned package list. Available values: 1: ShipByDate 2: CreateDate 3: ConfirmedDate Default value = 1 (ShipByDate)"
+          },
+          {
+            "Name": "ascending",
+            "Type": "boolean",
+            "Required": "False",
+            "Sample": "false",
+            "Description": "Use this field to specify whether the returned package list is sorted in ascending or descending sort_type. Default value = true"
+          }
+        ],
+        "x-shopee-request-examples": {
+          "languages": [
+            "Payload",
+            "Java",
+            "PHP",
+            "cURL",
+            "Python"
+          ],
+          "values": [
+            "{\n\t\"filter\": {\n\t\t\"package_status\": 2,\n\t\t\"product_location_ids\": [\n\t\t\t\"VN0005EIZ\"\n\t\t],\n\t\t\"logistics_channel_ids\": [\n\t\t\t50021\n\t\t],\n\t\t\"fulfillment_type\": 2,\n\t\t\"invoice_pending\": false,\n\t\t\"sorting_group\": 1,\n\t\t\"order_type\": 0,\n\t\t\"is_pre_order\": 0,\n\t\t\"shipping_priority\": 0\n\t},\n\t\"pagination\": {\n\t\t\"page_size\": 5,\n\t\t\"cursor\": \"\"\n\t},\n\t\"sort\": {\n\t\t\"sort_type\": 1,\n\t\t\"ascending\": false\n\t}\n}",
+            "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.post(\"https://partner.shopeemobile.com/api/v2/order/search_package_list?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp\")\n.header(\"Content-Type\",\"application/json\")\n.body(\"{\n   \\\"filter\\\": {\n      \\\"fulfillment_type\\\": 2,\n      \\\"invoice_pending\\\": false,\n      \\\"is_pre_order\\\": 0,\n      \\\"logistics_channel_ids\\\": [\n         50021\n      ],\n      \\\"order_type\\\": 0,\n      \\\"package_status\\\": 2,\n      \\\"product_location_ids\\\": [\n         \\\"VN0005EIZ\\\"\n      ],\n      \\\"shipping_priority\\\": 0,\n      \\\"sorting_group\\\": 1\n   },\n   \\\"pagination\\\": {\n      \\\"cursor\\\": \\\"\\\\\"\\\\\"\\\",\n      \\\"page_size\\\": 5\n   },\n   \\\"sort\\\": {\n      \\\"ascending\\\": false,\n      \\\"sort_type\\\": 1\n   }\n}\")\n.asString();",
+            "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n  CURLOPT_URL => 'https://partner.shopeemobile.com/api/v2/order/search_package_list?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp',\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_ENCODING => '',\n  CURLOPT_MAXREDIRS => 10,\n  CURLOPT_TIMEOUT => 0,\n  CURLOPT_FOLLOWLOCATION => true,\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n  CURLOPT_CUSTOMREQUEST => 'POST',\n  CURLOPT_POSTFIELDS => '{\n    \"filter\": {\n        \"fulfillment_type\": 2,\n        \"invoice_pending\": false,\n        \"is_pre_order\": 0,\n        \"logistics_channel_ids\": [\n            50021\n        ],\n        \"order_type\": 0,\n        \"package_status\": 2,\n        \"product_location_ids\": [\n            \"VN0005EIZ\"\n        ],\n        \"shipping_priority\": 0,\n        \"sorting_group\": 1\n    },\n    \"pagination\": {\n        \"cursor\": \"\\\\\"\\\\\"\",\n        \"page_size\": 5\n    },\n    \"sort\": {\n        \"ascending\": false,\n        \"sort_type\": 1\n    }\n}',\n  CURLOPT_HTTPHEADER => array(\n    'Content-Type: application/json'\n  ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;",
+            "curl --location --request POST 'https://partner.shopeemobile.com/api/v2/order/search_package_list?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n   \"filter\": {\n      \"fulfillment_type\": 2,\n      \"invoice_pending\": false,\n      \"is_pre_order\": 0,\n      \"logistics_channel_ids\": [\n         50021\n      ],\n      \"order_type\": 0,\n      \"package_status\": 2,\n      \"product_location_ids\": [\n         \"VN0005EIZ\"\n      ],\n      \"shipping_priority\": 0,\n      \"sorting_group\": 1\n   },\n   \"pagination\": {\n      \"cursor\": \"\\\"\\\"\",\n      \"page_size\": 5\n   },\n   \"sort\": {\n      \"ascending\": false,\n      \"sort_type\": 1\n   }\n}'",
+            "import requests\nimport json\n\nurl = \"https://partner.shopeemobile.com/api/v2/order/search_package_list?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp\"\n\npayload=json.dumps({\n  \"filter\": {\n    \"fulfillment_type\": 2,\n    \"invoice_pending\": False,\n    \"is_pre_order\": 0,\n    \"logistics_channel_ids\": [\n      50021\n    ],\n    \"order_type\": 0,\n    \"package_status\": 2,\n    \"product_location_ids\": [\n      \"VN0005EIZ\"\n    ],\n    \"shipping_priority\": 0,\n    \"sorting_group\": 1\n  },\n  \"pagination\": {\n    \"cursor\": \"\\\"\\\"\",\n    \"page_size\": 5\n  },\n  \"sort\": {\n    \"ascending\": False,\n    \"sort_type\": 1\n  }\n})\nheaders = {\n  'Content-Type': 'application/json'\n}\nresponse = requests.RPCRequest(\"POST\",url,headers=headers, data=payload, allow_redirects=False)\n\nprint(response.text)"
+          ]
+        },
+        "x-shopee-response-parameters": [
+          {
+            "Name": "error",
+            "Type": "string",
+            "Sample": "error_auth",
+            "Description": "Indicate error type if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "mesage",
+            "Type": "string",
+            "Sample": "Invalid access_token",
+            "Description": "Indicate error details if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "response",
+            "Type": "object",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "packages_list",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "order_sn",
+            "Type": "string",
+            "Sample": "\"250211UJM7EVM7\"",
+            "Description": "Shopee's unique identifier for an order."
+          },
+          {
+            "Name": "package_number",
+            "Type": "string",
+            "Sample": "\"OFG192947720204989\"",
+            "Description": "Shopee's unique identifier for the package under an order"
+          },
+          {
+            "Name": "logistics_channel_id",
+            "Type": "int32",
+            "Sample": "50021",
+            "Description": "The identity of logistic channel."
+          },
+          {
+            "Name": "product_location_id",
+            "Type": "string",
+            "Sample": "\"VN0005EIZ\"",
+            "Description": "Just use this field to pass the next step of Mass ArrangeShipment"
+          },
+          {
+            "Name": "sorting_group",
+            "Type": "string",
+            "Sample": "\"North\"",
+            "Description": "[Only for TW 30029 channel] This field indicate the sorting group value of the package. This field is only available for logistics_channel_id = 30029 and after the package has been arranged for shipment."
+          },
+          {
+            "Name": "is_shipment_arranged",
+            "Type": "boolean",
+            "Sample": "false",
+            "Description": "Only effective when the package's logistics_status/fulfillment_status is LOGISTICS_READY. This parameter further distinguishes between two scenarios: - true: Package shipment has been arranged (Seller has processed shipment, system is generating tracking number, not yet updated to LOGISTICS_REQUEST_CREATED, no duplicate action needed) - false: Package awaiting shipment arrangement (Seller hasn't processed shipment yet, shipping arrangement required)"
+          },
+          {
+            "Name": "pagination",
+            "Type": "object",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "total_count",
+            "Type": "int64",
+            "Sample": "320",
+            "Description": "Total orders can be returned with your query"
+          },
+          {
+            "Name": "next_cursor",
+            "Type": "string",
+            "Sample": "\"1730437200,184066343203459\"",
+            "Description": "if packages is not empty or length of packages <= page_size. You should pass the next_cursor in the next request as page_sentinel."
+          },
+          {
+            "Name": "more",
+            "Type": "boolean",
+            "Sample": "true",
+            "Description": "To indicate, it's a the last page or not"
+          },
+          {
+            "Name": "sort",
+            "Type": "object",
+            "Sample": "",
+            "Description": "As same as request param"
+          },
+          {
+            "Name": "sort_type",
+            "Type": "int32",
+            "Sample": "1",
+            "Description": "As same as request param"
+          },
+          {
+            "Name": "is_asc",
+            "Type": "boolean",
+            "Sample": "false",
+            "Description": "As same as request param"
+          },
+          {
+            "Name": "request_id",
+            "Type": "string",
+            "Sample": "69ee3f61ec6f4e3f85836391e5b78dbc",
+            "Description": "The identifier for an API request for error tracking."
+          }
+        ],
+        "x-shopee-response-examples": [
+          "{\n\t\"error\": \"\",\n\t\"message\": \"\",\n\t\"response\": {\n\t\t\"packages_list\": [\n\t\t\t{\n\t\t\t\t\"order_sn\": \"250211UJM7EVM7\",\n\t\t\t\t\"package_number\": \"OFG192947720204989\",\n\t\t\t\t\"logistics_channel_id\": 50021,\n\t\t\t\t\"product_location_id\": \"VN0005EIZ\",\n\t\t\t\t\"sorting_group\": \"North\",\n\t\t\t\t\"is_shipment_arranged\": false\n\t\t\t}\n\t\t],\n\t\t\"pagination\": {\n\t\t\t\"total_count\": 320,\n\t\t\t\"next_cursor\": \"1730437200,184066343203459\",\n\t\t\t\"more\": true\n\t\t},\n\t\t\"sort\": {\n\t\t\t\"sort_type\": 1,\n\t\t\t\"is_asc\": false\n\t\t}\n\t},\n\t\"request_id\": \"69ee3f61ec6f4e3f85836391e5b78dbc \"\n}"
+        ],
+        "x-shopee-error-codes": [
+          {
+            "Error": "error_data",
+            "Error Description": "parse data failed",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_data",
+            "Error Description": "data not exist",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "parameter invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "The information you queried is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Wrong parameters, detail: {msg}.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_server",
+            "Error Description": "Something wrong. Please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_shop",
+            "Error Description": "shopid is invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "request not from gateway",
+            "Details and Guidance": ""
+          }
+        ],
+        "x-shopee-error-examples": [],
+        "x-shopee-permissions": "API Permissions\nCollapse\nAPP types that can call this API.\nERP System\nSeller In House System\nOrder Management\nSwam ERP",
+        "x-shopee-api-tools": "API Tools\nCollapse\nAPI Test Tools\nAPI Access Log",
+        "x-shopee-update-log": {
+          "headers": [
+            "Date",
+            "Update Details"
+          ],
+          "rows": [
+            [
+              "2025-12-26",
+              "Add order_type, is_pre_order, shipping_priority request parameters and is_shipment_arranged response parameter"
+            ],
+            [
+              "2025-10-11",
+              "Update sorting group with \"0: All\" value in request parameters"
+            ],
+            [
+              "2025-07-07",
+              "Add new request and response field \"sorting_group\""
+            ],
+            [
+              "2025-02-24",
+              "New API"
+            ]
+          ]
+        },
+        "x-shopee-page": "https://open.shopee.com/documents/v2/v2.order.search_package_list?module=127&type=1",
+        "x-shopee-extraction": "Authenticated Shopee Open Platform DOM extraction; no Markdown download endpoint was provided."
+      }
+    }
+  },
+  "x-shopee-module": "order"
+}

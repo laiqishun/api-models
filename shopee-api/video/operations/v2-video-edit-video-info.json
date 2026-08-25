@@ -1,0 +1,525 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2.video.edit_video_info",
+    "version": "V2",
+    "description": "You need to call v2.media.init_video_upload, v2.media.upload_video_part, and v2.media.complete_video_upload to upload the video, and call the v2.media.get_video_upload_result to get the video_upload_id of uploaded video first, then call this API to set video post information. After submit, the video is still draft status, you need to call v2.video.post_video to post the video to Shopee Video. You can only set and update post information before the video is post."
+  },
+  "host": "partner.shopeemobile.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/api/v2/video/edit_video_info": {
+      "post": {
+        "tags": [
+          "video"
+        ],
+        "operationId": "v2_video_edit_video_info",
+        "summary": "v2.video.edit_video_info",
+        "description": "You need to call v2.media.init_video_upload, v2.media.upload_video_part, and v2.media.complete_video_upload to upload the video, and call the v2.media.get_video_upload_result to get the video_upload_id of uploaded video first, then call this API to set video post information. After submit, the video is still draft status, you need to call v2.video.post_video to post the video to Shopee Video. You can only set and update post information before the video is post.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours.",
+            "example": "c09222e3fc40ffb25fc947f738b1abf1"
+          },
+          {
+            "name": "allow_duet",
+            "in": "query",
+            "type": "boolean",
+            "required": true,
+            "description": "Whether allow duet.",
+            "example": "true"
+          },
+          {
+            "name": "allow_info",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Whether allow stitch and duet."
+          },
+          {
+            "name": "allow_stitch",
+            "in": "query",
+            "type": "boolean",
+            "required": true,
+            "description": "Whether allow stitch.",
+            "example": "true"
+          },
+          {
+            "name": "caption",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Description of the Shopee Video.",
+            "example": "this is a test video"
+          },
+          {
+            "name": "cover_image_url",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Selected cover image url of the Shopee Video. Obtain from v2.video.get_cover_list.",
+            "example": "https://down-sg.img.susercontent.com/sg-11110199-6v99e-mgezdwct5eyya0_pack_v1_1000001_1"
+          },
+          {
+            "name": "custom_item_name",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Product display name in Shopee Video.",
+            "example": "item display name"
+          },
+          {
+            "name": "item_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Shopee's unique identifier for an item.",
+            "example": "2"
+          },
+          {
+            "name": "item_info",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "List of products to be linked with the Shopee Video, no more than 6."
+          },
+          {
+            "name": "partner_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Partner ID is assigned upon registration is successful. Required for all requests.",
+            "example": "1"
+          },
+          {
+            "name": "scheduled_info",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "When scheduled_post is true, scheduled_post_time must not empty. When scheduled_post is false, scheduled_post_time must empty."
+          },
+          {
+            "name": "scheduled_post",
+            "in": "query",
+            "type": "boolean",
+            "required": true,
+            "description": "Whether post it to Shopee Video at scheduled time.",
+            "example": "true"
+          },
+          {
+            "name": "scheduled_post_time",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Scheduled post time, millisecond timestamp. When scheduled_post is true, scheduled_post_time must not empty.",
+            "example": "1761734929450"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Signature generated by(depends on different APIs) partner_id, api path, timestamp, access_token, user_id and partner_key via HMAC-SHA256 hashing algorithm.",
+            "example": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes.",
+            "example": "1610000000"
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Shopee's unique identifier for a user.",
+            "example": "1"
+          },
+          {
+            "name": "video_upload_id",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "ID of uploaded video. Obtain from v2.media.get_video_upload_result.",
+            "example": "sg-11110199-6v99e-mgezdwct5eyya0"
+          },
+          {
+            "name": "video_upload_list",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Video information collection, no more than 5."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response documented by Shopee Open Platform.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "success_list": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    },
+                    "failure_list": {
+                      "type": "array",
+                      "items": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-shopee-content-id": "2737",
+        "x-shopee-content-name": "v2.video.edit_video_info",
+        "x-shopee-version": "V2",
+        "x-shopee-module": "Video",
+        "x-shopee-module-id": "127",
+        "x-shopee-detail-status": "ok",
+        "x-shopee-request-address": {
+          "headers": [
+            "Environment",
+            "Location",
+            "HTTP Address"
+          ],
+          "rows": [
+            [
+              "Live",
+              "Global",
+              "https://partner.shopeemobile.com/api/v2/video/edit_video_info"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.shopee.cn/api/v2/video/edit_video_info"
+            ],
+            [
+              "Brazil",
+              "https://openplatform.shopee.com.br/api/v2/video/edit_video_info"
+            ],
+            [
+              "Sandbox",
+              "Global",
+              "https://openplatform.sandbox.test-stable.shopee.sg/api/v2/video/edit_video_info"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.sandbox.test-stable.shopee.cn/api/v2/video/edit_video_info"
+            ]
+          ]
+        },
+        "x-shopee-common-parameters": [
+          {
+            "Name": "partner_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Partner ID is assigned upon registration is successful. Required for all requests."
+          },
+          {
+            "Name": "timestamp",
+            "Type": "timestamp",
+            "Sample": "1610000000",
+            "Description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes."
+          },
+          {
+            "Name": "access_token",
+            "Type": "string",
+            "Sample": "c09222e3fc40ffb25fc947f738b1abf1",
+            "Description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours."
+          },
+          {
+            "Name": "user_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Shopee's unique identifier for a user."
+          },
+          {
+            "Name": "sign",
+            "Type": "string",
+            "Sample": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2",
+            "Description": "Signature generated by(depends on different APIs) partner_id, api path, timestamp, access_token, user_id and partner_key via HMAC-SHA256 hashing algorithm."
+          }
+        ],
+        "x-shopee-request-parameters": [
+          {
+            "Name": "video_upload_list",
+            "Type": "object[]",
+            "Required": "True",
+            "Sample": "",
+            "Description": "Video information collection, no more than 5."
+          },
+          {
+            "Name": "video_upload_id",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "sg-11110199-6v99e-mgezdwct5eyya0",
+            "Description": "ID of uploaded video. Obtain from v2.media.get_video_upload_result."
+          },
+          {
+            "Name": "caption",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "this is a test video",
+            "Description": "Description of the Shopee Video."
+          },
+          {
+            "Name": "cover_image_url",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "https://down-sg.img.susercontent.com/sg-11110199-6v99e-mgezdwct5eyya0_pack_v1_1000001_1",
+            "Description": "Selected cover image url of the Shopee Video. Obtain from v2.video.get_cover_list."
+          },
+          {
+            "Name": "item_info",
+            "Type": "object[]",
+            "Required": "False",
+            "Sample": "",
+            "Description": "List of products to be linked with the Shopee Video, no more than 6."
+          },
+          {
+            "Name": "item_id",
+            "Type": "int64",
+            "Required": "True",
+            "Sample": "2",
+            "Description": "Shopee's unique identifier for an item."
+          },
+          {
+            "Name": "custom_item_name",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "item display name",
+            "Description": "Product display name in Shopee Video."
+          },
+          {
+            "Name": "allow_info",
+            "Type": "object",
+            "Required": "True",
+            "Sample": "",
+            "Description": "Whether allow stitch and duet."
+          },
+          {
+            "Name": "allow_duet",
+            "Type": "boolean",
+            "Required": "True",
+            "Sample": "true",
+            "Description": "Whether allow duet."
+          },
+          {
+            "Name": "allow_stitch",
+            "Type": "boolean",
+            "Required": "True",
+            "Sample": "true",
+            "Description": "Whether allow stitch."
+          },
+          {
+            "Name": "scheduled_info",
+            "Type": "object",
+            "Required": "True",
+            "Sample": "",
+            "Description": "When scheduled_post is true, scheduled_post_time must not empty. When scheduled_post is false, scheduled_post_time must empty."
+          },
+          {
+            "Name": "scheduled_post",
+            "Type": "boolean",
+            "Required": "True",
+            "Sample": "true",
+            "Description": "Whether post it to Shopee Video at scheduled time."
+          },
+          {
+            "Name": "scheduled_post_time",
+            "Type": "timestamp",
+            "Required": "False",
+            "Sample": "1761734929450",
+            "Description": "Scheduled post time, millisecond timestamp. When scheduled_post is true, scheduled_post_time must not empty."
+          }
+        ],
+        "x-shopee-request-examples": {
+          "languages": [
+            "Payload",
+            "Java",
+            "PHP",
+            "cURL",
+            "Python"
+          ],
+          "values": [
+            "{\n\t\"video_upload_list\": [\n\t\t{\n\t\t\t\"video_upload_id\": \"sg-11110199-6v99e-mgezdwct5eyya0\",\n\t\t\t\"caption\": \"this is a test video\",\n\t\t\t\"cover_image_url\": \"https://down-sg.img.susercontent.com/sg-11110199-6v99e-mgezdwct5eyya0_pack_v1_1000001_1\",\n\t\t\t\"item_info\": [\n\t\t\t\t{\n\t\t\t\t\t\"item_id\": 2,\n\t\t\t\t\t\"custom_item_name\": \"item display name\"\n\t\t\t\t}\n\t\t\t],\n\t\t\t\"allow_info\": {\n\t\t\t\t\"allow_duet\": true,\n\t\t\t\t\"allow_stitch\": true\n\t\t\t},\n\t\t\t\"scheduled_info\": {\n\t\t\t\t\"scheduled_post\": true,\n\t\t\t\t\"scheduled_post_time\": 1761734929450\n\t\t\t}\n\t\t}\n\t]\n}",
+            "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.post(\"https://partner.shopeemobile.com/api/v2/video/edit_video_info?access_token=access_token&partner_id=partner_id&sign=sign&timestamp=timestamp&user_id=user_id\")\n.header(\"Content-Type\",\"application/json\")\n.body(\"{\n   \\\"video_upload_list\\\": [\n      {\n         \\\"allow_info\\\": {\n            \\\"allow_duet\\\": true,\n            \\\"allow_stitch\\\": true\n         },\n         \\\"caption\\\": \\\"this is a test video\\\",\n         \\\"cover_image_url\\\": \\\"https://down-sg.img.susercontent.com/sg-11110199-6v99e-mgezdwct5eyya0_pack_v1_1000001_1\\\",\n         \\\"item_info\\\": [\n            {\n               \\\"custom_item_name\\\": \\\"item display name\\\",\n               \\\"item_id\\\": 2\n            }\n         ],\n         \\\"scheduled_info\\\": {\n            \\\"scheduled_post\\\": true,\n            \\\"scheduled_post_time\\\": 1761734929450\n         },\n         \\\"video_upload_id\\\": \\\"sg-11110199-6v99e-mgezdwct5eyya0\\\"\n      }\n   ]\n}\")\n.asString();",
+            "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n  CURLOPT_URL => 'https://partner.shopeemobile.com/api/v2/video/edit_video_info?access_token=access_token&partner_id=partner_id&sign=sign&timestamp=timestamp&user_id=user_id',\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_ENCODING => '',\n  CURLOPT_MAXREDIRS => 10,\n  CURLOPT_TIMEOUT => 0,\n  CURLOPT_FOLLOWLOCATION => true,\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n  CURLOPT_CUSTOMREQUEST => 'POST',\n  CURLOPT_POSTFIELDS => '{\n    \"video_upload_list\": [\n        {\n            \"allow_info\": {\n                \"allow_duet\": true,\n                \"allow_stitch\": true\n            },\n            \"caption\": \"this is a test video\",\n            \"cover_image_url\": \"https://down-sg.img.susercontent.com/sg-11110199-6v99e-mgezdwct5eyya0_pack_v1_1000001_1\",\n            \"item_info\": [\n                {\n                    \"custom_item_name\": \"item display name\",\n                    \"item_id\": 2\n                }\n            ],\n            \"scheduled_info\": {\n                \"scheduled_post\": true,\n                \"scheduled_post_time\": 1761734929450\n            },\n            \"video_upload_id\": \"sg-11110199-6v99e-mgezdwct5eyya0\"\n        }\n    ]\n}',\n  CURLOPT_HTTPHEADER => array(\n    'Content-Type: application/json'\n  ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;",
+            "curl --location --request POST 'https://partner.shopeemobile.com/api/v2/video/edit_video_info?access_token=access_token&partner_id=partner_id&sign=sign&timestamp=timestamp&user_id=user_id' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n   \"video_upload_list\": [\n      {\n         \"allow_info\": {\n            \"allow_duet\": true,\n            \"allow_stitch\": true\n         },\n         \"caption\": \"this is a test video\",\n         \"cover_image_url\": \"https://down-sg.img.susercontent.com/sg-11110199-6v99e-mgezdwct5eyya0_pack_v1_1000001_1\",\n         \"item_info\": [\n            {\n               \"custom_item_name\": \"item display name\",\n               \"item_id\": 2\n            }\n         ],\n         \"scheduled_info\": {\n            \"scheduled_post\": true,\n            \"scheduled_post_time\": 1761734929450\n         },\n         \"video_upload_id\": \"sg-11110199-6v99e-mgezdwct5eyya0\"\n      }\n   ]\n}'",
+            "import requests\nimport json\n\nurl = \"https://partner.shopeemobile.com/api/v2/video/edit_video_info?access_token=access_token&partner_id=partner_id&sign=sign&timestamp=timestamp&user_id=user_id\"\n\npayload=json.dumps({\n  \"video_upload_list\": [\n    {\n      \"allow_info\": {\n        \"allow_duet\": True,\n        \"allow_stitch\": True\n      },\n      \"caption\": \"this is a test video\",\n      \"cover_image_url\": \"https://down-sg.img.susercontent.com/sg-11110199-6v99e-mgezdwct5eyya0_pack_v1_1000001_1\",\n      \"item_info\": [\n        {\n          \"custom_item_name\": \"item display name\",\n          \"item_id\": 2\n        }\n      ],\n      \"scheduled_info\": {\n        \"scheduled_post\": True,\n        \"scheduled_post_time\": 1761734929450\n      },\n      \"video_upload_id\": \"sg-11110199-6v99e-mgezdwct5eyya0\"\n    }\n  ]\n})\nheaders = {\n  'Content-Type': 'application/json'\n}\nresponse = requests.RPCRequest(\"POST\",url,headers=headers, data=payload, allow_redirects=False)\n\nprint(response.text)"
+          ]
+        },
+        "x-shopee-response-parameters": [
+          {
+            "Name": "error",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error type if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "message",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error details if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "request_id",
+            "Type": "string",
+            "Sample": "07af0e73-f806-4b09-af22-d28a72eae63a",
+            "Description": "The identifier for an API request for error tracking."
+          },
+          {
+            "Name": "response",
+            "Type": "object",
+            "Sample": "",
+            "Description": "Detail informations you are querying."
+          },
+          {
+            "Name": "success_list",
+            "Type": "string[]",
+            "Sample": "[ \"sg-11110199-6v99e-mgezdwct5eyya0\"]",
+            "Description": "The list of video_upload_id edit successfully."
+          },
+          {
+            "Name": "failure_list",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": "The list of video_upload_id edit failed."
+          },
+          {
+            "Name": "fail_video_upload_id",
+            "Type": "string",
+            "Sample": "sg-11110199-6v99e-mgezdwct5eyya0",
+            "Description": "Failed video_upload_id."
+          },
+          {
+            "Name": "failed_reason",
+            "Type": "string",
+            "Sample": "can not edit video info,please retry",
+            "Description": "Failed reason of the corresponding video_upload_id."
+          }
+        ],
+        "x-shopee-response-examples": [
+          "{\n\t\"error\": \"\",\n\t\"message\": \"\",\n\t\"request_id\": \"07af0e73-f806-4b09-af22-d28a72eae63a\",\n\t\"response\": {\n\t\t\"success_list\": [\n\t\t\t\"sg-11110199-6v99e-mgezdwct5eyya0\"\n\t\t],\n\t\t\"failure_list\": []\n\t}\n}"
+        ],
+        "x-shopee-error-codes": [
+          {
+            "Error": "batch_process_failed",
+            "Error Description": "Please check failure_list for detailed reason",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error-param",
+            "Error Description": "video_upload_id is illegal",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "allowInfo is empty",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Invalid video source. Please re-upload the video using v2.media.init_video_upload with correct business & scene.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "caption length is more than 150",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "cover is illegal",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "item size can not over 6",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "can not find item info {item_id}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "video_upload_list can not over 5",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "scheduledPostTime must be 15 minutes after the current time and within 30 days of the current time",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "can not handle video meta video duration must within {postDuration}s and greater than 3s",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "can not find video meta",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "unauthorized",
+            "Error Description": "The user is not authorized and needs to be in toggle",
+            "Details and Guidance": ""
+          }
+        ],
+        "x-shopee-error-examples": [
+          "{\n\t\"error\": \"error_param\",\n\t\"message\": \"video_upload_list is empty\",\n\t\"response\": null,\n\t\"request_id\": \"cc18a505-a03e-4e83-b519-15c360701a26\"\n}"
+        ],
+        "x-shopee-permissions": "API Permissions\nCollapse\nAPP types that can call this API.\nShopee Video Management",
+        "x-shopee-api-tools": "API Tools\nCollapse\nAPI Test Tools\nAPI Access Log",
+        "x-shopee-update-log": {
+          "headers": [
+            "Date",
+            "Update Details"
+          ],
+          "rows": [
+            [
+              "2025-09-02",
+              "New API"
+            ]
+          ]
+        },
+        "x-shopee-page": "https://open.shopee.com/documents/v2/v2.video.edit_video_info?module=127&type=1",
+        "x-shopee-extraction": "Authenticated Shopee Open Platform DOM extraction; no Markdown download endpoint was provided."
+      }
+    }
+  },
+  "x-shopee-module": "video"
+}

@@ -1,0 +1,614 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2.product.update_model",
+    "version": "V2",
+    "description": "Update seller sku/ pre order/ model status for model."
+  },
+  "host": "partner.shopeemobile.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/api/v2/product/update_model": {
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "operationId": "v2_product_update_model",
+        "summary": "v2.product.update_model",
+        "description": "Update seller sku/ pre order/ model status for model.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours.",
+            "example": "c09222e3fc40ffb25fc947f738b1abf1"
+          },
+          {
+            "name": "days_to_ship",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "The days to ship. Only work for is_pre_order=true",
+            "example": "3"
+          },
+          {
+            "name": "dimension",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The dimension of this model. If don't set the dimension of this model, will use the dimension of item by default."
+          },
+          {
+            "name": "gtin_code",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "- GTIN is an identifier for trade items, developed by the international organization GS1. - They have 8 to 14 digits. The most common are UPC, EAN, JAN and ISBN. - GTIN will help boost positioning in online marketing channels like Google and Facebook. - That incorporation with GTIN will also aid in Search and Recommendation in Shopee itself allowing buyers to have higher likelihood of finding one's listing. Note: If you want to set “Item without GTIN”, please pass the gtin_code as \"00\". The validation rule is based on the value return in gtin_validation_rule\" field in v2.product.get_item_limit API - Mandatory: This field is required and must contain a correctly formatted GTiN number. - Flexible: This field is required and must contain either a correctly formatted GTlN number or \"00\" to declare that the item/model has no valid GTlN. - Optional: This field is optional and can contain a correctly formatted GTiN number, \"00\" or be omitted entirely."
+          },
+          {
+            "name": "is_pre_order",
+            "in": "query",
+            "type": "boolean",
+            "required": true,
+            "description": "Pre-order",
+            "example": "false"
+          },
+          {
+            "name": "item_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "ID of item",
+            "example": "1000"
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Length should be between 1 to 50"
+          },
+          {
+            "name": "model_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "ID of model",
+            "example": "1625698439"
+          },
+          {
+            "name": "model_sku",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Seller SKU for model, model_sku length information needs to be no more than 100 characters. CNSC and KRSC sellers are not allowed to update the MPSKU model sku.",
+            "example": "abc"
+          },
+          {
+            "name": "model_status",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "can be \"NORMAL\" or \"UNAVAILABLE\". Only CNSC and KRSC sellers can set the model_status. Normal models can be sold on the buyer's side, and UNAVAILABLE models cannot be sold on the buyer's side."
+          },
+          {
+            "name": "package_height",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "The height of package for this model, the unit is CM.",
+            "example": "11"
+          },
+          {
+            "name": "package_length",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "The length of package for this model, the unit is CM.",
+            "example": "11"
+          },
+          {
+            "name": "package_width",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "The width of package for this model, the unit is CM.",
+            "example": "11"
+          },
+          {
+            "name": "partner_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Partner ID is assigned upon registration is successful. Required for all requests.",
+            "example": "1"
+          },
+          {
+            "name": "pre_order",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": ""
+          },
+          {
+            "name": "shop_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Shopee's unique identifier for a shop. Required param for most APIs.",
+            "example": "600000"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2",
+            "example": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes.",
+            "example": "1610000000"
+          },
+          {
+            "name": "weight",
+            "in": "query",
+            "type": "number",
+            "required": false,
+            "description": "The weight of this model, the unit is KG. If don't set the weight of this model, will use the weight of item by default. If set the dimension of this model, them must set the weight of this model.",
+            "example": "1.1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response documented by Shopee Open Platform.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "warning": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-shopee-content-id": "648",
+        "x-shopee-content-name": "v2.product.update_model",
+        "x-shopee-version": "V2",
+        "x-shopee-module": "Product",
+        "x-shopee-module-id": "127",
+        "x-shopee-detail-status": "ok",
+        "x-shopee-request-address": {
+          "headers": [
+            "Environment",
+            "Location",
+            "HTTP Address"
+          ],
+          "rows": [
+            [
+              "Live",
+              "Global",
+              "https://partner.shopeemobile.com/api/v2/product/update_model"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.shopee.cn/api/v2/product/update_model"
+            ],
+            [
+              "Brazil",
+              "https://openplatform.shopee.com.br/api/v2/product/update_model"
+            ],
+            [
+              "Sandbox",
+              "Global",
+              "https://openplatform.sandbox.test-stable.shopee.sg/api/v2/product/update_model"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.sandbox.test-stable.shopee.cn/api/v2/product/update_model"
+            ]
+          ]
+        },
+        "x-shopee-common-parameters": [
+          {
+            "Name": "partner_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Partner ID is assigned upon registration is successful. Required for all requests."
+          },
+          {
+            "Name": "timestamp",
+            "Type": "timestamp",
+            "Sample": "1610000000",
+            "Description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes."
+          },
+          {
+            "Name": "access_token",
+            "Type": "string",
+            "Sample": "c09222e3fc40ffb25fc947f738b1abf1",
+            "Description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours."
+          },
+          {
+            "Name": "shop_id",
+            "Type": "int",
+            "Sample": "600000",
+            "Description": "Shopee's unique identifier for a shop. Required param for most APIs."
+          },
+          {
+            "Name": "sign",
+            "Type": "string",
+            "Sample": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2",
+            "Description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2"
+          }
+        ],
+        "x-shopee-request-parameters": [
+          {
+            "Name": "item_id",
+            "Type": "int64",
+            "Required": "True",
+            "Sample": "1000",
+            "Description": "ID of item"
+          },
+          {
+            "Name": "model",
+            "Type": "object[]",
+            "Required": "True",
+            "Sample": "",
+            "Description": "Length should be between 1 to 50"
+          },
+          {
+            "Name": "model_id",
+            "Type": "int64",
+            "Required": "True",
+            "Sample": "1625698439",
+            "Description": "ID of model"
+          },
+          {
+            "Name": "model_sku",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "abc",
+            "Description": "Seller SKU for model, model_sku length information needs to be no more than 100 characters. CNSC and KRSC sellers are not allowed to update the MPSKU model sku."
+          },
+          {
+            "Name": "pre_order",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "is_pre_order",
+            "Type": "boolean",
+            "Required": "True",
+            "Sample": "false",
+            "Description": "Pre-order"
+          },
+          {
+            "Name": "days_to_ship",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "3",
+            "Description": "The days to ship. Only work for is_pre_order=true"
+          },
+          {
+            "Name": "gtin_code",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "- GTIN is an identifier for trade items, developed by the international organization GS1. - They have 8 to 14 digits. The most common are UPC, EAN, JAN and ISBN. - GTIN will help boost positioning in online marketing channels like Google and Facebook. - That incorporation with GTIN will also aid in Search and Recommendation in Shopee itself allowing buyers to have higher likelihood of finding one's listing. Note: If you want to set “Item without GTIN”, please pass the gtin_code as \"00\". The validation rule is based on the value return in gtin_validation_rule\" field in v2.product.get_item_limit API - Mandatory: This field is required and must contain a correctly formatted GTiN number. - Flexible: This field is required and must contain either a correctly formatted GTlN number or \"00\" to declare that the item/model has no valid GTlN. - Optional: This field is optional and can contain a correctly formatted GTiN number, \"00\" or be omitted entirely."
+          },
+          {
+            "Name": "model_status",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "can be \"NORMAL\" or \"UNAVAILABLE\". Only CNSC and KRSC sellers can set the model_status. Normal models can be sold on the buyer's side, and UNAVAILABLE models cannot be sold on the buyer's side."
+          },
+          {
+            "Name": "weight",
+            "Type": "float",
+            "Required": "False",
+            "Sample": "1.1",
+            "Description": "The weight of this model, the unit is KG. If don't set the weight of this model, will use the weight of item by default. If set the dimension of this model, them must set the weight of this model."
+          },
+          {
+            "Name": "dimension",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "The dimension of this model. If don't set the dimension of this model, will use the dimension of item by default."
+          },
+          {
+            "Name": "package_height",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "11",
+            "Description": "The height of package for this model, the unit is CM."
+          },
+          {
+            "Name": "package_length",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "11",
+            "Description": "The length of package for this model, the unit is CM."
+          },
+          {
+            "Name": "package_width",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "11",
+            "Description": "The width of package for this model, the unit is CM."
+          }
+        ],
+        "x-shopee-request-examples": {
+          "languages": [
+            "Payload",
+            "Java",
+            "PHP",
+            "cURL",
+            "Python"
+          ],
+          "values": [
+            "{\n\t\"model\": [\n\t\t{\n\t\t\t\"model_sku\": \"abc\",\n\t\t\t\"pre_order\": {\n\t\t\t\t\"is_pre_order\": false\n\t\t\t},\n\t\t\t\"weight\": 1.1\n\t\t}\n\t]\n}",
+            "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.post(\"https://partner.shopeemobile.com/api/v2/product/update_model?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp\")\n.header(\"Content-Type\",\"application/json\")\n.body(\"{\n   \\\"model\\\": [\n      {\n         \\\"model_sku\\\": \\\"abc\\\",\n         \\\"pre_order\\\": {\n            \\\"is_pre_order\\\": false\n         },\n         \\\"weight\\\": 1.1\n      }\n   ]\n}\")\n.asString();",
+            "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n  CURLOPT_URL => 'https://partner.shopeemobile.com/api/v2/product/update_model?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp',\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_ENCODING => '',\n  CURLOPT_MAXREDIRS => 10,\n  CURLOPT_TIMEOUT => 0,\n  CURLOPT_FOLLOWLOCATION => true,\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n  CURLOPT_CUSTOMREQUEST => 'POST',\n  CURLOPT_POSTFIELDS => '{\n    \"model\": [\n        {\n            \"model_sku\": \"abc\",\n            \"pre_order\": {\n                \"is_pre_order\": false\n            },\n            \"weight\": 1.1\n        }\n    ]\n}',\n  CURLOPT_HTTPHEADER => array(\n    'Content-Type: application/json'\n  ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;",
+            "curl --location --request POST 'https://partner.shopeemobile.com/api/v2/product/update_model?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n   \"model\": [\n      {\n         \"model_sku\": \"abc\",\n         \"pre_order\": {\n            \"is_pre_order\": false\n         },\n         \"weight\": 1.1\n      }\n   ]\n}'",
+            "import requests\nimport json\n\nurl = \"https://partner.shopeemobile.com/api/v2/product/update_model?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp\"\n\npayload=json.dumps({\n  \"model\": [\n    {\n      \"model_sku\": \"abc\",\n      \"pre_order\": {\n        \"is_pre_order\": False\n      },\n      \"weight\": 1.1\n    }\n  ]\n})\nheaders = {\n  'Content-Type': 'application/json'\n}\nresponse = requests.RPCRequest(\"POST\",url,headers=headers, data=payload, allow_redirects=False)\n\nprint(response.text)"
+          ]
+        },
+        "x-shopee-response-parameters": [
+          {
+            "Name": "error",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error type if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "message",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error details if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "warning",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Warning message."
+          },
+          {
+            "Name": "request_id",
+            "Type": "string",
+            "Sample": "",
+            "Description": "The identifier for an API request for error tracking"
+          }
+        ],
+        "x-shopee-response-examples": [
+          "{\n\"error\": \"\",\n\"message\": \"\",\n\"warning\": \"\",\n\"request_id\": \"aaaaaaa\",\n}"
+        ],
+        "x-shopee-error-codes": [
+          {
+            "Error": "product.error_busi",
+            "Error Description": "The GTIN code is mandatory, please check and upload again.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_network",
+            "Error Description": "Inner http call failed",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_data",
+            "Error Description": "parse data failed",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_data",
+            "Error Description": "data not exist",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "parameter invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "The information you queried is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Wrong parameters, detail: {msg}.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_server",
+            "Error Description": "Something wrong. Please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_shop",
+            "Error Description": "shopid is invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "request not from gateway",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_item_not_found",
+            "Error Description": "Item_id is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "Our system is taking some time to respond, please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "System error, please try again later or contact the OpenAPI support team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_item_not_found",
+            "Error Description": "Product not found",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "Update item failed {{.error_info}}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "Update item failed {{.error_info}}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "System error, please try again later or contact the OpenAPI support team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "System error, please try again later or contact the OpenAPI support team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param_validate",
+            "Error Description": "This is not a valid GTIN. Please, inform a valid number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param_validate",
+            "Error Description": "This is not a valid GTIN. Please, inform a valid number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_busi_cannot_edit_vsku",
+            "Error Description": "Can not use OpenAPI to edit/create VSKU, please connect with your manager",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "Your shop can not use model level dts",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_busi",
+            "Error Description": "The merchant/shop has multi warehouse, please input location id",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Invalid parameter for product.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_system_busy",
+            "Error Description": "Our system is taking some time to respond, please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_seller_under_penalty",
+            "Error Description": "The shop is under penalty.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_nil_shopid_or_itemid",
+            "Error Description": "Query information failed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_perm_non_admin",
+            "Error Description": "Don't have permission.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_server",
+            "Error Description": "Interal error, please contact openapi team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_slash_price_models_to_nomodel_lock",
+            "Error Description": "In slash sale, can not add model to a non-model item.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_model_update_name_model_in_promotion",
+            "Error Description": "tier_variation name and oprion cannot be editted when item/model is under promotion.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_model_invalid_model_id",
+            "Error Description": "Invalid model_id.",
+            "Details and Guidance": ""
+          }
+        ],
+        "x-shopee-error-examples": [
+          "{\n    \"error\": \"product.error_param\",\n    \"message\": \"invalid field ItemId: value must  Not Null\",\n    \"request_id\": \"d907a5c84ce33078ab561912bf7a22f5\"\n}"
+        ],
+        "x-shopee-permissions": "API Permissions\nCollapse\nAPP types that can call this API.\nERP System\nSeller In House System\nProduct Management",
+        "x-shopee-api-tools": "API Tools\nCollapse\nAPI Test Tools\nAPI Access Log",
+        "x-shopee-update-log": {
+          "headers": [
+            "Date",
+            "Update Details"
+          ],
+          "rows": [
+            [
+              "2025-01-08",
+              "Update GTIN validation rule"
+            ],
+            [
+              "2024-05-29",
+              "add model level weight and dimension"
+            ],
+            [
+              "2023-05-05",
+              "update the description of gtin_code"
+            ],
+            [
+              "2023-01-03",
+              "add model_status field"
+            ],
+            [
+              "2022-09-15",
+              "add gtin_code"
+            ]
+          ]
+        },
+        "x-shopee-page": "https://open.shopee.com/documents/v2/v2.product.update_model?module=127&type=1",
+        "x-shopee-extraction": "Authenticated Shopee Open Platform DOM extraction; no Markdown download endpoint was provided."
+      }
+    }
+  },
+  "x-shopee-module": "product"
+}

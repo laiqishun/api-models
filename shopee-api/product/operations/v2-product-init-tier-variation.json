@@ -1,0 +1,1193 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2.product.init_tier_variation",
+    "version": "V2",
+    "description": "This API allows you to update the tier structure of a product. Defining only color creates one tier, while color + size creates two tiers (maximum supported). Supported changes include: no tier ↔ one/two tiers, one tier ↔ two/no tier, and two tiers ↔ one/no tier. For details, see Developer Guide. Please wait at least 5 seconds after creating an item before creating variants, as processing may be delayed."
+  },
+  "host": "partner.shopeemobile.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/api/v2/product/init_tier_variation": {
+      "post": {
+        "tags": [
+          "product"
+        ],
+        "operationId": "v2_product_init_tier_variation",
+        "summary": "v2.product.init_tier_variation",
+        "description": "This API allows you to update the tier structure of a product. Defining only color creates one tier, while color + size creates two tiers (maximum supported). Supported changes include: no tier ↔ one/two tiers, one tier ↔ two/no tier, and two tiers ↔ one/no tier. For details, see Developer Guide. Please wait at least 5 seconds after creating an item before creating variants, as processing may be delayed.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours.",
+            "example": "c09222e3fc40ffb25fc947f738b1abf1"
+          },
+          {
+            "name": "days_to_ship",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "Days to ship. Please get the days_to_ship range from the get_dts_limit API.",
+            "example": "2"
+          },
+          {
+            "name": "dimension",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The dimension of this model. If don't set the dimension of this model, will use the dimension of item by default."
+          },
+          {
+            "name": "gtin_code",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "- GTIN is an identifier for trade items, developed by the international organization GS1. - They have 8 to 14 digits. The most common are UPC, EAN, JAN and ISBN. - GTIN will help boost positioning in online marketing channels like Google and Facebook. - That incorporation with GTIN will also aid in Search and Recommendation in Shopee itself allowing buyers to have higher likelihood of finding one's listing. Note: If you want to set “Item without GTIN”, please pass the gtin_code as \"00\". The validation rule is based on the value return in gtin_validation_rule\" field in v2.product.get_item_limit API - Mandatory: This field is required and must contain a correctly formatted GTiN number. - Flexible: This field is required and must contain either a correctly formatted GTlN number or \"00\" to declare that the item/model has no valid GTlN. - Optional: This field is optional and can contain a correctly formatted GTiN number, \"00\" or be omitted entirely."
+          },
+          {
+            "name": "image_id",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "standardise tier variation option image ID",
+            "example": "82becb4830bd2ee90ad6acf8a9dc26d7"
+          },
+          {
+            "name": "is_pre_order",
+            "in": "query",
+            "type": "boolean",
+            "required": true,
+            "description": "Whether the model is pre order.",
+            "example": "false"
+          },
+          {
+            "name": "item_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "ID of item",
+            "example": "1000"
+          },
+          {
+            "name": "location_id",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "location id, you can get the location id from v2.shop.get_warehouse_detail api, if seller don't have any warehouse, you don't need to upload this field."
+          },
+          {
+            "name": "model",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Model info list, model number at most 50"
+          },
+          {
+            "name": "model_sku",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Seller SKU of this model, model_sku length information needs to be no more than 100 characters.",
+            "example": "SKU"
+          },
+          {
+            "name": "original_price",
+            "in": "query",
+            "type": "number",
+            "required": true,
+            "description": "Original price of this model. For CO local VAT responsible seller：Please remember the price you set in here must be VAT inclusive. If you have any doubts on how to calculate VAT for your product please refer to the Seller Education Hub（https://seller.shopee.com.co/edu/article/13565）",
+            "example": "38.3"
+          },
+          {
+            "name": "package_height",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "The height of package for this model, the unit is CM.",
+            "example": "11"
+          },
+          {
+            "name": "package_length",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "The length of package for this model, the unit is CM.",
+            "example": "11"
+          },
+          {
+            "name": "package_width",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "The width of package for this model, the unit is CM.",
+            "example": "11"
+          },
+          {
+            "name": "partner_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Partner ID is assigned upon registration is successful. Required for all requests.",
+            "example": "1"
+          },
+          {
+            "name": "pre_order",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Pre-order information of this model. Notes: If don't set the DTS of this model, will use the DTS of the item by default."
+          },
+          {
+            "name": "seller_stock",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "new stock info（Please notice that stock(including Seller Stock and Shopee Stock) should be larger than or equal to real-time reserved stock）"
+          },
+          {
+            "name": "shop_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Shopee's unique identifier for a shop. Required param for most APIs.",
+            "example": "600000"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2",
+            "example": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2"
+          },
+          {
+            "name": "standardise_tier_variation",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "There is at least one standardise_tier_variation and tier_variation. If you want to update one tier/two tier to no tier, can just pass the tier_variation and standardise_tier_variation as [], and pass the model >> tier_index as [], meanwhile pass the original_price, seller_stock, etc., to set the price and stock for the modified product with no tier structure."
+          },
+          {
+            "name": "stock",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "stock"
+          },
+          {
+            "name": "tier_index",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Tier index of this model. If you want to update one tier/two tier to no tier, can just pass the tier_variation and standardise_tier_variation as [], and pass the model >> tier_index as [], meanwhile pass the original_price, seller_stock, etc., to set the price and stock for the modified product with no tier structure.",
+            "example": "[0]"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes.",
+            "example": "1610000000"
+          },
+          {
+            "name": "variation_group_id",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "standardise tier variation group ID",
+            "example": "2"
+          },
+          {
+            "name": "variation_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "standardise tier variation ID.",
+            "example": "1"
+          },
+          {
+            "name": "variation_name",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "standardise tier variation name",
+            "example": "name1"
+          },
+          {
+            "name": "variation_option_id",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "standardise tier variation option ID."
+          },
+          {
+            "name": "variation_option_list",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "standardise tier variation option list"
+          },
+          {
+            "name": "variation_option_name",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "standardise tier variation option value",
+            "example": "option2"
+          },
+          {
+            "name": "weight",
+            "in": "query",
+            "type": "number",
+            "required": false,
+            "description": "The weight of this model, the unit is KG. If don't set the weight of this model, will use the weight of item by default. If set the dimension of this model, them must set the weight of this model.",
+            "example": "1.1"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response documented by Shopee Open Platform.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "warning": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                },
+                "response": {
+                  "type": "object",
+                  "properties": {
+                    "tier_variation": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "name": {
+                            "type": "string"
+                          },
+                          "option_list": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "image": {
+                                  "type": "object",
+                                  "properties": {
+                                    "image_url": {
+                                      "type": "string"
+                                    }
+                                  }
+                                },
+                                "option": {
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "model": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "tier_index": {
+                            "type": "array",
+                            "items": {
+                              "type": "integer",
+                              "format": "int64"
+                            }
+                          },
+                          "model_id": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "model_sku": {
+                            "type": "string"
+                          },
+                          "price_info": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "original_price": {
+                                  "type": "integer",
+                                  "format": "int64"
+                                }
+                              }
+                            }
+                          },
+                          "seller_stock": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "location_id": {
+                                  "type": "string"
+                                },
+                                "stock": {
+                                  "type": "integer",
+                                  "format": "int64"
+                                }
+                              }
+                            }
+                          },
+                          "weight": {
+                            "type": "number"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-shopee-content-id": "646",
+        "x-shopee-content-name": "v2.product.init_tier_variation",
+        "x-shopee-version": "V2",
+        "x-shopee-module": "Product",
+        "x-shopee-module-id": "127",
+        "x-shopee-detail-status": "ok",
+        "x-shopee-request-address": {
+          "headers": [
+            "Environment",
+            "Location",
+            "HTTP Address"
+          ],
+          "rows": [
+            [
+              "Live",
+              "Global",
+              "https://partner.shopeemobile.com/api/v2/product/init_tier_variation"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.shopee.cn/api/v2/product/init_tier_variation"
+            ],
+            [
+              "Brazil",
+              "https://openplatform.shopee.com.br/api/v2/product/init_tier_variation"
+            ],
+            [
+              "Sandbox",
+              "Global",
+              "https://openplatform.sandbox.test-stable.shopee.sg/api/v2/product/init_tier_variation"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.sandbox.test-stable.shopee.cn/api/v2/product/init_tier_variation"
+            ]
+          ]
+        },
+        "x-shopee-common-parameters": [
+          {
+            "Name": "partner_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Partner ID is assigned upon registration is successful. Required for all requests."
+          },
+          {
+            "Name": "timestamp",
+            "Type": "timestamp",
+            "Sample": "1610000000",
+            "Description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes."
+          },
+          {
+            "Name": "access_token",
+            "Type": "string",
+            "Sample": "c09222e3fc40ffb25fc947f738b1abf1",
+            "Description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours."
+          },
+          {
+            "Name": "shop_id",
+            "Type": "int",
+            "Sample": "600000",
+            "Description": "Shopee's unique identifier for a shop. Required param for most APIs."
+          },
+          {
+            "Name": "sign",
+            "Type": "string",
+            "Sample": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2",
+            "Description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2"
+          }
+        ],
+        "x-shopee-request-parameters": [
+          {
+            "Name": "item_id",
+            "Type": "int64",
+            "Required": "True",
+            "Sample": "1000",
+            "Description": "ID of item"
+          },
+          {
+            "Name": "model",
+            "Type": "object[]",
+            "Required": "True",
+            "Sample": "",
+            "Description": "Model info list, model number at most 50"
+          },
+          {
+            "Name": "tier_index",
+            "Type": "int32[]",
+            "Required": "True",
+            "Sample": "[0]",
+            "Description": "Tier index of this model. If you want to update one tier/two tier to no tier, can just pass the tier_variation and standardise_tier_variation as [], and pass the model >> tier_index as [], meanwhile pass the original_price, seller_stock, etc., to set the price and stock for the modified product with no tier structure."
+          },
+          {
+            "Name": "original_price",
+            "Type": "float",
+            "Required": "True",
+            "Sample": "38.3",
+            "Description": "Original price of this model. For CO local VAT responsible seller：Please remember the price you set in here must be VAT inclusive. If you have any doubts on how to calculate VAT for your product please refer to the Seller Education Hub（https://seller.shopee.com.co/edu/article/13565）"
+          },
+          {
+            "Name": "model_sku",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "SKU",
+            "Description": "Seller SKU of this model, model_sku length information needs to be no more than 100 characters."
+          },
+          {
+            "Name": "seller_stock",
+            "Type": "object[]",
+            "Required": "True",
+            "Sample": "",
+            "Description": "new stock info（Please notice that stock(including Seller Stock and Shopee Stock) should be larger than or equal to real-time reserved stock）"
+          },
+          {
+            "Name": "location_id",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "location id, you can get the location id from v2.shop.get_warehouse_detail api, if seller don't have any warehouse, you don't need to upload this field."
+          },
+          {
+            "Name": "stock",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "",
+            "Description": "stock"
+          },
+          {
+            "Name": "gtin_code",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "- GTIN is an identifier for trade items, developed by the international organization GS1. - They have 8 to 14 digits. The most common are UPC, EAN, JAN and ISBN. - GTIN will help boost positioning in online marketing channels like Google and Facebook. - That incorporation with GTIN will also aid in Search and Recommendation in Shopee itself allowing buyers to have higher likelihood of finding one's listing. Note: If you want to set “Item without GTIN”, please pass the gtin_code as \"00\". The validation rule is based on the value return in gtin_validation_rule\" field in v2.product.get_item_limit API - Mandatory: This field is required and must contain a correctly formatted GTiN number. - Flexible: This field is required and must contain either a correctly formatted GTlN number or \"00\" to declare that the item/model has no valid GTlN. - Optional: This field is optional and can contain a correctly formatted GTiN number, \"00\" or be omitted entirely."
+          },
+          {
+            "Name": "weight",
+            "Type": "float",
+            "Required": "False",
+            "Sample": "1.1",
+            "Description": "The weight of this model, the unit is KG. If don't set the weight of this model, will use the weight of item by default. If set the dimension of this model, them must set the weight of this model."
+          },
+          {
+            "Name": "dimension",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "The dimension of this model. If don't set the dimension of this model, will use the dimension of item by default."
+          },
+          {
+            "Name": "package_height",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "11",
+            "Description": "The height of package for this model, the unit is CM."
+          },
+          {
+            "Name": "package_length",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "11",
+            "Description": "The length of package for this model, the unit is CM."
+          },
+          {
+            "Name": "package_width",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "11",
+            "Description": "The width of package for this model, the unit is CM."
+          },
+          {
+            "Name": "pre_order",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Pre-order information of this model. Notes: If don't set the DTS of this model, will use the DTS of the item by default."
+          },
+          {
+            "Name": "is_pre_order",
+            "Type": "boolean",
+            "Required": "True",
+            "Sample": "false",
+            "Description": "Whether the model is pre order."
+          },
+          {
+            "Name": "days_to_ship",
+            "Type": "int32",
+            "Required": "False",
+            "Sample": "2",
+            "Description": "Days to ship. Please get the days_to_ship range from the get_dts_limit API."
+          },
+          {
+            "Name": "standardise_tier_variation",
+            "Type": "object[]",
+            "Required": "False",
+            "Sample": "",
+            "Description": "There is at least one standardise_tier_variation and tier_variation. If you want to update one tier/two tier to no tier, can just pass the tier_variation and standardise_tier_variation as [], and pass the model >> tier_index as [], meanwhile pass the original_price, seller_stock, etc., to set the price and stock for the modified product with no tier structure."
+          },
+          {
+            "Name": "variation_id",
+            "Type": "int32",
+            "Required": "True",
+            "Sample": "1",
+            "Description": "standardise tier variation ID."
+          },
+          {
+            "Name": "variation_name",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "name1",
+            "Description": "standardise tier variation name"
+          },
+          {
+            "Name": "variation_group_id",
+            "Type": "int32",
+            "Required": "False",
+            "Sample": "2",
+            "Description": "standardise tier variation group ID"
+          },
+          {
+            "Name": "variation_option_list",
+            "Type": "object[]",
+            "Required": "True",
+            "Sample": "",
+            "Description": "standardise tier variation option list"
+          },
+          {
+            "Name": "variation_option_id",
+            "Type": "int32",
+            "Required": "False",
+            "Sample": "",
+            "Description": "standardise tier variation option ID."
+          },
+          {
+            "Name": "variation_option_name",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "option2",
+            "Description": "standardise tier variation option value"
+          },
+          {
+            "Name": "image_id",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "82becb4830bd2ee90ad6acf8a9dc26d7",
+            "Description": "standardise tier variation option image ID"
+          }
+        ],
+        "x-shopee-request-examples": {
+          "languages": [
+            "Payload",
+            "Java",
+            "PHP",
+            "cURL",
+            "Python"
+          ],
+          "values": [
+            "{\n  \"item_id\": 43464493923,\n  \"standardise_tier_variation\": [\n    {\n      \"variation_id\": 0,\n      \"variation_group_id\": 0,\n      \"variation_name\": \"Color\",\n      \"variation_option_list\": [\n        { \"variation_option_id\": 0, \"variation_option_name\": \"Cream stripe\", \"image_id\": \"img-cream\" },\n        { \"variation_option_id\": 0, \"variation_option_name\": \"Blue stripe\", \"image_id\": \"img-blue\" },\n        { \"variation_option_id\": 0, \"variation_option_name\": \"Mint stripe\", \"image_id\": \"img-mint\" }\n      ]\n    },\n    {\n      \"variation_id\": 0,\n      \"variation_group_id\": 0,\n      \"variation_name\": \"Size\",\n      \"variation_option_list\": [\n        { \"variation_option_id\": 0, \"variation_option_name\": \"S\" },\n        { \"variation_option_id\": 0, \"variation_option_name\": \"M\" },\n        { \"variation_option_id\": 0, \"variation_option_name\": \"L\" }\n      ]\n    }\n  ],\n  \"model\": [\n    { \"tier_index\": [0,0], \"model_sku\": \"SKU-Cream-S\", \"original_price\": 100000, \"seller_stock\": [{\"stock\":3}] },\n    { \"tier_index\": [0,1], \"model_sku\": \"SKU-Cream-M\", \"original_price\": 100000, \"seller_stock\": [{\"stock\":2}] },\n    { \"tier_index\": [0,2], \"model_sku\": \"SKU-Cream-L\", \"original_price\": 100000, \"seller_stock\": [{\"stock\":0}] },\n    { \"tier_index\": [1,0], \"model_sku\": \"SKU-Blue-S\", \"original_price\": 100000, \"seller_stock\": [{\"stock\":1}] },\n    { \"tier_index\": [1,1], \"model_sku\": \"SKU-Blue-M\", \"original_price\": 100000, \"seller_stock\": [{\"stock\":4}] },\n    { \"tier_index\": [1,2], \"model_sku\": \"SKU-Blue-L\", \"original_price\": 100000, \"seller_stock\": [{\"stock\":3}] },\n    { \"tier_index\": [2,0], \"model_sku\": \"SKU-Mint-S\", \"original_price\": 100000, \"seller_stock\": [{\"stock\":1}] },\n    { \"tier_index\": [2,1], \"model_sku\": \"SKU-Mint-M\", \"original_price\": 100000, \"seller_stock\": [{\"stock\":2}] },\n    { \"tier_index\": [2,2], \"model_sku\": \"SKU-Mint-L\", \"original_price\": 100000, \"seller_stock\": [{\"stock\":5}] }\n  ]\n}",
+            "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.post(\"https://partner.shopeemobile.com/api/v2/product/init_tier_variation?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp\")\n.header(\"Content-Type\",\"application/json\")\n.body(\"{\n   \\\"model\\\": [\n      {\n         \\\"gtin_code\\\": \\\"-\\\",\n         \\\"model_sku\\\": \\\"SKU\\\",\n         \\\"original_price\\\": 38.3,\n         \\\"seller_stock\\\": [\n            {\n               \\\"location_id\\\": \\\"-\\\",\n               \\\"stock\\\": 0\n            }\n         ],\n         \\\"weight\\\": 1.1\n      }\n   ],\n   \\\"standardise_tier_variation\\\": [\n      {\n         \\\"variation_group_id\\\": 2,\n         \\\"variation_id\\\": 1,\n         \\\"variation_name\\\": \\\"name1\\\",\n         \\\"variation_option_list\\\": [\n            {\n               \\\"image_id\\\": \\\"82becb4830bd2ee90ad6acf8a9dc26d7\\\",\n               \\\"variation_option_id\\\": 0,\n               \\\"variation_option_name\\\": \\\"option2\\\"\n            }\n         ]\n      }\n   ],\n   \\\"tier_variation\\\": [\n      {\n         \\\"name\\\": \\\"Color\\\",\n         \\\"option_list\\\": [\n            {\n               \\\"image\\\": {\n                  \\\"image_id\\\": \\\"82becb4830bd2ee90ad6acf8a9dc26d7\\\"\n               },\n               \\\"option\\\": \\\"Red\\\"\n            }\n         ]\n      }\n   ]\n}\")\n.asString();",
+            "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n  CURLOPT_URL => 'https://partner.shopeemobile.com/api/v2/product/init_tier_variation?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp',\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_ENCODING => '',\n  CURLOPT_MAXREDIRS => 10,\n  CURLOPT_TIMEOUT => 0,\n  CURLOPT_FOLLOWLOCATION => true,\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n  CURLOPT_CUSTOMREQUEST => 'POST',\n  CURLOPT_POSTFIELDS => '{\n    \"model\": [\n        {\n            \"gtin_code\": \"-\",\n            \"model_sku\": \"SKU\",\n            \"original_price\": 38.3,\n            \"seller_stock\": [\n                {\n                    \"location_id\": \"-\",\n                    \"stock\": 0\n                }\n            ],\n            \"weight\": 1.1\n        }\n    ],\n    \"standardise_tier_variation\": [\n        {\n            \"variation_group_id\": 2,\n            \"variation_id\": 1,\n            \"variation_name\": \"name1\",\n            \"variation_option_list\": [\n                {\n                    \"image_id\": \"82becb4830bd2ee90ad6acf8a9dc26d7\",\n                    \"variation_option_id\": 0,\n                    \"variation_option_name\": \"option2\"\n                }\n            ]\n        }\n    ],\n    \"tier_variation\": [\n        {\n            \"name\": \"Color\",\n            \"option_list\": [\n                {\n                    \"image\": {\n                        \"image_id\": \"82becb4830bd2ee90ad6acf8a9dc26d7\"\n                    },\n                    \"option\": \"Red\"\n                }\n            ]\n        }\n    ]\n}',\n  CURLOPT_HTTPHEADER => array(\n    'Content-Type: application/json'\n  ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;",
+            "curl --location --request POST 'https://partner.shopeemobile.com/api/v2/product/init_tier_variation?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n   \"model\": [\n      {\n         \"gtin_code\": \"-\",\n         \"model_sku\": \"SKU\",\n         \"original_price\": 38.3,\n         \"seller_stock\": [\n            {\n               \"location_id\": \"-\",\n               \"stock\": 0\n            }\n         ],\n         \"weight\": 1.1\n      }\n   ],\n   \"standardise_tier_variation\": [\n      {\n         \"variation_group_id\": 2,\n         \"variation_id\": 1,\n         \"variation_name\": \"name1\",\n         \"variation_option_list\": [\n            {\n               \"image_id\": \"82becb4830bd2ee90ad6acf8a9dc26d7\",\n               \"variation_option_id\": 0,\n               \"variation_option_name\": \"option2\"\n            }\n         ]\n      }\n   ],\n   \"tier_variation\": [\n      {\n         \"name\": \"Color\",\n         \"option_list\": [\n            {\n               \"image\": {\n                  \"image_id\": \"82becb4830bd2ee90ad6acf8a9dc26d7\"\n               },\n               \"option\": \"Red\"\n            }\n         ]\n      }\n   ]\n}'",
+            "import requests\nimport json\n\nurl = \"https://partner.shopeemobile.com/api/v2/product/init_tier_variation?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp\"\n\npayload=json.dumps({\n  \"model\": [\n    {\n      \"gtin_code\": \"-\",\n      \"model_sku\": \"SKU\",\n      \"original_price\": 38.3,\n      \"seller_stock\": [\n        {\n          \"location_id\": \"-\",\n          \"stock\": 0\n        }\n      ],\n      \"weight\": 1.1\n    }\n  ],\n  \"standardise_tier_variation\": [\n    {\n      \"variation_group_id\": 2,\n      \"variation_id\": 1,\n      \"variation_name\": \"name1\",\n      \"variation_option_list\": [\n        {\n          \"image_id\": \"82becb4830bd2ee90ad6acf8a9dc26d7\",\n          \"variation_option_id\": 0,\n          \"variation_option_name\": \"option2\"\n        }\n      ]\n    }\n  ],\n  \"tier_variation\": [\n    {\n      \"name\": \"Color\",\n      \"option_list\": [\n        {\n          \"image\": {\n            \"image_id\": \"82becb4830bd2ee90ad6acf8a9dc26d7\"\n          },\n          \"option\": \"Red\"\n        }\n      ]\n    }\n  ]\n})\nheaders = {\n  'Content-Type': 'application/json'\n}\nresponse = requests.RPCRequest(\"POST\",url,headers=headers, data=payload, allow_redirects=False)\n\nprint(response.text)"
+          ]
+        },
+        "x-shopee-response-parameters": [
+          {
+            "Name": "error",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error type if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "message",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Indicate error details if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "warning",
+            "Type": "string",
+            "Sample": "",
+            "Description": "Warning message."
+          },
+          {
+            "Name": "request_id",
+            "Type": "string",
+            "Sample": "",
+            "Description": "The identifier for an API request for error tracking"
+          },
+          {
+            "Name": "response",
+            "Type": "object",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "item_id",
+            "Type": "int64",
+            "Sample": "1234",
+            "Description": "ID of item"
+          },
+          {
+            "Name": "tier_variation",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": "Variations of item"
+          },
+          {
+            "Name": "name",
+            "Type": "string",
+            "Sample": "Color",
+            "Description": "Variation name"
+          },
+          {
+            "Name": "option_list",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": "Options of this variation"
+          },
+          {
+            "Name": "image",
+            "Type": "object",
+            "Sample": "",
+            "Description": "Image of this option"
+          },
+          {
+            "Name": "image_url",
+            "Type": "string",
+            "Sample": "https://cf.shopee.sg/file/82becb4830bd2ee90ad6acf8a9dc26d7",
+            "Description": "URL of image"
+          },
+          {
+            "Name": "option",
+            "Type": "string",
+            "Sample": "Red",
+            "Description": "Option name"
+          },
+          {
+            "Name": "model",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "tier_index",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": "Tier index of model. Index starts from 0."
+          },
+          {
+            "Name": "model_id",
+            "Type": "int64",
+            "Sample": "3813",
+            "Description": "ID of model"
+          },
+          {
+            "Name": "model_sku",
+            "Type": "string",
+            "Sample": "SKU",
+            "Description": "Seller SKU of this model"
+          },
+          {
+            "Name": "price_info",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": ""
+          },
+          {
+            "Name": "original_price",
+            "Type": "float",
+            "Sample": "",
+            "Description": "Original price"
+          },
+          {
+            "Name": "seller_stock",
+            "Type": "object[]",
+            "Sample": "",
+            "Description": "new stock info"
+          },
+          {
+            "Name": "location_id",
+            "Type": "string",
+            "Sample": "",
+            "Description": "location id"
+          },
+          {
+            "Name": "stock",
+            "Type": "int32",
+            "Sample": "",
+            "Description": "stock"
+          },
+          {
+            "Name": "weight",
+            "Type": "float",
+            "Sample": "1.1",
+            "Description": "The weight of this model, the unit is KG. If don't set the weight of this model, will use the weight of item by default. If set the dimension of this model, them must set the weight of this model."
+          },
+          {
+            "Name": "dimension",
+            "Type": "object",
+            "Sample": "",
+            "Description": "The dimension of this model. If don't set the dimension of this model, will use the dimension of item by default."
+          },
+          {
+            "Name": "package_height",
+            "Type": "int32",
+            "Sample": "11",
+            "Description": "The height of package for this model, the unit is CM."
+          },
+          {
+            "Name": "package_length",
+            "Type": "int32",
+            "Sample": "11",
+            "Description": "The length of package for this model, the unit is CM."
+          },
+          {
+            "Name": "package_width",
+            "Type": "int32",
+            "Sample": "11",
+            "Description": "The width of package for this model, the unit is CM."
+          }
+        ],
+        "x-shopee-response-examples": [
+          "{\n  \"error\": \"-\",\n  \"message\": \"-\",\n  \"warning\": \"-\",\n  \"request_id\": \"req-123456\",\n  \"response\": {\n    \"tier_variation\": [\n      {\n        \"name\": \"Color\",\n        \"option_list\": [\n          {\n            \"image\": { \"image_url\": \"https://cf.shopee.sg/file/img-cream\" },\n            \"option\": \"Cream stripe\"\n          },\n          {\n            \"image\": { \"image_url\": \"https://cf.shopee.sg/file/img-blue\" },\n            \"option\": \"Blue stripe\"\n          },\n          {\n            \"image\": { \"image_url\": \"https://cf.shopee.sg/file/img-mint\" },\n            \"option\": \"Mint stripe\"\n          }\n        ]\n      },\n      {\n        \"name\": \"Size\",\n        \"option_list\": [\n          { \"option\": \"S\" },\n          { \"option\": \"M\" },\n          { \"option\": \"L\" }\n        ]\n      }\n    ],\n    \"model\": [\n      {\n        \"tier_index\": [0,0],\n        \"model_id\": 43464493931,\n        \"model_sku\": \"SKU-Cream-S\",\n        \"price_info\": [{ \"original_price\": 100000 }],\n        \"seller_stock\": [{ \"location_id\": \"-\", \"stock\": 3 }],\n        \"weight\": 1.1\n      },\n      {\n        \"tier_index\": [0,1],\n        \"model_id\": 43464493932,\n        \"model_sku\": \"SKU-Cream-M\",\n        \"price_info\": [{ \"original_price\": 100000 }],\n        \"seller_stock\": [{ \"location_id\": \"-\", \"stock\": 2 }],\n        \"weight\": 1.1\n      },\n      {\n        \"tier_index\": [0,2],\n        \"model_id\": 43464493933,\n        \"model_sku\": \"SKU-Cream-L\",\n        \"price_info\": [{ \"original_price\": 100000 }],\n        \"seller_stock\": [{ \"location_id\": \"-\", \"stock\": 0 }],\n        \"weight\": 1.1\n      },\n      {\n        \"tier_index\": [1,0],\n        \"model_id\": 43464493934,\n        \"model_sku\": \"SKU-Blue-S\",\n        \"price_info\": [{ \"original_price\": 100000 }],\n        \"seller_stock\": [{ \"location_id\": \"-\", \"stock\": 1 }],\n        \"weight\": 1.1\n      },\n      {\n        \"tier_index\": [1,1],\n        \"model_id\": 43464493935,\n        \"model_sku\": \"SKU-Blue-M\",\n        \"price_info\": [{ \"original_price\": 100000 }],\n        \"seller_stock\": [{ \"location_id\": \"-\", \"stock\": 4 }],\n        \"weight\": 1.1\n      },\n      {\n        \"tier_index\": [1,2],\n        \"model_id\": 43464493936,\n        \"model_sku\": \"SKU-Blue-L\",\n        \"price_info\": [{ \"original_price\": 100000 }],\n        \"seller_stock\": [{ \"location_id\": \"-\", \"stock\": 3 }],\n        \"weight\": 1.1\n      },\n      {\n        \"tier_index\": [2,0],\n        \"model_id\": 43464493937,\n        \"model_sku\": \"SKU-Mint-S\",\n        \"price_info\": [{ \"original_price\": 100000 }],\n        \"seller_stock\": [{ \"location_id\": \"-\", \"stock\": 1 }],\n        \"weight\": 1.1\n      },\n      {\n        \"tier_index\": [2,1],\n        \"model_id\": 43464493938,\n        \"model_sku\": \"SKU-Mint-M\",\n        \"price_info\": [{ \"original_price\": 100000 }],\n        \"seller_stock\": [{ \"location_id\": \"-\", \"stock\": 2 }],\n        \"weight\": 1.1\n      },\n      {\n        \"tier_index\": [2,2],\n        \"model_id\": 43464493939,\n        \"model_sku\": \"SKU-Mint-L\",\n        \"price_info\": [{ \"original_price\": 100000 }],\n        \"seller_stock\": [{ \"location_id\": \"-\", \"stock\": 5 }],\n        \"weight\": 1.1\n      }\n    ]\n  }\n}"
+        ],
+        "x-shopee-error-codes": [
+          {
+            "Error": "product.error_busi",
+            "Error Description": "The GTIN code is mandatory, please check and upload again.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_network",
+            "Error Description": "Inner http call failed",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_data",
+            "Error Description": "parse data failed",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_data",
+            "Error Description": "data not exist",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "parameter invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "The information you queried is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Wrong parameters, detail: {msg}.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_server",
+            "Error Description": "Something wrong. Please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_shop",
+            "Error Description": "shopid is invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "request not from gateway",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth_product_is_pff",
+            "Error Description": "Item/Model Fulfillment by Shopee can not be update.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_item_not_belong_shop",
+            "Error Description": "Item not belong to shop.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_cnsc_shop_block_update_tier_variation",
+            "Error Description": "CNCS shop can not modify tier_variation structure.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_item_not_found",
+            "Error Description": "Item_id is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param_shop_id_not_found",
+            "Error Description": "Shop_id is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Parameter is not match the constraints, {{.error_info}}.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "The level of tier-variation not change.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "The level of tier-variation over 2.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Model tier_index error.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Image not exist.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Count of tier_variation options should be under 50. Count of 2-level variations combinations should be under 50.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "Our system is taking some time to respond, please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "System error, please try again later or contact the OpenAPI support team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_unknown",
+            "Error Description": "{{.error_info}}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_item_not_found",
+            "Error Description": "Product not found",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_invalid_price",
+            "Error Description": "Invalid price, please use the correct format",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "Update item failed {{.error_info}}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "Update item failed {{.error_info}}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_invalid_price_for_logistic",
+            "Error Description": "Shipping channel cannot be enabled as product price exceeds limit.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "System error, please try again later or contact the OpenAPI support team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "System error, please try again later or contact the OpenAPI support team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param_validate",
+            "Error Description": "This is not a valid GTIN. Please, inform a valid number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param_validate",
+            "Error Description": "This is not a valid GTIN. Please, inform a valid number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_busi_cannot_edit_vsku",
+            "Error Description": "Can not use OpenAPI to edit/create VSKU, please connect with your manager",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "The location_id input is not matched the shop's location_id(more/wrong). Please double check.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "Lack of location_id, please double check.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "Please wait for the holiday mode set then to edit item. Please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "Total stock must be more than reserved stock.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "{{.error_info}}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "Your shop can not use model level dts",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "You do not have right to use seller location_id, please only fill seller_stock filed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error.param",
+            "Error Description": "Can not update item with stock less than reserved stock",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_inner",
+            "Error Description": "Invalid stock location ID",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Can not update item with different stock structure. Can only update seller stock with location id when existing seller stock have location id. Can only update seller stock without location id when existing seller stock without location id.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Can not update item with stock less than reserve stock",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_busi",
+            "Error Description": "The merchant/shop has multi warehouse, please input location id",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_auth",
+            "Error Description": "Stock should be larger than reserved stock.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Invalid parameter for product.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_system_busy",
+            "Error Description": "Our system is taking some time to respond, please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_nil_shopid_or_itemid",
+            "Error Description": "Query information failed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_holiday_on_add_item",
+            "Error Description": "Shop is under vocation mode.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_price_exceed_min_limitt",
+            "Error Description": "Original_price is less than min price limit.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_price_exceed_max_limitt",
+            "Error Description": "Original_price is bigger than max price limit.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_wholesale_price_less_than_ratio_limit",
+            "Error Description": "Wholesale price is less than ratio limit.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Can not update item with different stock structure. Can only update seller stock with location id when existing seller stock have location id. Can only update seller stock without location id when existing seller stock without location id.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_cannt_edit_price_in_promotion",
+            "Error Description": "Original_price cannot be edited when item is under promotion.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_cannt_init_tier_in_promotion",
+            "Error Description": "Tier_variation cannot be changed when item is under promotion.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_cannt_be_no_variation_in_promotion",
+            "Error Description": "Item cannot be without model when item is under promotion.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_cannt_delete_option_in_promotion",
+            "Error Description": "Option of tier_variation cannot be deleted when item is under promotion.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_cannt_change_tier_variation_in_promotion",
+            "Error Description": "Structure of tier_variation cannot be edited when item is under promotion.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_server",
+            "Error Description": "Interal error, please contact openapi team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_tier_var_too_many",
+            "Error Description": "Count of tier_variation is larger than 50.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_tier_opt_too_many",
+            "Error Description": "Count of tier_variation option is larger than 20.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_tier_opt_val_too_long",
+            "Error Description": "{{.error_info}}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_tier_var_name_too_long",
+            "Error Description": "{{.error_info}}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_price_should_be_same_for_wholesales",
+            "Error Description": "All model price should be the same when the item has been set wholesales.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_model_empty_tier_index_nonempty",
+            "Error Description": "Interal error, please contact openapi team.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_model_tier_index_bound",
+            "Error Description": "Invalid item iter_index.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_model_count_over_limit",
+            "Error Description": "The count of model is too large. Should be under 20 (50 for TW)",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_model_nonempty_itemtier_empty_index",
+            "Error Description": "Item tier_index is required.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_model_duplicate_name",
+            "Error Description": "Item tier_variation have duplicate name.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_model_duplicate_tier_variation_index",
+            "Error Description": "Item have duplicate tier_index.",
+            "Details and Guidance": ""
+          }
+        ],
+        "x-shopee-error-examples": [
+          "{\n    \"error\": \"product.error_param\",\n    \"message\": \"invalid field ItemId: value must  Not Null\",\n    \"request_id\": \"58a86407276942a691717fd763af63e7\"\n}"
+        ],
+        "x-shopee-permissions": "API Permissions\nCollapse\nAPP types that can call this API.\nERP System\nSeller In House System\nProduct Management",
+        "x-shopee-api-tools": "API Tools\nCollapse\nAPI Test Tools\nAPI Access Log",
+        "x-shopee-update-log": {
+          "headers": [
+            "Date",
+            "Update Details"
+          ],
+          "rows": [
+            [
+              "2025-09-12",
+              "The tier_variation structure in the documentation has been deprecated. Please use the standardise_tier_variation structure when uploading variations."
+            ],
+            [
+              "2025-01-08",
+              "Update GTIN validation rule"
+            ],
+            [
+              "2024-06-27",
+              "support update one tier or two tier to no tier"
+            ],
+            [
+              "2024-06-21",
+              "add model level DTS"
+            ],
+            [
+              "2024-05-29",
+              "add model level weight and dimension"
+            ]
+          ]
+        },
+        "x-shopee-page": "https://open.shopee.com/documents/v2/v2.product.init_tier_variation?module=127&type=1",
+        "x-shopee-extraction": "Authenticated Shopee Open Platform DOM extraction; no Markdown download endpoint was provided."
+      }
+    }
+  },
+  "x-shopee-module": "product"
+}

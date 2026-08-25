@@ -1,0 +1,65 @@
+---
+title: Shopee Product API
+description: "Product category, attributes, brands, listings, variations, inventory, pricing, and product quality operations."
+---
+
+# API List
+
+- [v2.product.add_item](operations/v2-product-add-item.json) (POST /api/v2/product/add_item)：Add a new item.
+- [v2.product.add_kit_item](operations/v2-product-add-kit-item.json) (POST /api/v2/product/add_kit_item)：Create the kit item by selecting multiple items and setting main component and quantity per kit.
+- [v2.product.add_model](operations/v2-product-add-model.json) (POST /api/v2/product/add_model)：Add model. More detail please check: https://open.shopee.com/developer-guide/219
+- [v2.product.batch_add_item](operations/v2-product-batch-add-item.json) (POST /api/v2/product/batch_add_item)：Create asynchronous task to batch add item
+- [v2.product.batch_publish_item_to_outlet_shop](operations/v2-product-batch-publish-item-to-outlet-shop.json) (POST /api/v2/product/batch_publish_item_to_outlet_shop)：Create asynchronous task to batch publish outlet item
+- [v2.product.batch_update_outlet_price](operations/v2-product-batch-update-outlet-price.json) (POST /api/v2/product/batch_update_outlet_price)：Create asynchronous task to batch update outlet item's price
+- [v2.product.batch_update_outlet_stock](operations/v2-product-batch-update-outlet-stock.json) (POST /api/v2/product/batch_update_outlet_stock)：Create asynchronous task to batch update outlet stock
+- [v2.product.boost_item](operations/v2-product-boost-item.json) (POST /api/v2/product/boost_item)：Boost item.
+- [v2.product.category_recommend](operations/v2-product-category-recommend.json) (GET /api/v2/product/category_recommend)：Recommend category by item name.
+- [v2.product.delete_item](operations/v2-product-delete-item.json) (POST /api/v2/product/delete_item)：Use this call to delete a product item.
+- [v2.product.delete_model](operations/v2-product-delete-model.json) (POST /api/v2/product/delete_model)：Delete item model.
+- [v2.product.generate_kit_image](operations/v2-product-generate-kit-image.json) (POST /api/v2/product/generate_kit_image)：This API generates a single consolidated image by combining the cover images of all selected items. It is typically used to create a unified product display image for kits or bundles.
+- [v2.product.get_aitem_by_pitem_id](operations/v2-product-get-aitem-by-pitem-id.json) (GET /api/v2/product/get_aitem_by_pitem_id)：Get the list of A Items under SIP Affiliate Shop corresponding to P Items under SIP Primary Shop.
+- [v2.product.get_all_vehicle_list](operations/v2-product-get-all-vehicle-list.json) (GET /api/v2/product/get_all_vehicle_list)：Use this Open API to get all vehicle list.
+- [v2.product.get_attribute_tree](operations/v2-product-get-attribute-tree.json) (GET /api/v2/product/get_attribute_tree)：Get the attribute tree for categories
+- [v2.product.get_batch_task_result](operations/v2-product-get-batch-task-result.json) (GET /api/v2/product/get_batch_task_result)：Query batch task result
+- [v2.product.get_boosted_list](operations/v2-product-get-boosted-list.json) (GET /api/v2/product/get_boosted_list)：Get boosted item list.
+- [v2.product.get_brand_list](operations/v2-product-get-brand-list.json) (GET /api/v2/product/get_brand_list)：Get the brand data of a leaf category. More detail please check: https://open.shopee.com/developer-guide/209
+- [v2.product.get_category](operations/v2-product-get-category.json) (GET /api/v2/product/get_category)：Get category tree data. More detail please check https://open.shopee.com/developer-guide/209
+- [v2.product.get_comment](operations/v2-product-get-comment.json) (GET /api/v2/product/get_comment)：Use this api to get comment by shop_id, item_id, or comment_id, get up to 1000 comments.
+- [v2.product.get_direct_item_list](operations/v2-product-get-direct-item-list.json) (GET /api/v2/product/get_direct_item_list)：get direct item by main item.
+- [v2.product.get_direct_shop_recommended_price](operations/v2-product-get-direct-shop-recommended-price.json) (GET /api/v2/product/get_direct_shop_recommended_price)：get recommend price for direct shop.
+- [v2.product.get_item_base_info](operations/v2-product-get-item-base-info.json) (GET /api/v2/product/get_item_base_info)：Use this api to get basic info of item by item_id list.
+- [v2.product.get_item_content_diagnosis_result](operations/v2-product-get-item-content-diagnosis-result.json) (POST /api/v2/product/get_item_content_diagnosis_result)：Get the content quality details (including content quality level, content issues, and system suggestions) for specific product list.
+- [v2.product.get_item_extra_info](operations/v2-product-get-item-extra-info.json) (GET /api/v2/product/get_item_extra_info)：Use this api to get extra info of item by item_id list.
+- [v2.product.get_item_limit](operations/v2-product-get-item-limit.json) (GET /api/v2/product/get_item_limit)：Get item upload control.
+- [v2.product.get_item_list_by_content_diagnosis](operations/v2-product-get-item-list-by-content-diagnosis.json) (POST /api/v2/product/get_item_list_by_content_diagnosis)：Query the list of products and their content quality details by content quality level or content issues.
+- [v2.product.get_item_list](operations/v2-product-get-item-list.json) (GET /api/v2/product/get_item_list)：Use this call to get a list of items.
+- [v2.product.get_item_promotion](operations/v2-product-get-item-promotion.json) (GET /api/v2/product/get_item_promotion)：Get item promotion info.
+- [v2.product.get_item_violation_info](operations/v2-product-get-item-violation-info.json) (GET /api/v2/product/get_item_violation_info)：get item violation info
+- [v2.product.get_kit_item_info](operations/v2-product-get-kit-item-info.json) (GET /api/v2/product/get_kit_item_info)：Get the kit basic information and kit components.
+- [v2.product.get_kit_item_limit](operations/v2-product-get-kit-item-limit.json) (GET /api/v2/product/get_kit_item_limit)：Get the limit of Kit item.
+- [v2.product.get_main_item_list](operations/v2-product-get-main-item-list.json) (GET /api/v2/product/get_main_item_list)：get main item by direct item.
+- [v2.product.get_mart_item_by_outlet_item_id](operations/v2-product-get-mart-item-by-outlet-item-id.json) (POST /api/v2/product/get_mart_item_by_outlet_item_id)：Get the mapping information between a Mart item and its corresponding outlet item by outlet item ID.
+- [v2.product.get_mart_item_mapping_by_id](operations/v2-product-get-mart-item-mapping-by-id.json) (POST /api/v2/product/get_mart_item_mapping_by_id)：Get the mapping information between a Mart item and its corresponding outlet item by item ID.
+- [v2.product.get_model_list](operations/v2-product-get-model-list.json) (GET /api/v2/product/get_model_list)：Get model list of an item.
+- [v2.product.get_product_certification_rule](operations/v2-product-get-product-certification-rule.json) (POST /api/v2/product/get_product_certification_rule)：Get product certification rule
+- [v2.product.get_recommend_attribute](operations/v2-product-get-recommend-attribute.json) (GET /api/v2/product/get_recommend_attribute)：Get recommend attributes.
+- [v2.product.get_size_chart_detail](operations/v2-product-get-size-chart-detail.json) (GET /api/v2/product/get_size_chart_detail)：Get new size chart detail. Now only local shop support to use this api to get new size chart detail.
+- [v2.product.get_size_chart_list](operations/v2-product-get-size-chart-list.json) (GET /api/v2/product/get_size_chart_list)：Get new size chart list. Now only support local shop to use new size chart.
+- [v2.product.get_variations](operations/v2-product-get-variations.json) (GET /api/v2/product/get_variation_tree)：Get the standardized tier variation defined by Shopee, which is currently a three-layer tree structure. The top layer is variations, the second layer is groups, groups are used to divide options, and the third layer is options.
+- [v2.product.get_vehicle_list_by_compatibility_detail](operations/v2-product-get-vehicle-list-by-compatibility-detail.json) (GET /api/v2/product/get_vehicle_list_by_compatibility_detail)：Use this Open API to get vehicle list by brand, model, year, and version.
+- [v2.product.get_weight_recommendation](operations/v2-product-get-weight-recommendation.json) (POST /api/v2/product/get_weight_recommendation)：Get recommended weight. Now only BR shop support to use this api to get recommended weight.
+- [v2.product.init_tier_variation](operations/v2-product-init-tier-variation.json) (POST /api/v2/product/init_tier_variation)：This API allows you to update the tier structure of a product. Defining only color creates one tier, while color + size creates two tiers (maximum supported). Supported changes include: no tier ↔ one/two tiers, one tier ↔ two/no tier, and two tiers ↔ one/no tier. For details, see Developer Guide. Please wait at least 5 seconds after creating an item before creating variants, as processing may be delayed.
+- [v2.product.publish_item_to_outlet_shop](operations/v2-product-publish-item-to-outlet-shop.json) (No callable APP type)：This API is listed by Shopee but cannot be called by any APP type.
+- [v2.product.register_brand](operations/v2-product-register-brand.json) (POST /api/v2/product/register_brand)：Use this call to register a brand.
+- [v2.product.reply_comment](operations/v2-product-reply-comment.json) (POST /api/v2/product/reply_comment)：Use this api to reply comments from buyers in batch.
+- [v2.product.search_attribute_value_list](operations/v2-product-search-attribute-value-list.json) (POST /api/v2/product/search_attribute_value_list)：this api is for searching attribute value list for attribute with support_search_value flag
+- [v2.product.search_item](operations/v2-product-search-item.json) (GET /api/v2/product/search_item)：Use this call to search item.
+- [v2.product.search_unpackaged_model_list](operations/v2-product-search-unpackaged-model-list.json) (POST /api/v2/product/search_unpackaged_model_list)：Use this API to retrieve Unpackaged SKU ID information for items that toggle on logistics channel 30029.
+- [v2.product.unlist_item](operations/v2-product-unlist-item.json) (POST /api/v2/product/unlist_item)：Unlist item.
+- [v2.product.update_item](operations/v2-product-update-item.json) (POST /api/v2/product/update_item)：Update item.
+- [v2.product.update_kit_item](operations/v2-product-update-kit-item.json) (POST /api/v2/product/update_kit_item)：Update the kit basic information and kit components, only support adding kit variations and updating existing kit variation’s image, price, and model_sku, don’t support deleting existing kit variations and updating the items, main component and quantity per kit of existing kit variations.
+- [v2.product.update_model](operations/v2-product-update-model.json) (POST /api/v2/product/update_model)：Update seller sku/ pre order/ model status for model.
+- [v2.product.update_price](operations/v2-product-update-price.json) (POST /api/v2/product/update_price)：Update price.
+- [v2.product.update_sip_item_price](operations/v2-product-update-sip-item-price.json) (POST /api/v2/product/update_sip_item_price)：Update sip item price.
+- [v2.product.update_stock](operations/v2-product-update-stock.json) (POST /api/v2/product/update_stock)：Use this API to update one item_id for each call, but still can support updating multiple model_ids stock of the same item_id (If you need batch modification, please call multiple times)This API will update only "seller_stock".Whenever there is a promotion ongoing or upcoming, the total stock must be larger than or equal to real-time “reserved_stock” promotion stock (Please check v2.get_item_promotion API for more details). Items that are deleted will not be allowed to modify stock.
+- [v2.product.update_tier_variation](operations/v2-product-update-tier-variation.json) (POST /api/v2/product/update_tier_variation)：This api can only be used without changing the tier structure, you can add options, delete options, and update the option image by this api. More detail please check: https://open.shopee.com/developer-guide/219

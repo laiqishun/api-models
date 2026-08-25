@@ -1,0 +1,1625 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "v2.logistics.ship_order",
+    "version": "V2",
+    "description": "Use this api to initiate logistics including arrange pickup, dropoff or shipment for non-integrated logistic channels. Should call v2.logistics.get_shipping_parameter to fetch all required param first. It's recommended to initiate logistics one hour after the orders were placed."
+  },
+  "host": "partner.shopeemobile.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/api/v2/logistics/ship_order": {
+      "post": {
+        "tags": [
+          "logistics"
+        ],
+        "operationId": "v2_logistics_ship_order",
+        "summary": "v2.logistics.ship_order",
+        "description": "Use this api to initiate logistics including arrange pickup, dropoff or shipment for non-integrated logistic channels. Should call v2.logistics.get_shipping_parameter to fetch all required param first. It's recommended to initiate logistics one hour after the orders were placed.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access_token",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours.",
+            "example": "c09222e3fc40ffb25fc947f738b1abf1"
+          },
+          {
+            "name": "address_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "The identity of address. Retrieved from v2.logistics.get_shipping_parameter."
+          },
+          {
+            "name": "branch_id",
+            "in": "query",
+            "type": "integer",
+            "required": false,
+            "description": "The identity of branch.",
+            "example": "0"
+          },
+          {
+            "name": "dropoff",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Required parameter ONLY if get_shipping_parameter returns \"dropoff\" under \"info_needed\". Developer should still include \"dropoff\" field in the call even if \"dropoff\" has empty value. For logistic_id 80003 and 80004, both Regular and JOB shipping methods are supported. If you choose Regular shipping method, please use \"tracking_no\" to call Init API. If you choose JOB shipping method, please use \"sender_real_name\" to call Init API. Note that only one of \"tracking_no\" and \"sender_real_name\" can be selected."
+          },
+          {
+            "name": "non_integrated",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Optional parameter when get_shipping_parameter returns \"non-integrated\" under \"info_needed\"."
+          },
+          {
+            "name": "order_sn",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Shopee's unique identifier for an order.",
+            "example": "201212DCXHJUIKJ"
+          },
+          {
+            "name": "package_number",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Shopee's unique identifier for the package under an order. You should't fill the field with empty string when there is't a package number."
+          },
+          {
+            "name": "partner_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Partner ID is assigned upon registration is successful. Required for all requests.",
+            "example": "1"
+          },
+          {
+            "name": "pickup",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "Required parameter ONLY if get_shipping_parameter returns \"pickup\" under \"info_needed\". Developer should still include \"pickup\" field in the call even if \"pickup\" has empty value."
+          },
+          {
+            "name": "pickup_time_id",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The pickup time id. Retrieved from v2.logistics.get_shipping_parameter, you can only select one from the time_slot_list. Some logistics channels may not return any date or time for pickup time slots. In such cases, sellers can arrange shipment without selecting any time slot, and Shopee will arrange a suitable timing for these situations."
+          },
+          {
+            "name": "sender_real_name",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The real name of sender."
+          },
+          {
+            "name": "shop_id",
+            "in": "query",
+            "type": "integer",
+            "required": true,
+            "description": "Shopee's unique identifier for a shop. Required param for most APIs.",
+            "example": "600000"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2",
+            "example": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2"
+          },
+          {
+            "name": "slug",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "The selected 3PL partner to drop-off parcels with."
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes.",
+            "example": "1610000000"
+          },
+          {
+            "name": "tracking_number",
+            "in": "query",
+            "type": "string",
+            "required": false,
+            "description": "Need input this field when \"tracking_number\" is returned from \"info_need\". Please note that this tracking number is assigned by third-party shipping carrier for item shipment."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Response documented by Shopee Open Platform.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "x-shopee-content-id": "553",
+        "x-shopee-content-name": "v2.logistics.ship_order",
+        "x-shopee-version": "V2",
+        "x-shopee-module": "Logistics",
+        "x-shopee-module-id": "127",
+        "x-shopee-detail-status": "ok",
+        "x-shopee-request-address": {
+          "headers": [
+            "Environment",
+            "Location",
+            "HTTP Address"
+          ],
+          "rows": [
+            [
+              "Live",
+              "Global",
+              "https://partner.shopeemobile.com/api/v2/logistics/ship_order"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.shopee.cn/api/v2/logistics/ship_order"
+            ],
+            [
+              "Brazil",
+              "https://openplatform.shopee.com.br/api/v2/logistics/ship_order"
+            ],
+            [
+              "Sandbox",
+              "Global",
+              "https://openplatform.sandbox.test-stable.shopee.sg/api/v2/logistics/ship_order"
+            ],
+            [
+              "Chinese Mainland",
+              "https://openplatform.sandbox.test-stable.shopee.cn/api/v2/logistics/ship_order"
+            ]
+          ]
+        },
+        "x-shopee-common-parameters": [
+          {
+            "Name": "partner_id",
+            "Type": "int",
+            "Sample": "1",
+            "Description": "Partner ID is assigned upon registration is successful. Required for all requests."
+          },
+          {
+            "Name": "timestamp",
+            "Type": "timestamp",
+            "Sample": "1610000000",
+            "Description": "This is to indicate the timestamp of the request. Required for all requests. Expires in 5 minutes."
+          },
+          {
+            "Name": "access_token",
+            "Type": "string",
+            "Sample": "c09222e3fc40ffb25fc947f738b1abf1",
+            "Description": "The token for API access, using to identify your permission to the api. Valid for multiple use and expires in 4 hours."
+          },
+          {
+            "Name": "shop_id",
+            "Type": "int",
+            "Sample": "600000",
+            "Description": "Shopee's unique identifier for a shop. Required param for most APIs."
+          },
+          {
+            "Name": "sign",
+            "Type": "string",
+            "Sample": "e318d3e932719916a9f9ebb57e2011961bd47abfa54a36e040d050d8931596e2",
+            "Description": "Signature generated by partner_id, api path, timestamp, access_token, shop_id and partner_key via HMAC-SHA256 hashing algorithm. More details: https://open.shopee.com/documents?module=87&type=2&id=58&version=2"
+          }
+        ],
+        "x-shopee-request-parameters": [
+          {
+            "Name": "order_sn",
+            "Type": "string",
+            "Required": "True",
+            "Sample": "201212DCXHJUIKJ",
+            "Description": "Shopee's unique identifier for an order."
+          },
+          {
+            "Name": "package_number",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Shopee's unique identifier for the package under an order. You should't fill the field with empty string when there is't a package number."
+          },
+          {
+            "Name": "pickup",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Required parameter ONLY if get_shipping_parameter returns \"pickup\" under \"info_needed\". Developer should still include \"pickup\" field in the call even if \"pickup\" has empty value."
+          },
+          {
+            "Name": "address_id",
+            "Type": "int64",
+            "Required": "True",
+            "Sample": "",
+            "Description": "The identity of address. Retrieved from v2.logistics.get_shipping_parameter."
+          },
+          {
+            "Name": "pickup_time_id",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "The pickup time id. Retrieved from v2.logistics.get_shipping_parameter, you can only select one from the time_slot_list. Some logistics channels may not return any date or time for pickup time slots. In such cases, sellers can arrange shipment without selecting any time slot, and Shopee will arrange a suitable timing for these situations."
+          },
+          {
+            "Name": "tracking_number",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Need input this field when \"tracking_number\" is returned from \"info_need\". Please note that this tracking number is assigned by third-party shipping carrier for item shipment."
+          },
+          {
+            "Name": "dropoff",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Required parameter ONLY if get_shipping_parameter returns \"dropoff\" under \"info_needed\". Developer should still include \"dropoff\" field in the call even if \"dropoff\" has empty value. For logistic_id 80003 and 80004, both Regular and JOB shipping methods are supported. If you choose Regular shipping method, please use \"tracking_no\" to call Init API. If you choose JOB shipping method, please use \"sender_real_name\" to call Init API. Note that only one of \"tracking_no\" and \"sender_real_name\" can be selected."
+          },
+          {
+            "Name": "branch_id",
+            "Type": "int64",
+            "Required": "False",
+            "Sample": "0",
+            "Description": "The identity of branch."
+          },
+          {
+            "Name": "sender_real_name",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "The real name of sender."
+          },
+          {
+            "Name": "tracking_number",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Need input this field when \"tracking_number\" is returned from \"info_need\". Please note that this tracking number is assigned by third-party shipping carrier for item shipment."
+          },
+          {
+            "Name": "slug",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "The selected 3PL partner to drop-off parcels with."
+          },
+          {
+            "Name": "non_integrated",
+            "Type": "object",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Optional parameter when get_shipping_parameter returns \"non-integrated\" under \"info_needed\"."
+          },
+          {
+            "Name": "tracking_number",
+            "Type": "string",
+            "Required": "False",
+            "Sample": "",
+            "Description": "Optional parameter for non-integrated channel order. The tracking number assigned by the shipping carrier for item shipment."
+          }
+        ],
+        "x-shopee-request-examples": {
+          "languages": [
+            "Payload",
+            "Java",
+            "PHP",
+            "cURL",
+            "Python"
+          ],
+          "values": [
+            "{\n\t\"order_sn\": \"201212DCXHJUIKJ\",\n\t\"package_number\": \"\",\n\t\"pickup\": {\n\t\t\"address_id\": 0,\n\t\t\"pickup_time_id\": \"\",\n\t\t\"tracking_number\": \"\"\n\t}\n}",
+            "Unirest.setTimeouts(0, 0);\nHttpResponse<String> response = Unirest.post(\"https://partner.shopeemobile.com/api/v2/logistics/ship_order?partner_id=partner_id&sign=sign&access_token=access_token&timestamp=timestamp&shop_id=shop_id\")\n.header(\"Content-Type\",\"application/json\")\n.body(\"{\n   \\\"order_sn\\\": \\\"201212DCXHJUIKJ\\\",\n   \\\"package_number\\\": \\\"\\\",\n   \\\"pickup\\\": {\n      \\\"address_id\\\": 0,\n      \\\"pickup_time_id\\\": \\\"\\\",\n      \\\"tracking_number\\\": \\\"\\\"\n   }\n}\")\n.asString();",
+            "<?php\n\n$curl = curl_init();\n\ncurl_setopt_array($curl, array(\n  CURLOPT_URL => 'https://partner.shopeemobile.com/api/v2/logistics/ship_order?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp',\n  CURLOPT_RETURNTRANSFER => true,\n  CURLOPT_ENCODING => '',\n  CURLOPT_MAXREDIRS => 10,\n  CURLOPT_TIMEOUT => 0,\n  CURLOPT_FOLLOWLOCATION => true,\n  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,\n  CURLOPT_CUSTOMREQUEST => 'POST',\n  CURLOPT_POSTFIELDS => '{\n    \"order_sn\": \"201212DCXHJUIKJ\",\n    \"package_number\": \"\",\n    \"pickup\": {\n        \"address_id\": 0,\n        \"pickup_time_id\": \"\",\n        \"tracking_number\": \"\"\n    }\n}',\n  CURLOPT_HTTPHEADER => array(\n    'Content-Type: application/json'\n  ),\n));\n\n$response = curl_exec($curl);\n\ncurl_close($curl);\necho $response;",
+            "curl --location --request POST 'https://partner.shopeemobile.com/api/v2/logistics/ship_order?partner_id=partner_id&sign=sign&access_token=access_token&timestamp=timestamp&shop_id=shop_id' \\\n--header 'Content-Type: application/json' \\\n--data-raw '{\n   \"order_sn\": \"201212DCXHJUIKJ\",\n   \"package_number\": \"\",\n   \"pickup\": {\n      \"address_id\": 0,\n      \"pickup_time_id\": \"\",\n      \"tracking_number\": \"\"\n   }\n}'",
+            "import requests\nimport json\n\nurl = \"https://partner.shopeemobile.com/api/v2/logistics/ship_order?access_token=access_token&partner_id=partner_id&shop_id=shop_id&sign=sign&timestamp=timestamp\"\n\npayload=json.dumps({\n  \"order_sn\": \"201212DCXHJUIKJ\",\n  \"package_number\": \"\",\n  \"pickup\": {\n    \"address_id\": 0,\n    \"pickup_time_id\": \"\",\n    \"tracking_number\": \"\"\n  }\n})\nheaders = {\n  'Content-Type': 'application/json'\n}\nresponse = requests.request(\"POST\",url,headers=headers, data=payload, allow_redirects=False)\n\nprint(response.text)"
+          ]
+        },
+        "x-shopee-response-parameters": [
+          {
+            "Name": "request_id",
+            "Type": "string",
+            "Sample": "3dad66f43b8447d282ae6da36626c6b7",
+            "Description": "The identifier for an API request for error tracking."
+          },
+          {
+            "Name": "error",
+            "Type": "string",
+            "Sample": "error_auth",
+            "Description": "Indicate error type if hit error. Empty if no error happened."
+          },
+          {
+            "Name": "message",
+            "Type": "string",
+            "Sample": "Invalid access_token.",
+            "Description": "Indicate error details if hit error. Empty if no error happened."
+          }
+        ],
+        "x-shopee-response-examples": [
+          "{\n    \"error\": \"\",\n    \"message\": \"\",\n    \"request_id\": \"3dad66f43b8447d282ae6da36626c6b7\"\n}"
+        ],
+        "x-shopee-error-codes": [
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The address is invalid. Please check the address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The address is invalid. Please check the address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.address_not_found",
+            "Error Description": "Address is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ADDRESS_NOT_SUPPORT",
+            "Error Description": "Address is not supported.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.address_not_supported",
+            "Error Description": "Address is not supported current operation.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The order is being allocated, please wait until the allocate is completed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.block_buyer_name",
+            "Error Description": "Buyer name is prohibited.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.business_process_error",
+            "Error Description": "Business process failed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.business_validation_error",
+            "Error Description": "Business validation failed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.buyer_address_not_found",
+            "Error Description": "Buyer address is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Please wait for buyer to reselect the delivery convenience store.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Logistic status is not supported.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.cancel_not_allowed",
+            "Error Description": "Cancel is not allowed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.category_prohibited",
+            "Error Description": "There are contraband goods in the order.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_channel_exist",
+            "Error Description": "Fail to find the fulfillment channel of this order.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.default_warehouse_not_set",
+            "Error Description": "You have not set warehouse.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Deliver address not support COD.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Delivery address do not support COD.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "This address do not support delivery.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Delivery address is not exist.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Buyer address is not exist.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Delivery store is not exist.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Delivery address is not completed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_address",
+            "Error Description": "Address is invalid. Please check the address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The address is invalid. Please check the address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_limit",
+            "Error Description": "The batch request reach limit 50.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_buyer_addressid",
+            "Error Description": "Buyer addressid is invalid. Please check the buyer addressid.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "This order is not allowed to cancel.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_cannot_cancel_logistic_txn",
+            "Error Description": "Cancel operation is not supported for current logistics txn.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Error, please check the channel.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Fast Escrow ID was not found !",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "COD is currently not supported in the area. Please check Shopee Help Center for COD serviceable area.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_connection",
+            "Error Description": "Connection to external system is failed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_consignment",
+            "Error Description": "Fail to get consignment number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_consignment_no_accepted",
+            "Error Description": "Consignment number is not allow to update.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_core_server",
+            "Error Description": "Fail to call core server.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_other",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_cutoff_time",
+            "Error Description": "Pickup time is not invalid. Please check the pickup time.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_decimal",
+            "Error Description": "Receive invalid decimal.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_duplicate_consignment",
+            "Error Description": "Consignment number is duplicated.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_duplicated_consignment",
+            "Error Description": "Consignment number is duplicate.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_expired",
+            "Error Description": "Order is expired.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_failed_get_nearest_whs_idn",
+            "Error Description": "Faile to get the nearest whsId.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_not_exist",
+            "Error Description": "Forder is not exist.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_format",
+            "Error Description": "Content format from external system is invalid. Please check the format.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_other",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_invalid_channel_id",
+            "Error Description": "Channel id is invalid. Please check the channel.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The forder_ids should belong to one order/orderId and forderIds cannot be empty at the same time/parse forderId error.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_ip",
+            "Error Description": "Ip address: {ip} is deny.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_other",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Items in the same bundle should be in the same parcel.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_item_not_found",
+            "Error Description": "Can not find the item.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_loginfo",
+            "Error Description": "Logistic info is invalid. Please check the logistic info.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_logistic_txn_not_found",
+            "Error Description": "Logistics record is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_logistics_shop_require_pickup_address",
+            "Error Description": "Pickup address is required.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_limit",
+            "Error Description": "Can not update order logistics in current status.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_message_type",
+            "Error Description": "Message type is invalid. Please check the message type.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_method",
+            "Error Description": "Operation is not supported.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_missing_cdt",
+            "Error Description": "Cdt settings is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Seller address is invalid. Please check your address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_no_pickup",
+            "Error Description": "Pickup is not supported.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_no_pickup_address",
+            "Error Description": "Pickup address is missing.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_not_found",
+            "Error Description": "Wrong parameters, detail: {msg}.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_operation_failed",
+            "Error Description": "Operation failed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_order_context",
+            "Error Description": "Order context is invalid. Please check the order context.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Order list length exceeds limit.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "This order is not allowed to cancel.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Order is not exist.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_order_not_found",
+            "Error Description": "Order is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "This order can not be splited.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Order is not splittable.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Parcels of this order can not be combined.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Order/Forder can not update.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Order has been shipped.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Order has been splitted.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_order_state",
+            "Error Description": "Operation is not allow with current order status.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The order status is not ready to ship.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Wrong parameters, detail: {msg}.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_limit",
+            "Error Description": "Parcel count should not exceed limit.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_permission",
+            "Error Description": "Sorry you don't have the permission, detail: {msg}.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_phone",
+            "Error Description": "Phone number is invalid. Please check the phone number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_pickup_time",
+            "Error Description": "Pickup time is invalid. Please check the pick up time.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The buyer address is invalid. Please check the buyer address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_return_tracking_num_not_found",
+            "Error Description": "Return tracking number is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_not_exist",
+            "Error Description": "Address does not exist.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_seller_never_apply_tracking_no_before",
+            "Error Description": "History is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_sender_address",
+            "Error Description": "Sender address is invalid. Please check the sender address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_server",
+            "Error Description": "System error. Please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_set_asf_by_weight",
+            "Error Description": "Fail to set actual shipping fee.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_set_seller_address",
+            "Error Description": "Fail to set seller address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Shop not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Only support local warehouse, this shop do not support local warehouse.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "This shop do not support split parcels.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Size setting error.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_other",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_state",
+            "Error Description": "Currently, operation is not supported with current logistics record status.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_status",
+            "Error Description": "Operation is not supported with current logistics record status.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_store_not_found",
+            "Error Description": "Store is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_other",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_third_party_server",
+            "Error Description": "Failed to call external system.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_timeout",
+            "Error Description": "Timeout to call external system.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_token",
+            "Error Description": "Token is invalid. Please check the token.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_too_many_invoke_function",
+            "Error Description": "Failed to get lock.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_traceno_required",
+            "Error Description": "Trace number is required.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_unknown",
+            "Error Description": "Unknown exception, exception details is: {details}.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_unsupported",
+            "Error Description": "Operation is not supported.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_unsupported_address",
+            "Error Description": "Address is not supported.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Invalid logistics channel. Please check the logictics channel.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Thaipost do not support this country.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_update",
+            "Error Description": "Fail to update.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_update_logistic_unsupported",
+            "Error Description": "Currently, logistics is not supported to update.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Can not update order logistics.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Warehouse address not supported.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_other",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_other",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_zipcode_not_found",
+            "Error Description": "Zipcode is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.feature_not_supported",
+            "Error Description": "Feature is not supported.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The EMS tracking number must begin with “E”",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The EMS tracking number must end with “TH”",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The Registered Mail tracking number must begin with “E”, “R” or “O”",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The Registered Mail tracking number must end with “TH”",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Please fill in a valid tracking number (13 digits)",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The tracking number has been used by other orders, please fill in a valid one.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Please fill in the tracking number (13 digits)",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.invalid_size",
+            "Error Description": "Size is invalid. Please check the",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_data",
+            "Error Description": "Store status is unavailable,pending buyer update.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.item_is_in_bundle",
+            "Error Description": "Channel is not allow to disable due to there is item in the bundle.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.lack_of_invoice_data",
+            "Error Description": "Pending invoice data, can not arrange shipment.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.lack_of_invoice_data",
+            "Error Description": "Please upload the invoice or verify the details of the document already submitted, which is currently flagged as invalid by SEFAZ. Correction is required to release the shipment.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.lack_of_invoice_data",
+            "Error Description": "The invoice has not been uploaded yet or was rejected by SEFAZ: {msg}",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "lack_of_invoice_data",
+            "Error Description": "Pending invoice data, can not arrange shipment.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.logistic_order_is_locked_on_creating",
+            "Error Description": "Fail to get the lock.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_booking_order",
+            "Error Description": "This order is matched order with booking, don't need arrange shipment through seller side.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.max dimension is limited",
+            "Error Description": "Max dimension or weight is limited.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Package exceeds weight limit. Please adjust or contact Shopee CS for more info.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.missing_cdt",
+            "Error Description": "Cdt settings is missing.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.no buyer_store",
+            "Error Description": "Buyer store is missing.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.no_proportion",
+            "Error Description": "Can Not Found Proportion.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.not_found",
+            "Error Description": "Not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.order not found",
+            "Error Description": "Relative order is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.order_finalized",
+            "Error Description": "Order is already in finalized status.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.order_has_no_seller_address",
+            "Error Description": "This order has no seller address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.order_prescription_unchecked",
+            "Error Description": "This order hasn't passed prescription check",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.package_not_exist",
+            "Error Description": "The package is not exist.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.parcel_amount_over_limit",
+            "Error Description": "The order amount is over limit.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.pickup_whitelist_not_supported",
+            "Error Description": "Permission is deny for pickup.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_other",
+            "Error Description": "Pick up address not support COD.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Pickup address do not support COD.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_other",
+            "Error Description": "Can not support deliver address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_other",
+            "Error Description": "Can not support pick up address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "This address do not support pickup.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.pickup_address_unsupported",
+            "Error Description": "Pickup address is not supported.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "The pickup_time_id received is invalid and not expected. Please check and reselect one from the time_slot_list.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "System error, please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.price_error",
+            "Error Description": "The price is invalid. Please check the price.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.quantity_error",
+            "Error Description": "The quantity is invalid. Please check the quantity.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.RcvStoreId not found",
+            "Error Description": "Receiver storeid is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Buyer's delivery address is not serviceable. Please contact customer service.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Buyer's delivery address is not serviceable. Please contact customer service.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Seller address is not completed.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.seller_address_not_support_cod",
+            "Error Description": "Cod pickup is not supported with the seller address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Channel does not support dropoff. Please select the pickup option and try again.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Please input a unique tracking number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Please input a unique tracking number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Seller Info Error. Please check and input your invoice info.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Tracking Number Error. Please input a valid tracking number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Tracking Number Format Error. Please input a valid tracking number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Tracking Number Error. Please input a valid tracking number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Please input a valid seller's name.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Invalid pickup time. Please select another pickup time.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Pickup address is not serviceable. Please select another address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Pickup address is not serviceable. Please select another address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Seller Info Error. Please check and input your tax number.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Seller address is not exist. Please try other address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Sender address is not exist.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Seller Address Error. Please input the geo-location of your address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Selected pickup timeslot is unavailable. Please reselect.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Channel does not support pickup. Please select the dropoff option and try again.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Selected pickup timeslot is unavailable. Please reselect.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_invalid_job_param",
+            "Error Description": "Parameter sender_real_name or tracking_number is required.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Parameter sender_real_name is invalid.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_long_sender_real_name",
+            "Error Description": "Parameter sender_real_name can not be longer than 64.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_long_tracking_number",
+            "Error Description": "Parameter tracking_number can not be longer than 64.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Shop id: {shop_id} didn't set any default 7-11 return store, please go back to Shopee Seller Center to complete the setting.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Shop id: {shop_id} didn't set {return_store_name} return store, please go back to Shopee Seller Center to complete the setting.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Shop id: {shop_id} didn't set any default Shopee Express return store, please go back to Shopee Seller Center to complete the setting.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_need_address_pickup_time",
+            "Error Description": "Parameter address_id and pickup_time_id are required.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_need_branch_id",
+            "Error Description": "Parameter branch_id is required.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_need_pacakge_number",
+            "Error Description": "Please request with package_number for this split order.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_need_sender_real_name",
+            "Error Description": "Parameter sender_real_name can not be null.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_need_tracking_number",
+            "Error Description": "Parameter tracking_number can not be null.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_not_need_pacakge_number",
+            "Error Description": "Please don’t request with package_number for this unsplit order.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_not_ready_to_ship",
+            "Error Description": "The order is not ready to ship.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_only_support_one_type",
+            "Error Description": "Please select just one way to ship order: pickup or dropoff or non_integrated.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_pff_init",
+            "Error Description": "You can not ship warehouse order.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_pickup_time_invalid",
+            "Error Description": "Invalid pickup time id. Please check the pick up time id.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_unsupport_dropoff",
+            "Error Description": "This order does not support ship with dropoff.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_unsupport_non_integrated",
+            "Error Description": "This order does not support ship with non_integrated.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.ship_order_unsupport_pickup",
+            "Error Description": "This order does not support ship with pickup.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.shop_not_found",
+            "Error Description": "Shop is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.shop_not_support_wms",
+            "Error Description": "Wms is not supported for the shop.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Shop id: {shop_id},return store:{return_store_name} not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "common.invalid_shop",
+            "Error Description": "Shop id is invalid. Please check your shop.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.sls calculate fail",
+            "Error Description": "Fail to calculate estimated shipping fee.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Pickup address is not serviceable. Please select another address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "The address is invalid. Please check the address.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_param",
+            "Error Description": "Logistic status is not supported.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_limit",
+            "Error Description": "Order status not support update logistics.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.update_not_allowed",
+            "Error Description": "Currently, update is not allow.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.invalid_address_version",
+            "Error Description": "Some addresses are no longer supported per new regulation, please update to avoid wrong fulfilment",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.package_already_shipped",
+            "Error Description": "This package has already been arranged shipment and you can't call this API again.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.remove_ofg_from_group_failed",
+            "Error Description": "Remove OFG from GROUP error, please try again.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_network",
+            "Error Description": "Inner http call failed",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_data",
+            "Error Description": "parse data failed",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_data",
+            "Error Description": "data not exist",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "parameter invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Invalid package number, please get package number from field `package_number` instead of `forder_id`.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Invalid package number, please get package number from field `package_number` instead of `forder_id`.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.error_sender_address",
+            "Error Description": "Pickup address not valid. Please add/tag a new pickup_address in Seller Center to continue shipping",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "The information you queried is not found.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Wrong parameters, detail: {msg}.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_server",
+            "Error Description": "Something wrong. Please try later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_shop",
+            "Error Description": "shopid is invalid",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "request not from gateway",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_other",
+            "Error Description": "System error. Please try again later.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_status",
+            "Error Description": "Buyer hasn’t completed pre-authorization yet.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Please do not request with tracking_no for this channel which does not require tracking_no.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Slug not allow empty.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "error_param",
+            "Error Description": "Slug not required.",
+            "Details and Guidance": ""
+          },
+          {
+            "Error": "logistics.warehouse_stock_insufficient",
+            "Error Description": "Failed to assign a warehouse with sufficient stock",
+            "Details and Guidance": ""
+          }
+        ],
+        "x-shopee-error-examples": [
+          "{\n    \"error\": \"logistics.ship_order_need_sender_real_name\",\n    \"message\": \"Parameter sender_real_name can not be null.\",\n    \"request_id\": \"6ea20540431c35f2a76cfbaa0c090683\"\n}"
+        ],
+        "x-shopee-permissions": "API Permissions\nCollapse\nAPP types that can call this API.\nERP System\nSeller In House System\nOrder Management\nSwam ERP",
+        "x-shopee-api-tools": "API Tools\nCollapse\nAPI Test Tools\nAPI Access Log",
+        "x-shopee-update-log": {
+          "headers": [
+            "Date",
+            "Update Details"
+          ],
+          "rows": [
+            [
+              "2025-09-18",
+              "Updated description to indicate the order_status logic of BR Seller Logistics channel (logistics_channel_id: 90021) and BR Instant Delivery channel (logistics_channel_id: 90026)"
+            ],
+            [
+              "2022-07-13",
+              "update the pickup_time_id description"
+            ],
+            [
+              "2022-01-24",
+              "update request parameters slug"
+            ],
+            [
+              "2022-01-20",
+              "update dropoff slug for TW OK-SPX"
+            ],
+            [
+              "2021-12-08",
+              "update the Request Example"
+            ]
+          ]
+        },
+        "x-shopee-page": "https://open.shopee.com/documents/v2/v2.logistics.ship_order?module=127&type=1",
+        "x-shopee-extraction": "Authenticated Shopee Open Platform DOM extraction; no Markdown download endpoint was provided."
+      }
+    }
+  },
+  "x-shopee-module": "logistics"
+}
