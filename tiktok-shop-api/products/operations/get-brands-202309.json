@@ -1,0 +1,352 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Get Brands",
+    "version": "202309",
+    "description": "Retrieve all available brands for your shop, including the built-in brands and any custom brands created using the [Create Custom Brands API](650a0926f1fd3102b91bbfb0). Pass the returned brand ID when creating or editing a product to associate the brand with the product.\n\n* To check if a brand is fully authorized for use in a specific product category, specify the **category ID**.\n* To obtain the full list of brands that your shop can potentially use and their authorization status, omit the category ID. We recommend that you specify the **brand name** to narrow down the list of brands returned.\n   **Key concept**\n   Whether you can select and display a brand depends on the brand's authorization status, the categories authorized for the brand, and whether the brand is classified as T1 (internationally renowned brands that require prior brand authorization).\n   **- Brand selection rules**: You can only select the following types of brands during product creation/editing.\n   * Authorized brands which contain the desired category (`authorized_status=AUTHORIZED` and `brand_status=AVAILABLE`)\n   * Unauthorized non-T1 brands (`authorized_status=UNAUTHORIZED` and `is_t1_brand=false`)\n      **- Brand display rules**: Note however that brands will only appear on the product display page if the brand is authorized (`authorized_status=AUTHORIZED`) and available in the desired category (`brand_status=AVAILABLE`). This means that you need to obtain brand authorization for unauthorized non-T1 brands before they can be displayed. Obtain brand authorization or add categories to an authorized brand through TikTok Shop Seller Center > Qualification Center > Brand qualification.\n      **For Tokopedia sellers**: You can select and display any returned brand on Tokopedia regardless of these rules."
+  },
+  "host": "open-api.tiktokglobalshop.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/product/202309/brands": {
+      "get": {
+        "tags": [
+          "products"
+        ],
+        "operationId": "get_brands_202309",
+        "summary": "Get Brands",
+        "description": "Retrieve all available brands for your shop, including the built-in brands and any custom brands created using the [Create Custom Brands API](650a0926f1fd3102b91bbfb0). Pass the returned brand ID when creating or editing a product to associate the brand with the product.\n\n* To check if a brand is fully authorized for use in a specific product category, specify the **category ID**.\n* To obtain the full list of brands that your shop can potentially use and their authorization status, omit the category ID. We recommend that you specify the **brand name** to narrow down the list of brands returned.\n   **Key concept**\n   Whether you can select and display a brand depends on the brand's authorization status, the categories authorized for the brand, and whether the brand is classified as T1 (internationally renowned brands that require prior brand authorization).\n   **- Brand selection rules**: You can only select the following types of brands during product creation/editing.\n   * Authorized brands which contain the desired category (`authorized_status=AUTHORIZED` and `brand_status=AVAILABLE`)\n   * Unauthorized non-T1 brands (`authorized_status=UNAUTHORIZED` and `is_t1_brand=false`)\n      **- Brand display rules**: Note however that brands will only appear on the product display page if the brand is authorized (`authorized_status=AUTHORIZED`) and available in the desired category (`brand_status=AVAILABLE`). This means that you need to obtain brand authorization for unauthorized non-T1 brands before they can be displayed. Obtain brand authorization or add categories to an authorized brand through TikTok Shop Seller Center > Qualification Center > Brand qualification.\n      **For Tokopedia sellers**: You can select and display any returned brand on Tokopedia regardless of these rules.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "shop_cipher",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response.",
+            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
+          },
+          {
+            "name": "content-type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Allowed type: application/json",
+            "example": "application/json"
+          },
+          {
+            "name": "app_key",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Every single app will have a unique key. Please use the specific key assigned to your app.",
+            "example": "38abcd"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Signature generated by gen algorithm. When you send API requests to TTS, you must sign them so that TTS can identify the senders.",
+            "example": "5361235029d141222525e303d742f9e38aea052d10896d3197ab9d6233730b8c"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "description": "Unix timestamp GMT (UTC+00:00). This timestamp is used across all API requests. Developers can use this convert to local time.",
+            "example": "1623812664"
+          },
+          {
+            "name": "category_id",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Specify a category ID to show the availability of **authorized brands** in the category.",
+            "example": "600006"
+          },
+          {
+            "name": "is_authorized",
+            "in": "query",
+            "required": false,
+            "type": "boolean",
+            "description": "Filter results by the brand authorization status.",
+            "example": "false"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response. See source Markdown for complete semantics.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "brands": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "authorized_status": {
+                            "type": "string"
+                          },
+                          "is_t1_brand": {
+                            "type": "boolean"
+                          },
+                          "brand_status": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "name",
+                          "authorized_status",
+                          "is_t1_brand",
+                          "brand_status"
+                        ]
+                      }
+                    },
+                    "total_count": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "next_page_token": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "brands",
+                    "total_count",
+                    "next_page_token"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "message",
+                "request_id"
+              ]
+            }
+          }
+        },
+        "x-tiktok-api-name": "Get Brands",
+        "x-tiktok-version": "202309",
+        "x-tiktok-request-samples": {
+          "query": "https://open-api.tiktokglobalshop.com/product/202309/brands?app_key=123abc&sign=5361235029d141222525e303d742f9e38aea052d10896d3197ab9d6233730b8c&timestamp=1625484268&shop_cipher=ROW_RHkDDABBAAB8tKAVoAqsMTjsQZFLyNfY&category_id=600006&is_authorized=false&brand_name=Teas&page_size=100&page_token=b2Zmc2V0PTAK&category_version=v1",
+          "body": ""
+        },
+        "x-tiktok-response-sample": "{\"code\":0,\"data\":{\"brands\":[{\"id\":\"7082427311584347905\",\"name\":\"Teas\",\"authorized_status\":\"AUTHORIZED\",\"is_t1_brand\":true,\"brand_status\":\"AVAILABLE\"}],\"total_count\":10000,\"next_page_token\":\"b2Zmc2V0PTAK\"},\"message\":\"Success\",\"request_id\":\"202203070749000101890810281E8C70B7\"}",
+        "x-tiktok-common-parameters": [
+          {
+            "Properties": "shop_cipher",
+            "Location": "query",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3",
+            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response."
+          },
+          {
+            "Properties": "Get by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
+            "Location": "",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "content-type",
+            "Location": "header",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "application/json",
+            "Properties description": "Allowed type: application/json"
+          }
+        ],
+        "x-tiktok-request-query-parameters": [
+          {
+            "Properties": "app_key",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "38abcd",
+            "Properties description": "Every single app will have a unique key. Please use the specific key assigned to your app."
+          },
+          {
+            "Properties": "sign",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "5361235029d141222525e303d742f9e38aea052d10896d3197ab9d6233730b8c",
+            "Properties description": "Signature generated by gen algorithm. When you send API requests to TTS, you must sign them so that TTS can identify the senders."
+          },
+          {
+            "Properties": "timestamp",
+            "Type": "int",
+            "Require": "Y",
+            "Sample": "1623812664",
+            "Properties description": "Unix timestamp GMT (UTC+00:00). This timestamp is used across all API requests. Developers can use this convert to local time."
+          },
+          {
+            "Properties": "category_id",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "600006",
+            "Properties description": "Specify a category ID to show the availability of **authorized brands** in the category."
+          },
+          {
+            "Properties": "**Note**: Specify this value to obtain an accurate list of brands that you can use in a category.",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "is_authorized",
+            "Type": "bool",
+            "Require": "N",
+            "Sample": "false",
+            "Properties description": "Filter results by the brand authorization status."
+          },
+          {
+            "Properties": "Possible values:",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          }
+        ],
+        "x-tiktok-request-body-parameters": [],
+        "x-tiktok-response-parameters": [
+          {
+            "Properties": "code",
+            "Type": "int",
+            "Sample": "0",
+            "Properties description": "The success or failure status code returned in API response."
+          },
+          {
+            "Properties": "message",
+            "Type": "string",
+            "Sample": "Success",
+            "Properties description": "The success or failure messages returned in API response. Reasons of failure will be described in the message."
+          },
+          {
+            "Properties": "request_id",
+            "Type": "string",
+            "Sample": "202203070749000101890810281E8C70B7",
+            "Properties description": "Request log"
+          },
+          {
+            "Properties": "data",
+            "Type": "object",
+            "Sample": "",
+            "Properties description": "Specific return information"
+          },
+          {
+            "Properties": "^brands",
+            "Type": "[]object",
+            "Sample": "",
+            "Properties description": "The list of brands that meet the query conditions."
+          },
+          {
+            "Properties": "^^id",
+            "Type": "string",
+            "Sample": "7082427311584347905",
+            "Properties description": "The brand ID."
+          },
+          {
+            "Properties": "^^name",
+            "Type": "string",
+            "Sample": "Teas",
+            "Properties description": "The brand name."
+          },
+          {
+            "Properties": "^^authorized_status",
+            "Type": "string",
+            "Sample": "AUTHORIZED",
+            "Properties description": "A status to indicate whether the seller has obtained prior authorization to sell goods bearing the brand's trademark, name, or logo."
+          },
+          {
+            "Properties": "Possible values:",
+            "Type": "",
+            "Sample": "",
+            "Properties description": ""
+          }
+        ],
+        "x-tiktok-error-codes": [
+          {
+            "Code": "12019108",
+            "Message": "page number is invalid"
+          },
+          {
+            "Code": "12019109",
+            "Message": "page size is invalid"
+          },
+          {
+            "Code": "12019123",
+            "Message": "product of pageSize and pageNumber exceeds the maximum limit"
+          },
+          {
+            "Code": "12019124",
+            "Message": "pageSize and pageNumber need to be used together"
+          },
+          {
+            "Code": "12052023",
+            "Message": "Category does not exist"
+          },
+          {
+            "Code": "12052217",
+            "Message": "All region shops must use V2 categories. Check the documentation for further details."
+          },
+          {
+            "Code": "12052230",
+            "Message": "Category version and categoryID are not matched."
+          },
+          {
+            "Code": "12052700",
+            "Message": "The seller is inactive."
+          },
+          {
+            "Code": "12052704",
+            "Message": "seller id not exist"
+          },
+          {
+            "Code": "36009003",
+            "Message": "Internal error. Please try again. If the issue persists after multiple attempts, please contact platform support."
+          }
+        ],
+        "x-tiktok-source": {
+          "officialPage": "https://partner.tiktokshop.com/docv2/page/get-brands-202309",
+          "markdown": "../source/GET__get-brands-202309.md",
+          "sha256": "adb99c5aa8e3c5172645734c42bc880aba7a94398eade4cfb559b463d9321d07"
+        }
+      }
+    }
+  },
+  "x-tiktok-module": "products",
+  "x-tiktok-source-format": "TikTok Shop Partner Center Download Markdown"
+}

@@ -7,6 +7,7 @@ The current dataset contains:
 - [Amazon Selling Partner API Models](amazon-sp-api/README.md)
 - [Amazon Ads API Models](amazon-ads-api/README.md)
 - [Temu API Models](temu-api/README.md)
+- [TikTok Shop API Models](tiktok-shop-api/README.md)
 
 ## Structure
 
@@ -17,6 +18,7 @@ api-models/
   amazon-sp-api/
   amazon-ads-api/
   temu-api/
+  tiktok-shop-api/
 ```
 
 Inside an API family, the expected navigation pattern is:
@@ -38,10 +40,8 @@ This keeps broad discovery lightweight while still preserving the detailed endpo
 
 `temu-api` contains processed Temu CN, US local, EU local, and global local API documentation. It follows the same progressive disclosure pattern, with regional routing guidance, group READMEs, operation-level Swagger 2.0 JSON files, and a CN offline data dictionary for reference values that otherwise live in source docs.
 
+`tiktok-shop-api` contains processed TikTok Shop Partner Center API documentation. Each business module links to operation-level Swagger 2.0 JSON files; the corresponding official Download Markdown source remains beside each operation for traceability and complete business guidance.
+
 ## Future Scope
 
-Additional API families can be added as sibling directories when they are processed into the same format. For example:
-
-- `tiktok-sp-api` for TikTok APIs
-
-New API families should provide their own top-level README and follow the same progressive disclosure pattern so the root index remains stable and easy to scan.
+Additional API families can be added as sibling directories when they are processed into the same format. New API families should provide their own top-level README and follow the same progressive disclosure pattern so the root index remains stable and easy to scan.

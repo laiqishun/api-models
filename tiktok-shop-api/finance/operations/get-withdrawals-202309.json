@@ -1,0 +1,324 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Get Withdrawals",
+    "version": "202309",
+    "description": "Get the list of the withdrawal records (when Seller's withdraw money from TikTokShop) based on the specified date range."
+  },
+  "host": "open-api.tiktokglobalshop.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/finance/202309/withdrawals": {
+      "get": {
+        "tags": [
+          "finance"
+        ],
+        "operationId": "get_withdrawals_202309",
+        "summary": "Get Withdrawals",
+        "description": "Get the list of the withdrawal records (when Seller's withdraw money from TikTokShop) based on the specified date range.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "shop_cipher",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response.",
+            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
+          },
+          {
+            "name": "content-type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Allowed type: application/json",
+            "example": "application/json"
+          },
+          {
+            "name": "app_key",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Every single app will have a unique key. Please use the specific key assigned to your app.",
+            "example": "38abcd"
+          },
+          {
+            "name": "create_time_lt",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "Unix timestamp representing the end of transactions time range one wants to request",
+            "example": "1623812664"
+          },
+          {
+            "name": "types",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The type of transaction.",
+            "example": "WITHDRAW,SETTLE"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response. See source Markdown for complete semantics.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "next_page_token": {
+                      "type": "string"
+                    },
+                    "total_count": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "withdrawals": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "type": {
+                            "type": "string"
+                          },
+                          "amount": {
+                            "type": "string"
+                          },
+                          "currency": {
+                            "type": "string"
+                          },
+                          "status": {
+                            "type": "string"
+                          },
+                          "create_time": {
+                            "type": "integer",
+                            "format": "int64"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "type",
+                          "amount",
+                          "currency",
+                          "status",
+                          "create_time"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "next_page_token",
+                    "total_count",
+                    "withdrawals"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "message",
+                "request_id"
+              ]
+            }
+          }
+        },
+        "x-tiktok-api-name": "Get Withdrawals",
+        "x-tiktok-version": "202309",
+        "x-tiktok-request-samples": {
+          "query": "https://open-api.tiktokglobalshop.com/finance/202309/withdrawals?app_key=123abc&sign=5361235029d141222525e303d742f9e38aea052d10896d3197ab9d6233730b8c&timestamp=1625484268&shop_cipher=ROW_RHkDDABBAAB8tKAVoAqsMTjsQZFLyNfY&create_time_lt=1623812664&types=WITHDRAW,SETTLE&page_size=20&page_token=6AsPQsUMvH3RkchNUPPh22NROHkE0D8pmq/N5M1kHYcZmtRyv9aVrNv65W7Q6tFA+7D1ud64MPNz5OaT&create_time_ge=1623812664",
+          "body": ""
+        },
+        "x-tiktok-response-sample": "{\"code\":0,\"data\":{\"next_page_token\":\"6AsPQsUMvH3RkchNUPPh22NROHkE0D8pmq/N5M1kHYcZmtRyv9aVrNv65W7Q6tFA+7D1ud64MPNz5OaT\",\"total_count\":1,\"withdrawals\":[{\"id\":\"EFASDFSAFDA23432DFAFDSA\",\"type\":\"WITHDRAW\",\"amount\":\"100\",\"currency\":\"IDR\",\"status\":\"PROCESSING\",\"create_time\":1623812664}]},\"message\":\"Success\",\"request_id\":\"202203070749000101890810281E8C70B7\"}",
+        "x-tiktok-common-parameters": [
+          {
+            "Properties": "shop_cipher",
+            "Location": "query",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3",
+            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response."
+          },
+          {
+            "Properties": "Get by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
+            "Location": "",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "content-type",
+            "Location": "header",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "application/json",
+            "Properties description": "Allowed type: application/json"
+          }
+        ],
+        "x-tiktok-request-query-parameters": [
+          {
+            "Properties": "app_key",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "38abcd",
+            "Properties description": "Every single app will have a unique key. Please use the specific key assigned to your app."
+          },
+          {
+            "Properties": "create_time_lt",
+            "Type": "int",
+            "Require": "N",
+            "Sample": "1623812664",
+            "Properties description": "Unix timestamp representing the end of transactions time range one wants to request"
+          },
+          {
+            "Properties": "types",
+            "Type": "[]string",
+            "Require": "Y",
+            "Sample": "WITHDRAW,SETTLE",
+            "Properties description": "The type of transaction."
+          },
+          {
+            "Properties": "Possible values:",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          }
+        ],
+        "x-tiktok-request-body-parameters": [],
+        "x-tiktok-response-parameters": [
+          {
+            "Properties": "code",
+            "Type": "int",
+            "Sample": "0",
+            "Properties description": "The success or failure status code returned in API response."
+          },
+          {
+            "Properties": "message",
+            "Type": "string",
+            "Sample": "Success",
+            "Properties description": "The success or failure messages returned in API response. Reasons of failure will be described in the message."
+          },
+          {
+            "Properties": "request_id",
+            "Type": "string",
+            "Sample": "202203070749000101890810281E8C70B7",
+            "Properties description": "Request log"
+          },
+          {
+            "Properties": "data",
+            "Type": "object",
+            "Sample": "",
+            "Properties description": "Specific return information"
+          },
+          {
+            "Properties": "^next_page_token",
+            "Type": "string",
+            "Sample": "6AsPQsUMvH3RkchNUPPh22NROHkE0D8pmq/N5M1kHYcZmtRyv9aVrNv65W7Q6tFA+7D1ud64MPNz5OaT",
+            "Properties description": "Cursor used for searching for more information"
+          },
+          {
+            "Properties": "^total_count",
+            "Type": "int",
+            "Sample": "1",
+            "Properties description": "The total num of the withdraws"
+          },
+          {
+            "Properties": "^withdrawals",
+            "Type": "[]object",
+            "Sample": "",
+            "Properties description": "Withdraw list"
+          },
+          {
+            "Properties": "^^id",
+            "Type": "string",
+            "Sample": "EFASDFSAFDA23432DFAFDSA",
+            "Properties description": "A unique transaction id generated by TTS for the withdrawal."
+          },
+          {
+            "Properties": "^^type",
+            "Type": "string",
+            "Sample": "WITHDRAW",
+            "Properties description": "WITHDRAW：The action of the seller to receive the settlement amount to the bank card through the action of withdrawal"
+          },
+          {
+            "Properties": "SETTLE：The platform settles the amount to the seller",
+            "Type": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "TRANSFER：Platform subsidies or deductions due to platform policies",
+            "Type": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "REVERSE：Withdrawal failure due to incorrect bank card",
+            "Type": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "^^amount",
+            "Type": "string",
+            "Sample": "100",
+            "Properties description": "Withdraw amount"
+          },
+          {
+            "Properties": "^^currency",
+            "Type": "string",
+            "Sample": "IDR",
+            "Properties description": "The three-digit currency code in ISO 4217 format."
+          },
+          {
+            "Properties": "^^status",
+            "Type": "string",
+            "Sample": "PROCESSING",
+            "Properties description": "The processing status of the withdrawal indicates whether the withdrawal is transferred. Possible values:"
+          }
+        ],
+        "x-tiktok-error-codes": [
+          {
+            "Code": "22005007",
+            "Message": "given merchant does not exist"
+          },
+          {
+            "Code": "36009003",
+            "Message": "Internal error. Please try again. If the issue persists after multiple attempts, please contact platform support."
+          }
+        ],
+        "x-tiktok-source": {
+          "officialPage": "https://partner.tiktokshop.com/docv2/page/get-withdrawals-202309",
+          "markdown": "../source/GET__get-withdrawals-202309.md",
+          "sha256": "6b91a82aee64377fedfc9427fc0d653f0aee5c5271e59c01e5247a7d055ebabd"
+        }
+      }
+    }
+  },
+  "x-tiktok-module": "finance",
+  "x-tiktok-source-format": "TikTok Shop Partner Center Download Markdown"
+}

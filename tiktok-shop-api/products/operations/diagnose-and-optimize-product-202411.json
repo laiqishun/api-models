@@ -1,0 +1,371 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Diagnose and Optimize Product",
+    "version": "202411",
+    "description": "Diagnose products to obtain information that helps you to improve the product content, enhancing product visibility and customer trust. The returned information includes:\n\n* Listing quality information (available only for the US market).\n* Issues with the current product details and the overall recommendations\n* Auto-generated optimization suggestions targeted for specific product fields, including the title, description, and image.\n   This API enables you to diagnose both live products (status: `ACTIVATE`) and brand-new products not yet listed in TikTok Shop.\n* To diagnose a **live product**, provide the `product_id` and `category_id` and leave all other product details blank.\n* To diagnose a **brand-new product** not yet listed in TikTok Shop, omit the `product_id` and provide the product details as necessary.\n* To diagnose a **product similar to an existing one**, provide the `product_id` and `category_id`, along with any new details. The diagnosis will combine the existing product's information with the new details you provide. For example, if you provide a new `title`, the diagnosis will use the new title instead of the existing one while keeping the other values from the product ID.\n   **Note**:\n* To diagnose multiple live products, use the [Product Information Issue Diagnosis API](665048f380b6b302e73917d9).\n* This API focuses solely on optimizing product visibility and does not evaluate whether your product meets listing requirements. Quality issues identified by this API do not block your product from being listed. To verify listing requirements, use the [Check Product Listing API](650a0ee8f1fd3102b91c6493)."
+  },
+  "host": "open-api.tiktokglobalshop.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/product/202411/products/diagnose_optimize": {
+      "post": {
+        "tags": [
+          "products"
+        ],
+        "operationId": "diagnose_and_optimize_product_202411",
+        "summary": "Diagnose and Optimize Product",
+        "description": "Diagnose products to obtain information that helps you to improve the product content, enhancing product visibility and customer trust. The returned information includes:\n\n* Listing quality information (available only for the US market).\n* Issues with the current product details and the overall recommendations\n* Auto-generated optimization suggestions targeted for specific product fields, including the title, description, and image.\n   This API enables you to diagnose both live products (status: `ACTIVATE`) and brand-new products not yet listed in TikTok Shop.\n* To diagnose a **live product**, provide the `product_id` and `category_id` and leave all other product details blank.\n* To diagnose a **brand-new product** not yet listed in TikTok Shop, omit the `product_id` and provide the product details as necessary.\n* To diagnose a **product similar to an existing one**, provide the `product_id` and `category_id`, along with any new details. The diagnosis will combine the existing product's information with the new details you provide. For example, if you provide a new `title`, the diagnosis will use the new title instead of the existing one while keeping the other values from the product ID.\n   **Note**:\n* To diagnose multiple live products, use the [Product Information Issue Diagnosis API](665048f380b6b302e73917d9).\n* This API focuses solely on optimizing product visibility and does not evaluate whether your product meets listing requirements. Quality issues identified by this API do not block your product from being listed. To verify listing requirements, use the [Check Product Listing API](650a0ee8f1fd3102b91c6493).",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "shop_cipher",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response.",
+            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
+          },
+          {
+            "name": "content-type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Allowed type: application/json",
+            "example": "application/json"
+          },
+          {
+            "name": "app_key",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Every single app will have a unique key. Please use the specific key assigned to your app.",
+            "example": "38abcd"
+          },
+          {
+            "name": "sign",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Signature generated by gen algorithm. When you send API requests to TTS, you must sign them so that TTS can identify the senders.",
+            "example": "5361235029d141222525e303d742f9e38aea052d10896d3197ab9d6233730b8c"
+          },
+          {
+            "name": "timestamp",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "description": "Unix timestamp GMT (UTC+00:00). This timestamp is used across all API requests. Developers can use this convert to local time.",
+            "example": "1623812664"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "description": "Request body. Full source table is retained in x-tiktok-request-body-parameters.",
+            "schema": {
+              "type": "object",
+              "additionalProperties": true,
+              "properties": {
+                "product_id": {
+                  "type": "string",
+                  "description": "The product ID of an existing product in TikTok Shop.",
+                  "example": "1729592969712203232"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response. See source Markdown for complete semantics.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "listing_quality": {
+                      "type": "object",
+                      "properties": {
+                        "current_tier": {
+                          "type": "string"
+                        },
+                        "remaining_recommendations": {
+                          "type": "integer",
+                          "format": "int64"
+                        }
+                      },
+                      "required": [
+                        "current_tier",
+                        "remaining_recommendations"
+                      ]
+                    },
+                    "diagnoses": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "diagnosis_results": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "code": {
+                                  "type": "string"
+                                },
+                                "how_to_solve": {
+                                  "type": "string"
+                                },
+                                "quality_tier": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "code",
+                                "how_to_solve",
+                                "quality_tier"
+                              ]
+                            }
+                          },
+                          "suggestion": {
+                            "type": "object",
+                            "properties": {
+                              "seo_words": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "text": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "text"
+                                  ]
+                                }
+                              },
+                              "smart_texts": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "text": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "text"
+                                  ]
+                                }
+                              },
+                              "images": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "height": {
+                                      "type": "integer",
+                                      "format": "int64"
+                                    },
+                                    "width": {
+                                      "type": "integer",
+                                      "format": "int64"
+                                    },
+                                    "uri": {
+                                      "type": "string"
+                                    },
+                                    "url": {
+                                      "type": "string"
+                                    },
+                                    "optimized_uri": {
+                                      "type": "string"
+                                    },
+                                    "optimized_url": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "height",
+                                    "width",
+                                    "uri",
+                                    "url",
+                                    "optimized_uri",
+                                    "optimized_url"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "seo_words",
+                              "smart_texts",
+                              "images"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "field",
+                          "diagnosis_results",
+                          "suggestion"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "listing_quality",
+                    "diagnoses"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "message",
+                "request_id"
+              ]
+            }
+          }
+        },
+        "x-tiktok-api-name": "Diagnose and Optimize Product",
+        "x-tiktok-version": "202411",
+        "x-tiktok-request-samples": {
+          "query": "https://open-api.tiktokglobalshop.com/product/202411/products/diagnose_optimize?app_key=123abc&sign=5361235029d141222525e303d742f9e38aea052d10896d3197ab9d6233730b8c&timestamp=1625484268&shop_cipher=ROW_RHkDDABBAAB8tKAVoAqsMTjsQZFLyNfY",
+          "body": "{\"product_id\":\"1729592969712203232\",\"category_id\":\"600001\",\"description\":\"\\u003cp\\u003ePlease check the measurements before purchase.\\u003c/p\\u003e\\n\\u003cul\\u003e\\n  \\u003cli\\u003eM-Size\\u003c/li\\u003e\\n  \\u003cli\\u003eXL-Size\\u003c/li\\u003e\\n\\u003c/ul\\u003e \\n\\u003cimg src=\\\"https://p16-oec-va.ibyteimg.com/tos-maliva-i-o3syd03w52-us/181595ea7d26489284b5667488d708c1~tplv-o3syd03w52-origin-jpeg.jpeg?from=1432613627\\\" width='100' height='100' /\\u003e \",\"brand_id\":\"7082427311584347905\",\"main_images\":[{\"uri\":\"tos-maliva-i-o3syd03w52-us/c668cdf70b7f483c94dbe\"}],\"title\":\"Men's Fashion Sports Low Cut Cotton Breathable Ankle Short Boat Invisible Socks\",\"product_attributes\":[{\"id\":\"100392\",\"values\":[{\"id\":\"1001533\",\"name\":\"Birthday\"}]}],\"size_chart\":{\"template\":{\"id\":\"7267563252536723205\"},\"image\":{\"uri\":\"tos-maliva-i-o3syd03w52-us/c668cdf70b7f483c94dbe\\n\"}},\"optimization_fields\":\"ALL\"}"
+        },
+        "x-tiktok-response-sample": "{\"code\":0,\"data\":{\"listing_quality\":{\"current_tier\":\"POOR\",\"remaining_recommendations\":3},\"diagnoses\":[{\"field\":\"TITLE\",\"diagnosis_results\":[{\"code\":\"TITLE_LESS_THAN_40_CHARACTERS\",\"how_to_solve\":\"Names must be at least 40 characters long and contain product-identifying information, such as \\\"hiking boots\\\" or \\\"lipstick\\\".\",\"quality_tier\":\"FAIR\"}],\"suggestion\":{\"seo_words\":[{\"text\":\"dress\"}],\"smart_texts\":[{\"text\":\"this is a good title\"}],\"images\":[{\"height\":600,\"width\":600,\"uri\":\"tos-maliva-i-o3syd03w52-us/53b55d6e8cdf1f315affa7e70b45707d\",\"url\":\"https://p16-graph-va.ibyteimg.com/tos-maliva-i-1por3rr4fy-us/v2/53b55d6e8cdf1f315affa7e70b45707d~tplv-1por3rr4fy-image.webp\",\"optimized_uri\":\"tos-maliva-i-o3syd03w52-us/0266127022264e54ad2f639f5e0fb5e6\",\"optimized_url\":\"https://p16-graph-va.ibyteimg.com/tos-maliva-i-1por3rr4fy-us/v2/0266127022264e54ad2f639f5e0fb5e6~tplv-1por3rr4fy-image.webp\"}]}}]},\"message\":\"Success\",\"request_id\":\"202203070749000101890810281E8C70B7\"}",
+        "x-tiktok-common-parameters": [
+          {
+            "Properties": "shop_cipher",
+            "Location": "query",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3",
+            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response."
+          },
+          {
+            "Properties": "Get by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
+            "Location": "",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "content-type",
+            "Location": "header",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "application/json",
+            "Properties description": "Allowed type: application/json"
+          }
+        ],
+        "x-tiktok-request-query-parameters": [
+          {
+            "Properties": "app_key",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "38abcd",
+            "Properties description": "Every single app will have a unique key. Please use the specific key assigned to your app."
+          },
+          {
+            "Properties": "sign",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "5361235029d141222525e303d742f9e38aea052d10896d3197ab9d6233730b8c",
+            "Properties description": "Signature generated by gen algorithm. When you send API requests to TTS, you must sign them so that TTS can identify the senders."
+          },
+          {
+            "Properties": "timestamp",
+            "Type": "int",
+            "Require": "Y",
+            "Sample": "1623812664",
+            "Properties description": "Unix timestamp GMT (UTC+00:00). This timestamp is used across all API requests. Developers can use this convert to local time."
+          }
+        ],
+        "x-tiktok-request-body-parameters": [
+          {
+            "Properties": "product_id",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "1729592969712203232",
+            "Properties description": "The product ID of an existing product in TikTok Shop."
+          },
+          {
+            "Properties": "The product description in HTML format. **Note**: - The content must conform to the [HTML syntax](https://html.spec.whatwg.org/). All HTML tags are accepted but to optimize display on the TikTok Shop product detail page, the system will automatically convert certain tags into alternative formats, such as rendering `` tags as images. - Max length: 10,000 characters. - Images must use TikTok Shop image URLs, not exceed 4000px, and include `src`, `width`, and `height` attributes. **Recommendations**: - If you are syncing a pre-existing description from another platform, include the full HTML source description here. - Provide a detailed description, ideally over 300 characters. - Include 3-5 key selling points, each under 250 characters, with supporting images. - Use 1600x1600 px for the image dimensions.",
+            "Type": "brand_id",
+            "Require": "string",
+            "Sample": "N",
+            "Properties description": "7082427311584347905"
+          }
+        ],
+        "x-tiktok-response-parameters": [
+          {
+            "Properties": "code",
+            "Type": "int",
+            "Sample": "0",
+            "Properties description": "The success or failure status code returned in API response."
+          },
+          {
+            "Properties": "message",
+            "Type": "string",
+            "Sample": "Success",
+            "Properties description": "The success or failure messages returned in API response. Reasons of failure will be described in the message."
+          },
+          {
+            "Properties": "request_id",
+            "Type": "string",
+            "Sample": "202203070749000101890810281E8C70B7",
+            "Properties description": "Request log"
+          },
+          {
+            "Properties": "data",
+            "Type": "object",
+            "Sample": "",
+            "Properties description": "Specific return information"
+          },
+          {
+            "Properties": "^listing_quality",
+            "Type": "object",
+            "Sample": "",
+            "Properties description": "Product listing quality information."
+          },
+          {
+            "Properties": "^^current_tier",
+            "Type": "string",
+            "Sample": "POOR",
+            "Properties description": "The current quality tier of this product listing. The quality tier of a product listing depends on the quality of the content in its product fields such as the title, image, attributes etc."
+          }
+        ],
+        "x-tiktok-error-codes": [],
+        "x-tiktok-source": {
+          "officialPage": "https://partner.tiktokshop.com/docv2/page/diagnose-and-optimize-product-202411",
+          "markdown": "../source/POST__diagnose-and-optimize-product-202411.md",
+          "sha256": "c0d445aeec46b63e9bc2dc28b23b50c712676c0a568f2cb636c78a6cfa9492d4"
+        }
+      }
+    }
+  },
+  "x-tiktok-module": "products",
+  "x-tiktok-source-format": "TikTok Shop Partner Center Download Markdown"
+}

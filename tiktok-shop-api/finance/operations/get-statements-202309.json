@@ -1,0 +1,341 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Get Statements",
+    "version": "202309",
+    "description": "Retrieves the statements generated for a shop and the key statement information based on a specified date range or their payment status. Use this API to get an overview of your daily statements over a range of time, or to find out which statements have been paid or not. For the detailed transactions, refer to [Get Statement Transactions](650a6749defece02be67da87) or [Get Order Statement Transactions](650a6734defece02be67d724).\nApplicable for all regions' sellers. Only data after 2023-07-01 is available."
+  },
+  "host": "open-api.tiktokglobalshop.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/finance/202309/statements": {
+      "get": {
+        "tags": [
+          "finance"
+        ],
+        "operationId": "get_statements_202309",
+        "summary": "Get Statements",
+        "description": "Retrieves the statements generated for a shop and the key statement information based on a specified date range or their payment status. Use this API to get an overview of your daily statements over a range of time, or to find out which statements have been paid or not. For the detailed transactions, refer to [Get Statement Transactions](650a6749defece02be67da87) or [Get Order Statement Transactions](650a6734defece02be67d724).\nApplicable for all regions' sellers. Only data after 2023-07-01 is available.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "shop_cipher",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response.",
+            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
+          },
+          {
+            "name": "content-type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Allowed type: application/json",
+            "example": "application/json"
+          },
+          {
+            "name": "app_key",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Every single app will have a unique key. Please use the specific key assigned to your app.",
+            "example": "38abcd"
+          },
+          {
+            "name": "statement_time_lt",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "Filter statements to show only those that are generated before the specified date and time. Unix timestamp.",
+            "example": "1623812664"
+          },
+          {
+            "name": "payment_status",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Filter statements based on the payment status.",
+            "example": "PAID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response. See source Markdown for complete semantics.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "next_page_token": {
+                      "type": "string"
+                    },
+                    "statements": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "statement_time": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "settlement_amount": {
+                            "type": "string"
+                          },
+                          "currency": {
+                            "type": "string"
+                          },
+                          "revenue_amount": {
+                            "type": "string"
+                          },
+                          "fee_amount": {
+                            "type": "string"
+                          },
+                          "adjustment_amount": {
+                            "type": "string"
+                          },
+                          "payment_status": {
+                            "type": "string"
+                          },
+                          "payment_id": {
+                            "type": "string"
+                          },
+                          "net_sales_amount": {
+                            "type": "string"
+                          },
+                          "shipping_cost_amount": {
+                            "type": "string"
+                          },
+                          "payment_time": {
+                            "type": "integer",
+                            "format": "int64"
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "statement_time",
+                          "settlement_amount",
+                          "currency",
+                          "revenue_amount",
+                          "fee_amount",
+                          "adjustment_amount",
+                          "payment_status",
+                          "payment_id",
+                          "net_sales_amount",
+                          "shipping_cost_amount",
+                          "payment_time"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "next_page_token",
+                    "statements"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "message",
+                "request_id"
+              ]
+            }
+          }
+        },
+        "x-tiktok-api-name": "Get Statements",
+        "x-tiktok-version": "202309",
+        "x-tiktok-request-samples": {
+          "query": "https://open-api.tiktokglobalshop.com/finance/202309/statements?app_key=123abc&sign=5361235029d141222525e303d742f9e38aea052d10896d3197ab9d6233730b8c&timestamp=1625484268&shop_cipher=ROW_RHkDDABBAAB8tKAVoAqsMTjsQZFLyNfY&statement_time_lt=1623812664&payment_status=PAID&page_size=20&page_token=6AsPQsUMvH3RkchNUPPh22NROHkE0D8pmq/N5M1kHYcZmtRyv9aVrNv65W7Q6tFA+7D1ud64MPNz5OaT&sort_field=statement_time&sort_order=ASC&statement_time_ge=1623812664",
+          "body": ""
+        },
+        "x-tiktok-response-sample": "{\"code\":0,\"data\":{\"next_page_token\":\"6AsPQsUMvH3RkchNUPPh22NROHkE0D8pmq/N5M1kHYcZmtRyv9aVrNv65W7Q6tFA+7D1ud64MPNz5OaT\",\"statements\":[{\"id\":\"7238804564097517339\",\"statement_time\":1685548800,\"settlement_amount\":\"100\",\"currency\":\"GBP\",\"revenue_amount\":\"200\",\"fee_amount\":\"-30\",\"adjustment_amount\":\"-70\",\"payment_status\":\"PAID\",\"payment_id\":\"3459275187040258849\",\"net_sales_amount\":\"-70\",\"shipping_cost_amount\":\"-70\",\"payment_time\":1685548800}]},\"message\":\"Success\",\"request_id\":\"202203070749000101890810281E8C70B7\"}",
+        "x-tiktok-common-parameters": [
+          {
+            "Properties": "shop_cipher",
+            "Location": "query",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3",
+            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response."
+          },
+          {
+            "Properties": "Get by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
+            "Location": "",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "content-type",
+            "Location": "header",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "application/json",
+            "Properties description": "Allowed type: application/json"
+          }
+        ],
+        "x-tiktok-request-query-parameters": [
+          {
+            "Properties": "app_key",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "38abcd",
+            "Properties description": "Every single app will have a unique key. Please use the specific key assigned to your app."
+          },
+          {
+            "Properties": "statement_time_lt",
+            "Type": "int",
+            "Require": "N",
+            "Sample": "1623812664",
+            "Properties description": "Filter statements to show only those that are generated before the specified date and time. Unix timestamp."
+          },
+          {
+            "Properties": "Refer to notes in `statement_time_ge` for more usage information.",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "payment_status",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "PAID",
+            "Properties description": "Filter statements based on the payment status."
+          },
+          {
+            "Properties": "Possible values:",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          }
+        ],
+        "x-tiktok-request-body-parameters": [],
+        "x-tiktok-response-parameters": [
+          {
+            "Properties": "code",
+            "Type": "int",
+            "Sample": "0",
+            "Properties description": "The success or failure status code returned in API response."
+          },
+          {
+            "Properties": "message",
+            "Type": "string",
+            "Sample": "Success",
+            "Properties description": "The success or failure messages returned in API response. Reasons of failure will be described in the message."
+          },
+          {
+            "Properties": "request_id",
+            "Type": "string",
+            "Sample": "202203070749000101890810281E8C70B7",
+            "Properties description": "Request log"
+          },
+          {
+            "Properties": "data",
+            "Type": "object",
+            "Sample": "",
+            "Properties description": "Specific return information"
+          },
+          {
+            "Properties": "^next_page_token",
+            "Type": "string",
+            "Sample": "6AsPQsUMvH3RkchNUPPh22NROHkE0D8pmq/N5M1kHYcZmtRyv9aVrNv65W7Q6tFA+7D1ud64MPNz5OaT",
+            "Properties description": "An opaque token used to retrieve the next page of a paginated result set. Provide this value in the `page_token` parameter of your request if the current response does not return all the results."
+          },
+          {
+            "Properties": "^statements",
+            "Type": "[]object",
+            "Sample": "",
+            "Properties description": "The list of statements that meet the query conditions."
+          },
+          {
+            "Properties": "^^id",
+            "Type": "string",
+            "Sample": "7238804564097517339",
+            "Properties description": "The statement ID."
+          },
+          {
+            "Properties": "^^statement_time",
+            "Type": "int",
+            "Sample": "1685548800",
+            "Properties description": "The time when the statement was generated. Unix timestamp."
+          },
+          {
+            "Properties": "Statements are generated daily at 00:00 UTC, and it includes all transactions from the past day.",
+            "Type": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "^^settlement_amount",
+            "Type": "string",
+            "Sample": "100",
+            "Properties description": "The settlement amount."
+          },
+          {
+            "Properties": "^^currency",
+            "Type": "string",
+            "Sample": "GBP",
+            "Properties description": "The currency code in ISO 4217 format."
+          },
+          {
+            "Properties": "^^revenue_amount",
+            "Type": "string",
+            "Sample": "200",
+            "Properties description": "The final revenue amount at the time of order settlement."
+          },
+          {
+            "Properties": "Applicable for all regions except UK and US.",
+            "Type": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "^^fee_amount",
+            "Type": "string",
+            "Sample": "-30",
+            "Properties description": "The fees charged by TikTok Shop at the time of order settlement. An order is deemed settled a certain number of days after delivery (varies by region) if no returns or refunds are pending."
+          }
+        ],
+        "x-tiktok-error-codes": [
+          {
+            "Code": "36009003",
+            "Message": "Internal error. Please try again. If the issue persists after multiple attempts, please contact platform support."
+          }
+        ],
+        "x-tiktok-source": {
+          "officialPage": "https://partner.tiktokshop.com/docv2/page/get-statements-202309",
+          "markdown": "../source/GET__get-statements-202309.md",
+          "sha256": "c6ba0b3ea86382a6882de1ce5d05cb796f715e1bbed4e090de760eb190df96ed"
+        }
+      }
+    }
+  },
+  "x-tiktok-module": "finance",
+  "x-tiktok-source-format": "TikTok Shop Partner Center Download Markdown"
+}

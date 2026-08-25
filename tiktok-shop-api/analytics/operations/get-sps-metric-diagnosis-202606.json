@@ -1,0 +1,509 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Get SPS Metric Diagnosis",
+    "version": "202606",
+    "description": "Returns diagnosis details for a single SPS metric, including benchmark thresholds, trends, calculation details, and distribution details. Supported only for US-region shops."
+  },
+  "host": "open-api.tiktokglobalshop.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/analytics/202606/shop_performances/metrics/{metric_code}/diagnosis": {
+      "get": {
+        "tags": [
+          "analytics"
+        ],
+        "operationId": "get_sps_metric_diagnosis_202606",
+        "summary": "Get SPS Metric Diagnosis",
+        "description": "Returns diagnosis details for a single SPS metric, including benchmark thresholds, trends, calculation details, and distribution details. Supported only for US-region shops.",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "shop_cipher",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response.",
+            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
+          },
+          {
+            "name": "content-type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Allowed type: application/json",
+            "example": "application/json"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "Locale code used to localize response text. If omitted, the default locale is resolved from the request context.",
+            "example": "en-US"
+          },
+          {
+            "name": "trend_duration_days",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "Number of days to look back for metric trend data. Default value is 30.",
+            "example": "30"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response. See source Markdown for complete semantics.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "benchmarks": {
+                      "type": "object",
+                      "properties": {
+                        "excellent_threshold": {
+                          "type": "string"
+                        },
+                        "poor_threshold": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "excellent_threshold",
+                        "poor_threshold"
+                      ]
+                    },
+                    "calculation_rule": {
+                      "type": "object",
+                      "properties": {
+                        "denominator_label": {
+                          "type": "string"
+                        },
+                        "denominator_value": {
+                          "type": "string"
+                        },
+                        "numerator_label": {
+                          "type": "string"
+                        },
+                        "numerator_value": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "denominator_label",
+                        "denominator_value",
+                        "numerator_label",
+                        "numerator_value"
+                      ]
+                    },
+                    "dimension": {
+                      "type": "string"
+                    },
+                    "distribution_details": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "count": {
+                            "type": "integer",
+                            "format": "int64"
+                          },
+                          "name": {
+                            "type": "string"
+                          },
+                          "percent": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "count",
+                          "name",
+                          "percent"
+                        ]
+                      }
+                    },
+                    "evaluate_duration_days": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "end_evaluation_time": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "start_evaluation_time": {
+                      "type": "integer",
+                      "format": "int64"
+                    },
+                    "metric_code": {
+                      "type": "string"
+                    },
+                    "score": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "status_text": {
+                      "type": "string"
+                    },
+                    "trend": {
+                      "type": "object",
+                      "properties": {
+                        "data_points": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "record_date": {
+                                "type": "string"
+                              },
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "record_date",
+                              "value"
+                            ]
+                          }
+                        }
+                      },
+                      "required": [
+                        "data_points"
+                      ]
+                    },
+                    "value": {
+                      "type": "string"
+                    },
+                    "value_unit": {
+                      "type": "string"
+                    },
+                    "analyses": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "summaries": {
+                            "type": "string"
+                          },
+                          "details": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "summaries",
+                          "details"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "benchmarks",
+                    "calculation_rule",
+                    "dimension",
+                    "distribution_details",
+                    "evaluate_duration_days",
+                    "end_evaluation_time",
+                    "start_evaluation_time",
+                    "metric_code",
+                    "score",
+                    "status",
+                    "status_text",
+                    "trend",
+                    "value",
+                    "value_unit",
+                    "analyses"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "message",
+                "request_id"
+              ]
+            }
+          }
+        },
+        "x-tiktok-api-name": "Get SPS Metric Diagnosis",
+        "x-tiktok-version": "202606",
+        "x-tiktok-request-samples": {
+          "query": "https://open-api.tiktokglobalshop.com/analytics/202606/shop_performances/metrics/OTDR/diagnosis?app_key=123abc&sign=5361235029d141222525e303d742f9e38aea052d10896d3197ab9d6233730b8c&timestamp=1625484268&shop_cipher=ROW_RHkDDABBAAB8tKAVoAqsMTjsQZFLyNfY&locale=en-US&trend_duration_days=30",
+          "body": ""
+        },
+        "x-tiktok-response-sample": "{\"code\":0,\"data\":{\"benchmarks\":{\"excellent_threshold\":\"0.98\",\"poor_threshold\":\"0.80\"},\"calculation_rule\":{\"denominator_label\":\"Delivered orders\",\"denominator_value\":\"1000\",\"numerator_label\":\"On-time delivered orders\",\"numerator_value\":\"947\"},\"dimension\":\"Product satisfaction\",\"distribution_details\":[{\"count\":820,\"name\":\"Dispatch 24-48 Hours\",\"percent\":\"82.0\"}],\"evaluate_duration_days\":30,\"end_evaluation_time\":1761264000,\"start_evaluation_time\":1758672000,\"metric_code\":\"OTDR\",\"score\":\"4.3\",\"status\":\"GOOD\",\"status_text\":\"Excellent\",\"trend\":{\"data_points\":[{\"record_date\":\"20260601\",\"value\":\"0.947\"}]},\"value\":\"0.947\",\"value_unit\":\"PERCENT\",\"analyses\":[{\"summaries\":\"Stable performance. Top 3 issues to address.\",\"details\":\"Your 30-day on-time delivery rate is only higher than **% of peers, which is hurting your SPS.\"}]},\"message\":\"Success\",\"request_id\":\"202203070749000101890810281E8C70B7\"}",
+        "x-tiktok-common-parameters": [
+          {
+            "Properties": "shop_cipher",
+            "Location": "query",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3",
+            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response."
+          },
+          {
+            "Properties": "Get by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
+            "Location": "",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "content-type",
+            "Location": "header",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "application/json",
+            "Properties description": "Allowed type: application/json"
+          }
+        ],
+        "x-tiktok-request-query-parameters": [
+          {
+            "Properties": "locale",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "en-US",
+            "Properties description": "Locale code used to localize response text. If omitted, the default locale is resolved from the request context."
+          },
+          {
+            "Properties": "trend_duration_days",
+            "Type": "int",
+            "Require": "N",
+            "Sample": "30",
+            "Properties description": "Number of days to look back for metric trend data. Default value is 30."
+          }
+        ],
+        "x-tiktok-request-body-parameters": [],
+        "x-tiktok-response-parameters": [
+          {
+            "Properties": "code",
+            "Type": "int",
+            "Sample": "0",
+            "Properties description": "The success or failure status code returned in API response."
+          },
+          {
+            "Properties": "message",
+            "Type": "string",
+            "Sample": "Success",
+            "Properties description": "The success or failure messages returned in API response. Reasons of failure will be described in the message."
+          },
+          {
+            "Properties": "request_id",
+            "Type": "string",
+            "Sample": "202203070749000101890810281E8C70B7",
+            "Properties description": "Request log"
+          },
+          {
+            "Properties": "data",
+            "Type": "object",
+            "Sample": "",
+            "Properties description": "Specific return information"
+          },
+          {
+            "Properties": "^benchmarks",
+            "Type": "object",
+            "Sample": "",
+            "Properties description": "Benchmark thresholds for this metric."
+          },
+          {
+            "Properties": "^^excellent_threshold",
+            "Type": "string",
+            "Sample": "0.98",
+            "Properties description": "Excellent tier threshold."
+          },
+          {
+            "Properties": "^^poor_threshold",
+            "Type": "string",
+            "Sample": "0.80",
+            "Properties description": "Poor tier threshold."
+          },
+          {
+            "Properties": "^calculation_rule",
+            "Type": "object",
+            "Sample": "",
+            "Properties description": "Calculation details used to derive this metric."
+          },
+          {
+            "Properties": "^^denominator_label",
+            "Type": "string",
+            "Sample": "Delivered orders",
+            "Properties description": "Denominator label."
+          },
+          {
+            "Properties": "^^denominator_value",
+            "Type": "string",
+            "Sample": "1000",
+            "Properties description": "Denominator value."
+          },
+          {
+            "Properties": "^^numerator_label",
+            "Type": "string",
+            "Sample": "On-time delivered orders",
+            "Properties description": "Numerator label."
+          },
+          {
+            "Properties": "^^numerator_value",
+            "Type": "string",
+            "Sample": "947",
+            "Properties description": "Numerator value."
+          },
+          {
+            "Properties": "^dimension",
+            "Type": "string",
+            "Sample": "Product satisfaction",
+            "Properties description": "SPS dimension that the metric belongs to."
+          },
+          {
+            "Properties": "^distribution_details",
+            "Type": "[]object",
+            "Sample": "",
+            "Properties description": "Additional distribution details for the metric."
+          },
+          {
+            "Properties": "^^count",
+            "Type": "int",
+            "Sample": "820",
+            "Properties description": "Number of items in the distribution bucket."
+          },
+          {
+            "Properties": "^^name",
+            "Type": "string",
+            "Sample": "Dispatch 24-48 Hours",
+            "Properties description": "Distribution detail name."
+          },
+          {
+            "Properties": "^^percent",
+            "Type": "string",
+            "Sample": "82.0",
+            "Properties description": "Percentage of items in the distribution bucket, from 0 to 100."
+          },
+          {
+            "Properties": "^evaluate_duration_days",
+            "Type": "int",
+            "Sample": "30",
+            "Properties description": "Number of days included in the metric evaluation period."
+          },
+          {
+            "Properties": "^end_evaluation_time",
+            "Type": "int",
+            "Sample": "1761264000",
+            "Properties description": "Metric evaluation period end time. Unix timestamp in seconds."
+          },
+          {
+            "Properties": "^start_evaluation_time",
+            "Type": "int",
+            "Sample": "1758672000",
+            "Properties description": "Metric evaluation period start time. Unix timestamp in seconds."
+          },
+          {
+            "Properties": "^metric_code",
+            "Type": "string",
+            "Sample": "OTDR",
+            "Properties description": "Stable metric code. Possible values include NRR, NBFR, SFCR, OTDR, AHT, and IM_DSAT."
+          },
+          {
+            "Properties": "^score",
+            "Type": "string",
+            "Sample": "4.3",
+            "Properties description": "Metric score, from 0 to 5."
+          },
+          {
+            "Properties": "^status",
+            "Type": "string",
+            "Sample": "GOOD",
+            "Properties description": "Metric status. Possible values include EXCELLENT, GOOD, POOR, CRITICAL and NIL."
+          },
+          {
+            "Properties": "^status_text",
+            "Type": "string",
+            "Sample": "Excellent",
+            "Properties description": "Metric status text. Values like Excellent, Good, Normal, Attention."
+          },
+          {
+            "Properties": "^trend",
+            "Type": "object",
+            "Sample": "",
+            "Properties description": "Metric trend over the requested lookback range."
+          },
+          {
+            "Properties": "^^data_points",
+            "Type": "[]object",
+            "Sample": "",
+            "Properties description": "Metric trend data points."
+          },
+          {
+            "Properties": "^^^record_date",
+            "Type": "string",
+            "Sample": "20260601",
+            "Properties description": "Trend date in yyyyMMdd format."
+          },
+          {
+            "Properties": "^^^value",
+            "Type": "string",
+            "Sample": "0.947",
+            "Properties description": "Metric value on the trend date, using the same unit as value_unit."
+          },
+          {
+            "Properties": "^value",
+            "Type": "string",
+            "Sample": "0.947",
+            "Properties description": "Metric value. Ratios are represented as values from 0 to 1; percentages are represented as values from 0 to 100."
+          },
+          {
+            "Properties": "^value_unit",
+            "Type": "string",
+            "Sample": "PERCENT",
+            "Properties description": "Unit of the metric value. Possible values include PERCENT and HOURS."
+          },
+          {
+            "Properties": "^analyses",
+            "Type": "[]object",
+            "Sample": "",
+            "Properties description": "Diagnostic insights for the selected metric."
+          },
+          {
+            "Properties": "^^summaries",
+            "Type": "[]string",
+            "Sample": "Stable performance. Top 3 issues to address.",
+            "Properties description": "Summarized causes affecting the selected metric."
+          },
+          {
+            "Properties": "^^details",
+            "Type": "[]string",
+            "Sample": "Your 30-day on-time delivery rate is only higher than **% of peers, which is hurting your SPS.",
+            "Properties description": "Detailed explanations for the selected metric diagnosis."
+          }
+        ],
+        "x-tiktok-error-codes": [],
+        "x-tiktok-source": {
+          "officialPage": "https://partner.tiktokshop.com/docv2/page/get-sps-metric-diagnosis-202606",
+          "markdown": "../source/GET__get-sps-metric-diagnosis-202606.md",
+          "sha256": "67d4c6d1d18d32daeadf5f92cf4b3b100e29d1a222ccc381dc285fa2b3b1f048"
+        }
+      }
+    }
+  },
+  "x-tiktok-module": "analytics",
+  "x-tiktok-source-format": "TikTok Shop Partner Center Download Markdown"
+}

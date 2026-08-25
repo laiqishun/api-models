@@ -1,0 +1,389 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Get Review Decision",
+    "version": "202606",
+    "description": "Description of [GET]/return_refund/:version/Get_Review_Decision"
+  },
+  "host": "open-api.tiktokglobalshop.com",
+  "schemes": [
+    "https"
+  ],
+  "basePath": "/",
+  "paths": {
+    "/return_refund/202606/review_decision": {
+      "get": {
+        "tags": [
+          "return-and-refund"
+        ],
+        "operationId": "get_review_decision_202606",
+        "summary": "Get Review Decision",
+        "description": "Description of [GET]/return_refund/:version/Get_Review_Decision",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "shop_cipher",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response.",
+            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
+          },
+          {
+            "name": "content-type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Allowed type: application/json",
+            "example": "application/json"
+          },
+          {
+            "name": "seller_id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "description": "The unique identifier of the seller/shop",
+            "example": "7494781899660428507"
+          },
+          {
+            "name": "return_or_cancel_id",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The TikTok Shop return or cancellation request ID to evaluate. Pass the request identifier for the target cancellation, refund, return, or other supported aftersales flow. Do not pass an order ID or order line ID in this field.",
+            "example": "4035319218955782461"
+          },
+          {
+            "name": "locale",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "The BCP-47 locale codes for displaying the return reason, delimited by commas. Default: en-US",
+            "example": "en-US"
+          },
+          {
+            "name": "check_decisions",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "The seller decisions to evaluate for the specified aftersales request. Possible Values:",
+            "example": "APPROVE_REFUND,REJECT_RETURN"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response. See source Markdown for complete semantics.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "format": "int64"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "line_items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "return_line_item_id": {
+                            "type": "string"
+                          },
+                          "sub_return_line_item_id": {
+                            "type": "string"
+                          },
+                          "decisions": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "decision": {
+                                  "type": "string"
+                                },
+                                "eligible": {
+                                  "type": "boolean"
+                                },
+                                "ineligible_code": {
+                                  "type": "integer",
+                                  "format": "int64"
+                                },
+                                "ineligible_reason": {
+                                  "type": "string"
+                                },
+                                "available_reject_reasons": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "text": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "text"
+                                    ]
+                                  }
+                                },
+                                "partial_refund_amount_range": {
+                                  "type": "object",
+                                  "properties": {
+                                    "min_amount": {
+                                      "type": "string"
+                                    },
+                                    "max_amount": {
+                                      "type": "string"
+                                    },
+                                    "currency": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "min_amount",
+                                    "max_amount",
+                                    "currency"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "decision",
+                                "eligible",
+                                "ineligible_code",
+                                "ineligible_reason",
+                                "available_reject_reasons",
+                                "partial_refund_amount_range"
+                              ]
+                            }
+                          }
+                        },
+                        "required": [
+                          "return_line_item_id",
+                          "sub_return_line_item_id",
+                          "decisions"
+                        ]
+                      }
+                    },
+                    "request_log_id": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "code",
+                          "message"
+                        ]
+                      }
+                    }
+                  },
+                  "required": [
+                    "line_items",
+                    "request_log_id",
+                    "errors"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                },
+                "request_id": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code",
+                "data",
+                "message",
+                "request_id"
+              ]
+            }
+          }
+        },
+        "x-tiktok-api-name": "Get Review Decision",
+        "x-tiktok-version": "202606",
+        "x-tiktok-request-samples": {
+          "query": "https://open-api.tiktokglobalshop.com/return_refund/202606/review_decision?app_key=123abc&sign=5361235029d141222525e303d742f9e38aea052d10896d3197ab9d6233730b8c&timestamp=1625484268&shop_cipher=ROW_RHkDDABBAAB8tKAVoAqsMTjsQZFLyNfY&seller_id=7494781899660428507&return_or_cancel_id=4035319218955782461&locale=en-US&check_decisions=APPROVE_REFUND,REJECT_RETURN",
+          "body": ""
+        },
+        "x-tiktok-response-sample": "{\"code\":0,\"data\":{\"line_items\":[{\"return_line_item_id\":\"4035319218955782461\",\"sub_return_line_item_id\":\"4035227657962164815\",\"decisions\":[{\"decision\":\"OFFER_PARTIAL_REFUND_AFTER_RECEIVING_PKG\",\"eligible\":false,\"ineligible_code\":25005020,\"ineligible_reason\":\"the return is already completed, you can't approve again.\",\"available_reject_reasons\":[{\"name\":\"seller_reject_apply_product_has_been_packed\",\"text\":\"The display text for the reject reason.\"}],\"partial_refund_amount_range\":{\"min_amount\":\"2.34\",\"max_amount\":\"3.33\",\"currency\":\"USD\"}}]}],\"request_log_id\":\"20260713225708FB…\",\"errors\":[{\"code\":\"98001004\",\"message\":\"Invalid parameters. Please verify your input before retrying\"}]},\"message\":\"Success\",\"request_id\":\"202203070749000101890810281E8C70B7\"}",
+        "x-tiktok-common-parameters": [
+          {
+            "Properties": "shop_cipher",
+            "Location": "query",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3",
+            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response."
+          },
+          {
+            "Properties": "Get by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
+            "Location": "",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "content-type",
+            "Location": "header",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "application/json",
+            "Properties description": "Allowed type: application/json"
+          }
+        ],
+        "x-tiktok-request-query-parameters": [
+          {
+            "Properties": "seller_id",
+            "Type": "int",
+            "Require": "Y",
+            "Sample": "7494781899660428507",
+            "Properties description": "The unique identifier of the seller/shop"
+          },
+          {
+            "Properties": "return_or_cancel_id",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "4035319218955782461",
+            "Properties description": "The TikTok Shop return or cancellation request ID to evaluate. Pass the request identifier for the target cancellation, refund, return, or other supported aftersales flow. Do not pass an order ID or order line ID in this field."
+          },
+          {
+            "Properties": "locale",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "en-US",
+            "Properties description": "The BCP-47 locale codes for displaying the return reason, delimited by commas. Default: en-US"
+          },
+          {
+            "Properties": "Refer to [Locale codes](678e3a47bae28f030a8c7523) for the list of supported locale codes.",
+            "Type": "",
+            "Require": "",
+            "Sample": "",
+            "Properties description": ""
+          },
+          {
+            "Properties": "check_decisions",
+            "Type": "[]string",
+            "Require": "N",
+            "Sample": "APPROVE_REFUND,REJECT_RETURN",
+            "Properties description": "The seller decisions to evaluate for the specified aftersales request. Possible Values:"
+          }
+        ],
+        "x-tiktok-request-body-parameters": [],
+        "x-tiktok-response-parameters": [
+          {
+            "Properties": "code",
+            "Type": "int",
+            "Sample": "0",
+            "Properties description": "The success or failure status code returned in API response."
+          },
+          {
+            "Properties": "message",
+            "Type": "string",
+            "Sample": "Success",
+            "Properties description": "The success or failure messages returned in API response. Reasons of failure will be described in the message."
+          },
+          {
+            "Properties": "request_id",
+            "Type": "string",
+            "Sample": "202203070749000101890810281E8C70B7",
+            "Properties description": "Request log"
+          },
+          {
+            "Properties": "data",
+            "Type": "object",
+            "Sample": "",
+            "Properties description": "Specific return information"
+          },
+          {
+            "Properties": "^line_items",
+            "Type": "[]object",
+            "Sample": "",
+            "Properties description": "Line items for which this decision applies. Decision details apply to each line item individually (e.g. a partial refund amount of $1.00 for 3 line items will result in a total partial refund amount of $3.00)."
+          },
+          {
+            "Properties": "^^return_line_item_id",
+            "Type": "string",
+            "Sample": "4035319218955782461",
+            "Properties description": "Unique identifier for this item in the return. In the case of virtual bundle, this corresponds to the id of the original parent item bundle."
+          },
+          {
+            "Properties": "^^sub_return_line_item_id",
+            "Type": "string",
+            "Sample": "4035227657962164815",
+            "Properties description": "Unique identifier for this item in the return. In the case of virtual bundle, this corresponds to the id of the current child item being returned."
+          },
+          {
+            "Properties": "^^decisions",
+            "Type": "[]object",
+            "Sample": "",
+            "Properties description": "The list of candidate review decisions for this line item."
+          },
+          {
+            "Properties": "^^^decision",
+            "Type": "string",
+            "Sample": "OFFER_PARTIAL_REFUND_AFTER_RECEIVING_PKG",
+            "Properties description": "Action/decision to be applied."
+          },
+          {
+            "Properties": "Possible values:",
+            "Type": "",
+            "Sample": "",
+            "Properties description": ""
+          }
+        ],
+        "x-tiktok-error-codes": [
+          {
+            "Code": "25001003",
+            "Message": "Invalid order status."
+          },
+          {
+            "Code": "25005020",
+            "Message": "reverse amount not support partial refund"
+          },
+          {
+            "Code": "25005021",
+            "Message": "partial refund only support single sku"
+          },
+          {
+            "Code": "25011010",
+            "Message": "request has been transferred to platform operator"
+          },
+          {
+            "Code": "25011011",
+            "Message": "reverse status cannot reject application"
+          },
+          {
+            "Code": "25011012",
+            "Message": "reverse status cannot approve application"
+          }
+        ],
+        "x-tiktok-source": {
+          "officialPage": "https://partner.tiktokshop.com/docv2/page/get-review-decision-202606",
+          "markdown": "../source/GET__get-review-decision-202606.md",
+          "sha256": "a32edc3bd59349e0bc1cf9cc55f975b9fda3f352e4a71d0b03a81961c8a8684e"
+        }
+      }
+    }
+  },
+  "x-tiktok-module": "return-and-refund",
+  "x-tiktok-source-format": "TikTok Shop Partner Center Download Markdown"
+}
