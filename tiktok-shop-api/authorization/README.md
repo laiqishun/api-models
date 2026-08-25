@@ -1,8 +1,9 @@
-# authorization
+---
+title: TikTok Shop Authorization API
+description: "Authorized shops and authorized category asset operations."
+---
 
-按接口详情页的下载 Markdown 整理。每个 operation JSON 保留结构化契约；`source/` 保留对应官方原文。
+# API List
 
-| Method | Path | Operation | Official Markdown |
-|---|---|---|---|
-| GET | $(@{Module=authorization; Name=Get Authorized Shops; Method=GET; Path=/authorization/202309/shops; SourceName=GET__get-authorized-shops-202309.md; SourceHash=2846ef57cfa57d6081ff08451d876a0dd8be5cb00849a30326debce65ffe438d; OperationName=get-authorized-shops-202309.json}.Path) | [JSON](./operations/get-authorized-shops-202309.json) | [Source](./source/GET__get-authorized-shops-202309.md) |
-| GET | $(@{Module=authorization; Name=Get Authorized Category Assets; Method=GET; Path=/authorization/202405/category_assets; SourceName=GET__get-authorized-category-assets-202405.md; SourceHash=ca9e5dc9313a533cc44639fd35ced81edf0222b8d581802c2e46e721070487f5; OperationName=get-authorized-category-assets-202405.json}.Path) | [JSON](./operations/get-authorized-category-assets-202405.json) | [Source](./source/GET__get-authorized-category-assets-202405.md) |
+- [Get Authorized Category Assets](operations/get-authorized-category-assets-202405.json) (GET /authorization/202405/category_assets)：Retrieves the list of business category assets authorized by a partner for an app. Partner authorization is required before an app can access the data of a partner, and this access is granted based on business categories. Use this API to check which business category assets are currently authorized for an app and obtain the corresponding category asset cipher for use as an input parameter in affiliate partner related APIs. For more information about partner authorization, refer to [Partner authorization guide](678e3a3978f4c20311b8b555). Target partner: All
+- [Get Authorized Shops](operations/get-authorized-shops-202309.json) (GET /authorization/202309/shops)：Retrieves the list of shops that a seller has authorized for an app. Seller authorization is required before an app can access the data of a shop. Use this API to check which shops are currently authorized for an app and obtain the corresponding shop cipher for use as an input parameter in shop related APIs. For more information about seller authorization, refer to [Seller authorization guide](https://partner.tiktokshop.com/docv2/page/678e3a344ddec3030b238fa0). Target seller: All

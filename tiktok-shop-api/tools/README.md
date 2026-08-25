@@ -1,7 +1,8 @@
-# tools
+---
+title: TikTok Shop Tools API
+description: "Shared file and developer tool operations."
+---
 
-按接口详情页的下载 Markdown 整理。每个 operation JSON 保留结构化契约；`source/` 保留对应官方原文。
+# API List
 
-| Method | Path | Operation | Official Markdown |
-|---|---|---|---|
-| POST | $(@{Module=tools; Name=Upload File Init; Method=POST; Path=/open/202512/file/init; SourceName=POST__upload-file-init-202512.md; SourceHash=946156789577dff6e5fbe2a8c3e93beb5d39c52075b6fba584e9da00b219322c; OperationName=upload-file-init-202512.json}.Path) | [JSON](./operations/upload-file-init-202512.json) | [Source](./source/POST__upload-file-init-202512.md) |
+- [Upload File Init](operations/upload-file-init-202512.json) (POST /open/202512/file/init)：To upload a large file to TikTok Shop, such as a video, first use this API to initialize the upload session. Then upload the file to the returned upload URL; files smaller than 5 MB must be uploaded as a single, non-chunked request. After the upload step returns a ResourceId, pass that ResourceId to the API for the target path. For more details, see https://partner.tiktokshop.com/docv2/page/wfi3nz36.
