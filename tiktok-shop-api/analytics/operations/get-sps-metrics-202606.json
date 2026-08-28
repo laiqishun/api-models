@@ -27,14 +27,6 @@
         ],
         "parameters": [
           {
-            "name": "shop_cipher",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response.",
-            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
-          },
-          {
             "name": "content-type",
             "in": "header",
             "required": true,
@@ -43,12 +35,27 @@
             "example": "application/json"
           },
           {
+            "name": "x-tts-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The seller access_token value from [Get Access Token](https://partner.tiktokshop.com/docv2/page/678e3a3292b0f40314a92d75#Get%20Access%20Token%20API), when user_type = 0. Follow this [guide](https://partner.tiktokshop.com/docv2/page/678e3a344ddec3030b238fa0) to get seller access_token."
+          },
+          {
             "name": "locale",
             "in": "query",
             "required": false,
             "type": "string",
             "description": "Locale code used to localize response text. If omitted, the default locale is resolved from the request context.",
             "example": "en-US"
+          },
+          {
+            "name": "shop_cipher",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response. \nGet by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
+            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
           }
         ],
         "responses": {
@@ -59,7 +66,19 @@
               "properties": {
                 "code": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "description": "The success or failure status code returned in API response.",
+                  "example": "0"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "The success or failure messages returned in API response. Reasons of failure will be described in the message.",
+                  "example": "Success"
+                },
+                "request_id": {
+                  "type": "string",
+                  "description": "Request log",
+                  "example": "202203070749000101890810281E8C70B7"
                 },
                 "data": {
                   "type": "object",
@@ -73,92 +92,89 @@
                             "type": "object",
                             "properties": {
                               "excellent_threshold": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Excellent tier threshold.",
+                                "example": "0.02"
                               },
                               "poor_threshold": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Poor tier threshold.",
+                                "example": "0.08"
                               }
                             },
-                            "required": [
-                              "excellent_threshold",
-                              "poor_threshold"
-                            ]
+                            "description": "Benchmark thresholds for the metric."
                           },
                           "dimension": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "SPS dimension that the metric belongs to.",
+                            "example": "Product satisfaction"
                           },
                           "evaluate_duration_days": {
                             "type": "integer",
-                            "format": "int64"
+                            "format": "int64",
+                            "description": "Number of days included in this metric's evaluation period.",
+                            "example": "30"
                           },
                           "end_evaluation_time": {
                             "type": "integer",
-                            "format": "int64"
+                            "format": "int64",
+                            "description": "Metric evaluation period end time. Unix timestamp in seconds.",
+                            "example": "1761264000"
                           },
                           "start_evaluation_time": {
                             "type": "integer",
-                            "format": "int64"
+                            "format": "int64",
+                            "description": "Metric evaluation period start time. Unix timestamp in seconds.",
+                            "example": "1758672000"
                           },
                           "metric_code": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Stable metric code. Possible values include NRR, NBFR, SFCR, OTDR, AHT, and IM_DSAT.",
+                            "example": "NRR"
                           },
                           "metric_name": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Localized metric display name.",
+                            "example": "60-day negative review rate"
                           },
                           "score": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Metric score, from 0 to 5.",
+                            "example": "4.7"
                           },
                           "status": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Metric status. Possible values include EXCELLENT, GOOD, POOR, CRITICAL and NIL.",
+                            "example": "EXCELLENT"
                           },
                           "status_text": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Metric status text. Values like Excellent, Good, Normal, Attention.",
+                            "example": "Excellent"
                           },
                           "value": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Metric value. Hours are represented as values; percentages are represented as values from 0 to 100.",
+                            "example": "0.97"
                           },
                           "value_unit": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Unit of the metric value. Possible values include PERCENT and HOURS.",
+                            "example": "PERCENT"
                           },
                           "top_reason_text": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Indicates that this metric is a key contributor to SPS.",
+                            "example": "Top opportunity"
                           }
-                        },
-                        "required": [
-                          "benchmarks",
-                          "dimension",
-                          "evaluate_duration_days",
-                          "end_evaluation_time",
-                          "start_evaluation_time",
-                          "metric_code",
-                          "metric_name",
-                          "score",
-                          "status",
-                          "status_text",
-                          "value",
-                          "value_unit",
-                          "top_reason_text"
-                        ]
-                      }
+                        }
+                      },
+                      "description": "Fixed complete SPS metric set for the authorized shop."
                     }
                   },
-                  "required": [
-                    "metrics"
-                  ]
-                },
-                "message": {
-                  "type": "string"
-                },
-                "request_id": {
-                  "type": "string"
+                  "description": "Specific return information"
                 }
-              },
-              "required": [
-                "code",
-                "data",
-                "message",
-                "request_id"
-              ]
+              }
             }
           }
         },
@@ -171,28 +187,20 @@
         "x-tiktok-response-sample": "{\"code\":0,\"data\":{\"metrics\":[{\"benchmarks\":{\"excellent_threshold\":\"0.02\",\"poor_threshold\":\"0.08\"},\"dimension\":\"Product satisfaction\",\"evaluate_duration_days\":30,\"end_evaluation_time\":1761264000,\"start_evaluation_time\":1758672000,\"metric_code\":\"NRR\",\"metric_name\":\"60-day negative review rate\",\"score\":\"4.7\",\"status\":\"EXCELLENT\",\"status_text\":\"Excellent\",\"value\":\"0.97\",\"value_unit\":\"PERCENT\",\"top_reason_text\":\"Top opportunity\"}]},\"message\":\"Success\",\"request_id\":\"202203070749000101890810281E8C70B7\"}",
         "x-tiktok-common-parameters": [
           {
-            "Properties": "shop_cipher",
-            "Location": "query",
-            "Type": "string",
-            "Require": "Y",
-            "Sample": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3",
-            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response."
-          },
-          {
-            "Properties": "Get by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
-            "Location": "",
-            "Type": "",
-            "Require": "",
-            "Sample": "",
-            "Properties description": ""
-          },
-          {
             "Properties": "content-type",
-            "Location": "header",
             "Type": "string",
             "Require": "Y",
             "Sample": "application/json",
-            "Properties description": "Allowed type: application/json"
+            "Properties description": "Allowed type: application/json",
+            "Location": "header"
+          },
+          {
+            "Properties": "x-tts-access-token",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "",
+            "Properties description": "The seller access_token value from [Get Access Token](https://partner.tiktokshop.com/docv2/page/678e3a3292b0f40314a92d75#Get%20Access%20Token%20API), when user_type = 0. Follow this [guide](https://partner.tiktokshop.com/docv2/page/678e3a344ddec3030b238fa0) to get seller access_token.",
+            "Location": "header"
           }
         ],
         "x-tiktok-request-query-parameters": [
@@ -202,6 +210,13 @@
             "Require": "N",
             "Sample": "en-US",
             "Properties description": "Locale code used to localize response text. If omitted, the default locale is resolved from the request context."
+          },
+          {
+            "Properties": "shop_cipher",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "",
+            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response. \nGet by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)"
           }
         ],
         "x-tiktok-request-body-parameters": [],
@@ -209,130 +224,165 @@
           {
             "Properties": "code",
             "Type": "int",
+            "Require": "N",
             "Sample": "0",
             "Properties description": "The success or failure status code returned in API response."
           },
           {
             "Properties": "message",
             "Type": "string",
+            "Require": "N",
             "Sample": "Success",
             "Properties description": "The success or failure messages returned in API response. Reasons of failure will be described in the message."
           },
           {
             "Properties": "request_id",
             "Type": "string",
+            "Require": "N",
             "Sample": "202203070749000101890810281E8C70B7",
             "Properties description": "Request log"
           },
           {
             "Properties": "data",
             "Type": "object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "Specific return information"
           },
           {
             "Properties": "^metrics",
             "Type": "[]object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "Fixed complete SPS metric set for the authorized shop."
           },
           {
             "Properties": "^^benchmarks",
             "Type": "object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "Benchmark thresholds for the metric."
           },
           {
             "Properties": "^^^excellent_threshold",
             "Type": "string",
+            "Require": "N",
             "Sample": "0.02",
             "Properties description": "Excellent tier threshold."
           },
           {
             "Properties": "^^^poor_threshold",
             "Type": "string",
+            "Require": "N",
             "Sample": "0.08",
             "Properties description": "Poor tier threshold."
           },
           {
             "Properties": "^^dimension",
             "Type": "string",
+            "Require": "N",
             "Sample": "Product satisfaction",
             "Properties description": "SPS dimension that the metric belongs to."
           },
           {
             "Properties": "^^evaluate_duration_days",
             "Type": "int",
+            "Require": "N",
             "Sample": "30",
             "Properties description": "Number of days included in this metric's evaluation period."
           },
           {
             "Properties": "^^end_evaluation_time",
             "Type": "int",
+            "Require": "N",
             "Sample": "1761264000",
             "Properties description": "Metric evaluation period end time. Unix timestamp in seconds."
           },
           {
             "Properties": "^^start_evaluation_time",
             "Type": "int",
+            "Require": "N",
             "Sample": "1758672000",
             "Properties description": "Metric evaluation period start time. Unix timestamp in seconds."
           },
           {
             "Properties": "^^metric_code",
             "Type": "string",
+            "Require": "N",
             "Sample": "NRR",
             "Properties description": "Stable metric code. Possible values include NRR, NBFR, SFCR, OTDR, AHT, and IM_DSAT."
           },
           {
             "Properties": "^^metric_name",
             "Type": "string",
+            "Require": "N",
             "Sample": "60-day negative review rate",
             "Properties description": "Localized metric display name."
           },
           {
             "Properties": "^^score",
             "Type": "string",
+            "Require": "N",
             "Sample": "4.7",
             "Properties description": "Metric score, from 0 to 5."
           },
           {
             "Properties": "^^status",
             "Type": "string",
+            "Require": "N",
             "Sample": "EXCELLENT",
             "Properties description": "Metric status. Possible values include EXCELLENT, GOOD, POOR, CRITICAL and NIL."
           },
           {
             "Properties": "^^status_text",
             "Type": "string",
+            "Require": "N",
             "Sample": "Excellent",
             "Properties description": "Metric status text. Values like Excellent, Good, Normal, Attention."
           },
           {
             "Properties": "^^value",
             "Type": "string",
+            "Require": "N",
             "Sample": "0.97",
             "Properties description": "Metric value. Hours are represented as values; percentages are represented as values from 0 to 100."
           },
           {
             "Properties": "^^value_unit",
             "Type": "string",
+            "Require": "N",
             "Sample": "PERCENT",
             "Properties description": "Unit of the metric value. Possible values include PERCENT and HOURS."
           },
           {
             "Properties": "^^top_reason_text",
             "Type": "string",
+            "Require": "N",
             "Sample": "Top opportunity",
             "Properties description": "Indicates that this metric is a key contributor to SPS."
           }
         ],
-        "x-tiktok-error-codes": [],
+        "x-tiktok-error-codes": [
+          {
+            "Code": "",
+            "Message": ""
+          }
+        ],
         "x-tiktok-source": {
           "officialPage": "https://partner.tiktokshop.com/docv2/page/get-sps-metrics-202606",
           "markdown": "../source/GET__get-sps-metrics-202606.md",
           "sha256": "8d93a8c54a633b102f9fbe82ff01161c4dd2bc6460a7ac7c27ec069493f8e3ab"
-        }
+        },
+        "x-tiktok-required-scopes": [
+          "data.shop_analytics.public.read"
+        ],
+        "x-tiktok-api-auth-info": [
+          {
+            "package": "TikTok Shop Analytics",
+            "package_type": "Public"
+          }
+        ],
+        "x-tiktok-shop-cipher-required": true
       }
     }
   },

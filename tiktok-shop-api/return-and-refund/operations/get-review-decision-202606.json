@@ -27,14 +27,6 @@
         ],
         "parameters": [
           {
-            "name": "shop_cipher",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response.",
-            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
-          },
-          {
             "name": "content-type",
             "in": "header",
             "required": true,
@@ -43,11 +35,18 @@
             "example": "application/json"
           },
           {
+            "name": "x-tts-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The seller access_token value from [Get Access Token](https://partner.tiktokshop.com/docv2/page/678e3a3292b0f40314a92d75#Get%20Access%20Token%20API), when user_type = 0. Follow this [guide](https://partner.tiktokshop.com/docv2/page/678e3a344ddec3030b238fa0) to get seller access_token."
+          },
+          {
             "name": "seller_id",
             "in": "query",
             "required": true,
             "type": "integer",
-            "description": "The unique identifier of the seller/shop",
+            "description": "The unique identifier of the seller/shop ",
             "example": "7494781899660428507"
           },
           {
@@ -63,16 +62,24 @@
             "in": "query",
             "required": false,
             "type": "string",
-            "description": "The BCP-47 locale codes for displaying the return reason, delimited by commas. Default: en-US",
+            "description": "The BCP-47 locale codes for displaying the return reason, delimited by commas. Default: en-US\nRefer to [Locale codes](678e3a47bae28f030a8c7523) for the list of supported locale codes.",
             "example": "en-US"
           },
           {
             "name": "check_decisions",
             "in": "query",
             "required": false,
-            "type": "string",
-            "description": "The seller decisions to evaluate for the specified aftersales request. Possible Values:",
+            "type": "array",
+            "description": "The seller decisions to evaluate for the specified aftersales request. Possible Values:\n- `APPROVE_REQUEST_CANCEL`\n- `APPROVE_REFUND`\n- `APPROVE_RETURN`\n- `APPROVE_RECEIVED_PACKAGE`\n- `APPROVE_REPLACEMENT`\n- `ISSUE_REPLACEMENT_REFUND`\n- `DIRECT_REFUND`\n- `REJECT_REQUEST_CANCEL`\n- `REJECT_REFUND`\n- `REJECT_RETURN`\n- `REJECT_RECEIVED_PACKAGE`\n- `REJECT_REPLACEMENT`\n-`ISSUE_EXCHANGE_REFUND`\n-`OFFER_PARTIAL_REFUND_AFTER_RECEIVING_PKG`\n**Note:** When omitted, the API evaluates all supported seller decisions for the request and returns one result per decision.",
             "example": "APPROVE_REFUND,REJECT_RETURN"
+          },
+          {
+            "name": "shop_cipher",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response. \nGet by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
+            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
           }
         ],
         "responses": {
@@ -83,7 +90,19 @@
               "properties": {
                 "code": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "description": "The success or failure status code returned in API response.",
+                  "example": "0"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "The success or failure messages returned in API response. Reasons of failure will be described in the message.",
+                  "example": "Success"
+                },
+                "request_id": {
+                  "type": "string",
+                  "description": "Request log",
+                  "example": "202203070749000101890810281E8C70B7"
                 },
                 "data": {
                   "type": "object",
@@ -94,10 +113,14 @@
                         "type": "object",
                         "properties": {
                           "return_line_item_id": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Unique identifier for this item in the return. In the case of virtual bundle, this corresponds to the id of the original parent item bundle.",
+                            "example": "4035319218955782461"
                           },
                           "sub_return_line_item_id": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Unique identifier for this item in the return. In the case of virtual bundle, this corresponds to the id of the current child item being returned.",
+                            "example": "4035227657962164815"
                           },
                           "decisions": {
                             "type": "array",
@@ -105,17 +128,25 @@
                               "type": "object",
                               "properties": {
                                 "decision": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "description": "Action/decision to be applied.\nPossible values:\n- `APPROVE_REQUEST`\n- `APPROVE_RETURN_PACKAGE`\n- `REJECT_REQUEST`\n- `REJECT_RETURN_PACKAGE`\n- `REFUND_INSTEAD`\n- `OFFER_PARTIAL_REFUND`\n- `OFFER_PARTIAL_REFUND_AFTER_RECEIVING_PKG`",
+                                  "example": "OFFER_PARTIAL_REFUND_AFTER_RECEIVING_PKG"
                                 },
                                 "eligible": {
-                                  "type": "boolean"
+                                  "type": "boolean",
+                                  "description": "Use this field to recognize whether an decision is eligible for an return or cancellation:\n- TRUE\n- FALSE",
+                                  "example": "false"
                                 },
                                 "ineligible_code": {
                                   "type": "integer",
-                                  "format": "int64"
+                                  "format": "int64",
+                                  "description": "The reason code for an ineligible decision.",
+                                  "example": "25005020"
                                 },
                                 "ineligible_reason": {
-                                  "type": "string"
+                                  "type": "string",
+                                  "description": "The reason for an ineligible decision.",
+                                  "example": "the return is already completed, you can't approve again."
                                 },
                                 "available_reject_reasons": {
                                   "type": "array",
@@ -123,58 +154,52 @@
                                     "type": "object",
                                     "properties": {
                                       "name": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "description": "The reject reason name seller can use to reject buyer's return or cancellation request.",
+                                        "example": "seller_reject_apply_product_has_been_packed"
                                       },
                                       "text": {
-                                        "type": "string"
+                                        "type": "string",
+                                        "description": "Product shipped. Tracking updates will be available soon.The display text for the reject reason.",
+                                        "example": "The display text for the reject reason."
                                       }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "text"
-                                    ]
-                                  }
+                                    }
+                                  },
+                                  "description": "The reject reason name seller can use to reject buyer's return or cancellation request."
                                 },
                                 "partial_refund_amount_range": {
                                   "type": "object",
                                   "properties": {
                                     "min_amount": {
-                                      "type": "string"
+                                      "type": "string",
+                                      "description": "The minimum partial refund amount the seller may offer.",
+                                      "example": "2.34"
                                     },
                                     "max_amount": {
-                                      "type": "string"
+                                      "type": "string",
+                                      "description": "The maximum partial refund amount the seller may offer.",
+                                      "example": "3.33"
                                     },
                                     "currency": {
-                                      "type": "string"
+                                      "type": "string",
+                                      "description": "The currency of the partial refund amount range, matching the currency of the current return request.",
+                                      "example": "USD"
                                     }
                                   },
-                                  "required": [
-                                    "min_amount",
-                                    "max_amount",
-                                    "currency"
-                                  ]
+                                  "description": "The allowed partial refund amount band. Returned for the `OFFER_PARTIAL_REFUND_AFTER_RECEIVING_PKG` decision when it is eligible; omitted for all other decisions."
                                 }
-                              },
-                              "required": [
-                                "decision",
-                                "eligible",
-                                "ineligible_code",
-                                "ineligible_reason",
-                                "available_reject_reasons",
-                                "partial_refund_amount_range"
-                              ]
-                            }
+                              }
+                            },
+                            "description": "The list of candidate review decisions for this line item."
                           }
-                        },
-                        "required": [
-                          "return_line_item_id",
-                          "sub_return_line_item_id",
-                          "decisions"
-                        ]
-                      }
+                        }
+                      },
+                      "description": "Line items for which this decision applies. Decision details apply to each line item individually (e.g. a partial refund amount of $1.00 for 3 line items will result in a total partial refund amount of $3.00)."
                     },
                     "request_log_id": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "The log id of this request, used for troubleshooting with TikTok Shop support.",
+                      "example": "20260713225708FB…"
                     },
                     "errors": {
                       "type": "array",
@@ -182,38 +207,23 @@
                         "type": "object",
                         "properties": {
                           "code": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Error Code",
+                            "example": "98001004"
                           },
                           "message": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Error Description",
+                            "example": "Invalid parameters. Please verify your input before retrying"
                           }
-                        },
-                        "required": [
-                          "code",
-                          "message"
-                        ]
-                      }
+                        }
+                      },
+                      "description": "Lists errors for partially failed requests. For example, if a request reviews multiple orders or items and only some fail, individual error details are returned here.\n**IMPORTANT**: Partial failures still return a top-level success code (0), so clients must also check this field to detect partial errors. For complete failures (e.g. validation errors), the top-level response code and message will indicate a failure, but this field will remain empty."
                     }
                   },
-                  "required": [
-                    "line_items",
-                    "request_log_id",
-                    "errors"
-                  ]
-                },
-                "message": {
-                  "type": "string"
-                },
-                "request_id": {
-                  "type": "string"
+                  "description": "Specific return information"
                 }
-              },
-              "required": [
-                "code",
-                "data",
-                "message",
-                "request_id"
-              ]
+              }
             }
           }
         },
@@ -226,28 +236,20 @@
         "x-tiktok-response-sample": "{\"code\":0,\"data\":{\"line_items\":[{\"return_line_item_id\":\"4035319218955782461\",\"sub_return_line_item_id\":\"4035227657962164815\",\"decisions\":[{\"decision\":\"OFFER_PARTIAL_REFUND_AFTER_RECEIVING_PKG\",\"eligible\":false,\"ineligible_code\":25005020,\"ineligible_reason\":\"the return is already completed, you can't approve again.\",\"available_reject_reasons\":[{\"name\":\"seller_reject_apply_product_has_been_packed\",\"text\":\"The display text for the reject reason.\"}],\"partial_refund_amount_range\":{\"min_amount\":\"2.34\",\"max_amount\":\"3.33\",\"currency\":\"USD\"}}]}],\"request_log_id\":\"20260713225708FB…\",\"errors\":[{\"code\":\"98001004\",\"message\":\"Invalid parameters. Please verify your input before retrying\"}]},\"message\":\"Success\",\"request_id\":\"202203070749000101890810281E8C70B7\"}",
         "x-tiktok-common-parameters": [
           {
-            "Properties": "shop_cipher",
-            "Location": "query",
-            "Type": "string",
-            "Require": "Y",
-            "Sample": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3",
-            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response."
-          },
-          {
-            "Properties": "Get by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
-            "Location": "",
-            "Type": "",
-            "Require": "",
-            "Sample": "",
-            "Properties description": ""
-          },
-          {
             "Properties": "content-type",
-            "Location": "header",
             "Type": "string",
             "Require": "Y",
             "Sample": "application/json",
-            "Properties description": "Allowed type: application/json"
+            "Properties description": "Allowed type: application/json",
+            "Location": "header"
+          },
+          {
+            "Properties": "x-tts-access-token",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "",
+            "Properties description": "The seller access_token value from [Get Access Token](https://partner.tiktokshop.com/docv2/page/678e3a3292b0f40314a92d75#Get%20Access%20Token%20API), when user_type = 0. Follow this [guide](https://partner.tiktokshop.com/docv2/page/678e3a344ddec3030b238fa0) to get seller access_token.",
+            "Location": "header"
           }
         ],
         "x-tiktok-request-query-parameters": [
@@ -256,7 +258,7 @@
             "Type": "int",
             "Require": "Y",
             "Sample": "7494781899660428507",
-            "Properties description": "The unique identifier of the seller/shop"
+            "Properties description": "The unique identifier of the seller/shop "
           },
           {
             "Properties": "return_or_cancel_id",
@@ -270,21 +272,21 @@
             "Type": "string",
             "Require": "N",
             "Sample": "en-US",
-            "Properties description": "The BCP-47 locale codes for displaying the return reason, delimited by commas. Default: en-US"
-          },
-          {
-            "Properties": "Refer to [Locale codes](678e3a47bae28f030a8c7523) for the list of supported locale codes.",
-            "Type": "",
-            "Require": "",
-            "Sample": "",
-            "Properties description": ""
+            "Properties description": "The BCP-47 locale codes for displaying the return reason, delimited by commas. Default: en-US\nRefer to [Locale codes](678e3a47bae28f030a8c7523) for the list of supported locale codes."
           },
           {
             "Properties": "check_decisions",
             "Type": "[]string",
             "Require": "N",
             "Sample": "APPROVE_REFUND,REJECT_RETURN",
-            "Properties description": "The seller decisions to evaluate for the specified aftersales request. Possible Values:"
+            "Properties description": "The seller decisions to evaluate for the specified aftersales request. Possible Values:\n- `APPROVE_REQUEST_CANCEL`\n- `APPROVE_REFUND`\n- `APPROVE_RETURN`\n- `APPROVE_RECEIVED_PACKAGE`\n- `APPROVE_REPLACEMENT`\n- `ISSUE_REPLACEMENT_REFUND`\n- `DIRECT_REFUND`\n- `REJECT_REQUEST_CANCEL`\n- `REJECT_REFUND`\n- `REJECT_RETURN`\n- `REJECT_RECEIVED_PACKAGE`\n- `REJECT_REPLACEMENT`\n-`ISSUE_EXCHANGE_REFUND`\n-`OFFER_PARTIAL_REFUND_AFTER_RECEIVING_PKG`\n**Note:** When omitted, the API evaluates all supported seller decisions for the request and returns one result per decision."
+          },
+          {
+            "Properties": "shop_cipher",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "",
+            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response. \nGet by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)"
           }
         ],
         "x-tiktok-request-body-parameters": [],
@@ -292,62 +294,163 @@
           {
             "Properties": "code",
             "Type": "int",
+            "Require": "N",
             "Sample": "0",
             "Properties description": "The success or failure status code returned in API response."
           },
           {
             "Properties": "message",
             "Type": "string",
+            "Require": "N",
             "Sample": "Success",
             "Properties description": "The success or failure messages returned in API response. Reasons of failure will be described in the message."
           },
           {
             "Properties": "request_id",
             "Type": "string",
+            "Require": "N",
             "Sample": "202203070749000101890810281E8C70B7",
             "Properties description": "Request log"
           },
           {
             "Properties": "data",
             "Type": "object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "Specific return information"
           },
           {
             "Properties": "^line_items",
             "Type": "[]object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "Line items for which this decision applies. Decision details apply to each line item individually (e.g. a partial refund amount of $1.00 for 3 line items will result in a total partial refund amount of $3.00)."
           },
           {
             "Properties": "^^return_line_item_id",
             "Type": "string",
+            "Require": "N",
             "Sample": "4035319218955782461",
             "Properties description": "Unique identifier for this item in the return. In the case of virtual bundle, this corresponds to the id of the original parent item bundle."
           },
           {
             "Properties": "^^sub_return_line_item_id",
             "Type": "string",
+            "Require": "N",
             "Sample": "4035227657962164815",
             "Properties description": "Unique identifier for this item in the return. In the case of virtual bundle, this corresponds to the id of the current child item being returned."
           },
           {
             "Properties": "^^decisions",
             "Type": "[]object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "The list of candidate review decisions for this line item."
           },
           {
             "Properties": "^^^decision",
             "Type": "string",
+            "Require": "N",
             "Sample": "OFFER_PARTIAL_REFUND_AFTER_RECEIVING_PKG",
-            "Properties description": "Action/decision to be applied."
+            "Properties description": "Action/decision to be applied.\nPossible values:\n- `APPROVE_REQUEST`\n- `APPROVE_RETURN_PACKAGE`\n- `REJECT_REQUEST`\n- `REJECT_RETURN_PACKAGE`\n- `REFUND_INSTEAD`\n- `OFFER_PARTIAL_REFUND`\n- `OFFER_PARTIAL_REFUND_AFTER_RECEIVING_PKG`"
           },
           {
-            "Properties": "Possible values:",
-            "Type": "",
+            "Properties": "^^^eligible",
+            "Type": "bool",
+            "Require": "N",
+            "Sample": "false",
+            "Properties description": "Use this field to recognize whether an decision is eligible for an return or cancellation:\n- TRUE\n- FALSE"
+          },
+          {
+            "Properties": "^^^ineligible_code",
+            "Type": "int",
+            "Require": "N",
+            "Sample": "25005020",
+            "Properties description": "The reason code for an ineligible decision."
+          },
+          {
+            "Properties": "^^^ineligible_reason",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "the return is already completed, you can't approve again.",
+            "Properties description": "The reason for an ineligible decision."
+          },
+          {
+            "Properties": "^^^available_reject_reasons",
+            "Type": "[]object",
+            "Require": "N",
             "Sample": "",
-            "Properties description": ""
+            "Properties description": "The reject reason name seller can use to reject buyer's return or cancellation request."
+          },
+          {
+            "Properties": "^^^^name",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "seller_reject_apply_product_has_been_packed",
+            "Properties description": "The reject reason name seller can use to reject buyer's return or cancellation request."
+          },
+          {
+            "Properties": "^^^^text",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "The display text for the reject reason.",
+            "Properties description": "Product shipped. Tracking updates will be available soon.The display text for the reject reason."
+          },
+          {
+            "Properties": "^^^partial_refund_amount_range",
+            "Type": "object",
+            "Require": "N",
+            "Sample": "",
+            "Properties description": "The allowed partial refund amount band. Returned for the `OFFER_PARTIAL_REFUND_AFTER_RECEIVING_PKG` decision when it is eligible; omitted for all other decisions."
+          },
+          {
+            "Properties": "^^^^min_amount",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "2.34",
+            "Properties description": "The minimum partial refund amount the seller may offer."
+          },
+          {
+            "Properties": "^^^^max_amount",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "3.33",
+            "Properties description": "The maximum partial refund amount the seller may offer."
+          },
+          {
+            "Properties": "^^^^currency",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "USD",
+            "Properties description": "The currency of the partial refund amount range, matching the currency of the current return request."
+          },
+          {
+            "Properties": "^request_log_id",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "20260713225708FB…",
+            "Properties description": "The log id of this request, used for troubleshooting with TikTok Shop support."
+          },
+          {
+            "Properties": "^errors",
+            "Type": "[]object",
+            "Require": "N",
+            "Sample": "",
+            "Properties description": "Lists errors for partially failed requests. For example, if a request reviews multiple orders or items and only some fail, individual error details are returned here.\n**IMPORTANT**: Partial failures still return a top-level success code (0), so clients must also check this field to detect partial errors. For complete failures (e.g. validation errors), the top-level response code and message will indicate a failure, but this field will remain empty."
+          },
+          {
+            "Properties": "^^code",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "98001004",
+            "Properties description": "Error Code"
+          },
+          {
+            "Properties": "^^message",
+            "Type": "string",
+            "Require": "N",
+            "Sample": "Invalid parameters. Please verify your input before retrying",
+            "Properties description": "Error Description"
           }
         ],
         "x-tiktok-error-codes": [
@@ -380,7 +483,17 @@
           "officialPage": "https://partner.tiktokshop.com/docv2/page/get-review-decision-202606",
           "markdown": "../source/GET__get-review-decision-202606.md",
           "sha256": "a32edc3bd59349e0bc1cf9cc55f975b9fda3f352e4a71d0b03a81961c8a8684e"
-        }
+        },
+        "x-tiktok-required-scopes": [
+          "seller.return_refund.basic"
+        ],
+        "x-tiktok-api-auth-info": [
+          {
+            "package": "",
+            "package_type": ""
+          }
+        ],
+        "x-tiktok-shop-cipher-required": true
       }
     }
   },

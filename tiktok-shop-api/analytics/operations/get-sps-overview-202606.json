@@ -27,14 +27,6 @@
         ],
         "parameters": [
           {
-            "name": "shop_cipher",
-            "in": "query",
-            "required": true,
-            "type": "string",
-            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response.",
-            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
-          },
-          {
             "name": "content-type",
             "in": "header",
             "required": true,
@@ -43,12 +35,27 @@
             "example": "application/json"
           },
           {
+            "name": "x-tts-access-token",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "The seller access_token value from [Get Access Token](https://partner.tiktokshop.com/docv2/page/678e3a3292b0f40314a92d75#Get%20Access%20Token%20API), when user_type = 0. Follow this [guide](https://partner.tiktokshop.com/docv2/page/678e3a344ddec3030b238fa0) to get seller access_token."
+          },
+          {
             "name": "locale",
             "in": "query",
             "required": false,
             "type": "string",
             "description": "Locale code used to localize response text. If omitted, the default locale is resolved from the request context.",
             "example": "en-US"
+          },
+          {
+            "name": "shop_cipher",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response. \nGet by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
+            "example": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3"
           }
         ],
         "responses": {
@@ -59,7 +66,19 @@
               "properties": {
                 "code": {
                   "type": "integer",
-                  "format": "int64"
+                  "format": "int64",
+                  "description": "The success or failure status code returned in API response.",
+                  "example": "0"
+                },
+                "message": {
+                  "type": "string",
+                  "description": "The success or failure messages returned in API response. Reasons of failure will be described in the message.",
+                  "example": "Success"
+                },
+                "request_id": {
+                  "type": "string",
+                  "description": "Request log",
+                  "example": "202203070749000101890810281E8C70B7"
                 },
                 "data": {
                   "type": "object",
@@ -70,21 +89,23 @@
                         "type": "object",
                         "properties": {
                           "benefit_name": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Benefit display name localized by the requested locale.",
+                            "example": "LIVE giveaway"
                           },
                           "is_unlocked": {
-                            "type": "boolean"
+                            "type": "boolean",
+                            "description": "Whether the shop has unlocked this benefit.",
+                            "example": "true"
                           },
                           "unlock_score": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Score required to unlock the benefit, from 0 to 5.",
+                            "example": "4.5"
                           }
-                        },
-                        "required": [
-                          "benefit_name",
-                          "is_unlocked",
-                          "unlock_score"
-                        ]
-                      }
+                        }
+                      },
+                      "description": "Fixed complete set of benefits associated with the shop SPS score."
                     },
                     "dimensions": {
                       "type": "array",
@@ -92,68 +113,87 @@
                         "type": "object",
                         "properties": {
                           "name": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Dimension name.",
+                            "example": "Product satisfaction"
                           },
                           "score": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Dimension score, from 0 to 5.",
+                            "example": "4.8"
                           },
                           "status": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Dimension status enum. Possible values include EXCELLENT, GOOD, POOR, CRITICAL and NIL.",
+                            "example": "EXCELLENT"
                           },
                           "status_text": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Dimension status text. Values like Excellent, Good, Normal, Attention.",
+                            "example": "Excellent"
                           },
                           "weight": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "Dimension weight as a percent from 0 to 100.",
+                            "example": "70"
                           }
-                        },
-                        "required": [
-                          "name",
-                          "score",
-                          "status",
-                          "status_text",
-                          "weight"
-                        ]
-                      }
+                        }
+                      },
+                      "description": "Score details by SPS dimension."
                     },
                     "evaluate_duration_days": {
                       "type": "integer",
-                      "format": "int64"
+                      "format": "int64",
+                      "description": "The number of days included in the score evaluation period.",
+                      "example": "90"
                     },
                     "end_evaluation_time": {
                       "type": "integer",
-                      "format": "int64"
+                      "format": "int64",
+                      "description": "The evaluation period end time. Unix timestamp in seconds.",
+                      "example": "1782518400"
                     },
                     "start_evaluation_time": {
                       "type": "integer",
-                      "format": "int64"
+                      "format": "int64",
+                      "description": "The evaluation period start time. Unix timestamp in seconds.",
+                      "example": "1774828800"
                     },
                     "peer_percentile": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "The shop's percentile among peers, from 0 to 100.",
+                      "example": "86.5"
                     },
                     "primary_category": {
                       "type": "object",
                       "properties": {
                         "category_id": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "The primary category ID.",
+                          "example": "601450"
                         },
                         "category_name": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "The primary category name.",
+                          "example": "Home Supplies"
                         }
                       },
-                      "required": [
-                        "category_id",
-                        "category_name"
-                      ]
+                      "description": "The shop's primary category."
                     },
                     "sps_score": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "The shop SPS score, from 0 to 5 with one decimal place.",
+                      "example": "4.6"
                     },
                     "sps_tier": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "The SPS tier. Possible values include EXCELLENT, GOOD, POOR, CRITICAL and NIL.",
+                      "example": "GOOD"
                     },
                     "sps_tier_text": {
-                      "type": "string"
+                      "type": "string",
+                      "description": "The SPS tier. Values like Excellent, Good, Normal, Attention.",
+                      "example": "Excellent"
                     },
                     "top_issues": {
                       "type": "object",
@@ -164,88 +204,71 @@
                             "type": "object",
                             "properties": {
                               "description": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Localized issue description.",
+                                "example": "Your on-time delivery performance is lower than peer shops."
                               },
                               "evaluate_duration_days": {
                                 "type": "integer",
-                                "format": "int64"
+                                "format": "int64",
+                                "description": "Number of days included in this issue's evaluation period.",
+                                "example": "30"
                               },
                               "end_evaluation_time": {
                                 "type": "integer",
-                                "format": "int64"
+                                "format": "int64",
+                                "description": "Issue evaluation period end time. Unix timestamp in seconds.",
+                                "example": "1761264000"
                               },
                               "start_evaluation_time": {
                                 "type": "integer",
-                                "format": "int64"
+                                "format": "int64",
+                                "description": "Issue evaluation period start time. Unix timestamp in seconds.",
+                                "example": "1758672000"
                               },
                               "metric_code": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Related metric code. Possible values include NRR, NBFR, SFCR, OTDR, AHT, and IM_DSAT.",
+                                "example": "OTDR"
                               },
                               "metric_name": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Localized metric display name.",
+                                "example": "On-time delivery rate"
                               },
                               "percentile": {
-                                "type": "string"
+                                "type": "string",
+                                "description": "Metric percentile among peer shops, from 0 to 100.",
+                                "example": "72.4"
                               },
                               "rank": {
                                 "type": "integer",
-                                "format": "int64"
+                                "format": "int64",
+                                "description": "Issue rank, where 1 is the top issue.",
+                                "example": "1"
                               }
-                            },
-                            "required": [
-                              "description",
-                              "evaluate_duration_days",
-                              "end_evaluation_time",
-                              "start_evaluation_time",
-                              "metric_code",
-                              "metric_name",
-                              "percentile",
-                              "rank"
-                            ]
-                          }
+                            }
+                          },
+                          "description": "Ranked issue list."
                         },
                         "summary": {
-                          "type": "string"
+                          "type": "string",
+                          "description": "Localized summary of the top issues.",
+                          "example": "Improve late dispatch and negative reviews to increase your SPS score."
                         }
                       },
-                      "required": [
-                        "issues",
-                        "summary"
-                      ]
+                      "description": "Top SPS issues that contributed to the current score."
                     },
                     "update_time": {
                       "type": "integer",
-                      "format": "int64"
+                      "format": "int64",
+                      "description": "The latest score refresh time. Unix timestamp in seconds.",
+                      "example": "1761264000"
                     }
                   },
-                  "required": [
-                    "benefits",
-                    "dimensions",
-                    "evaluate_duration_days",
-                    "end_evaluation_time",
-                    "start_evaluation_time",
-                    "peer_percentile",
-                    "primary_category",
-                    "sps_score",
-                    "sps_tier",
-                    "sps_tier_text",
-                    "top_issues",
-                    "update_time"
-                  ]
-                },
-                "message": {
-                  "type": "string"
-                },
-                "request_id": {
-                  "type": "string"
+                  "description": "Specific return information"
                 }
-              },
-              "required": [
-                "code",
-                "data",
-                "message",
-                "request_id"
-              ]
+              }
             }
           }
         },
@@ -258,28 +281,20 @@
         "x-tiktok-response-sample": "{\"code\":0,\"data\":{\"benefits\":[{\"benefit_name\":\"LIVE giveaway\",\"is_unlocked\":true,\"unlock_score\":\"4.5\"}],\"dimensions\":[{\"name\":\"Product satisfaction\",\"score\":\"4.8\",\"status\":\"EXCELLENT\",\"status_text\":\"Excellent\",\"weight\":\"70\"}],\"evaluate_duration_days\":90,\"end_evaluation_time\":1782518400,\"start_evaluation_time\":1774828800,\"peer_percentile\":\"86.5\",\"primary_category\":{\"category_id\":\"601450\",\"category_name\":\"Home Supplies\"},\"sps_score\":\"4.6\",\"sps_tier\":\"GOOD\",\"sps_tier_text\":\"Excellent\",\"top_issues\":{\"issues\":[{\"description\":\"Your on-time delivery performance is lower than peer shops.\",\"evaluate_duration_days\":30,\"end_evaluation_time\":1761264000,\"start_evaluation_time\":1758672000,\"metric_code\":\"OTDR\",\"metric_name\":\"On-time delivery rate\",\"percentile\":\"72.4\",\"rank\":1}],\"summary\":\"Improve late dispatch and negative reviews to increase your SPS score.\"},\"update_time\":1761264000},\"message\":\"Success\",\"request_id\":\"202203070749000101890810281E8C70B7\"}",
         "x-tiktok-common-parameters": [
           {
-            "Properties": "shop_cipher",
-            "Location": "query",
-            "Type": "string",
-            "Require": "Y",
-            "Sample": "GCP_XF90igAAAABh00qsWgtvOiGFNqyubMt3",
-            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response."
-          },
-          {
-            "Properties": "Get by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)",
-            "Location": "",
-            "Type": "",
-            "Require": "",
-            "Sample": "",
-            "Properties description": ""
-          },
-          {
             "Properties": "content-type",
-            "Location": "header",
             "Type": "string",
             "Require": "Y",
             "Sample": "application/json",
-            "Properties description": "Allowed type: application/json"
+            "Properties description": "Allowed type: application/json",
+            "Location": "header"
+          },
+          {
+            "Properties": "x-tts-access-token",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "",
+            "Properties description": "The seller access_token value from [Get Access Token](https://partner.tiktokshop.com/docv2/page/678e3a3292b0f40314a92d75#Get%20Access%20Token%20API), when user_type = 0. Follow this [guide](https://partner.tiktokshop.com/docv2/page/678e3a344ddec3030b238fa0) to get seller access_token.",
+            "Location": "header"
           }
         ],
         "x-tiktok-request-query-parameters": [
@@ -289,6 +304,13 @@
             "Require": "N",
             "Sample": "en-US",
             "Properties description": "Locale code used to localize response text. If omitted, the default locale is resolved from the request context."
+          },
+          {
+            "Properties": "shop_cipher",
+            "Type": "string",
+            "Require": "Y",
+            "Sample": "",
+            "Properties description": "Use this property to pass shop information in requesting the API. Failure in passing the correct value when requesting the API for cross-border shops will return incorrect response. \nGet by API [Get Authorization Shop](https://partner.tiktokshop.com/docv2/page/6507ead7b99d5302be949ba9?external_id=6507ead7b99d5302be949ba9)"
           }
         ],
         "x-tiktok-request-body-parameters": [],
@@ -296,226 +318,277 @@
           {
             "Properties": "code",
             "Type": "int",
+            "Require": "N",
             "Sample": "0",
             "Properties description": "The success or failure status code returned in API response."
           },
           {
             "Properties": "message",
             "Type": "string",
+            "Require": "N",
             "Sample": "Success",
             "Properties description": "The success or failure messages returned in API response. Reasons of failure will be described in the message."
           },
           {
             "Properties": "request_id",
             "Type": "string",
+            "Require": "N",
             "Sample": "202203070749000101890810281E8C70B7",
             "Properties description": "Request log"
           },
           {
             "Properties": "data",
             "Type": "object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "Specific return information"
           },
           {
             "Properties": "^benefits",
             "Type": "[]object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "Fixed complete set of benefits associated with the shop SPS score."
           },
           {
             "Properties": "^^benefit_name",
             "Type": "string",
+            "Require": "N",
             "Sample": "LIVE giveaway",
             "Properties description": "Benefit display name localized by the requested locale."
           },
           {
             "Properties": "^^is_unlocked",
             "Type": "bool",
+            "Require": "N",
             "Sample": "true",
             "Properties description": "Whether the shop has unlocked this benefit."
           },
           {
             "Properties": "^^unlock_score",
             "Type": "string",
+            "Require": "N",
             "Sample": "4.5",
             "Properties description": "Score required to unlock the benefit, from 0 to 5."
           },
           {
             "Properties": "^dimensions",
             "Type": "[]object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "Score details by SPS dimension."
           },
           {
             "Properties": "^^name",
             "Type": "string",
+            "Require": "N",
             "Sample": "Product satisfaction",
             "Properties description": "Dimension name."
           },
           {
             "Properties": "^^score",
             "Type": "string",
+            "Require": "N",
             "Sample": "4.8",
             "Properties description": "Dimension score, from 0 to 5."
           },
           {
             "Properties": "^^status",
             "Type": "string",
+            "Require": "N",
             "Sample": "EXCELLENT",
             "Properties description": "Dimension status enum. Possible values include EXCELLENT, GOOD, POOR, CRITICAL and NIL."
           },
           {
             "Properties": "^^status_text",
             "Type": "string",
+            "Require": "N",
             "Sample": "Excellent",
             "Properties description": "Dimension status text. Values like Excellent, Good, Normal, Attention."
           },
           {
             "Properties": "^^weight",
             "Type": "string",
+            "Require": "N",
             "Sample": "70",
             "Properties description": "Dimension weight as a percent from 0 to 100."
           },
           {
             "Properties": "^evaluate_duration_days",
             "Type": "int",
+            "Require": "N",
             "Sample": "90",
             "Properties description": "The number of days included in the score evaluation period."
           },
           {
             "Properties": "^end_evaluation_time",
             "Type": "int",
+            "Require": "N",
             "Sample": "1782518400",
             "Properties description": "The evaluation period end time. Unix timestamp in seconds."
           },
           {
             "Properties": "^start_evaluation_time",
             "Type": "int",
+            "Require": "N",
             "Sample": "1774828800",
             "Properties description": "The evaluation period start time. Unix timestamp in seconds."
           },
           {
             "Properties": "^peer_percentile",
             "Type": "string",
+            "Require": "N",
             "Sample": "86.5",
             "Properties description": "The shop's percentile among peers, from 0 to 100."
           },
           {
             "Properties": "^primary_category",
             "Type": "object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "The shop's primary category."
           },
           {
             "Properties": "^^category_id",
             "Type": "string",
+            "Require": "N",
             "Sample": "601450",
             "Properties description": "The primary category ID."
           },
           {
             "Properties": "^^category_name",
             "Type": "string",
+            "Require": "N",
             "Sample": "Home Supplies",
             "Properties description": "The primary category name."
           },
           {
             "Properties": "^sps_score",
             "Type": "string",
+            "Require": "N",
             "Sample": "4.6",
             "Properties description": "The shop SPS score, from 0 to 5 with one decimal place."
           },
           {
             "Properties": "^sps_tier",
             "Type": "string",
+            "Require": "N",
             "Sample": "GOOD",
             "Properties description": "The SPS tier. Possible values include EXCELLENT, GOOD, POOR, CRITICAL and NIL."
           },
           {
             "Properties": "^sps_tier_text",
             "Type": "string",
+            "Require": "N",
             "Sample": "Excellent",
             "Properties description": "The SPS tier. Values like Excellent, Good, Normal, Attention."
           },
           {
             "Properties": "^top_issues",
             "Type": "object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "Top SPS issues that contributed to the current score."
           },
           {
             "Properties": "^^issues",
             "Type": "[]object",
+            "Require": "N",
             "Sample": "",
             "Properties description": "Ranked issue list."
           },
           {
             "Properties": "^^^description",
             "Type": "string",
+            "Require": "N",
             "Sample": "Your on-time delivery performance is lower than peer shops.",
             "Properties description": "Localized issue description."
           },
           {
             "Properties": "^^^evaluate_duration_days",
             "Type": "int",
+            "Require": "N",
             "Sample": "30",
             "Properties description": "Number of days included in this issue's evaluation period."
           },
           {
             "Properties": "^^^end_evaluation_time",
             "Type": "int",
+            "Require": "N",
             "Sample": "1761264000",
             "Properties description": "Issue evaluation period end time. Unix timestamp in seconds."
           },
           {
             "Properties": "^^^start_evaluation_time",
             "Type": "int",
+            "Require": "N",
             "Sample": "1758672000",
             "Properties description": "Issue evaluation period start time. Unix timestamp in seconds."
           },
           {
             "Properties": "^^^metric_code",
             "Type": "string",
+            "Require": "N",
             "Sample": "OTDR",
             "Properties description": "Related metric code. Possible values include NRR, NBFR, SFCR, OTDR, AHT, and IM_DSAT."
           },
           {
             "Properties": "^^^metric_name",
             "Type": "string",
+            "Require": "N",
             "Sample": "On-time delivery rate",
             "Properties description": "Localized metric display name."
           },
           {
             "Properties": "^^^percentile",
             "Type": "string",
+            "Require": "N",
             "Sample": "72.4",
             "Properties description": "Metric percentile among peer shops, from 0 to 100."
           },
           {
             "Properties": "^^^rank",
             "Type": "int",
+            "Require": "N",
             "Sample": "1",
             "Properties description": "Issue rank, where 1 is the top issue."
           },
           {
             "Properties": "^^summary",
             "Type": "string",
+            "Require": "N",
             "Sample": "Improve late dispatch and negative reviews to increase your SPS score.",
             "Properties description": "Localized summary of the top issues."
           },
           {
             "Properties": "^update_time",
             "Type": "int",
+            "Require": "N",
             "Sample": "1761264000",
             "Properties description": "The latest score refresh time. Unix timestamp in seconds."
           }
         ],
-        "x-tiktok-error-codes": [],
+        "x-tiktok-error-codes": [
+          {
+            "Code": "",
+            "Message": ""
+          }
+        ],
         "x-tiktok-source": {
           "officialPage": "https://partner.tiktokshop.com/docv2/page/get-sps-overview-202606",
           "markdown": "../source/GET__get-sps-overview-202606.md",
           "sha256": "e4c0633abc442cc435765bb88d97342d697804db9c789dcfb0f51497e3d67b7d"
-        }
+        },
+        "x-tiktok-required-scopes": [
+          "data.shop_analytics.public.read"
+        ],
+        "x-tiktok-api-auth-info": [
+          {
+            "package": "TikTok Shop Analytics",
+            "package_type": "Public"
+          }
+        ],
+        "x-tiktok-shop-cipher-required": true
       }
     }
   },
