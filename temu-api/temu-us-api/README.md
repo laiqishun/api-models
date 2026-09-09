@@ -1,11 +1,11 @@
 ---
 title: Temu US API
-description: "US gateway API for US local stores and destination-region order capabilities of Chinese semi-managed stores whose consumer orders belong to the United States."
+description: "US gateway API for US local stores and US destination-order and advertising capabilities of Chinese semi-managed stores."
 ---
 
 # Temu US API
 
-本模块使用 US 网关，适用于美国本土店铺，也适用于中国跨境半托店铺的美国消费者订单侧能力。
+本模块使用 US 网关，适用于美国本土店铺，也适用于中国跨境半托店铺的美国消费者订单侧和广告能力。
 
 Default gateway: `https://openapi-b-us.temu.com/openapi/router`
 
@@ -13,6 +13,7 @@ Default gateway: `https://openapi-b-us.temu.com/openapi/router`
 
 - **美国本土店铺**：按业务意图使用本模块的商品、价格、订单、履约、物流、售后和促销能力。
 - **中国跨境半托 + 美国目标站点**：订单、履约、物流、退货退款/售后使用本模块。
+- **美国站搜索推荐广告 / Temu Ads / Product Ads**：使用本模块 [Ads](./ads-api/README.md)，包含资格校验、ROAS 预估、广告创建/修改、日志和报表。适用标签为 `Local` 与 `Cross Border`；使用 US 网关，不能套用 Global/EU 同名接口。
 - **中国跨境半托库存**：不使用本模块，返回 [Temu CN API](../temu-cn-api/README.md)。
 - **中国跨境半托发品/供货链**：优先按 CN/PA 文档选择能力；不要因为目标站点是美国就默认使用 US 的 `Local` 商品接口。
 - **非美国目标站点**：欧洲使用 EU，其余使用 Global；返回 [根路由](../README.md)。
@@ -36,6 +37,7 @@ Default gateway: `https://openapi-b-us.temu.com/openapi/router`
 - **报价、基础价、订单金额 / price**：[Price](./price-api/README.md)
 - **退货、退款、售后 / return and refund**：[Return And Refund](./return-refund-api/README.md)
 - **活动、报名、促销 / promotion**：[Promotion](./promotion-api/README.md)
+- **搜索推荐广告、ROAS、广告报表 / Temu Ads, product ads**：[Ads](./ads-api/README.md)
 
 ## 调用规则
 
@@ -48,6 +50,7 @@ Default gateway: `https://openapi-b-us.temu.com/openapi/router`
 
 ## API Groups
 
+- [Ads](./ads-api/README.md) — 8 operations
 - [Authorization](./authorization-api/README.md) — 2 operations
 - [Fulfillment](./fulfillment-api/README.md) — 20 operations
 - [Logistics](./logistics-api/README.md) — 4 operations
@@ -57,7 +60,3 @@ Default gateway: `https://openapi-b-us.temu.com/openapi/router`
 - [Promotion](./promotion-api/README.md) — 6 operations
 - [Return And Refund](./return-refund-api/README.md) — 10 operations
 
-## 证据来源
-
-- `Temu美国本土API文档.md`
-- `Temu Open APIs.postman_collection (1).json`（仅补充 US 请求样例与签名流程）

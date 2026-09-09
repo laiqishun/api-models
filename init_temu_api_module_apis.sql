@@ -471,3 +471,45 @@ INSERT INTO `t_platform_module_api` (
 (782, 'temu-api', 'Temu开放平台API', 'temu-global-api', 'Temu全球区API', 'ads-api', '广告', 'temu.searchrec.ad.reports.goods.query', '查询商品维度广告报表', 'Advertisement goods data report (goods dimension)', '查询广告商品数据报表（商品维度）', 'POST', '/openapi/router?type=temu.searchrec.ad.reports.goods.query', 1, 0),
 (783, 'temu-api', 'Temu开放平台API', 'temu-global-api', 'Temu全球区API', 'ads-api', '广告', 'temu.searchrec.ad.reports.mall.query', '查询店铺维度广告报表', 'Advertisement overall data report (mall dimension)', '查询广告整体数据报表（店铺维度）', 'POST', '/openapi/router?type=temu.searchrec.ad.reports.mall.query', 1, 0),
 (784, 'temu-api', 'Temu开放平台API', 'temu-global-api', 'Temu全球区API', 'ads-api', '广告', 'temu.searchrec.ad.roas.pred', '查询广告ROAS预估', 'Advertising roas prediction', '广告ROAS预估', 'POST', '/openapi/router?type=temu.searchrec.ad.roas.pred', 1, 0);
+
+-- =============================================================================
+-- 增量新增：temu-us-api / ads-api（8 个接口，ID 785-792）
+-- 来源：temu-api/temu-us-api/ads-api/operations（2026-09-09 官网同步）
+-- 已上线环境仅执行本段 INSERT；不要执行文件开头的 DELETE 和原初始化 INSERT。
+-- =============================================================================
+
+INSERT INTO `t_platform_module_api` (
+  `id`, `module`, `module_cn`, `sub_module`, `sub_module_cn`,
+  `module_group`, `module_group_cn`,
+  `api_name`, `api_name_cn`, `api_desc`, `api_desc_cn`,
+  `method`, `path`, `is_enabled`, `is_deleted`
+) VALUES
+(785, 'temu-api', 'Temu开放平台API', 'temu-us-api', 'Temu美国区API', 'ads-api', '广告', 'temu.searchrec.ad.create', '创建广告活动', 'Advertisement creation', '创建广告活动', 'POST', '/openapi/router?type=temu.searchrec.ad.create', 1, 0),
+(786, 'temu-api', 'Temu开放平台API', 'temu-us-api', 'Temu美国区API', 'ads-api', '广告', 'temu.searchrec.ad.detail.query', '查询广告活动详情', 'Advertising campaign details query', '查询广告活动详情', 'POST', '/openapi/router?type=temu.searchrec.ad.detail.query', 1, 0),
+(787, 'temu-api', 'Temu开放平台API', 'temu-us-api', 'Temu美国区API', 'ads-api', '广告', 'temu.searchrec.ad.goods.create.query', '校验商品广告投放资格', 'Advertising goods can create query', '查询商品是否可以创建广告', 'POST', '/openapi/router?type=temu.searchrec.ad.goods.create.query', 1, 0),
+(788, 'temu-api', 'Temu开放平台API', 'temu-us-api', 'Temu美国区API', 'ads-api', '广告', 'temu.searchrec.ad.log.query', '查询广告操作日志', 'Advertisement log query', '查询广告操作日志', 'POST', '/openapi/router?type=temu.searchrec.ad.log.query', 1, 0),
+(789, 'temu-api', 'Temu开放平台API', 'temu-us-api', 'Temu美国区API', 'ads-api', '广告', 'temu.searchrec.ad.modify', '修改广告活动', 'Advertisement modify', '修改广告活动', 'POST', '/openapi/router?type=temu.searchrec.ad.modify', 1, 0),
+(790, 'temu-api', 'Temu开放平台API', 'temu-us-api', 'Temu美国区API', 'ads-api', '广告', 'temu.searchrec.ad.reports.goods.query', '查询商品维度广告报表', 'Advertisement goods data report (goods dimension)', '查询广告商品数据报表（商品维度）', 'POST', '/openapi/router?type=temu.searchrec.ad.reports.goods.query', 1, 0),
+(791, 'temu-api', 'Temu开放平台API', 'temu-us-api', 'Temu美国区API', 'ads-api', '广告', 'temu.searchrec.ad.reports.mall.query', '查询店铺维度广告报表', 'Advertisement overall data report (mall dimension)', '查询广告整体数据报表（店铺维度）', 'POST', '/openapi/router?type=temu.searchrec.ad.reports.mall.query', 1, 0),
+(792, 'temu-api', 'Temu开放平台API', 'temu-us-api', 'Temu美国区API', 'ads-api', '广告', 'temu.searchrec.ad.roas.pred', '查询广告ROAS预估', 'Advertising roas prediction', '广告ROAS预估', 'POST', '/openapi/router?type=temu.searchrec.ad.roas.pred', 1, 0);
+
+-- =============================================================================
+-- 增量新增：temu-eu-api / ads-api（8 个接口，ID 793-800）
+-- 来源：temu-api/temu-eu-api/ads-api/operations（2026-09-09 官网同步）
+-- 已上线环境仅执行本段 INSERT；不要执行文件开头的 DELETE 和原初始化 INSERT。
+-- =============================================================================
+
+INSERT INTO `t_platform_module_api` (
+  `id`, `module`, `module_cn`, `sub_module`, `sub_module_cn`,
+  `module_group`, `module_group_cn`,
+  `api_name`, `api_name_cn`, `api_desc`, `api_desc_cn`,
+  `method`, `path`, `is_enabled`, `is_deleted`
+) VALUES
+(793, 'temu-api', 'Temu开放平台API', 'temu-eu-api', 'Temu欧洲区API', 'ads-api', '广告', 'temu.searchrec.ad.create', '创建广告活动', 'Advertisement creation', '创建广告活动', 'POST', '/openapi/router?type=temu.searchrec.ad.create', 1, 0),
+(794, 'temu-api', 'Temu开放平台API', 'temu-eu-api', 'Temu欧洲区API', 'ads-api', '广告', 'temu.searchrec.ad.detail.query', '查询广告活动详情', 'Advertising campaign details query', '查询广告活动详情', 'POST', '/openapi/router?type=temu.searchrec.ad.detail.query', 1, 0),
+(795, 'temu-api', 'Temu开放平台API', 'temu-eu-api', 'Temu欧洲区API', 'ads-api', '广告', 'temu.searchrec.ad.goods.create.query', '校验商品广告投放资格', 'Advertising goods can create query', '查询商品是否可以创建广告', 'POST', '/openapi/router?type=temu.searchrec.ad.goods.create.query', 1, 0),
+(796, 'temu-api', 'Temu开放平台API', 'temu-eu-api', 'Temu欧洲区API', 'ads-api', '广告', 'temu.searchrec.ad.log.query', '查询广告操作日志', 'Advertisement log query', '查询广告操作日志', 'POST', '/openapi/router?type=temu.searchrec.ad.log.query', 1, 0),
+(797, 'temu-api', 'Temu开放平台API', 'temu-eu-api', 'Temu欧洲区API', 'ads-api', '广告', 'temu.searchrec.ad.modify', '修改广告活动', 'Advertisement modify', '修改广告活动', 'POST', '/openapi/router?type=temu.searchrec.ad.modify', 1, 0),
+(798, 'temu-api', 'Temu开放平台API', 'temu-eu-api', 'Temu欧洲区API', 'ads-api', '广告', 'temu.searchrec.ad.reports.goods.query', '查询商品维度广告报表', 'Advertisement goods data report (goods dimension)', '查询广告商品数据报表（商品维度）', 'POST', '/openapi/router?type=temu.searchrec.ad.reports.goods.query', 1, 0),
+(799, 'temu-api', 'Temu开放平台API', 'temu-eu-api', 'Temu欧洲区API', 'ads-api', '广告', 'temu.searchrec.ad.reports.mall.query', '查询店铺维度广告报表', 'Advertisement overall data report (mall dimension)', '查询广告整体数据报表（店铺维度）', 'POST', '/openapi/router?type=temu.searchrec.ad.reports.mall.query', 1, 0),
+(800, 'temu-api', 'Temu开放平台API', 'temu-eu-api', 'Temu欧洲区API', 'ads-api', '广告', 'temu.searchrec.ad.roas.pred', '查询广告ROAS预估', 'Advertising roas prediction', '广告ROAS预估', 'POST', '/openapi/router?type=temu.searchrec.ad.roas.pred', 1, 0);

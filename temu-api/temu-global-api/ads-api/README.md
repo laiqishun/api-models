@@ -10,9 +10,9 @@ Temu Ads 用于帮助卖家获取流量、吸引顾客并推动销售增长，�
 
 本目录对应 Partner 文档 [Ads Introduction](https://partner.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=be630d94cf2748c5a8544b50783296be)，解决的是搜索推荐广告的创建、修改和效果查询，而不是商品发布、订单、库存或物流。区域促销报名仍在 [Promotion](../promotion-api/README.md)；CN 营销活动仍在 [Marketing Activity](../../temu-cn-api/marketing-activity-api/README.md)。
 
-`x-temu-audience` 为 `Fully Manage` 与 `Cross Border`。不要把本组接口路由给纯 Local 本土店铺。
+`x-temu-audience` 为 `Local` 与 `Cross Border`，适用于本土和跨境半托卖家；当前官方标签未标注全托支持。2026-09-09 已按官网核对并纠正原有 `Fully Manage` 误标。
 
-先按上级区域 README 确定店铺模式和网关，再从下方列表选择唯一 operation。
+先按投放目标区域确定网关：美国进入 [US Ads](../../temu-us-api/ads-api/README.md)，欧洲进入 [EU Ads](../../temu-eu-api/ads-api/README.md)，其余使用本组 `https://openapi-b-global.temu.com/openapi/router`。同名接口的字段和必填约束可能不同，不能仅替换 host 后复用其他区域文件。
 
 ## 推荐调用顺序
 

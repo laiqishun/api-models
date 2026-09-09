@@ -18,12 +18,12 @@ Default gateway: `https://openapi-b-global.temu.com/openapi/router`
 - **中国跨境半托库存**：不使用本模块，返回 [Temu CN API](../temu-cn-api/README.md)。
 - **中国跨境半托发品/供货链**：优先按 CN/PA 文档选择；Global 中仅标为 `Local` 的商品接口不能自动用于半托。
 - **商品合规标签、合规信息、认证证书/材料**：使用本模块 [Compliance](./compliance-api/README.md)。这批 type 只收录在 Global，不要到 CN/US/EU 的 `product-api` 中查找。
-- **搜索推荐广告 / Temu Ads / Product Ads**：使用本模块 [Ads](./ads-api/README.md)。这批 `temu.searchrec.ad.*` type 只收录在 Global，不要到 CN 营销或区域 `promotion-api` 中查找。
+- **搜索推荐广告 / Temu Ads / Product Ads**：非 US/EU 投放目标区域使用本模块 [Ads](./ads-api/README.md)。美国使用 [US Ads](../temu-us-api/ads-api/README.md)，欧洲使用 [EU Ads](../temu-eu-api/ads-api/README.md)；同名 type 按区域分别收录。
 
 ## 渐进式选择
 
 1. 商品合规标签/证书/认证材料：直接进入 [Compliance](./compliance-api/README.md)，不必先排除 US/EU。
-2. 搜索推荐广告 / Temu Ads：直接进入 [Ads](./ads-api/README.md)，不必先排除 US/EU；audience 为 Fully Manage 与 Cross Border。
+2. 搜索推荐广告 / Temu Ads：先确认投放目标区域，排除 US/EU 后进入 [Ads](./ads-api/README.md)；audience 为 Local 与 Cross Border，未标注全托支持。
 3. 其他意图：排除 US 和欧洲目标站点后，根据用户意图进入一个业务组。
 4. 在组 README 中选择 operation。
 5. 打开一个 operation JSON，使用其中的 Global host、type、audience、字段和示例。

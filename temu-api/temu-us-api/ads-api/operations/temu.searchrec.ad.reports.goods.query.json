@@ -3,9 +3,9 @@
   "info": {
     "title": "Ads - temu.searchrec.ad.reports.goods.query",
     "description": "Advertisement goods data report (goods dimension)",
-    "version": "2026-06-30 22:15:40"
+    "version": "2026-09-07 22:53:51"
   },
-  "host": "openapi-b-global.temu.com",
+  "host": "openapi-b-us.temu.com",
   "schemes": [
     "https"
   ],
@@ -45,7 +45,7 @@
           }
         },
         "x-temu-api-type": "temu.searchrec.ad.reports.goods.query",
-        "x-temu-region-module": "temu-global-api",
+        "x-temu-region-module": "temu-us-api",
         "x-temu-group": {
           "title": "Ads",
           "sourceTitle": "Ads",
@@ -53,20 +53,25 @@
         },
         "x-temu-gateway": {
           "method": "POST",
-          "url": "https://openapi-b-global.temu.com/openapi/router",
+          "url": "https://openapi-b-us.temu.com/openapi/router",
           "routerTypeParameter": "type"
         },
         "x-temu-endpoint-table": [
           {
-            "Request URL": "POSThttps://openapi-b-global.temu.com/openapi/router",
-            "Site Region": "GLOBAL"
+            "Request URL": "POSThttps://openapi-b-us.temu.com/openapi/router",
+            "Site Region": "US"
           }
         ],
         "x-temu-audience": [
           "Local",
           "Cross Border"
         ],
-        "x-temu-last-update-time": "2026-06-30 22:15:40",
+        "x-temu-auth-scope-list": [
+          1,
+          2
+        ],
+        "x-temu-last-update-time": "2026-09-07 22:53:51",
+        "x-temu-last-update-time-zone": "Asia/Shanghai",
         "x-temu-common-parameters": [
           {
             "name": "type",
@@ -127,6 +132,12 @@
             "type": "LONG",
             "required": true,
             "description": "Goods id"
+          },
+          {
+            "name": "selectedAdManagedType",
+            "type": "INTEGER",
+            "required": false,
+            "description": "Ad managed type, 0 or null for individual products, 1 for whole store promotion"
           }
         ],
         "x-temu-response-parameters": [
@@ -195,16 +206,18 @@
                 "App type": "private,public"
               },
               {
-                "Permission Package": "Local Advertising Management",
+                "Permission Package": "Advertising Management",
                 "App type": "private,public"
               }
             ]
           }
         ],
+        "x-temu-limiter-detail-list": [],
+        "x-temu-update-record-doc-list": [],
         "x-temu-examples": [
           {
             "language": "text",
-            "content": "curl -X POST \\\n'https://openapi-b-global.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"app_key\" : \"test\",\n  \"goodsId\" : 1,\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"endTs\" : 1,\n  \"startTs\" : 1,\n  \"type\" : \"temu.searchrec.ad.reports.goods.query\",\n  \"version\" : \"test\",\n  \"timestamp\" : \"test\"\n}'",
+            "content": "curl -X POST \\\n'https://openapi-b-us.temu.com/openapi/router' \\\n -H 'content-type: application/json' \\\n -d '{\n  \"access_token\" : \"test\",\n  \"app_key\" : \"test\",\n  \"goodsId\" : 1,\n  \"sign\" : \"test\",\n  \"data_type\" : \"test\",\n  \"endTs\" : 1,\n  \"startTs\" : 1,\n  \"selectedAdManagedType\" : 1,\n  \"type\" : \"temu.searchrec.ad.reports.goods.query\",\n  \"version\" : \"test\",\n  \"timestamp\" : \"test\"\n}'",
             "truncated": false
           },
           {
@@ -214,10 +227,12 @@
           }
         ],
         "x-temu-source": {
-          "document": "Temu Partner API Doc",
-          "path": "https://partner.temu.com/riemann/api/v2/api/doc/detail/get",
+          "document": "Temu Partner US API Doc",
+          "path": "https://partner-us.temu.com/riemann/api/v2/api/doc/detail/get",
           "api_id": "temu.searchrec.ad.reports.goods.query",
-          "contentSha256": "ed43d8c26c47bcc8b356bb10f4947481fb8d8fb380369ccaca0655027f6e1b71"
+          "contentSha256": "35e7cf1d2c58cb984948fcf491761dc63b7a473f946252cf5eda402b46cc8b62",
+          "contentSha256Scope": "HTTP response body (UTF-8)",
+          "retrievedAt": "2026-09-09"
         }
       }
     }
@@ -281,6 +296,12 @@
           "format": "int64",
           "x-temu-type": "LONG",
           "description": "Goods id"
+        },
+        "selectedAdManagedType": {
+          "type": "integer",
+          "format": "int32",
+          "x-temu-type": "INTEGER",
+          "description": "Ad managed type, 0 or null for individual products, 1 for whole store promotion"
         }
       },
       "required": [
@@ -317,14 +338,10 @@
         "result": {
           "type": "object",
           "additionalProperties": true,
-          "x-temu-type": "OBJECT",
-          "description": "Specific information",
           "properties": {
             "goodsInfo": {
               "type": "object",
               "additionalProperties": true,
-              "x-temu-type": "OBJECT",
-              "description": "Goods information",
               "properties": {
                 "goodsId": {
                   "type": "integer",
@@ -332,25 +349,21 @@
                   "x-temu-type": "LONG",
                   "description": "Goods id"
                 }
-              }
+              },
+              "x-temu-type": "OBJECT",
+              "description": "Goods information"
             },
             "reportInfo": {
               "type": "object",
               "additionalProperties": true,
-              "x-temu-type": "OBJECT",
-              "description": "Report information",
               "properties": {
                 "reportsSummary": {
                   "type": "object",
                   "additionalProperties": true,
-                  "x-temu-type": "OBJECT",
-                  "description": "Overall report information",
                   "properties": {
                     "imprCntAll": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "Impressions return body",
                       "properties": {
                         "val": {
                           "type": "integer",
@@ -358,13 +371,13 @@
                           "x-temu-type": "LONG",
                           "description": "Impressions return value"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "Impressions return body"
                     },
                     "cartCntAll": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "Add-to-cart number",
                       "properties": {
                         "val": {
                           "type": "integer",
@@ -372,13 +385,13 @@
                           "x-temu-type": "LONG",
                           "description": "Add-to-cart number return value"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "Add-to-cart number"
                     },
                     "clkCntAll": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "Clicks return body",
                       "properties": {
                         "val": {
                           "type": "integer",
@@ -386,13 +399,13 @@
                           "x-temu-type": "LONG",
                           "description": "Clicks return value"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "Clicks return body"
                     },
                     "adSpendAll": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "Spend return body",
                       "properties": {
                         "val": {
                           "type": "integer",
@@ -400,13 +413,13 @@
                           "x-temu-type": "LONG",
                           "description": "Spend return value"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "Spend return body"
                     },
                     "orderPayAmtAll": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "Base price sales return body",
                       "properties": {
                         "val": {
                           "type": "integer",
@@ -414,13 +427,13 @@
                           "x-temu-type": "LONG",
                           "description": "Base price sales return value"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "Base price sales return body"
                     },
                     "orderPayCntAll": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "Orders return body",
                       "properties": {
                         "val": {
                           "type": "integer",
@@ -428,13 +441,13 @@
                           "x-temu-type": "LONG",
                           "description": "Orders return value"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "Orders return body"
                     },
                     "roasAll": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "ROAS return body",
                       "properties": {
                         "val": {
                           "type": "integer",
@@ -442,13 +455,13 @@
                           "x-temu-type": "LONG",
                           "description": "ROAS return value"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "ROAS return body"
                     },
                     "ctrAll": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "CTR return body",
                       "properties": {
                         "val": {
                           "type": "integer",
@@ -456,13 +469,13 @@
                           "x-temu-type": "LONG",
                           "description": "CTR return value"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "CTR return body"
                     },
                     "acosAll": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "ACOS return body",
                       "properties": {
                         "val": {
                           "type": "integer",
@@ -470,16 +483,19 @@
                           "x-temu-type": "LONG",
                           "description": "ACOS return value"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "ACOS return body"
                     }
-                  }
+                  },
+                  "x-temu-type": "OBJECT",
+                  "description": "Overall report information"
                 },
                 "reportsItemList": {
                   "type": "array",
                   "items": {
                     "type": "object",
                     "additionalProperties": true,
-                    "x-temu-type": "OBJECT",
                     "properties": {
                       "ts": {
                         "type": "integer",
@@ -490,8 +506,6 @@
                       "imprCnt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "Impressions return body",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -499,13 +513,13 @@
                             "x-temu-type": "LONG",
                             "description": "Impressions return value"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "Impressions return body"
                       },
                       "clkCnt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "Clicks return body",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -513,13 +527,13 @@
                             "x-temu-type": "LONG",
                             "description": "Clicks return value"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "Clicks return body"
                       },
                       "cartCnt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "Add-to-cart number return body",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -527,13 +541,13 @@
                             "x-temu-type": "LONG",
                             "description": "Add-to-cart number return value"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "Add-to-cart number return body"
                       },
                       "orderPayCnt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "Orders return body",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -541,13 +555,13 @@
                             "x-temu-type": "LONG",
                             "description": "Orders return value"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "Orders return body"
                       },
                       "orderPayAmt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "Base price sales return body",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -555,13 +569,13 @@
                             "x-temu-type": "LONG",
                             "description": "Base price sales return value"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "Base price sales return body"
                       },
                       "ctr": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "CTR return body",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -569,13 +583,13 @@
                             "x-temu-type": "LONG",
                             "description": "CTR return value"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "CTR return body"
                       },
                       "adSpend": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "Spend return body",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -583,7 +597,9 @@
                             "x-temu-type": "LONG",
                             "description": "Spend return value"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "Spend return body"
                       },
                       "goodsId": {
                         "type": "integer",
@@ -594,8 +610,6 @@
                       "acos": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "ACOS return body",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -603,13 +617,13 @@
                             "x-temu-type": "LONG",
                             "description": "ACOS return value"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "ACOS return body"
                       },
                       "roas": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "ROAS return body",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -617,13 +631,13 @@
                             "x-temu-type": "LONG",
                             "description": "ROAS return value"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "ROAS return body"
                       },
                       "transactionCost": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "transactionCost",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -631,13 +645,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "transactionCost"
                       },
                       "goodsNum": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "goodsNum",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -645,13 +659,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "goodsNum"
                       },
                       "netGoodsNum": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "netGoodsNum",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -659,13 +673,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "netGoodsNum"
                       },
                       "netAdSpend": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "netAdSpend",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -673,13 +687,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "netAdSpend"
                       },
                       "netOrderPayAmt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "netOrderPayAmt",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -687,13 +701,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "netOrderPayAmt"
                       },
                       "netRoas": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "netRoas",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -701,13 +715,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "netRoas"
                       },
                       "netAcos": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "netAcos",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -715,13 +729,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "netAcos"
                       },
                       "netOrderPayCnt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "netOrderPayCnt",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -729,13 +743,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "netOrderPayCnt"
                       },
                       "netTransactionCost": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "netTransactionCost",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -743,13 +757,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "netTransactionCost"
                       },
                       "cvr": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "cvr",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -757,13 +771,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "cvr"
                       },
                       "totalImprCnt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "totalImprCnt",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -771,13 +785,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "totalImprCnt"
                       },
                       "totalClkCnt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "totalClkCnt",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -785,13 +799,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "totalClkCnt"
                       },
                       "totalOrderPayAmt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "totalOrderPayAmt",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -799,13 +813,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "totalOrderPayAmt"
                       },
                       "totalOrderPayCnt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "totalOrderPayCnt",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -813,13 +827,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "totalOrderPayCnt"
                       },
                       "totalRoas": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "totalRoas",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -827,13 +841,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "totalRoas"
                       },
                       "totalCtr": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "totalCtr",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -841,13 +855,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "totalCtr"
                       },
                       "totalAcos": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "totalAcos",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -855,13 +869,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "totalAcos"
                       },
                       "totalTransactionCost": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "totalTransactionCost",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -869,13 +883,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "totalTransactionCost"
                       },
                       "totalGoodsNum": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "totalGoodsNum",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -883,13 +897,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "totalGoodsNum"
                       },
                       "totalCvr": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "totalCvr",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -897,13 +911,13 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "totalCvr"
                       },
                       "totalCartCnt": {
                         "type": "object",
                         "additionalProperties": true,
-                        "x-temu-type": "OBJECT",
-                        "description": "totalCartCnt",
                         "properties": {
                           "val": {
                             "type": "integer",
@@ -911,9 +925,12 @@
                             "x-temu-type": "LONG",
                             "description": "val"
                           }
-                        }
+                        },
+                        "x-temu-type": "OBJECT",
+                        "description": "totalCartCnt"
                       }
-                    }
+                    },
+                    "x-temu-type": "OBJECT"
                   },
                   "x-temu-type": "OBJECT[]",
                   "description": "Report information by time period, report information divided by day level or hour level (request time span is divided by day level if it is greater than one day, and if it is equal to one day, it is divided by hour level)"
@@ -921,20 +938,14 @@
                 "summary": {
                   "type": "object",
                   "additionalProperties": true,
-                  "x-temu-type": "OBJECT",
-                  "description": "summary",
                   "properties": {
                     "spend": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "spend",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -942,13 +953,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -956,13 +967,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -970,13 +981,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -984,21 +995,21 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "spend"
                     },
                     "orderPayAmt": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "orderPayAmt",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1006,13 +1017,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1020,13 +1031,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1034,13 +1045,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1048,21 +1059,21 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "orderPayAmt"
                     },
                     "orderPayCnt": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "orderPayCnt",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1070,13 +1081,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1084,13 +1095,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1098,13 +1109,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1112,21 +1123,21 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "orderPayCnt"
                     },
                     "goodsNum": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "goodsNum",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1134,13 +1145,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1148,13 +1159,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1162,13 +1173,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1176,21 +1187,21 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "goodsNum"
                     },
                     "cartCnt": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "cartCnt",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1198,13 +1209,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1212,13 +1223,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1226,13 +1237,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1240,21 +1251,21 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "cartCnt"
                     },
                     "imprCnt": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "imprCnt",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1262,13 +1273,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1276,13 +1287,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1290,13 +1301,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1304,21 +1315,21 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "imprCnt"
                     },
                     "clkCnt": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "clkCnt",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1326,13 +1337,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1340,13 +1351,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1354,13 +1365,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1368,21 +1379,21 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "clkCnt"
                     },
                     "ctr": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "ctr",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1390,13 +1401,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1404,13 +1415,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1418,13 +1429,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1432,21 +1443,21 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "ctr"
                     },
                     "cvr": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "cvr",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1454,13 +1465,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1468,13 +1479,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1482,13 +1493,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1496,21 +1507,21 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "cvr"
                     },
                     "roas": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "roas",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1518,13 +1529,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1532,13 +1543,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1546,13 +1557,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1560,21 +1571,21 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "roas"
                     },
                     "acos": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "acos",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1582,13 +1593,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1596,13 +1607,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1610,13 +1621,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1624,21 +1635,21 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "acos"
                     },
                     "transactionCost": {
                       "type": "object",
                       "additionalProperties": true,
-                      "x-temu-type": "OBJECT",
-                      "description": "transactionCost",
                       "properties": {
                         "ad": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "ad",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1646,13 +1657,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "ad"
                         },
                         "total": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "total number of records",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1660,13 +1671,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "total number of records"
                         },
                         "netAd": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netAd",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1674,13 +1685,13 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netAd"
                         },
                         "netTotal": {
                           "type": "object",
                           "additionalProperties": true,
-                          "x-temu-type": "OBJECT",
-                          "description": "netTotal",
                           "properties": {
                             "val": {
                               "type": "integer",
@@ -1688,25 +1699,37 @@
                               "x-temu-type": "LONG",
                               "description": "val"
                             }
-                          }
+                          },
+                          "x-temu-type": "OBJECT",
+                          "description": "netTotal"
                         }
-                      }
+                      },
+                      "x-temu-type": "OBJECT",
+                      "description": "transactionCost"
                     }
-                  }
+                  },
+                  "x-temu-type": "OBJECT",
+                  "description": "summary"
                 }
-              }
+              },
+              "x-temu-type": "OBJECT",
+              "description": "Report information"
             }
-          }
+          },
+          "x-temu-type": "OBJECT",
+          "description": "Specific information"
         }
       }
     }
   },
   "x-temu-source": {
-    "document": "Temu Partner API Doc",
-    "path": "https://partner.temu.com/riemann/api/v2/api/doc/detail/get",
+    "document": "Temu Partner US API Doc",
+    "path": "https://partner-us.temu.com/riemann/api/v2/api/doc/detail/get",
     "api_id": "temu.searchrec.ad.reports.goods.query",
-    "contentSha256": "ed43d8c26c47bcc8b356bb10f4947481fb8d8fb380369ccaca0655027f6e1b71"
+    "contentSha256": "35e7cf1d2c58cb984948fcf491761dc63b7a473f946252cf5eda402b46cc8b62",
+    "contentSha256Scope": "HTTP response body (UTF-8)",
+    "retrievedAt": "2026-09-09"
   },
   "x-temu-api-type": "temu.searchrec.ad.reports.goods.query",
-  "x-temu-region-module": "temu-global-api"
+  "x-temu-region-module": "temu-us-api"
 }
