@@ -298,3 +298,45 @@ INSERT INTO `t_platform_module_api` (
 (281, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'vendor-shipments-api', '供应商货件', 'SubmitShipmentConfirmations', '提交发货确认', 'Submits one or more shipment confirmations for vendor orders.', '提交供应商订单的一份或多份发货确认。', 'POST', '/vendor/shipping/v1/shipmentConfirmations', 1, 0),
 (282, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'vendor-shipments-api', '供应商货件', 'SubmitShipments', '提交货件', 'Submits one or more shipment request for vendor Orders.', '提交一份或多份供应商订单的装运请求。', 'POST', '/vendor/shipping/v1/shipments', 1, 0),
 (283, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'vendor-transaction-status-api', '供应商交易状态', 'getTransaction', '获取交易', 'Returns the status of the transaction that you specify.', '返回您指定的事务的状态。', 'GET', '/vendor/transactions/v1/transactions/{transactionId}', 1, 0);
+
+-- =============================================================================
+-- 增量新增：amazon-sp-api / finances-api（3 个接口，ID 801-803）
+-- 来源：amazon-sp-api/finances-api/operations 下各级目录（2026-09-15 递归核对）
+-- 已上线环境仅执行本段 INSERT；不要执行文件开头的 DELETE 和原初始化 INSERT。
+-- =============================================================================
+
+INSERT INTO `t_platform_module_api` (
+  `id`, `module`, `module_cn`, `sub_module`, `sub_module_cn`,
+  `module_group`, `module_group_cn`,
+  `api_name`, `api_name_cn`, `api_desc`, `api_desc_cn`,
+  `method`, `path`, `is_enabled`, `is_deleted`
+) VALUES
+(801, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'finances-api', '财务', 'listTransactions', '查询财务交易记录', 'Returns transactions for the given parameters. Financial events might not include orders from the last 48 hours.', '根据指定参数返回财务交易记录。财务事件可能不包含最近 48 小时内的订单。', 'GET', '/finances/2024-06-19/transactions', 1, 0),
+(802, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'finances-api', '财务', 'getPaymentMethods', '查询支付方式', 'Returns the list of payment methods for the seller, which can be filtered by method type.', '返回卖家的支付方式列表，可按方式类型筛选。', 'GET', '/finances/transfers/2024-06-01/paymentMethods', 1, 0),
+(803, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'finances-api', '财务', 'initiatePayout', '发起按需付款', 'Initiates an on-demand payout to the seller''s default deposit method in Seller Central for the given `marketplaceId` and `accountType`, if eligible. You can only initiate one on-demand payout for each marketplace and account type within a 24-hour period.', '符合条件时，根据指定的 marketplaceId 和 accountType，向卖家在卖家平台设置的默认收款方式发起按需付款。每个商城和账户类型在 24 小时内只能发起一次按需付款。', 'POST', '/finances/transfers/2024-06-01/payouts', 1, 0);
+
+-- =============================================================================
+-- 增量新增：amazon-sp-api / external-fulfillment（13 个接口，ID 804-816）
+-- 来源：amazon-sp-api/external-fulfillment/operations 下各级目录（2026-09-15 递归核对）
+-- 已上线环境仅执行本段 INSERT；不要执行文件开头的 DELETE 和原初始化 INSERT。
+-- =============================================================================
+
+INSERT INTO `t_platform_module_api` (
+  `id`, `module`, `module_cn`, `sub_module`, `sub_module_cn`,
+  `module_group`, `module_group_cn`,
+  `api_name`, `api_name_cn`, `api_desc`, `api_desc_cn`,
+  `method`, `path`, `is_enabled`, `is_deleted`
+) VALUES
+(804, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'batchInventory', '批量处理库存请求', 'Make up to 10 inventory requests. The response includes the set of responses that correspond to requests. The response for each successful request in the set includes the  inventory count for the provided `sku` and `locationId` pair.', '一次提交最多 10 个库存请求，并返回各请求对应的响应。每个成功请求的响应包含指定 sku 与 locationId 对应的库存数量。', 'POST', '/externalFulfillment/inventory/2024-09-11/inventories', 1, 0),
+(805, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'getReturn', '获取退货商品详情', 'Retrieve the return item with the specified ID.', '获取指定 ID 对应的退货商品。', 'GET', '/externalFulfillment/2024-09-11/returns/{returnId}', 1, 0),
+(806, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'listReturns', '查询退货商品列表', 'Retrieve a list of return items. You can filter results by location, RMA ID, status, or time.', '获取退货商品列表，可按地点、RMA ID、状态或时间筛选。', 'GET', '/externalFulfillment/2024-09-11/returns', 1, 0),
+(807, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'createPackages', '创建包裹', 'Provide details about the packages in the specified shipment.', '提供指定货件的包裹详细信息。', 'POST', '/externalFulfillment/2024-09-11/shipments/{shipmentId}/packages', 1, 0),
+(808, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'generateInvoice', '生成货件发票', 'Get invoices for the shipment you specify.', '获取指定货件的发票。', 'POST', '/externalFulfillment/2024-09-11/shipments/{shipmentId}/invoice', 1, 0),
+(809, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'generateShipLabels', '生成货件面单', 'Generate and retrieve all shipping labels for one or more packages in the shipment you specify.', '为指定货件中的一个或多个包裹生成并获取全部运输面单。', 'PUT', '/externalFulfillment/2024-09-11/shipments/{shipmentId}/shipLabels', 1, 0),
+(810, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'getShipment', '获取货件详情', 'Get a single shipment with the ID you specify.', '根据指定 ID 获取单个货件。', 'GET', '/externalFulfillment/2024-09-11/shipments/{shipmentId}', 1, 0),
+(811, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'getShipments', '查询货件列表', 'Get a list of shipments created for the seller in the status you specify. Shipments can be further filtered based on the fulfillment node or the time of the shipments'' last update.', '获取为卖家创建且处于指定状态的货件列表，可进一步按履约节点或货件最后更新时间筛选。', 'GET', '/externalFulfillment/2024-09-11/shipments', 1, 0),
+(812, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'processShipment', '确认或拒绝货件', 'Confirm or reject the specified shipment.', '确认或拒绝指定货件。', 'POST', '/externalFulfillment/2024-09-11/shipments/{shipmentId}', 1, 0),
+(813, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'retrieveInvoice', '获取货件发票', 'Retrieve invoices for the shipment you specify.', '获取指定货件的发票。', 'GET', '/externalFulfillment/2024-09-11/shipments/{shipmentId}/invoice', 1, 0),
+(814, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'retrieveShippingOptions', '查询配送选项', 'Get a list of shipping options for a package in a shipment given the shipment''s marketplace and channel. If the marketplace and channel have a pre-determined shipping option, then this operation returns an empty response.', '根据货件所属商城和渠道，获取货件中包裹的配送选项列表。如果商城和渠道已预先确定配送选项，则返回空响应。', 'GET', '/externalFulfillment/2024-09-11/shipments/{shipmentId}/shippingOptions', 1, 0),
+(815, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'updatePackage', '更新包裹详情', 'Updates the details about the packages that will be used to fulfill the specified shipment.', '更新用于履行指定货件的包裹详细信息。', 'PUT', '/externalFulfillment/2024-09-11/shipments/{shipmentId}/packages/{packageId}', 1, 0),
+(816, 'amazon-sp-api', '亚马逊销售伙伴API', NULL, NULL, 'external-fulfillment', '外部履约', 'updatePackageStatus', '更新包裹状态', 'Updates the status of the packages.', '更新包裹状态。', 'PATCH', '/externalFulfillment/2024-09-11/shipments/{shipmentId}/packages/{packageId}', 1, 0);
