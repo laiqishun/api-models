@@ -513,3 +513,32 @@ INSERT INTO `t_platform_module_api` (
 (798, 'temu-api', 'Temu开放平台API', 'temu-eu-api', 'Temu欧洲区API', 'ads-api', '广告', 'temu.searchrec.ad.reports.goods.query', '查询商品维度广告报表', 'Advertisement goods data report (goods dimension)', '查询广告商品数据报表（商品维度）', 'POST', '/openapi/router?type=temu.searchrec.ad.reports.goods.query', 1, 0),
 (799, 'temu-api', 'Temu开放平台API', 'temu-eu-api', 'Temu欧洲区API', 'ads-api', '广告', 'temu.searchrec.ad.reports.mall.query', '查询店铺维度广告报表', 'Advertisement overall data report (mall dimension)', '查询广告整体数据报表（店铺维度）', 'POST', '/openapi/router?type=temu.searchrec.ad.reports.mall.query', 1, 0),
 (800, 'temu-api', 'Temu开放平台API', 'temu-eu-api', 'Temu欧洲区API', 'ads-api', '广告', 'temu.searchrec.ad.roas.pred', '查询广告ROAS预估', 'Advertising roas prediction', '广告ROAS预估', 'POST', '/openapi/router?type=temu.searchrec.ad.roas.pred', 1, 0);
+
+-- =============================================================================
+-- 增量下架：Temu CN / Partner 仅自研应用接口（2026-09-16）
+-- 依据：TEMU第三方ERP需下架接口清单-开发交付.md；本目录按第三方 ERP 使用范围移除对应模型。
+-- 当前接口 12 个（原 ID 383-388、396、400-404），另兼容清理可能存在的 9 个历史旧 type。
+-- 按 module、sub_module、method 和 api_name 精确匹配，不依赖数据库中的 ID 分配。
+-- 保留全托核价 bg.price.review.confirm / page.query / reject 及其他区域 promotion-api。
+-- 已上线环境仅执行以下 DELETE；不要执行文件开头的 DELETE 和原初始化 INSERT。
+-- =============================================================================
+
+-- 删除当前注册的 12 个仅自研应用接口。
+DELETE FROM `t_platform_module_api`
+WHERE `module` = 'temu-api'
+  AND `sub_module` = 'temu-cn-api'
+  AND `method` = 'POST'
+  AND `api_name` IN (
+    'bg.marketing.activity.detail.get.global',
+    'bg.marketing.activity.enroll.list.get.global',
+    'bg.marketing.activity.enroll.submit.global',
+    'bg.marketing.activity.list.get.global',
+    'bg.marketing.activity.product.get.global',
+    'bg.marketing.activity.session.list.get.global',
+    'bg.glo.goods.price.list.get',
+    'bg.semi.adjust.price.batch.review.order',
+    'bg.semi.adjust.price.page.query.order',
+    'bg.semi.price.review.confirm.order',
+    'bg.semi.price.review.page.query.order',
+    'bg.semi.price.review.reject.order'
+  );

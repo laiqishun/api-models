@@ -8,7 +8,7 @@ Source group: `Ads`.
 
 Temu Ads 用于帮助卖家获取流量、吸引顾客并推动销售增长，卖家可以快速创建和优化广告活动。可在 [ads.temu.com](https://ads.temu.com/) 或商家后台 **Product ADS** 中操作，也可以通过本组 Advertising API 完成同等能力。
 
-本目录对应 Partner 文档 [Ads Introduction](https://partner.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=be630d94cf2748c5a8544b50783296be)，解决的是搜索推荐广告的创建、修改和效果查询，而不是商品发布、订单、库存或物流。区域促销报名仍在 [Promotion](../promotion-api/README.md)；CN 营销活动仍在 [Marketing Activity](../../temu-cn-api/marketing-activity-api/README.md)。
+本目录对应 Partner 文档 [Ads Introduction](https://partner.temu.com/documentation?menu_code=fb16b05f7a904765aac4af3a24b87d4a&sub_menu_code=be630d94cf2748c5a8544b50783296be)，解决的是搜索推荐广告的创建、修改和效果查询，而不是商品发布、订单、库存或物流。区域促销报名仍在 [Promotion](../promotion-api/README.md)。
 
 `x-temu-audience` 为 `Local` 与 `Cross Border`，适用于本土和跨境半托卖家；当前官方标签未标注全托支持。2026-09-09 已按官网核对并纠正原有 `Fully Manage` 误标。
 
