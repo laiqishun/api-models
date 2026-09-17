@@ -1,11 +1,11 @@
 ---
 title: Temu EU API
-description: "EU gateway API for European local stores and destination-region order capabilities of Chinese semi-managed stores whose consumer orders belong to Europe."
+description: "EU gateway API for European local stores and European destination-order and advertising capabilities of Chinese semi-managed stores."
 ---
 
 # Temu EU API
 
-本模块使用 EU 网关，适用于欧洲本土店铺，也适用于中国跨境半托店铺的欧洲消费者订单侧能力。接口集合包含 0416 新增的四个 scanform 物流接口。
+本模块使用 EU 网关，适用于欧洲本土店铺，也适用于中国跨境半托店铺的欧洲消费者订单侧和广告能力。接口集合包含 0416 新增的四个 scanform 物流接口。
 
 Default gateway: `https://openapi-b-eu.temu.com/openapi/router`
 
@@ -13,6 +13,7 @@ Default gateway: `https://openapi-b-eu.temu.com/openapi/router`
 
 - **欧洲本土店铺（含英国）**：按业务意图使用本模块。
 - **中国跨境半托 + 欧洲目标站点**：订单、履约、物流、退货退款/售后使用本模块。
+- **欧洲站搜索推荐广告 / Temu Ads / Product Ads**：使用本模块 [Ads](./ads-api/README.md)，包含资格校验、ROAS 预估、广告创建/修改、日志和报表。适用标签为 `Local` 与 `Cross Border`；使用 EU 网关和 EU 参数约束。
 - **中国跨境半托库存**：不使用本模块，返回 [Temu CN API](../temu-cn-api/README.md)。
 - **中国跨境半托发品/供货链**：优先按 CN/PA 文档选择能力；`Local` 商品 operation 不因目标站点为欧洲而自动适用于半托。
 - **美国目标站点**：使用 US；其他非 US/EU 目标站点使用 Global。完整规则见 [根路由](../README.md)。
@@ -43,6 +44,7 @@ EU 与 Global/US 有大量同名 type。已进入本模块后，唯一调用身�
 - **退货、退款、售后 / return and refund**：[Return And Refund](./return-refund-api/README.md)
 - **活动、报名、促销 / promotion**：[Promotion](./promotion-api/README.md)
 - **欧盟税务、VAT / tax**：[Tax](./tax-api/README.md)
+- **搜索推荐广告、ROAS、广告报表 / Temu Ads, product ads**：[Ads](./ads-api/README.md)
 
 ## 调用规则
 
@@ -56,6 +58,7 @@ EU 与 Global/US 有大量同名 type。已进入本模块后，唯一调用身�
 
 ## API Groups
 
+- [Ads](./ads-api/README.md) — 8 operations
 - [Authorization](./authorization-api/README.md) — 3 operations
 - [Fulfillment](./fulfillment-api/README.md) — 18 operations
 - [Logistics](./logistics-api/README.md) — 8 operations
@@ -66,7 +69,3 @@ EU 与 Global/US 有大量同名 type。已进入本模块后，唯一调用身�
 - [Return And Refund](./return-refund-api/README.md) — 9 operations
 - [Tax](./tax-api/README.md) — 2 operations
 
-## 证据来源
-
-- `Temu欧洲本土API文档.md`
-- `Temu欧洲API文档新增接口-0416.md`

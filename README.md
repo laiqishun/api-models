@@ -40,7 +40,7 @@ This keeps broad discovery lightweight while still preserving the detailed endpo
 
 `amazon-ads-api` contains processed Amazon Ads API model documentation. Its group READMEs are organized from the source OpenAPI operation tags and link to focused operation files under `operations/`.
 
-`temu-api` contains processed Temu CN, US local, EU local, and global local API documentation. It follows the same progressive disclosure pattern, with regional routing guidance, group READMEs, operation-level Swagger 2.0 JSON files, and a CN offline data dictionary for reference values that otherwise live in source docs.
+`temu-api` contains processed Temu CN, US local, EU local, and global local API documentation. It follows the same progressive disclosure pattern, with regional routing guidance, group READMEs, operation-level Swagger 2.0 JSON files, and a CN offline data dictionary for reference values that otherwise live in source docs. CN coverage follows the [third-party ERP scope](temu-api/temu-cn-api/README.md#适用边界).
 
 `tiktok-shop-api` contains processed TikTok Shop Partner Center API documentation. Each business module links to operation-level Swagger 2.0 JSON files; the corresponding official Download Markdown source remains beside each operation for traceability and complete business guidance.
 
