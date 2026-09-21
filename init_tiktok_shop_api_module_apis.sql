@@ -1,7 +1,7 @@
 -- =============================================================================
 -- t_platform_module_api 初始化数据：tiktok-shop-api
 -- 来源: tiktok-shop-api 下 operation Swagger 2.0 JSON
--- 保留接口数: 193（原始 ID 817-1124，ID 不重排）
+-- 保留接口数: 194（原始 ID 817-1124，ID 不重排）
 -- api_desc: operation description；api_desc_cn: 根据 operation summary 生成的简明中文功能说明
 -- sub_module / sub_module_cn: NULL
 -- path: Swagger 原始路径（不含 /proxy/{site} 前缀）
@@ -207,7 +207,8 @@ INSERT INTO `t_platform_module_api` (
 (1119, 'tiktok-shop-api', 'TikTok Shop开放平台API', NULL, NULL, 'return-and-refund', '退货退款', 'upload_shipping_document_and_tracking_info_202405', '上传运输文档及物流追踪信息', 'Use this API to upload return shipping documents, tracking numbers, and carriers for buyers.', '上传运输文档及物流追踪信息。', 'POST', '/return_refund/202405/returns/shipping_documents', 1, 0),
 (1120, 'tiktok-shop-api', 'TikTok Shop开放平台API', NULL, NULL, 'seller', '卖家', 'get_active_shops_202309', '查询活跃店铺', 'Retrieves all active shops that belong to a seller. You can use this API to check the activation status of shops. Target seller: All', '查询活跃店铺。', 'GET', '/seller/202309/shops', 1, 0),
 (1121, 'tiktok-shop-api', 'TikTok Shop开放平台API', NULL, NULL, 'seller', '卖家', 'get_seller_permissions_202309', '查询卖家权限', 'Retrieves the cross-border operations that a cross-border seller is permitted to perform. You can use this API prior to listing products to check whether a seller has the ability to list global products. Target seller: Cross-border sellers', '查询卖家权限。', 'GET', '/seller/202309/permissions', 1, 0),
-(1122, 'tiktok-shop-api', 'TikTok Shop开放平台API', NULL, NULL, 'seller', '卖家', 'get_shop_groups_202601', '查询店铺分组', 'Query the shop scope of product interoperability groups. For example, in the scenario of the United States and Mexico, which two shops have interoperable products.', '查询店铺分组。', 'GET', '/seller/202601/shop_groups', 1, 0);
+(1122, 'tiktok-shop-api', 'TikTok Shop开放平台API', NULL, NULL, 'seller', '卖家', 'get_shop_groups_202601', '查询店铺分组', 'Query the shop scope of product interoperability groups. For example, in the scenario of the United States and Mexico, which two shops have interoperable products.', '查询店铺分组。', 'GET', '/seller/202601/shop_groups', 1, 0),
+(1123, 'tiktok-shop-api', 'TikTok Shop开放平台API', NULL, NULL, 'supply-chain', '供应链', 'confirm_package_shipment_202309', '确认包裹发货', 'This API enables a warehouse service provider to send package shipment information for an order. Only warehouse service providers who have been certified by the platform have permission to access this interface.', '确认包裹发货。', 'POST', '/supply_chain/202309/packages/sync', 1, 0);
 
 -- 移除非 ERP 类目或非卖家应用主体的历史接口。独立执行此 DELETE 也可清理已导入的旧记录。
 DELETE FROM `t_platform_module_api` WHERE `module` = 'tiktok-shop-api' AND `id` IN (
@@ -220,5 +221,5 @@ DELETE FROM `t_platform_module_api` WHERE `module` = 'tiktok-shop-api' AND `id` 
     889, 890, 891, 892, 893, 894, 895, 896, 897, 898, 899, 900,
     901, 906, 907, 908, 909, 910, 911, 912, 932, 933, 935, 936,
     937, 938, 939, 940, 941, 942, 943, 944, 945, 946, 947, 948,
-    949, 950, 951, 952, 1072, 1123, 1124
+    949, 950, 951, 952, 1072, 1124
 );

@@ -5,9 +5,11 @@ description: "TikTok Shop Partner Center API models relevant to Enterprise Resou
 
 # TikTok Shop ERP API Models
 
-This catalog contains 193 operation-level Swagger 2.0 JSON files in 12 business modules. Start with a module below, then select an operation from its API List. Each operation JSON includes the official documentation URL in `x-tiktok-source.officialPage`.
+This catalog contains 194 operation-level Swagger 2.0 JSON files in 13 business modules. Start with a module below, then select an operation from its API List. Each operation JSON includes the official documentation URL in `x-tiktok-source.officialPage`.
 
 The catalog is organized around the TikTok Shop **Enterprise Resource Planning (ERP)** app category. Actual access also depends on the app's approved scopes, registration country, target market, seller type, and shop authorization. Check [Manage API / API Scopes](https://partner.tiktokshop.com/) for the app before calling an endpoint. An operation's presence here does not guarantee access for every shop or market; for example, FBT and some promotion APIs have additional availability requirements.
+
+The [Confirm Package Shipment](https://partner.tiktokshop.com/docv2/page/confirm-package-shipment) endpoint is listed for ERP apps in the China-to-Vietnam app-category matrix, but calling it also requires TikTok certification as a warehouse service provider and a TikTok-issued `warehouse_provider_id` bound to the app key.
 
 See TikTok Shop's [App Category Selection Guide](https://partner.tiktokshop.com/docv2/page/hulvi36o) and [ERP integration guide](https://partner.tiktokshop.com/docv2/page/enterprise-resource-planning-erp) for category guidance.
 
@@ -26,6 +28,7 @@ See TikTok Shop's [App Category Selection Guide](https://partner.tiktokshop.com/
 - [TikTok Shop Orders API](./orders/README.md) — Order lists, details, prices, and external references. (8 operations)
 - [TikTok Shop Products API](./products/README.md) — Categories, attributes, brands, listings, inventory, global products, and product quality. (63 operations)
 - [TikTok Shop Return and Refund API](./return-and-refund/README.md) — Returns, cancellations, refunds, reviews, and aftersales. (18 operations)
+- [TikTok Shop Supply Chain API](./supply-chain/README.md) — Certified warehouse provider package shipment confirmation. (1 operation)
 
 ## Shop analytics and promotions
 
