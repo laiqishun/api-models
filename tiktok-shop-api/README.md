@@ -5,7 +5,7 @@ description: "AI-friendly TikTok Shop Partner Center API models organized by bus
 
 # Module List
 
-Choose a business module first, then open its API List to select one operation-level Swagger 2.0 JSON file. The corresponding official Download Markdown files remain under each module `source/` directory for complete source traceability.
+Choose a business module first, then open its API List to select one operation-level Swagger 2.0 JSON file. The current checked-in tree contains these operation-level models; official Download Markdown source files are not included.
 
 ## Shop connection and access
 

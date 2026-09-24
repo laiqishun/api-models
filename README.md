@@ -9,6 +9,7 @@ The current dataset contains:
 - [Temu API Models](temu-api/README.md)
 - [TikTok Shop API Models](tiktok-shop-api/README.md)
 - [Shopee API Models](shopee-api/README.md)
+- [Lazada Open Platform API Models](lazada-api/README.md)
 
 ## Structure
 
@@ -21,6 +22,7 @@ api-models/
   temu-api/
   tiktok-shop-api/
   shopee-api/
+  lazada-api/
 ```
 
 Inside an API family, the expected navigation pattern is:
@@ -42,9 +44,11 @@ This keeps broad discovery lightweight while still preserving the detailed endpo
 
 `temu-api` contains processed Temu CN, US local, EU local, and global local API documentation. It follows the same progressive disclosure pattern, with regional routing guidance, group READMEs, operation-level Swagger 2.0 JSON files, and a CN offline data dictionary for reference values that otherwise live in source docs. CN coverage follows the [third-party ERP scope](temu-api/temu-cn-api/README.md#适用边界).
 
-`tiktok-shop-api` contains processed TikTok Shop Partner Center API documentation. Each business module links to operation-level Swagger 2.0 JSON files; the corresponding official Download Markdown source remains beside each operation for traceability and complete business guidance.
+`tiktok-shop-api` contains processed TikTok Shop Partner Center API documentation. Each business module links to operation-level Swagger 2.0 JSON files; official Download Markdown source files are not included in the current tree.
 
 `shopee-api` contains Shopee Open Platform API documentation organized by business module. Each module links to operation-level Swagger 2.0 JSON files; rendered request, response, error, permission, tool, update-log, and example data are retained in `x-shopee-*` fields because Shopee does not provide a Markdown download source.
+
+`lazada-api` contains Lazada Open Platform API references organized by official category. It includes operation-level Swagger 2.0 JSON models for the 378 catalog records across 35 categories; official request/response trees, errors, examples, endpoint regions, and SDK code are retained in `x-lazada-*` fields.
 
 ## Future Scope
 
