@@ -35,7 +35,48 @@
                         "orders": {
                           "type": "array",
                           "items": {
-                            "type": "object"
+                            "type": "object",
+                            "properties": {
+                              "order_item_list": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "msg": {
+                                      "type": "string",
+                                      "description": "error msg"
+                                    },
+                                    "order_item_id": {
+                                      "type": "number",
+                                      "description": "order item id"
+                                    },
+                                    "item_err_code": {
+                                      "type": "string",
+                                      "description": "0=success other=error code"
+                                    },
+                                    "retry": {
+                                      "type": "boolean",
+                                      "description": "Determine if the order can be retried"
+                                    }
+                                  },
+                                  "required": [
+                                    "msg",
+                                    "order_item_id",
+                                    "item_err_code",
+                                    "retry"
+                                  ]
+                                },
+                                "description": "order item deliver result"
+                              },
+                              "order_id": {
+                                "type": "number",
+                                "description": "order id "
+                              }
+                            },
+                            "required": [
+                              "order_item_list",
+                              "order_id"
+                            ]
                           },
                           "description": "deliver order"
                         }
@@ -970,7 +1011,7 @@
                 },
                 "sign": {
                   "type": "string",
-                  "description": "Part of the authentication process that is used for identifying and verifying who is sending a request (click here for details)"
+                  "description": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://open.lazada.com/apps/doc/doc?nodeId=10450&docId=108068'>here</a> for details)"
                 },
                 "digitalDeliveryReq": {
                   "type": "object",
@@ -979,7 +1020,24 @@
                     "orders": {
                       "type": "array",
                       "items": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                          "order_item_list": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            },
+                            "description": "order item list"
+                          },
+                          "order_id": {
+                            "type": "number",
+                            "description": "orderId"
+                          }
+                        },
+                        "required": [
+                          "order_item_list",
+                          "order_id"
+                        ]
                       },
                       "description": "Batch size is limited to 20, deliver orders"
                     }

@@ -43,7 +43,21 @@
                 "errors": {
                   "type": "array",
                   "items": {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {
+                      "errorMessage": {
+                        "type": "string",
+                        "description": "Error message"
+                      },
+                      "errorCode": {
+                        "type": "string",
+                        "description": "Error code"
+                      },
+                      "field": {
+                        "type": "string",
+                        "description": "Error field"
+                      }
+                    }
                   },
                   "description": "Error list"
                 },
@@ -2021,7 +2035,7 @@
                 },
                 "sign": {
                   "type": "string",
-                  "description": "Part of the authentication process that is used for identifying and verifying who is sending a request (click here for details)"
+                  "description": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://open.lazada.com/apps/doc/doc?nodeId=10450&docId=108068'>here</a> for details)"
                 },
                 "externalCode": {
                   "type": "string",
@@ -2062,14 +2076,14 @@
                   "items": {
                     "type": "string"
                   },
-                  "description": "Which 3PL can go and pick up the seller dropped-off parcel from the station"
+                  "description": "Which 3PL can go and pick up the seller dropped-off parcel from the station "
                 },
                 "lastMileTplSlugs": {
                   "type": "array",
                   "items": {
                     "type": "string"
                   },
-                  "description": "This is a list of logistics providers which can deliver packages to this station."
+                  "description": "This is a list of logistics providers which can deliver packages to this station. "
                 },
                 "contact": {
                   "type": "object",
@@ -2128,14 +2142,80 @@
                 "schedules": {
                   "type": "array",
                   "items": {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {
+                      "workDays": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "List of working days apply which this schedule applied"
+                      },
+                      "startTime": {
+                        "type": "string",
+                        "description": "the start time of Station schedule adopted by 24 hour system, the pattern is HH:mm:ss. example 07:00:00, 15:05:00"
+                      },
+                      "endTime": {
+                        "type": "string",
+                        "description": "the end time of Station schedule adopted by 24 hour system, the pattern is HH:mm:ss. example 07:00:00, 15:05:00"
+                      },
+                      "cutOffTime": {
+                        "type": "string",
+                        "description": "the cutoff time of Station schedule adopted by 24 hour system, the pattern is HH:mm:ss. example 07:00:00, 15:05:00"
+                      }
+                    },
+                    "required": [
+                      "workDays",
+                      "startTime",
+                      "endTime",
+                      "cutOffTime"
+                    ]
                   },
                   "description": "Station schedules"
                 },
                 "constraints": {
                   "type": "array",
                   "items": {
-                    "type": "object"
+                    "type": "object",
+                    "properties": {
+                      "maxCapacity": {
+                        "type": "number",
+                        "description": "the maximum number of packages processed per day by Station."
+                      },
+                      "maxWidth": {
+                        "type": "number",
+                        "description": "the maximum width of packages processed by Station, unit: cm"
+                      },
+                      "maxHeight": {
+                        "type": "number",
+                        "description": "the maximum height of packages processed by Station, unit: cm"
+                      },
+                      "maxLength": {
+                        "type": "number",
+                        "description": "the maximum length of packages processed by Station, unit: cm"
+                      },
+                      "maxWeight": {
+                        "type": "number",
+                        "description": "the maximum weight of packages processed by Station, unit: g"
+                      },
+                      "functionCode": {
+                        "type": "string",
+                        "description": "Function which this constraint applied"
+                      },
+                      "maxCbm": {
+                        "type": "string",
+                        "description": "the maximum cbm of packages processed by Station, unit: m³ "
+                      }
+                    },
+                    "required": [
+                      "maxCapacity",
+                      "maxWidth",
+                      "maxHeight",
+                      "maxLength",
+                      "maxWeight",
+                      "functionCode",
+                      "maxCbm"
+                    ]
                   },
                   "description": "Function constraint"
                 }

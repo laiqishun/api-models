@@ -35,7 +35,63 @@
                         "pack_order_list": {
                           "type": "array",
                           "items": {
-                            "type": "object"
+                            "type": "object",
+                            "properties": {
+                              "order_item_list": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "order_item_id": {
+                                      "type": "number",
+                                      "description": "orderItemId"
+                                    },
+                                    "msg": {
+                                      "type": "string",
+                                      "description": "errMsg when item_err_code!=0  "
+                                    },
+                                    "item_err_code": {
+                                      "type": "string",
+                                      "description": "0=success other=error code，The final processing result of the order"
+                                    },
+                                    "tracking_number": {
+                                      "type": "string",
+                                      "description": "tracking_number"
+                                    },
+                                    "shipment_provider": {
+                                      "type": "string",
+                                      "description": "shipment_provider"
+                                    },
+                                    "package_id": {
+                                      "type": "string",
+                                      "description": "package_id"
+                                    },
+                                    "retry": {
+                                      "type": "boolean",
+                                      "description": "Determine if the package can be retried"
+                                    }
+                                  },
+                                  "required": [
+                                    "order_item_id",
+                                    "msg",
+                                    "item_err_code",
+                                    "tracking_number",
+                                    "shipment_provider",
+                                    "package_id",
+                                    "retry"
+                                  ]
+                                },
+                                "description": "order item pack result"
+                              },
+                              "order_id": {
+                                "type": "number",
+                                "description": "order id "
+                              }
+                            },
+                            "required": [
+                              "order_item_list",
+                              "order_id"
+                            ]
                           },
                           "description": "pack order process result list"
                         }
@@ -1424,7 +1480,7 @@
                 },
                 "sign": {
                   "type": "string",
-                  "description": "Part of the authentication process that is used for identifying and verifying who is sending a request (click here for details)"
+                  "description": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://open.lazada.com/apps/doc/doc?nodeId=10450&docId=108068'>here</a> for details)"
                 },
                 "packReq": {
                   "type": "object",
@@ -1433,7 +1489,24 @@
                     "pack_order_list": {
                       "type": "array",
                       "items": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                          "order_item_list": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            },
+                            "description": "order_item_ids that need to be packed"
+                          },
+                          "order_id": {
+                            "type": "number",
+                            "description": "order that need to be packed"
+                          }
+                        },
+                        "required": [
+                          "order_item_list",
+                          "order_id"
+                        ]
                       },
                       "description": "Batch size is limited to 20，Orders that need to be packed，Sub-orders of the same order will be processed together"
                     },
@@ -1443,11 +1516,11 @@
                     },
                     "shipment_provider_code": {
                       "type": "string",
-                      "description": "If it is a local store (TFs), this field cannot be transferred; If it is a cross-border store must pass (NTFS); This field cannot be transferred to DBS orders (including local stores and cross-border stores) If you want to get the available values, you can call the getshipmentprovider  API"
+                      "description": "If it is a local store (TFs), this field cannot be transferred; If it is a cross-border store must pass (NTFS); This field cannot be transferred to DBS orders (including local stores and cross-border stores) If you want to get the available values, you can call the <a href='https://open.lazada.com/apps/doc/api?path=%2Forder%2Fshipment%2Fproviders%2Fget' target='_brank'>getshipmentprovider</a>  API"
                     },
                     "shipping_allocate_type": {
                       "type": "string",
-                      "description": "If you want to get the available values, you can call the getshipmentprovider  API"
+                      "description": "If you want to get the available values, you can call the <a href='https://open.lazada.com/apps/doc/api?path=%2Forder%2Fshipment%2Fproviders%2Fget' target='_brank'>getshipmentprovider</a>  API"
                     }
                   },
                   "required": [
