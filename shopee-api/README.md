@@ -13,7 +13,7 @@ Choose a business module first, then open its API List to select one operation-l
 - [Shopee Merchant API](./merchant/README.md) — Merchant, shop, warehouse, and prepaid account operations. (6 operations)
 - [Shopee Shop API](./shop/README.md) — Shop information, profile, warehouse, notification, brand, and holiday mode operations. (9 operations)
 - [Shopee Account Health API](./accounthealth/README.md) — Shop performance, penalties, punishments, listing issues, and late order operations. (6 operations)
-- [Shopee Product API](./product/README.md) — Product category, attributes, brands, listings, variations, inventory, pricing, and product quality operations. (58 operations)
+- [Shopee Product API](./product/README.md) — Product category, attributes, brands, listings, variations, inventory, pricing, and product quality operations. (63 operations)
 - [Shopee Global Product API](./globalproduct/README.md) — Global product listing, publishing, inventory, pricing, and attribute operations. (34 operations)
 
 ## Orders and fulfillment
@@ -36,6 +36,9 @@ Choose a business module first, then open its API List to select one operation-l
 - [Shopee Shop Flash Sale API](./shopflashsale/README.md) — Shop flash sale, time slot, criteria, and item lifecycle operations. (11 operations)
 - [Shopee Follow Prize API](./follow-prize/README.md) — Follow prize creation, update, query, and lifecycle operations. (6 operations)
 - [Shopee Top Picks API](./toppicks/README.md) — Top Picks list and item lifecycle operations. (4 operations)
+
+- [Shopee Business Insights API](./businessinsights/README.md) — Marketing hot listings and business performance insights. (1 operation)
+- [Shopee Buybox API](./buybox/README.md) — Buybox model enrollment and model or shop performance. (5 operations)
 
 ## Content and engagement
 
