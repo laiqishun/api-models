@@ -47,3 +47,12 @@ Choose a business module first, then open its API List to select one operation-l
 - [Shopee Brand Portal API](./brandportal/README.md) — Brand portal sales, affiliate, livestream, video, and content performance operations. (11 operations)
 - [Shopee Payment API](./payment/README.md) — Escrow, payout, wallet, installment, billing, income, and payment method operations. (18 operations)
 - [Shopee Push API](./push/README.md) — Application push configuration and lost push message operations. (4 operations)
+
+## 应用归属（紫鸟接入口径）
+
+| 模块 | 归属 |
+|---|---|
+| public | 共用（授权/token/查授权店铺商家） |
+| merchant / shop / product / globalproduct / order / logistics / firstmile / returns / accounthealth / sbs / fbs / discount / bundle-deal / add-on-deal / voucher / shopflashsale / toppicks / payment / push | ERP（shopee-erp-api） |
+| ads | Ads（shopee-ads-api） |
+| ams / video / livestream / media / mediaspace / shopcategory / brandportal / follow-prize | 非本期 |
