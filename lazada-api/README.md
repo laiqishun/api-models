@@ -48,9 +48,4 @@ Lazada pages list six regional service endpoints. The regional mapping is retain
 - [Lazada LazCredit Risk API](./laz-credit-risk-api/README.md) — lazada credit risk (0 APIs)
 - [Lazada Content API](./content-api/README.md) — The Content APIs are content-related APIs that are only available to specific users. Make sure that communication has been completed prior to applying permission to visit them. (7 APIs)
 - [Lazada Store Flash Sale API](./store-flash-sale-api/README.md) — 店铺闪购API (6 APIs)
-
-## Source and field mapping
-
-Lazada's official API reference is dynamically rendered and does not provide an official Swagger download. Request and response trees, common parameters, regional endpoints, errors, examples, and SDK snippets are retained in `x-lazada-*` fields. Standard request parameter locations are added only where the GET method or an official cURL example provides evidence. Example credentials and sample personal contact data are redacted.
-
-The [manifest](./manifest.md) lists each catalog record, source page, detail status, and generated JSON file.
+- 
