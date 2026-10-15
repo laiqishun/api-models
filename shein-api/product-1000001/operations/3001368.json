@@ -1,0 +1,602 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询商品审核状态",
+    "version": "source-revision-18",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/query-document-state": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "shein_api_3001368",
+        "summary": "查询商品审核状态",
+        "description": "支持通过spu查询skc的审核状态，支持查询spu指定版本的审核状态；同时，平台也支持webhook消息通知的方式推送商品审核结果，具体可查看 商品公文审核通知",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "结果",
+                        "properties": {
+                          "skcList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "skc集合",
+                              "properties": {
+                                "documentSn": {
+                                  "type": "string",
+                                  "description": "公文号"
+                                },
+                                "documentState": {
+                                  "type": "integer",
+                                  "description": "公文状态。-1：接受失败  1：待审核  2：审批成功  3：审批失败  4：已撤回 5：申诉中"
+                                },
+                                "failedReason": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "审批失败的原因",
+                                    "properties": {
+                                      "content": {
+                                        "type": "string",
+                                        "description": "内容"
+                                      },
+                                      "language": {
+                                        "type": "string",
+                                        "description": "语种"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "skcName": {
+                                  "type": "string",
+                                  "description": "skcName，skcNname是SHEIN生成的系统编码"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "spuName": {
+                            "type": "string",
+                            "description": "spuName，spuName是SHEIN生成的系统编码"
+                          },
+                          "version": {
+                            "type": "string",
+                            "description": "审核版本号"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "元数据",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "数据记录数"
+                        },
+                        "customObj": {
+                          "type": "object",
+                          "description": "用户自定义扩展"
+                        }
+                      }
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001368,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001368-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 18,
+        "x-shein-updated-at": "2025-08-15 14:49:04",
+        "x-shein-qps": "70",
+        "x-shein-change-content": "更新描述",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br</p>",
+                  "name": "language",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "defaultValue": "<REDACTED_SAMPLE>",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "spu列表，1次最多传10个spu",
+                  "name": "spuList",
+                  "label": "",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>spuName，spuName是SHEIN生成的系统编码</p>",
+                      "name": "spuName",
+                      "label": "",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>审核版本号。当商品发布或编辑提交后，响应中会包含<span style=\"color: rgba(20, 23, 55, 0.88); font-size: 14px;\">version。</span></p>",
+                      "name": "version",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "label": "",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "结果",
+                      "name": "data",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>skc集合</p>",
+                          "name": "skcList",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>公文号</p>",
+                              "name": "documentSn",
+                              "label": "",
+                              "required": false
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>公文状态。-1：接受失败 &nbsp;1：待审核 &nbsp;2：审批成功 &nbsp;3：审批失败 &nbsp;4：已撤回 5：申诉中</p>",
+                              "name": "documentState",
+                              "label": "",
+                              "required": false
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "<p>审批失败的原因</p>",
+                              "name": "failedReason",
+                              "label": "",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "<p>内容</p>",
+                                  "name": "content",
+                                  "label": "",
+                                  "required": false
+                                },
+                                "children": []
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "<p>语种</p>",
+                                  "name": "language",
+                                  "label": "",
+                                  "required": false
+                                },
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>skcName，skcNname是SHEIN生成的系统编码</p>",
+                              "name": "skcName",
+                              "label": "",
+                              "required": false
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>spuName，spuName是SHEIN生成的系统编码</p>",
+                          "name": "spuName",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>审核版本号</p>",
+                          "name": "version",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "元数据",
+                      "name": "meta",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "数据记录数",
+                          "name": "count",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "用户自定义扩展",
+                          "name": "customObj",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "错误描述,成功：OK",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                },
+                "children": []
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "spuList": [
+                  {
+                    "spuName": "<REDACTED_SAMPLE>",
+                    "version": "<REDACTED_SAMPLE>"
+                  }
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "data": [
+                    {
+                      "spuName": "<REDACTED_SAMPLE>",
+                      "version": "<REDACTED_SAMPLE>",
+                      "skcList": [
+                        {
+                          "skcName": "<REDACTED_SAMPLE>",
+                          "documentSn": "<REDACTED_SAMPLE>",
+                          "documentState": 0,
+                          "failedReason": [
+                            {
+                              "language": "<REDACTED_SAMPLE>",
+                              "content": "<REDACTED_SAMPLE>"
+                            },
+                            {
+                              "language": "<REDACTED_SAMPLE>",
+                              "content": "<REDACTED_SAMPLE>"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "meta": {
+                    "count": 0,
+                    "customObj": null
+                  }
+                },
+                "bbl": null
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "spuList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "spu列表，1次最多传10个spu",
+                    "properties": {
+                      "spuName": {
+                        "type": "string",
+                        "description": "spuName，spuName是SHEIN生成的系统编码"
+                      },
+                      "version": {
+                        "type": "string",
+                        "description": "审核版本号。当商品发布或编辑提交后，响应中会包含 version。"
+                      }
+                    },
+                    "required": [
+                      "spuName"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "spuList"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

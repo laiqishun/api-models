@@ -1,0 +1,473 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "给外部供应商调用- 重录订单米数和裁片",
+    "version": "source-revision-2",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/mdp/order/goods/reenter-order-info": {
+      "post": {
+        "tags": [
+          "MDP印染"
+        ],
+        "operationId": "shein_api_3001424",
+        "summary": "给外部供应商调用- 重录订单米数和裁片",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "x-shein-example-redacted": true
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "bagInfoList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "烧花，袋信息列表,仅当烧花裁片时必填",
+                        "properties": {
+                          "barCode": {
+                            "type": "string",
+                            "description": "捆袋编码",
+                            "x-shein-example-redacted": true
+                          },
+                          "sizeInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "尺码信息列表",
+                              "properties": {
+                                "quantity": {
+                                  "type": "integer",
+                                  "description": "数量",
+                                  "x-shein-example-redacted": true
+                                },
+                                "size": {
+                                  "type": "string",
+                                  "description": "尺码",
+                                  "x-shein-example-redacted": true
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          }
+                        },
+                        "required": [
+                          "sizeInfoList"
+                        ]
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "orderNo": {
+                      "type": "string",
+                      "description": "加工单号",
+                      "x-shein-example-redacted": true
+                    },
+                    "transferPrintList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "转印条数，仅当成品布时必填",
+                        "properties": {
+                          "clothGuid": {
+                            "type": "string",
+                            "description": "条编码",
+                            "x-shein-example-redacted": true
+                          },
+                          "num": {
+                            "type": "number",
+                            "description": "数量",
+                            "x-shein-example-redacted": true
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "info"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001424,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001424-3000002",
+        "x-shein-category-id": 3000002,
+        "x-shein-applicable-modes": [],
+        "x-shein-source-version": 2,
+        "x-shein-updated-at": "2025-10-15 15:04:38",
+        "x-shein-qps": null,
+        "x-shein-change-content": "更新MDP文档",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": null,
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "烧花，袋信息列表,仅当烧花裁片时必填",
+                  "name": "bagInfoList"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "尺码信息",
+                      "name": "sizeInfoList",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "数量，烧花明细实际数量必须小于等于999",
+                          "name": "quantity",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "尺码",
+                          "name": "size",
+                          "required": true
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "operateTime",
+                  "name": "operateTime",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "加工单号",
+                  "name": "orderNo",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "重录类型，1、成品布、2、烧花裁片",
+                  "name": "reenterType",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "转印条数，仅当成品布时必填",
+                  "name": "transferPrintList"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "double",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "转印米数，数量最多3位整数，2位小数",
+                      "name": "num",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "转印序号",
+                      "name": "serialNo",
+                      "required": true
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "操作人的用户Code",
+                  "name": "userCode"
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "",
+                  "name": "info",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "烧花，袋信息列表,仅当烧花裁片时必填",
+                      "name": "bagInfoList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "捆袋编码",
+                          "name": "barCode"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "尺码信息列表",
+                          "name": "sizeInfoList",
+                          "required": true
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "数量",
+                              "name": "quantity"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "尺码",
+                              "name": "size"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "加工单号",
+                      "name": "orderNo"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "转印条数，仅当成品布时必填",
+                      "name": "transferPrintList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "条编码",
+                          "name": "clothGuid"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "double",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "数量",
+                          "name": "num"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "",
+                  "name": "msg"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": null,
+            "response": null
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "bagInfoList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "烧花，袋信息列表,仅当烧花裁片时必填",
+                    "properties": {
+                      "sizeInfoList": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "description": "尺码信息",
+                          "properties": {
+                            "quantity": {
+                              "type": "integer",
+                              "description": "数量，烧花明细实际数量必须小于等于999",
+                              "x-shein-example-redacted": true
+                            },
+                            "size": {
+                              "type": "string",
+                              "description": "尺码",
+                              "x-shein-example-redacted": true
+                            }
+                          },
+                          "required": [
+                            "quantity",
+                            "size"
+                          ]
+                        },
+                        "x-shein-original-multiple": 1
+                      }
+                    },
+                    "required": [
+                      "sizeInfoList"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "operateTime": {
+                  "type": "string",
+                  "description": "operateTime",
+                  "x-shein-example-redacted": true
+                },
+                "orderNo": {
+                  "type": "string",
+                  "description": "加工单号",
+                  "x-shein-example-redacted": true
+                },
+                "reenterType": {
+                  "type": "integer",
+                  "description": "重录类型，1、成品布、2、烧花裁片",
+                  "x-shein-example-redacted": true
+                },
+                "transferPrintList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "转印条数，仅当成品布时必填",
+                    "properties": {
+                      "num": {
+                        "type": "number",
+                        "description": "转印米数，数量最多3位整数，2位小数",
+                        "x-shein-example-redacted": true
+                      },
+                      "serialNo": {
+                        "type": "integer",
+                        "description": "转印序号",
+                        "x-shein-example-redacted": true
+                      }
+                    },
+                    "required": [
+                      "num",
+                      "serialNo"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "userCode": {
+                  "type": "string",
+                  "description": "操作人的用户Code",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "operateTime",
+                "orderNo",
+                "reenterType"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

@@ -1,0 +1,1015 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询活动可报商品列表",
+    "version": "source-revision-14",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/campaigns/registrable-product-list": {
+      "post": {
+        "tags": [
+          "营销活动报名"
+        ],
+        "operationId": "shein_api_3002014",
+        "summary": "查询活动可报商品列表",
+        "description": "查询商家在指定活动中可报名的商品及报名要求，包括活动价格或降幅区间、活动件数要求和活动预留件数要求。 自运营模式需关注售价相关字段；半托管、全托管模式需关注供货价相关字段。 库存相关字段均为SKC维度；价格相关字段支持SKC和SKU维度，具体使用维度需根据 查询活动详情 接口返回的 partakeScope 判断。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述，成功：OK"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "响应编码，成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应数据",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "description": "查询结果条数"
+                    },
+                    "goodsInfoList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "可报商品信息及要求",
+                        "properties": {
+                          "skc": {
+                            "type": "string",
+                            "description": "SKC编码"
+                          },
+                          "partakeRuleInfo": {
+                            "type": "object",
+                            "description": "当查询活动详情接口返回 partakeScope=0 时，需关注字段提供的SKC维度商品信息提报要求。",
+                            "properties": {
+                              "siteRuleInfoList": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "description": "当查询活动详情接口返回 partakeScope=0 时，使用本字段获取SKC维度的活动价格提报范围。 半托管/全托管模式下，各站点报价要求一致，仅返回一组数据，且站点字段为空；自运营模式下，返回各可提报站点的报价要求。",
+                                  "properties": {
+                                    "site": {
+                                      "type": "string",
+                                      "description": "站点，示例：shein-br。半托管/全托管模式下，站点字段为空。"
+                                    },
+                                    "suggestPriceCurrency": {
+                                      "type": "string",
+                                      "description": "建议活动价格对应的币种，自运营模式使用，示例：BRL。"
+                                    },
+                                    "minSuggestPrice": {
+                                      "type": "string",
+                                      "description": "建议活动价格最小金额，自运营模式使用。"
+                                    },
+                                    "maxSuggestPrice": {
+                                      "type": "string",
+                                      "description": "建议活动价格最大金额，自运营模式使用。"
+                                    },
+                                    "minSalePriceRate": {
+                                      "type": "string",
+                                      "description": "售价降幅最小值，自运营模式使用。"
+                                    },
+                                    "maxSalePriceRate": {
+                                      "type": "string",
+                                      "description": "售价降幅最大值，自运营模式使用。"
+                                    },
+                                    "minSupplyPriceRate": {
+                                      "type": "string",
+                                      "description": "供货价降幅最小值，半托管/全托管模式使用。"
+                                    },
+                                    "maxSupplyPriceRate": {
+                                      "type": "string",
+                                      "description": "供货价降幅最大值，半托管/全托管模式使用。"
+                                    },
+                                    "minVipSupplyPriceRate": {
+                                      "type": "string",
+                                      "description": "VIP档位供货价降幅最小值，半托管/全托管模式使用。"
+                                    },
+                                    "maxVipSupplyPriceRate": {
+                                      "type": "string",
+                                      "description": "VIP档位供货价降幅最大值，半托管/全托管模式使用。"
+                                    },
+                                    "minSvipSupplyPriceRate": {
+                                      "type": "string",
+                                      "description": "SVIP档位供货价降幅最小值，半托管/全托管模式使用。"
+                                    }
+                                  }
+                                },
+                                "x-shein-original-multiple": 1
+                              },
+                              "minActStockNum": {
+                                "type": "string",
+                                "description": "最小活动件数"
+                              },
+                              "maxActStockNum": {
+                                "type": "string",
+                                "description": "最大活动件数"
+                              },
+                              "minReserveStockNum": {
+                                "type": "string",
+                                "description": "最小活动预留件数"
+                              }
+                            }
+                          },
+                          "priceInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "当查询活动详情接口返回 partakeScope=0 时，需关注本字段提供的SKC维度价格信息。 对于半托管/全托管模式，各站点供货价相同，仅返回一组价格数据，且站点字段为空；对于自运营模式，将返回各可报站点对应的售价。",
+                              "properties": {
+                                "site": {
+                                  "type": "string",
+                                  "description": "站点，示例：shein-br。半托管/全托管模式下，站点字段为空。"
+                                },
+                                "currency": {
+                                  "type": "string",
+                                  "description": "币种"
+                                },
+                                "salePrice": {
+                                  "type": "string",
+                                  "description": "SKC售价，自运营模式使用。"
+                                },
+                                "supplyPrice": {
+                                  "type": "string",
+                                  "description": "SKC供货价，半托管/全托管模式使用。"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "skuInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "当查询活动详情接口返回 partakeScope=1 时，需关注本字段提供的SKU信息。",
+                              "properties": {
+                                "sku": {
+                                  "type": "string",
+                                  "description": "SKU编码"
+                                },
+                                "partakeRuleInfo": {
+                                  "type": "object",
+                                  "description": "当查询活动详情接口返回 partakeScope=1 时，需关注字段提供的SKU维度商品信息提报要求。",
+                                  "properties": {
+                                    "siteRuleInfoList": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "description": "当查询活动详情接口返回 partakeScope=1 时，使用本字段获取SKU维度的活动价格提报范围。 半托管/全托管模式下，各站点报价要求一致，仅返回一组数据，且站点字段为空；自运营模式下，返回各可提报站点的报价要求。",
+                                        "properties": {
+                                          "site": {
+                                            "type": "string",
+                                            "description": "站点，示例：shein-br。半托管/全托管模式下，站点字段为空。"
+                                          },
+                                          "suggestPriceCurrency": {
+                                            "type": "string",
+                                            "description": "建议活动价格对应的币种，自运营模式使用，样例：BRL。"
+                                          },
+                                          "minSuggestPrice": {
+                                            "type": "string",
+                                            "description": "建议活动价格最小金额，自运营模式使用。"
+                                          },
+                                          "maxSuggestPrice": {
+                                            "type": "string",
+                                            "description": "建议活动价格最大金额，自运营模式使用。"
+                                          },
+                                          "minSalePriceRate": {
+                                            "type": "string",
+                                            "description": "售价降幅最小值，自运营模式使用。"
+                                          },
+                                          "maxSalePriceRate": {
+                                            "type": "string",
+                                            "description": "售价降幅最大值，自运营模式使用。"
+                                          },
+                                          "minSupplyPriceRate": {
+                                            "type": "string",
+                                            "description": "供货价降幅最小值，半托管/全托管模式使用。"
+                                          },
+                                          "maxSupplyPriceRate": {
+                                            "type": "string",
+                                            "description": "供货价降幅最大值，半托管/全托管模式使用。"
+                                          },
+                                          "minVipSupplyPriceRate": {
+                                            "type": "string",
+                                            "description": "VIP档位供货价降幅最小值，半托管/全托管模式使用。"
+                                          },
+                                          "maxVipSupplyPriceRate": {
+                                            "type": "string",
+                                            "description": "VIP档位供货价降幅最大值，半托管/全托管模式使用。"
+                                          },
+                                          "minSvipSupplyPriceRate": {
+                                            "type": "string",
+                                            "description": "SVIP档位供货价降幅最小值，半托管/全托管模式使用。"
+                                          }
+                                        }
+                                      },
+                                      "x-shein-original-multiple": 1
+                                    }
+                                  }
+                                },
+                                "priceInfoList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "当查询活动详情接口返回 partakeScope=1 时，需关注本字段提供的SKU维度价格信息。 对于半托管/全托管模式，各站点供货价相同，仅返回一组价格数据，且站点字段为空；对于自运营模式，将返回各可报站点对应的售价。",
+                                    "properties": {
+                                      "site": {
+                                        "type": "string",
+                                        "description": "站点，示例：shein-br。半托管/全托管模式下，站点字段为空。"
+                                      },
+                                      "currency": {
+                                        "type": "string",
+                                        "description": "币种"
+                                      },
+                                      "salePrice": {
+                                        "type": "string",
+                                        "description": "SKU售价，自运营模式使用。"
+                                      },
+                                      "supplyPrice": {
+                                        "type": "string",
+                                        "description": "SKU供货价，半托管/全托管模式使用。"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "isMultiSize": {
+                            "type": "integer",
+                            "description": "是否分尺码定价：0表示非分尺码定价，SKC下各SKU价格相同；1表示分尺码定价，SKC下各SKU价格可不同。 当活动详情接口返回 partakeScope=1 且 isMultiSize=0 时，同一SKC下各SKU提报的活动价格须一致，包括活动供货价、同一站点活动售价或售价降幅。"
+                          },
+                          "stock": {
+                            "type": "integer",
+                            "description": "SKC总可用库存"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "info"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002014,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002014-3000009",
+        "x-shein-category-id": 3000009,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 14,
+        "x-shein-updated-at": "2026-09-01 14:30:22",
+        "x-shein-qps": "15",
+        "x-shein-change-content": "优化字段描述",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><span style=\"font-size: 14px;\">请求签名，生成规则请查阅：</span><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\" style=\"text-align: start;\">签名规则</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "指定出参语种，支持语种：英语：US，中文简体：CN，葡语：PT，西班牙语：ES，土耳其语：TR，法语：FR，德语：DE，泰语：TH",
+                  "name": "language",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>页码，从1开始。</p>",
+                  "name": "pageNum",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>每页数量，最大100。</p>",
+                  "name": "pageSize",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "活动ID",
+                  "name": "activityId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>SKC，最多100个。</p>",
+                  "name": "skcList"
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "错误描述，成功：OK",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "响应编码，成功：0",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "description": "<p>响应数据</p>",
+                  "name": "info",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "description": "<p>查询结果条数</p>",
+                      "name": "count"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "可报商品信息及要求",
+                      "name": "goodsInfoList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>SKC编码</p>",
+                          "name": "skc"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "description": "<p>当查询活动详情接口返回<code>partakeScope=0</code>时，需关注字段提供的SKC维度商品信息提报要求。</p>",
+                          "name": "partakeRuleInfo"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "<p>当查询活动详情接口返回<code>partakeScope=0</code>时，使用本字段获取SKC维度的活动价格提报范围。</p><p>半托管/全托管模式下，各站点报价要求一致，仅返回一组数据，且站点字段为空；自运营模式下，返回各可提报站点的报价要求。</p>",
+                              "name": "siteRuleInfoList"
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>站点，示例：shein-br。半托管/全托管模式下，站点字段为空。</p>",
+                                  "name": "site"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>建议活动价格对应的币种，自运营模式使用，示例：BRL。</p>",
+                                  "name": "suggestPriceCurrency"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>建议活动价格最小金额，自运营模式使用。</p>",
+                                  "name": "minSuggestPrice"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>建议活动价格最大金额，自运营模式使用。</p>",
+                                  "name": "maxSuggestPrice"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>售价降幅最小值，自运营模式使用。</p>",
+                                  "name": "minSalePriceRate"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>售价降幅最大值，自运营模式使用。</p>",
+                                  "name": "maxSalePriceRate"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>供货价降幅最小值，半托管/全托管模式使用。</p>",
+                                  "name": "minSupplyPriceRate"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>供货价降幅最大值，半托管/全托管模式使用。</p>",
+                                  "name": "maxSupplyPriceRate"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>VIP档位供货价降幅最小值，半托管/全托管模式使用。</p>",
+                                  "name": "minVipSupplyPriceRate"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>VIP档位供货价降幅最大值，半托管/全托管模式使用。</p>",
+                                  "name": "maxVipSupplyPriceRate"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>SVIP档位供货价降幅最小值，半托管/全托管模式使用。</p>",
+                                  "name": "minSvipSupplyPriceRate"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>最小活动件数</p>",
+                              "name": "minActStockNum"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "最大活动件数",
+                              "name": "maxActStockNum"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "最小活动预留件数",
+                              "name": "minReserveStockNum"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>当查询活动详情接口返回<code>partakeScope=0</code>时，需关注本字段提供的SKC维度价格信息。</p><p>对于半托管/全托管模式，各站点供货价相同，仅返回一组价格数据，且站点字段为空；对于自运营模式，将返回各可报站点对应的售价。</p>",
+                          "name": "priceInfoList"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>站点，示例：shein-br。半托管/全托管模式下，站点字段为空。</p>",
+                              "name": "site"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>币种</p>",
+                              "name": "currency"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>SKC售价，自运营模式使用。</p>",
+                              "name": "salePrice"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>SKC供货价，半托管/全托管模式使用。</p>",
+                              "name": "supplyPrice"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>当查询活动详情接口返回<code>partakeScope=1</code>时，需关注本字段提供的SKU信息。</p>",
+                          "name": "skuInfoList"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>SKU编码</p>",
+                              "name": "sku"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "description": "<p>当查询活动详情接口返回<code>partakeScope=1</code>时，需关注字段提供的SKU维度商品信息提报要求。</p>",
+                              "name": "partakeRuleInfo"
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "object",
+                                  "multiple": 1,
+                                  "description": "<p>当查询活动详情接口返回<code>partakeScope=1</code>时，使用本字段获取SKU维度的活动价格提报范围。</p><p>半托管/全托管模式下，各站点报价要求一致，仅返回一组数据，且站点字段为空；自运营模式下，返回各可提报站点的报价要求。</p>",
+                                  "name": "siteRuleInfoList"
+                                },
+                                "children": [
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "description": "<p>站点，示例：shein-br。半托管/全托管模式下，站点字段为空。</p>",
+                                      "name": "site"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "description": "<p>建议活动价格对应的币种，自运营模式使用，样例：BRL。</p>",
+                                      "name": "suggestPriceCurrency"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "description": "<p>建议活动价格最小金额，自运营模式使用。</p>",
+                                      "name": "minSuggestPrice"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "description": "<p>建议活动价格最大金额，自运营模式使用。</p>",
+                                      "name": "maxSuggestPrice"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "description": "<p>售价降幅最小值，自运营模式使用。</p>",
+                                      "name": "minSalePriceRate"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "description": "<p>售价降幅最大值，自运营模式使用。</p>",
+                                      "name": "maxSalePriceRate"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "description": "<p>供货价降幅最小值，半托管/全托管模式使用。</p>",
+                                      "name": "minSupplyPriceRate"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "description": "<p>供货价降幅最大值，半托管/全托管模式使用。</p>",
+                                      "name": "maxSupplyPriceRate"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "description": "<p>VIP档位供货价降幅最小值，半托管/全托管模式使用。</p>",
+                                      "name": "minVipSupplyPriceRate"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "description": "<p>VIP档位供货价降幅最大值，半托管/全托管模式使用。</p>",
+                                      "name": "maxVipSupplyPriceRate"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "description": "<p>SVIP档位供货价降幅最小值，半托管/全托管模式使用。</p>",
+                                      "name": "minSvipSupplyPriceRate"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "<p>当查询活动详情接口返回<code>partakeScope=1</code>时，需关注本字段提供的SKU维度价格信息。</p><p>对于半托管/全托管模式，各站点供货价相同，仅返回一组价格数据，且站点字段为空；对于自运营模式，将返回各可报站点对应的售价。</p>",
+                              "name": "priceInfoList"
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>站点，示例：shein-br。半托管/全托管模式下，站点字段为空。</p>",
+                                  "name": "site"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>币种</p>",
+                                  "name": "currency"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>SKU售价，自运营模式使用。</p>",
+                                  "name": "salePrice"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>SKU供货价，半托管/全托管模式使用。</p>",
+                                  "name": "supplyPrice"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p>是否分尺码定价：0表示非分尺码定价，SKC下各SKU价格相同；1表示分尺码定价，SKC下各SKU价格可不同。</p><p>当活动详情接口返回<code>partakeScope=1</code>且<code>isMultiSize=0</code>时，同一SKC下各SKU提报的活动价格须一致，包括活动供货价、同一站点活动售价或售价降幅。</p>",
+                          "name": "isMultiSize"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p>SKC总可用库存</p>",
+                          "name": "stock"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "半托管、全托管模式",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "pageNum": 0,
+                "pageSize": 0,
+                "activityId": 0,
+                "skcList": [
+                  "<REDACTED_SAMPLE>"
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "msg": "<REDACTED_SAMPLE>",
+                "code": "<REDACTED_SAMPLE>",
+                "bbl": null,
+                "info": {
+                  "count": 0,
+                  "goodsInfoList": [
+                    {
+                      "skc": "<REDACTED_SAMPLE>",
+                      "partakeRuleInfo": {
+                        "siteRuleInfoList": [
+                          {
+                            "minSupplyPriceRate": "<REDACTED_SAMPLE>",
+                            "maxSupplyPriceRate": "<REDACTED_SAMPLE>",
+                            "minVipSupplyPriceRate": "<REDACTED_SAMPLE>",
+                            "maxVipSupplyPriceRate": "<REDACTED_SAMPLE>",
+                            "minSvipSupplyPriceRate": "<REDACTED_SAMPLE>"
+                          }
+                        ]
+                      },
+                      "skuInfoList": [
+                        {
+                          "sku": "<REDACTED_SAMPLE>",
+                          "partakeRuleInfo": {
+                            "siteRuleInfoList": [
+                              {
+                                "minSupplyPriceRate": "<REDACTED_SAMPLE>",
+                                "maxSupplyPriceRate": "<REDACTED_SAMPLE>",
+                                "minVipSupplyPriceRate": "<REDACTED_SAMPLE>",
+                                "maxVipSupplyPriceRate": "<REDACTED_SAMPLE>",
+                                "minSvipSupplyPriceRate": "<REDACTED_SAMPLE>"
+                              }
+                            ]
+                          },
+                          "priceInfoList": [
+                            {
+                              "currency": "<REDACTED_SAMPLE>",
+                              "supplyPrice": "<REDACTED_SAMPLE>"
+                            }
+                          ]
+                        },
+                        {
+                          "sku": "<REDACTED_SAMPLE>",
+                          "partakeRuleInfo": {
+                            "siteRuleInfoList": [
+                              {
+                                "minSupplyPriceRate": "<REDACTED_SAMPLE>",
+                                "maxSupplyPriceRate": "<REDACTED_SAMPLE>",
+                                "minVipSupplyPriceRate": "<REDACTED_SAMPLE>",
+                                "maxVipSupplyPriceRate": "<REDACTED_SAMPLE>",
+                                "minSvipSupplyPriceRate": "<REDACTED_SAMPLE>"
+                              }
+                            ]
+                          },
+                          "priceInfoList": [
+                            {
+                              "currency": "<REDACTED_SAMPLE>",
+                              "supplyPrice": "<REDACTED_SAMPLE>"
+                            }
+                          ]
+                        }
+                      ],
+                      "stock": "<REDACTED_SAMPLE>",
+                      "isMultiSize": 0,
+                      "priceInfoList": [
+                        {
+                          "currency": "<REDACTED_SAMPLE>",
+                          "supplyPrice": "<REDACTED_SAMPLE>"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          },
+          {
+            "scene": "自运营模式",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "pageNum": 0,
+                "pageSize": 0,
+                "activityId": 0
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "msg": "<REDACTED_SAMPLE>",
+                "code": "<REDACTED_SAMPLE>",
+                "bbl": null,
+                "info": {
+                  "count": 0,
+                  "goodsInfoList": [
+                    {
+                      "skc": "<REDACTED_SAMPLE>",
+                      "partakeRuleInfo": {
+                        "siteRuleInfoList": [
+                          {
+                            "site": "<REDACTED_SAMPLE>",
+                            "minSalePriceRate": "<REDACTED_SAMPLE>",
+                            "maxSalePriceRate": "<REDACTED_SAMPLE>"
+                          }
+                        ]
+                      },
+                      "skuInfoList": [
+                        {
+                          "sku": "<REDACTED_SAMPLE>",
+                          "partakeRuleInfo": {
+                            "siteRuleInfoList": [
+                              {
+                                "site": "<REDACTED_SAMPLE>",
+                                "minSalePriceRate": "<REDACTED_SAMPLE>",
+                                "maxSalePriceRate": "<REDACTED_SAMPLE>"
+                              }
+                            ]
+                          },
+                          "priceInfoList": [
+                            {
+                              "site": "<REDACTED_SAMPLE>",
+                              "currency": "<REDACTED_SAMPLE>",
+                              "salePrice": "<REDACTED_SAMPLE>"
+                            }
+                          ]
+                        }
+                      ],
+                      "stock": "<REDACTED_SAMPLE>",
+                      "isMultiSize": 0,
+                      "priceInfoList": [
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "salePrice": "<REDACTED_SAMPLE>"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求签名，生成规则请查阅： 签名规则"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "指定出参语种，支持语种：英语：US，中文简体：CN，葡语：PT，西班牙语：ES，土耳其语：TR，法语：FR，德语：DE，泰语：TH"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "pageNum": {
+                  "type": "integer",
+                  "description": "页码，从1开始。"
+                },
+                "pageSize": {
+                  "type": "integer",
+                  "description": "每页数量，最大100。"
+                },
+                "activityId": {
+                  "type": "integer",
+                  "description": "活动ID"
+                },
+                "skcList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "SKC，最多100个。"
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "pageNum",
+                "pageSize",
+                "activityId"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

@@ -1,0 +1,424 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "修改退货单的退货方式",
+    "version": "source-revision-2",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/purchase/update-pickup-methods": {
+      "post": {
+        "tags": [
+          "采购单退货"
+        ],
+        "operationId": "shein_api_3001781",
+        "summary": "修改退货单的退货方式",
+        "description": "在退货单退货前，通过此接口修改退货单的退货方式、地址及承运商",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码，成功：0",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK",
+                  "x-shein-example-redacted": true
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object"
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "x-shein-example-redacted": true
+                        },
+                        "customObj": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "code",
+                "traceId"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001781,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001781-3000011",
+        "x-shein-category-id": 3000011,
+        "x-shein-applicable-modes": [
+          {
+            "id": 2,
+            "name": "全托管"
+          }
+        ],
+        "x-shein-source-version": 2,
+        "x-shein-updated-at": "2026-06-04 13:50:45",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "增加traceid",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识，openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>退货方式，必填；1-SHEIN合作物流；4-自提\t</p>",
+                  "name": "distributionType",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "快递信息；当distributionType=1-SHEIN合作物流时必填",
+                  "name": "expressInfo"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "退货地址ID，必填",
+                      "name": "addressId"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "退货物流公司Code，必填；",
+                      "name": "companyCode"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "地址快照版本，必填",
+                      "name": "snapshotVersion"
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>退货单Id；returnOrderNo与returnOrderId必须传其中之一</p>",
+                  "name": "returnOrderId"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>退货单号；returnOrderNo与returnOrderId必须传其中之一</p>",
+                  "name": "returnOrderNo"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>自提信息</p>",
+                  "name": "selfPickup"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>司机id（非必填）</p>",
+                      "name": "driverId"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "响应编码，成功：0",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "错误描述,成功：OK",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "",
+                      "name": "data"
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "",
+                      "name": "meta"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "",
+                          "name": "count"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "<p><br></p>",
+                          "name": "customObj"
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "expressInfo": {
+                  "addressId": 0,
+                  "companyCode": "<REDACTED_SAMPLE>"
+                },
+                "returnOrderNo": "<REDACTED_SAMPLE>",
+                "distributionType": 0
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {},
+                "bbl": {},
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识，openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "distributionType": {
+                  "type": "integer",
+                  "description": "退货方式，必填；1-SHEIN合作物流；4-自提",
+                  "x-shein-example-redacted": true
+                },
+                "expressInfo": {
+                  "type": "object",
+                  "description": "快递信息；当distributionType=1-SHEIN合作物流时必填",
+                  "properties": {
+                    "addressId": {
+                      "type": "integer",
+                      "description": "退货地址ID，必填",
+                      "x-shein-example-redacted": true
+                    },
+                    "companyCode": {
+                      "type": "string",
+                      "description": "退货物流公司Code，必填；",
+                      "x-shein-example-redacted": true
+                    },
+                    "snapshotVersion": {
+                      "type": "string",
+                      "description": "地址快照版本，必填",
+                      "x-shein-example-redacted": true
+                    }
+                  }
+                },
+                "returnOrderId": {
+                  "type": "integer",
+                  "description": "退货单Id；returnOrderNo与returnOrderId必须传其中之一",
+                  "x-shein-example-redacted": true
+                },
+                "returnOrderNo": {
+                  "type": "string",
+                  "description": "退货单号；returnOrderNo与returnOrderId必须传其中之一",
+                  "x-shein-example-redacted": true
+                },
+                "selfPickup": {
+                  "type": "object",
+                  "description": "自提信息",
+                  "properties": {
+                    "driverId": {
+                      "type": "string",
+                      "description": "司机id（非必填）",
+                      "x-shein-example-redacted": true
+                    }
+                  }
+                }
+              },
+              "required": [
+                "distributionType"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

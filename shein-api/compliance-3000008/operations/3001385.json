@@ -1,0 +1,824 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "打印合规标签",
+    "version": "source-revision-21",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods-compliance/label-print": {
+      "post": {
+        "tags": [
+          "合规"
+        ],
+        "operationId": "shein_api_3001385",
+        "summary": "打印合规标签",
+        "description": "此接口支持打印商品相关的标签，标签中会包含多种信息，包括：环保标、GPSR、制造商、商品条码。 打印标签前，请先通过接口/open-api/goods-compliance/get-label-template查询每个SKC可用的标签模板，每个模板中包含不同信息，每个信息需提供的入参不同。 不同标签类型的图片示例参考 文档 。商家后台的标签打印流程可参考 文档 。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOfOpenPlatformPrintResp",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "打印结果列表",
+                  "x-shein-label": "OpenPlatformPrintResp",
+                  "properties": {
+                    "failedList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "失败列表",
+                        "properties": {
+                          "code": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "description": "失败code"
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "labelType": {
+                            "type": "integer",
+                            "description": "标签类型"
+                          },
+                          "reason": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "description": "失败原因"
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "uid": {
+                            "type": "string",
+                            "description": "失败行的定位ID。 一组打印规则可能匹配出多个标签，因此返回结果中会有多行相同UID出现。"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "successList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "成功列表",
+                        "properties": {
+                          "labelLength": {
+                            "type": "integer",
+                            "description": "标签尺寸-长"
+                          },
+                          "labelType": {
+                            "type": "integer",
+                            "description": "标签类型"
+                          },
+                          "labelUrl": {
+                            "type": "string",
+                            "description": "标签PDF URL。 当入参中包含labelCode和printNumber（且大于1）时，URL中会包含多个内容一样的标签内容。"
+                          },
+                          "labelWidth": {
+                            "type": "integer",
+                            "description": "标签尺寸-宽"
+                          },
+                          "labelCode": {
+                            "type": "string",
+                            "description": "标签模板code"
+                          },
+                          "uid": {
+                            "type": "string",
+                            "description": "成功行的定位ID。 一组打印规则可能匹配出多个标签，因此返回结果中会有多行相同UID出现。"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001385,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001385-3000008",
+        "x-shein-category-id": 3000008,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 21,
+        "x-shein-updated-at": "2025-09-05 16:59:54",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "修改场景名",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：<span style=\"font-size: 14px;\">application/json</span></p>",
+                  "name": "Content-Type",
+                  "defaultValue": "",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "defaultValue": "<REDACTED_SAMPLE>",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "defaultValue": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "req",
+              "label": "OpenPlatformPrintReq",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "<p>打印规则列表。即提供具体要打印什么内容的标签。单次最多支持10组规则，过多容易响应超时。</p><p><span style=\"color: rgb(225, 60, 57);\">打印标签前，请先通过接口/open-api/goods-compliance/get-label-template查询每个SKC可用的标签模板，每个模板中包含不同信息，每个信息需提供的入参不同。</span></p>",
+                  "name": "labelDetailList",
+                  "label": "",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "<p>标签类型。各类型打印示例查看文档底部FAQ。</p><p>1-环保标：通常包含环保信息</p><p>2-GPSR标：通常包含GPSR信息（可能也会有环保标、商品条码、制造商信息）</p><p>3-商家自定义：包含内容不定，此类标签由商家在后台自行创建。具体包含信息可查询/open-api/goods-compliance/get-label-template。</p><p>4-GPSR+环保标：通常包含GPSR、环保信息。</p><p>5-商品条码合并标：通常包含商品条码（可能也会有环保标、商品条码、制造商信息）</p>",
+                      "name": "labelType",
+                      "label": "",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>打印的标签模板编码。通过/open-api/goods-compliance/get-label-template查询获取</p><p>非必填，不传值时系统会根据入参的skc和<span style=\"font-size: 14px;\">labelType</span>去匹配出skc可打印的所有标签模板进行打印。</p>",
+                      "name": "labelCode"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "description": "<p>标签打印数量。</p><p>非必填，只有在入参labelCode的情况下，printNumer才会生效。不传值时默认每个标签打印1份。</p>",
+                      "name": "printNumber"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "int64",
+                      "description": "<p>此字段后续会废弃，请改用<span style=\"font-size: 14px;\">packageMaterialList入参（支持在一个标签内打印多个环保材料）。</span></p><p><br></p>",
+                      "name": "packageTypeId"
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "int64",
+                      "description": "<p>此字段后续会废弃，请改用<span style=\"font-size: 14px;\">packageMaterialList入参（支持在一个标签内打印多个环保材料）。</span></p><p><br></p>",
+                      "name": "packageMaterialId"
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>环保材料列表。支持一个标签内打印多个环保材料，最多10个材料。</p><p>标签内包含环保信息时，需要入参此列表。通常labelType=1/2/4/5时均可入参此信息，但最终打印结果中是否会有环保材料信息，取决于标签模板中是否有环保材料的变量信息。</p>",
+                      "name": "packageMaterialList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "int64",
+                          "description": "<p>环保材料类型ID。可通过接口<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3000967\" target=\"_blank\">获取全量环保耗材信息（新）</a>获取。</p><p>通常labelType=1/2/4/5时均可入参，但最终打印结果中是否会有环保材料信息，取决于标签模板中是否有环保材料的变量信息。</p>",
+                          "name": "packageTypeId"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "description": "<p>环保材料ID。可通过接口<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3000967\" target=\"_blank\">获取全量环保耗材信息（新）</a>获取。</p><p>通常labelType=1/2/4/5时均可入参，但最终打印结果中是否会有环保材料信息，取决于标签模板中是否有环保材料的变量信息。</p>",
+                          "name": "packageMaterialId"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>平台生成的SKC唯一编码。</p><p>必填，不论什么类型的标签都需要提供。</p>",
+                      "name": "skc",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>商品条码中显示的sku。标签内包含条码信息时，skucode和suppliersku选择一个入参即可，</p><p>通常labelType=2/4/5时均可入参，但最终打印结果中是否会有商品条码信息，取决于标签模板中是否有商品条码的变量信息。</p>",
+                      "name": "skuCode"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>商品条码中显示的sku。标签内包含条码信息时，skucode和suppliersku选择一个入参即可，</p><p>通常labelType=2/4/5时均可入参，但最终打印结果中是否会有商品条码信息，取决于标签模板中是否有商品条码的变量信息。</p>",
+                      "name": "supplierSku"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>商品条码中显示的采购单号。标签内包含条码信息时使用，非必填，不传值则单号位置显示空。</p><p>通常labelType=2/4/5时均可入参，但最终打印结果中是否会有商品条码信息，取决于标签模板中是否有商品条码的变量信息。</p>",
+                      "name": "orderNo"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>原产地。标签内包含GPSR信息时使用，由商家自定义输入值，填写国家名称。</p><p>通常labelType=2/4/5是均可入参。</p>",
+                      "name": "originCountry",
+                      "label": "",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>产品批次号。标签内包含GPSR信息时使用，由商家自定义输入值。</p><p>通常labelType=2/4/5是均可入参。</p>",
+                      "name": "productBatchNo",
+                      "label": "",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>警示语。标签内包含GPSR信息时使用，由商家自定义输入值。</p><p>通常labelType=2/4/5是均可入参。</p>",
+                      "name": "warning"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>打印规则的定位ID。每一行的定位ID不可重复。由开发者自定义输入，用于在返回中判断哪条规则打印失败，哪条打印成功。</p>",
+                      "name": "uid",
+                      "label": "",
+                      "required": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOfOpenPlatformPrintResp",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>响应编码 成功：0</p>",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>打印结果列表</p>",
+                  "name": "info",
+                  "label": "OpenPlatformPrintResp",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>失败列表</p>",
+                      "name": "failedList",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 1,
+                          "description": "<p>失败code</p>",
+                          "name": "code",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "标签类型",
+                          "name": "labelType",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 1,
+                          "description": "失败原因",
+                          "name": "reason",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>失败行的定位ID。</p><p>一组打印规则可能匹配出多个标签，因此返回结果中会有多行相同UID出现。</p>",
+                          "name": "uid",
+                          "label": "",
+                          "required": false
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "成功列表",
+                      "name": "successList",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>标签尺寸-长</p>",
+                          "name": "labelLength",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "标签类型",
+                          "name": "labelType",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>标签PDF URL。</p><p>当入参中包含labelCode和printNumber（且大于1）时，URL中会包含多个内容一样的标签内容。</p><p><br></p>",
+                          "name": "labelUrl",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>标签尺寸-宽</p>",
+                          "name": "labelWidth",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "标签模板code",
+                          "name": "labelCode"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>成功行的定位ID。</p><p>一组打印规则可能匹配出多个标签，因此返回结果中会有多行相同UID出现。</p>",
+                          "name": "uid",
+                          "label": "",
+                          "required": false
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误描述,成功：OK</p>",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 114,
+            "openPath": "/open-api/goods-compliance/label-print",
+            "errorCode": "0001",
+            "errorMsg": "未找到模板",
+            "errorMsgCn": "未找到模板",
+            "errorMsgUs": "Template not found",
+            "errorMsgPt": "Modelo não encontrado",
+            "errorMsgEs": "Plantilla no encontrada.",
+            "solution": "此错误代表目前商家的数据中，无法找到符合您提供的入参组合的标签打印样式。请您调整入参重试，可以重点关注一下type。",
+            "sort": 0
+          },
+          {
+            "id": 115,
+            "openPath": "/open-api/goods-compliance/label-print",
+            "errorCode": "0002",
+            "errorMsg": "未找到变量",
+            "errorMsgCn": "未找到变量",
+            "errorMsgUs": "Variable not found",
+            "errorMsgPt": "Variável não encontrada",
+            "errorMsgEs": "Variable no encontrada",
+            "solution": "如果您打印的是GPSR标签，且您提供了SKC，代表商家可能没有在SKC商绑定欧代责任人或制造商信息，导致无法通过SKC获取到标签内展示信息。请联系商家前往商家后台的合规中心中操作。",
+            "sort": 0
+          },
+          {
+            "id": 116,
+            "openPath": "/open-api/goods-compliance/label-print",
+            "errorCode": "0003",
+            "errorMsg": "PDF生成失败",
+            "errorMsgCn": "PDF生成失败",
+            "errorMsgUs": "PDF generation failed",
+            "errorMsgPt": "Falha na geração do PDF",
+            "errorMsgEs": "¡Falló la generación del PDF!",
+            "solution": "生成异常，请您稍后再试",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "通过推荐模板打印",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "labelDetailList": [
+                  {
+                    "labelCode": "<REDACTED_SAMPLE>",
+                    "labelType": 0,
+                    "skc": "<REDACTED_SAMPLE>",
+                    "productBatchNo": "<REDACTED_SAMPLE>",
+                    "originCountry": "<REDACTED_SAMPLE>",
+                    "warning": "<REDACTED_SAMPLE>",
+                    "packageMaterialList": [
+                      {
+                        "package_material_id": 0,
+                        "package_type_id": 0
+                      },
+                      {
+                        "package_material_id": 0,
+                        "package_type_id": 0
+                      }
+                    ],
+                    "printNumber": 0,
+                    "skuCode": "<REDACTED_SAMPLE>",
+                    "uid": 0
+                  },
+                  {
+                    "labelCode": "<REDACTED_SAMPLE>",
+                    "labelType": 0,
+                    "printNumber": 0,
+                    "skuCode": "<REDACTED_SAMPLE>",
+                    "uid": 0
+                  }
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "successList": [
+                    {
+                      "uid": "<REDACTED_SAMPLE>",
+                      "labelType": 0,
+                      "labelUrl": "<REDACTED_SAMPLE>",
+                      "labelCode": "<REDACTED_SAMPLE>",
+                      "labelWidth": 0,
+                      "labelLength": 0
+                    },
+                    {
+                      "uid": "<REDACTED_SAMPLE>",
+                      "labelType": 0,
+                      "labelUrl": "<REDACTED_SAMPLE>",
+                      "labelCode": "<REDACTED_SAMPLE>",
+                      "labelWidth": 0,
+                      "labelLength": 0
+                    }
+                  ],
+                  "failedList": []
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          },
+          {
+            "scene": "通过SKC去匹配可用标签",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "labelDetailList": [
+                  {
+                    "labelType": 0,
+                    "productBatchNo": "<REDACTED_SAMPLE>",
+                    "originCountry": "<REDACTED_SAMPLE>",
+                    "warning": "<REDACTED_SAMPLE>",
+                    "skc": "<REDACTED_SAMPLE>",
+                    "packageMaterialList": [
+                      {
+                        "packageMaterialId": 0,
+                        "packageTypeId": 0
+                      },
+                      {
+                        "packageMaterialId": 0,
+                        "packageTypeId": 0
+                      }
+                    ],
+                    "uid": 0
+                  }
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "successList": [
+                    {
+                      "uid": "<REDACTED_SAMPLE>",
+                      "labelType": 0,
+                      "labelUrl": "<REDACTED_SAMPLE>",
+                      "labelCode": "<REDACTED_SAMPLE>",
+                      "labelWidth": 0,
+                      "labelLength": 0
+                    },
+                    {
+                      "uid": "<REDACTED_SAMPLE>",
+                      "labelType": 0,
+                      "labelUrl": "<REDACTED_SAMPLE>",
+                      "labelCode": "<REDACTED_SAMPLE>",
+                      "labelWidth": 0,
+                      "labelLength": 0
+                    }
+                  ],
+                  "failedList": []
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值： application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "description": "req",
+              "x-shein-label": "OpenPlatformPrintReq",
+              "properties": {
+                "labelDetailList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "打印规则列表。即提供具体要打印什么内容的标签。单次最多支持10组规则，过多容易响应超时。 打印标签前，请先通过接口/open-api/goods-compliance/get-label-template查询每个SKC可用的标签模板，每个模板中包含不同信息，每个信息需提供的入参不同。",
+                    "properties": {
+                      "labelType": {
+                        "type": "integer",
+                        "description": "标签类型。各类型打印示例查看文档底部FAQ。 1-环保标：通常包含环保信息 2-GPSR标：通常包含GPSR信息（可能也会有环保标、商品条码、制造商信息） 3-商家自定义：包含内容不定，此类标签由商家在后台自行创建。具体包含信息可查询/open-api/goods-compliance/get-label-template。 4-GPSR+环保标：通常包含GPSR、环保信息。 5-商品条码合并标：通常包含商品条码（可能也会有环保标、商品条码、制造商信息）"
+                      },
+                      "labelCode": {
+                        "type": "string",
+                        "description": "打印的标签模板编码。通过/open-api/goods-compliance/get-label-template查询获取 非必填，不传值时系统会根据入参的skc和 labelType 去匹配出skc可打印的所有标签模板进行打印。"
+                      },
+                      "printNumber": {
+                        "type": "integer",
+                        "description": "标签打印数量。 非必填，只有在入参labelCode的情况下，printNumer才会生效。不传值时默认每个标签打印1份。"
+                      },
+                      "packageTypeId": {
+                        "type": "integer",
+                        "format": "int64",
+                        "x-shein-original-type": "int64",
+                        "description": "此字段后续会废弃，请改用 packageMaterialList入参（支持在一个标签内打印多个环保材料）。"
+                      },
+                      "packageMaterialId": {
+                        "type": "integer",
+                        "format": "int64",
+                        "x-shein-original-type": "int64",
+                        "description": "此字段后续会废弃，请改用 packageMaterialList入参（支持在一个标签内打印多个环保材料）。"
+                      },
+                      "packageMaterialList": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "description": "环保材料列表。支持一个标签内打印多个环保材料，最多10个材料。 标签内包含环保信息时，需要入参此列表。通常labelType=1/2/4/5时均可入参此信息，但最终打印结果中是否会有环保材料信息，取决于标签模板中是否有环保材料的变量信息。",
+                          "properties": {
+                            "packageTypeId": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-shein-original-type": "int64",
+                              "description": "环保材料类型ID。可通过接口 获取全量环保耗材信息（新） 获取。 通常labelType=1/2/4/5时均可入参，但最终打印结果中是否会有环保材料信息，取决于标签模板中是否有环保材料的变量信息。"
+                            },
+                            "packageMaterialId": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-shein-original-type": "int64",
+                              "description": "环保材料ID。可通过接口 获取全量环保耗材信息（新） 获取。 通常labelType=1/2/4/5时均可入参，但最终打印结果中是否会有环保材料信息，取决于标签模板中是否有环保材料的变量信息。"
+                            }
+                          }
+                        },
+                        "x-shein-original-multiple": 1
+                      },
+                      "skc": {
+                        "type": "string",
+                        "description": "平台生成的SKC唯一编码。 必填，不论什么类型的标签都需要提供。"
+                      },
+                      "skuCode": {
+                        "type": "string",
+                        "description": "商品条码中显示的sku。标签内包含条码信息时，skucode和suppliersku选择一个入参即可， 通常labelType=2/4/5时均可入参，但最终打印结果中是否会有商品条码信息，取决于标签模板中是否有商品条码的变量信息。"
+                      },
+                      "supplierSku": {
+                        "type": "string",
+                        "description": "商品条码中显示的sku。标签内包含条码信息时，skucode和suppliersku选择一个入参即可， 通常labelType=2/4/5时均可入参，但最终打印结果中是否会有商品条码信息，取决于标签模板中是否有商品条码的变量信息。"
+                      },
+                      "orderNo": {
+                        "type": "string",
+                        "description": "商品条码中显示的采购单号。标签内包含条码信息时使用，非必填，不传值则单号位置显示空。 通常labelType=2/4/5时均可入参，但最终打印结果中是否会有商品条码信息，取决于标签模板中是否有商品条码的变量信息。"
+                      },
+                      "originCountry": {
+                        "type": "string",
+                        "description": "原产地。标签内包含GPSR信息时使用，由商家自定义输入值，填写国家名称。 通常labelType=2/4/5是均可入参。"
+                      },
+                      "productBatchNo": {
+                        "type": "string",
+                        "description": "产品批次号。标签内包含GPSR信息时使用，由商家自定义输入值。 通常labelType=2/4/5是均可入参。"
+                      },
+                      "warning": {
+                        "type": "string",
+                        "description": "警示语。标签内包含GPSR信息时使用，由商家自定义输入值。 通常labelType=2/4/5是均可入参。"
+                      },
+                      "uid": {
+                        "type": "string",
+                        "description": "打印规则的定位ID。每一行的定位ID不可重复。由开发者自定义输入，用于在返回中判断哪条规则打印失败，哪条打印成功。"
+                      }
+                    },
+                    "required": [
+                      "labelType",
+                      "skc",
+                      "uid"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

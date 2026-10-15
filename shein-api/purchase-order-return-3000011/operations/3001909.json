@@ -1,0 +1,871 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询退货与报废单列表",
+    "version": "source-revision-6",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/purchase/return-list": {
+      "post": {
+        "tags": [
+          "采购单退货"
+        ],
+        "operationId": "shein_api_3001909",
+        "summary": "查询退货与报废单列表",
+        "description": "分页查询退货单、报废单列表数据；如何对接请查看 采购单退货解决方案",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码，成功：0",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK",
+                  "x-shein-example-redacted": true
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "addTime": {
+                            "type": "string",
+                            "description": "发起时间",
+                            "x-shein-example-redacted": true
+                          },
+                          "initiator": {
+                            "type": "integer",
+                            "description": "发起方：1:SHEIN，2:商家",
+                            "x-shein-example-redacted": true
+                          },
+                          "processing": {
+                            "type": "object",
+                            "description": "处理",
+                            "properties": {
+                              "actualQuantityProcessed": {
+                                "type": "integer",
+                                "description": "实际处理数量",
+                                "x-shein-example-redacted": true
+                              },
+                              "distributionType": {
+                                "type": "integer",
+                                "description": "退货方式；1:SHEIN合作物流，4:自提",
+                                "x-shein-example-redacted": true
+                              },
+                              "planReturnAddress": {
+                                "type": "object",
+                                "description": "退货地址信息",
+                                "properties": {
+                                  "address": {
+                                    "type": "string",
+                                    "description": "退货地址",
+                                    "x-shein-example-redacted": true
+                                  },
+                                  "contact": {
+                                    "type": "string",
+                                    "description": "收件人",
+                                    "x-shein-example-redacted": true
+                                  },
+                                  "phone": {
+                                    "type": "string",
+                                    "description": "联系电话",
+                                    "x-shein-example-redacted": true
+                                  }
+                                }
+                              },
+                              "planReturnQuantity": {
+                                "type": "integer",
+                                "description": "预计退货或报废数量",
+                                "x-shein-example-redacted": true
+                              },
+                              "returnDealType": {
+                                "type": "integer",
+                                "description": "处理方式；1:退货，2:报废",
+                                "x-shein-example-redacted": true
+                              },
+                              "returnExpressCompanyCode": {
+                                "type": "string",
+                                "description": "退货物流公司code",
+                                "x-shein-example-redacted": true
+                              },
+                              "returnExpressCompanyName": {
+                                "type": "string",
+                                "description": "退货物流公司名称",
+                                "x-shein-example-redacted": true
+                              },
+                              "warehouse": {
+                                "type": "string",
+                                "description": "SHEIN仓库名称",
+                                "x-shein-example-redacted": true
+                              },
+                              "warehouseId": {
+                                "type": "integer",
+                                "description": "SHEIN仓库id",
+                                "x-shein-example-redacted": true
+                              },
+                              "subWarehouseId": {
+                                "type": "string",
+                                "description": "子仓仓库id"
+                              },
+                              "subWarehouseName": {
+                                "type": "string",
+                                "description": "子仓仓库名称"
+                              }
+                            },
+                            "required": [
+                              "planReturnAddress"
+                            ]
+                          },
+                          "relateOrders": {
+                            "type": "object",
+                            "description": "关联的采购单信息",
+                            "properties": {
+                              "deliveryCodes": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "description": "发货单号",
+                                  "x-shein-example-redacted": true
+                                },
+                                "x-shein-original-multiple": 1
+                              },
+                              "orders": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "description": "采购单号",
+                                  "x-shein-example-redacted": true
+                                },
+                                "x-shein-original-multiple": 1
+                              },
+                              "returnPlanNos": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "description": "退货申请单号",
+                                  "x-shein-example-redacted": true
+                                },
+                                "x-shein-original-multiple": 1
+                              }
+                            }
+                          },
+                          "returnInstructions": {
+                            "type": "string",
+                            "description": "退货说明",
+                            "x-shein-example-redacted": true
+                          },
+                          "returnNo": {
+                            "type": "string",
+                            "description": "退货与报废单号",
+                            "x-shein-example-redacted": true
+                          },
+                          "returnReasonType": {
+                            "type": "integer",
+                            "description": "发起原因列表：1滞销退、2关店退、3D2商品退、4商品稽查退、5面料&材质稽查退、6出库质检退、7入库问题退、8商家主动退、9CNPJ税务变更退、10运营发起退、11集货中转退",
+                            "x-shein-example-redacted": true
+                          },
+                          "returnStatus": {
+                            "type": "integer",
+                            "description": "退货状态；1:平台确认中，2：待退货，3:部分出库，4:全部出库，5:已取消，6:已报废，7:待报废，8:退货中",
+                            "x-shein-example-redacted": true
+                          },
+                          "signStatus": {
+                            "type": "integer",
+                            "description": "签收状态；1已签收，2未签收，0无需签收",
+                            "x-shein-example-redacted": true
+                          },
+                          "updateTime": {
+                            "type": "string",
+                            "description": "更新时间",
+                            "x-shein-example-redacted": true
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "x-shein-example-redacted": true
+                        },
+                        "customObj": {
+                          "type": "object"
+                        }
+                      },
+                      "required": [
+                        "customObj"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "meta"
+                  ]
+                }
+              },
+              "required": [
+                "code"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001909,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001909-3000011",
+        "x-shein-category-id": 3000011,
+        "x-shein-applicable-modes": [
+          {
+            "id": 2,
+            "name": "全托管"
+          }
+        ],
+        "x-shein-source-version": 6,
+        "x-shein-updated-at": "2026-07-03 15:35:30",
+        "x-shein-qps": "50",
+        "x-shein-change-content": "补充接口对接方案跳转链接",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>application/json</p>",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>接口签名</p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>开始时间（returnOrderNoList为空时必填），开始时间、结束时间跨度不要超过60天</p>",
+                  "name": "startTime"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>结束时间（returnOrderNoList为空时必填），开始时间、结束时间跨度不要超过60天</p>",
+                  "name": "endTime"
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>页码，不传默认1</p>",
+                  "name": "page"
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "分页大小，1-100，不传默认100",
+                  "name": "pageSize"
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>查询类型：1-根据退货单的发起时间查询，2-根据退货单的更新时间查询；当returnOrderNoList为空时必填</p>",
+                  "name": "queryType"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>退货单号列表（最多200个），有值时，startTime/endTime/queryType可不传</p>",
+                  "name": "returnOrderNoList"
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 1,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "发起原因列表：1滞销退、2关店退、3D2商品退、4商品稽查退、5面料&材质稽查退、6出库质检退、7入库问题退、8商家主动退、9CNPJ税务变更退、10运营发起退、11集货中转退",
+                  "name": "returnReasonTypes"
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 1,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>退货状态列表；1:平台确认中，2：待退货，3:部分出库，4:全部出库，5:已取消，6:已报废，7:待报废，8:退货中</p>",
+                  "name": "status"
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>响应编码，成功：0</p>",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "错误描述,成功：OK",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "",
+                      "name": "data"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "发起时间",
+                          "name": "addTime"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>发起方：1:SHEIN，2:商家</p>",
+                          "name": "initiator"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "处理",
+                          "name": "processing"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "实际处理数量",
+                              "name": "actualQuantityProcessed"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "退货方式；1:SHEIN合作物流，4:自提",
+                              "name": "distributionType"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 0,
+                              "description": "退货地址信息",
+                              "name": "planReturnAddress",
+                              "required": true
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "example": "<REDACTED_SAMPLE>",
+                                  "description": "退货地址",
+                                  "name": "address"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "example": "<REDACTED_SAMPLE>",
+                                  "description": "收件人",
+                                  "name": "contact"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "example": "<REDACTED_SAMPLE>",
+                                  "description": "联系电话",
+                                  "name": "phone"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "预计退货或报废数量",
+                              "name": "planReturnQuantity"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "<p>处理方式；1:退货，2:报废</p>",
+                              "name": "returnDealType"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "退货物流公司code",
+                              "name": "returnExpressCompanyCode"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "退货物流公司名称",
+                              "name": "returnExpressCompanyName"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "SHEIN仓库名称",
+                              "name": "warehouse"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "SHEIN仓库id",
+                              "name": "warehouseId"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "子仓仓库id",
+                              "name": "subWarehouseId"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "子仓仓库名称",
+                              "name": "subWarehouseName"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "关联的采购单信息",
+                          "name": "relateOrders"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 1,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "发货单号",
+                              "name": "deliveryCodes"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 1,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "采购单号",
+                              "name": "orders"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 1,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "退货申请单号",
+                              "name": "returnPlanNos"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "退货说明",
+                          "name": "returnInstructions"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "退货与报废单号",
+                          "name": "returnNo"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "发起原因列表：1滞销退、2关店退、3D2商品退、4商品稽查退、5面料&材质稽查退、6出库质检退、7入库问题退、8商家主动退、9CNPJ税务变更退、10运营发起退、11集货中转退",
+                          "name": "returnReasonType"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>退货状态；1:平台确认中，2：待退货，3:部分出库，4:全部出库，5:已取消，6:已报废，7:待报废，8:退货中</p>",
+                          "name": "returnStatus"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>签收状态；1已签收，2未签收，0无需签收</p>",
+                          "name": "signStatus"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "更新时间",
+                          "name": "updateTime"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "",
+                      "name": "meta",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "",
+                          "name": "count"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "<p></p>",
+                          "name": "customObj",
+                          "required": true
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "queryType": 0,
+                "page": 0,
+                "returnOrderNoList": [
+                  "<REDACTED_SAMPLE>"
+                ],
+                "pageSize": 0
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "data": [
+                    {
+                      "returnNo": "<REDACTED_SAMPLE>",
+                      "returnStatus": 0,
+                      "addTime": "<REDACTED_SAMPLE>",
+                      "updateTime": "<REDACTED_SAMPLE>",
+                      "initiator": 0,
+                      "returnReasonType": 0,
+                      "returnInstructions": "<REDACTED_SAMPLE>",
+                      "signStatus": 0,
+                      "relateOrders": {
+                        "orders": [],
+                        "deliveryCodes": [],
+                        "returnPlanNos": [
+                          "<REDACTED_SAMPLE>"
+                        ]
+                      },
+                      "processing": {
+                        "returnDealType": 0,
+                        "planReturnQuantity": 0,
+                        "actualQuantityProcessed": 0,
+                        "distributionType": 0,
+                        "warehouseId": 0,
+                        "warehouse": "<REDACTED_SAMPLE>",
+                        "subWarehouseId": 0,
+                        "subWarehouseName": "<REDACTED_SAMPLE>",
+                        "planReturnAddress": {
+                          "contact": "<REDACTED_SAMPLE>",
+                          "phone": "<REDACTED_SAMPLE>",
+                          "address": "<REDACTED_SAMPLE>"
+                        },
+                        "returnExpressCompanyCode": "<REDACTED_SAMPLE>",
+                        "returnExpressCompanyName": "<REDACTED_SAMPLE>"
+                      }
+                    }
+                  ],
+                  "meta": {
+                    "count": 0,
+                    "customObj": {}
+                  }
+                },
+                "bbl": {},
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "startTime": {
+                  "type": "string",
+                  "description": "开始时间（returnOrderNoList为空时必填），开始时间、结束时间跨度不要超过60天",
+                  "x-shein-example-redacted": true
+                },
+                "endTime": {
+                  "type": "string",
+                  "description": "结束时间（returnOrderNoList为空时必填），开始时间、结束时间跨度不要超过60天",
+                  "x-shein-example-redacted": true
+                },
+                "page": {
+                  "type": "integer",
+                  "description": "页码，不传默认1",
+                  "x-shein-example-redacted": true
+                },
+                "pageSize": {
+                  "type": "integer",
+                  "description": "分页大小，1-100，不传默认100",
+                  "x-shein-example-redacted": true
+                },
+                "queryType": {
+                  "type": "integer",
+                  "description": "查询类型：1-根据退货单的发起时间查询，2-根据退货单的更新时间查询；当returnOrderNoList为空时必填",
+                  "x-shein-example-redacted": true
+                },
+                "returnOrderNoList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "退货单号列表（最多200个），有值时，startTime/endTime/queryType可不传",
+                    "x-shein-example-redacted": true
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "returnReasonTypes": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "description": "发起原因列表：1滞销退、2关店退、3D2商品退、4商品稽查退、5面料&材质稽查退、6出库质检退、7入库问题退、8商家主动退、9CNPJ税务变更退、10运营发起退、11集货中转退",
+                    "x-shein-example-redacted": true
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "status": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "description": "退货状态列表；1:平台确认中，2：待退货，3:部分出库，4:全部出库，5:已取消，6:已报废，7:待报废，8:退货中",
+                    "x-shein-example-redacted": true
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3001825,
+            "updateTime": "2026-06-17",
+            "changeContent": "processing中新增字段：subWarehouseId，子仓id;subWarehouseName，子仓名称;processing中字段返回逻辑调整：warehouse从返回子仓名称改为返回大仓名称",
+            "version": 4
+          },
+          {
+            "id": 3001759,
+            "updateTime": "2026-06-03",
+            "changeContent": "新增接口",
+            "version": 1
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

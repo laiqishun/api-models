@@ -1,0 +1,711 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询商品删除审核记录",
+    "version": "source-revision-1",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods-delete-logs/search": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "shein_api_3001906",
+        "summary": "查询商品删除审核记录",
+        "description": "可查询近一年内，商家发起的商品删除的申请审核记录（平台发起的删除不在此范围内，平台会定期对长期无动销的商品进行删除） 入参查询status_list=2（审核成功）的话，可获取到已删除的SKC列表。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOfResultOf开放平台-查询商品删除记录响应",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应结果",
+                  "x-shein-label": "ResultOf开放平台-查询商品删除记录响应",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "列表数据",
+                        "properties": {
+                          "apply_no": {
+                            "type": "string",
+                            "description": "申请单号"
+                          },
+                          "audit_complete_time": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "审核完成时间。仅status=2（成功）时有值。"
+                          },
+                          "fail_reason": {
+                            "type": "string",
+                            "description": "失败原因。支持多语言。"
+                          },
+                          "skc_name": {
+                            "type": "string",
+                            "description": "SKC平台编码。"
+                          },
+                          "skc_supplier_code": {
+                            "type": "string",
+                            "description": "SKC商家货号。"
+                          },
+                          "status": {
+                            "type": "integer",
+                            "description": "审核状态：0-待审核 1-审核中 2-成功 3-失败"
+                          },
+                          "submit_time": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "申请提交时间"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "元数据",
+                      "x-shein-label": "Meta",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "数据记录数"
+                        },
+                        "customObj": {
+                          "type": "object",
+                          "description": "用户自定义扩展"
+                        }
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "追踪码"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001906,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001906-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 1,
+        "x-shein-updated-at": "2026-07-03 13:41:30",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "新接口上线",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "页码，从1开始",
+                  "name": "page_num",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>每页条数，最大100</p>",
+                  "name": "page_size",
+                  "label": "",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "int64",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\" style=\"text-align: start;\">接口签名</a></p>",
+                  "name": "x-lt-signature"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br</p>",
+                  "name": "language",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "开放平台-查询商品删除记录请求",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>申请单号列表，单次最多10个。</p>",
+                  "name": "apply_no_list",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>SKC平台编码列表，单次最多10个。</p>",
+                  "name": "skc_name_list",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>SKC商家货号列表，单次最多10个。</p>",
+                  "name": "skc_supplier_code_list",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 1,
+                  "description": "<p>删除申请的审核状态列表：0-待审核 1-审核中 2-成功 3-失败</p>",
+                  "name": "status_list",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "datetime",
+                  "multiple": 0,
+                  "description": "<p>申请提交时间段，结束时间（东八区），格式：yyyy-MM-dd HH:mm:ss。</p><p>最多可查询近一年的审核记录</p>",
+                  "name": "submit_time_end",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "datetime",
+                  "multiple": 0,
+                  "description": "<p>申请提交时间段，开始时间（东八区），格式：yyyy-MM-dd HH:mm:ss。</p><p>最多可查询近一年的审核记录</p>",
+                  "name": "submit_time_start",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOfResultOf开放平台-查询商品删除记录响应",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "错误描述,成功：OK",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>响应结果</p>",
+                  "name": "info",
+                  "label": "ResultOf开放平台-查询商品删除记录响应",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>列表数据</p>",
+                      "name": "data",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "申请单号",
+                          "name": "apply_no",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "<p>审核完成时间。仅status=2（成功）时有值。</p>",
+                          "name": "audit_complete_time",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>失败原因。支持多语言。</p>",
+                          "name": "fail_reason",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>SKC平台编码。</p>",
+                          "name": "skc_name",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>SKC商家货号。</p>",
+                          "name": "skc_supplier_code",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>审核状态：0-待审核 1-审核中 2-成功 3-失败</p>",
+                          "name": "status",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "<p>申请提交时间</p>",
+                          "name": "submit_time",
+                          "label": "",
+                          "required": false
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "元数据",
+                      "name": "meta",
+                      "label": "Meta",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "数据记录数",
+                          "name": "count",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "用户自定义扩展",
+                          "name": "customObj",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>追踪码</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "status_list": [
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "data": [
+                    {
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "skc_supplier_code": "<REDACTED_SAMPLE>",
+                      "apply_no": "<REDACTED_SAMPLE>",
+                      "status": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_complete_time": null,
+                      "fail_reason": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "skc_supplier_code": "<REDACTED_SAMPLE>",
+                      "apply_no": "<REDACTED_SAMPLE>",
+                      "status": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_complete_time": null,
+                      "fail_reason": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "skc_supplier_code": "<REDACTED_SAMPLE>",
+                      "apply_no": "<REDACTED_SAMPLE>",
+                      "status": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_complete_time": null,
+                      "fail_reason": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "skc_supplier_code": "<REDACTED_SAMPLE>",
+                      "apply_no": "<REDACTED_SAMPLE>",
+                      "status": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_complete_time": "<REDACTED_SAMPLE>",
+                      "fail_reason": null
+                    },
+                    {
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "skc_supplier_code": "<REDACTED_SAMPLE>",
+                      "apply_no": "<REDACTED_SAMPLE>",
+                      "status": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_complete_time": null,
+                      "fail_reason": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "skc_supplier_code": "<REDACTED_SAMPLE>",
+                      "apply_no": "<REDACTED_SAMPLE>",
+                      "status": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_complete_time": null,
+                      "fail_reason": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "skc_supplier_code": "<REDACTED_SAMPLE>",
+                      "apply_no": "<REDACTED_SAMPLE>",
+                      "status": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_complete_time": null,
+                      "fail_reason": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "skc_supplier_code": "<REDACTED_SAMPLE>",
+                      "apply_no": "<REDACTED_SAMPLE>",
+                      "status": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_complete_time": "<REDACTED_SAMPLE>",
+                      "fail_reason": null
+                    },
+                    {
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "skc_supplier_code": "<REDACTED_SAMPLE>",
+                      "apply_no": "<REDACTED_SAMPLE>",
+                      "status": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_complete_time": "<REDACTED_SAMPLE>",
+                      "fail_reason": null
+                    },
+                    {
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "skc_supplier_code": "<REDACTED_SAMPLE>",
+                      "apply_no": "<REDACTED_SAMPLE>",
+                      "status": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_complete_time": "<REDACTED_SAMPLE>",
+                      "fail_reason": null
+                    }
+                  ],
+                  "meta": {
+                    "count": 0,
+                    "customObj": {
+                      "scroll_id": null
+                    }
+                  }
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page_num",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "description": "页码，从1开始"
+          },
+          {
+            "name": "page_size",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "description": "每页条数，最大100"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+            "x-shein-original-type": "int64"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "x-shein-label": "开放平台-查询商品删除记录请求",
+              "properties": {
+                "apply_no_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "申请单号列表，单次最多10个。"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "skc_name_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "SKC平台编码列表，单次最多10个。"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "skc_supplier_code_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "SKC商家货号列表，单次最多10个。"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "status_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "description": "删除申请的审核状态列表：0-待审核 1-审核中 2-成功 3-失败"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "submit_time_end": {
+                  "type": "string",
+                  "x-shein-original-type": "datetime",
+                  "description": "申请提交时间段，结束时间（东八区），格式：yyyy-MM-dd HH:mm:ss。 最多可查询近一年的审核记录"
+                },
+                "submit_time_start": {
+                  "type": "string",
+                  "x-shein-original-type": "datetime",
+                  "description": "申请提交时间段，开始时间（东八区），格式：yyyy-MM-dd HH:mm:ss。 最多可查询近一年的审核记录"
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3001906,
+            "updateTime": "2026-07-03",
+            "changeContent": "新接口上线",
+            "version": 1
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

@@ -1,0 +1,348 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "JIT母单及子单对应关系查询接口",
+    "version": "source-revision-8",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/order/get-mothe-child-orders": {
+      "get": {
+        "tags": [
+          "采购单"
+        ],
+        "operationId": "shein_api_3001813",
+        "summary": "JIT母单及子单对应关系查询接口",
+        "description": "1.入参orderNos，selectJitMother必填，orderNos最多支持200个订单 2.info是个列表，列表实体必返回请求的订单号，motherOrChildOrders=空列表（不为null）的情况： 1）订单的商家与请求的商家不一致， 2）非JIt订单 3）查询的订单与selectJitMother不一致 实现逻辑：遍历请求订单编号，校验，如果订单是JIt母单 && 请求查询母单 则motherOrChildOrders为对应的子单信息 如果订单是JIt子单 && 请求查询非母单 且 则motherOrChildOrders为对应的母单信息 如果订单是JIt合单 && 请求查询非母单 且 则motherOrChildOrders为对应的母单信息 code=0返回成功，其他为异常，异常信息取msg",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "状态码"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "提示信息"
+                },
+                "info": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "响应信息",
+                    "properties": {
+                      "orderNo": {
+                        "type": "string",
+                        "description": "查询订单号"
+                      },
+                      "motherOrChildOrders": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "description": "如果是JIt母单，则列表存其关联子单；如果是Jit子单或JIt合单，则表存其关联母单，否则为空列表[]",
+                          "properties": {
+                            "orderNo": {
+                              "type": "string",
+                              "description": "关联的订单号"
+                            },
+                            "status": {
+                              "type": "string",
+                              "description": "订单状态：1待下单（暂时不支持），2已下单，3发货中，4已送货，5已收货，6已查验，7已退货，8已完成，9无货下架，10已作废，11待审核，12分单中 13待退货 14全部触发"
+                            },
+                            "statusName": {
+                              "type": "string",
+                              "description": "订单状态：1待下单（暂时不支持），2已下单，3发货中，4已送货，5已收货，6已查验，7已退货，8已完成，9无货下架，10已作废，11待审核，12分单中 13待退货 14全部触发"
+                            }
+                          }
+                        },
+                        "x-shein-original-multiple": 1
+                      }
+                    },
+                    "required": [
+                      "orderNo",
+                      "motherOrChildOrders"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "error": {
+                  "type": "string",
+                  "description": "错误码"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001813,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001813-1000002",
+        "x-shein-category-id": 1000002,
+        "x-shein-applicable-modes": [
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 8,
+        "x-shein-updated-at": "2026-06-15 10:04:14",
+        "x-shein-qps": "40",
+        "x-shein-change-content": "V8",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "采购单号，支持批量，一次最多请求200采购单号。",
+                  "name": "orderNos",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "1、是(表示要查询的是母单) ；2、否（表示要查询的是子单，包括合单）",
+                  "name": "selectJitMother",
+                  "required": true
+                },
+                "children": []
+              }
+            ]
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json;charset=UTF-8",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": null,
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "状态码",
+                  "name": "code"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "提示信息",
+                  "name": "msg"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "响应信息",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "查询订单号",
+                      "name": "orderNo",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "如果是JIt母单，则列表存其关联子单；如果是Jit子单或JIt合单，则表存其关联母单，否则为空列表[]",
+                      "name": "motherOrChildOrders",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "关联的订单号",
+                          "name": "orderNo"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "订单状态：1待下单（暂时不支持），2已下单，3发货中，4已送货，5已收货，6已查验，7已退货，8已完成，9无货下架，10已作废，11待审核，12分单中 13待退货 14全部触发",
+                          "name": "status"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>订单状态：1待下单（暂时不支持），2已下单，3发货中，4已送货，5已收货，6已查验，7已退货，8已完成，9无货下架，10已作废，11待审核，12分单中 13待退货 14全部触发</p>",
+                          "name": "statusName"
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "错误码",
+                  "name": "error"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                },
+                "children": []
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "present-unparsed"
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": [
+                  {
+                    "orderNo": "<REDACTED_SAMPLE>",
+                    "motherOrChildOrders": []
+                  },
+                  {
+                    "orderNo": "<REDACTED_SAMPLE>",
+                    "motherOrChildOrders": []
+                  },
+                  {
+                    "orderNo": "<REDACTED_SAMPLE>",
+                    "motherOrChildOrders": []
+                  }
+                ],
+                "error": null
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "orderNos",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "采购单号，支持批量，一次最多请求200采购单号。"
+          },
+          {
+            "name": "selectJitMother",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "description": "1、是(表示要查询的是母单) ；2、否（表示要查询的是子单，包括合单）"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

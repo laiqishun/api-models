@@ -1,0 +1,488 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询退货单列表",
+    "version": "source-revision-15",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/return-order/list": {
+      "post": {
+        "tags": [
+          "退货退款"
+        ],
+        "operationId": "shein_api_3001281",
+        "summary": "查询退货单列表",
+        "description": "通过该接口获取退货单列表；如何对接退货单请查看 客单退货退款服务；",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "成功：0",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "成功：OK",
+                  "x-shein-example-redacted": true
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "description": "总条数",
+                      "x-shein-example-redacted": true
+                    },
+                    "returnOrderList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "退货单列表",
+                        "properties": {
+                          "returnOrderNo": {
+                            "type": "string",
+                            "description": "退货单号",
+                            "x-shein-example-redacted": true
+                          },
+                          "returnOrderStatus": {
+                            "type": "integer",
+                            "description": "退货单状态",
+                            "x-shein-example-redacted": true
+                          },
+                          "addTime": {
+                            "type": "string",
+                            "description": "退货单下发时间，yyyy-MM-dd HH:mm:ss",
+                            "x-shein-example-redacted": true
+                          },
+                          "requestReturnTime": {
+                            "type": "string",
+                            "description": "退货单申请时间，yyyy-MM-dd HH:mm:ss",
+                            "x-shein-example-redacted": true
+                          },
+                          "updateTime": {
+                            "type": "string",
+                            "description": "退货单更新时间，yyyy-MM-dd HH:mm:ss"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  },
+                  "required": [
+                    "returnOrderList"
+                  ]
+                }
+              },
+              "required": [
+                "info"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "application/json"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001281,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001281-2000004",
+        "x-shein-category-id": 2000004,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 15,
+        "x-shein-updated-at": "2025-07-21 11:30:38",
+        "x-shein-qps": "100",
+        "x-shein-change-content": "更新请求示例",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json;charset=UTF-8",
+                  "name": "Content-Type",
+                  "defaultValue": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "defaultValue": "<REDACTED_SAMPLE>",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>时间查询的维度类型：1：退货单下发给到商家的时间/ 2：买家申请退货时间/ 3：退货单更新时间</p>",
+                  "name": "queryType",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "yyyy-MM-dd HH:mm:ss  默认查询48小时以内数据",
+                  "name": "startTime",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "yyyy-MM-dd HH:mm:ss  默认查询48小时以内数据",
+                  "name": "endTime",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "请求页码",
+                  "name": "page",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "limit【1，30】",
+                  "name": "pageSize",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p><span style=\"color: rgb(17, 17, 16); background-color: rgb(255, 255, 255); font-size: 14px;\">1：已关闭/ 2：已申请/ 3：已取消/ 5：已收货/ 6：已妥投/ 7：待交接/ 8：待SHEIN仓中转/ 9：已完成</span></p>",
+                  "name": "returnOrderStatus",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>成功：0</p>",
+                  "name": "code",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>成功：OK</p>",
+                  "name": "msg",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>总条数</p>",
+                      "name": "count",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>退货单列表</p>",
+                      "name": "returnOrderList",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "退货单号",
+                          "name": "returnOrderNo",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "退货单状态",
+                          "name": "returnOrderStatus",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>退货单下发时间，yyyy-MM-dd HH:mm:ss</p>",
+                          "name": "addTime",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>退货单申请时间，yyyy-MM-dd HH:mm:ss</p>",
+                          "name": "requestReturnTime",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>退货单更新时间，yyyy-MM-dd HH:mm:ss</p>",
+                          "name": "updateTime",
+                          "required": false
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "queryType": 0,
+                "startTime": "<REDACTED_SAMPLE>",
+                "endTime": "<REDACTED_SAMPLE>",
+                "page": 0,
+                "pageSize": 0,
+                "returnOrderStatus": 0
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "count": 0,
+                  "returnOrderList": [
+                    {
+                      "returnOrderNo": "<REDACTED_SAMPLE>",
+                      "returnOrderStatus": 0,
+                      "addTime": "<REDACTED_SAMPLE>",
+                      "requestReturnTime": "<REDACTED_SAMPLE>",
+                      "updateTime": "<REDACTED_SAMPLE>"
+                    }
+                  ]
+                },
+                "bbl": {}
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json;charset=UTF-8"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "queryType": {
+                  "type": "integer",
+                  "description": "时间查询的维度类型：1：退货单下发给到商家的时间/ 2：买家申请退货时间/ 3：退货单更新时间",
+                  "x-shein-example-redacted": true
+                },
+                "startTime": {
+                  "type": "string",
+                  "description": "yyyy-MM-dd HH:mm:ss  默认查询48小时以内数据",
+                  "x-shein-example-redacted": true
+                },
+                "endTime": {
+                  "type": "string",
+                  "description": "yyyy-MM-dd HH:mm:ss  默认查询48小时以内数据",
+                  "x-shein-example-redacted": true
+                },
+                "page": {
+                  "type": "integer",
+                  "description": "请求页码",
+                  "x-shein-example-redacted": true
+                },
+                "pageSize": {
+                  "type": "integer",
+                  "description": "limit【1，30】",
+                  "x-shein-example-redacted": true
+                },
+                "returnOrderStatus": {
+                  "type": "integer",
+                  "description": "1：已关闭/ 2：已申请/ 3：已取消/ 5：已收货/ 6：已妥投/ 7：待交接/ 8：待SHEIN仓中转/ 9：已完成",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "queryType",
+                "startTime",
+                "endTime",
+                "page",
+                "pageSize"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

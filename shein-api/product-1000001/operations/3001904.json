@@ -1,0 +1,420 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "商品删除预校验",
+    "version": "source-revision-1",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/check-deletable": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "shein_api_3001904",
+        "summary": "商品删除预校验",
+        "description": "商品删除操作是SKC维度，SKC需要满足以下所有条件时才能被删除。以下的1、2、3三点可通过此接口校验知晓。4、5需要提交删除申请后以审核结果为准。 1、商家允许操作商品删除，并非所有商家都可删除商品。 2、商家每天最多删除500个SKC，删除时还有额度。 3、SKC已审核通过且没有被删除。 4、SKC不是【已上架】状态，即待上架、已下架、已售罄可删除。（即/open-api/goods/spu-info中，skc的shelfStatusInfoList中所有站点均为非上架状态） 5、SKC无未签收的订单、退货中的订单、无1年内有效订单。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOf开放平台-商品删除预校验响应",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应列表",
+                  "x-shein-label": "开放平台-商品删除预校验响应",
+                  "properties": {
+                    "deletable_list": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "可删除的SKC编码列表（满足1、2、3条件，条件说明见顶部）"
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "undeletable_list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "不可删除的SKC列表（不满足1、2、3条件，条件说明见顶部）",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "错误码"
+                          },
+                          "reason": {
+                            "type": "string",
+                            "description": "错误描述"
+                          },
+                          "skc_name": {
+                            "type": "string",
+                            "description": "SKC平台编码"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "追踪码"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001904,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001904-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 1,
+        "x-shein-updated-at": "2026-07-03 13:41:11",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "新接口上线",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "默认值：application/json",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br",
+                  "name": "language",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "开放平台-商品删除预校验请求",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>SKC名称列表，最多50个</p>",
+                  "name": "skc_name_list",
+                  "label": "",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOf开放平台-商品删除预校验响应",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>响应编码 成功：0</p>",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "错误描述,成功：OK",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>响应列表</p>",
+                  "name": "info",
+                  "label": "开放平台-商品删除预校验响应",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 1,
+                      "description": "<p>可删除的SKC编码列表（满足1、2、3条件，条件说明见顶部）</p>",
+                      "name": "deletable_list",
+                      "label": "",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>不可删除的SKC列表（不满足1、2、3条件，条件说明见顶部）</p>",
+                      "name": "undeletable_list",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "错误码",
+                          "name": "code",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>错误描述</p>",
+                          "name": "reason",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>SKC平台编码</p>",
+                          "name": "skc_name",
+                          "label": "",
+                          "required": false
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>追踪码</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "skc_name_list": [
+                  "<REDACTED_SAMPLE>",
+                  "<REDACTED_SAMPLE>",
+                  "<REDACTED_SAMPLE>"
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "deletable_list": [
+                    "<REDACTED_SAMPLE>",
+                    "<REDACTED_SAMPLE>"
+                  ],
+                  "undeletable_list": [
+                    {
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "code": "<REDACTED_SAMPLE>",
+                      "reason": "<REDACTED_SAMPLE>"
+                    }
+                  ]
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "x-shein-label": "开放平台-商品删除预校验请求",
+              "properties": {
+                "skc_name_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "SKC名称列表，最多50个"
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "skc_name_list"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3001904,
+            "updateTime": "2026-07-03",
+            "changeContent": "新接口上线",
+            "version": 1
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

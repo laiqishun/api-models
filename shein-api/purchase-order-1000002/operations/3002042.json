@@ -1,0 +1,562 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询智能拆包结果接口",
+    "version": "source-revision-3",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/purchase/intelligent-packing-result": {
+      "post": {
+        "tags": [
+          "采购单"
+        ],
+        "operationId": "shein_api_3002042",
+        "summary": "查询智能拆包结果接口",
+        "description": "用于采购单发货之前，查询平台智能拆包的结果，可以帮助开发者判断如何创建发货单",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "info": {
+                  "type": "object",
+                  "description": "智能拆包响应体",
+                  "properties": {
+                    "groups": {
+                      "type": "object",
+                      "description": "发货分组",
+                      "properties": {
+                        "goodsNum": {
+                          "type": "string",
+                          "description": "商品件数"
+                        },
+                        "orderNum": {
+                          "type": "string",
+                          "description": "订单数"
+                        },
+                        "orders": {
+                          "type": "object",
+                          "description": "订单信息",
+                          "properties": {
+                            "countryMarket": {
+                              "type": "integer",
+                              "description": "国家市场：0:空，1:南大区（欧洲市场），2:北大区（美国市场）"
+                            },
+                            "sellerOrderNo": {
+                              "type": "string",
+                              "description": "订单号"
+                            },
+                            "state": {
+                              "type": "integer",
+                              "description": "订单状态（1:分单中,2:待发货,3:已送货,4:已收货,5:已退货,6:已完成,7:已上架,8:已作废）"
+                            }
+                          }
+                        },
+                        "rules": {
+                          "type": "object",
+                          "description": "拆包规则明细",
+                          "properties": {
+                            "ruleCode": {
+                              "type": "integer",
+                              "description": "拆包规则,1:公司主体,2:订单大仓,3:订单类型,4:结算方式,5:备货类型,6:账单币种,7:国家市场,8:商品品类,9:预估收货仓"
+                            },
+                            "ruleDesc": {
+                              "type": "string",
+                              "description": "拆包规则描述,如:预估收货仓,国家线,成衣类型"
+                            },
+                            "ruleValue": {
+                              "type": "object",
+                              "description": "拆包规则具体的值,如1347,1,2"
+                            },
+                            "ruleValueDesc": {
+                              "type": "string",
+                              "description": "拆包规则具体的值描述,如:华东质检仓,欧洲市场,成衣"
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "undeliverableOrders": {
+                      "type": "object",
+                      "description": "不可发货的订单列表",
+                      "properties": {
+                        "sellerOrderNo": {
+                          "type": "string",
+                          "description": "订单号"
+                        },
+                        "undeliverableReasons": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "description": "不可发货原因列表"
+                          },
+                          "x-shein-original-multiple": 1
+                        }
+                      }
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                }
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002042,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002042-1000002",
+        "x-shein-category-id": 1000002,
+        "x-shein-applicable-modes": [
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 3,
+        "x-shein-updated-at": "2026-09-23 21:49:44",
+        "x-shein-qps": "30",
+        "x-shein-change-content": "更新参数示例",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "默认值：application/json",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "指定出参语种，默认中文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR",
+                  "name": "x-lt-language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "订单号集合，单次请求最多1000个订单号",
+                  "name": "sellerOrderNos",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object",
+              "multiple": 0
+            },
+            "children": []
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "智能拆包响应体",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "发货分组",
+                      "name": "groups"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "商品件数",
+                          "name": "goodsNum"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "订单数",
+                          "name": "orderNum"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "订单信息",
+                          "name": "orders"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "国家市场：0:空，1:南大区（欧洲市场），2:北大区（美国市场）",
+                              "name": "countryMarket"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "订单号",
+                              "name": "sellerOrderNo"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "订单状态（1:分单中,2:待发货,3:已送货,4:已收货,5:已退货,6:已完成,7:已上架,8:已作废）",
+                              "name": "state"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "拆包规则明细",
+                          "name": "rules"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "拆包规则,1:公司主体,2:订单大仓,3:订单类型,4:结算方式,5:备货类型,6:账单币种,7:国家市场,8:商品品类,9:预估收货仓",
+                              "name": "ruleCode"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "拆包规则描述,如:预估收货仓,国家线,成衣类型",
+                              "name": "ruleDesc"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 0,
+                              "description": "拆包规则具体的值,如1347,1,2",
+                              "name": "ruleValue"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "拆包规则具体的值描述,如:华东质检仓,欧洲市场,成衣",
+                              "name": "ruleValueDesc"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "不可发货的订单列表",
+                      "name": "undeliverableOrders"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "订单号",
+                          "name": "sellerOrderNo"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 1,
+                          "description": "不可发货原因列表",
+                          "name": "undeliverableReasons"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误描述,成功：OK</p>",
+                  "name": "msg"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 831,
+            "openPath": "/open-api/purchase/intelligent-packing-result",
+            "errorCode": "pfmp90305",
+            "errorMsg": "该功能仅支持平台类型供应商使用",
+            "errorMsgCn": "该功能仅支持平台类型供应商使用",
+            "errorMsgUs": "This feature is only available for platform-type suppliers.",
+            "errorMsgPt": "Esta funcionalidade é suportada apenas para fornecedores do tipo plataforma.",
+            "errorMsgEs": "Esta función solo está disponible para proveedores de tipo plataforma.",
+            "solution": "此供应商目前暂不支持使用这个接口",
+            "sort": 0
+          },
+          {
+            "id": 832,
+            "openPath": "/open-api/purchase/intelligent-packing-result",
+            "errorCode": "pfmp99400",
+            "errorMsg": "请求参数异常",
+            "errorMsgCn": "请求参数异常",
+            "errorMsgUs": "Invalid request parameters",
+            "errorMsgPt": "Parâmetros da solicitação inválidos",
+            "errorMsgEs": "Parámetro de solicitud anómalo",
+            "solution": "请检查请求参数",
+            "sort": 0
+          },
+          {
+            "id": 833,
+            "openPath": "/open-api/purchase/intelligent-packing-result",
+            "errorCode": "pfmp97020",
+            "errorMsg": "订单不存在",
+            "errorMsgCn": "订单不存在",
+            "errorMsgUs": "Order does not exist",
+            "errorMsgPt": "Pedido não existe",
+            "errorMsgEs": "El pedido no existe",
+            "solution": "请检查订单号是否正确",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "sellerOrderNos": [
+                  "<REDACTED_SAMPLE>",
+                  "<REDACTED_SAMPLE>",
+                  "<REDACTED_SAMPLE>"
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "groups": [
+                    {
+                      "goodsNum": "<REDACTED_SAMPLE>",
+                      "orderNum": "<REDACTED_SAMPLE>",
+                      "orders": [
+                        {
+                          "countryMarket": 0,
+                          "sellerOrderNo": "<REDACTED_SAMPLE>",
+                          "state": 0
+                        },
+                        {
+                          "countryMarket": 0,
+                          "sellerOrderNo": "<REDACTED_SAMPLE>",
+                          "state": 0
+                        }
+                      ],
+                      "rules": [
+                        {
+                          "ruleCode": 0,
+                          "ruleDesc": "<REDACTED_SAMPLE>",
+                          "ruleValue": "<REDACTED_SAMPLE>",
+                          "ruleValueDesc": "<REDACTED_SAMPLE>"
+                        },
+                        {
+                          "ruleCode": 0,
+                          "ruleDesc": "<REDACTED_SAMPLE>",
+                          "ruleValue": "<REDACTED_SAMPLE>",
+                          "ruleValueDesc": "<REDACTED_SAMPLE>"
+                        },
+                        {
+                          "ruleCode": 0,
+                          "ruleDesc": "<REDACTED_SAMPLE>",
+                          "ruleValue": "<REDACTED_SAMPLE>",
+                          "ruleValueDesc": "<REDACTED_SAMPLE>"
+                        }
+                      ]
+                    },
+                    {
+                      "goodsNum": "<REDACTED_SAMPLE>",
+                      "orderNum": "<REDACTED_SAMPLE>",
+                      "orders": [
+                        {
+                          "countryMarket": 0,
+                          "sellerOrderNo": "<REDACTED_SAMPLE>",
+                          "state": 0
+                        }
+                      ],
+                      "rules": [
+                        {
+                          "ruleCode": 0,
+                          "ruleDesc": "<REDACTED_SAMPLE>",
+                          "ruleValue": "<REDACTED_SAMPLE>",
+                          "ruleValueDesc": "<REDACTED_SAMPLE>"
+                        },
+                        {
+                          "ruleCode": 0,
+                          "ruleDesc": "<REDACTED_SAMPLE>",
+                          "ruleValue": "<REDACTED_SAMPLE>",
+                          "ruleValueDesc": "<REDACTED_SAMPLE>"
+                        }
+                      ]
+                    }
+                  ],
+                  "undeliverableOrders": [
+                    {
+                      "sellerOrderNo": "<REDACTED_SAMPLE>",
+                      "undeliverableReasons": [
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>"
+                      ]
+                    }
+                  ]
+                },
+                "bbl": null
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "x-lt-language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "指定出参语种，默认中文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "sellerOrderNos": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "订单号集合，单次请求最多1000个订单号"
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "sellerOrderNos"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

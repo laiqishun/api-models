@@ -1,0 +1,455 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询建议零售价填写规则",
+    "version": "source-revision-6",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/query-recommend-retail-price-rule": {
+      "post": {
+        "tags": [
+          "价格"
+        ],
+        "operationId": "shein_api_3002033",
+        "summary": "查询建议零售价填写规则",
+        "description": "商品建议零售价填写规则（SKU维度），使用前请查看说明文档： https://open.sheincorp.com/documents/system/bf5a59ca-d378-4417-a359-f07cc89bf96b",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "成功时“0”",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "成功时“OK”",
+                  "x-shein-example-redacted": true
+                },
+                "info": {
+                  "type": "object",
+                  "description": "信息",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "description": "规则详情",
+                      "properties": {
+                        "is_rrp_required": {
+                          "type": "integer",
+                          "description": "SKU维度建议零售价是否必填，0-非必填，1-必填",
+                          "x-shein-example-redacted": true
+                        },
+                        "site_filling_rule": {
+                          "type": "integer",
+                          "description": "是否允许按分站点维度填写，1-允许，0-不允许",
+                          "x-shein-example-redacted": true
+                        },
+                        "available_sites": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "description": "分站点维度规则下，可填写的站点与币种列表。仅在site_filling_rule=1的时候，此字段才会有值。",
+                            "properties": {
+                              "site": {
+                                "type": "string",
+                                "description": "站点名，例如shein-fr",
+                                "x-shein-example-redacted": true
+                              },
+                              "currency": {
+                                "type": "string",
+                                "description": "站点币种，例如EUR",
+                                "x-shein-example-redacted": true
+                              },
+                              "material_requirement": {
+                                "type": "integer",
+                                "description": "站点对辅助材料类型的要求，0-不需要填材料，1-类型一材料必填（文件必填，链接选填）、类型二材料选填（文件、链接均选填），2-类型一 或 类型二，至少填写一种（不论选哪一种类型，里面的文件、链接至少给一个），3-所有类型均选填",
+                                "x-shein-example-redacted": true
+                              }
+                            }
+                          },
+                          "x-shein-original-multiple": 1
+                        },
+                        "non_site_filling_rule": {
+                          "type": "integer",
+                          "description": "不分站点填写规则，1-可填，0-不可填",
+                          "x-shein-example-redacted": true
+                        },
+                        "non_site_currencies": {
+                          "type": "array",
+                          "items": {
+                            "type": "string",
+                            "description": "不分站点的规则下，可填写的币种列表。仅在non_site_filling_rule=1的时候，此字段才会有值。",
+                            "x-shein-example-redacted": true
+                          },
+                          "x-shein-original-multiple": 1
+                        }
+                      },
+                      "required": [
+                        "available_sites"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "data"
+                  ]
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "追踪码",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "info"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002033,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002033-3000013",
+        "x-shein-category-id": 3000013,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 6,
+        "x-shein-updated-at": "2026-09-14 17:12:46",
+        "x-shein-qps": null,
+        "x-shein-change-content": "出参字段\"material_requirement\"（材料填写规则）新增枚举值：3-所有类型均选填，即类型一和类型二都是选填",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\" style=\"text-align: start;\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>响应msg的语种。不传时默认为英语，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR</p>",
+                  "name": "language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>品牌code，例如“2xyz2”，可通过接口获取/open-api/goods/query-brand-list。</p><p>如果商品有传品牌，则必须入参品牌code获取规则。有品牌、无品牌，两种情况下的填写规则差异很大。</p>",
+                  "name": "brand_code"
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>成功时“0”</p>",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>成功时“OK”</p>",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>信息</p>",
+                  "name": "info",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "<p>规则详情</p>",
+                      "name": "data",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>SKU维度建议零售价是否必填，0-非必填，1-必填</p>",
+                          "name": "is_rrp_required"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>是否允许按分站点维度填写，1-允许，0-不允许</p>",
+                          "name": "site_filling_rule"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>分站点维度规则下，可填写的站点与币种列表。仅在site_filling_rule=1的时候，此字段才会有值。</p>",
+                          "name": "available_sites",
+                          "required": true
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "<p>站点名，例如shein-fr</p>",
+                              "name": "site"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "<p>站点币种，例如EUR</p>",
+                              "name": "currency"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "<p>站点对辅助材料类型的要求，0-不需要填材料，1-类型一材料必填（文件必填，链接选填）、类型二材料选填（文件、链接均选填），2-类型一 或 类型二，至少填写一种（不论选哪一种类型，里面的文件、链接至少给一个），3-所有类型均选填</p>",
+                              "name": "material_requirement"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>不分站点填写规则，1-可填，0-不可填</p>",
+                          "name": "non_site_filling_rule"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 1,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>不分站点的规则下，可填写的币种列表。仅在non_site_filling_rule=1的时候，此字段才会有值。</p>",
+                          "name": "non_site_currencies"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>追踪码</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "brand_code": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "data": {
+                    "available_sites": [
+                      {
+                        "site": "<REDACTED_SAMPLE>",
+                        "currency": "<REDACTED_SAMPLE>",
+                        "material_requirement": 0
+                      },
+                      {
+                        "site": "<REDACTED_SAMPLE>",
+                        "currency": "<REDACTED_SAMPLE>",
+                        "material_requirement": 0
+                      },
+                      {
+                        "site": "<REDACTED_SAMPLE>",
+                        "currency": "<REDACTED_SAMPLE>",
+                        "material_requirement": 0
+                      },
+                      {
+                        "site": "<REDACTED_SAMPLE>",
+                        "currency": "<REDACTED_SAMPLE>",
+                        "material_requirement": 0
+                      },
+                      {
+                        "site": "<REDACTED_SAMPLE>",
+                        "currency": "<REDACTED_SAMPLE>",
+                        "material_requirement": 0
+                      }
+                    ],
+                    "is_rrp_required": 0,
+                    "site_filling_rule": 0,
+                    "non_site_currencies": [
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>"
+                    ],
+                    "non_site_filling_rule": 0
+                  }
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "响应msg的语种。不传时默认为英语，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "brand_code": {
+                  "type": "string",
+                  "description": "品牌code，例如“2xyz2”，可通过接口获取/open-api/goods/query-brand-list。 如果商品有传品牌，则必须入参品牌code获取规则。有品牌、无品牌，两种情况下的填写规则差异很大。"
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3002033,
+            "updateTime": "2026-09-14",
+            "changeContent": "出参字段\"material_requirement\"（材料填写规则）新增枚举值：3-所有类型均选填，即类型一和类型二都是选填",
+            "version": 6
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

@@ -1,0 +1,169 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "商品视频任务完成",
+    "version": "source-revision-2",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/product_video_conversion_completed": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "operationId": "shein_webhook_3002022",
+        "summary": "商品视频任务完成",
+        "description": "商品视频的调用顺序：① 查询规范确认分类下能否发布视频 → ② 创建视频转换任务 →  ③ 监听任务完成通知 →  ④ 查询任务获取转换后URL →⑤ 使用转换后URL发布/编辑商品。 此接口为顺序中的③步骤。 商品视频的详细方案请参考： https://open.sheincorp.com/documents/system/16a63f9f-7237-47bd-94c9-37059aa25554",
+        "responses": {
+          "200": {
+            "description": "Webhook acknowledgment; see integration guide"
+          }
+        },
+        "x-shein-direction": "inbound-webhook-notification",
+        "x-shein-official-id": 3002022,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/msgdoc/detail/3002022-2000003",
+        "x-shein-category-id": 2000003,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 2,
+        "x-shein-updated-at": "2026-09-02 10:22:34",
+        "x-shein-qps": null,
+        "x-shein-change-content": "消息上线",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": null,
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>商家ID</p>",
+                  "name": "srmSupplierId"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "description": "<p>消息内容</p>",
+                  "name": "data"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>转换任务id</p>",
+                      "name": "taskId"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>任务状态。转换任务状态。0：未开始；1：成功；2：失败</p>",
+                      "name": "taskStatus"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>原视频链接。</p>",
+                      "name": "originalUrl"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>转换后的视频链接。</p>",
+                      "name": "transferredUrl"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>失败原因。仅在task_status=2时出现。</p>",
+                      "name": "failReason"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": null
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": null,
+            "response": null
+          }
+        ],
+        "x-shein-decrypted-event-payload-schema": {
+          "type": "object",
+          "properties": {
+            "srmSupplierId": {
+              "type": "string",
+              "description": "商家ID"
+            },
+            "data": {
+              "type": "object",
+              "description": "消息内容",
+              "properties": {
+                "taskId": {
+                  "type": "string",
+                  "description": "转换任务id"
+                },
+                "taskStatus": {
+                  "type": "string",
+                  "description": "任务状态。转换任务状态。0：未开始；1：成功；2：失败"
+                },
+                "originalUrl": {
+                  "type": "string",
+                  "description": "原视频链接。"
+                },
+                "transferredUrl": {
+                  "type": "string",
+                  "description": "转换后的视频链接。"
+                },
+                "failReason": {
+                  "type": "string",
+                  "description": "失败原因。仅在task_status=2时出现。"
+                }
+              }
+            }
+          }
+        },
+        "x-shein-transport-note": "The event payload schema is decrypted content. The actual callback carries encrypted eventData in form-data; callback URL is developer-defined.",
+        "x-shein-update-log": [
+          {
+            "id": 3002022,
+            "updateTime": "2026-09-02",
+            "changeContent": "消息上线",
+            "version": 2
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "webhook",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

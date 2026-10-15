@@ -1,0 +1,377 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "确认无货接口",
+    "version": "source-revision-16",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/order/confirm-no-stock": {
+      "post": {
+        "tags": [
+          "客单"
+        ],
+        "operationId": "shein_api_3001415",
+        "summary": "确认无货接口",
+        "description": "该API支持商家取消订单中的商品。调用该接口后，开发者再次调用订单详情接口时，可以发现商品的 storageTag 字段会从 1 变更为 3 。随后，系统会在一段时间后将商品的订单状态字段 newGoodsStatus 修改为 6 （退款）。 ⚠️ 注意：商家频繁进行订单取消操作可能会导致店铺受到处罚，请务必谨慎操作",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应码",
+                  "x-shein-example-redacted": true
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应信息"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述信息",
+                  "x-shein-example-redacted": true
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001415,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001415-2000001",
+        "x-shein-category-id": 2000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 16,
+        "x-shein-updated-at": "2025-10-11 21:41:39",
+        "x-shein-qps": "40",
+        "x-shein-change-content": "变更描述",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>SHEIN平台生成的 skuCode；skuCode 和 orderGoodsId 不允许同时为空</p>",
+                  "name": "skuCode",
+                  "defaultValue": ""
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "订单号",
+                  "name": "orderNo",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "商品唯一标识；同种商品多件，每件goodsId不同，通过订单详情接口获得",
+                  "name": "orderGoodsId",
+                  "required": true
+                },
+                "children": []
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "",
+                  "name": "Content-Type",
+                  "defaultValue": "",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "响应码",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "description": "响应信息",
+                  "name": "info",
+                  "required": false
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "错误描述信息",
+                  "name": "msg",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 324,
+            "openPath": "/open-api/order/confirm-no-stock",
+            "errorCode": "9999004",
+            "errorMsg": "The status of the ordered goods is not pending processing, pending shipment or collection by SHEIN, and confirmation of out-of-stock is not allowed.",
+            "errorMsgCn": "订购商品的状态并非待处理、待发货或SHEIN待揽收，不允许进行缺货确认。",
+            "errorMsgUs": "The status of the ordered goods is not pending processing, pending shipment or collection by SHEIN, and confirmation of out-of-stock is not allowed.",
+            "errorMsgPt": "O status dos produtos encomendados não está pendente de processamento, pendente de envio ou aguardando coleta pela SHEIN, e não é permitido confirmar a falta de estoque.",
+            "errorMsgEs": "El estado de los productos pedidos no está pendiente de procesamiento, pendiente de envío ni en espera de recogida por parte de SHEIN, y no se permite confirmar la falta de stock.",
+            "solution": "订单已取消、已发货或者已签收，请勿调用确认无货接口",
+            "sort": 0
+          },
+          {
+            "id": 326,
+            "openPath": "/open-api/order/confirm-no-stock",
+            "errorCode": "9999004",
+            "errorMsg": "The product inventory indicator is already out of stock, and it is not allowed to operate out of stock again",
+            "errorMsgCn": "产品库存标识已显示缺货，不允许再次进行缺货操作。",
+            "errorMsgUs": "The product inventory indicator is already out of stock, and it is not allowed to operate out of stock again.",
+            "errorMsgPt": "O indicador de estoque do produto já está esgotado, e não é permitido executar novamente a operação de falta de estoque.",
+            "errorMsgEs": "El indicador de inventario del producto ya está sin stock, y no se permite volver a operar la falta de existencias.",
+            "solution": "skuCode已标记缺货，请勿重复操作确认无货接口",
+            "sort": 0
+          },
+          {
+            "id": 327,
+            "openPath": "/open-api/order/confirm-no-stock",
+            "errorCode": "9975998",
+            "errorMsg": "Failed to confirm no goods, the order does not have an operationally confirmed out-of-stock item",
+            "errorMsgCn": "确认无货失败，订单中没有可进行确认无货操作的商品。",
+            "errorMsgUs": "Failed to confirm no goods, the order does not have an operationally confirmed out-of-stock item",
+            "errorMsgPt": "Falha ao confirmar indisponibilidade de mercadorias, o pedido não possui itens que possam ser operacionalmente confirmados como sem estoque.",
+            "errorMsgEs": "Falló la confirmación de falta de stock, el pedido no tiene ningún artículo que se pueda confirmar operativamente como agotado.",
+            "solution": "orderNo下没有对应的商品信息，开发者需要检查商品id是否属于该订单",
+            "sort": 0
+          },
+          {
+            "id": 328,
+            "openPath": "/open-api/order/confirm-no-stock",
+            "errorCode": "9999002",
+            "errorMsg": "Data does not exist.",
+            "errorMsgCn": "数据不存在。",
+            "errorMsgUs": "Data does not exist.",
+            "errorMsgPt": "Os dados não existem.",
+            "errorMsgEs": "Los datos no existen.",
+            "solution": "skuCode、orderNo或orderGoodsId不存在，开发者需要确认上传的数据是否属于该店铺",
+            "sort": 0
+          },
+          {
+            "id": 329,
+            "openPath": "/open-api/order/confirm-no-stock",
+            "errorCode": "9999401",
+            "errorMsg": "orderGoodsId请求参数异常",
+            "errorMsgCn": "orderGoodsId请求参数异常",
+            "errorMsgUs": "The request parameter “orderGoodsId” is abnormal.",
+            "errorMsgPt": "O parâmetro de solicitação “orderGoodsId” está anormal.",
+            "errorMsgEs": "El parámetro de solicitud “orderGoodsId” es anormal.",
+            "solution": "orderGoodsId不正确，开发者需要通过订单详情获取",
+            "sort": 0
+          },
+          {
+            "id": 325,
+            "openPath": "/open-api/order/confirm-no-stock",
+            "errorCode": "9999004",
+            "errorMsg": "Remote control failed. Please try again later.",
+            "errorMsgCn": "远程控制失败。请稍后重试。",
+            "errorMsgUs": "Remote control failed. Please try again later.",
+            "errorMsgPt": "Falha no controle remoto. Por favor, tente novamente mais tarde.",
+            "errorMsgEs": "Falló el control remoto. Por favor, inténtelo de nuevo más tarde.",
+            "solution": "系统异常，请重试",
+            "sort": 100
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "orderNo": "<REDACTED_SAMPLE>",
+                "orderGoodsId": 0,
+                "skuCode": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {}
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "skuCode": {
+                  "type": "string",
+                  "description": "SHEIN平台生成的 skuCode；skuCode 和 orderGoodsId 不允许同时为空",
+                  "x-shein-example-redacted": true
+                },
+                "orderNo": {
+                  "type": "string",
+                  "description": "订单号",
+                  "x-shein-example-redacted": true
+                },
+                "orderGoodsId": {
+                  "type": "integer",
+                  "description": "商品唯一标识；同种商品多件，每件goodsId不同，通过订单详情接口获得",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "orderNo",
+                "orderGoodsId"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

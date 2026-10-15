@@ -10,6 +10,7 @@ The current dataset contains:
 - [TikTok Shop API Models](tiktok-shop-api/README.md)
 - [Shopee API Models](shopee-api/README.md)
 - [Lazada Open Platform API Models](lazada-api/README.md)
+- [SHEIN Open Platform API Models](shein-api/README.md)
 
 ## Structure
 
@@ -23,6 +24,7 @@ api-models/
   tiktok-shop-api/
   shopee-api/
   lazada-api/
+  shein-api/
 ```
 
 Inside an API family, the expected navigation pattern is:
@@ -49,6 +51,8 @@ This keeps broad discovery lightweight while still preserving the detailed endpo
 `shopee-api` contains Shopee Open Platform API documentation organized by business module. Each module links to operation-level Swagger 2.0 JSON files; rendered request, response, error, permission, tool, update-log, and example data are retained in `x-shopee-*` fields because Shopee does not provide a Markdown download source.
 
 `lazada-api` contains Lazada Open Platform API references organized by official category. It includes operation-level Swagger 2.0 JSON models for the 378 catalog records across 35 categories; official request/response trees, errors, examples, endpoint regions, and SDK code are retained in `x-lazada-*` fields.
+
+`shein-api` contains the public SHEIN API and Webhook catalog, with 256 operation models across 21 official categories. Mode applicability, source field trees, errors, and redacted example shapes are preserved per record.
 
 ## Future Scope
 

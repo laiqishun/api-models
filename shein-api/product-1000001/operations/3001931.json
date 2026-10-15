@@ -1,0 +1,333 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "获取店铺上架额度",
+    "version": "source-revision-2",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/query-shelf-quota": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "shein_api_3001931",
+        "summary": "获取店铺上架额度",
+        "description": "平台对店铺可上架的商品SKC数量有管控，请在调用 商品上架接口 之前先查询店铺可上架额度，有额度时再操作上架。 仅自运营、半托管模式的商家会被管控上架额度。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "响应信息。成功：OK",
+                  "x-shein-example-redacted": true
+                },
+                "info": {
+                  "type": "object",
+                  "description": "详细信息",
+                  "properties": {
+                    "need": {
+                      "type": "boolean",
+                      "description": "店铺是否被管控上架额度。 true=被管控，剩余可用额度（remain_count）大于0时，代表还能上架SKC； false=不被管控，即店铺可上架SKC数没有限制；",
+                      "x-shein-example-redacted": true
+                    },
+                    "total_quota_count": {
+                      "type": "integer",
+                      "description": "总的可上架SKC数量。",
+                      "x-shein-example-redacted": true
+                    },
+                    "on_shelf_count": {
+                      "type": "integer",
+                      "description": "已上架的SKC数量",
+                      "x-shein-example-redacted": true
+                    },
+                    "remain_count": {
+                      "type": "integer",
+                      "description": "剩余可上架SKC数量",
+                      "x-shein-example-redacted": true
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "追踪码",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "info"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001931,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001931-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 2,
+        "x-shein-updated-at": "2026-07-23 11:04:59",
+        "x-shein-qps": "40",
+        "x-shein-change-content": "增加入参brand_code，可查询某品牌下的发品数量是否有额度豁免权。",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>application/json</p>",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\" style=\"text-align: start;\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认返回中文多语言信息，支持语种：英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br</p>",
+                  "name": "language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>店铺的可用品牌code，可通过接口/open-api/goods/query-brand-list获取。</p><p>部分商家的部分品牌，可能会开启额度豁免，即此品牌下的商品不管控数量，因此如果商家发布品牌商品，可入参code后查询。</p>",
+                  "name": "brand_code"
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>响应编码 成功：0</p>",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>响应信息。成功：OK</p>",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>详细信息</p>",
+                  "name": "info",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "boolean",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>店铺是否被管控上架额度。</p><p>true=被管控，剩余可用额度（remain_count）大于0时，代表还能上架SKC；</p><p>false=不被管控，即店铺可上架SKC数没有限制；</p>",
+                      "name": "need"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>总的可上架SKC数量。</p>",
+                      "name": "total_quota_count"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>已上架的SKC数量</p>",
+                      "name": "on_shelf_count"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>剩余可上架SKC数量</p>",
+                      "name": "remain_count"
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>追踪码</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "brand_code": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "need": false,
+                  "total_quota_count": 0,
+                  "on_shelf_count": 0,
+                  "remain_count": 0
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "默认返回中文多语言信息，支持语种：英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "brand_code": {
+                  "type": "string",
+                  "description": "店铺的可用品牌code，可通过接口/open-api/goods/query-brand-list获取。 部分商家的部分品牌，可能会开启额度豁免，即此品牌下的商品不管控数量，因此如果商家发布品牌商品，可入参code后查询。"
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3001931,
+            "updateTime": "2026-07-23",
+            "changeContent": "增加入参brand_code，可查询某品牌下的发品数量是否有额度豁免权。",
+            "version": 2
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

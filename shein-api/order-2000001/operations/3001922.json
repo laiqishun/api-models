@@ -1,0 +1,340 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "切换导出地址发货",
+    "version": "source-revision-6",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/gsp/switch-self-shipping": {
+      "post": {
+        "tags": [
+          "客单"
+        ],
+        "operationId": "shein_api_3001922",
+        "summary": "切换导出地址发货",
+        "description": "仅在商家通过SHEIN合作物流在线下单后可使用该接口，用于切换为商家自履约模式（商家自行联系物流商发货）。仅支持美国和欧洲订单。 如何判断订单是否可调用 ： 通过 /open-api/order/order-detail 查询订单，需同时满足： optionalLogisticsList=[1,2]（订单支持在线下单+自发货） orderLogisticsType = 1（当前商家选择的是在线下单） orderStatus = 1 或 2 或 7（订单未发货） 若不满足以上条件，调用将返回错误。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code",
+                "msg",
+                "traceId"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001922,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001922-2000001",
+        "x-shein-category-id": 2000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 6,
+        "x-shein-updated-at": "2026-07-09 20:06:25",
+        "x-shein-qps": "80",
+        "x-shein-change-content": "优化接口描述",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "订单号；（调接口切自发货后，不能再使用平台物流发货）",
+                  "name": "orderNo",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>错误描述,成功：OK</p>",
+                  "name": "msg",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId",
+                  "required": true
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 551,
+            "openPath": "/open-api/gsp/switch-self-shipping",
+            "errorCode": "99110032",
+            "errorMsg": "面单已取消，不允许更换物流",
+            "errorMsgCn": "面单已取消，不允许更换物流",
+            "errorMsgUs": "The shipping label has been cancelled, no changes to the logistics are allowed.",
+            "errorMsgPt": "Pedido de rastreamento cancelado, não é permitida a troca de logística.",
+            "errorMsgEs": "La orden ha sido cancelada, no se permite cambiar el método de envío.",
+            "solution": "当前不能切换发货方式",
+            "sort": 0
+          },
+          {
+            "id": 552,
+            "openPath": "/open-api/gsp/switch-self-shipping",
+            "errorCode": "99110033",
+            "errorMsg": "包裹下单中，不允许更换物流",
+            "errorMsgCn": "包裹下单中，不允许更换物流",
+            "errorMsgUs": "The package is being ordered, no changes to the logistics are allowed.",
+            "errorMsgPt": "Pedido em andamento, não é permitida a troca de logística.",
+            "errorMsgEs": "El paquete está en proceso de pedido, no se permite cambiar el método de envío.",
+            "solution": "当前不能切换发货方式",
+            "sort": 0
+          },
+          {
+            "id": 553,
+            "openPath": "/open-api/gsp/switch-self-shipping",
+            "errorCode": "99110034",
+            "errorMsg": "仅发货前允许订单更换物流",
+            "errorMsgCn": "仅发货前允许订单更换物流",
+            "errorMsgUs": "Only order changes to logistics are allowed before shipment.",
+            "errorMsgPt": "Apenas é permitida a troca de logística antes do envio.",
+            "errorMsgEs": "Sólo se permite cambiar el método de envío antes de que se realice el envío.",
+            "solution": "当前不能切换发货方式",
+            "sort": 0
+          },
+          {
+            "id": 554,
+            "openPath": "/open-api/gsp/switch-self-shipping",
+            "errorCode": "99110035",
+            "errorMsg": "订单暂不支持导出地址发货",
+            "errorMsgCn": "订单暂不支持导出地址发货",
+            "errorMsgUs": "The order does not currently support shipping to the exported address",
+            "errorMsgPt": "O pedido não suporta exportação de endereço para envio",
+            "errorMsgEs": "La orden no admite el envío a direcciones exportadas",
+            "solution": "订单可选发货方式不支持导出地址发货",
+            "sort": 0
+          },
+          {
+            "id": 555,
+            "openPath": "/open-api/gsp/switch-self-shipping",
+            "errorCode": "99110036",
+            "errorMsg": "订单缺少需发货商品，不允许更换物流",
+            "errorMsgCn": "订单缺少需发货商品，不允许更换物流",
+            "errorMsgUs": "The order is missing required items to be shipped, and a change of logistics is not allowed.",
+            "errorMsgPt": "Pedido faltam itens necessários para envio, troca de logística não permitida",
+            "errorMsgEs": "Pedido falta producto a enviar, no se permite cambiar el método de envío",
+            "solution": "当前不能切换发货方式",
+            "sort": 0
+          },
+          {
+            "id": 556,
+            "openPath": "/open-api/gsp/switch-self-shipping",
+            "errorCode": "99110038",
+            "errorMsg": "订单不满足商家自主下单条件，不允许更换物流",
+            "errorMsgCn": "订单不满足商家自主下单条件，不允许更换物流",
+            "errorMsgUs": "The order does not meet the merchant's self-ordering conditions, and a change of logistics is not allowed.",
+            "errorMsgPt": "Pedido não atende aos critérios de pedido autônomo do vendedor, troca de logística não permitida",
+            "errorMsgEs": "Pedido no cumple con las condiciones de pedido autónomo del vendedor, no se permite cambiar el método de envío",
+            "solution": "当前不能切换发货方式",
+            "sort": 0
+          },
+          {
+            "id": 557,
+            "openPath": "/open-api/gsp/switch-self-shipping",
+            "errorCode": "99110998",
+            "errorMsg": "系统异常，切换导出地址失败",
+            "errorMsgCn": "系统异常，切换导出地址失败",
+            "errorMsgUs": "System error, failed to switch export address",
+            "errorMsgPt": "Ocorreu um erro no sistema, falha ao alternar o endereço de exportação",
+            "errorMsgEs": "Error en el sistema, fallo al cambiar la dirección de exportación",
+            "solution": "请稍后重试",
+            "sort": 0
+          },
+          {
+            "id": 604,
+            "openPath": "/open-api/gsp/switch-self-shipping",
+            "errorCode": "99110051",
+            "errorMsg": "订单关联的全部面单都已经取消，不允许更换物流",
+            "errorMsgCn": "订单关联的全部面单都已经取消，不允许更换物流",
+            "errorMsgUs": "All shipping labels associated with the order have been cancelled, and logistics changes are not allowed.",
+            "errorMsgPt": "Todas as etiquetas de envio associadas à encomenda foram canceladas e não são permitidas alterações logísticas.",
+            "errorMsgEs": "Se han cancelado todas las etiquetas de envío asociadas al pedido y no se permiten cambios logísticos.",
+            "solution": "请检查订单状态",
+            "sort": 0
+          },
+          {
+            "id": 605,
+            "openPath": "/open-api/gsp/switch-self-shipping",
+            "errorCode": "99110053",
+            "errorMsg": "订单关联的部分包裹处于下单中的状态，不允许更换发货方式",
+            "errorMsgCn": "订单关联的部分包裹处于下单中的状态，不允许更换发货方式",
+            "errorMsgUs": "Some packages associated with the order are in the ordering state, and changing the shipping method is not allowed",
+            "errorMsgPt": "Alguns pacotes associados ao pedido estão no estado de pedido e não é permitido alterar o método de envio",
+            "errorMsgEs": "Algunos paquetes asociados al pedido están en estado de pedido y no se permite cambiar el método de envío.",
+            "solution": "请检查订单包裹状态",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "orderNo": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {},
+                "bbl": {},
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "orderNo": {
+                  "type": "string",
+                  "description": "订单号；（调接口切自发货后，不能再使用平台物流发货）"
+                }
+              },
+              "required": [
+                "orderNo"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

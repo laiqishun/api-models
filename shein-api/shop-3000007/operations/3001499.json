@@ -1,0 +1,401 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询店铺信息",
+    "version": "source-revision-12",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/openapi-business-backend/query-store-info": {
+      "post": {
+        "tags": [
+          "店铺"
+        ],
+        "operationId": "shein_api_3001499",
+        "summary": "查询店铺信息",
+        "description": "查询店铺的基本信息，如商家id、店铺状态及店铺可发布商品数量",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "storeInfo": {
+                      "type": "object",
+                      "description": "店铺信息",
+                      "properties": {
+                        "storeName": {
+                          "type": "string",
+                          "description": "店铺名称；仅自运营，半托管会返回；"
+                        },
+                        "storeStatus": {
+                          "type": "integer",
+                          "description": "店铺状态 0：停用 1：启用；仅自运营，半托管会返回；"
+                        },
+                        "supplierId": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-shein-original-type": "int64",
+                          "description": "商家id"
+                        },
+                        "supplierBusinessMode": {
+                          "type": "string",
+                          "description": "商家业务类型。只有特殊的商家此字段才会有值。 POP-US:美国POP店；POP-GLOBAL:跨境POP店；SFS:商家既要备货又要管理客单"
+                        }
+                      }
+                    },
+                    "storeProductQuota": {
+                      "type": "object",
+                      "description": "店铺发品可用额度",
+                      "properties": {
+                        "availableLimit": {
+                          "type": "integer",
+                          "description": "可用额度"
+                        },
+                        "totalLimit": {
+                          "type": "integer",
+                          "description": "总额度"
+                        },
+                        "usedQuota": {
+                          "type": "integer",
+                          "description": "已用额度"
+                        }
+                      }
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001499,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001499-3000007",
+        "x-shein-category-id": 3000007,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 12,
+        "x-shein-updated-at": "2025-12-18 10:34:59",
+        "x-shein-qps": "50",
+        "x-shein-change-content": "“供应商”改“商家”",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "storeInfoRequest",
+              "label": "",
+              "required": false
+            },
+            "children": []
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "label": "",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "店铺信息",
+                      "name": "storeInfo",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>店铺名称；仅自运营，半托管会返回；</p>",
+                          "name": "storeName",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>店铺状态 0：停用 1：启用；仅自运营，半托管会返回；</p>",
+                          "name": "storeStatus",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "<p>商家id</p>",
+                          "name": "supplierId",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>商家业务类型。只有特殊的商家此字段才会有值。</p><p>POP-US:美国POP店；POP-GLOBAL:跨境POP店；SFS:商家既要备货又要管理客单</p>",
+                          "name": "supplierBusinessMode"
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "店铺发品可用额度",
+                      "name": "storeProductQuota",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "可用额度",
+                          "name": "availableLimit",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "总额度",
+                          "name": "totalLimit",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>已用额度</p>",
+                          "name": "usedQuota",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误描述,成功：OK</p>",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                },
+                "children": []
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {}
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "storeProductQuota": {
+                    "totalLimit": 0,
+                    "availableLimit": 0,
+                    "usedQuota": 0
+                  },
+                  "storeInfo": {
+                    "supplierId": 0,
+                    "storeName": null,
+                    "storeStatus": null
+                  }
+                },
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

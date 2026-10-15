@@ -1,0 +1,315 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "确认商品是否可编辑",
+    "version": "source-revision-1",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/product/check-edit-permission": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "shein_api_3001380",
+        "summary": "确认商品是否可编辑",
+        "description": "编辑商品前请调用接口确认商品是否可编辑，可编辑的商品需要满足以下条件： 1、商品已首次发布且通过平台审核。（首次发布的SPU下有多个SKC，只要有1个SKC审核通过，SPU就算审核通过） 2、在满足1的情况下若要对商品发起编辑，则商品当前不应该处于审核公文中。即SPU发布成功后，发起编辑生成了公文A，在A没有审核结果之前，SPU不可再次编辑。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOfEditPermissionResp",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "商品编辑资格信息",
+                  "x-shein-label": "EditPermissionResp",
+                  "properties": {
+                    "editable": {
+                      "type": "boolean",
+                      "description": "商品是否可编辑。 true-可编辑；false-不可编辑。"
+                    },
+                    "reason": {
+                      "type": "string",
+                      "description": "不可编辑的原因。只有当 editable=false时才会有值。"
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "响应信息。成功：OK"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001380,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001380-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 1,
+        "x-shein-updated-at": "2025-08-28 14:46:52",
+        "x-shein-qps": "40",
+        "x-shein-change-content": "初版",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><span style=\"font-size: 14px;\">application/json</span></p>",
+                  "name": "Content-Type"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><span style=\"font-size: 14px;\">访问用户隐私数据时的唯一权限标识 openKeyId</span></p>",
+                  "name": "x-lt-openKeyId"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><span style=\"font-size: 14px;\">请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</span></p>",
+                  "name": "x-lt-timestamp"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>接口签名</p>",
+                  "name": "x-lt-signature"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>响应信息语种。</p><p>不传时默认为英语，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR</p>",
+                  "name": "language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "GetEditPermissionRequest",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>平台生成的SPU唯一编码</p>",
+                  "name": "spuName",
+                  "label": "",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOfEditPermissionResp",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>响应编码 成功：0</p>",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>商品编辑资格信息</p>",
+                  "name": "info",
+                  "label": "EditPermissionResp",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "boolean",
+                      "multiple": 0,
+                      "description": "<p>商品是否可编辑。</p><p>true-可编辑；false-不可编辑。</p>",
+                      "name": "editable",
+                      "label": "",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>不可编辑的原因。只有当<span style=\"font-size: 14px;\">editable=false时才会有值。</span></p>",
+                      "name": "reason",
+                      "label": "",
+                      "required": false
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>响应信息。成功：OK</p>",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "spuName": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "reason": "<REDACTED_SAMPLE>",
+                  "editable": false
+                },
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "响应信息语种。 不传时默认为英语，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "x-shein-label": "GetEditPermissionRequest",
+              "properties": {
+                "spuName": {
+                  "type": "string",
+                  "description": "平台生成的SPU唯一编码"
+                }
+              },
+              "required": [
+                "spuName"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

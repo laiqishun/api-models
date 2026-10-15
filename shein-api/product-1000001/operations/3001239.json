@@ -1,0 +1,471 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "商品列表接口",
+    "version": "source-revision-18",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/openapi-business-backend/product/query": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "shein_api_3001239",
+        "summary": "商品列表接口",
+        "description": "该API支持查询已发布成功的商品列表数据，接口一次最多返回50000条数据。如果商家发布的商品数量超过50000条，请增加时间范围进行查询。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "编码(0:success)"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "skcName": {
+                            "type": "string",
+                            "description": "skcName，skcName是SHEIN生成的系统编码"
+                          },
+                          "skuCodeList": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "description": "sku维度数据，一个skc下最多40个sku；skuCode，skuCode是SHEIN生成的系统编码"
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "spuName": {
+                            "type": "string",
+                            "description": "spuName，spuName是SHEIN生成的系统编码"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误信息"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              }
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "application/json"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001239,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001239-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 18,
+        "x-shein-updated-at": "2025-07-17 11:56:50",
+        "x-shein-qps": "100",
+        "x-shein-change-content": "更新curl",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：<span style=\"color: rgb(17, 17, 16); background-color: rgb(255, 255, 255); font-size: 14px;\">application/json</span></p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "<p>页面数量，默认：1</p>",
+                  "name": "pageNum",
+                  "defaultValue": "1",
+                  "required": false
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "<p>页面大小，默认：50</p>",
+                  "name": "pageSize",
+                  "defaultValue": "50",
+                  "required": false
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "商品上新的结束时间（商品首次审核通过），示例：2024-11-15 19:00:00",
+                  "name": "insertTimeEnd"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "商品上新的开始时间（商品首次审核通过）示例：2024-11-15 20:00:00",
+                  "name": "insertTimeStart"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "商品的更新结束时间（更新范围不仅是商品信息变动，包括系统内部更新时间）.示例：2024-11-15 19:00:00",
+                  "name": "updateTimeEnd"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "商品的更新开始时间（更新范围不仅是商品信息变动，包括系统内部更新时间）.示例：2024-11-15 19:00:00",
+                  "name": "updateTimeStart"
+                },
+                "children": []
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>编码(0:success)</p>",
+                  "name": "code",
+                  "required": false
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "name": "data",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>skcName，skcName是SHEIN生成的系统编码</p>",
+                          "name": "skcName",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 1,
+                          "description": "<p>sku维度数据，一个skc下最多40个sku；skuCode，skuCode是SHEIN生成的系统编码</p>",
+                          "name": "skuCodeList",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>spuName，spuName是SHEIN生成的系统编码</p>",
+                          "name": "spuName",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误信息</p>",
+                  "name": "msg",
+                  "required": false
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                },
+                "children": []
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 542,
+            "openPath": "/open-api/openapi-business-backend/product/query",
+            "errorCode": "-1",
+            "errorMsg": "page_num不能为空,且需为大于0的整数",
+            "errorMsgCn": "page_num不能为空,且需为大于0的整数",
+            "errorMsgUs": "page_num cannot be empty and must be an integer greater than 0",
+            "errorMsgPt": "page_num cannot be empty and must be an integer greater than 0",
+            "errorMsgEs": "page_num cannot be empty and must be an integer greater than 0",
+            "solution": "page_num必填",
+            "sort": 0
+          },
+          {
+            "id": 543,
+            "openPath": "/open-api/openapi-business-backend/product/query",
+            "errorCode": "-1",
+            "errorMsg": "查询总数超过限定值:50000",
+            "errorMsgCn": "查询总数超过限定值:50000",
+            "errorMsgUs": "The total query count exceeds the limit: 50000",
+            "errorMsgPt": "The total query count exceeds the limit: 50000",
+            "errorMsgEs": "The total query count exceeds the limit: 50000",
+            "solution": "减少page_num或page_size的数量",
+            "sort": 0
+          },
+          {
+            "id": 544,
+            "openPath": "/open-api/openapi-business-backend/product/query",
+            "errorCode": "-1",
+            "errorMsg": "获取商品列表失败",
+            "errorMsgCn": "获取商品列表失败",
+            "errorMsgUs": "Failed to retrieve the product list",
+            "errorMsgPt": "Failed to retrieve the product list",
+            "errorMsgEs": "Failed to retrieve the product list",
+            "solution": "稍后再试",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "pageNum": 0,
+                "pageSize": 0
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "data": [
+                    {
+                      "skcName": "<REDACTED_SAMPLE>",
+                      "skuCodeList": [
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>"
+                      ],
+                      "spuName": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "skcName": "<REDACTED_SAMPLE>",
+                      "skuCodeList": [
+                        "<REDACTED_SAMPLE>"
+                      ],
+                      "spuName": "<REDACTED_SAMPLE>"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值： application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "pageNum": {
+                  "type": "integer",
+                  "description": "页面数量，默认：1",
+                  "x-shein-default-value": "1"
+                },
+                "pageSize": {
+                  "type": "integer",
+                  "description": "页面大小，默认：50",
+                  "x-shein-default-value": "50"
+                },
+                "insertTimeEnd": {
+                  "type": "string",
+                  "description": "商品上新的结束时间（商品首次审核通过），示例：2024-11-15 19:00:00"
+                },
+                "insertTimeStart": {
+                  "type": "string",
+                  "description": "商品上新的开始时间（商品首次审核通过）示例：2024-11-15 20:00:00"
+                },
+                "updateTimeEnd": {
+                  "type": "string",
+                  "description": "商品的更新结束时间（更新范围不仅是商品信息变动，包括系统内部更新时间）.示例：2024-11-15 19:00:00"
+                },
+                "updateTimeStart": {
+                  "type": "string",
+                  "description": "商品的更新开始时间（更新范围不仅是商品信息变动，包括系统内部更新时间）.示例：2024-11-15 19:00:00"
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

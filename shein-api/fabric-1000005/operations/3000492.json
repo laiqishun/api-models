@@ -1,0 +1,416 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "供应商质检-验布报告",
+    "version": "source-revision-3",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/material/receive-cloth-report": {
+      "post": {
+        "tags": [
+          "面料"
+        ],
+        "operationId": "shein_api_3000492",
+        "summary": "供应商质检-验布报告",
+        "description": "字段填写说明：\n条编码：最多200个字符；条编码不得与该供应商已有验布报告重复；\n系统对接码：在Shein存在，且属于该调动接口供应商的系统对接码；\n幅宽：要求>0，保留两位小数\n克重：单位为米，要求≥0，保留两位小数；单位为公斤时，要求>0，保留两位小数\n色差：最多200个字符\n单位（只能是公斤或米）：0-公斤，1-米\n米数：单位为米时，必填；要求>0，保留两位小数；\n公斤数：单位为公斤时，必填；要求>0，保留两位小数；\n百平方米扣分：最多200个字符\n扣损：最多200个字符\n等级：最多200个字符\n检测结果：0-合格，1-不合格\n\n文件类型：  0-图片 1-PDF\n ① 0-图片：可以访问的图片地址，图片格式不限，最多10张 \n 注意：\n 1.对外接口的图片域名。要以(.文件类型)为最末尾。\n 例如：http://xxx/api/html/customer105998.jpg\n http://xxx/api/html/customer105998.png\n2.图片的格式要求是：png、jpg、jpeg，其他格式不支持\n ② 1-PDF ： 有且仅有一个文件，最大支持30M\n\n验布人员：最多20个字符\n验布时间：精确到年月日，时间格式：yyyy-MM-dd 例如：2020-09-01\n\n校验失败返回失败信息具体如下：\n\n条编码：Shein已有该验布报告\n\n系统对接码：系统对接编码不正确；\n\n幅宽：幅宽必须大于0\n\n克重：单位为公斤时，必须大于0\n\n系统对接码：系统对接编码不正确；",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "x-shein-default-value": "0",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "x-shein-default-value": "success",
+                  "x-shein-example-redacted": true
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              }
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "application/json"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3000492,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3000492-1000005",
+        "x-shein-category-id": 1000005,
+        "x-shein-applicable-modes": [],
+        "x-shein-source-version": 3,
+        "x-shein-updated-at": "2024-10-14 22:27:33",
+        "x-shein-qps": null,
+        "x-shein-change-content": "新增traceId",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 1,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "条编码",
+                  "name": "acode",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "系统对接码",
+                  "name": "sysDockMaterialCode",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "decimal",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "幅宽",
+                  "name": "practicalWidth",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "decimal",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "色差",
+                  "name": "practicalWeight",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "色差",
+                  "name": "chromaticAberration",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "单位",
+                  "name": "unit",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "decimal",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "数量",
+                  "name": "num",
+                  "defaultValue": "0"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "百平方米扣分",
+                  "name": "points",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "扣损",
+                  "name": "loss",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "等级",
+                  "name": "level",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "检测结果",
+                  "name": "result",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "图片",
+                  "name": "fileUrlList",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "文件类型 0-图片（单个文件最大支持30M），1-PDF（单个文件最大支持30M）",
+                  "name": "fileType",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "验布人员",
+                  "name": "qcBy",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "验布时间，时间格式：yyyy-MM-dd 例如：2020-09-01 ",
+                  "name": "qcTime",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "name": "code",
+                  "defaultValue": "0",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "name": "msg",
+                  "defaultValue": "success",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": null,
+            "response": null
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "acode": {
+                    "type": "string",
+                    "description": "条编码",
+                    "x-shein-example-redacted": true
+                  },
+                  "sysDockMaterialCode": {
+                    "type": "string",
+                    "description": "系统对接码",
+                    "x-shein-example-redacted": true
+                  },
+                  "practicalWidth": {
+                    "type": "number",
+                    "x-shein-original-type": "decimal",
+                    "description": "幅宽",
+                    "x-shein-example-redacted": true
+                  },
+                  "practicalWeight": {
+                    "type": "number",
+                    "x-shein-original-type": "decimal",
+                    "description": "色差",
+                    "x-shein-example-redacted": true
+                  },
+                  "chromaticAberration": {
+                    "type": "string",
+                    "description": "色差",
+                    "x-shein-example-redacted": true
+                  },
+                  "unit": {
+                    "type": "integer",
+                    "description": "单位",
+                    "x-shein-example-redacted": true
+                  },
+                  "num": {
+                    "type": "number",
+                    "x-shein-original-type": "decimal",
+                    "description": "数量",
+                    "x-shein-default-value": "0",
+                    "x-shein-example-redacted": true
+                  },
+                  "points": {
+                    "type": "string",
+                    "description": "百平方米扣分",
+                    "x-shein-example-redacted": true
+                  },
+                  "loss": {
+                    "type": "string",
+                    "description": "扣损",
+                    "x-shein-example-redacted": true
+                  },
+                  "level": {
+                    "type": "string",
+                    "description": "等级",
+                    "x-shein-example-redacted": true
+                  },
+                  "result": {
+                    "type": "integer",
+                    "description": "检测结果",
+                    "x-shein-example-redacted": true
+                  },
+                  "fileUrlList": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "description": "图片"
+                    },
+                    "x-shein-original-multiple": 1
+                  },
+                  "fileType": {
+                    "type": "integer",
+                    "description": "文件类型 0-图片（单个文件最大支持30M），1-PDF（单个文件最大支持30M）"
+                  },
+                  "qcBy": {
+                    "type": "string",
+                    "description": "验布人员"
+                  },
+                  "qcTime": {
+                    "type": "string",
+                    "description": "验布时间，时间格式：yyyy-MM-dd 例如：2020-09-01"
+                  }
+                },
+                "required": [
+                  "acode",
+                  "sysDockMaterialCode",
+                  "practicalWidth",
+                  "practicalWeight",
+                  "chromaticAberration",
+                  "unit",
+                  "points",
+                  "loss",
+                  "result",
+                  "fileUrlList",
+                  "fileType",
+                  "qcBy",
+                  "qcTime"
+                ]
+              },
+              "x-shein-original-multiple": 1
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

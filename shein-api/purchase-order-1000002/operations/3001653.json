@@ -1,0 +1,746 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "商品打印条码",
+    "version": "source-revision-17",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/print-barcode": {
+      "post": {
+        "tags": [
+          "采购单"
+        ],
+        "operationId": "shein_api_3001653",
+        "summary": "商品打印条码",
+        "description": "使用该API打印商品条码",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "code=0成功，code =1失败；失败时失败信息在msg字段，如果errorData不为空,说明存在不符合打印的条件, 报错明细需重新核对",
+                  "x-shein-label": "返回码"
+                },
+                "msg": {
+                  "type": "string",
+                  "x-shein-label": "错误信息"
+                },
+                "info": {
+                  "type": "object",
+                  "x-shein-label": "内容信息",
+                  "properties": {
+                    "url": {
+                      "type": "string",
+                      "description": "商品条码的url，如果errorData不为空，则字段为空，打印内容支持指定语种出参；",
+                      "x-shein-label": "PDF下载链接"
+                    },
+                    "errorData": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "错误信息",
+                        "x-shein-label": "错误内容明细",
+                        "properties": {
+                          "orderNo": {
+                            "type": "string",
+                            "description": "入参的订单号",
+                            "x-shein-label": "订单号"
+                          },
+                          "supplierSku": {
+                            "type": "string",
+                            "description": "卖家sku编码",
+                            "x-shein-label": "商品sku"
+                          },
+                          "errorMsg": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "description": "错误提示明细；支持指定语种出参；",
+                              "x-shein-label": "错误内容"
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "printNumber": {
+                            "type": "integer",
+                            "description": "入参的打印份数，此字段累计打印份数不能超过2000个",
+                            "x-shein-label": "打印份数"
+                          },
+                          "sheinSku": {
+                            "type": "string",
+                            "description": "sheinSku即sku_code，sku_code是商品发布SHEIN生成的系统编码",
+                            "x-shein-label": "sheinSku"
+                          }
+                        },
+                        "required": [
+                          "orderNo",
+                          "supplierSku",
+                          "errorMsg",
+                          "printNumber",
+                          "sheinSku"
+                        ]
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "codingInfoList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "查询成功返回编码信息",
+                        "x-shein-label": "编码信息",
+                        "properties": {
+                          "orderNo": {
+                            "type": "string",
+                            "description": "订单号",
+                            "x-shein-label": "订单号"
+                          },
+                          "supplierSku": {
+                            "type": "string",
+                            "description": "卖家sku编码",
+                            "x-shein-label": "卖家sku编码"
+                          },
+                          "sheinSku": {
+                            "type": "string",
+                            "description": "sheinSku即sku_code，sku_code是商品发布SHEIN生成的系统编码",
+                            "x-shein-label": "SHEIN sku code"
+                          },
+                          "barcode": {
+                            "type": "string",
+                            "description": "barcode条码；定制商品无需关注",
+                            "x-shein-label": "barcode条码"
+                          },
+                          "customCodingList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "定制商品二维码编码值"
+                            },
+                            "x-shein-original-multiple": 1
+                          }
+                        },
+                        "required": [
+                          "orderNo",
+                          "sheinSku"
+                        ]
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code",
+                "msg",
+                "info"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001653,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001653-1000002",
+        "x-shein-category-id": 1000002,
+        "x-shein-applicable-modes": [
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 17,
+        "x-shein-updated-at": "2026-03-31 21:27:36",
+        "x-shein-qps": "15",
+        "x-shein-change-content": "更新参数说明",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>指定出参语种，默认中文。支持语种，英语：US，法语：FR，西班牙语：ES，德语：DE，中文简体：CN，泰语：TH，巴西葡语：PT，土耳其语：TR\t</p>",
+                  "name": "x-lt-language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "name": "data",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>采购单号</p>",
+                      "name": "orderNo",
+                      "defaultValue": "",
+                      "label": "订单号",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>卖家sku编码和sheinSku必填其中一项，推荐使用sheinSku</p>",
+                      "name": "supplierSku",
+                      "label": ""
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "description": "<p>数组此字段累计打印份数不能超过2000个；定制急采单的场景使用急采单的下单数入参；</p>",
+                      "name": "printNumber",
+                      "label": "打印份数",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>sheinSku即sku_code，sku_code是商品发布SHEIN生成的系统编码</p>",
+                      "name": "sheinSku",
+                      "label": "",
+                      "required": true
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "指定条码展示内容（默认打印商家货号）；1:商家货号/ 2:商家sku编码",
+                  "name": "printContentType"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "指定条码打印大小（仅巴西商家适用，非巴西商家默认打印20*70）；1:打印20*70/ 2:打印25*40",
+                  "name": "printFormatType"
+                },
+                "children": []
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>code=0成功，code =1失败；失败时失败信息在msg字段，如果errorData不为空,说明存在不符合打印的条件, 报错明细需重新核对</p>",
+                  "name": "code",
+                  "label": "返回码",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><br></p>",
+                  "name": "msg",
+                  "label": "错误信息",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "name": "info",
+                  "label": "内容信息",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>商品条码的url，如果errorData不为空，则字段为空，打印内容支持指定语种出参；</p>",
+                      "name": "url",
+                      "defaultValue": "",
+                      "label": "PDF下载链接"
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>错误信息</p>",
+                      "name": "errorData",
+                      "defaultValue": "",
+                      "label": "错误内容明细"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "入参的订单号",
+                          "name": "orderNo",
+                          "defaultValue": "",
+                          "label": "订单号",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>卖家sku编码</p>",
+                          "name": "supplierSku",
+                          "label": "商品sku",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 1,
+                          "description": "<p>错误提示明细；支持指定语种出参；</p>",
+                          "name": "errorMsg",
+                          "label": "错误内容",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p>入参的打印份数，此字段累计打印份数不能超过2000个</p>",
+                          "name": "printNumber",
+                          "label": "打印份数",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>sheinSku即sku_code，sku_code是商品发布SHEIN生成的系统编码</p>",
+                          "name": "sheinSku",
+                          "label": "sheinSku",
+                          "required": true
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "查询成功返回编码信息",
+                      "name": "codingInfoList",
+                      "label": "编码信息"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "订单号",
+                          "name": "orderNo",
+                          "label": "订单号",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>卖家sku编码</p>",
+                          "name": "supplierSku",
+                          "label": "卖家sku编码"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>sheinSku即sku_code，sku_code是商品发布SHEIN生成的系统编码</p>",
+                          "name": "sheinSku",
+                          "label": "SHEIN sku code",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "barcode条码；定制商品无需关注",
+                          "name": "barcode",
+                          "label": "barcode条码"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>定制商品二维码编码值</p>",
+                          "name": "customCodingList"
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                },
+                "children": []
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 163,
+            "openPath": "/open-api/goods/print-barcode",
+            "errorCode": "openapi00006",
+            "errorMsg": "触发限流，请稍候再试",
+            "errorMsgCn": "触发限流，请稍候再试",
+            "errorMsgUs": "Rate limit triggered, please try again later",
+            "errorMsgPt": "Limite de taxa acionado, por favor tente novamente mais tarde",
+            "errorMsgEs": "Límite de tasa activado, por favor inténtelo de nuevo más tarde",
+            "solution": "接口触发限流。针对每个应用，该接口的qps（每秒最大请求数）为15",
+            "sort": 0
+          },
+          {
+            "id": 164,
+            "openPath": "/open-api/goods/print-barcode",
+            "errorCode": "0",
+            "errorMsg": "商品未查到,请到商家系统核实打印！",
+            "errorMsgCn": "商品未查到,请到商家系统核实打印！",
+            "errorMsgUs": "Product not found, please verify and print in the merchant system!",
+            "errorMsgPt": "Produto não encontrado, por favor verifique e imprima no sistema do comerciante!",
+            "errorMsgEs": "Producto no encontrado, por favor verifica e imprime en el sistema del comerciante!",
+            "solution": "审核失败的商品无法打印条码，请检查商品是否已审核通过",
+            "sort": 0
+          },
+          {
+            "id": 10,
+            "openPath": "/open-api/goods/print-barcode",
+            "errorCode": "pfmp95020",
+            "errorMsg": "定制商品请根据SHEIN要求，按订单打印条码",
+            "errorMsgCn": "定制商品请根据SHEIN要求，按订单打印条码",
+            "errorMsgUs": "For customized items, please print barcodes according to SHEIN requirements.",
+            "errorMsgPt": "Para itens personalizados, por favor, imprima os códigos de barras de acordo com os requisitos da SHEIN.",
+            "errorMsgEs": "Para productos personalizados, imprima códigos de barras según los requisitos de SHEIN.",
+            "solution": "定制的商品打印条码时，入参字段”type“字段请入参枚举2“普通订单条码”",
+            "sort": 2
+          },
+          {
+            "id": 167,
+            "openPath": "/open-api/goods/print-barcode",
+            "errorCode": "0",
+            "errorMsg": "订单不存在",
+            "errorMsgCn": "订单不存在",
+            "errorMsgUs": "Order does not exist",
+            "errorMsgPt": "A ordem não existe",
+            "errorMsgEs": "El pedido no existe",
+            "solution": "orderNo不存在，请检查",
+            "sort": 3
+          },
+          {
+            "id": 171,
+            "openPath": "/open-api/goods/print-barcode",
+            "errorCode": "0",
+            "errorMsg": "此订单不包含当前SKU",
+            "errorMsgCn": "此订单不包含当前SKU",
+            "errorMsgUs": "This order does not contain the current SKU",
+            "errorMsgPt": "Este pedido não contém o SKU atual",
+            "errorMsgEs": "Este pedido no contiene el SKU actual",
+            "solution": "采购单不包含当前SKU，请检查",
+            "sort": 7
+          },
+          {
+            "id": 9,
+            "openPath": "/open-api/goods/print-barcode",
+            "errorCode": "pfmp90110",
+            "errorMsg": "打印总数量不能超过2000份",
+            "errorMsgCn": "打印总数量不能超过2000份",
+            "errorMsgUs": "Printing total quantity cannot exceed 2000 copies.",
+            "errorMsgPt": "A quantidade total de impressão não pode exceder 2000 cópias.",
+            "errorMsgEs": "La cantidad total de impresión no puede exceder las 2000 copias.",
+            "solution": "字段“printNumber“不能超过2000",
+            "sort": 8
+          },
+          {
+            "id": 172,
+            "openPath": "/open-api/goods/print-barcode",
+            "errorCode": "pfmp90110",
+            "errorMsg": "打印总数量不能超过2000份",
+            "errorMsgCn": "打印总数量不能超过2000份",
+            "errorMsgUs": "Total print quantity cannot exceed 2000 copies",
+            "errorMsgPt": "A quantidade total de impressão não pode exceder 2000 cópias",
+            "errorMsgEs": "La cantidad total de impresión no puede exceder 2000 copias",
+            "solution": "printNumber代表打印数量不能超过2000",
+            "sort": 9
+          },
+          {
+            "id": 180,
+            "openPath": "/open-api/goods/print-barcode",
+            "errorCode": "00100001",
+            "errorMsg": "打印总数量不能超过2000份",
+            "errorMsgCn": "打印总数量不能超过2000份",
+            "errorMsgUs": "Total print quantity cannot exceed 2000 copies",
+            "errorMsgPt": "A quantidade total de impressão não pode exceder 2000 cópias",
+            "errorMsgEs": "La cantidad total de impresión no puede exceder 2000 copias",
+            "solution": "printNumber代表打印数量不能超过2000",
+            "sort": 9
+          },
+          {
+            "id": 175,
+            "openPath": "/open-api/goods/print-barcode",
+            "errorCode": "pfmp99004",
+            "errorMsg": "最多支持200个",
+            "errorMsgCn": "最多支持200个",
+            "errorMsgUs": "Supports a maximum of 200",
+            "errorMsgPt": "Suporta um máximo de 200",
+            "errorMsgEs": "Admite un máximo de 200",
+            "solution": "入参的数组不能超过200组数据",
+            "sort": 11
+          },
+          {
+            "id": 174,
+            "openPath": "/open-api/goods/print-barcode",
+            "errorCode": "pfmp99400",
+            "errorMsg": "最少打印数量为1份，不能为空",
+            "errorMsgCn": "最少打印数量为1份，不能为空",
+            "errorMsgUs": "Minimum print quantity is 1 copy, cannot be empty",
+            "errorMsgPt": "A quantidade mínima de impressão é 1 cópia, não pode estar vazia",
+            "errorMsgEs": "La cantidad mínima de impresión es 1 copia, no puede estar vacía",
+            "solution": "printNumber代表打印数量，必须大于1",
+            "sort": 12
+          },
+          {
+            "id": 178,
+            "openPath": "/open-api/goods/print-barcode",
+            "errorCode": "000003",
+            "errorMsg": "最少打印数量为1份",
+            "errorMsgCn": "最少打印数量为1份",
+            "errorMsgUs": "Minimum print quantity is 1 copy",
+            "errorMsgPt": "A quantidade mínima de impressão é 1 cópia",
+            "errorMsgEs": "La cantidad mínima de impresión es 1 copia",
+            "solution": "printNumber代表打印数量，必须大于1",
+            "sort": 12
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "type": 0,
+                "data": [
+                  {
+                    "orderNo": null,
+                    "supplierSku": null,
+                    "printNumber": 0,
+                    "sheinSku": "<REDACTED_SAMPLE>"
+                  }
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "url": "<REDACTED_SAMPLE>",
+                  "errorData": [],
+                  "codingInfoList": [
+                    {
+                      "orderNo": "<REDACTED_SAMPLE>",
+                      "supplierSku": "<REDACTED_SAMPLE>",
+                      "sheinSku": "<REDACTED_SAMPLE>",
+                      "customCodingList": [
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>"
+                      ],
+                      "barcode": null
+                    }
+                  ]
+                },
+                "bbl": null
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "x-lt-language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "指定出参语种，默认中文。支持语种，英语：US，法语：FR，西班牙语：ES，德语：DE，中文简体：CN，泰语：TH，巴西葡语：PT，土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "orderNo": {
+                        "type": "string",
+                        "description": "采购单号",
+                        "x-shein-label": "订单号"
+                      },
+                      "supplierSku": {
+                        "type": "string",
+                        "description": "卖家sku编码和sheinSku必填其中一项，推荐使用sheinSku"
+                      },
+                      "printNumber": {
+                        "type": "integer",
+                        "description": "数组此字段累计打印份数不能超过2000个；定制急采单的场景使用急采单的下单数入参；",
+                        "x-shein-label": "打印份数"
+                      },
+                      "sheinSku": {
+                        "type": "string",
+                        "description": "sheinSku即sku_code，sku_code是商品发布SHEIN生成的系统编码"
+                      }
+                    },
+                    "required": [
+                      "orderNo",
+                      "printNumber",
+                      "sheinSku"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "printContentType": {
+                  "type": "integer",
+                  "description": "指定条码展示内容（默认打印商家货号）；1:商家货号/ 2:商家sku编码"
+                },
+                "printFormatType": {
+                  "type": "integer",
+                  "description": "指定条码打印大小（仅巴西商家适用，非巴西商家默认打印20*70）；1:打印20*70/ 2:打印25*40"
+                }
+              },
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

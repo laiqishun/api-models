@@ -1,0 +1,941 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询资质证书列表",
+    "version": "source-revision-3",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods-certificates/search": {
+      "post": {
+        "tags": [
+          "合规"
+        ],
+        "operationId": "shein_api_3001907",
+        "summary": "查询资质证书列表",
+        "description": "获取店铺内已经创建好的资质证书列表（对应商家后台-合规-商品合规管理-证书库tab列表）。 完整的资质证书场景接口调用方式， 详见文档",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOfResultOfErpCertificatePoolResp",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应信息",
+                  "x-shein-label": "ResultOfErpCertificatePoolResp",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "列表数据",
+                        "properties": {
+                          "alertTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "证书预警日期"
+                          },
+                          "bindSkcFlag": {
+                            "type": "integer",
+                            "description": "是否已绑定SKC：1-是，0-否"
+                          },
+                          "certificateDimension": {
+                            "type": "integer",
+                            "description": "适用范围维度：1-部分商品，2-全部商品"
+                          },
+                          "certificateTypeCode": {
+                            "type": "string",
+                            "description": "证书类型编码"
+                          },
+                          "certificateTypeId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "证书类型ID"
+                          },
+                          "certificateTypeName": {
+                            "type": "string",
+                            "description": "证书类型名称"
+                          },
+                          "effectiveTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "证书生效日期"
+                          },
+                          "fileList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "证书中包含的文件列表",
+                              "properties": {
+                                "fileGroup": {
+                                  "type": "integer",
+                                  "description": "文件分组：0-默认值，1-本体，2-包装，41-PDF简版文件，42-PDF完整版文件。"
+                                },
+                                "fileMd5": {
+                                  "type": "string",
+                                  "description": "文件MD5"
+                                },
+                                "fileName": {
+                                  "type": "string",
+                                  "description": "文件名称"
+                                },
+                                "fileUrl": {
+                                  "type": "string",
+                                  "description": "文件URL"
+                                },
+                                "insertTime": {
+                                  "type": "string",
+                                  "x-shein-original-type": "datetime",
+                                  "description": "新增时间"
+                                },
+                                "langs": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "description": "文件语种列表"
+                                  },
+                                  "x-shein-original-multiple": 1
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "insertTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "记录插入时间"
+                          },
+                          "invalidTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "证书失效日期"
+                          },
+                          "lastUpdateTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "证书信息更新时间"
+                          },
+                          "poolId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "证书ID。此字段使用场景较少，更多使用的是poolSn。"
+                          },
+                          "poolSn": {
+                            "type": "string",
+                            "description": "证书编号。更多接口里使用的证书唯一编码是这个字段。"
+                          },
+                          "presetInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "证书中的字段信息列表。",
+                              "properties": {
+                                "presetId": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "字段ID"
+                                },
+                                "valueList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "字段值列表",
+                                    "properties": {
+                                      "value": {
+                                        "type": "string",
+                                        "description": "字段值。覆盖两种情况。 1、检验机构字段（归属于otherPresetInfoList且sourceFrom=SRM），此处是实验室id（srmDetectionAgencyList-laboratoryId） 2、非检测结构字段（归属于presetInfoList，inputType=3/4，如生效时间），此处是手动输入值"
+                                      },
+                                      "valueId": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "x-shein-original-type": "int64",
+                                        "description": "字段值ID。覆盖两种情况。 1、检验机构字段（归属于otherPresetInfoList且sourceFrom=SRM），此处是检测结构id（srmDetectionAgencyList-detectionAgencyId） 2、非检测结构的字段（归属于presetInfoList，inputType=1/2），此处是所选id（presetInfoList-presetValueList-presetValueId）"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "status": {
+                            "type": "integer",
+                            "description": "证书状态：1-待生效，2-已生效，3-已失效，4-待填写，5-即将失效，6-草稿"
+                          },
+                          "supplierId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "商家ID"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "元数据",
+                      "x-shein-label": "Meta",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "数据记录数"
+                        },
+                        "customObj": {
+                          "type": "object",
+                          "description": "用户自定义扩展"
+                        }
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "追踪码"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001907,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001907-3000008",
+        "x-shein-category-id": 3000008,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 3,
+        "x-shein-updated-at": "2026-07-03 14:20:15",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "缩短描述字数",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\" style=\"text-align: start;\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>响应msg的语种。不传时默认为中文，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR</p>",
+                  "name": "language",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "ERP证书池列表查询请求",
+              "label": "ErpCertificatePoolListReq",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>证书类型编码列表，单次最多查询10个。</p>",
+                  "name": "certificateTypeCodeList",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>证书文件名称（即证书中图片或pdf文件的名称），模糊查询</p>",
+                  "name": "fileName",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "<p>页码，从1开始</p>",
+                  "name": "pageNum",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "<p>每页大小，最大100。</p>",
+                  "name": "pageSize",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>证书编号列表（即平台对每份证书的唯一编码）</p>",
+                  "name": "poolSnList",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 1,
+                  "description": "<p>证书状态列表：1-待生效，2-已生效，3-已失效，4-待填写，5-即将失效，6-草稿。</p>",
+                  "name": "statusList",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOfResultOfErpCertificatePoolResp",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>响应编码 成功：0</p>",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "错误描述,成功：OK",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>响应信息</p>",
+                  "name": "info",
+                  "label": "ResultOfErpCertificatePoolResp",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>列表数据</p>",
+                      "name": "data",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "<p>证书预警日期</p>",
+                          "name": "alertTime",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>是否已绑定SKC：1-是，0-否</p>",
+                          "name": "bindSkcFlag",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>适用范围维度：1-部分商品，2-全部商品</p>",
+                          "name": "certificateDimension",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>证书类型编码</p>",
+                          "name": "certificateTypeCode",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "<p>证书类型ID</p>",
+                          "name": "certificateTypeId",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>证书类型名称</p>",
+                          "name": "certificateTypeName",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "<p>证书生效日期</p>",
+                          "name": "effectiveTime",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>证书中包含的文件列表</p>",
+                          "name": "fileList",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>文件分组：0-默认值，1-本体，2-包装，41-PDF简版文件，42-PDF完整版文件。</p>",
+                              "name": "fileGroup",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>文件MD5</p>",
+                              "name": "fileMd5",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>文件名称</p>",
+                              "name": "fileName",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>文件URL</p>",
+                              "name": "fileUrl",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "datetime",
+                              "multiple": 0,
+                              "description": "<p>新增时间</p>",
+                              "name": "insertTime",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 1,
+                              "description": "<p>文件语种列表</p>",
+                              "name": "langs",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "<p>记录插入时间</p>",
+                          "name": "insertTime",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "证书失效日期",
+                          "name": "invalidTime",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "<p>证书信息更新时间</p>",
+                          "name": "lastUpdateTime",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "<p>证书ID。此字段使用场景较少，更多使用的是poolSn。</p>",
+                          "name": "poolId",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>证书编号。更多接口里使用的证书唯一编码是这个字段。</p>",
+                          "name": "poolSn",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>证书中的字段信息列表。</p>",
+                          "name": "presetInfoList",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "<p>字段ID</p>",
+                              "name": "presetId",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "<p>字段值列表</p>",
+                              "name": "valueList",
+                              "label": "",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "<p>字段值。覆盖两种情况。</p><p>1、检验机构字段（归属于otherPresetInfoList且sourceFrom=SRM），此处是实验室id（srmDetectionAgencyList-laboratoryId）</p><p>2、非检测结构字段（归属于presetInfoList，inputType=3/4，如生效时间），此处是手动输入值</p>",
+                                  "name": "value",
+                                  "label": "",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "int64",
+                                  "multiple": 0,
+                                  "description": "<p>字段值ID。覆盖两种情况。</p><p>1、检验机构字段（归属于otherPresetInfoList且sourceFrom=SRM），此处是检测结构id（srmDetectionAgencyList-detectionAgencyId）</p><p>2、非检测结构的字段（归属于presetInfoList，inputType=1/2），此处是所选id（presetInfoList-presetValueList-presetValueId）</p>",
+                                  "name": "valueId",
+                                  "label": "",
+                                  "required": false
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>证书状态：1-待生效，2-已生效，3-已失效，4-待填写，5-即将失效，6-草稿</p>",
+                          "name": "status",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "<p>商家ID</p>",
+                          "name": "supplierId",
+                          "label": "",
+                          "required": false
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "<p>元数据</p>",
+                      "name": "meta",
+                      "label": "Meta",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>数据记录数</p>",
+                          "name": "count",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "用户自定义扩展",
+                          "name": "customObj",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>追踪码</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "pageNum": 0,
+                "pageSize": 0,
+                "certificateTypeCodeList": [
+                  "<REDACTED_SAMPLE>"
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "data": [
+                    {
+                      "poolId": 0,
+                      "poolSn": "<REDACTED_SAMPLE>",
+                      "supplierId": 0,
+                      "certificateTypeId": 0,
+                      "certificateTypeCode": "<REDACTED_SAMPLE>",
+                      "certificateTypeName": "<REDACTED_SAMPLE>",
+                      "status": 0,
+                      "certificateDimension": 0,
+                      "effectiveTime": "<REDACTED_SAMPLE>",
+                      "invalidTime": "<REDACTED_SAMPLE>",
+                      "alertTime": "<REDACTED_SAMPLE>",
+                      "bindSkcFlag": 0,
+                      "insertTime": "<REDACTED_SAMPLE>",
+                      "lastUpdateTime": "<REDACTED_SAMPLE>",
+                      "fileList": [
+                        {
+                          "fileName": "<REDACTED_SAMPLE>",
+                          "fileUrl": "<REDACTED_SAMPLE>",
+                          "fileMd5": "<REDACTED_SAMPLE>",
+                          "fileGroup": 0,
+                          "langs": [
+                            "<REDACTED_SAMPLE>"
+                          ],
+                          "insertTime": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "presetInfoList": [
+                        {
+                          "presetId": 0,
+                          "valueList": [
+                            {
+                              "valueId": null,
+                              "value": "<REDACTED_SAMPLE>"
+                            }
+                          ]
+                        },
+                        {
+                          "presetId": 0,
+                          "valueList": [
+                            {
+                              "valueId": 0,
+                              "value": "<REDACTED_SAMPLE>"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "meta": {
+                    "count": 0,
+                    "customObj": null
+                  }
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "响应msg的语种。不传时默认为中文，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "description": "ERP证书池列表查询请求",
+              "x-shein-label": "ErpCertificatePoolListReq",
+              "properties": {
+                "certificateTypeCodeList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "证书类型编码列表，单次最多查询10个。"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "fileName": {
+                  "type": "string",
+                  "description": "证书文件名称（即证书中图片或pdf文件的名称），模糊查询"
+                },
+                "pageNum": {
+                  "type": "integer",
+                  "description": "页码，从1开始"
+                },
+                "pageSize": {
+                  "type": "integer",
+                  "description": "每页大小，最大100。"
+                },
+                "poolSnList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "证书编号列表（即平台对每份证书的唯一编码）"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "statusList": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "description": "证书状态列表：1-待生效，2-已生效，3-已失效，4-待填写，5-即将失效，6-草稿。"
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "pageNum",
+                "pageSize"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3001850,
+            "updateTime": "2026-06-29",
+            "changeContent": "新接口上线",
+            "version": 2
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

@@ -1,0 +1,261 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "【新】物流轨迹回调",
+    "version": "source-revision-4",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/cargo/logistics-trajectory-callback": {
+      "post": {
+        "tags": [
+          "物流"
+        ],
+        "operationId": "shein_api_3000505",
+        "summary": "【新】物流轨迹回调",
+        "description": "# 我司运单-物流状态\n\n| 节点名称 | 节点值 | 描述 |\n| -------- | -------- | -------- |\n| 待取货    | 100      |      |\n| 取货签到    | 200      |      |\n| 更新货好时间 | 210      |      |\n| 已取货    | 300      |      |\n| 到达分拨（始发地）   | 400      |      |\n| 运输中    | 500      |      |\n| 到达分拨（终点） | 600      |      |\n| 开始派送    | 700      |      |\n| 派送异常    | 800      |      |\n| 派送签到    | 900      |      |\n| 已签收    | 1000      |      |\n| 已取消    | 1100      |      |\n| 拦截退回   | 1200      |      |\n| 拒收    | 1300      |      |\n| 遗失    | 1400      |      |\n\n\n请求体的information的最新json结构：\n```\n{\n//箱号单\n    \"boxNos\":[ \n        \"箱号1\",\n        \"箱号2\",\n        \"箱号3\"\n    ],\n//第三方合作的物流号\n    \"thirdPartyTrackingNumber\": \"YT20220803000001\"\n}\n```",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码，0成功，-1失败, 其他失败"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述，成功：OK"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应结果"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3000505,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3000505-1000006",
+        "x-shein-category-id": 1000006,
+        "x-shein-applicable-modes": [],
+        "x-shein-source-version": 4,
+        "x-shein-updated-at": "2024-10-15 10:45:26",
+        "x-shein-qps": null,
+        "x-shein-change-content": "新增traceId",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": null,
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "description": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "data",
+                  "name": "data",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "运单号",
+                      "name": "trackingNumber",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "路由步骤，如“签收完毕”",
+                      "name": "step"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "路由发生时间,如 \"2021-08-14 08:23:17\"",
+                      "name": "time",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "路由节点ID，如1000",
+                      "name": "nodeId",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": " 路由节点描述",
+                      "name": "desc"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "json字符串，差异化字段，没有则不填，具体见描述",
+                      "name": "information"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "物流回传车牌号，如路由节点ID=1000时回传，则为签收车牌号",
+                      "name": "plateNo",
+                      "label": ""
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "响应编码，0成功，-1失败, 其他失败",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "错误描述，成功：OK",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "description": "响应结果",
+                  "name": "info"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "data": [
+                  {
+                    "trackingNumber": "<REDACTED_SAMPLE>",
+                    "step": null,
+                    "time": "<REDACTED_SAMPLE>",
+                    "nodeId": "<REDACTED_SAMPLE>",
+                    "desc": "<REDACTED_SAMPLE>",
+                    "information": null
+                  }
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": null
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "data",
+                    "properties": {
+                      "trackingNumber": {
+                        "type": "string",
+                        "description": "运单号"
+                      },
+                      "step": {
+                        "type": "string",
+                        "description": "路由步骤，如“签收完毕”"
+                      },
+                      "time": {
+                        "type": "string",
+                        "description": "路由发生时间,如 \"2021-08-14 08:23:17\""
+                      },
+                      "nodeId": {
+                        "type": "string",
+                        "description": "路由节点ID，如1000"
+                      },
+                      "desc": {
+                        "type": "string",
+                        "description": "路由节点描述"
+                      },
+                      "information": {
+                        "type": "string",
+                        "description": "json字符串，差异化字段，没有则不填，具体见描述"
+                      },
+                      "plateNo": {
+                        "type": "string",
+                        "description": "物流回传车牌号，如路由节点ID=1000时回传，则为签收车牌号"
+                      }
+                    },
+                    "required": [
+                      "trackingNumber",
+                      "time",
+                      "nodeId"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

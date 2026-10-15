@@ -1,0 +1,511 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "打印面单接口",
+    "version": "source-revision-15",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/order/print-express-info": {
+      "post": {
+        "tags": [
+          "客单"
+        ],
+        "operationId": "shein_api_3001925",
+        "summary": "打印面单接口",
+        "description": "使用SHEIN合作物流履约时，开发者可调用该接口打印面单。 面单URL有效期为1小时 ，请及时下载保存；QPS不超过20。 如何判断是否可以打印面单？ 调用订单详情接口，若 optionalLogisticsList 包含1 ，说明订单需使用SHEIN合作物流履约，根据 orderPlaceType 区分： orderPlaceType=1（平台指定物流） ：墨西哥市场： 获取订单后（无退款、换货等异常）可直接调用打印面单。巴西市场： 需先通过 /open-api/order/sync-invoice-info 上传发票，并等待CTE发票开具完成（通过Webhook:/invoice_status_notice获取状态），之后才可调用打印面单。 orderPlaceType=2（商家指定SHEIN合作物流，即在线下单） ： 调用在线下单接口成功不代表下单完成。由于SHEIN与合作物流采用异步下单流程，需先调用查询下单结果接口，确认 handleResult=2（下单成功） 后，才可调用打印面单。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应码",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述信息",
+                  "x-shein-example-redacted": true
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                },
+                "info": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "响应数据",
+                    "properties": {
+                      "orderNo": {
+                        "type": "object",
+                        "x-shein-original-type": "json",
+                        "description": "订单号(仅平台指定渠道订单返回)"
+                      },
+                      "packageNo": {
+                        "type": "object",
+                        "x-shein-original-type": "json",
+                        "description": "包裹号(仅平台指定渠道订单返回)"
+                      },
+                      "filePdfUrl": {
+                        "type": "string",
+                        "description": "面单的 URL 格式为 PDF，有效期为一小时",
+                        "x-shein-example-redacted": true
+                      },
+                      "remark": {
+                        "type": "object",
+                        "x-shein-original-type": "json",
+                        "description": "备注；仅巴西或墨西哥超限拆分订单会返回"
+                      },
+                      "deliveryNo": {
+                        "type": "string",
+                        "description": "运单包裹号(在线下单的场景返回)",
+                        "x-shein-example-redacted": true
+                      }
+                    }
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "info"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001925,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001925-2000001",
+        "x-shein-category-id": 2000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 15,
+        "x-shein-updated-at": "2026-07-09 21:30:49",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "优化字段描述",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json;charset=UTF-8",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>订单号(平台指定物流的场景下即orderPlaceType=1，入参orderNo+packageNo获取面单)</p>",
+                  "name": "orderNo"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>包裹号(平台指定物流的场景下即orderPlaceType=1，入参orderNo+packageNo获取面单)</p>",
+                  "name": "packageNo"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>运单包裹号(在线下单的场景下，即orderPlaceType=2入参该字段打印面单)；从<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001919\" target=\"_blank\">查询下单结果</a>接口获取，确认<strong>handleResult=2（下单成功）</strong>后，才可调用打印面单</p>",
+                  "name": "deliveryNo"
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "响应码",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "错误描述信息",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "响应数据",
+                  "name": "info",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "json",
+                      "multiple": 0,
+                      "description": "<p>订单号(仅平台指定渠道订单返回)</p>",
+                      "name": "orderNo"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "json",
+                      "multiple": 0,
+                      "description": "<p>包裹号(仅平台指定渠道订单返回)</p>",
+                      "name": "packageNo"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "面单的 URL 格式为 PDF，有效期为一小时",
+                      "name": "filePdfUrl"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "json",
+                      "multiple": 0,
+                      "description": "备注；仅巴西或墨西哥超限拆分订单会返回",
+                      "name": "remark"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>运单包裹号(在线下单的场景返回)</p>",
+                      "name": "deliveryNo"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 50,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9999006",
+            "errorMsg": "相同的请求已在处理，请刷新以查看",
+            "errorMsgCn": "相同的请求已在处理，请刷新以查看",
+            "errorMsgUs": "The same request is already being processed, please refresh to view",
+            "errorMsgPt": "O mesmo pedido já está sendo processado, por favor, atualize para visualizar",
+            "errorMsgEs": "La misma solicitud ya está siendo procesada, por favor actualice para ver.",
+            "solution": "请ERP控制调用频率，每个店铺的qps不能超过20",
+            "sort": 0
+          },
+          {
+            "id": 51,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9998970",
+            "errorMsg": "Failed to print the form, order number: GSHNVP20M00MXR6 , error message: [订单包裹NFe 发票校验中，请耐心等待]",
+            "errorMsgCn": "Failed to print the form, order number: GSHNVP20M00MXR6 , error message: [订单包裹NFe 发票校验中，请耐心等待]",
+            "errorMsgUs": "Failed to print the form, order number: GSHNVP20M00MXR6, error message: [Order package NFe invoice verification in progress, please wait.]",
+            "errorMsgPt": "Falha ao imprimir o formulário, número do pedido: GSHNVP20M00MXR6, mensagem de erro: [Verificação da fatura do pacote do pedido NFe em andamento, por favor aguarde.]",
+            "errorMsgEs": "Error al imprimir el formulario, número de pedido: GSHNVP20M00MXR6, mensaje de error: [Validación de la factura del paquete del pedido NFe en progreso, por favor espere.]",
+            "solution": "上传发票后需要校验发票有效性，该行为内部系统为异步操作，所以请确认发票校验通过后再打印面单",
+            "sort": 0
+          },
+          {
+            "id": 53,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9999006",
+            "errorMsg": "该订单没有包裹号",
+            "errorMsgCn": "该订单没有包裹号",
+            "errorMsgUs": "There is no package number for this order",
+            "errorMsgPt": "Não há número de pacote para este pedido",
+            "errorMsgEs": "No hay número de paquete para este pedido",
+            "solution": "开发者的包裹号异常，请ERP仔细检查。包裹号来自订单详情“ packageNo”字段",
+            "sort": 0
+          },
+          {
+            "id": 54,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9998970",
+            "errorMsg": "Failed to print the form, order number: GSHNVL57300MG6Q , error message: [当前订单不可打印面单，请等待处理后重试！",
+            "errorMsgCn": "Failed to print the form, order number: GSHNVL57300MG6Q , error message: [当前订单不可打印面单，请等待处理后重试！",
+            "errorMsgUs": "Failed to print the form, order number: GSHNVL57300MG6Q, error message: [The current order cannot print the shipping label, please wait for processing and try again!",
+            "errorMsgPt": "Failed to print the form, order number: GSHNVL57300MG6Q, error message: [The current order cannot print the shipping label, please wait for processing and try again!",
+            "errorMsgEs": "Falha ao imprimir o formulário, número do pedido: GSHNVL57300MG6Q, mensagem de erro: [O pedido atual não pode imprimir a etiqueta de envio, por favor, aguarde o processamento e tente novamente!",
+            "solution": "巴西市场下，没有导出地址或上传发票就打印了面单。建议根据订单状态printOrderStatus=1来判断，状态等于1后再调用打印面单接口",
+            "sort": 0
+          },
+          {
+            "id": 230,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9999400",
+            "errorMsg": "The package number is incorrect, please check it.",
+            "errorMsgCn": "包裹编号不正确，请检查。",
+            "errorMsgUs": "The package number is incorrect, please check it.",
+            "errorMsgPt": "O número do pacote está incorreto, por favor verifique.",
+            "errorMsgEs": "El número del paquete es incorrecto, por favor verifíquelo.",
+            "solution": "包裹编号不正确，请检查订单详情接口，重新获取包裹编号",
+            "sort": 0
+          },
+          {
+            "id": 231,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9999400",
+            "errorMsg": "must not be empty",
+            "errorMsgCn": "必填的请求参数不允许为空",
+            "errorMsgUs": "Required request parameters cannot be empty",
+            "errorMsgPt": "Os parâmetros de solicitação obrigatórios não podem estar vazios",
+            "errorMsgEs": "Los parámetros de solicitud requeridos no pueden estar vacíos",
+            "solution": "orderNo或packageNo为空，请检查",
+            "sort": 0
+          },
+          {
+            "id": 232,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9998970",
+            "errorMsg": "Failed to print the sheet, reason for failure: [Under this order, there are no products that need to be shipped for the time being, and export addresses are not supported.]",
+            "errorMsgCn": "未能打印该表单，失败原因：[此订单下，目前没有需要发货的产品，且不支持导出地址。]",
+            "errorMsgUs": "Failed to print the sheet, reason for failure: [Under this order, there are no products that need to be shipped, and export addresses are not supported.]",
+            "errorMsgPt": "Não foi possível imprimir o formulário, motivo da falha: [Neste pedido, atualmente não há produtos que precisam ser enviados, e endereços de exportação não são suportados.]",
+            "errorMsgEs": "No se pudo imprimir el formulario, motivo de la falla: [En este pedido, actualmente no hay productos que deban enviarse, y no se admiten direcciones de exportación.]",
+            "solution": "该订单已发货，请勿再次打印面单",
+            "sort": 0
+          },
+          {
+            "id": 233,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9998970",
+            "errorMsg": "Failed to print the sheet, reason for failure: [For orders that have been refunded, rejected or reported as damaged, there is no need to print a receipt.]",
+            "errorMsgCn": "打印单据失败，失败原因：[对于已退款、拒绝或报告损坏的订单，不需要打印回执。]",
+            "errorMsgUs": "Failed to print the sheet, reason for failure: [For orders that have been refunded, rejected, or reported as damaged, there is no need to print a receipt.]",
+            "errorMsgPt": "Falha ao imprimir a folha, razão da falha: [Para pedidos que foram reembolsados, rejeitados ou relatados como danificados, não há necessidade de imprimir um recibo.]",
+            "errorMsgEs": "Error al imprimir la hoja, razón del fallo: [Para pedidos que han sido reembolsados, rechazados o informados como dañados, no es necesario imprimir un recibo.]",
+            "solution": "该订单已退款，无需打印面单联系shein物流商揽收，请检查",
+            "sort": 0
+          },
+          {
+            "id": 234,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9998970",
+            "errorMsg": "Failed to print the sheet, reason for failure: [The current order cannot print the shipping label, please wait for it to be processed and try again!]",
+            "errorMsgCn": "打印单据失败，失败原因：[当前订单无法打印运单标签，请等待其处理后再试！]",
+            "errorMsgUs": "Failed to print the sheet, reason for failure: [The current order cannot print the shipping label, please wait for it to be processed and try again!]",
+            "errorMsgPt": "Falha ao imprimir a folha, razão da falha: [O pedido atual não pode imprimir a etiqueta de envio, aguarde o processamento e tente novamente!]",
+            "errorMsgEs": "Error al imprimir la hoja, razón del fallo: [El pedido actual no puede imprimir la etiqueta de envío, por favor espere su procesamiento e inténtelo nuevamente.]",
+            "solution": "订单由于shein客服介入，暂时无法处理，请稍后重试",
+            "sort": 0
+          },
+          {
+            "id": 235,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9999500",
+            "errorMsg": "System error. Please try again later.",
+            "errorMsgCn": "系统错误，请稍后再试。",
+            "errorMsgUs": "System error. Please try again later.",
+            "errorMsgPt": "Erro do sistema. Por favor, tente novamente mais tarde.",
+            "errorMsgEs": "Error del sistema. Por favor, inténtelo nuevamente más tarde.",
+            "solution": "系统错误，请稍后再试。",
+            "sort": 0
+          },
+          {
+            "id": 236,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9999401",
+            "errorMsg": "The request parameter is abnormal, please refresh and try again.",
+            "errorMsgCn": "请求参数异常，请刷新后再试。",
+            "errorMsgUs": "The request parameter is abnormal, please refresh and try again.",
+            "errorMsgPt": "O parâmetro da solicitação está anormal, atualize e tente novamente.",
+            "errorMsgEs": "El parámetro de la solicitud es anormal, por favor actualice y vuelva a intentar.",
+            "solution": "orderNo或packageNo不正确，请检查",
+            "sort": 0
+          },
+          {
+            "id": 625,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9998970",
+            "errorMsg": "Order number: null Failed to print the sheet, reason for failure: [Currently, we do not allow printing shipping labels directly for orders. Please check your order information.]",
+            "errorMsgCn": "订单号：null 未能打印单据，失败原因：[目前，我们不允许直接为订单打印运输标签。请检查您的订单信息。]",
+            "errorMsgUs": "Order number: null Failed to print the sheet, reason for failure: [Currently, we do not allow printing shipping labels directly for orders. Please check your order information.]",
+            "errorMsgPt": "Número do pedido: null Falha ao imprimir a folha, motivo da falha: [Atualmente, não permitimos a impressão direta de etiquetas de envio para pedidos. Por favor, verifique as informações do seu pedido.]",
+            "errorMsgEs": "Número de pedido: null Error al imprimir la hoja, motivo del fallo: [Actualmente, no permitimos imprimir etiquetas de envío directamente para pedidos. Por favor, verifica la información de tu pedido.]",
+            "solution": "仅使用SHEIN 合作物流履约时可以调用打印面单接口，下述条件满足其一即为SHEIN合作物流履约：1、optionalLogisticsList=[1]；2、optionalLogisticsList=[1,2]且orderLogisticsType=1。optionalLogisticsList和orderLogisticsType参数，可调用/open-api/order/order-detail获取",
+            "sort": 0
+          },
+          {
+            "id": 626,
+            "openPath": "/open-api/order/print-express-info",
+            "errorCode": "9998970",
+            "errorMsg": "Order number: null Failed to print the sheet, reason for failure: [The shipping label can only be printed before collection.]",
+            "errorMsgCn": "订单号：null 未能打印面单，失败原因：[运送标签只能在揽收前打印。]",
+            "errorMsgUs": "Order number: null Failed to print the sheet, reason for failure: [The shipping label can only be printed before collection.]",
+            "errorMsgPt": "Número do pedido: null Falha ao imprimir a folha, motivo da falha: [A etiqueta de envio só pode ser impressa antes da coleta.]",
+            "errorMsgEs": "Número de pedido: null No se pudo imprimir la hoja, razón del fallo: [La etiqueta de envío solo se puede imprimir antes de la recogida.]",
+            "solution": "当订单状态为待处理、待发货、待揽收这三个状态其中之一，即orderStatus=1或2或7时，可以调用打印面单接口，其他状态请勿调用",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "orderNo": "<REDACTED_SAMPLE>",
+                "packageNo": [
+                  "<REDACTED_SAMPLE>"
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": [
+                  {
+                    "orderNo": "<REDACTED_SAMPLE>",
+                    "packageNo": "<REDACTED_SAMPLE>",
+                    "filePdfUrl": "<REDACTED_SAMPLE>"
+                  }
+                ],
+                "bbl": {}
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json;charset=UTF-8"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "orderNo": {
+                  "type": "string",
+                  "description": "订单号(平台指定物流的场景下即orderPlaceType=1，入参orderNo+packageNo获取面单)",
+                  "x-shein-example-redacted": true
+                },
+                "packageNo": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "包裹号(平台指定物流的场景下即orderPlaceType=1，入参orderNo+packageNo获取面单)",
+                    "x-shein-example-redacted": true
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "deliveryNo": {
+                  "type": "string",
+                  "description": "运单包裹号(在线下单的场景下，即orderPlaceType=2入参该字段打印面单)；从 查询下单结果 接口获取，确认 handleResult=2（下单成功） 后，才可调用打印面单"
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

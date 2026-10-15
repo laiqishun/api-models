@@ -1,0 +1,837 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "商品发布字段规范",
+    "version": "source-revision-46",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/query-publish-fill-in-standard": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "shein_api_3002044",
+        "summary": "商品发布字段规范",
+        "description": "每个店铺在各个分类下有不同的商品发布字段填写规范（要求）。建议在调用商品发布接口前，先调用此接口。本接口可查询的要求范围包括： 1、商品标题和商品描述的必填默认语种（default_language） 2、商品发布时是否必传竞品链接和库存证明（reference_product_link和proof_of_stock） 3、商品发布时是否必传样品信息（sample_info） 4、商品发布时是否必传品牌（brand_code） 5、商品发布时是否必传skc标题（skc_title） 6、半托管和全托管的供货价币种（currency） 7、商品是否支持sku和spu维度的图片（picture_config_list） 8、商品发布时是否必传最小备货数量（minimum_stock_quantity） 9、商品是否支持上传详情图（product_detail_picture） 10、商品是否支持在SKU维度传件数（quantity_info) 11、商品是否支持传SKC建议零售价（suggest_price） 12、商品是否支持填写商家条码（supplier_barcode） 13、商品是否支持填写SKU包装类型（ package_type ） 14、商品是否支持上传IP信息（ip_character） 15、是否支持上传视频（product_video）",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "bbl": {
+                  "type": "object",
+                  "description": "bbl",
+                  "properties": {
+                    "info": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "object"
+                        },
+                        "x-shein-original-multiple": 1
+                      }
+                    },
+                    "npid": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "code": {
+                  "type": "string",
+                  "description": "result(success: 0)"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "fill_in_standard_list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "商品发布接口中字段的填写规范列表。 每个field_key值会对应发布接口中的一个入参字段，可确认某个入参能否传值、是否必传。",
+                        "properties": {
+                          "field_key": {
+                            "type": "string",
+                            "description": "规范内容。以下是此接口枚举值 - 对应的发布接口入参字段名 1、reference_product_link - competing_product_link 2、sample_spec - sample_info 3、proof_of_stock - proof_of_stock_list 4、shelf_require - shelf_require 5、brand_code  - brand_code 6、skc_title - skc_title 7、minimum_stock_quantity - minimum_stock_quantity 8、product_detail_picture - site_detail_image_info_list 9、quantity_info - filled_quantity_to_sku和quantity_info 10、suggest_price - suggested_retail_price 11、supplier_barcode - supplier_barcode 12、 package_type - package_type 13、ip_character - ip_character_list 14、supplier_code - 最外层的supplier_code或skc_list下的supplier_code（code绑定层级需要结合supplier_code_in_spu_dimension判断）"
+                          },
+                          "module": {
+                            "type": "string",
+                            "description": "该模块是对应shein后台发品页面的模块，对应以下模块: 1、基本信息 2、 供应信息 3、参考信息 4、样品信息"
+                          },
+                          "required": {
+                            "type": "boolean",
+                            "description": "field key中内容是否必填。 true-必填，false非必填"
+                          },
+                          "show": {
+                            "type": "boolean",
+                            "description": "field key中内容是否可传。 true可传，false不可传（传了反而会报错）。"
+                          }
+                        },
+                        "required": [
+                          "field_key",
+                          "module",
+                          "required",
+                          "show"
+                        ]
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "currency": {
+                      "type": "string",
+                      "description": "商品供货价币种。 半托管和全托管使用，在发布接口的 cost_info -> currency 中使用。"
+                    },
+                    "default_language": {
+                      "type": "string",
+                      "description": "商家的默认语言。 在发布接口的 multi_language_desc_list、multi_language_name_list中使用。默认语种的商品名称必填，"
+                    },
+                    "default_language_title_max_length": {
+                      "type": "integer",
+                      "description": "商品标题的默认语种的最大字符数。 平台从26年6月开始对默认语种字符数进行管控，不同商品分类+语种，默认语种的字符数限制不同。请入参category_id后获取最大字符数。"
+                    },
+                    "language_title_max_length_list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "商品标题的所有语种的字符数限制（含默认语种）",
+                        "properties": {
+                          "language": {
+                            "type": "string",
+                            "description": "语种"
+                          },
+                          "max_length": {
+                            "type": "number",
+                            "description": "语种的最大字符数（含空格）"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "picture_config_list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "查询店铺是否支持SPU、SKC、SKU维度上传图片",
+                        "properties": {
+                          "field_key": {
+                            "type": "string",
+                            "description": "字段Code"
+                          },
+                          "is_true": {
+                            "type": "boolean",
+                            "description": "枚举：是/否"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "support_sale_attribute_sort": {
+                      "type": "boolean",
+                      "description": "该字段判断是否支持次销售属性值排序；主销售属性值默认都支持排序"
+                    },
+                    "support_duplicate_sale_attr_value": {
+                      "type": "boolean",
+                      "description": "判断主销售属性的属性（即SKC的属性值）值是否允许重复。 true=可重复，例如skc1：颜色-红色，skc2：颜色-红色 false=不可重复。"
+                    },
+                    "supplier_code_in_spu_dimension": {
+                      "type": "boolean",
+                      "description": "判断supplier_code是否绑定在SPU维度。 true=spu维度，发品接口中货号入参到最外层的 supplier_code false=skc维度，发品接口中货号入参到skc_list下的supplier_code"
+                    }
+                  },
+                  "required": [
+                    "fill_in_standard_list",
+                    "currency",
+                    "default_language"
+                  ]
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述， success: OK"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002044,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002044-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 46,
+        "x-shein-updated-at": "2026-09-24 11:47:20",
+        "x-shein-qps": "40",
+        "x-shein-change-content": "出参新增：supplier_code_in_spu_dimension，support_duplicate_sale_attr_value。picture_config_list中新增sku_image_required",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object",
+              "multiple": 0
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认返回中文多语言信息，支持语种：英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br</p>",
+                  "name": "language",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "long",
+                  "multiple": 0,
+                  "description": "<p>末级分类id。查询以下信息的填写规范时需要入参末级分类ID:</p><p>分类是否支持SPU维度图片、样品信息、SKU包装类型、SKU维度件数、站点详情图、标题默认语种的最大字符数、分类下SKU图是否必传</p>",
+                  "name": "category_id",
+                  "label": "分类ID（如需查询审版要求必填）"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>SHEIN生成的SKC编码。</p><p>该入参仅用于查询某个SPU当前是否正在使用图片新方案，其它场景不需要传；使用场景较少。</p>",
+                  "name": "spu_name",
+                  "label": ""
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object",
+              "multiple": 0
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "bbl",
+                  "name": "bbl",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "name": "info",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "name": "*",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "name": "npid",
+                      "required": false
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>result(success: 0)</p>",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>商品发布接口中字段的填写规范列表。</p><p>每个field_key值会对应发布接口中的一个入参字段，可确认某个入参能否传值、是否必传。</p>",
+                      "name": "fill_in_standard_list",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>规范内容。以下是此接口枚举值 - 对应的发布接口入参字段名</p><p>1、reference_product_link - competing_product_link</p><p>2、sample_spec - <span style=\"font-size: 14px;\">sample_info</span></p><p>3、proof_of_stock - <span style=\"font-size: 14px;\">proof_of_stock_list</span></p><p>4、shelf_require - <span style=\"font-size: 14px;\">shelf_require</span></p><p>5、brand_code &nbsp;-<span style=\"font-size: 14px;\">brand_code</span></p><p>6、skc_title - <span style=\"font-size: 14px;\">skc_title</span></p><p>7、minimum_stock_quantity - <span style=\"font-size: 14px;\">minimum_stock_quantity</span></p><p>8、product_detail_picture - <span style=\"font-size: 14px;\">site_detail_image_info_list</span></p><p><span style=\"font-size: 14px;\">9、quantity_info</span> - <span style=\"font-size: 14px;\">filled_quantity_to_sku和quantity_info</span></p><p>10、suggest_price - <span style=\"font-size: 14px;\">suggested_retail_price</span></p><p>11、supplier_barcode -<span style=\"font-size: 14px;\">supplier_barcode</span></p><p>12、<span style=\"font-size: 14px;\">package_type</span> -<span style=\"font-size: 14px;\">package_type</span></p><p><span style=\"font-size: 14px;\">13、ip_character - ip_character_list</span></p><p>14、supplier_code - 最外层的supplier_code或skc_list下的supplier_code（code绑定层级需要结合supplier_code_in_spu_dimension判断）</p>",
+                          "name": "field_key",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>该模块是对应shein后台发品页面的模块，对应以下模块: </p><p>1、基本信息</p><p>2、<span style=\"font-size: 14px;\">供应信息</span></p><p>3、参考信息</p><p>4、样品信息</p>",
+                          "name": "module",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "boolean",
+                          "multiple": 0,
+                          "description": "<p>field key中内容是否必填。</p><p>true-必填，false非必填</p>",
+                          "name": "required",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "boolean",
+                          "multiple": 0,
+                          "description": "<p>field key中内容是否可传。</p><p>true可传，false不可传（传了反而会报错）。</p>",
+                          "name": "show",
+                          "required": true
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>商品供货价币种。</p><p>半托管和全托管使用，在发布接口的<span style=\"font-size: 14px;\">cost_info -&gt; currency 中使用。</span></p>",
+                      "name": "currency",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>商家的默认语言。</p><p>在发布接口的<span style=\"font-size: 14px;\">multi_language_desc_list、multi_language_name_list中使用。默认语种的商品名称必填，</span></p>",
+                      "name": "default_language",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "<p>商品标题的默认语种的最大字符数。</p><p>平台从26年6月开始对默认语种字符数进行管控，不同商品分类+语种，默认语种的字符数限制不同。请入参category_id后获取最大字符数。</p>",
+                      "name": "default_language_title_max_length"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>商品标题的所有语种的字符数限制（含默认语种）</p>",
+                      "name": "language_title_max_length_list"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "语种",
+                          "name": "language"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "double",
+                          "multiple": 0,
+                          "description": "语种的最大字符数（含空格）",
+                          "name": "max_length"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>查询店铺是否支持SPU、SKC、SKU维度上传图片</p>",
+                      "name": "picture_config_list"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>字段Code</p>",
+                          "name": "field_key"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "boolean",
+                          "multiple": 0,
+                          "description": "枚举：是/否",
+                          "name": "is_true"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "boolean",
+                      "multiple": 0,
+                      "description": "<p>该字段判断是否支持次销售属性值排序；主销售属性值默认都支持排序</p>",
+                      "name": "support_sale_attribute_sort"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "boolean",
+                      "multiple": 0,
+                      "description": "<p>判断主销售属性的属性（即SKC的属性值）值是否允许重复。</p><p>true=可重复，例如skc1：颜色-红色，skc2：颜色-红色</p><p>false=不可重复。</p>",
+                      "name": "support_duplicate_sale_attr_value"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "boolean",
+                      "multiple": 0,
+                      "description": "<p>判断supplier_code是否绑定在SPU维度。</p><p>true=spu维度，发品接口中货号入参到最外层的<span style=\"color: rgba(20, 23, 55, 0.88); background-color: rgba(238, 242, 254, 0.125); font-size: 14px;\">supplier_code</span></p><p><span style=\"color: rgba(20, 23, 55, 0.88); background-color: rgba(238, 242, 254, 0.125); font-size: 14px;\">false=skc维度，发品接口中货号入参到skc_list下的supplier_code</span></p>",
+                      "name": "supplier_code_in_spu_dimension"
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误描述， success: OK</p>",
+                  "name": "msg",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "category_id": 0
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "fill_in_standard_list": [
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    },
+                    {
+                      "module": "<REDACTED_SAMPLE>",
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "show": false
+                    }
+                  ],
+                  "default_language": "<REDACTED_SAMPLE>",
+                  "picture_config_list": [
+                    {
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "is_true": false
+                    },
+                    {
+                      "field_key": "<REDACTED_SAMPLE>",
+                      "is_true": false
+                    }
+                  ],
+                  "currency": null,
+                  "support_sale_attribute_sort": false,
+                  "support_duplicate_sale_attr_value": false,
+                  "supplier_code_in_spu_dimension": false,
+                  "default_language_title_max_length": 0,
+                  "weight_config": null,
+                  "length_width_height_config": null,
+                  "language_title_max_length_list": [
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    },
+                    {
+                      "language": "<REDACTED_SAMPLE>",
+                      "max_length": 0
+                    }
+                  ]
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认返回中文多语言信息，支持语种：英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "category_id": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-shein-original-type": "long",
+                  "description": "末级分类id。查询以下信息的填写规范时需要入参末级分类ID: 分类是否支持SPU维度图片、样品信息、SKU包装类型、SKU维度件数、站点详情图、标题默认语种的最大字符数、分类下SKU图是否必传",
+                  "x-shein-label": "分类ID（如需查询审版要求必填）"
+                },
+                "spu_name": {
+                  "type": "string",
+                  "description": "SHEIN生成的SKC编码。 该入参仅用于查询某个SPU当前是否正在使用图片新方案，其它场景不需要传；使用场景较少。"
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3002044,
+            "updateTime": "2026-09-24",
+            "changeContent": "出参新增：supplier_code_in_spu_dimension，support_duplicate_sale_attr_value。picture_config_list中新增sku_image_required",
+            "version": 46
+          },
+          {
+            "id": 3002023,
+            "updateTime": "2026-09-02",
+            "changeContent": "出参的\"field_key\"中新增枚举值：product_video，用于判断是否支持发布商品视频",
+            "version": 45
+          },
+          {
+            "id": 3001840,
+            "updateTime": "2026-06-25",
+            "changeContent": "出参新增字段language_title_max_length_list，用于获取商品标题在各语种下的最大字符数，超出上限将发品/编辑失败。",
+            "version": 43
+          },
+          {
+            "id": 3001809,
+            "updateTime": "2026-06-12",
+            "changeContent": "出参新增字段：weight_config、length_width_height_config。可获取SKU维度重量、长宽高的填写规则，包括是否必填，可用单位。",
+            "version": 42
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

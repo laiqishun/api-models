@@ -1,0 +1,416 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "获取视频转换结果",
+    "version": "source-revision-2",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/product/query-video-transform-task": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "shein_api_3002021",
+        "summary": "获取视频转换结果",
+        "description": "商品视频的调用顺序：① 查询规范确认分类下能否发布视频 → ② 创建视频转换任务 →  ③ 监听任务完成通知 →  ④ 查询任务获取转换后URL →⑤ 使用转换后URL发布/编辑商品。 此接口为顺序中的④步骤。 商品视频的详细方案请参考： https://open.sheincorp.com/documents/system/16a63f9f-7237-47bd-94c9-37059aa25554",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应码。成功为0。",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "响应信息。成功为OK",
+                  "x-shein-example-redacted": true
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应详情。",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "任务详情。仅返回有效task_id的数据。",
+                        "properties": {
+                          "task_id": {
+                            "type": "string",
+                            "description": "转换任务id",
+                            "x-shein-example-redacted": true
+                          },
+                          "task_status": {
+                            "type": "integer",
+                            "description": "转换任务状态。0：未开始；1：成功；2：失败",
+                            "x-shein-example-redacted": true
+                          },
+                          "fail_reason": {
+                            "type": "object",
+                            "x-shein-original-type": "json",
+                            "description": "失败原因。仅在task_status=2时出现。"
+                          },
+                          "transformed_url": {
+                            "type": "string",
+                            "description": "转换后的SHEIN链接",
+                            "x-shein-example-redacted": true
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "其他数据",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "计数值",
+                          "x-shein-example-redacted": true
+                        },
+                        "customObj": {
+                          "type": "object",
+                          "x-shein-original-type": "json"
+                        }
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "追踪码",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "code",
+                "msg"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002021,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002021-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 2,
+        "x-shein-updated-at": "2026-09-02 10:21:45",
+        "x-shein-qps": "10",
+        "x-shein-change-content": "接口上线",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>application/json</p>",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>接口签名</p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br</p>",
+                  "name": "language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>转换任务id。支持批量查询，单次最多10个任务。</p><p>通过/open-api/goods/product/create-video-transform-task获取。</p>",
+                  "name": "task_ids",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>响应码。成功为0。</p>",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>响应信息。成功为OK</p>",
+                  "name": "msg",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>响应详情。</p>",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>任务详情。仅返回有效task_id的数据。</p>",
+                      "name": "data"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>转换任务id</p>",
+                          "name": "task_id"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>转换任务状态。0：未开始；1：成功；2：失败</p>",
+                          "name": "task_status"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "json",
+                          "multiple": 0,
+                          "description": "<p>失败原因。仅在task_status=2时出现。</p>",
+                          "name": "fail_reason"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>转换后的SHEIN链接</p>",
+                          "name": "transformed_url"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "<p>其他数据</p>",
+                      "name": "meta"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>计数值</p>",
+                          "name": "count"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "json",
+                          "multiple": 0,
+                          "description": "<p><br></p>",
+                          "name": "customObj"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>追踪码</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "task_ids": [
+                  "<REDACTED_SAMPLE>"
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "data": [
+                    {
+                      "task_id": "<REDACTED_SAMPLE>",
+                      "task_status": 0,
+                      "fail_reason": null,
+                      "transformed_url": "<REDACTED_SAMPLE>"
+                    }
+                  ],
+                  "meta": {
+                    "count": 0,
+                    "customObj": null
+                  }
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "task_ids": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "转换任务id。支持批量查询，单次最多10个任务。 通过/open-api/goods/product/create-video-transform-task获取。",
+                    "x-shein-example-redacted": true
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "task_ids"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3002021,
+            "updateTime": "2026-09-02",
+            "changeContent": "接口上线",
+            "version": 2
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

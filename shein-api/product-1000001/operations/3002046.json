@@ -1,0 +1,780 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询分类可用属性",
+    "version": "source-revision-32",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/query-attribute-template": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "shein_api_3002046",
+        "summary": "查询分类可用属性",
+        "description": "支持查询店铺可用属性。平台内不同店铺在各个类目下可用的属性不同，因此建议按店铺维度更新数据。同时因平台规则可能会变更，如增加销售属性，修改属性是否必填等，建议一周更新一次。 属性包括：商品属性、主销售属性（skc）、次销售属性（sku）、尺码表属性，属性规则复杂，可查看 SHEIN商品属性介绍 了解详细对接方式。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "bbl": {
+                  "type": "object",
+                  "description": "bbl",
+                  "properties": {
+                    "info": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "object"
+                        },
+                        "x-shein-original-multiple": 1
+                      }
+                    }
+                  }
+                },
+                "code": {
+                  "type": "string",
+                  "description": "Result(success: 0)"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "attribute_infos": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "某个 product_type 下属性列表。 建议查看 SHEIN商品属性介绍了解更多对接细节。",
+                              "properties": {
+                                "attribute_id": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "long",
+                                  "description": "属性id"
+                                },
+                                "attribute_name": {
+                                  "type": "string",
+                                  "description": "属性id的名称。常见的销售属性有颜色、尺码；常见的商品属性有产品特征、产品功能、是否需要电源等"
+                                },
+                                "attribute_is_show": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "属性是否会在消费者端显示；1-展示，2-不展示"
+                                },
+                                "attribute_type": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "属性类型。决定属性在商品发布接口中哪个字段内入参。 1-销售属性（在skc_list和sku_list入参）；2-尺寸属性（在 size_attribute_list 传参），3-成分属性（需要同时结合 data_dimension的值，判断在发品接口的入参字段 ），4-普通属性（需要同时结合 data_dimension的值，判断在发品接口的入参字段 ）"
+                                },
+                                "attribute_label": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "主销售属性（SKC属性标签）。只有主销售属性才可在skc_list中传参。 1-代表是主销售属性，主销售属性也可用于次销售属性; 0: 不是主销售属性。"
+                                },
+                                "attribute_mode": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "属性值的录入方式。 0 - 手工输入属性值，常见于尺寸属性，只可输入正整数，需在 attribute_extra_value中入参； 1-下拉多选，即属性下可以有多个属性值，需在 attribute_value_id中入参； 2-销售属性专用，下拉单选，需在 attribute_value_id中入参 ； 3-下拉单选，需在 attribute_value_id中入参 4-下拉多选+手工输入参数，需在 attribute_value_id和attribute_extra_value中入参"
+                                },
+                                "attribute_input_num": {
+                                  "type": "integer",
+                                  "description": "属性值个数限制。 当attribute_mode=1时，最多可选的属性值个数，0代表无限制。"
+                                },
+                                "attribute_status": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "属性是否必填。 1-不可填写（属性可能已废弃）；2-选填； 3-必填。 必填属性如果不填，则会报错；"
+                                },
+                                "attribute_remark_list": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "integer",
+                                    "description": "属性标识。说明属性归属于什么场景。1:重要,2:合规,3:质量,4:关务"
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "data_dimension": {
+                                  "type": "integer",
+                                  "description": "商品属性的绑定维度（attribute_type=3/4）。 1-skc维度，在发品接口的product_attribute_list中入参 3-sku维度，在发品接口的sku_scope_attribute_list中入参"
+                                },
+                                "attribute_value_info_list": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "属性值列表",
+                                    "properties": {
+                                      "attribute_value": {
+                                        "type": "string",
+                                        "description": "属性值的具体内容"
+                                      },
+                                      "attribute_value_id": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "x-shein-original-type": "long",
+                                        "description": "属性值id"
+                                      },
+                                      "is_show": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "x-shein-original-type": "int64",
+                                        "description": "是否展示"
+                                      },
+                                      "is_custom_attribute_value": {
+                                        "type": "boolean",
+                                        "description": "是否为自定义属性值。true代表是，false代表否"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "rule_info_list": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "成分属性或普通属性（attribute_type=3/4）支持手动输入值时（attribute_mode=0/4，即可在发品接口中的product_attribute_list-attribute_extra_value中入参时）需要关注此规则。此字段中给出了手动输入值的填写规则。",
+                                    "properties": {
+                                      "condition_operator": {
+                                        "type": "integer",
+                                        "description": "条件运算符(目前只作用于正整数、自然数的位数控制)； 0、空：表示不做控制，1：大于{value}位，2：小于{value}位"
+                                      },
+                                      "condition_type": {
+                                        "type": "integer",
+                                        "description": "校验规则类型。 1-值必须是正整数 2-值必须是连接符，可填符号的详见value 3-值允许输入小数，小数最多支持的位数见value 4-值必须是自然数 (0+正整数) 5-允许输入数字和连接符，数字最多允许2位小数，可填写的连接符见value，多个时逗号分隔，如-,~,/"
+                                      },
+                                      "id": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "x-shein-original-type": "int64",
+                                        "description": "校验规则id"
+                                      },
+                                      "value": {
+                                        "type": "string",
+                                        "description": "变量值。不同condition_type时代表意义不同，详细说明见condition_type"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "supplier_id": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "long",
+                                  "description": "商家id（如果值大于0，则表示是自定义属性）"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "main_attribute_status": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "long",
+                            "description": "类目下主销售属性填写要求。注意：API发品时不论哪种情况，skc的主销售属性必须入参，只是不同填写要求主销售属性可用值不同。 1-不填：主销售属性必须使用【默认】属性。 2-选填：主销售属性可使用【默认】或其他属性。 3-必填：主销售属性不可以使用【默认】属性，只能用其他属性。"
+                          },
+                          "product_type_id": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "long",
+                            "description": "商品类型id"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "meta": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer"
+                        },
+                        "customObj": {
+                          "type": "object"
+                        }
+                      }
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "Error description, success: OK"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002046,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002046-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 32,
+        "x-shein-updated-at": "2026-10-09 11:18:49",
+        "x-shein-qps": "80",
+        "x-shein-change-content": "更新rule字段的说明",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认返回中文多语言信息，支持语种：英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br</p>",
+                  "name": "language",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "int64",
+                  "multiple": 1,
+                  "description": "<p>类型id集合，单次调用最多支持<span style=\"color: rgba(20, 23, 55, 0.88); background-color: rgb(255, 255, 255); font-size: 14px;\">10个类型id</span></p>",
+                  "name": "product_type_id_list",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>bbl</p>",
+                  "name": "bbl",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "name": "info",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "name": "*",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "Result(success: 0)",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "",
+                      "name": "data",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>某个<span style=\"font-size: 14px;\">product_type</span>下属性列表。</p><p>建议查看<a href=\"https://open.sheincorp.com/en/documents/system/424039e8-4657-454a-a4cb-781938a42622\" target=\"_blank\">SHEIN商品属性介绍了解更多对接细节。</a></p>",
+                          "name": "attribute_infos",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "long",
+                              "multiple": 0,
+                              "description": "<p>属性id</p>",
+                              "name": "attribute_id",
+                              "required": false
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>属性id的名称。常见的销售属性有颜色、尺码；常见的商品属性有产品特征、产品功能、是否需要电源等</p>",
+                              "name": "attribute_name",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "<p style=\"text-align: left;\"><span style=\"color: rgb(51, 51, 51);\">属性是否会在消费者端显示；1-展示，2-不展示</span></p>",
+                              "name": "attribute_is_show",
+                              "required": false
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "<p>属性类型。决定属性在商品发布接口中哪个字段内入参。</p><p>1-销售属性（在skc_list和sku_list入参）；2-尺寸属性（在<span style=\"font-size: 14px;\">size_attribute_list</span>传参），3-成分属性（需要同时结合<span style=\"color: rgb(20, 23, 55); background-color: rgb(255, 255, 255); font-size: 14px;\">data_dimension的值，判断在发品接口的入参字段</span>），4-普通属性（需要同时结合<span style=\"color: rgb(20, 23, 55); background-color: rgb(255, 255, 255); font-size: 14px;\">data_dimension的值，判断在发品接口的入参字段</span>）</p>",
+                              "name": "attribute_type",
+                              "required": false
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "<p>主销售属性（SKC属性标签）。只有主销售属性才可在skc_list中传参。</p><p>1-代表是主销售属性，主销售属性也可用于次销售属性; 0: 不是主销售属性。</p>",
+                              "name": "attribute_label",
+                              "required": false
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "<p>属性值的录入方式。</p><p>0 - 手工输入属性值，常见于尺寸属性，只可输入正整数，需在<span style=\"font-size: 14px;\">attribute_extra_value中入参；</span></p><p>1-下拉多选，即属性下可以有多个属性值，需在<span style=\"font-size: 14px;\">attribute_value_id中入参；</span></p><p>2-销售属性专用，下拉单选，需在<span style=\"font-size: 14px;\">attribute_value_id中入参</span>；</p><p>3-下拉单选，需在<span style=\"font-size: 14px;\">attribute_value_id中入参</span></p><p>4-下拉多选+手工输入参数，需在<span style=\"font-size: 14px;\">attribute_value_id和attribute_extra_value中入参</span></p>",
+                              "name": "attribute_mode",
+                              "required": false
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "description": "<p>属性值个数限制。</p><p>当attribute_mode=1时，最多可选的属性值个数，0代表无限制。</p>",
+                              "name": "attribute_input_num"
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "<p>属性是否必填。 1-不可填写（属性可能已废弃）；2-选填；<span style=\"color: rgb(207, 19, 34);\">3-必填。</span>必填属性如果不填，则会报错；</p>",
+                              "name": "attribute_status",
+                              "required": false
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 1,
+                              "description": "<p>属性标识。说明属性归属于什么场景。1:重要,2:合规,3:质量,4:关务</p>",
+                              "name": "attribute_remark_list"
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "description": "<p>商品属性的绑定维度（attribute_type=3/4）。 </p><p>1-skc维度，在发品接口的product_attribute_list中入参</p><p>3-sku维度，在发品接口的sku_scope_attribute_list中入参</p><p><br></p>",
+                              "name": "data_dimension"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "<p>属性值列表</p>",
+                              "name": "attribute_value_info_list",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "<p>属性值的具体内容</p>",
+                                  "name": "attribute_value",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "long",
+                                  "multiple": 0,
+                                  "description": "<p>属性值id</p>",
+                                  "name": "attribute_value_id",
+                                  "required": false
+                                },
+                                "children": []
+                              },
+                              {
+                                "props": {
+                                  "type": "int64",
+                                  "multiple": 0,
+                                  "description": "<p>是否展示</p>",
+                                  "name": "is_show",
+                                  "required": false
+                                },
+                                "children": []
+                              },
+                              {
+                                "props": {
+                                  "type": "boolean",
+                                  "description": "<p>是否为自定义属性值。true代表是，false代表否</p>",
+                                  "name": "is_custom_attribute_value"
+                                },
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "<p>成分属性或普通属性（attribute_type=3/4）支持手动输入值时（attribute_mode=0/4，即可在发品接口中的product_attribute_list-attribute_extra_value中入参时）需要关注此规则。此字段中给出了手动输入值的填写规则。</p>",
+                              "name": "rule_info_list"
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "description": "<p>条件运算符(目前只作用于正整数、自然数的位数控制)； 0、空：表示不做控制，1：大于{value}位，2：小于{value}位</p>",
+                                  "name": "condition_operator"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "description": "<p>校验规则类型。</p><p>1-值必须是正整数 </p><p>2-值必须是连接符，可填符号的详见value</p><p>3-值允许输入小数，小数最多支持的位数见value </p><p>4-值必须是自然数 (0+正整数) </p><p>5-允许输入数字和连接符，数字最多允许2位小数，可填写的连接符见value，多个时逗号分隔，如-,~,/</p>",
+                                  "name": "condition_type"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "int64",
+                                  "description": "<p>校验规则id</p>",
+                                  "name": "id"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>变量值。不同condition_type时代表意义不同，详细说明见condition_type</p>",
+                                  "name": "value"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "long",
+                              "multiple": 0,
+                              "description": "<p>商家id（如果值大于0，则表示是自定义属性）</p>",
+                              "name": "supplier_id",
+                              "required": false
+                            },
+                            "children": []
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "long",
+                          "description": "<p>类目下主销售属性填写要求。注意：API发品时不论哪种情况，skc的主销售属性必须入参，只是不同填写要求主销售属性可用值不同。</p><p>1-不填：主销售属性必须使用【默认】属性。</p><p>2-选填：主销售属性可使用【默认】或其他属性。</p><p>3-必填：主销售属性不可以使用【默认】属性，只能用其他属性。</p>",
+                          "name": "main_attribute_status"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "long",
+                          "multiple": 0,
+                          "description": "<p>商品类型id</p>",
+                          "name": "product_type_id",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "",
+                      "name": "meta",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "",
+                          "name": "count",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "<p><br></p>",
+                          "name": "customObj",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "Error description, success: OK",
+                  "name": "msg",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "product_type_id_list": [
+                  0
+                ]
+              }
+            },
+            "response": {
+              "status": "present-unparsed"
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认返回中文多语言信息，支持语种：英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "product_type_id_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int64",
+                    "x-shein-original-type": "int64",
+                    "description": "类型id集合，单次调用最多支持 10个类型id"
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "product_type_id_list"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3001927,
+            "updateTime": "2026-07-10",
+            "changeContent": "平台新增SKU维度商品属性，因此新增出参：data_dimension，用于判断商品属性（attribute_type=3/4）的绑定维度，从而确认此属性应该在发品接口的哪个字段入参。",
+            "version": 31
+          },
+          {
+            "id": 3001881,
+            "updateTime": "2026-07-02",
+            "changeContent": "出参新增字段rule_info_list，可用于判断attribute_mode=3/4，需要手动输出值时，值的校验规则。",
+            "version": 29
+          },
+          {
+            "id": 3001837,
+            "updateTime": "2026-06-24",
+            "changeContent": "出参中新增字段main_attribute_status，用于判断类目下主销售属性的填写规则（不填/选填/必填），影响主销售属性能否使用【默认】属性。详细规则可参考：https://open.sheincorp.com/notice/0/70f4a5e3-1279-4d07-a74a-8b47cb4d56b1",
+            "version": 28
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}
