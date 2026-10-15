@@ -11,6 +11,7 @@ The current dataset contains:
 - [Shopee API Models](shopee-api/README.md)
 - [Lazada Open Platform API Models](lazada-api/README.md)
 - [SHEIN Open Platform API Models](shein-api/README.md)
+- [Mercado Libre API Models](mercado-libre-api/README.md)
 
 ## Structure
 
@@ -25,6 +26,7 @@ api-models/
   shopee-api/
   lazada-api/
   shein-api/
+  mercado-libre-api/
 ```
 
 Inside an API family, the expected navigation pattern is:
@@ -53,6 +55,8 @@ This keeps broad discovery lightweight while still preserving the detailed endpo
 `lazada-api` contains Lazada Open Platform API references organized by official category. It includes operation-level Swagger 2.0 JSON models for the 378 catalog records across 35 categories; official request/response trees, errors, examples, endpoint regions, and SDK code are retained in `x-lazada-*` fields.
 
 `shein-api` contains the public SHEIN API and Webhook catalog, with 256 operation models across 21 official categories. Mode applicability, source field trees, errors, and redacted example shapes are preserved per record.
+
+`mercado-libre-api` catalogs Global Selling and local-seller official developer articles and provides source-linked, example-derived operation models for explicit method/path examples.
 
 ## Future Scope
 
