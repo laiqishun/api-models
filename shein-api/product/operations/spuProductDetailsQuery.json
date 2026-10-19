@@ -1,0 +1,2960 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "spu商品详情查询",
+    "version": "source-revision-29",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/spu-info": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "spuProductDetailsQuery",
+        "summary": "spu商品详情查询",
+        "description": "支持通过SPU查询商品信息。 只有发布且已通过平台审核的SPU才能查到信息。 可查信息：SPU/SKC/SKU维度品牌、名称、图片、属性、上架状态、价格、样品信息。 不可查询信息：商品库存、属性排序。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "bbl": {
+                  "type": "object",
+                  "description": "bbl info",
+                  "properties": {
+                    "info": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "object"
+                        },
+                        "x-shein-original-multiple": 1
+                      }
+                    }
+                  }
+                },
+                "code": {
+                  "type": "string",
+                  "description": "success:0"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "商品详情",
+                  "properties": {
+                    "brandCode": {
+                      "type": "string",
+                      "description": "品牌code"
+                    },
+                    "categoryId": {
+                      "type": "integer",
+                      "format": "int64",
+                      "x-shein-original-type": "int64",
+                      "description": "末级分类id"
+                    },
+                    "ipCharacterList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "IP列表（目前1个商品只有1个IP）",
+                        "properties": {
+                          "ipCharacterId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "IP id"
+                          },
+                          "ipCharacterName": {
+                            "type": "string",
+                            "description": "ip名称（英文）"
+                          },
+                          "ipCharacterNameCn": {
+                            "type": "string",
+                            "description": "ip名称（中文）"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "dimensionAttributeInfoList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "尺寸属性（尺码表）。 对应商品发布接口中的： size_attribute_list。",
+                        "properties": {
+                          "attributeId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "属性ID"
+                          },
+                          "attributeMultiList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "属性ID的名称（包含多语言）。 仅返回请求体中languageList中给出的语种。",
+                              "properties": {
+                                "attributeName": {
+                                  "type": "string",
+                                  "description": "属性名称"
+                                },
+                                "language": {
+                                  "type": "string",
+                                  "description": "语种"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "dimensionAttributeAdditionList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "尺码属性的手动输入值。 对应商品发布接口中 size_attribute_list -> attribute_extra_value。",
+                              "properties": {
+                                "additionValue": {
+                                  "type": "string",
+                                  "description": "手动输入值"
+                                },
+                                "relateSaleAttributeId": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "尺码属性关联的销售属性ID"
+                                },
+                                "relateSaleAttributeValueId": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "尺码属性关联的销售属性值ID"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "productAttributeInfoList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "商品属性列表。 对应商品发布接口中的 product_attribute_list（仅可入参attribute_type=3/4）。 注意：此列表中包含了 attribute_type=3/4（商品属性）、attribute_type=1（销售属性）信息。开发者需主动剔除下方skc/sku的销售属性，才能获得准确的商品属性。",
+                        "properties": {
+                          "attributeId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "属性ID"
+                          },
+                          "attributeMultiList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "属性ID的多语言名称。 仅返回请求体中languageList中给出的语种。",
+                              "properties": {
+                                "attributeName": {
+                                  "type": "string",
+                                  "description": "属性名称"
+                                },
+                                "language": {
+                                  "type": "string",
+                                  "description": "语种"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "attributeValue": {
+                            "type": "string",
+                            "description": "属性值（手动输入类型）。 对应商品发布接口的 product_attribute_list -> attribute_extra_value。"
+                          },
+                          "attributeValueId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "属性值ID（下拉选择类型）。 对应商品发布接口的 product_attribute_list -> attribute_value_id。"
+                          },
+                          "attributeValueMultiList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "属性值的多语言名称。 仅返回请求体中languageList中给出的语种。",
+                              "properties": {
+                                "attributeValueName": {
+                                  "type": "string",
+                                  "description": "属性值名称"
+                                },
+                                "language": {
+                                  "type": "string",
+                                  "description": "语种"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "productMultiDescList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "商品多语言描述。 仅返回请求体中languageList中给出的语种。",
+                        "properties": {
+                          "language": {
+                            "type": "string",
+                            "description": "语种"
+                          },
+                          "productDesc": {
+                            "type": "string",
+                            "description": "商品描述"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "productMultiNameList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "商品多语言名称。 仅返回请求体中languageList中给出的语种。",
+                        "properties": {
+                          "language": {
+                            "type": "string",
+                            "description": "语种"
+                          },
+                          "productName": {
+                            "type": "string",
+                            "description": "商品名称"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "productVideoList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "商品视频信息列表",
+                        "properties": {
+                          "site": {
+                            "type": "string",
+                            "description": "站点"
+                          },
+                          "videoSourceUrl": {
+                            "type": "string",
+                            "description": "视频链接"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "productTypeId": {
+                      "type": "integer",
+                      "format": "int64",
+                      "x-shein-original-type": "int64",
+                      "description": "商品类型ID"
+                    },
+                    "skcInfoList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "SKC明细信息",
+                        "properties": {
+                          "attributeId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "SKC销售属性ID"
+                          },
+                          "attributeMultiList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "SKC销售属性多语言名称。 仅返回请求体中languageList中给出的语种。",
+                              "properties": {
+                                "attributeName": {
+                                  "type": "string",
+                                  "description": "属性名称"
+                                },
+                                "language": {
+                                  "type": "string",
+                                  "description": "语种"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "attributeValueId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "SKC销售属性值ID"
+                          },
+                          "attributeValueMultiList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "SKC销售属性值多语言名称。 仅返回请求体中languageList中给出的语种。",
+                              "properties": {
+                                "attributeValueName": {
+                                  "type": "string",
+                                  "description": "属性值名称"
+                                },
+                                "language": {
+                                  "type": "string",
+                                  "description": "语种"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "productMultiNameList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "SKC维度的商品名称多语言。 仅返回请求体中languageList中给出的语种。",
+                              "properties": {
+                                "language": {
+                                  "type": "string",
+                                  "description": "语种"
+                                },
+                                "productName": {
+                                  "type": "string",
+                                  "description": "商品名称"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "proofOfStockInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "库存证明文件信息",
+                              "properties": {
+                                "fileName": {
+                                  "type": "string",
+                                  "description": "文件名称"
+                                },
+                                "type": {
+                                  "type": "integer",
+                                  "description": "文件类型，1-图片 2-PDF"
+                                },
+                                "url": {
+                                  "type": "string",
+                                  "description": "文件链接"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "shelfStatusInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "上下架信息",
+                              "properties": {
+                                "firstShelfTime": {
+                                  "type": "string",
+                                  "x-shein-original-type": "datetime",
+                                  "description": "首次上架时间"
+                                },
+                                "lastShelfTime": {
+                                  "type": "string",
+                                  "x-shein-original-type": "datetime",
+                                  "description": "最近上架时间"
+                                },
+                                "lastUpdateTime": {
+                                  "type": "string",
+                                  "x-shein-original-type": "datetime",
+                                  "description": "最近更新时间"
+                                },
+                                "shelfStatus": {
+                                  "type": "integer",
+                                  "description": "上下架状态:0下架;1上架"
+                                },
+                                "siteAbbr": {
+                                  "type": "string",
+                                  "description": "站点"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "recycleInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "回收站状态信息",
+                              "properties": {
+                                "recycleStatus": {
+                                  "type": "integer",
+                                  "description": "回收站状态:0未回收，1已回收"
+                                },
+                                "subSite": {
+                                  "type": "string",
+                                  "description": "子站点"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "siteDetailImageInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "SKC站点详情图列表。 对应商品发布接口中的 site_detail_image_info_list",
+                              "properties": {
+                                "imageGroupCode": {
+                                  "type": "string",
+                                  "description": "图片组编码"
+                                },
+                                "imageInfoList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "详情图列表",
+                                    "properties": {
+                                      "imageItemId": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "x-shein-original-type": "int64",
+                                        "description": "图片ID"
+                                      },
+                                      "imageSort": {
+                                        "type": "integer",
+                                        "description": "图片顺序"
+                                      },
+                                      "imageUrl": {
+                                        "type": "string",
+                                        "description": "图片URL"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "siteInfoList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "详情图站点信息列表",
+                                    "properties": {
+                                      "channel": {
+                                        "type": "string",
+                                        "description": "渠道"
+                                      },
+                                      "mainSite": {
+                                        "type": "string",
+                                        "description": "主站"
+                                      },
+                                      "site": {
+                                        "type": "string",
+                                        "description": "子站"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "sampleInfo": {
+                            "type": "object",
+                            "description": "样品信息",
+                            "properties": {
+                              "reserveSampleFlag": {
+                                "type": "integer",
+                                "description": "是否需留样(1是 2否)"
+                              },
+                              "sampleJudgeType": {
+                                "type": "integer",
+                                "description": "审版类型"
+                              },
+                              "sampleCode": {
+                                "type": "string",
+                                "description": "样衣SKU"
+                              },
+                              "spotFlag": {
+                                "type": "integer",
+                                "description": "是否现货(1是 2否)"
+                              }
+                            }
+                          },
+                          "skcImageInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "SKC图片列表。 对应商品发布接口的 skc_list -> image_info。",
+                              "properties": {
+                                "groupCode": {
+                                  "type": "string",
+                                  "description": "图片组编码"
+                                },
+                                "imageItemId": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "图片ID"
+                                },
+                                "imageMediumUrl": {
+                                  "type": "string",
+                                  "description": "中图链接"
+                                },
+                                "imageSmallUrl": {
+                                  "type": "string",
+                                  "description": "小图链接"
+                                },
+                                "imageType": {
+                                  "type": "string",
+                                  "description": "图片类型"
+                                },
+                                "imageUrl": {
+                                  "type": "string",
+                                  "description": "原图链接"
+                                },
+                                "sort": {
+                                  "type": "integer",
+                                  "description": "图片排序"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "skcName": {
+                            "type": "string",
+                            "description": "skcName，skcName是SHEIN生成的系统编码"
+                          },
+                          "skuInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "sku信息列表",
+                              "properties": {
+                                "height": {
+                                  "type": "string",
+                                  "description": "含包装的尺寸： 高(cm) 此字段输出的是cm单位下的数值。如果需要换算成其他单位，可参考： https://open.sheincorp.com/documents/faq-detail/292"
+                                },
+                                "length": {
+                                  "type": "string",
+                                  "description": "含包装的尺寸： 长(cm) 此字段输出的是cm单位下的数值。如果需要换算成其他单位，可参考： https://open.sheincorp.com/documents/faq-detail/292"
+                                },
+                                "mallState": {
+                                  "type": "integer",
+                                  "description": "商城销售状态，1-在售 2-停售"
+                                },
+                                "stopPurchase": {
+                                  "type": "integer",
+                                  "description": "采购状态，1-在采 2-停采"
+                                },
+                                "saleAttributeList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "SKU销售属性列表",
+                                    "properties": {
+                                      "attributeId": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "x-shein-original-type": "int64",
+                                        "description": "SKU销售属性ID"
+                                      },
+                                      "attributeValueId": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "x-shein-original-type": "int64",
+                                        "description": "SKU销售属性值ID"
+                                      },
+                                      "attributeValueMultiList": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "description": "SKU销售属性值多语言名称。 仅返回请求体中languageList中给出的语种。",
+                                          "properties": {
+                                            "attributeValueName": {
+                                              "type": "string",
+                                              "description": "属性值名称"
+                                            },
+                                            "language": {
+                                              "type": "string",
+                                              "description": "语种"
+                                            }
+                                          }
+                                        },
+                                        "x-shein-original-multiple": 1
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "productSkuAttributeList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "sku的普通属性列表（attribute_type=3/4）",
+                                    "properties": {
+                                      "attributeId": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "x-shein-original-type": "int64",
+                                        "description": "属性ID"
+                                      },
+                                      "attributeMultiList": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "description": "属性ID多语言名称",
+                                          "properties": {
+                                            "attributeName": {
+                                              "type": "string",
+                                              "description": "属性名"
+                                            },
+                                            "language": {
+                                              "type": "string",
+                                              "description": "语种"
+                                            }
+                                          }
+                                        },
+                                        "x-shein-original-multiple": 1
+                                      },
+                                      "attributeType": {
+                                        "type": "integer",
+                                        "description": "属性类型"
+                                      },
+                                      "attributeValueId": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "x-shein-original-type": "int64",
+                                        "description": "属性值id"
+                                      },
+                                      "attributeValueMultiList": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "description": "属性值多语言名称",
+                                          "properties": {
+                                            "attributeValueName": {
+                                              "type": "string",
+                                              "description": "属性值名称"
+                                            },
+                                            "language": {
+                                              "type": "string",
+                                              "description": "语种"
+                                            }
+                                          }
+                                        },
+                                        "x-shein-original-multiple": 1
+                                      },
+                                      "additionValue": {
+                                        "type": "string",
+                                        "description": "属性值（手动输入值）"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "priceInfoList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "售价信息列表",
+                                    "properties": {
+                                      "basePrice": {
+                                        "type": "number",
+                                        "description": "原价"
+                                      },
+                                      "currency": {
+                                        "type": "string",
+                                        "description": "币种"
+                                      },
+                                      "site": {
+                                        "type": "string",
+                                        "description": "子站点"
+                                      },
+                                      "specialPrice": {
+                                        "type": "number",
+                                        "description": "特价"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "skuCode": {
+                                  "type": "string",
+                                  "description": "skuCode，skuCode是SHEIN生成的系统编码"
+                                },
+                                "skuImageInfoList": {
+                                  "type": "object",
+                                  "description": "sku图片组信息",
+                                  "properties": {
+                                    "groupCode": {
+                                      "type": "string",
+                                      "description": "图片组编码"
+                                    },
+                                    "imageItemId": {
+                                      "type": "integer",
+                                      "format": "int64",
+                                      "x-shein-original-type": "int64",
+                                      "description": "图片ID"
+                                    },
+                                    "imageMediumUrl": {
+                                      "type": "string",
+                                      "description": "中图链接"
+                                    },
+                                    "imageSmallUrl": {
+                                      "type": "string",
+                                      "description": "小图链接"
+                                    },
+                                    "imageType": {
+                                      "type": "string",
+                                      "description": "图片类型"
+                                    },
+                                    "imageUrl": {
+                                      "type": "string",
+                                      "description": "原图链接"
+                                    },
+                                    "sort": {
+                                      "type": "integer",
+                                      "description": "图片排序"
+                                    }
+                                  }
+                                },
+                                "costInfoList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "供货价信息列表",
+                                    "properties": {
+                                      "costPrice": {
+                                        "type": "number",
+                                        "description": "供货价"
+                                      },
+                                      "currency": {
+                                        "type": "string",
+                                        "description": "币种"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "skuSupplierInfo": {
+                                  "type": "object",
+                                  "description": "sku供应信息",
+                                  "properties": {
+                                    "supplierBarcodeEnabled": {
+                                      "type": "boolean",
+                                      "description": "是否启用供应条码"
+                                    },
+                                    "supplierBarcodeList": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "description": "商家条码列表",
+                                        "properties": {
+                                          "barcode_list": {
+                                            "type": "array",
+                                            "items": {
+                                              "type": "string",
+                                              "description": "条码列表"
+                                            },
+                                            "x-shein-original-multiple": 1
+                                          },
+                                          "barcode_type": {
+                                            "type": "string",
+                                            "description": "条码类型:EAN、UPC"
+                                          }
+                                        }
+                                      },
+                                      "x-shein-original-multiple": 1
+                                    }
+                                  }
+                                },
+                                "supplierSku": {
+                                  "type": "string",
+                                  "description": "卖家SKU，创建商品时需要商家维护。"
+                                },
+                                "weight": {
+                                  "type": "integer",
+                                  "description": "含包装的尺寸：重量(g)。 此字段输出的是g单位下的重量。如果需要换算成其他单位，可参考： https://open.sheincorp.com/documents/faq-detail/292"
+                                },
+                                "width": {
+                                  "type": "string",
+                                  "description": "含包装的尺寸：宽(cm) 此字段输出的是cm单位下的数值。如果需要换算成其他单位，可参考： https://open.sheincorp.com/documents/faq-detail/292"
+                                },
+                                "quantityType": {
+                                  "type": "integer",
+                                  "description": "件数类型。1-单件 2-同品多件"
+                                },
+                                "quantityUnit": {
+                                  "type": "integer",
+                                  "description": "件数单位。1-件 2-双"
+                                },
+                                "quantity": {
+                                  "type": "integer",
+                                  "description": "件数值"
+                                },
+                                "packageType": {
+                                  "type": "integer",
+                                  "description": "包装类型 0-空 1-软包装+软物 2-软包装+硬物 3-硬包装 4-真空"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "srpPriceInfo": {
+                            "type": "object",
+                            "description": "建议零售价信息",
+                            "properties": {
+                              "currency": {
+                                "type": "string",
+                                "description": "币种"
+                              },
+                              "srpPrice": {
+                                "type": "number",
+                                "description": "建议零售价"
+                              }
+                            }
+                          },
+                          "supplierCode": {
+                            "type": "string",
+                            "description": "卖家SKC编码，创建商品时需要商家维护，没有维护则不返回"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "spuName": {
+                      "type": "string",
+                      "description": "spuName，spuName是SHEIN生成的系统编码"
+                    },
+                    "spuImageInfoList": {
+                      "type": "object",
+                      "description": "spu图片列表。 对应商品发布接口中的最外层 image_info。",
+                      "properties": {
+                        "groupCode": {
+                          "type": "string",
+                          "description": "图片组编码"
+                        },
+                        "imageItemId": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-shein-original-type": "int64",
+                          "description": "图片ID"
+                        },
+                        "imageMediumUrl": {
+                          "type": "string",
+                          "description": "中图链接"
+                        },
+                        "imageSmallUrl": {
+                          "type": "string",
+                          "description": "小图链接"
+                        },
+                        "imageType": {
+                          "type": "string",
+                          "description": "图片类型"
+                        },
+                        "imageUrl": {
+                          "type": "string",
+                          "description": "图片链接"
+                        },
+                        "sort": {
+                          "type": "string",
+                          "description": "图片排序"
+                        }
+                      }
+                    },
+                    "supplierCode": {
+                      "type": "string",
+                      "description": "卖家SPU编码，创建商品时需要商家维护，没有维护则不返回"
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "message, success:OK"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002017,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002017-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 29,
+        "x-shein-updated-at": "2026-09-02 10:12:51",
+        "x-shein-qps": "100",
+        "x-shein-change-content": "出参新增字段商品视频列表：productVideoList，视频使用方式详见https://open.sheincorp.com/documents/system/16a63f9f-7237-47bd-94c9-37059aa25554",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object",
+              "multiple": 0
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "defaultValue": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "defaultValue": "<REDACTED_SAMPLE>",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "defaultValue": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "defaultValue": "<REDACTED_SAMPLE>",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>语种列表。<span style=\"color: rgb(207, 19, 34);\">指的是商品名称、商品描述、属性名称会返回哪些语种信息。</span>建议入参商家的默认语种，确保能拿到有效数据，默认语种通过<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001349\" target=\"_blank\">商品发布规范</a>获取。</p><p>最多可给5个语种，支持语种包括：英语:en、法语:fr、西班牙语:es、德语:de、中文简体:zh-cn、泰语:th、巴西葡语:pt-br、日语:ja、韩语:ko</p>",
+                  "name": "languageList",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>平台生成的唯一编码。商品发布时会返回，或通过<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001239\" target=\"_blank\">商品列表</a>接口获取。<span style=\"color: rgb(207, 19, 34);\">只有发布且已通过平台审核的SPU才能查到信息。</span></p>",
+                  "name": "spuName",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object",
+              "multiple": 0
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>bbl info</p>",
+                  "name": "bbl",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "<p><br></p>",
+                      "name": "info",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "name": "*",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "success:0",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>商品详情</p>",
+                  "name": "info",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>品牌code</p>",
+                      "name": "brandCode",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "int64",
+                      "multiple": 0,
+                      "description": "<p>末级分类id</p>",
+                      "name": "categoryId",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>IP列表（目前1个商品只有1个IP）</p>",
+                      "name": "ipCharacterList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "<p>IP id</p>",
+                          "name": "ipCharacterId"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>ip名称（英文）</p>",
+                          "name": "ipCharacterName"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "ip名称（中文）",
+                          "name": "ipCharacterNameCn"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>尺寸属性（尺码表）。</p><p>对应商品发布接口中的：<span style=\"font-size: 14px;\">size_attribute_list。</span></p>",
+                      "name": "dimensionAttributeInfoList",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "<p>属性ID</p>",
+                          "name": "attributeId",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>属性ID的名称（包含多语言）。</p><p><span style=\"font-size: 14px;\">仅返回请求体中languageList中给出的语种。</span></p>",
+                          "name": "attributeMultiList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>属性名称</p>",
+                              "name": "attributeName",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>语种</p>",
+                              "name": "language",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>尺码属性的手动输入值。</p><p>对应商品发布接口中<span style=\"font-size: 14px;\">size_attribute_list -&gt; attribute_extra_value。</span></p>",
+                          "name": "dimensionAttributeAdditionList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>手动输入值</p>",
+                              "name": "additionValue",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "<p>尺码属性关联的销售属性ID</p>",
+                              "name": "relateSaleAttributeId",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "<p>尺码属性关联的销售属性值ID</p>",
+                              "name": "relateSaleAttributeValueId",
+                              "required": false
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>商品属性列表。</p><p>对应商品发布接口中的<span style=\"font-size: 14px;\">product_attribute_list（仅可入参attribute_type=3/4）。</span><span style=\"color: rgb(207, 19, 34);\">注意：此列表中包含了</span><span style=\"color: rgb(207, 19, 34); font-size: 14px;\">attribute_type=3/4（商品属性）、attribute_type=1（销售属性）信息。开发者需主动剔除下方skc/sku的销售属性，才能获得准确的商品属性。</span></p>",
+                      "name": "productAttributeInfoList",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "<p>属性ID</p>",
+                          "name": "attributeId",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>属性ID的多语言名称。</p><p><span style=\"font-size: 14px;\">仅返回请求体中languageList中给出的语种。</span></p>",
+                          "name": "attributeMultiList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>属性名称</p>",
+                              "name": "attributeName",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "语种",
+                              "name": "language",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>属性值（手动输入类型）。</p><p>对应商品发布接口的<span style=\"font-size: 14px;\">product_attribute_list -&gt; attribute_extra_value。</span></p>",
+                          "name": "attributeValue",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "<p>属性值ID（下拉选择类型）。</p><p>对应商品发布接口的<span style=\"font-size: 14px;\">product_attribute_list -&gt; attribute_value_id。</span></p>",
+                          "name": "attributeValueId",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>属性值的多语言名称。</p><p><span style=\"font-size: 14px;\">仅返回请求体中languageList中给出的语种。</span></p>",
+                          "name": "attributeValueMultiList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "属性值名称",
+                              "name": "attributeValueName",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "语种",
+                              "name": "language",
+                              "required": false
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>商品多语言描述。</p><p><span style=\"font-size: 14px;\">仅返回请求体中languageList中给出的语种。</span></p>",
+                      "name": "productMultiDescList",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "语种",
+                          "name": "language",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>商品描述</p>",
+                          "name": "productDesc",
+                          "required": false
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>商品多语言名称。</p><p><span style=\"font-size: 14px;\">仅返回请求体中languageList中给出的语种。</span></p>",
+                      "name": "productMultiNameList",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "语种",
+                          "name": "language",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "商品名称",
+                          "name": "productName",
+                          "required": false
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "商品视频信息列表",
+                      "name": "productVideoList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "站点",
+                          "name": "site"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "视频链接",
+                          "name": "videoSourceUrl"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "int64",
+                      "multiple": 0,
+                      "description": "<p>商品类型ID</p>",
+                      "name": "productTypeId",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>SKC明细信息</p>",
+                      "name": "skcInfoList",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "<p>SKC销售属性ID</p>",
+                          "name": "attributeId",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>SKC销售属性多语言名称。</p><p><span style=\"font-size: 14px;\">仅返回请求体中languageList中给出的语种。</span></p>",
+                          "name": "attributeMultiList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>属性名称</p>",
+                              "name": "attributeName",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "语种",
+                              "name": "language",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "<p>SKC销售属性值ID</p>",
+                          "name": "attributeValueId",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>SKC销售属性值多语言名称。</p><p><span style=\"font-size: 14px;\">仅返回请求体中languageList中给出的语种。</span></p>",
+                          "name": "attributeValueMultiList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "属性值名称",
+                              "name": "attributeValueName",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "语种",
+                              "name": "language",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>SKC维度的商品名称多语言。</p><p><span style=\"font-size: 14px;\">仅返回请求体中languageList中给出的语种。</span></p>",
+                          "name": "productMultiNameList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "语种",
+                              "name": "language",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>商品名称</p>",
+                              "name": "productName",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>库存证明文件信息</p>",
+                          "name": "proofOfStockInfoList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "文件名称\t",
+                              "name": "fileName",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>文件类型，1-图片 2-PDF</p>",
+                              "name": "type",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "文件链接",
+                              "name": "url",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>上下架信息</p>",
+                          "name": "shelfStatusInfoList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "datetime",
+                              "multiple": 0,
+                              "description": "<p>首次上架时间</p>",
+                              "name": "firstShelfTime",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "datetime",
+                              "multiple": 0,
+                              "description": "最近上架时间",
+                              "name": "lastShelfTime",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "datetime",
+                              "multiple": 0,
+                              "description": "最近更新时间",
+                              "name": "lastUpdateTime",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>上下架状态:0下架;1上架</p>",
+                              "name": "shelfStatus",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "站点",
+                              "name": "siteAbbr",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>回收站状态信息</p>",
+                          "name": "recycleInfoList"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "回收站状态:0未回收，1已回收",
+                              "name": "recycleStatus"
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>子站点</p>",
+                              "name": "subSite"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>SKC站点详情图列表。</p><p>对应商品发布接口中的<span style=\"font-size: 14px;\">site_detail_image_info_list</span></p>",
+                          "name": "siteDetailImageInfoList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>图片组编码</p>",
+                              "name": "imageGroupCode",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "<p>详情图列表</p>",
+                              "name": "imageInfoList",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "int64",
+                                  "multiple": 0,
+                                  "description": "图片ID",
+                                  "name": "imageItemId",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "multiple": 0,
+                                  "description": "图片顺序",
+                                  "name": "imageSort",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "图片URL",
+                                  "name": "imageUrl",
+                                  "required": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "详情图站点信息列表",
+                              "name": "siteInfoList",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "<p>渠道</p>",
+                                  "name": "channel",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "主站",
+                                  "name": "mainSite",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "子站",
+                                  "name": "site",
+                                  "required": false
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "<p>样品信息</p>",
+                          "name": "sampleInfo",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>是否需留样(1是 2否)</p>",
+                              "name": "reserveSampleFlag",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "审版类型",
+                              "name": "sampleJudgeType",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>样衣SKU</p>",
+                              "name": "sampleCode",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "是否现货(1是 2否)",
+                              "name": "spotFlag",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>SKC图片列表。</p><p>对应商品发布接口的<span style=\"font-size: 14px;\">skc_list -&gt; image_info。</span></p>",
+                          "name": "skcImageInfoList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "图片组编码",
+                              "name": "groupCode",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "图片ID",
+                              "name": "imageItemId",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>中图链接</p>",
+                              "name": "imageMediumUrl",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "小图链接",
+                              "name": "imageSmallUrl",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "图片类型",
+                              "name": "imageType",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "原图链接",
+                              "name": "imageUrl",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "图片排序",
+                              "name": "sort",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>skcName，skcName是SHEIN生成的系统编码</p>",
+                          "name": "skcName",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>sku信息列表</p>",
+                          "name": "skuInfoList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p><span style=\"font-size: 14px;\">含包装的尺寸：</span>高(cm)</p><p>此字段输出的是cm单位下的数值。如果需要换算成其他单位，可参考： <a href=\"https://open.sheincorp.com/documents/faq-detail/292\" target=\"_blank\">https://open.sheincorp.com/documents/faq-detail/292</a> </p>",
+                              "name": "height",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p><span style=\"font-size: 14px;\">含包装的尺寸：</span>长(cm)</p><p>此字段输出的是cm单位下的数值。如果需要换算成其他单位，可参考： <a href=\"https://open.sheincorp.com/documents/faq-detail/292\" target=\"_blank\">https://open.sheincorp.com/documents/faq-detail/292</a> </p>",
+                              "name": "length",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>商城销售状态，1-在售 2-停售</p>",
+                              "name": "mallState",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>采购状态，1-在采 2-停采</p>",
+                              "name": "stopPurchase",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "<p>SKU销售属性列表</p>",
+                              "name": "saleAttributeList",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "int64",
+                                  "multiple": 0,
+                                  "description": "<p>SKU销售属性ID</p>",
+                                  "name": "attributeId",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "int64",
+                                  "multiple": 0,
+                                  "description": "<p>SKU销售属性值ID</p>",
+                                  "name": "attributeValueId",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "object",
+                                  "multiple": 1,
+                                  "description": "<p>SKU销售属性值多语言名称。</p><p>仅返回请求体中languageList中给出的语种。</p>",
+                                  "name": "attributeValueMultiList",
+                                  "required": false
+                                },
+                                "children": [
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "multiple": 0,
+                                      "description": "属性值名称",
+                                      "name": "attributeValueName",
+                                      "required": false
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "multiple": 0,
+                                      "description": "语种",
+                                      "name": "language",
+                                      "required": false
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "<p>sku的普通属性列表（attribute_type=3/4）</p>",
+                              "name": "productSkuAttributeList"
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "int64",
+                                  "multiple": 0,
+                                  "description": "<p>属性ID</p>",
+                                  "name": "attributeId"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "object",
+                                  "multiple": 1,
+                                  "description": "<p>属性ID多语言名称</p>",
+                                  "name": "attributeMultiList"
+                                },
+                                "children": [
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "multiple": 0,
+                                      "description": "属性名",
+                                      "name": "attributeName"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "multiple": 0,
+                                      "description": "语种",
+                                      "name": "language"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "multiple": 0,
+                                  "description": "<p>属性类型</p>",
+                                  "name": "attributeType"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "int64",
+                                  "multiple": 0,
+                                  "description": "<p>属性值id</p>",
+                                  "name": "attributeValueId"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "object",
+                                  "multiple": 1,
+                                  "description": "<p>属性值多语言名称</p>",
+                                  "name": "attributeValueMultiList"
+                                },
+                                "children": [
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "multiple": 0,
+                                      "description": "<p>属性值名称</p>",
+                                      "name": "attributeValueName"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "multiple": 0,
+                                      "description": "语种",
+                                      "name": "language"
+                                    }
+                                  }
+                                ]
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "<p>属性值（手动输入值）</p>",
+                                  "name": "additionValue"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "售价信息列表",
+                              "name": "priceInfoList",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "double",
+                                  "multiple": 0,
+                                  "description": "<p>原价</p>",
+                                  "name": "basePrice",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "币种",
+                                  "name": "currency"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "子站点",
+                                  "name": "site",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "double",
+                                  "multiple": 0,
+                                  "description": "<p>特价</p>",
+                                  "name": "specialPrice",
+                                  "required": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>skuCode，skuCode是SHEIN生成的系统编码</p>",
+                              "name": "skuCode",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 0,
+                              "description": "<p>sku图片组信息</p>",
+                              "name": "skuImageInfoList"
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "图片组编码",
+                                  "name": "groupCode"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "int64",
+                                  "multiple": 0,
+                                  "description": "图片ID",
+                                  "name": "imageItemId"
+                                },
+                                "children": []
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "中图链接",
+                                  "name": "imageMediumUrl"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "小图链接",
+                                  "name": "imageSmallUrl"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "图片类型",
+                                  "name": "imageType"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "原图链接",
+                                  "name": "imageUrl"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "multiple": 0,
+                                  "description": "图片排序",
+                                  "name": "sort"
+                                },
+                                "children": []
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "供货价信息列表",
+                              "name": "costInfoList",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "double",
+                                  "multiple": 0,
+                                  "description": "<p>供货价</p>",
+                                  "name": "costPrice",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "币种",
+                                  "name": "currency",
+                                  "required": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 0,
+                              "description": "sku供应信息\t",
+                              "name": "skuSupplierInfo"
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "boolean",
+                                  "multiple": 0,
+                                  "description": "是否启用供应条码\t",
+                                  "name": "supplierBarcodeEnabled"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "object",
+                                  "multiple": 1,
+                                  "description": "<p>商家条码列表</p>",
+                                  "name": "supplierBarcodeList"
+                                },
+                                "children": [
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "multiple": 1,
+                                      "description": "条码列表",
+                                      "name": "barcode_list"
+                                    }
+                                  },
+                                  {
+                                    "props": {
+                                      "type": "string",
+                                      "multiple": 0,
+                                      "description": "条码类型:EAN、UPC\t",
+                                      "name": "barcode_type"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>卖家SKU，创建商品时需要商家维护。</p>",
+                              "name": "supplierSku",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>含包装的尺寸：重量(g)。</p><p>此字段输出的是g单位下的重量。如果需要换算成其他单位，可参考： <a href=\"https://open.sheincorp.com/documents/faq-detail/292\" target=\"_blank\">https://open.sheincorp.com/documents/faq-detail/292</a> </p>",
+                              "name": "weight",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>含包装的尺寸：宽(cm)</p><p>此字段输出的是cm单位下的数值。如果需要换算成其他单位，可参考： <a href=\"https://open.sheincorp.com/documents/faq-detail/292\" target=\"_blank\">https://open.sheincorp.com/documents/faq-detail/292</a> </p>",
+                              "name": "width",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>件数类型。1-单件 2-同品多件</p>",
+                              "name": "quantityType"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>件数单位。1-件 2-双</p>",
+                              "name": "quantityUnit"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>件数值</p>",
+                              "name": "quantity"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "包装类型 0-空 1-软包装+软物 2-软包装+硬物 3-硬包装 4-真空",
+                              "name": "packageType"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "<p>建议零售价信息</p>",
+                          "name": "srpPriceInfo",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>币种</p>",
+                              "name": "currency",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "double",
+                              "multiple": 0,
+                              "description": "<p>建议零售价</p>",
+                              "name": "srpPrice",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>卖家SKC编码，创建商品时需要商家维护，没有维护则不返回</p>",
+                          "name": "supplierCode",
+                          "required": false
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>spuName，spuName是SHEIN生成的系统编码</p>",
+                      "name": "spuName",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "<p>spu图片列表。</p><p>对应商品发布接口中的最外层<span style=\"font-size: 14px;\">image_info。</span></p>",
+                      "name": "spuImageInfoList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "图片组编码",
+                          "name": "groupCode"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "图片ID",
+                          "name": "imageItemId"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "中图链接",
+                          "name": "imageMediumUrl"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "小图链接",
+                          "name": "imageSmallUrl"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "图片类型",
+                          "name": "imageType"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>图片链接</p>",
+                          "name": "imageUrl"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>图片排序</p>",
+                          "name": "sort"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>卖家SPU编码，创建商品时需要商家维护，没有维护则不返回</p>",
+                      "name": "supplierCode",
+                      "required": false
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "message, success:OK",
+                  "name": "msg",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 38,
+            "openPath": "/open-api/goods/spu-info",
+            "errorCode": "0003",
+            "errorMsg": "inconsistent suppliers of skc under spu",
+            "errorMsgCn": "spu 下 skc 的供应商不一致",
+            "errorMsgUs": "inconsistent suppliers of skc under spu",
+            "errorMsgPt": "fornecedores inconsistentes de SKC sob SPU",
+            "errorMsgEs": "proveedores inconsistentes de SKC bajo SPU",
+            "solution": "此报错通常出现在【SHEIN自营】场景下。请注意，此接口不支持查询SHEIN自营商家的商品，请停止错误调用。",
+            "sort": 0
+          },
+          {
+            "id": 546,
+            "openPath": "/open-api/goods/spu-info",
+            "errorCode": "0003",
+            "errorMsg": "无法根据SPU获取skc数据",
+            "errorMsgCn": "无法根据SPU获取skc数据",
+            "errorMsgUs": "unable to obtain skc information according to spu",
+            "errorMsgPt": "",
+            "errorMsgEs": "",
+            "solution": "请确认SPU是有效数据",
+            "sort": 0
+          },
+          {
+            "id": 547,
+            "openPath": "/open-api/goods/spu-info",
+            "errorCode": "832213",
+            "errorMsg": "请求被限流:[提供方服务[gpc-pqb-readslave]对消费者服务:[open_api]的API[/gpc/pqb/aggregation/openapi/find_spu_wrapper_info]触发精确限流！]",
+            "errorMsgCn": "请求被限流:[提供方服务[gpc-pqb-readslave]对消费者服务:[open_api]的API[/gpc/pqb/aggregation/openapi/find_spu_wrapper_info]触发精确限流！]",
+            "errorMsgUs": "The request was rate-limited: [The provider service [gpc-pqb-readslave] triggered precise rate limiting for the consumer service [open_api] on the API [/gpc/pqb/aggregation/openapi/find_spu_wrapper_info]!]",
+            "errorMsgPt": "",
+            "errorMsgEs": "",
+            "solution": "接口触发限流，请稍后再试",
+            "sort": 0
+          },
+          {
+            "id": 548,
+            "openPath": "/open-api/goods/spu-info",
+            "errorCode": "0003",
+            "errorMsg": "SPU 下的 SKC 供应商不一致。",
+            "errorMsgCn": "SPU 下的 SKC 供应商不一致。",
+            "errorMsgUs": "inconsistent suppliers of skc under spu",
+            "errorMsgPt": "",
+            "errorMsgEs": "",
+            "solution": "SPU不属于调用商家",
+            "sort": 0
+          },
+          {
+            "id": 549,
+            "openPath": "/open-api/goods/spu-info",
+            "errorCode": "020003",
+            "errorMsg": "语种列表最多5个",
+            "errorMsgCn": "语种列表最多5个",
+            "errorMsgUs": "The language list can contain up to 5 items.",
+            "errorMsgPt": "",
+            "errorMsgEs": "",
+            "solution": "减少入参中的语种数量",
+            "sort": 0
+          },
+          {
+            "id": 550,
+            "openPath": "/open-api/goods/spu-info",
+            "errorCode": "20003",
+            "errorMsg": "不能为空",
+            "errorMsgCn": "不能为空",
+            "errorMsgUs": "null is null",
+            "errorMsgPt": "",
+            "errorMsgEs": "",
+            "solution": "spu和语种均为必填信息",
+            "sort": 0
+          },
+          {
+            "id": 708,
+            "openPath": "/open-api/goods/spu-info",
+            "errorCode": "0003",
+            "errorMsg": "查询的SPU是已冻结商品",
+            "errorMsgCn": "筛选冻结状态后无可用的 SKC",
+            "errorMsgUs": "no available skc after filtering frozen status",
+            "errorMsgPt": "Não há SKC disponível após a filtragem do status congelado",
+            "errorMsgEs": "",
+            "solution": "平台支持商家主动删除商品，被删商品将不再支持查询详情。出现此报错说明SPU已被删除。",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "languageList": [
+                  "<REDACTED_SAMPLE>"
+                ],
+                "spuName": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "spuName": "<REDACTED_SAMPLE>",
+                  "categoryId": 0,
+                  "productTypeId": 0,
+                  "brandCode": "<REDACTED_SAMPLE>",
+                  "supplierCode": "<REDACTED_SAMPLE>",
+                  "productMultiNameList": [
+                    {
+                      "productName": "<REDACTED_SAMPLE>",
+                      "language": "<REDACTED_SAMPLE>"
+                    }
+                  ],
+                  "productMultiDescList": [
+                    {
+                      "productDesc": "<REDACTED_SAMPLE>",
+                      "language": "<REDACTED_SAMPLE>"
+                    }
+                  ],
+                  "productAttributeInfoList": [
+                    {
+                      "attributeId": 0,
+                      "attributeMultiList": [
+                        {
+                          "attributeName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValueId": 0,
+                      "attributeValueMultiList": [
+                        {
+                          "attributeValueName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValue": null
+                    },
+                    {
+                      "attributeId": 0,
+                      "attributeMultiList": [
+                        {
+                          "attributeName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValueId": 0,
+                      "attributeValueMultiList": [
+                        {
+                          "attributeValueName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValue": null
+                    },
+                    {
+                      "attributeId": 0,
+                      "attributeMultiList": [
+                        {
+                          "attributeName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValueId": 0,
+                      "attributeValueMultiList": [
+                        {
+                          "attributeValueName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValue": null
+                    },
+                    {
+                      "attributeId": 0,
+                      "attributeMultiList": [
+                        {
+                          "attributeName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValueId": 0,
+                      "attributeValueMultiList": [
+                        {
+                          "attributeValueName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValue": null
+                    },
+                    {
+                      "attributeId": 0,
+                      "attributeMultiList": [
+                        {
+                          "attributeName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValueId": 0,
+                      "attributeValueMultiList": [
+                        {
+                          "attributeValueName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValue": null
+                    },
+                    {
+                      "attributeId": 0,
+                      "attributeMultiList": [
+                        {
+                          "attributeName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValueId": 0,
+                      "attributeValueMultiList": [
+                        {
+                          "attributeValueName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValue": null
+                    },
+                    {
+                      "attributeId": 0,
+                      "attributeMultiList": [
+                        {
+                          "attributeName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValueId": 0,
+                      "attributeValueMultiList": [
+                        {
+                          "attributeValueName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValue": null
+                    },
+                    {
+                      "attributeId": 0,
+                      "attributeMultiList": [
+                        {
+                          "attributeName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValueId": 0,
+                      "attributeValueMultiList": [
+                        {
+                          "attributeValueName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValue": null
+                    }
+                  ],
+                  "dimensionAttributeInfoList": [],
+                  "spuImageInfoList": null,
+                  "skcInfoList": [
+                    {
+                      "skcName": "<REDACTED_SAMPLE>",
+                      "supplierCode": "<REDACTED_SAMPLE>",
+                      "sampleInfo": {
+                        "sampleCode": "<REDACTED_SAMPLE>",
+                        "reserveSampleFlag": 0,
+                        "spotFlag": 0,
+                        "sampleJudgeType": 0
+                      },
+                      "productMultiNameList": [
+                        {
+                          "productName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeId": 0,
+                      "attributeMultiList": [
+                        {
+                          "attributeName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "attributeValueId": 0,
+                      "attributeValueMultiList": [
+                        {
+                          "attributeValueName": "<REDACTED_SAMPLE>",
+                          "language": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "skuInfoList": [
+                        {
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "supplierSku": "<REDACTED_SAMPLE>",
+                          "length": "<REDACTED_SAMPLE>",
+                          "width": "<REDACTED_SAMPLE>",
+                          "height": "<REDACTED_SAMPLE>",
+                          "weight": 0,
+                          "mallState": 0,
+                          "stopPurchase": 0,
+                          "saleAttributeList": [
+                            {
+                              "attributeId": 0,
+                              "attributeValueId": 0,
+                              "attributeValueMultiList": [
+                                {
+                                  "attributeValueName": "<REDACTED_SAMPLE>",
+                                  "language": "<REDACTED_SAMPLE>"
+                                }
+                              ]
+                            }
+                          ],
+                          "priceInfoList": [
+                            {
+                              "site": "<REDACTED_SAMPLE>",
+                              "basePrice": 0,
+                              "specialPrice": 0,
+                              "currency": "<REDACTED_SAMPLE>"
+                            }
+                          ],
+                          "costInfoList": [],
+                          "skuImageInfoList": null
+                        },
+                        {
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "supplierSku": "<REDACTED_SAMPLE>",
+                          "length": "<REDACTED_SAMPLE>",
+                          "width": "<REDACTED_SAMPLE>",
+                          "height": "<REDACTED_SAMPLE>",
+                          "weight": 0,
+                          "mallState": 0,
+                          "stopPurchase": 0,
+                          "saleAttributeList": [
+                            {
+                              "attributeId": 0,
+                              "attributeValueId": 0,
+                              "attributeValueMultiList": [
+                                {
+                                  "attributeValueName": "<REDACTED_SAMPLE>",
+                                  "language": "<REDACTED_SAMPLE>"
+                                }
+                              ]
+                            }
+                          ],
+                          "priceInfoList": [
+                            {
+                              "site": "<REDACTED_SAMPLE>",
+                              "basePrice": 0,
+                              "specialPrice": 0,
+                              "currency": "<REDACTED_SAMPLE>"
+                            }
+                          ],
+                          "costInfoList": [],
+                          "skuImageInfoList": null
+                        }
+                      ],
+                      "shelfStatusInfoList": [
+                        {
+                          "siteAbbr": "<REDACTED_SAMPLE>",
+                          "shelfStatus": 0,
+                          "lastShelfTime": "<REDACTED_SAMPLE>",
+                          "firstShelfTime": "<REDACTED_SAMPLE>",
+                          "lastUpdateTime": "<REDACTED_SAMPLE>"
+                        }
+                      ],
+                      "skcImageInfoList": [
+                        {
+                          "groupCode": "<REDACTED_SAMPLE>",
+                          "imageItemId": 0,
+                          "imageType": "<REDACTED_SAMPLE>",
+                          "imageMediumUrl": "<REDACTED_SAMPLE>",
+                          "imageSmallUrl": "<REDACTED_SAMPLE>",
+                          "imageUrl": "<REDACTED_SAMPLE>",
+                          "sort": 0
+                        },
+                        {
+                          "groupCode": "<REDACTED_SAMPLE>",
+                          "imageItemId": 0,
+                          "imageType": "<REDACTED_SAMPLE>",
+                          "imageMediumUrl": "<REDACTED_SAMPLE>",
+                          "imageSmallUrl": "<REDACTED_SAMPLE>",
+                          "imageUrl": "<REDACTED_SAMPLE>",
+                          "sort": 0
+                        },
+                        {
+                          "groupCode": "<REDACTED_SAMPLE>",
+                          "imageItemId": 0,
+                          "imageType": "<REDACTED_SAMPLE>",
+                          "imageMediumUrl": "<REDACTED_SAMPLE>",
+                          "imageSmallUrl": "<REDACTED_SAMPLE>",
+                          "imageUrl": "<REDACTED_SAMPLE>",
+                          "sort": 0
+                        },
+                        {
+                          "groupCode": "<REDACTED_SAMPLE>",
+                          "imageItemId": 0,
+                          "imageType": "<REDACTED_SAMPLE>",
+                          "imageMediumUrl": "<REDACTED_SAMPLE>",
+                          "imageSmallUrl": "<REDACTED_SAMPLE>",
+                          "imageUrl": "<REDACTED_SAMPLE>",
+                          "sort": 0
+                        }
+                      ],
+                      "siteDetailImageInfoList": null,
+                      "proofOfStockInfoList": [],
+                      "srpPriceInfo": null
+                    }
+                  ]
+                },
+                "bbl": null
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "languageList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "语种列表。 指的是商品名称、商品描述、属性名称会返回哪些语种信息。 建议入参商家的默认语种，确保能拿到有效数据，默认语种通过 商品发布规范 获取。 最多可给5个语种，支持语种包括：英语:en、法语:fr、西班牙语:es、德语:de、中文简体:zh-cn、泰语:th、巴西葡语:pt-br、日语:ja、韩语:ko"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "spuName": {
+                  "type": "string",
+                  "description": "平台生成的唯一编码。商品发布时会返回，或通过 商品列表 接口获取。 只有发布且已通过平台审核的SPU才能查到信息。"
+                }
+              },
+              "required": [
+                "languageList",
+                "spuName"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3002017,
+            "updateTime": "2026-09-02",
+            "changeContent": "出参新增字段商品视频列表：productVideoList，视频使用方式详见https://open.sheincorp.com/documents/system/16a63f9f-7237-47bd-94c9-37059aa25554",
+            "version": 29
+          },
+          {
+            "id": 3001928,
+            "updateTime": "2026-07-10",
+            "changeContent": "新增出参：productSkuAttributeList，可查看商品SKU维度的商品属性信息",
+            "version": 28
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

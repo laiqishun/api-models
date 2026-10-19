@@ -1,0 +1,171 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "SHEIN合作物流单下单通知",
+    "version": "source-revision-4",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/logistics_order_result_notice": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "operationId": "sheinCooperationLogisticsOrderNotification",
+        "summary": "SHEIN合作物流单下单通知",
+        "description": "该消息用于通知ERP商家完成物流单创建完成，开发者需要根据placeRequestId和deliveryNo查询物流单创建结果，目前仅美国和欧洲市场支持商家指定SHEIN物流服务商履约订单。消息接入方式可查看文档： webhook说明文档",
+        "responses": {
+          "200": {
+            "description": "Webhook acknowledgment; see integration guide"
+          }
+        },
+        "x-shein-direction": "inbound-webhook-notification",
+        "x-shein-official-id": 3001461,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/msgdoc/detail/3001461-2000003",
+        "x-shein-category-id": 2000003,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 4,
+        "x-shein-updated-at": "2025-11-24 10:59:13",
+        "x-shein-qps": null,
+        "x-shein-change-content": "更新说明",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p><br></p>",
+                  "name": "data",
+                  "label": "",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "运单包裹号",
+                      "name": "deliveryNo",
+                      "label": "",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "shein合作物流单的下单id",
+                      "name": "placeRequestId",
+                      "label": "",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>变更时间</p>",
+                      "name": "changeTime",
+                      "label": "",
+                      "required": true
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": null
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": null,
+            "response": null
+          }
+        ],
+        "x-shein-decrypted-event-payload-schema": {
+          "type": "object",
+          "properties": {
+            "data": {
+              "type": "object",
+              "properties": {
+                "deliveryNo": {
+                  "type": "string",
+                  "description": "运单包裹号",
+                  "x-shein-example-redacted": true
+                },
+                "placeRequestId": {
+                  "type": "string",
+                  "description": "shein合作物流单的下单id",
+                  "x-shein-example-redacted": true
+                },
+                "changeTime": {
+                  "type": "integer",
+                  "description": "变更时间",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "deliveryNo",
+                "placeRequestId",
+                "changeTime"
+              ]
+            }
+          },
+          "required": [
+            "data"
+          ]
+        },
+        "x-shein-transport-note": "The event payload schema is decrypted content. The actual callback carries encrypted eventData in form-data; callback URL is developer-defined.",
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "webhook",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

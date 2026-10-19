@@ -1,0 +1,479 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "撤回商品审核",
+    "version": "source-revision-4",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/revoke-product": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "withdrawProductReview",
+        "summary": "撤回商品审核",
+        "description": "该接口支持根据spu撤回在审核中的商品，审核通过的商品无法撤回。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOf公文撤回响应",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "x-shein-label": "公文撤回响应",
+                  "properties": {
+                    "failCount": {
+                      "type": "integer",
+                      "description": "失败数"
+                    },
+                    "failList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "失败结果",
+                        "properties": {
+                          "documentSn": {
+                            "type": "string",
+                            "description": "公文号"
+                          },
+                          "msg": {
+                            "type": "string",
+                            "description": "错误信息"
+                          },
+                          "skcName": {
+                            "type": "string",
+                            "description": "skcName，商品发布成功后返回的skcName"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "successCount": {
+                      "type": "integer",
+                      "description": "成功数"
+                    },
+                    "successList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "成功结果",
+                        "properties": {
+                          "documentSn": {
+                            "type": "string",
+                            "description": "公文号"
+                          },
+                          "skcName": {
+                            "type": "string",
+                            "description": "skcName，商品发布成功后返回的skcName"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "total": {
+                      "type": "integer"
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001896,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001896-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 4,
+        "x-shein-updated-at": "2026-07-02 21:00:01",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "更新文档标题",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><span style=\"color: rgba(20, 23, 55, 0.88); background-color: rgb(255, 255, 255); font-size: 14px;\">支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 &nbsp;支持传参： &nbsp;英语:en &nbsp;法语: fr &nbsp;西班牙语:es &nbsp;德语:de &nbsp;中文简体:zh-cn &nbsp;泰语:th &nbsp;巴西葡语:pt-br</span></p>",
+                  "name": "language",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>application/json;charset=UTF-8</p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OpenAPI根据spu撤回公文",
+              "label": "RevokeProductReq",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>spuName，商品发布成功后返回的spuName</p>",
+                  "name": "spuName",
+                  "label": "",
+                  "required": true
+                },
+                "children": []
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOf公文撤回响应",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "label": "公文撤回响应",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "失败数",
+                      "name": "failCount",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "失败结果",
+                      "name": "failList",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "公文号",
+                          "name": "documentSn",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "错误信息",
+                          "name": "msg",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>skcName，商品发布成功后返回的skcName</p>",
+                          "name": "skcName",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "成功数",
+                      "name": "successCount",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "成功结果",
+                      "name": "successList",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "公文号",
+                          "name": "documentSn",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>skcName，商品发布成功后返回的skcName</p>",
+                          "name": "skcName",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "<p><br></p>",
+                      "name": "total",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": []
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误描述,成功：OK</p>",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                },
+                "children": []
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "spuName": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "successList": [
+                    {
+                      "documentSn": "<REDACTED_SAMPLE>",
+                      "skcName": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "documentSn": "<REDACTED_SAMPLE>",
+                      "skcName": "<REDACTED_SAMPLE>"
+                    }
+                  ],
+                  "failList": [],
+                  "total": 0,
+                  "successCount": 0,
+                  "failCount": 0
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息  支持传参：  英语:en  法语: fr  西班牙语:es  德语:de  中文简体:zh-cn  泰语:th  巴西葡语:pt-br"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json;charset=UTF-8"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "description": "OpenAPI根据spu撤回公文",
+              "x-shein-label": "RevokeProductReq",
+              "properties": {
+                "spuName": {
+                  "type": "string",
+                  "description": "spuName，商品发布成功后返回的spuName"
+                }
+              },
+              "required": [
+                "spuName"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

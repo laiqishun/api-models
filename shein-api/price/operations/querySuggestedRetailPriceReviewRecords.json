@@ -1,0 +1,1446 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询建议零售价审核记录",
+    "version": "source-revision-2",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods-recommend-retail-price-audit/search": {
+      "post": {
+        "tags": [
+          "价格"
+        ],
+        "operationId": "querySuggestedRetailPriceReviewRecords",
+        "summary": "查询建议零售价审核记录",
+        "description": "建议零售价的审核记录明细。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOfResultOfRrpAuditHistoryData",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应信息",
+                  "x-shein-label": "ResultOfRrpAuditHistoryData",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "列表信息",
+                        "properties": {
+                          "spu_name": {
+                            "type": "string",
+                            "description": "SPU平台编码"
+                          },
+                          "skc_name": {
+                            "type": "string",
+                            "description": "SKC平台编码"
+                          },
+                          "submit_time": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "提交时间"
+                          },
+                          "audit_time": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "审核时间"
+                          },
+                          "audit_state": {
+                            "type": "integer",
+                            "description": "审核状态 1: 待审核 2: 审核成功 3: 审核失败 5: 部分通过 6: 已撤回"
+                          },
+                          "audit_reason": {
+                            "type": "string",
+                            "description": "驳回原因"
+                          },
+                          "change_sn": {
+                            "type": "string",
+                            "description": "调价单号"
+                          },
+                          "creator": {
+                            "type": "string",
+                            "description": "申请人"
+                          },
+                          "sale_attribute_value": {
+                            "type": "string",
+                            "description": "SKC属性值"
+                          },
+                          "sku_rrp_info_list": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "SKU信息列表",
+                              "properties": {
+                                "sku_code": {
+                                  "type": "string",
+                                  "description": "SKU平台编码"
+                                },
+                                "site": {
+                                  "type": "string",
+                                  "description": "站点。站点=其它站点，代表是不按站点提供的SKU建议零售价；站点=某个具体站点，例如shein-fr，代表是站点维度的建议零售价。"
+                                },
+                                "currency": {
+                                  "type": "string",
+                                  "description": "币种缩写"
+                                },
+                                "suggested_retail_price": {
+                                  "type": "number",
+                                  "description": "修改后的建议零售价"
+                                },
+                                "before_suggested_retail_price": {
+                                  "type": "number",
+                                  "description": "修改前的建议零售价"
+                                },
+                                "type_one_proof": {
+                                  "type": "object",
+                                  "description": "证明材料信息",
+                                  "x-shein-label": "ProofMaterialVO",
+                                  "properties": {
+                                    "attachments": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string",
+                                        "description": "证明材料附件列表"
+                                      },
+                                      "x-shein-original-multiple": 1
+                                    },
+                                    "proof_link": {
+                                      "type": "string",
+                                      "description": "证明链接"
+                                    }
+                                  }
+                                },
+                                "type_two_proof": {
+                                  "type": "object",
+                                  "description": "证明材料信息",
+                                  "x-shein-label": "ProofMaterialVO",
+                                  "properties": {
+                                    "attachments": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string",
+                                        "description": "证明材料附件列表"
+                                      },
+                                      "x-shein-original-multiple": 1
+                                    },
+                                    "proof_link": {
+                                      "type": "string",
+                                      "description": "证明链接"
+                                    }
+                                  }
+                                },
+                                "audit_state": {
+                                  "type": "integer",
+                                  "description": "SKU审核状态 1:待审核;2:审核成功 3:审核失败 6: 已撤回"
+                                },
+                                "audit_reason": {
+                                  "type": "string",
+                                  "description": "驳回原因"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "meta": {
+                      "type": "object",
+                      "description": "元数据",
+                      "x-shein-label": "Meta",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "description": "数据记录数"
+                        },
+                        "customObj": {
+                          "type": "object",
+                          "description": "用户自定义扩展"
+                        }
+                      }
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "追踪码"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001890,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001890-3000013",
+        "x-shein-category-id": 3000013,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 2,
+        "x-shein-updated-at": "2026-07-02 20:33:41",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "文档归属类目更新",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "int64",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\" style=\"text-align: start;\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>响应msg的语种。不传时默认为英语，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR</p>",
+                  "name": "language",
+                  "label": ""
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "查询RRP审核历史列表请求（开放平台）",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 1,
+                  "description": "<p>审核状态列表。1: 待审核 2: 审核成功 3: 审核失败 5: 部分通过 6: 已撤回</p><p> 5: 部分通过，说明SKC下有部分SKU已审核通过，获得有效期。</p>",
+                  "name": "audit_state_list",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>页码</p>",
+                  "name": "page_num",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>每页大小，单页最大100</p>",
+                  "name": "page_size",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>SKC平台编码</p>",
+                  "name": "skc",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>SPU平台编码</p>",
+                  "name": "spu",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOfResultOfRrpAuditHistoryData",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>响应信息</p>",
+                  "name": "info",
+                  "label": "ResultOfRrpAuditHistoryData",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>列表信息</p>",
+                      "name": "data",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>SPU平台编码</p>",
+                          "name": "spu_name",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>SKC平台编码</p>",
+                          "name": "skc_name",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "<p>提交时间</p>",
+                          "name": "submit_time",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "<p>审核时间</p>",
+                          "name": "audit_time",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>审核状态 1: 待审核 2: 审核成功 3: 审核失败 5: 部分通过 6: 已撤回</p>",
+                          "name": "audit_state",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>驳回原因</p>",
+                          "name": "audit_reason",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>调价单号</p>",
+                          "name": "change_sn",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>申请人</p>",
+                          "name": "creator",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>SKC属性值</p>",
+                          "name": "sale_attribute_value",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>SKU信息列表</p>",
+                          "name": "sku_rrp_info_list",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>SKU平台编码</p>",
+                              "name": "sku_code",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>站点。站点=其它站点，代表是不按站点提供的SKU建议零售价；站点=某个具体站点，例如shein-fr，代表是站点维度的建议零售价。</p>",
+                              "name": "site",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>币种缩写</p>",
+                              "name": "currency",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "double",
+                              "multiple": 0,
+                              "description": "<p>修改后的建议零售价</p>",
+                              "name": "suggested_retail_price",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "double",
+                              "multiple": 0,
+                              "description": "<p>修改前的建议零售价</p>",
+                              "name": "before_suggested_retail_price",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 0,
+                              "description": "<p>证明材料信息</p>",
+                              "name": "type_one_proof",
+                              "label": "ProofMaterialVO",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 1,
+                                  "description": "证明材料附件列表",
+                                  "name": "attachments",
+                                  "label": "",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "证明链接",
+                                  "name": "proof_link",
+                                  "label": "",
+                                  "required": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 0,
+                              "description": "证明材料信息",
+                              "name": "type_two_proof",
+                              "label": "ProofMaterialVO",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 1,
+                                  "description": "证明材料附件列表",
+                                  "name": "attachments",
+                                  "label": "",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "证明链接",
+                                  "name": "proof_link",
+                                  "label": "",
+                                  "required": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>SKU审核状态 1:待审核;2:审核成功 3:审核失败 6: 已撤回</p>",
+                              "name": "audit_state",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>驳回原因</p>",
+                              "name": "audit_reason",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "元数据",
+                      "name": "meta",
+                      "label": "Meta",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "数据记录数",
+                          "name": "count",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "<p>用户自定义扩展</p>",
+                          "name": "customObj",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "错误描述,成功：OK",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>追踪码</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "page_num": 0,
+                "page_size": 0,
+                "audit_state_list": [
+                  0,
+                  0,
+                  0
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "data": [
+                    {
+                      "creator": "<REDACTED_SAMPLE>",
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "sale_attribute_value": "<REDACTED_SAMPLE>",
+                      "spu_name": "<REDACTED_SAMPLE>",
+                      "change_sn": "<REDACTED_SAMPLE>",
+                      "audit_time": null,
+                      "audit_state": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_reason": null,
+                      "sku_rrp_info_list": [
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [
+                              "<REDACTED_SAMPLE>"
+                            ],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": null
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [
+                              "<REDACTED_SAMPLE>"
+                            ],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": null
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [
+                              "<REDACTED_SAMPLE>"
+                            ],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": null
+                        }
+                      ]
+                    },
+                    {
+                      "creator": "<REDACTED_SAMPLE>",
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "sale_attribute_value": "<REDACTED_SAMPLE>",
+                      "spu_name": "<REDACTED_SAMPLE>",
+                      "change_sn": "<REDACTED_SAMPLE>",
+                      "audit_time": "<REDACTED_SAMPLE>",
+                      "audit_state": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_reason": null,
+                      "sku_rrp_info_list": [
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": null
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [
+                              "<REDACTED_SAMPLE>"
+                            ],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": null
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [
+                              "<REDACTED_SAMPLE>"
+                            ],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": null
+                        }
+                      ]
+                    },
+                    {
+                      "creator": "<REDACTED_SAMPLE>",
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "sale_attribute_value": "<REDACTED_SAMPLE>",
+                      "spu_name": "<REDACTED_SAMPLE>",
+                      "change_sn": "<REDACTED_SAMPLE>",
+                      "audit_time": "<REDACTED_SAMPLE>",
+                      "audit_state": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_reason": null,
+                      "sku_rrp_info_list": [
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        }
+                      ]
+                    },
+                    {
+                      "creator": "<REDACTED_SAMPLE>",
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "sale_attribute_value": "<REDACTED_SAMPLE>",
+                      "spu_name": "<REDACTED_SAMPLE>",
+                      "change_sn": "<REDACTED_SAMPLE>",
+                      "audit_time": "<REDACTED_SAMPLE>",
+                      "audit_state": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_reason": null,
+                      "sku_rrp_info_list": [
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        }
+                      ]
+                    },
+                    {
+                      "creator": "<REDACTED_SAMPLE>",
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "sale_attribute_value": "<REDACTED_SAMPLE>",
+                      "spu_name": "<REDACTED_SAMPLE>",
+                      "change_sn": "<REDACTED_SAMPLE>",
+                      "audit_time": "<REDACTED_SAMPLE>",
+                      "audit_state": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_reason": null,
+                      "sku_rrp_info_list": [
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        }
+                      ]
+                    },
+                    {
+                      "creator": "<REDACTED_SAMPLE>",
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "sale_attribute_value": "<REDACTED_SAMPLE>",
+                      "spu_name": "<REDACTED_SAMPLE>",
+                      "change_sn": "<REDACTED_SAMPLE>",
+                      "audit_time": "<REDACTED_SAMPLE>",
+                      "audit_state": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_reason": null,
+                      "sku_rrp_info_list": [
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        }
+                      ]
+                    },
+                    {
+                      "creator": "<REDACTED_SAMPLE>",
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "sale_attribute_value": "<REDACTED_SAMPLE>",
+                      "spu_name": "<REDACTED_SAMPLE>",
+                      "change_sn": "<REDACTED_SAMPLE>",
+                      "audit_time": "<REDACTED_SAMPLE>",
+                      "audit_state": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_reason": null,
+                      "sku_rrp_info_list": [
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        }
+                      ]
+                    },
+                    {
+                      "creator": "<REDACTED_SAMPLE>",
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "sale_attribute_value": "<REDACTED_SAMPLE>",
+                      "spu_name": "<REDACTED_SAMPLE>",
+                      "change_sn": "<REDACTED_SAMPLE>",
+                      "audit_time": "<REDACTED_SAMPLE>",
+                      "audit_state": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_reason": null,
+                      "sku_rrp_info_list": [
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        }
+                      ]
+                    },
+                    {
+                      "creator": "<REDACTED_SAMPLE>",
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "sale_attribute_value": "<REDACTED_SAMPLE>",
+                      "spu_name": "<REDACTED_SAMPLE>",
+                      "change_sn": "<REDACTED_SAMPLE>",
+                      "audit_time": "<REDACTED_SAMPLE>",
+                      "audit_state": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_reason": null,
+                      "sku_rrp_info_list": [
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        }
+                      ]
+                    },
+                    {
+                      "creator": "<REDACTED_SAMPLE>",
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "sale_attribute_value": "<REDACTED_SAMPLE>",
+                      "spu_name": "<REDACTED_SAMPLE>",
+                      "change_sn": "<REDACTED_SAMPLE>",
+                      "audit_time": "<REDACTED_SAMPLE>",
+                      "audit_state": 0,
+                      "submit_time": "<REDACTED_SAMPLE>",
+                      "audit_reason": null,
+                      "sku_rrp_info_list": [
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        },
+                        {
+                          "site": "<REDACTED_SAMPLE>",
+                          "currency": "<REDACTED_SAMPLE>",
+                          "sku_code": "<REDACTED_SAMPLE>",
+                          "audit_state": 0,
+                          "audit_reason": "<REDACTED_SAMPLE>",
+                          "type_one_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "type_two_proof": {
+                            "attachments": [],
+                            "proof_link": "<REDACTED_SAMPLE>"
+                          },
+                          "suggested_retail_price": 0,
+                          "before_suggested_retail_price": 0
+                        }
+                      ]
+                    }
+                  ],
+                  "meta": {
+                    "count": 0,
+                    "customObj": null
+                  }
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "接口签名",
+            "x-shein-original-type": "int64"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "响应msg的语种。不传时默认为英语，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "x-shein-label": "查询RRP审核历史列表请求（开放平台）",
+              "properties": {
+                "audit_state_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "description": "审核状态列表。1: 待审核 2: 审核成功 3: 审核失败 5: 部分通过 6: 已撤回 5: 部分通过，说明SKC下有部分SKU已审核通过，获得有效期。"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "page_num": {
+                  "type": "integer",
+                  "description": "页码",
+                  "x-shein-example-redacted": true
+                },
+                "page_size": {
+                  "type": "integer",
+                  "description": "每页大小，单页最大100",
+                  "x-shein-example-redacted": true
+                },
+                "skc": {
+                  "type": "string",
+                  "description": "SKC平台编码",
+                  "x-shein-example-redacted": true
+                },
+                "spu": {
+                  "type": "string",
+                  "description": "SPU平台编码",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "page_num",
+                "page_size"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

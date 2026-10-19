@@ -1,0 +1,572 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询SKC的实拍图要求",
+    "version": "source-revision-6",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods-compliance/skc-label-list": {
+      "post": {
+        "tags": [
+          "合规"
+        ],
+        "operationId": "querySkcRealShotImageRequirements",
+        "summary": "查询SKC的实拍图要求",
+        "description": "查询哪些SKC需要上传实拍图，以及实拍图内需要体现哪些信息元素。 实拍图场景的整体解决方案， 可点击查看文档。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应码。正常为“0”。"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "响应信息。正常为“OK”。"
+                },
+                "info": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "响应详细信息",
+                    "properties": {
+                      "skc": {
+                        "type": "string",
+                        "description": "SKC"
+                      },
+                      "skcShelfStatus": {
+                        "type": "array",
+                        "items": {
+                          "type": "string",
+                          "description": "SKC的上下架状态。0-待上架；1-已上架；2-已下架；3-售罄"
+                        },
+                        "x-shein-original-multiple": 1
+                      },
+                      "skcLabelInfoList": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "description": "SKC上传的实拍图中需要被识别的内容",
+                          "properties": {
+                            "isRequired": {
+                              "type": "integer",
+                              "description": "识别内容是否必须。0-否, 1-是, 10-未知（SKC生成时的瞬间状态，若拉到此值建议过一会再重试一次）"
+                            },
+                            "labelId": {
+                              "type": "integer",
+                              "format": "int64",
+                              "x-shein-original-type": "int64",
+                              "description": "识别内容ID"
+                            },
+                            "labelName": {
+                              "type": "string",
+                              "description": "识别内容名称"
+                            },
+                            "labelGroup": {
+                              "type": "string",
+                              "description": "识别内容属于包装还是本体。即包含此内容的标签需要贴在哪里。 1=商品本体，2=外包装"
+                            },
+                            "siteList": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "description": "识别内容影响的站点"
+                              },
+                              "x-shein-original-multiple": 1
+                            },
+                            "reviewStatus": {
+                              "type": "integer",
+                              "description": "内容的识别结果。 0-待提交；1-审核中（此状态在商家后台展示位通过，API层面亦可理解为通过）；2-通过；3-不通过。 注意：入参的reviewStatusList枚举值，和出参的reviewStatus不一样。入参1，出参0；入参2，出参1/2；入参3，出参3。"
+                            },
+                            "failReason": {
+                              "type": "array",
+                              "items": {
+                                "type": "string",
+                                "description": "审核驳回原因。仅审核不通过时有值"
+                              },
+                              "x-shein-original-multiple": 1
+                            }
+                          }
+                        },
+                        "x-shein-original-multiple": 1
+                      }
+                    }
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求追踪码"
+                }
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001394,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001394-3000008",
+        "x-shein-category-id": 3000008,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 6,
+        "x-shein-updated-at": "2025-09-24 19:40:32",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "增加类型字段",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>application/json</p>",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p><p><br></p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：158339876400</p><p><br></p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">查看签名生成规则</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>指定出参语种，默认中文；支持语种:英语:EN 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR</p><p><br></p>",
+                  "name": "language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "每页条数，最多100",
+                  "name": "pageSize",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>分页页数，建议从1开始查询</p>",
+                  "name": "pageNum",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>SKC，支持批量查询</p>",
+                  "name": "skcList",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 1,
+                  "description": "<p>SKC的上下架状态。0-待上架；1-已上架；2-已下架；3-售罄</p>",
+                  "name": "skcShelfStatusList"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 1,
+                  "description": "<p>skc上传的实拍图中某个信息元素的审核状态。1-待上传；2-生效中；3-审核不通过。</p><p>若想查询商家当前急需上传的信息元素，建议入参1/3</p>",
+                  "name": "reviewStatusList"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>SKC上传的实拍图中，某个信息元素是否必须体现。 0-否, 1-是, 10-未知（SKC生成时的瞬间状态，可忽略）</p>",
+                  "name": "isRequired"
+                },
+                "children": []
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>响应码。正常为“0”。</p>",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>响应信息。正常为“OK”。</p><p><br></p>",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "<p>响应详细信息</p>",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>SKC</p>",
+                      "name": "skc"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 1,
+                      "description": "<p>SKC的上下架状态。0-待上架；1-已上架；2-已下架；3-售罄</p>",
+                      "name": "skcShelfStatus"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>SKC上传的实拍图中需要被识别的内容</p>",
+                      "name": "skcLabelInfoList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p>识别内容是否必须。0-否, 1-是, 10-未知（SKC生成时的瞬间状态，若拉到此值建议过一会再重试一次）</p>",
+                          "name": "isRequired"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "description": "<p>识别内容ID</p>",
+                          "name": "labelId"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>识别内容名称</p>",
+                          "name": "labelName"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>识别内容属于包装还是本体。即包含此内容的标签需要贴在哪里。</p><p>1=商品本体，2=外包装</p>",
+                          "name": "labelGroup"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 1,
+                          "description": "<p>识别内容影响的站点</p>",
+                          "name": "siteList"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p>内容的识别结果。 0-待提交；1-审核中（此状态在商家后台展示位通过，API层面亦可理解为通过）；2-通过；3-不通过。</p><p>注意：入参的reviewStatusList枚举值，和出参的reviewStatus不一样。入参1，出参0；入参2，出参1/2；入参3，出参3。</p>",
+                          "name": "reviewStatus"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 1,
+                          "description": "<p>审核驳回原因。仅审核不通过时有值</p>",
+                          "name": "failReason"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求追踪码</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "pageSize": 0,
+                "pageNum": 0,
+                "skcList": [
+                  "<REDACTED_SAMPLE>"
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": [
+                  {
+                    "skc": "<REDACTED_SAMPLE>",
+                    "failReasonList": null,
+                    "skcShelfStatus": 0,
+                    "skcLabelInfoList": [
+                      {
+                        "isRequired": 0,
+                        "labelId": 0,
+                        "labelName": "<REDACTED_SAMPLE>",
+                        "siteList": [
+                          "<REDACTED_SAMPLE>",
+                          "<REDACTED_SAMPLE>"
+                        ],
+                        "reviewStatus": 0
+                      },
+                      {
+                        "isRequired": 0,
+                        "labelId": 0,
+                        "labelName": "<REDACTED_SAMPLE>",
+                        "siteList": [
+                          "<REDACTED_SAMPLE>",
+                          "<REDACTED_SAMPLE>"
+                        ],
+                        "reviewStatus": 0
+                      },
+                      {
+                        "isRequired": 0,
+                        "labelId": 0,
+                        "labelName": "<REDACTED_SAMPLE>",
+                        "siteList": [
+                          "<REDACTED_SAMPLE>",
+                          "<REDACTED_SAMPLE>"
+                        ],
+                        "reviewStatus": 0
+                      },
+                      {
+                        "isRequired": 0,
+                        "labelId": 0,
+                        "labelName": "<REDACTED_SAMPLE>",
+                        "siteList": [
+                          "<REDACTED_SAMPLE>",
+                          "<REDACTED_SAMPLE>"
+                        ],
+                        "reviewStatus": 0
+                      },
+                      {
+                        "isRequired": 0,
+                        "labelId": 0,
+                        "labelName": "<REDACTED_SAMPLE>",
+                        "siteList": [
+                          "<REDACTED_SAMPLE>",
+                          "<REDACTED_SAMPLE>"
+                        ],
+                        "reviewStatus": 0
+                      },
+                      {
+                        "isRequired": 0,
+                        "labelId": 0,
+                        "labelName": "<REDACTED_SAMPLE>",
+                        "siteList": [
+                          "<REDACTED_SAMPLE>",
+                          "<REDACTED_SAMPLE>"
+                        ],
+                        "reviewStatus": 0
+                      },
+                      {
+                        "isRequired": 0,
+                        "labelId": 0,
+                        "labelName": "<REDACTED_SAMPLE>",
+                        "siteList": [
+                          "<REDACTED_SAMPLE>",
+                          "<REDACTED_SAMPLE>"
+                        ],
+                        "reviewStatus": 0
+                      },
+                      {
+                        "isRequired": 0,
+                        "labelId": 0,
+                        "labelName": "<REDACTED_SAMPLE>",
+                        "siteList": [
+                          "<REDACTED_SAMPLE>",
+                          "<REDACTED_SAMPLE>"
+                        ],
+                        "reviewStatus": 0
+                      }
+                    ]
+                  }
+                ],
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：158339876400"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "查看签名生成规则"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "指定出参语种，默认中文；支持语种:英语:EN 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "pageSize": {
+                  "type": "integer",
+                  "description": "每页条数，最多100"
+                },
+                "pageNum": {
+                  "type": "integer",
+                  "description": "分页页数，建议从1开始查询"
+                },
+                "skcList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "SKC，支持批量查询"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "skcShelfStatusList": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "description": "SKC的上下架状态。0-待上架；1-已上架；2-已下架；3-售罄"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "reviewStatusList": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "description": "skc上传的实拍图中某个信息元素的审核状态。1-待上传；2-生效中；3-审核不通过。 若想查询商家当前急需上传的信息元素，建议入参1/3"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "isRequired": {
+                  "type": "integer",
+                  "description": "SKC上传的实拍图中，某个信息元素是否必须体现。 0-否, 1-是, 10-未知（SKC生成时的瞬间状态，可忽略）"
+                }
+              },
+              "required": [
+                "pageSize",
+                "pageNum",
+                "skcList"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

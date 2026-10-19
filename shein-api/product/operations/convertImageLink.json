@@ -1,0 +1,484 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "图片链接转换",
+    "version": "source-revision-20",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/transform-pic": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "convertImageLink",
+        "summary": "图片链接转换",
+        "description": "支持将外部的图片地址转换成SHEIN可用的图片地址， 各类型图片需满足下方要求，否则无法转换，建议开发者将图片在本地处理完成后再调用接口 。 - 主图（type=1)、细节图（type=2)：像素满足1340px*1785px，或宽高比例1:1，像素范围900px-2200px；格式JPG/JPEG/PNG；大小≤3MB - 方形图（type=5）：宽高比例1:1；像素范围900*900~2200*2200 px；格式JPG/JPEG/PNG；大小≤3MB - 色块图（type=6）：宽高比例1:1；像素80×80 px；格式JPG/JPEG/PNG；大小≤3MB - 详情图（type=7）：宽高比例3:4，像素大于900px； 格式JPG/JPEG/PNG；大小≤3MB 每个店铺的各个分类下，需要传什么类型的图、可以传几张图，可通过文档确认： 商品图片 。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "bbl": {
+                  "type": "object",
+                  "description": "bbl",
+                  "properties": {
+                    "info": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "object"
+                        },
+                        "x-shein-original-multiple": 1
+                      }
+                    },
+                    "npid": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "code": {
+                  "type": "string",
+                  "description": "成功: 0"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "failure_reason": {
+                      "type": "string",
+                      "description": "失败原因"
+                    },
+                    "original": {
+                      "type": "string",
+                      "description": "图片链接"
+                    },
+                    "transformed": {
+                      "type": "string",
+                      "description": "转换后的图片链接"
+                    }
+                  },
+                  "required": [
+                    "original"
+                  ]
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述, 成功: OK"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001360,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001360-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 20,
+        "x-shein-updated-at": "2025-08-12 11:32:52",
+        "x-shein-qps": "60",
+        "x-shein-change-content": "更新文档描述",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认返回中文多语言信息，支持语种：英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br</p>",
+                  "name": "language",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "<p>图片类型(1:主图; 2:细节图; 5:方块图; 6:色块图; 7:详情图) 。</p><p>各个类型的图片要求参考文档顶部的描述。</p>",
+                  "name": "image_type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>图片地址。</p>",
+                  "name": "original_url",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "bbl",
+                  "name": "bbl",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "name": "info",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "name": "*",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "name": "npid",
+                      "required": false
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>成功: 0</p>",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>失败原因</p>",
+                      "name": "failure_reason",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>图片链接</p>",
+                      "name": "original",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>转换后的图片链接</p>",
+                      "name": "transformed",
+                      "required": false
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误描述, 成功: OK</p>",
+                  "name": "msg",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 198,
+            "openPath": "/open-api/goods/transform-pic",
+            "errorCode": "openapi00006",
+            "errorMsg": "触发限流，请稍候再试",
+            "errorMsgCn": "触发限流，请稍候再试",
+            "errorMsgUs": "Rate limit triggered, please try again later",
+            "errorMsgPt": "Limite de taxa acionado, por favor tente novamente mais tarde",
+            "errorMsgEs": "Límite de tasa activado, por favor inténtelo de nuevo más tarde",
+            "solution": "接口触发限流。针对每个应用，该接口的qps（每秒最大请求数）为60",
+            "sort": 0
+          },
+          {
+            "id": 199,
+            "openPath": "/open-api/goods/transform-pic",
+            "errorCode": "0",
+            "errorMsg": "图片下载异常",
+            "errorMsgCn": "图片下载异常",
+            "errorMsgUs": "Abnormal picture download",
+            "errorMsgPt": "Anomalía en la descarga de la imagen",
+            "errorMsgEs": "Anomalía en la descarga de la imagen",
+            "solution": "1、请用公网可访问的链接，否则将报错；如多次尝试失败，请更新图片访问域名；2、图片链接最后必须有文件类型标识，比如.jpg, .png, etc",
+            "sort": 2
+          },
+          {
+            "id": 47,
+            "openPath": "/open-api/goods/transform-pic",
+            "errorCode": "1001001",
+            "errorMsg": "请上传符合要求的图片",
+            "errorMsgCn": "请上传符合要求的图片",
+            "errorMsgUs": "Please upload a picture that meets the requirements",
+            "errorMsgPt": "faça o upload de uma imagem que atenda aos requisitos",
+            "errorMsgEs": "sube una imagen que cumpla con los requisitos",
+            "solution": "图片需安排官方要求上传，具体请查看：https://open.sheincorp.com/en/documents/faq-detail/4",
+            "sort": 5
+          },
+          {
+            "id": 200,
+            "openPath": "/open-api/goods/transform-pic",
+            "errorCode": "832213",
+            "errorMsg": "请求被限流:[提供方服务[spmp-service]对消费者服务:[spmp-service]的API[/spmp-service/spmp/out/open_api/transform_pic]已经触发精确限流！]",
+            "errorMsgCn": "请求被限流:[提供方服务[spmp-service]对消费者服务:[spmp-service]的API[/spmp-service/spmp/out/open_api/transform_pic]已经触发精确限流！]",
+            "errorMsgUs": "Request is rate limited: [Provider service [spmp-service] has triggered precise rate limiting for consumer service: [spmp-service] API [/spmp-service/spmp/out/open_api/transform_pic] already!]\t",
+            "errorMsgPt": "Solicitação foi limitada por taxa: [O serviço do provedor [spmp-service] acionou a limitação de taxa precisa para o serviço do consumidor: [spmp-service] API [/spmp-service/spmp/out/open_api/transform_pic] já!\t",
+            "errorMsgEs": "La solicitud ha sido limitada: [El servicio del proveedor [spmp-service] ha activado la limitación precisa para el servicio del consumidor: [spmp-service] API [/spmp-service/spmp/out/open_api/transform_pic] ya!",
+            "solution": "接口触发限流。针对每个应用，该接口的qps（每秒最大请求数）为60",
+            "sort": 5
+          },
+          {
+            "id": 49,
+            "openPath": "/open-api/goods/transform-pic",
+            "errorCode": "open_api_0025",
+            "errorMsg": "图片下载失败",
+            "errorMsgCn": "图片下载失败",
+            "errorMsgUs": "Image download failed",
+            "errorMsgPt": "Falha ao baixar a imagem",
+            "errorMsgEs": "Error al descargar la imagen",
+            "solution": "1、请用公网可访问的链接，否则将报错；如多次尝试失败，请更新图片访问域名；2、图片链接最后必须有文件类型标识，比如.jpg, .png, etc",
+            "sort": 10
+          },
+          {
+            "id": 48,
+            "openPath": "/open-api/goods/transform-pic",
+            "errorCode": "20100",
+            "errorMsg": "6: 保存文件到远程失败",
+            "errorMsgCn": "6: 保存文件到远程失败",
+            "errorMsgUs": "6:save file to remote failed",
+            "errorMsgPt": "Falha ao salvar o arquivo no remoto",
+            "errorMsgEs": "Error al guardar el archivo en remoto",
+            "solution": "远程保存失败，请重试",
+            "sort": 20
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "image_type": 0,
+                "original_url": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "original": "<REDACTED_SAMPLE>",
+                  "transformed": "<REDACTED_SAMPLE>",
+                  "failure_reason": "<REDACTED_SAMPLE>"
+                },
+                "bbl": null
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "language",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认返回中文多语言信息，支持语种：英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "image_type": {
+                  "type": "integer",
+                  "description": "图片类型(1:主图; 2:细节图; 5:方块图; 6:色块图; 7:详情图) 。 各个类型的图片要求参考文档顶部的描述。"
+                },
+                "original_url": {
+                  "type": "string",
+                  "description": "图片地址。"
+                }
+              },
+              "required": [
+                "image_type",
+                "original_url"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

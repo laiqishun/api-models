@@ -1,0 +1,1202 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "创建发货单",
+    "version": "source-revision-35",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/shipping/orderToShipping": {
+      "post": {
+        "tags": [
+          "采购单"
+        ],
+        "operationId": "createShippingOrder",
+        "summary": "创建发货单",
+        "description": "使用该接口创建发货单，进行订单发货。全托管订单发货方式请查看 备货单履约管理 文档。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "deliveryCode": {
+                      "type": "string",
+                      "description": "发货单号"
+                    },
+                    "expressCode": {
+                      "type": "string",
+                      "description": "运单号（系统自动产生运单时，返回运单号）",
+                      "x-shein-label": "运单号"
+                    },
+                    "reserveParcelTime": {
+                      "type": "string",
+                      "x-shein-original-type": "datetime",
+                      "description": "预约取件开始时间"
+                    },
+                    "reserveParcelTimeEnd": {
+                      "type": "string",
+                      "x-shein-original-type": "datetime",
+                      "description": "预约取件结束时间"
+                    }
+                  },
+                  "required": [
+                    "deliveryCode"
+                  ]
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述，成功：OK；支持指定语种出参；"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识，用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002010,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002010-1000002",
+        "x-shein-category-id": 1000002,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 35,
+        "x-shein-updated-at": "2026-08-28 18:02:11",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "更新发货方式说明",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object",
+              "multiple": 0
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "指定出参语种，默认中文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR",
+                  "name": "x-lt-language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "用户名称（ERP系统可自行定义，用于系统记录此次发货的操作人，页面不展示）",
+                  "name": "adminName",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>物流时效产品编码，从<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001973\" target=\"_blank\">查询SHEIN合作物流产品</a>接口获取</p>",
+                  "name": "agedProductCode"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "",
+                  "name": "list",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>sku编码，需要入参采购单中所有的SKU</p>",
+                      "name": "skuCode",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>订单编号</p>",
+                      "name": "orderNo",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "<p>下单数量</p>",
+                      "name": "orderQuantity",
+                      "required": false
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "<p>包裹数（箱唛发货时必填，同一订单传相同包裹数）</p>",
+                      "name": "packageNum",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "<p>实际发货数量：如果待发货数量大于500，单次发货需要大于150</p>",
+                      "name": "tempDeliveryQuantity",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "description": "<p>装箱明细，当<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001971\" target=\"_blank\">发货基本信息查询接口</a>的shippingRoute为1或者2时需要传入装箱明细，shippingRoute=0时不需要填写装箱明细</p>",
+                      "name": "packingInfoList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>装箱数量</p>",
+                          "name": "packQuantity",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>装箱的sku编码</p>",
+                          "name": "skuCode",
+                          "required": true
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "<p>订单类型，1：急采，2：备货</p>",
+                  "name": "orderType",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "<p>发货方式，商家可用的发货方式枚举值请从<a href=\"https://open.sheincorp.com/zh/documents/apidoc/detail/3000561\" target=\"_blank\">发货基本信息查询获取；</a>全托管发货方式枚举值可以查看<a href=\"https://open.sheincorp.com/documents/system/a880d468-3c56-4dee-b8d6-5c6ff8be756f\" target=\"_blank\" style=\"text-align: start;\">备货单履约管理</a></p>",
+                  "name": "deliveryType",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "datetime",
+                  "multiple": 0,
+                  "description": "<p>预约SHEIN到仓时间（yyyy-MM-dd HH:mm:ss），当deliveryType=4或21时必填</p>",
+                  "name": "arrivalTime",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "<p><span style=\"color: rgba(20, 23, 55, 0.88); background-color: rgb(255, 255, 255); font-size: 14px;\">发货路径，0：直送路径，无需装箱明细。1：直送路径，需要装箱明细。2：集货路径</span></p>",
+                  "name": "shippingRoute"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>快递编码，当deliveryType=1时必填，SHEIN集成物流场景从 <a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001973\" target=\"_blank\">查询SHEIN合作物流产品</a>接口的companyCode字段获取</p>",
+                  "name": "expressId",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>车队编码，当deliveryType=2且使用车队发货的场景必填，从<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001971\" target=\"_blank\">发货基本信息查询接口</a>的motorcadeId查询</p>",
+                  "name": "coding",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "<p>运单包裹信息</p>",
+                  "name": "expressInfo",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "int64",
+                      "multiple": 0,
+                      "description": "<p>发货地址id，从<a href=\"https://open.sheincorp.com/zh/documents/apidoc/detail/3000561\" target=\"_blank\">发货基本信息查询</a>接口中获取</p>",
+                      "name": "addrId",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>快递单号，适用非SHEIN集成物流场景</p>",
+                      "name": "expressCode",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "<p>总包裹数量（箱唛类型时=所有订单包裹的总计）</p>",
+                      "name": "packageNumber",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "double",
+                      "multiple": 0,
+                      "description": "<p>包裹重量（单位:kg）</p>",
+                      "name": "packageWeight",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "datetime",
+                      "multiple": 0,
+                      "description": "<p>预约取件时间（yyyy-MM-dd HH:mm:ss），当deliveryType=1和2时必填</p>",
+                      "name": "reserveParcelTime",
+                      "required": false
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "<p>包裹信息列表，包裹列表的长度必须与包裹数量相同，只在欧洲地区使用<span style=\"color: rgb(40, 43, 46);\">INPOST物流商发货时需要传入，其它的场景不需要传入包裹信息。</span></p>",
+                  "name": "deliveryPackages"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "包裹序号，从0开始",
+                      "name": "index",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "double",
+                      "multiple": 0,
+                      "description": "包裹高(cm)",
+                      "name": "packageHeight"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "double",
+                      "multiple": 0,
+                      "description": "包裹长(cm)",
+                      "name": "packageLength"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "double",
+                      "multiple": 0,
+                      "description": "包裹重量(kg)",
+                      "name": "packageWeight"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "double",
+                      "multiple": 0,
+                      "description": "包裹宽(cm)",
+                      "name": "packageWidth"
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "int64",
+                  "multiple": 0,
+                  "description": "<p>商家仓库id</p>",
+                  "name": "supplierWarehouseId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "供应商子仓ID",
+                  "name": "subWarehouseId"
+                }
+              },
+              {
+                "props": {
+                  "type": "int64",
+                  "multiple": 0,
+                  "description": "<p>货代渠道，当<span style=\"color: rgba(20, 23, 55, 0.88); font-size: 14px;\">deliveryType = 2时，且需要使用货代发货的场景下必填，从</span><a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001975\" target=\"_blank\">查询货代信息</a>查询</p>",
+                  "name": "thirdPartyChannel"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>货代渠道名称，当<span style=\"color: rgba(20, 23, 55, 0.88); font-size: 14px;\">deliveryType = 2时，且需要使用货代发货的场景下必填，从</span><a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001975\" target=\"_blank\">查询货代信息</a>查询</p>",
+                  "name": "thirdPartyChannelName"
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "<p>货代下单方式，1：SHEIN代下单，2：商家自行下单。当<span style=\"color: rgba(20, 23, 55, 0.88); font-size: 14px;\">deliveryType = 2时，且需要使用货代发货的场景下必填</span></p>",
+                  "name": "thirdPartyOrderMethod"
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object",
+              "multiple": 0
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "发货单号",
+                      "name": "deliveryCode",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>运单号（系统自动产生运单时，返回运单号）</p>",
+                      "name": "expressCode",
+                      "defaultValue": "",
+                      "label": "运单号"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "datetime",
+                      "multiple": 0,
+                      "description": "预约取件开始时间",
+                      "name": "reserveParcelTime"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "datetime",
+                      "multiple": 0,
+                      "description": "预约取件结束时间",
+                      "name": "reserveParcelTimeEnd"
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误描述，成功：OK；支持指定语种出参；</p>",
+                  "name": "msg",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>请求的唯一标识，用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 26,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp0003",
+            "errorMsg": "送货上门时请选择车队",
+            "errorMsgCn": "送货上门时请选择车队",
+            "errorMsgUs": "Please select a fleet for home delivery.",
+            "errorMsgPt": "Ao entregar em casa, selecione uma frota.",
+            "errorMsgEs": "Al entregar a domicilio, selecciona un equipo de transporte.",
+            "solution": "入参字段“deliveryType”为送货上门时，“coding”字段必填",
+            "sort": 1003
+          },
+          {
+            "id": 27,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp0003",
+            "errorMsg": "请选择快递公司",
+            "errorMsgCn": "请选择快递公司",
+            "errorMsgUs": "Please select a courier company.",
+            "errorMsgPt": "Por favor, selecione uma empresa de courier.",
+            "errorMsgEs": "Por favor, selecciona una empresa de mensajería.",
+            "solution": "入参字段“deliveryType”为快递时，“expressCode”字段必填",
+            "sort": 1003
+          },
+          {
+            "id": 25,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp0009",
+            "errorMsg": "发货地址不存在",
+            "errorMsgCn": "发货地址不存在",
+            "errorMsgUs": " Shipping address does not exist.",
+            "errorMsgPt": "O endereço de envio não existe.",
+            "errorMsgEs": "La dirección de envío no existe.",
+            "solution": "入参字段“addressId”发货地址ID 请从发货基本信息接口/open-api/shipping/basic获取",
+            "sort": 1009
+          },
+          {
+            "id": 28,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95005",
+            "errorMsg": "必填项为空：送货方式",
+            "errorMsgCn": "必填项为空：送货方式",
+            "errorMsgUs": "Required field is empty: Delivery method.",
+            "errorMsgPt": "Campo obrigatório está vazio: Método de entrega.",
+            "errorMsgEs": "Campo obligatorio está vacío: Método de entrega.",
+            "solution": "请填写字段“deliveryType”发货方式",
+            "sort": 2005
+          },
+          {
+            "id": 302,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95014",
+            "errorMsg": "发货订单不存在",
+            "errorMsgCn": "发货订单不存在",
+            "errorMsgUs": "The shipping order does not exist.",
+            "errorMsgPt": "O pedido de envio não existe.",
+            "errorMsgEs": "La orden de envío no existe.",
+            "solution": "orderNo不存在，请检查",
+            "sort": 2014
+          },
+          {
+            "id": 35,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95052",
+            "errorMsg": "订单大仓不一致不可同时发货",
+            "errorMsgCn": "订单大仓不一致不可同时发货",
+            "errorMsgUs": " Orders with inconsistent warehouses cannot be shipped together.",
+            "errorMsgPt": "Pedidos com armazéns inconsistentes não podem ser enviados juntos.",
+            "errorMsgEs": "Los pedidos con almacenes inconsistentes no se pueden enviar juntos.",
+            "solution": "请调用接口/open-api/order/purchase-order-infos，查询合并发货采购单的字段“storageId”是否一致，不一致不可同时发货",
+            "sort": 2052
+          },
+          {
+            "id": 32,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95053",
+            "errorMsg": "急采和备货不能一起发货",
+            "errorMsgCn": "急采和备货不能一起发货",
+            "errorMsgUs": " Urgent procurement and stocking cannot be shipped together.",
+            "errorMsgPt": "A compra urgente e o estoque não podem ser enviados juntos.",
+            "errorMsgEs": " La compra urgente y el almacenamiento no pueden ser enviados juntos.",
+            "solution": "请调用接口/open-api/order/purchase-order-infos查询采购单类型是否一致，急采和备货不能一起发货",
+            "sort": 2053
+          },
+          {
+            "id": 33,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95057",
+            "errorMsg": "为安检订单，和非安检订单不能同时发货",
+            "errorMsgCn": "为安检订单，和非安检订单不能同时发货",
+            "errorMsgUs": "For security check orders, they cannot be shipped together with non-security check orders.",
+            "errorMsgPt": " Para pedidos de verificação de segurança, eles não podem ser enviados juntamente com pedidos sem verificação de segurança.",
+            "errorMsgEs": "Para pedidos de control de seguridad, no se pueden enviar junto con pedidos sin control de seguridad.",
+            "solution": "请前往商家后台查看是否有安检标签的采购单",
+            "sort": 2057
+          },
+          {
+            "id": 31,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95070",
+            "errorMsg": "订单在作废审核中，不支持操作发货。",
+            "errorMsgCn": "订单在作废审核中，不支持操作发货。",
+            "errorMsgUs": "The order is in the process of invalidation review and does not support shipping operation.",
+            "errorMsgPt": "O pedido está em processo de revisão de invalidação e não suporta a operação de envio",
+            "errorMsgEs": "El pedido está en proceso de revisión de anulación y no admite la operación de envío.",
+            "solution": "此订单正在作废审核，作废中的订单不支持发货",
+            "sort": 2070
+          },
+          {
+            "id": 36,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95084",
+            "errorMsg": "未维护仓库信息，请维护后重试",
+            "errorMsgCn": "未维护仓库信息，请维护后重试",
+            "errorMsgUs": "Warehouse information is not maintained, please update and try again.",
+            "errorMsgPt": "As informações do armazém não foram mantidas, por favor, atualize e tente novamente.",
+            "errorMsgEs": "La información del almacén no está mantenida, por favor actualice e inténtelo de nuevo.",
+            "solution": "请填写入参字段“supplierWarehouseId”供应商仓库id，可从接口/open-api/shipping/basic获取",
+            "sort": 2084
+          },
+          {
+            "id": 30,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95086",
+            "errorMsg": "请选择大于当前时间的预约取件时间",
+            "errorMsgCn": "请选择大于当前时间的预约取件时间",
+            "errorMsgUs": "Please select a pick-up appointment time greater than the current time.",
+            "errorMsgPt": "Por favor, selecione um horário de marcação para recolha superior ao tempo atual.",
+            "errorMsgEs": "Por favor, seleccione un horario de recogida superior a la hora actual.",
+            "solution": "reserveParcelTime或arrivalTime填入的时区为UTC +8，请输入大于当前时间的值",
+            "sort": 2086
+          },
+          {
+            "id": 34,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95089",
+            "errorMsg": "订单（{0}）的SKC属于成衣品类，订单（{1}）属于非成衣品类，不能一起发货，请分开操作",
+            "errorMsgCn": "订单（{0}）的SKC属于成衣品类，订单（{1}）属于非成衣品类，不能一起发货，请分开操作",
+            "errorMsgUs": "The SKC of order ({0}) belongs to the clothing category, while the SKC of order ({1}) belongs to a non-clothing category. They cannot be shipped together. Please handle separately.",
+            "errorMsgPt": "O SKC do pedido ({0}) pertence à categoria de vestuário, enquanto o SKC do pedido ({1}) pertence a uma categoria não relacionada ao vestuário. Eles não podem ser enviados juntos. Por favor, trate separadamente.",
+            "errorMsgEs": "El SKC del pedido ({0}) pertenece a la categoría de ropa, mientras que el SKC del pedido ({1}) pertenece a una categoría no relacionada con la ropa. No se pueden enviar juntos. Por favor, manejar por separado.",
+            "solution": "请前往商家后台查看是否有成衣和非成衣标签",
+            "sort": 2089
+          },
+          {
+            "id": 37,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95091",
+            "errorMsg": "预估收货仓不一致不能同时发货",
+            "errorMsgCn": "预估收货仓不一致不能同时发货",
+            "errorMsgUs": "Inconsistent estimated receiving warehouses cannot be shipped together.",
+            "errorMsgPt": "Armazéns de recebimento estimados inconsistentes não podem ser enviados juntos.",
+            "errorMsgEs": "Almacenes de recepción estimados inconsistentes no se pueden enviar juntos.",
+            "solution": "请调用接口/open-api/order/purchase-order-infos获取字段“recommendedSubWarehouseId“ 预估收货仓，不一致不能同时发货",
+            "sort": 2091
+          },
+          {
+            "id": 312,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95101",
+            "errorMsg": "急采订单不允许多发",
+            "errorMsgCn": "急采订单不允许多发",
+            "errorMsgUs": "Urgent purchase orders cannot be shipped multiple times.",
+            "errorMsgPt": "Pedidos de compra urgente não podem ser enviados várias vezes.",
+            "errorMsgEs": "Las órdenes de compra urgentes no pueden enviarse múltiples veces.",
+            "solution": "急采订单orderQuantity>=tempDeliveryQuantity",
+            "sort": 2101
+          },
+          {
+            "id": 640,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95101",
+            "errorMsg": "SKU 的发货数量不符合平台规则",
+            "errorMsgCn": "SKU 的发货数量不符合平台规则",
+            "errorMsgUs": "The shipment quantity of the SKU does not comply with platform rules.",
+            "errorMsgPt": "A quantidade de envio do SKU não está em conformidade com as regras da plataforma.",
+            "errorMsgEs": "La cantidad de envío del SKU no cumple con las reglas de la plataforma.",
+            "solution": "请按照msg的提示更新sku数量，重新下单",
+            "sort": 2101
+          },
+          {
+            "id": 786,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95180",
+            "errorMsg": "INPOST揽收的包裹重量不得超出25.00kg，请更换物流商或减少包裹内商品",
+            "errorMsgCn": "INPOST揽收的包裹重量不得超出25.00kg，请更换物流商或减少包裹内商品",
+            "errorMsgUs": "The weight of the parcel collected by INPOST must not exceed 25.00 kg. Please change the logistics provider or reduce the items in the parcel.",
+            "errorMsgPt": "O peso do pacote recolhido pela INPOST não pode exceder 25,00 kg. Por favor, altere a transportadora ou reduza a quantidade de itens no pacote.",
+            "errorMsgEs": "El peso del paquete recogido por INPOST no debe superar los 25,00 kg. Cambie de empresa de mensajería o reduzca los artículos dentro del paquete.",
+            "solution": "请更换物流商或减少包裹内商品",
+            "sort": 2180
+          },
+          {
+            "id": 787,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95181",
+            "errorMsg": "INPOST物流不支持揽收数量＞1的包裹",
+            "errorMsgCn": "INPOST物流不支持揽收数量＞1的包裹",
+            "errorMsgUs": "INPOST logistics does not support pickup for packages with a quantity greater than 1.",
+            "errorMsgPt": "A logística da INPOST não suporta a recolha de encomendas com quantidade superior a 1.",
+            "errorMsgEs": "La logística de INPOST no admite la recogida de paquetes con una cantidad superior a 1.",
+            "solution": "请确认包裹数量准确",
+            "sort": 2181
+          },
+          {
+            "id": 788,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95182",
+            "errorMsg": "选择INPOST物流商承运，需要维护发货地址中联系人的邮箱。请维护完整或更换物流商。",
+            "errorMsgCn": "选择INPOST物流商承运，需要维护发货地址中联系人的邮箱。请维护完整或更换物流商。",
+            "errorMsgUs": "If you choose INPOST as the logistics provider, you need to maintain the email address of the contact person in the shipping address. Please complete the information or choose a different logistics provider.",
+            "errorMsgPt": "Ao escolher o transportador INPOST, é necessário manter o e-mail do contato no endereço de envio. Por favor, mantenha-o completo ou mude de transportador.",
+            "errorMsgEs": "Si seleccionas el transportista INPOST, es necesario mantener el correo electrónico de la persona de contacto en la dirección de envío. Por favor, complétalo correctamente o cambia de transportista.",
+            "solution": "请前往卖家中心维护完整的联系人数据，或者更换物流商。",
+            "sort": 2182
+          },
+          {
+            "id": 789,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95183",
+            "errorMsg": "请填写包裹尺寸",
+            "errorMsgCn": "请填写包裹尺寸",
+            "errorMsgUs": "Please fill in the package dimensions",
+            "errorMsgPt": "Por favor, preencha as dimensões do pacote",
+            "errorMsgEs": "Por favor, rellene las dimensiones del paquete",
+            "solution": "请填写包裹尺寸",
+            "sort": 2183
+          },
+          {
+            "id": 791,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95185",
+            "errorMsg": "INPOST物流的包裹总重量与包裹重量必须一致",
+            "errorMsgCn": "INPOST物流的包裹总重量与包裹重量必须一致",
+            "errorMsgUs": "The total weight of the INPOST shipment must be consistent with the package weight.",
+            "errorMsgPt": "O peso total do pacote na logística INPOST deve ser igual ao peso do pacote",
+            "errorMsgEs": "El peso total del paquete de logística de INPOST debe coincidir con el peso del paquete",
+            "solution": "请检查包裹重量数据",
+            "sort": 2185
+          },
+          {
+            "id": 790,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95186",
+            "errorMsg": "包裹重量不能为空",
+            "errorMsgCn": "包裹重量不能为空",
+            "errorMsgUs": "Package weight cannot be empty",
+            "errorMsgPt": "O peso do pacote não pode estar vazio",
+            "errorMsgEs": "El peso del paquete no puede estar vacío",
+            "solution": "包裹重量不能为空",
+            "sort": 2186
+          },
+          {
+            "id": 311,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp99400",
+            "errorMsg": "订单不存在，请检查",
+            "errorMsgCn": "订单不存在，请检查",
+            "errorMsgUs": "The order does not exist. Please check.",
+            "errorMsgPt": "O pedido não existe. Por favor, verifique.",
+            "errorMsgEs": "El pedido no existe. Por favor, verifique.",
+            "solution": "orderNo不存在，请检查",
+            "sort": 2400
+          },
+          {
+            "id": 29,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "pfmp95054",
+            "errorMsg": "已上架、已送货、已收货、已完成或已作废订单状态不可发货",
+            "errorMsgCn": "已上架、已送货、已收货、已完成或已作废订单状态不可发货",
+            "errorMsgUs": "Orders with the status of listed, delivered, received, completed, or canceled cannot be shipped.",
+            "errorMsgPt": "Pedidos com os status de listado, entregue, recebido, concluído ou cancelado não podem ser enviados.",
+            "errorMsgEs": "Los pedidos con estado de listado, entregado, recibido, completado o cancelado no pueden ser enviados.",
+            "solution": "请确保订单状态为已下单(2)或已退货(7)再调用此接口，只有待发货和已退货状态可以发货，请查询接口/open-api/order/purchase-order-infos获取采购单的状态",
+            "sort": 2504
+          },
+          {
+            "id": 309,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "0032001",
+            "errorMsg": "包裹重量不能超过99999.99",
+            "errorMsgCn": "包裹重量不能超过99999.99",
+            "errorMsgUs": "The parcel weight cannot exceed 99999.99.",
+            "errorMsgPt": "O peso do pacote não pode exceder 99999.99.",
+            "errorMsgEs": "El peso del paquete no puede superar los 99999.99.",
+            "solution": "包裹重量不能超过99999.99",
+            "sort": 3201
+          },
+          {
+            "id": 606,
+            "openPath": "/open-api/shipping/orderToShipping",
+            "errorCode": "001403",
+            "errorMsg": "订单明细数据有误，请确认后发货",
+            "errorMsgCn": "订单明细数据有误，请确认后发货",
+            "errorMsgUs": "The order details are incorrect. Please confirm before shipping.",
+            "errorMsgPt": "Os dados do pedido estão incorretos. Por favor, confirme antes do envio.",
+            "errorMsgEs": "I dati dell'ordine sono errati. Si prega di confermare prima della spedizione.",
+            "solution": "请检查请求参数“list”中的数据是否正确、完整。根据系统校验规则，备货单中的所有SKU（无论待发货数量是否为0）都必须作为入参提供。",
+            "sort": 3403
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "agedProductCode": "<REDACTED_SAMPLE>",
+                "adminName": "<REDACTED_SAMPLE>",
+                "coding": "<REDACTED_SAMPLE>",
+                "deliveryType": 0,
+                "expressId": "<REDACTED_SAMPLE>",
+                "expressInfo": [
+                  {
+                    "addrId": 0,
+                    "expressCode": "<REDACTED_SAMPLE>",
+                    "packageNumber": 0,
+                    "reserveParcelTime": "<REDACTED_SAMPLE>"
+                  }
+                ],
+                "list": [
+                  {
+                    "orderNo": "<REDACTED_SAMPLE>",
+                    "orderQuantity": "<REDACTED_SAMPLE>",
+                    "packageNum": 0,
+                    "skuCode": "<REDACTED_SAMPLE>",
+                    "tempDeliveryQuantity": 0,
+                    "type": 0
+                  },
+                  {
+                    "orderNo": "<REDACTED_SAMPLE>",
+                    "orderQuantity": "<REDACTED_SAMPLE>",
+                    "packageNum": 0,
+                    "skuCode": "<REDACTED_SAMPLE>",
+                    "tempDeliveryQuantity": 0,
+                    "type": 0
+                  }
+                ],
+                "orderType": 0,
+                "subWarehouseId": 0,
+                "supplierWarehouseId": 0
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": null,
+                "bbl": null
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "x-lt-language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "指定出参语种，默认中文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "adminName": {
+                  "type": "string",
+                  "description": "用户名称（ERP系统可自行定义，用于系统记录此次发货的操作人，页面不展示）"
+                },
+                "agedProductCode": {
+                  "type": "string",
+                  "description": "物流时效产品编码，从 查询SHEIN合作物流产品 接口获取"
+                },
+                "list": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "skuCode": {
+                        "type": "string",
+                        "description": "sku编码，需要入参采购单中所有的SKU"
+                      },
+                      "orderNo": {
+                        "type": "string",
+                        "description": "订单编号"
+                      },
+                      "orderQuantity": {
+                        "type": "integer",
+                        "description": "下单数量"
+                      },
+                      "packageNum": {
+                        "type": "integer",
+                        "description": "包裹数（箱唛发货时必填，同一订单传相同包裹数）"
+                      },
+                      "tempDeliveryQuantity": {
+                        "type": "integer",
+                        "description": "实际发货数量：如果待发货数量大于500，单次发货需要大于150"
+                      },
+                      "packingInfoList": {
+                        "type": "object",
+                        "description": "装箱明细，当 发货基本信息查询接口 的shippingRoute为1或者2时需要传入装箱明细，shippingRoute=0时不需要填写装箱明细",
+                        "properties": {
+                          "packQuantity": {
+                            "type": "integer",
+                            "description": "装箱数量"
+                          },
+                          "skuCode": {
+                            "type": "string",
+                            "description": "装箱的sku编码"
+                          }
+                        },
+                        "required": [
+                          "packQuantity",
+                          "skuCode"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "skuCode",
+                      "orderNo",
+                      "tempDeliveryQuantity"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "orderType": {
+                  "type": "integer",
+                  "description": "订单类型，1：急采，2：备货"
+                },
+                "deliveryType": {
+                  "type": "integer",
+                  "description": "发货方式，商家可用的发货方式枚举值请从 发货基本信息查询获取； 全托管发货方式枚举值可以查看 备货单履约管理"
+                },
+                "arrivalTime": {
+                  "type": "string",
+                  "x-shein-original-type": "datetime",
+                  "description": "预约SHEIN到仓时间（yyyy-MM-dd HH:mm:ss），当deliveryType=4或21时必填"
+                },
+                "shippingRoute": {
+                  "type": "integer",
+                  "description": "发货路径，0：直送路径，无需装箱明细。1：直送路径，需要装箱明细。2：集货路径"
+                },
+                "expressId": {
+                  "type": "string",
+                  "description": "快递编码，当deliveryType=1时必填，SHEIN集成物流场景从 查询SHEIN合作物流产品 接口的companyCode字段获取"
+                },
+                "coding": {
+                  "type": "string",
+                  "description": "车队编码，当deliveryType=2且使用车队发货的场景必填，从 发货基本信息查询接口 的motorcadeId查询"
+                },
+                "expressInfo": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "运单包裹信息",
+                    "properties": {
+                      "addrId": {
+                        "type": "integer",
+                        "format": "int64",
+                        "x-shein-original-type": "int64",
+                        "description": "发货地址id，从 发货基本信息查询 接口中获取"
+                      },
+                      "expressCode": {
+                        "type": "string",
+                        "description": "快递单号，适用非SHEIN集成物流场景"
+                      },
+                      "packageNumber": {
+                        "type": "integer",
+                        "description": "总包裹数量（箱唛类型时=所有订单包裹的总计）"
+                      },
+                      "packageWeight": {
+                        "type": "number",
+                        "description": "包裹重量（单位:kg）"
+                      },
+                      "reserveParcelTime": {
+                        "type": "string",
+                        "x-shein-original-type": "datetime",
+                        "description": "预约取件时间（yyyy-MM-dd HH:mm:ss），当deliveryType=1和2时必填"
+                      }
+                    },
+                    "required": [
+                      "addrId",
+                      "packageNumber"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "deliveryPackages": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "包裹信息列表，包裹列表的长度必须与包裹数量相同，只在欧洲地区使用 INPOST物流商发货时需要传入，其它的场景不需要传入包裹信息。",
+                    "properties": {
+                      "index": {
+                        "type": "integer",
+                        "description": "包裹序号，从0开始"
+                      },
+                      "packageHeight": {
+                        "type": "number",
+                        "description": "包裹高(cm)"
+                      },
+                      "packageLength": {
+                        "type": "number",
+                        "description": "包裹长(cm)"
+                      },
+                      "packageWeight": {
+                        "type": "number",
+                        "description": "包裹重量(kg)"
+                      },
+                      "packageWidth": {
+                        "type": "number",
+                        "description": "包裹宽(cm)"
+                      }
+                    },
+                    "required": [
+                      "index"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "supplierWarehouseId": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-shein-original-type": "int64",
+                  "description": "商家仓库id"
+                },
+                "subWarehouseId": {
+                  "type": "integer",
+                  "description": "供应商子仓ID"
+                },
+                "thirdPartyChannel": {
+                  "type": "integer",
+                  "format": "int64",
+                  "x-shein-original-type": "int64",
+                  "description": "货代渠道，当 deliveryType = 2时，且需要使用货代发货的场景下必填，从 查询货代信息 查询"
+                },
+                "thirdPartyChannelName": {
+                  "type": "string",
+                  "description": "货代渠道名称，当 deliveryType = 2时，且需要使用货代发货的场景下必填，从 查询货代信息 查询"
+                },
+                "thirdPartyOrderMethod": {
+                  "type": "integer",
+                  "description": "货代下单方式，1：SHEIN代下单，2：商家自行下单。当 deliveryType = 2时，且需要使用货代发货的场景下必填"
+                }
+              },
+              "required": [
+                "adminName",
+                "orderType",
+                "deliveryType",
+                "expressInfo",
+                "supplierWarehouseId"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3001979,
+            "updateTime": "2026-08-21",
+            "changeContent": "更新参数说明，帮助开发者更好的对接接口",
+            "version": 34
+          },
+          {
+            "id": 3001974,
+            "updateTime": "2026-08-19",
+            "changeContent": "更新发货参数说明",
+            "version": 32
+          },
+          {
+            "id": 3001955,
+            "updateTime": "2026-08-07",
+            "changeContent": "新增返回值：reserveParcelTime（预约取件开始时间），reserveParcelTimeEnd（预约取件结束时间）",
+            "version": 28
+          },
+          {
+            "id": 3001678,
+            "updateTime": "2026-04-21",
+            "changeContent": "更新deliveryPackages参数",
+            "version": 26
+          },
+          {
+            "id": 3001638,
+            "updateTime": "2026-03-30",
+            "changeContent": "增加装箱明细参数（packingInfoList）",
+            "version": 22
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

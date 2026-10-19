@@ -1,0 +1,157 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "商品额度变动通知",
+    "version": "source-revision-1",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/product_quota_change_notice": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "operationId": "productQuotaChangeNotification",
+        "summary": "商品额度变动通知",
+        "description": "该接口针对店铺发品额度为0和非0之间转换触发消息，额度为0时，不允许发品，额度不为0，可以发品。",
+        "responses": {
+          "200": {
+            "description": "Webhook acknowledgment; see integration guide"
+          }
+        },
+        "x-shein-direction": "inbound-webhook-notification",
+        "x-shein-official-id": 3001061,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/msgdoc/detail/3001061-2000003",
+        "x-shein-category-id": 2000003,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 1,
+        "x-shein-updated-at": "2025-04-21 16:47:40",
+        "x-shein-qps": null,
+        "x-shein-change-content": "新的通知",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": null,
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "long",
+                  "description": "<p>供应商id</p>",
+                  "name": "supplierId",
+                  "label": "供应商id",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>原因</p>",
+                  "name": "reason",
+                  "label": "原因",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "long",
+                  "description": "<p>可用额度</p>",
+                  "name": "availableLimit",
+                  "label": "可用额度",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "long",
+                  "description": "<p>时间戳</p>",
+                  "name": "sendTimeStamp",
+                  "label": "时间戳",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": null
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "data": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": null
+          }
+        ],
+        "x-shein-decrypted-event-payload-schema": {
+          "type": "object",
+          "properties": {
+            "supplierId": {
+              "type": "integer",
+              "format": "int64",
+              "x-shein-original-type": "long",
+              "description": "供应商id",
+              "x-shein-label": "供应商id"
+            },
+            "reason": {
+              "type": "string",
+              "description": "原因",
+              "x-shein-label": "原因"
+            },
+            "availableLimit": {
+              "type": "integer",
+              "format": "int64",
+              "x-shein-original-type": "long",
+              "description": "可用额度",
+              "x-shein-label": "可用额度"
+            },
+            "sendTimeStamp": {
+              "type": "integer",
+              "format": "int64",
+              "x-shein-original-type": "long",
+              "description": "时间戳",
+              "x-shein-label": "时间戳"
+            }
+          },
+          "required": [
+            "supplierId",
+            "reason",
+            "availableLimit",
+            "sendTimeStamp"
+          ]
+        },
+        "x-shein-transport-note": "The event payload schema is decrypted content. The actual callback carries encrypted eventData in form-data; callback URL is developer-defined.",
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "webhook",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

@@ -1,0 +1,1058 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询发货单列表",
+    "version": "source-revision-17",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/shipping/delivery": {
+      "get": {
+        "tags": [
+          "采购单"
+        ],
+        "operationId": "queryShippingOrderList",
+        "summary": "查询发货单列表",
+        "description": "查询发货单列表",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "format": "int64",
+                      "x-shein-original-type": "int64",
+                      "description": "总记录数"
+                    },
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "分页数组",
+                        "properties": {
+                          "addTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "发货时间，发货日期"
+                          },
+                          "deliveryCode": {
+                            "type": "string",
+                            "description": "发货单号"
+                          },
+                          "deliveryOrderDataList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "deliveryQuantity": {
+                                  "type": "integer",
+                                  "description": "尺码维度发货数量"
+                                },
+                                "orderNo": {
+                                  "type": "string",
+                                  "description": "订单号"
+                                },
+                                "skc": {
+                                  "type": "string",
+                                  "description": "skc"
+                                },
+                                "skuCode": {
+                                  "type": "string",
+                                  "description": "sku编码-暂未使用"
+                                }
+                              },
+                              "required": [
+                                "skc"
+                              ]
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "deliveryType": {
+                            "type": "integer",
+                            "description": "发货方式的值"
+                          },
+                          "deliveryTypeName": {
+                            "type": "string",
+                            "description": "发货方式名称"
+                          },
+                          "shippingType": {
+                            "type": "string",
+                            "description": "发货类型：1大货发货 2复议发货 3增值发货"
+                          },
+                          "shippingTypeName": {
+                            "type": "string",
+                            "description": "发货类型名称"
+                          },
+                          "expressCode": {
+                            "type": "string",
+                            "description": "物流单号，SHEIN合作物流在有运单号的情况下会返回，货代方式大部分会返回，少数情况下货代公司没有返回运费单，车队发货目前没有运单号，自提自送和查货没有返回运单号"
+                          },
+                          "expressCompanyName": {
+                            "type": "string",
+                            "description": "快递公司名称"
+                          },
+                          "expressId": {
+                            "type": "string",
+                            "description": "快递公司"
+                          },
+                          "logisticsLabelPrintFlag": {
+                            "type": "integer",
+                            "description": "是否需要打印物流商面单：1=支持（如INPOST），2=不支持（如普通快递）"
+                          },
+                          "packageWeight": {
+                            "type": "number",
+                            "description": "包裹重量"
+                          },
+                          "preReceiptTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "预计到货时间"
+                          },
+                          "receiptTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "实际到货时间"
+                          },
+                          "reserveParcelTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "预约取件时间"
+                          },
+                          "sendPackage": {
+                            "type": "integer",
+                            "description": "包裹总数"
+                          },
+                          "supplierWarehouseId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "仓库id"
+                          },
+                          "supplierWarehouseName": {
+                            "type": "string",
+                            "description": "仓库名称"
+                          },
+                          "takeParcelTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "实际取件时间"
+                          },
+                          "consolidationInfo": {
+                            "type": "object",
+                            "description": "集货物流信息",
+                            "properties": {
+                              "address": {
+                                "type": "string",
+                                "description": "集货仓收货地址"
+                              },
+                              "carrierName": {
+                                "type": "string",
+                                "description": "集货物流，承运方名称（物流公司名称）"
+                              },
+                              "deliveryType": {
+                                "type": "integer",
+                                "description": "发货方式的值"
+                              },
+                              "deliveryTypeName": {
+                                "type": "string",
+                                "description": "送货方式名称"
+                              },
+                              "expressCode": {
+                                "type": "string",
+                                "description": "集货物流，运单号"
+                              },
+                              "expressId": {
+                                "type": "string",
+                                "description": "集货物流，物流公司code"
+                              },
+                              "person": {
+                                "type": "string",
+                                "description": "集货仓收货人"
+                              },
+                              "phone": {
+                                "type": "string",
+                                "description": "集货仓联系电话"
+                              },
+                              "reserveParcelTime": {
+                                "type": "string",
+                                "x-shein-original-type": "datetime",
+                                "description": "集货物流，预约取件时间"
+                              },
+                              "thirdPartyChannel": {
+                                "type": "integer",
+                                "format": "int64",
+                                "x-shein-original-type": "int64",
+                                "description": "集货物流的渠道，如果有返回值的情况，表示SHEIN代下单的渠道。如果返回0，则表示商家自行下单"
+                              },
+                              "thirdPartyChannelName": {
+                                "type": "integer",
+                                "description": "集货物流，渠道名"
+                              },
+                              "thirdPartyOrderMethod": {
+                                "type": "integer",
+                                "description": "货代下单方式，1：SHEIN代下单，2：商家自行下单"
+                              },
+                              "warehouseId": {
+                                "type": "integer",
+                                "format": "int64",
+                                "x-shein-original-type": "int64",
+                                "description": "集货仓ID"
+                              },
+                              "warehouseName": {
+                                "type": "string",
+                                "description": "集货仓名"
+                              }
+                            }
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK；支持指定语种出参；"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002045,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002045-1000002",
+        "x-shein-category-id": 1000002,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 17,
+        "x-shein-updated-at": "2026-09-24 14:26:06",
+        "x-shein-qps": "100",
+        "x-shein-change-content": "新增shippingTypeName",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object",
+              "multiple": 0
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>发货单号</p>",
+                  "name": "deliveryCode",
+                  "label": "发货单号",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "根据发货单创建时间查询；日期格式 yyyy-MM-dd HH:mm:ss",
+                  "name": "startTime",
+                  "label": "发货单创建时间开始",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "根据发货单创建时间查询；日期格式 yyyy-MM-dd HH:mm:ss",
+                  "name": "endTime",
+                  "label": "发货单创建时间结束",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "<p>页码</p>",
+                  "name": "page",
+                  "label": "页数",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "<p>每页数量，最大200</p>",
+                  "name": "perPage",
+                  "label": "每页大小",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "指定出参语种，默认中文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR",
+                  "name": "x-lt-language"
+                }
+              }
+            ]
+          },
+          "requestBody": null,
+          "responseHeader": {
+            "props": {
+              "type": "object",
+              "multiple": 0
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "int64",
+                      "multiple": 0,
+                      "description": "总记录数",
+                      "name": "count",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "分页数组",
+                      "name": "list",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "发货时间，发货日期",
+                          "name": "addTime",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "发货单号",
+                          "name": "deliveryCode",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "name": "deliveryOrderDataList",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "尺码维度发货数量",
+                              "name": "deliveryQuantity",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "订单号",
+                              "name": "orderNo",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "skc",
+                              "name": "skc",
+                              "required": true
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "sku编码-暂未使用",
+                              "name": "skuCode",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>发货方式的值</p>",
+                          "name": "deliveryType",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>发货方式名称</p>",
+                          "name": "deliveryTypeName",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "发货类型：1大货发货 2复议发货 3增值发货",
+                          "name": "shippingType"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "发货类型名称",
+                          "name": "shippingTypeName"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>物流单号，SHEIN合作物流在有运单号的情况下会返回，货代方式大部分会返回，少数情况下货代公司没有返回运费单，车队发货目前没有运单号，自提自送和查货没有返回运单号</p>",
+                          "name": "expressCode",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>快递公司名称</p>",
+                          "name": "expressCompanyName",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "快递公司",
+                          "name": "expressId",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "是否需要打印物流商面单：1=支持（如INPOST），2=不支持（如普通快递）",
+                          "name": "logisticsLabelPrintFlag"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "double",
+                          "multiple": 0,
+                          "description": "包裹重量",
+                          "name": "packageWeight",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "预计到货时间",
+                          "name": "preReceiptTime",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "实际到货时间",
+                          "name": "receiptTime",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "预约取件时间",
+                          "name": "reserveParcelTime",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "包裹总数",
+                          "name": "sendPackage",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "仓库id",
+                          "name": "supplierWarehouseId",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "仓库名称",
+                          "name": "supplierWarehouseName",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "<p>实际取件时间</p>",
+                          "name": "takeParcelTime",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "集货物流信息",
+                          "name": "consolidationInfo"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "集货仓收货地址",
+                              "name": "address"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "集货物流，承运方名称（物流公司名称）",
+                              "name": "carrierName"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>发货方式的值</p>",
+                              "name": "deliveryType"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>送货方式名称</p>",
+                              "name": "deliveryTypeName"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "集货物流，运单号",
+                              "name": "expressCode"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "集货物流，物流公司code",
+                              "name": "expressId"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "集货仓收货人",
+                              "name": "person"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "集货仓联系电话",
+                              "name": "phone"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "datetime",
+                              "multiple": 0,
+                              "description": "集货物流，预约取件时间",
+                              "name": "reserveParcelTime"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "<p>集货物流的渠道，如果有返回值的情况，表示SHEIN代下单的渠道。如果返回0，则表示商家自行下单</p>",
+                              "name": "thirdPartyChannel"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "集货物流，渠道名\t",
+                              "name": "thirdPartyChannelName"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "<p>货代下单方式，1：SHEIN代下单，2：商家自行下单\t</p>",
+                              "name": "thirdPartyOrderMethod"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "<p>集货仓ID</p>",
+                              "name": "warehouseId"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "<p>集货仓名</p>",
+                              "name": "warehouseName"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误描述,成功：OK；支持指定语种出参；</p>",
+                  "name": "msg",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 71,
+            "openPath": "/open-api/shipping/delivery",
+            "errorCode": "pfmp90201",
+            "errorMsg": "发货开始时间/发货结束时间必须同时传入",
+            "errorMsgCn": "发货开始时间/发货结束时间必须同时传入",
+            "errorMsgUs": "",
+            "errorMsgPt": "",
+            "errorMsgEs": "",
+            "solution": "发货开始时间/发货结束时间必须同时传入",
+            "sort": 0
+          },
+          {
+            "id": 72,
+            "openPath": "/open-api/shipping/delivery",
+            "errorCode": "pfmp99400",
+            "errorMsg": "入参类型错误",
+            "errorMsgCn": "Failed to convert property value of type 'java.lang.String' to required type 'java.time.LocalDateTime' for property 'endTime'; nested exception is org.springframework.core.convert.ConversionFailedException: Failed to convert from type [java.lang.String] to type [@io.swagger.annotations.ApiModelProperty @cn.dotfashion.soa.gspsupport.web.zone.annotation.ZoneConvert java.time.LocalDateTime] for value 'null'; nested exception is java.lang.IllegalArgumentException: Parse attempt failed for value [null];Failed to convert property value of type 'java.lang.String' to required type 'java.time.LocalDateTime' for property 'startTime'; nested exception is org.springframework.core.convert.ConversionFailedException: Failed to convert from type [java.lang.String] to type [@io.swagger.annotations.ApiModelProperty @cn.dotfashion.soa.gspsupport.web.zone.annotation.ZoneConvert java.time.LocalDateTime] for value 'null'; nested exception is java.lang.IllegalArgumentException: Parse attempt failed for value",
+            "errorMsgUs": "",
+            "errorMsgPt": "",
+            "errorMsgEs": "",
+            "solution": "检查字段的入参类型",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "present-unparsed"
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "count": 0,
+                  "list": [
+                    {
+                      "deliveryCode": "<REDACTED_SAMPLE>",
+                      "deliveryType": 0,
+                      "deliveryTypeName": "<REDACTED_SAMPLE>",
+                      "expressId": "<REDACTED_SAMPLE>",
+                      "expressCompanyName": "<REDACTED_SAMPLE>",
+                      "expressCode": "<REDACTED_SAMPLE>",
+                      "sendPackage": 0,
+                      "packageWeight": 0,
+                      "takeParcelTime": null,
+                      "reserveParcelTime": "<REDACTED_SAMPLE>",
+                      "addTime": "<REDACTED_SAMPLE>",
+                      "preReceiptTime": "<REDACTED_SAMPLE>",
+                      "receiptTime": "<REDACTED_SAMPLE>",
+                      "supplierWarehouseId": 0,
+                      "supplierWarehouseName": "<REDACTED_SAMPLE>",
+                      "deliveryOrderDataList": [
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        },
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        }
+                      ]
+                    },
+                    {
+                      "deliveryCode": "<REDACTED_SAMPLE>",
+                      "deliveryType": 0,
+                      "deliveryTypeName": "<REDACTED_SAMPLE>",
+                      "expressId": "<REDACTED_SAMPLE>",
+                      "expressCompanyName": "<REDACTED_SAMPLE>",
+                      "expressCode": "<REDACTED_SAMPLE>",
+                      "sendPackage": 0,
+                      "packageWeight": 0,
+                      "takeParcelTime": null,
+                      "reserveParcelTime": null,
+                      "addTime": "<REDACTED_SAMPLE>",
+                      "preReceiptTime": "<REDACTED_SAMPLE>",
+                      "receiptTime": "<REDACTED_SAMPLE>",
+                      "supplierWarehouseId": 0,
+                      "supplierWarehouseName": "<REDACTED_SAMPLE>",
+                      "deliveryOrderDataList": [
+                        {
+                          "skc": "<REDACTED_SAMPLE>",
+                          "skuCode": "<REDACTED_SAMPLE>",
+                          "orderNo": "<REDACTED_SAMPLE>",
+                          "deliveryQuantity": 0
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "bbl": null
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "deliveryCode",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "发货单号",
+            "x-shein-label": "发货单号"
+          },
+          {
+            "name": "startTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "根据发货单创建时间查询；日期格式 yyyy-MM-dd HH:mm:ss",
+            "x-shein-label": "发货单创建时间开始"
+          },
+          {
+            "name": "endTime",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": "根据发货单创建时间查询；日期格式 yyyy-MM-dd HH:mm:ss",
+            "x-shein-label": "发货单创建时间结束"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "页码",
+            "x-shein-label": "页数"
+          },
+          {
+            "name": "perPage",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "description": "每页数量，最大200",
+            "x-shein-label": "每页大小"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "x-lt-language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "指定出参语种，默认中文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3001984,
+            "updateTime": "2026-08-21",
+            "changeContent": "更新参数说明",
+            "version": 15
+          },
+          {
+            "id": 3001645,
+            "updateTime": "2026-03-30",
+            "changeContent": "新增装箱明细相关参数",
+            "version": 12
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

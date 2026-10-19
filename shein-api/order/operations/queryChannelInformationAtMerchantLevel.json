@@ -1,0 +1,735 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "商家维度查渠道信息",
+    "version": "source-revision-20",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/order/express-channel": {
+      "post": {
+        "tags": [
+          "客单"
+        ],
+        "operationId": "queryChannelInformationAtMerchantLevel",
+        "summary": "商家维度查渠道信息",
+        "description": "该API支持自主运营，半托管卖家查询自履约场景下可用的物流信息； 对接前请查看解决方案： ERP订单履约方案； 注意：接口返回的是商家维度的可用物流渠道，并不是SHEIN平台所有可用的物流渠道；",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "success： 0",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误信息",
+                  "x-shein-example-redacted": true
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "warehouseAddressCode": {
+                      "type": "string",
+                      "description": "仓库地址编码",
+                      "x-shein-example-redacted": true
+                    },
+                    "expressChannels": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "可用自发货渠道商列表；商家自发货场景使用",
+                        "properties": {
+                          "site": {
+                            "type": "string",
+                            "description": "可用站点",
+                            "x-shein-example-redacted": true
+                          },
+                          "expressIdCode": {
+                            "type": "string",
+                            "description": "渠道商名称 例如:UPS、Amazon Logistic等",
+                            "x-shein-example-redacted": true
+                          },
+                          "expressChannelCode": {
+                            "type": "string",
+                            "description": "渠道商产品编码",
+                            "x-shein-example-redacted": true
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "platformLogisticsChannels": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "平台合作物流列表（在线下单场景使用）。 注意：此处返回非商家全部可用物流，订单具体可用的平台合作物流请通过 /open-api/gsp/order-mapping-channels 获取。",
+                        "properties": {
+                          "expressId": {
+                            "type": "integer",
+                            "description": "物流商id",
+                            "x-shein-example-redacted": true
+                          },
+                          "expressIdCode": {
+                            "type": "string",
+                            "description": "渠道商名称；",
+                            "x-shein-example-redacted": true
+                          },
+                          "site": {
+                            "type": "string",
+                            "description": "物流可配送国家/地区；平台将结合卖家发货仓的地理位置及合作物流的可配送国家/地区范围判定每个发货仓的可选物流服务",
+                            "x-shein-example-redacted": true
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  },
+                  "required": [
+                    "expressChannels",
+                    "platformLogisticsChannels"
+                  ]
+                }
+              },
+              "required": [
+                "info"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "application/json"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001916,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001916-2000001",
+        "x-shein-category-id": 2000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 20,
+        "x-shein-updated-at": "2026-07-03 21:21:30",
+        "x-shein-qps": "50",
+        "x-shein-change-content": "优化描述",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>仓库地址编码；不填的情况下只返回商家自发货渠道；输入的情况下<span style=\"color: rgb(225, 60, 57);\">可以准确匹配该地址和销售站点下可用的自发货和shein合作物流的物流的渠道</span>；值从接口<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001321\" target=\"_blank\">查询仓库地址</a>接口获取</p>",
+                  "name": "warehouseAddressCode"
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*\t",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "success： 0",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>错误信息</p>",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "仓库地址编码",
+                      "name": "warehouseAddressCode"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>可用自发货渠道商列表；商家自发货场景使用</p>",
+                      "name": "expressChannels",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>可用站点</p>",
+                          "name": "site"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>渠道商名称 例如:UPS、Amazon Logistic等</p>",
+                          "name": "expressIdCode"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>渠道商产品编码</p>",
+                          "name": "expressChannelCode"
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>平台合作物流列表（在线下单场景使用）。<span style=\"color: rgb(225, 60, 57);\">注意：此处返回非商家全部可用物流，订单具体可用的平台合作物流请通过 /open-api/gsp/order-mapping-channels 获取。</span></p>",
+                      "name": "platformLogisticsChannels",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "物流商id",
+                          "name": "expressId"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "渠道商名称；",
+                          "name": "expressIdCode"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p><span style=\"color: rgb(20, 23, 55); font-size: 14px;\">物流可配送国家/地区；平台将结合卖家发货仓的地理位置及合作物流的可配送国家/地区范围判定每个发货仓的可选物流服务</span></p>",
+                          "name": "site"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 558,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110000",
+            "errorMsg": "地址编码不合法,请传订单销售站点绑定的地址编码",
+            "errorMsgCn": "地址编码不合法,请传订单销售站点绑定的地址编码",
+            "errorMsgUs": "Invalid address code, please provide the address code bound to the order sales site",
+            "errorMsgPt": "Código de endereço inválido, por favor, forneça o código de endereço vinculado ao ponto de venda da ordem",
+            "errorMsgEs": "Código de dirección no válido, por favor proporcione el código de dirección asociado al sitio de venta de la orden",
+            "solution": "请检查仓库地址ID",
+            "sort": 0
+          },
+          {
+            "id": 560,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110002",
+            "errorMsg": "下单渠道不可用",
+            "errorMsgCn": "下单渠道不可用",
+            "errorMsgUs": "Order channel is unavailable",
+            "errorMsgPt": "Canal de pedido indisponível",
+            "errorMsgEs": "Canal de pedido no disponible",
+            "solution": "当前没有可用物流渠道",
+            "sort": 0
+          },
+          {
+            "id": 561,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110003",
+            "errorMsg": "包裹重量超出指定下单渠道限制",
+            "errorMsgCn": "包裹重量超出指定下单渠道限制",
+            "errorMsgUs": "Package weight exceeds the order channel's specified limit",
+            "errorMsgPt": "Peso do pacote excede o limite permitido pelo canal de pedido",
+            "errorMsgEs": "El peso del paquete excede el límite permitido para el canal de pedido",
+            "solution": "请检查重量",
+            "sort": 0
+          },
+          {
+            "id": 562,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110004",
+            "errorMsg": "包裹尺寸超出指定下单渠道限制",
+            "errorMsgCn": "包裹尺寸超出指定下单渠道限制",
+            "errorMsgUs": "Package size exceeds the order channel's specified limit",
+            "errorMsgPt": "Tamanho do pacote excede o limite permitido pelo canal de pedido",
+            "errorMsgEs": "El tamaño del paquete excede el límite permitido para el canal de pedido",
+            "solution": "请检查尺寸",
+            "sort": 0
+          },
+          {
+            "id": 563,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110005",
+            "errorMsg": "指定下单渠道无法揽收当前发货仓地址",
+            "errorMsgCn": "指定下单渠道无法揽收当前发货仓地址",
+            "errorMsgUs": "The designated order channel cannot collect from the current shipping warehouse address",
+            "errorMsgPt": "Canal de pedido especificado não pode coletar no endereço de expedição atual",
+            "errorMsgEs": "Canal de pedido especificado no puede recoger la dirección de envío actual",
+            "solution": "当前没有可用物流渠道",
+            "sort": 0
+          },
+          {
+            "id": 564,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110006",
+            "errorMsg": "指定下单渠道无法配送用户收件地址",
+            "errorMsgCn": "指定下单渠道无法配送用户收件地址",
+            "errorMsgUs": "The designated order channel cannot deliver to the user's recipient address",
+            "errorMsgPt": "Canal de pedido especificado não pode entregar no endereço de destino do cliente",
+            "errorMsgEs": "Canal de pedido especificado no puede entregar a la dirección de recepción del usuario",
+            "solution": "当前没有可用物流渠道",
+            "sort": 0
+          },
+          {
+            "id": 565,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110007",
+            "errorMsg": "下单渠道超限量",
+            "errorMsgCn": "下单渠道超限量",
+            "errorMsgUs": "Order channel exceeds limit",
+            "errorMsgPt": "Canal de pedido excedeu o limite de quantidade",
+            "errorMsgEs": "Canal de pedido excede el límite permitido",
+            "solution": "当前没有可用物流渠道",
+            "sort": 0
+          },
+          {
+            "id": 566,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110008",
+            "errorMsg": "物流渠道计费异常",
+            "errorMsgCn": "物流渠道计费异常",
+            "errorMsgUs": "Logistics channel charging anomaly",
+            "errorMsgPt": "Canal de logística com problema na cobrança de taxas",
+            "errorMsgEs": "Anomalía en el cálculo de tarifas del canal de logística",
+            "solution": "当前没有可用物流渠道",
+            "sort": 0
+          },
+          {
+            "id": 567,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110009",
+            "errorMsg": "物流商异常",
+            "errorMsgCn": "物流商异常",
+            "errorMsgUs": "Logistics provider anomaly",
+            "errorMsgPt": "Logística anormal",
+            "errorMsgEs": "Logística anómala",
+            "solution": "当前没有可用物流渠道",
+            "sort": 0
+          },
+          {
+            "id": 568,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110010",
+            "errorMsg": "下单物流服务异常",
+            "errorMsgCn": "下单物流服务异常",
+            "errorMsgUs": "Order logistics service anomaly",
+            "errorMsgPt": "Serviço de logística de pedido anormal",
+            "errorMsgEs": "Servicio de logística de pedido anómalo",
+            "solution": "当前没有可用物流渠道",
+            "sort": 0
+          },
+          {
+            "id": 569,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110030",
+            "errorMsg": "包裹单位有误",
+            "errorMsgCn": "包裹单位有误",
+            "errorMsgUs": "Package unit error",
+            "errorMsgPt": "Unidade de pacote incorreta",
+            "errorMsgEs": "Unidad de paquete incorrecta",
+            "solution": "请检查unit",
+            "sort": 0
+          },
+          {
+            "id": 570,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110039",
+            "errorMsg": "订单不满足商家自主下单条件，不允许查询可用发货渠道",
+            "errorMsgCn": "订单不满足商家自主下单条件，不允许查询可用发货渠道",
+            "errorMsgUs": "Order does not meet the merchant's self-ordering conditions, no query of available shipping channels is allowed",
+            "errorMsgPt": "Pedido não atende aos critérios de pedido autônomo do vendedor, não é permitido consultar os canais de envio disponíveis",
+            "errorMsgEs": "El pedido no cumple con las condiciones de pedido autónomo del vendedor, no se permite consultar los canales de envío disponibles",
+            "solution": "不允许查询",
+            "sort": 0
+          },
+          {
+            "id": 571,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110040",
+            "errorMsg": "订单已操作切换导出地址发货，不再允许更换发货方式，不再允许查询可用发货渠道",
+            "errorMsgCn": "订单已操作切换导出地址发货，不再允许更换发货方式，不再允许查询可用发货渠道",
+            "errorMsgUs": "Order has been processed, switch to export address shipping, no longer allowed to change shipping method, no longer allowed to inquire about available shipping channels",
+            "errorMsgPt": "Pedido já operado, mudança de endereço de envio e modalidade de envio não permitida, consulta de canais de envio disponíveis não permitida",
+            "errorMsgEs": "Pedido procesado, cambio de dirección de envío y envío realizado, no se permite cambiar el método de envío, no se permite consultar los canales de envío disponibles",
+            "solution": "不允许查询",
+            "sort": 0
+          },
+          {
+            "id": 572,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110041",
+            "errorMsg": "订单已操作上传运单，暂不允许切换在线下单发货，不允许查询可用发货渠道",
+            "errorMsgCn": "订单已操作上传运单，暂不允许切换在线下单发货，不允许查询可用发货渠道",
+            "errorMsgUs": "Order has been processed, upload of waybill completed, temporarily not allowed to switch to online order shipping, not allowed to inquire about available shipping channels",
+            "errorMsgPt": "Pedido já operado, upload de nota fiscal de frete, troca de envio online temporariamente não permitida, consulta de canais de envio disponíveis não permitida",
+            "errorMsgEs": "Pedido procesado, carga de la guía de envío, temporalmente no se permite cambiar el envío por pedido en línea, no se permite consultar los canales de envío disponibles",
+            "solution": "不允许查询",
+            "sort": 0
+          },
+          {
+            "id": 573,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110042",
+            "errorMsg": "系统处理异常，渠道查询失败，请稍后重试",
+            "errorMsgCn": "系统处理异常，渠道查询失败，请稍后重试",
+            "errorMsgUs": "System error occurred, channel query failed, please try again later",
+            "errorMsgPt": "Ocorreu uma exceção no sistema, falha na consulta de canais, por favor, tente novamente mais tarde",
+            "errorMsgEs": "Se produjo un error en el sistema, la consulta de canales falló, por favor inténtelo de nuevo más tarde",
+            "solution": "重试",
+            "sort": 0
+          },
+          {
+            "id": 574,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110043",
+            "errorMsg": "发货仓不允许平台合作物流配送，不满足商家自主下单条件，不允许查询可用发货渠道",
+            "errorMsgCn": "发货仓不允许平台合作物流配送，不满足商家自主下单条件，不允许查询可用发货渠道",
+            "errorMsgUs": "Shipping warehouse does not allow platform cooperation logistics delivery, does not meet the conditions for merchants to place orders independently, not allowed to inquire about available shipping channels",
+            "errorMsgPt": "O armazém de envio não permite a entrega por logística de parcerias da plataforma, não cumpre os requisitos de pedidos feitos pelos comerciantes, consulta de canais de envio disponíveis não permitida",
+            "errorMsgEs": "El depósito de envío no permite la entrega de logística de colaboración de la plataforma, no cumple con las condiciones de pedido autónomo del comerciante, no se permite consultar los canales de envío disponibles",
+            "solution": "不允许查询",
+            "sort": 0
+          },
+          {
+            "id": 575,
+            "openPath": "/open-api/order/express-channel",
+            "errorCode": "99110047",
+            "errorMsg": "订单缺少未完成发货商品，不允许查询可用发货渠道",
+            "errorMsgCn": "订单缺少未完成发货商品，不允许查询可用发货渠道",
+            "errorMsgUs": "Order is missing incomplete shipment items; it is not allowed to query available shipping channels",
+            "errorMsgPt": "Pedido falta item não enviado, não permitido consultar canais de envio disponíveis",
+            "errorMsgEs": "El pedido falta el producto por enviar, no se permite consultar los canales de envío disponibles",
+            "solution": "不允许查询",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "warehouseAddressCode": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "warehouseAddressCode": "<REDACTED_SAMPLE>",
+                  "expressChannels": [
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": null,
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": null,
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": null,
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    },
+                    {
+                      "site": "<REDACTED_SAMPLE>",
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "expressChannelCode": "<REDACTED_SAMPLE>",
+                      "returnExpressCode": null,
+                      "returnExpressName": null
+                    }
+                  ],
+                  "platformLogisticsChannels": [
+                    {
+                      "expressId": 0,
+                      "expressIdCode": "<REDACTED_SAMPLE>",
+                      "site": "<REDACTED_SAMPLE>"
+                    }
+                  ]
+                },
+                "bbl": {},
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "warehouseAddressCode": {
+                  "type": "string",
+                  "description": "仓库地址编码；不填的情况下只返回商家自发货渠道；输入的情况下 可以准确匹配该地址和销售站点下可用的自发货和shein合作物流的物流的渠道 ；值从接口 查询仓库地址 接口获取"
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

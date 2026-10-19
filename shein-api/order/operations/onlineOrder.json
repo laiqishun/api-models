@@ -1,0 +1,809 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "在线下单",
+    "version": "source-revision-11",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/gsp/place-express-order": {
+      "post": {
+        "tags": [
+          "客单"
+        ],
+        "operationId": "onlineOrder",
+        "summary": "在线下单",
+        "description": "在线下单指SHEIN商家指定平台合作物流进行订单履约；目前该功能仅支持美国、欧洲、中东的自运营或半托管商家 注意：不是所有店铺可用的物流渠道都支持在线下单，需要调用“商家维度查有可用物流信息”接口确认，如“platformLogisticsChannels”没有数据返回，则代表该店铺无可用的平台合作物流，无法使用在线下单功能",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK",
+                  "x-shein-example-redacted": true
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "deliveryNo": {
+                      "type": "string",
+                      "description": "运单包裹号。 注意：此值不能直接用于打印面单，需先调用 /open-api/gsp/check-express-order 查询下单结果，确认下单成功后方可打印面单。",
+                      "x-shein-example-redacted": true
+                    },
+                    "placeRequestId": {
+                      "type": "string",
+                      "description": "下单请求id；用于查询【 在线下 单结果 】，注意： 平台与实际物流服务商之间采用 异步交互 ，即平台向物流商发起下单申请后，需要等待物流商系统处理并返回最终结果",
+                      "x-shein-example-redacted": true
+                    }
+                  }
+                }
+              },
+              "required": [
+                "code",
+                "msg",
+                "traceId"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001918,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001918-2000001",
+        "x-shein-category-id": 2000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 11,
+        "x-shein-updated-at": "2026-07-03 21:45:19",
+        "x-shein-qps": "80",
+        "x-shein-change-content": "优化字段描述",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "渠道商产品编码；",
+                  "name": "expressChannelCode",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "<p>包裹明细；(目前支持单订单多包裹)</p>",
+                  "name": "packageInfoList",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "订单号",
+                      "name": "orderNo",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "int64",
+                      "multiple": 1,
+                      "description": "<p>每件商品的唯一ID。如果一个SKU有多件，每一件的goodsId都是唯一的，可从/open-api/order/order-detail中获取。传入时必须与之前调用<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001917\" target=\"_blank\">/open-api/gsp/order-mapping-channels</a>接口时传入的goodsIds保持一致。<span style=\"color: rgb(225, 60, 57);\">不传则默认为订单内全部商品在一个包裹中下单。</span></p>",
+                      "name": "goodsIds"
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>渠道预判请求ID；通过调用<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001917\" target=\"_blank\">/open-api/gsp/order-mapping-channels</a>接口获取</p>",
+                  "name": "preRequestId",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "错误描述,成功：OK",
+                  "name": "msg",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>运单包裹号。<span style=\"color: rgb(225, 60, 57);\">注意：此值不能直接用于打印面单，需先调用 /open-api/gsp/check-express-order 查询下单结果，确认下单成功后方可打印面单。</span></p>",
+                      "name": "deliveryNo"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>下单请求id；用于查询【<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3001336\" target=\"_blank\">在线下<span style=\"color: rgb(40, 43, 46);\">单结果</span></a>】，注意：<span style=\"color: rgb(40, 43, 46); font-size: 14px;\">平台与实际物流服务商之间采用</span><span style=\"color: rgb(40, 43, 46); font-size: 14px;\"><strong>异步交互</strong></span><span style=\"color: rgb(40, 43, 46); font-size: 14px;\">，即平台向物流商发起下单申请后，需要等待物流商系统处理并返回最终结果</span></p>",
+                      "name": "placeRequestId"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 488,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "9999001",
+            "errorMsg": "无当前数据权限",
+            "errorMsgCn": "无当前数据权限",
+            "errorMsgUs": "No current data permissions",
+            "errorMsgPt": "Sem permissões de dados atuais",
+            "errorMsgEs": "Sin permisos de datos actuales",
+            "solution": "请检查订单号是否属于本店铺",
+            "sort": 1
+          },
+          {
+            "id": 489,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110011",
+            "errorMsg": "包裹在线下单次数超过限制",
+            "errorMsgCn": "包裹在线下单次数超过限制",
+            "errorMsgUs": "The number of online orders exceeded the limit",
+            "errorMsgPt": "Pedido online de pacotes excedeu o limite",
+            "errorMsgEs": "El número de pedidos en línea realizados ha superado el límite",
+            "solution": "请勿重复调用在线下单接口",
+            "sort": 11
+          },
+          {
+            "id": 490,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110012",
+            "errorMsg": "包裹信息已变更，请刷新后重试",
+            "errorMsgCn": "包裹信息已变更，请刷新后重试",
+            "errorMsgUs": "Package information has changed, please refresh and try again",
+            "errorMsgPt": "Informações do pacote alteradas, por favor, recarregue e tente novamente",
+            "errorMsgEs": "La información del paquete ha cambiado, por favor actualice y vuelva a intentarlo",
+            "solution": "请根据订单详情的包裹信息重试",
+            "sort": 12
+          },
+          {
+            "id": 491,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110014",
+            "errorMsg": "渠道预判请求ID不合法",
+            "errorMsgCn": "渠道预判请求ID不合法",
+            "errorMsgUs": "Channel prediction request ID is invalid",
+            "errorMsgPt": "ID da solicitação de pré-julgamento inválido",
+            "errorMsgEs": "ID de solicitud de previsión de canal no válido",
+            "solution": "请检查请求ID",
+            "sort": 14
+          },
+          {
+            "id": 492,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110015",
+            "errorMsg": "渠道商产品编码和渠道预判请求ID关系不合法",
+            "errorMsgCn": "渠道商产品编码和渠道预判请求ID关系不合法",
+            "errorMsgUs": "Channel partner product code and channel prediction request ID relationship is illegal",
+            "errorMsgPt": "Código de produto do distribuidor e ID de solicitação de pré-julgamento de canal não são válidos",
+            "errorMsgEs": "El código de producto del distribuidor y el ID de solicitud de previsión de canal no son válidos",
+            "solution": "请检查请求ID",
+            "sort": 15
+          },
+          {
+            "id": 493,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110016",
+            "errorMsg": "订单号和渠道预判请求ID关系不合法",
+            "errorMsgCn": "订单号和渠道预判请求ID关系不合法",
+            "errorMsgUs": "Order number and channel prediction request ID relationship is illegal",
+            "errorMsgPt": "Número do pedido e ID de solicitação de pré-julgamento inválidos",
+            "errorMsgEs": "Número de pedido y ID de solicitud de previsión de canal no son válidos",
+            "solution": "请检查请求ID",
+            "sort": 16
+          },
+          {
+            "id": 494,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110017",
+            "errorMsg": "订单不满足商家自主下单条件",
+            "errorMsgCn": "订单不满足商家自主下单条件",
+            "errorMsgUs": "Order does not meet the merchant's self-ordering conditions",
+            "errorMsgPt": "Pedido não atende aos critérios de pedido autônomo do vendedor",
+            "errorMsgEs": "Pedido no cumple con las condiciones de pedido autónomo del comerciante",
+            "solution": "请检查订单是否满足在线下单要求",
+            "sort": 17
+          },
+          {
+            "id": 495,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110018",
+            "errorMsg": "订单已操作切换导出地址发货，不再允许更换发货方式",
+            "errorMsgCn": "订单已操作切换导出地址发货，不再允许更换发货方式",
+            "errorMsgUs": "Order has been processed, shipping address changed, and no longer allows changing the shipping method",
+            "errorMsgPt": "Pedido já operado, mudança de endereço de exportação e envio, não permitido alterar o modo de envio",
+            "errorMsgEs": "El pedido ha sido procesado, se ha cambiado la dirección de envío y se ha procedido con el envío. Ya no se permite cambiar el método de envío",
+            "solution": "当前不能使用在线下单",
+            "sort": 18
+          },
+          {
+            "id": 496,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110019",
+            "errorMsg": "订单已操作上传运单，暂不允许切换在线下单发货",
+            "errorMsgCn": "订单已操作上传运单，暂不允许切换在线下单发货",
+            "errorMsgUs": "Order has been processed and shipping document uploaded; temporarily not allowed to switch to online order and dispatch",
+            "errorMsgPt": "Pedido já operado, upload da nota fiscal de envio, temporariamente não permitido alternar para o pedido online e envio",
+            "errorMsgEs": "El pedido se ha procesado y se ha subido el albarán, no se permite cambiar a la orden de envío en línea temporalmente",
+            "solution": "当前不能使用在线下单",
+            "sort": 19
+          },
+          {
+            "id": 497,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110020",
+            "errorMsg": "订单不可处理，不满足商家自主下单条件，请稍后重试",
+            "errorMsgCn": "订单不可处理，不满足商家自主下单条件，请稍后重试",
+            "errorMsgUs": "Order cannot be processed, does not meet the conditions for merchants to place orders independently, please try again later",
+            "errorMsgPt": "Pedido não pode ser processado, não atende aos critérios de pedido autônomo do vendedor. Por favor, tente novamente mais tarde",
+            "errorMsgEs": "El pedido no se puede procesar, no cumple con las condiciones de pedido autónomo del comerciante, por favor intentelo de nuevo más tarde",
+            "solution": "请等待订单为可处理状态后重试",
+            "sort": 20
+          },
+          {
+            "id": 500,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110023",
+            "errorMsg": "系统错误，商家发货地址不存在",
+            "errorMsgCn": "系统错误，商家发货地址不存在",
+            "errorMsgUs": "System error, the merchant's shipping address does not exist",
+            "errorMsgPt": "Erro de sistema, endereço de envio do comerciante não existe",
+            "errorMsgEs": "Error de sistema, la dirección de envío del vendedor no existe",
+            "solution": "请检查商家发货地址，检查可用物流渠道的仓库ID是否正确",
+            "sort": 23
+          },
+          {
+            "id": 501,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110024",
+            "errorMsg": "发货仓不允许平台合作物流配送",
+            "errorMsgCn": "发货仓不允许平台合作物流配送",
+            "errorMsgUs": "The dispatch warehouse does not allow platform cooperative logistics delivery",
+            "errorMsgPt": "O depósito de expedição não permite a distribuição de logística por parceiros da plataforma",
+            "errorMsgEs": "El almacén de envío no permite la colaboración con empresas de logística de plataformas",
+            "solution": "当前发货仓库不支持在线下单，可调用商家维度查渠道信息接口(/openapi/order/express-channel)查询仓库是否支持在线下单。",
+            "sort": 24
+          },
+          {
+            "id": 502,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110025",
+            "errorMsg": "包裹已取消，暂不支持重新下单",
+            "errorMsgCn": "包裹已取消，暂不支持重新下单",
+            "errorMsgUs": "The order has been cancelled, and it is currently not supported to place a new order",
+            "errorMsgPt": "Pacote cancelado, temporariamente não suportamos novos pedidos",
+            "errorMsgEs": "El paquete ha sido cancelado, temporalmente no se admite la colocación de nuevos pedidos",
+            "solution": "请检查包裹状态",
+            "sort": 25
+          },
+          {
+            "id": 503,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110026",
+            "errorMsg": "包裹下单中，请等待下单结果",
+            "errorMsgCn": "包裹下单中，请等待下单结果",
+            "errorMsgUs": "Your order is being processed, please wait for the order result",
+            "errorMsgPt": "Pedido em andamento, por favor aguarde o resultado do pedido",
+            "errorMsgEs": "El pedido está en proceso, por favor espere el resultado del pedido",
+            "solution": "请检查包裹状态",
+            "sort": 26
+          },
+          {
+            "id": 506,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110029",
+            "errorMsg": "生成包裹失败,暂不支持下单",
+            "errorMsgCn": "生成包裹失败,暂不支持下单",
+            "errorMsgUs": "Failed to generate package, order placement is not supported yet",
+            "errorMsgPt": "Falha ao gerar pacote, temporariamente não suportado para fazer pedidos",
+            "errorMsgEs": "Error al generar el paquete, temporalmente no se admite realizar pedidos",
+            "solution": "请检查订单信息后重试",
+            "sort": 29
+          },
+          {
+            "id": 507,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110037",
+            "errorMsg": "地址发生变更，不允许下单，请重新发起预判",
+            "errorMsgCn": "地址发生变更，不允许下单，请重新发起预判",
+            "errorMsgUs": "Address has changed, order is not allowed, please re-initiate the prediction",
+            "errorMsgPt": "Endereço alterado, não é permitido fazer pedidos, por favor, reenvie a prévia",
+            "errorMsgEs": "La dirección ha cambiado, no se permite realizar pedidos, por favor reinicie la previsión",
+            "solution": "请重新发起预判",
+            "sort": 37
+          },
+          {
+            "id": 508,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110045",
+            "errorMsg": "包裹已揽收，暂不支持重新下单",
+            "errorMsgCn": "包裹已揽收，暂不支持重新下单",
+            "errorMsgUs": "The package has been collected, and it is currently not supported to place a new order",
+            "errorMsgPt": "Pacote já recebido, não é possível fazer novo pedido no momento",
+            "errorMsgEs": "El paquete ha sido recibido, no se admite la colocación de nuevos pedidos por el momento",
+            "solution": "请检查包裹状态",
+            "sort": 45
+          },
+          {
+            "id": 600,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110046",
+            "errorMsg": "订单没有需要发货的商品，不需要在线下单",
+            "errorMsgCn": "订单没有需要发货的商品，不需要在线下单",
+            "errorMsgUs": "The order does not have any items that need to be shipped, so there is no need to place an order online",
+            "errorMsgPt": "O pedido não tem artigos que precisem de ser enviados, portanto não há necessidade de fazer um pedido online",
+            "errorMsgEs": "El pedido no tiene ningún artículo que deba enviarse, por lo que no es necesario realizar un pedido en línea.",
+            "solution": "请检查订单商品是否需要发货，若无需发货，则不需要调用下单接口。",
+            "sort": 46
+          },
+          {
+            "id": 601,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110048",
+            "errorMsg": "商品信息已变更，请查询订单的商品状态后重试",
+            "errorMsgCn": "商品信息已变更，请查询订单的商品状态后重试",
+            "errorMsgUs": "The product information has been changed. Please check the order details to confirm the product status.",
+            "errorMsgPt": "As informações do produto foram alteradas. Verifique os detalhes do pedido para confirmar o estado do produto.",
+            "errorMsgEs": "La información del producto ha cambiado. Por favor, revise los detalles del pedido para confirmar el estado del producto.",
+            "solution": "请查询订单的商品状态后，根据商品状态判断是否需要重试",
+            "sort": 48
+          },
+          {
+            "id": 602,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110049",
+            "errorMsg": "商品不在同一个包裹内，不允许合并下单",
+            "errorMsgCn": "商品不在同一个包裹内，不允许合并下单",
+            "errorMsgUs": "The products are not in the same package and combined orders are not allowed",
+            "errorMsgPt": "Os produtos não estão na mesma embalagem e não são permitidos pedidos combinados",
+            "errorMsgEs": "Los productos no están en el mismo paquete y no se permiten pedidos combinados.",
+            "solution": "商品不在同一个包裹内，不允许合并下单",
+            "sort": 49
+          },
+          {
+            "id": 796,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "9991050",
+            "errorMsg": "当前商品未绑定发货仓 / 库存异常，无法发货。请前往商家后台维护仓库地址关联及发货地址",
+            "errorMsgCn": "当前商品未绑定发货仓 / 库存异常，无法发货。请前往商家后台维护仓库地址关联及发货地址",
+            "errorMsgUs": "The current product is not linked to a shipping warehouse / has abnormal inventory and cannot be shipped. Please go to the merchant backend to maintain the warehouse address association and shipping address.",
+            "errorMsgPt": "O produto atual não está vinculado a um armazém de envio / há uma anomalia de estoque, não é possível enviar. Por favor, acesse o painel do lojista para manter a associação do endereço do armazém e o endereço de envio.",
+            "errorMsgEs": "El producto actual no tiene un almacén de envío vinculado o presenta una anomalía de inventario, por lo que no se puede enviar. Por favor, vaya al panel de administración del comerciante para mantener la asociación de la dirección del almacén y la dirección de envío.",
+            "solution": "当前商品未绑定发货仓 / 库存异常，无法发货。请前往商家后台【履约设置-仓库关联管理】维护仓库地址关联及发货地址",
+            "sort": 50
+          },
+          {
+            "id": 603,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110051",
+            "errorMsg": "已下单包裹不允许变更商品明细",
+            "errorMsgCn": "已下单包裹不允许变更商品明细",
+            "errorMsgUs": "Changes to product details are not allowed for ordered packages",
+            "errorMsgPt": "Não são permitidas alterações aos detalhes do produto para pacotes encomendados",
+            "errorMsgEs": "No se permiten cambios en los detalles del producto para los paquetes pedidos.",
+            "solution": "已下单包裹不允许变更商品明细",
+            "sort": 51
+          },
+          {
+            "id": 614,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110054",
+            "errorMsg": "商品信息异常，请刷新后重试",
+            "errorMsgCn": "商品信息异常，请刷新后重试",
+            "errorMsgUs": "Product information error, please refresh and try again.",
+            "errorMsgPt": "Informações do produto anormais, por favor, atualize e tente novamente.",
+            "errorMsgEs": "Información de producto incorrecta, por favor actualice e intente nuevamente.",
+            "solution": "请检查goodsids参数",
+            "sort": 54
+          },
+          {
+            "id": 613,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110055",
+            "errorMsg": "COD订单,入参商品明细不允许为空",
+            "errorMsgCn": "COD订单,入参商品明细不允许为空",
+            "errorMsgUs": "COD order, product details cannot be empty",
+            "errorMsgPt": "Pedido COD, os detalhes do produto de entrada não devem estar vazios",
+            "errorMsgEs": "Pedido COD, los detalles de los productos de entrada no pueden estar vacíos.",
+            "solution": "请检查goodsids参数",
+            "sort": 55
+          },
+          {
+            "id": 615,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110059",
+            "errorMsg": "渠道预判入参商品信息与下单入参商品信息不一致，请核实后重试",
+            "errorMsgCn": "渠道预判入参商品信息与下单入参商品信息不一致，请核实后重试",
+            "errorMsgUs": "The channel's anticipated input product information does not match the order input product information. Please verify and try again.",
+            "errorMsgPt": "As informações dos produtos fornecidas pelo canal não correspondem às informações dos produtos fornecidas no pedido. Por favor, verifique e tente novamente.",
+            "errorMsgEs": "La información del producto ingresada por el canal no coincide con la información del producto ingresada al realizar el pedido, por favor verifique y vuelva a intentarlo.",
+            "solution": "请检查goodsids参数",
+            "sort": 59
+          },
+          {
+            "id": 628,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110060",
+            "errorMsg": "用户收件地址异常",
+            "errorMsgCn": "用户收件地址异常",
+            "errorMsgUs": "Recipient address exception",
+            "errorMsgPt": "Endereço de entrega do usuário é anômalo",
+            "errorMsgEs": "Dirección de entrega del usuario es anormal",
+            "solution": "请选择导出地址发货，并前往订单-我的订单-反馈订单地址异常",
+            "sort": 60
+          },
+          {
+            "id": 629,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110061",
+            "errorMsg": "接口限流",
+            "errorMsgCn": "接口限流",
+            "errorMsgUs": "Interface Rate Limiting",
+            "errorMsgPt": "Limitação de taxa de interface",
+            "errorMsgEs": "Limitación de la tasa de interfaz",
+            "solution": "触发限流，该接口单个开发者接口限流频次：80次/秒 ",
+            "sort": 61
+          },
+          {
+            "id": 630,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110062",
+            "errorMsg": "发货仓不允许平台合作物流配送",
+            "errorMsgCn": "发货仓不允许平台合作物流配送",
+            "errorMsgUs": "Shipping warehouses do not allow platform cooperative logistics distribution.",
+            "errorMsgPt": "O armazém de envio não permite a entrega logística em parceria com a plataforma.",
+            "errorMsgEs": "El almacén de envío no permite la distribución logística en colaboración con la plataforma.",
+            "solution": "请商家前往订单-履约设置-仓库地址设置 编辑仓库地址信息后重试",
+            "sort": 62
+          },
+          {
+            "id": 631,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110063",
+            "errorMsg": "沙特发货仓缺少地址代码",
+            "errorMsgCn": "沙特发货仓缺少地址代码",
+            "errorMsgUs": "Saudi shipping warehouse lacks address code",
+            "errorMsgPt": "Armazém de envio da Arábia Saudita está sem código de endereço",
+            "errorMsgEs": "Falta el código de dirección en el almacén de envíos de Arabia Saudita",
+            "solution": "沙特发货仓缺少地址代码，请前往订单-履约设置-仓库地址设置 完善发货仓的地址代码信息后重试",
+            "sort": 63
+          },
+          {
+            "id": 632,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110064",
+            "errorMsg": "当前下单的物流服务要求提供下单邮箱，请前往订单-履约设置-仓库地址设置 完善发货仓{仓库编码}的联系邮箱信息后重试  ",
+            "errorMsgCn": "当前下单的物流服务要求提供下单邮箱，请前往订单-履约设置-仓库地址设置 完善发货仓{仓库编码}的联系邮箱信息后重试  ",
+            "errorMsgUs": "The current logistics service requires an order email. Please go to Order - Fulfillment Settings - Warehouse Address Settings to complete the contact email information for the shipping warehouse {warehouse code} and try again.",
+            "errorMsgPt": "O serviço de logística atual exige que você forneça um e-mail para o pedido. Por favor, vá para Configurações do Pedido - Configurações de Cumprimento - Configurações de Endereço do Armazém e complete as informações de e-mail de contato do armazém de envio {código do armazém} antes de tentar novamente.",
+            "errorMsgEs": "El servicio de logística actual requiere proporcionar el correo electrónico de pedido, por favor dirígete a Pedido - Configuración de cumplimiento - Configuración de dirección de almacén para completar la información del correo electrónico de contacto del almacén de envío {código de almacén} y vuelve a intentarlo.",
+            "solution": "当前下单的物流服务要求提供下单邮箱，请前往订单-履约设置-仓库地址设置 完善发货仓{仓库编码}的联系邮箱信息后重试  ",
+            "sort": 64
+          },
+          {
+            "id": 716,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110066",
+            "errorMsg": " 商家已申请当前订单派送模式修改[送货上门]，等待消费者确认，暂时不允许发货",
+            "errorMsgCn": " 商家已申请当前订单派送模式修改[送货上门]，等待消费者确认，暂时不允许发货",
+            "errorMsgUs": "The merchant has applied for a change in the current order delivery mode to [home delivery], awaiting consumer confirmation, and temporarily no shipment is allowed.",
+            "errorMsgPt": "O comerciante solicitou a modificação do método de entrega do pedido atual para [entrega em domicílio], aguardando a confirmação do consumidor, temporariamente não é permitido o envio.",
+            "errorMsgEs": "El comerciante ha solicitado modificar el modo de entrega del pedido actual a [entrega a domicilio], esperando la confirmación del consumidor, temporalmente no se permite el envío.",
+            "solution": "请接入webhook：/order_push_notice，派送模式变更会有消息通知",
+            "sort": 66
+          },
+          {
+            "id": 717,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110067",
+            "errorMsg": "商家已申请当前订单派送模式修改[送货上门]，系统处理中，暂时不允许发货",
+            "errorMsgCn": "商家已申请当前订单派送模式修改[送货上门]，系统处理中，暂时不允许发货",
+            "errorMsgUs": "The merchant has applied for a change in the delivery mode of the current order to [home delivery], the system is processing it, and shipping is temporarily not allowed.",
+            "errorMsgPt": "O comerciante solicitou a alteração do modo de entrega do pedido atual para [entrega em domicílio], o sistema está processando, temporariamente não é permitido o envio.",
+            "errorMsgEs": "El comerciante ha solicitado la modificación del modo de entrega del pedido actual a [entrega a domicilio], el sistema está procesando, temporalmente no se permite el envío.",
+            "solution": "请接入webhook：/order_push_notice，派送模式变更会有消息通知",
+            "sort": 67
+          },
+          {
+            "id": 718,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110068",
+            "errorMsg": "无可用物流渠道支持送货到店",
+            "errorMsgCn": "无可用物流渠道支持送货到店",
+            "errorMsgUs": "No available logistics channels support delivery to the store.",
+            "errorMsgPt": "Não há canal logístico disponível para suportar a entrega na loja.",
+            "errorMsgEs": "No hay canales logísticos disponibles para la entrega en tienda.",
+            "solution": "无可用物流渠道支持送货到店，商家可在卖家中心对订单申请送货上门",
+            "sort": 68
+          },
+          {
+            "id": 719,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110069",
+            "errorMsg": "无可用物流渠道支持送货上门",
+            "errorMsgCn": "无可用物流渠道支持送货上门",
+            "errorMsgUs": "No delivery options available for home delivery.",
+            "errorMsgPt": "Não há canais logísticos disponíveis para suporte de entrega em domicílio.",
+            "errorMsgEs": "No hay canales logísticos disponibles para la entrega a domicilio.",
+            "solution": "无可用物流渠道支持送货上门",
+            "sort": 69
+          },
+          {
+            "id": 720,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110070",
+            "errorMsg": "订单销售站点暂未维护可用发货仓，请前往订单-履约设置-仓库地址设置 维护站点的可用发货仓地址后重试",
+            "errorMsgCn": "订单销售站点暂未维护可用发货仓，请前往订单-履约设置-仓库地址设置 维护站点的可用发货仓地址后重试",
+            "errorMsgUs": "Order sales site has not yet maintained available shipping warehouse, please go to Order - Fulfillment Settings - Warehouse Address Settings to maintain the site's available shipping warehouse address and try again.",
+            "errorMsgPt": "O site de vendas do pedido ainda não tem um armazém disponível para envio mantido, por favor, vá para Configurações de Cumprimento do Pedido - Configurações de Endereço de Armazém e mantenha o endereço do armazém disponível do site antes de tentar novamente.",
+            "errorMsgEs": "El sitio de ventas de pedidos aún no ha mantenido un almacén de envío disponible, por favor vaya a Pedidos - Configuración de cumplimiento - Configuración de direcciones de almacén para mantener la dirección del almacén de envío disponible del sitio y luego intente nuevamente.",
+            "solution": "订单销售站点暂未维护可用发货仓，请前往订单-履约设置-仓库地址设置 维护站点的可用发货仓地址后重试",
+            "sort": 70
+          },
+          {
+            "id": 509,
+            "openPath": "/open-api/gsp/place-express-order",
+            "errorCode": "99110999",
+            "errorMsg": "系统异常，提交下单失败",
+            "errorMsgCn": "系统异常，提交下单失败",
+            "errorMsgUs": "System error, order submission failed",
+            "errorMsgPt": "Sistema com exceção, falha ao submeter pedido",
+            "errorMsgEs": "Anormalidad del sistema, error en el envío del pedido",
+            "solution": "系统异常，请稍后重试",
+            "sort": 99
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "expressChannelCode": "<REDACTED_SAMPLE>",
+                "packageInfoList": [
+                  {
+                    "goodsIds": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "orderNo": "<REDACTED_SAMPLE>"
+                  }
+                ],
+                "preRequestId": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "deliveryNo": "<REDACTED_SAMPLE>",
+                  "placeRequestId": "<REDACTED_SAMPLE>"
+                },
+                "bbl": {},
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "expressChannelCode": {
+                  "type": "string",
+                  "description": "渠道商产品编码；",
+                  "x-shein-example-redacted": true
+                },
+                "packageInfoList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "包裹明细；(目前支持单订单多包裹)",
+                    "properties": {
+                      "orderNo": {
+                        "type": "string",
+                        "description": "订单号",
+                        "x-shein-example-redacted": true
+                      },
+                      "goodsIds": {
+                        "type": "array",
+                        "items": {
+                          "type": "integer",
+                          "format": "int64",
+                          "x-shein-original-type": "int64",
+                          "description": "每件商品的唯一ID。如果一个SKU有多件，每一件的goodsId都是唯一的，可从/open-api/order/order-detail中获取。传入时必须与之前调用 /open-api/gsp/order-mapping-channels 接口时传入的goodsIds保持一致。 不传则默认为订单内全部商品在一个包裹中下单。"
+                        },
+                        "x-shein-original-multiple": 1
+                      }
+                    },
+                    "required": [
+                      "orderNo"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "preRequestId": {
+                  "type": "string",
+                  "description": "渠道预判请求ID；通过调用 /open-api/gsp/order-mapping-channels 接口获取",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "expressChannelCode",
+                "packageInfoList",
+                "preRequestId"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3001523,
+            "updateTime": "2025-12-26",
+            "changeContent": "新增业务场景：中东市场支持在线下单，https://open.sheincorp.com/notice/129/41260518-f3e7-4475-8cfe-fd19b246ff57",
+            "version": 6
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

@@ -1,0 +1,425 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "商品接口-全量查询SKC/SKU/设计款号关系列表",
+    "version": "source-revision-11",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/number-list": {
+      "get": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "querySkcSkuDesignModelRelations",
+        "summary": "商品接口-全量查询SKC/SKU/设计款号关系列表",
+        "description": "该API支持查询skc/设计款号等编码信息",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "description": "code=0成功，code =1失败",
+                  "x-shein-label": "返回码",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "响应信息",
+                  "x-shein-label": "信息",
+                  "x-shein-example-redacted": true
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "page": {
+                      "type": "integer",
+                      "description": "当前页码",
+                      "x-shein-label": "当前页码",
+                      "x-shein-example-redacted": true
+                    },
+                    "per_page": {
+                      "type": "integer",
+                      "description": "当前每页数据量",
+                      "x-shein-label": "当前每页数据量",
+                      "x-shein-example-redacted": true
+                    },
+                    "count": {
+                      "type": "integer",
+                      "description": "总数据量",
+                      "x-shein-label": "总数据量",
+                      "x-shein-example-redacted": true
+                    },
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "skc": {
+                            "type": "string",
+                            "description": "design_code查询时,skc为空；skc即skc_Name，skc_Name是商品发布SHEIN生成的系统编码",
+                            "x-shein-example-redacted": true
+                          },
+                          "sku_code": {
+                            "type": "string",
+                            "description": "sku_code，sku_code是商品发布SHEIN生成的系统编码",
+                            "x-shein-label": "shein sku",
+                            "x-shein-example-redacted": true
+                          },
+                          "supplier_sku": {
+                            "type": "string",
+                            "description": "商家sku",
+                            "x-shein-example-redacted": true
+                          },
+                          "design_code": {
+                            "type": "string",
+                            "description": "设计款号。skc查询时，设计款号为空",
+                            "x-shein-label": "设计款号",
+                            "x-shein-example-redacted": true
+                          },
+                          "attribute": {
+                            "type": "string",
+                            "description": "属性值",
+                            "x-shein-label": "属性集"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  },
+                  "required": [
+                    "list"
+                  ]
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "info"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001486,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001486-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          }
+        ],
+        "x-shein-source-version": 11,
+        "x-shein-updated-at": "2025-12-18 10:32:02",
+        "x-shein-qps": "120",
+        "x-shein-change-content": "“供应商”改“商家”",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "页码",
+                  "name": "page",
+                  "defaultValue": "1",
+                  "label": "页码",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "每页数据量，最大值为100",
+                  "name": "per_page",
+                  "defaultValue": "20",
+                  "label": "每页数据量",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "编号查询类型枚举。1: skc，2: 设计款号design_code,推荐入参1,入参2部分场景可能数据不存在",
+                  "name": "type",
+                  "defaultValue": "",
+                  "label": "编号查询类型",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "",
+                  "name": "Content-Type",
+                  "defaultValue": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": null,
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "code=0成功，code =1失败",
+                  "name": "code",
+                  "defaultValue": "",
+                  "label": "返回码"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "响应信息",
+                  "name": "msg",
+                  "label": "信息"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "当前页码",
+                      "name": "page",
+                      "label": "当前页码"
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "当前每页数据量",
+                      "name": "per_page",
+                      "label": "当前每页数据量"
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "总数据量",
+                      "name": "count",
+                      "label": "总数据量"
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "name": "list",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>design_code查询时,skc为空；skc即skc_Name，skc_Name是商品发布SHEIN生成的系统编码</p>",
+                          "name": "skc"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>sku_code，sku_code是商品发布SHEIN生成的系统编码</p>",
+                          "name": "sku_code",
+                          "label": "shein sku"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>商家sku</p>",
+                          "name": "supplier_sku"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "设计款号。skc查询时，设计款号为空",
+                          "name": "design_code",
+                          "label": "设计款号"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>属性值</p>",
+                          "name": "attribute",
+                          "label": "属性集"
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                },
+                "children": []
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "present-unparsed"
+            },
+            "response": {
+              "status": "present-unparsed"
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "description": "页码",
+            "x-shein-label": "页码"
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "description": "每页数据量，最大值为100",
+            "x-shein-label": "每页数据量"
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "description": "编号查询类型枚举。1: skc，2: 设计款号design_code,推荐入参1,入参2部分场景可能数据不存在",
+            "x-shein-label": "编号查询类型"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

@@ -1,0 +1,339 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "提交商品删除申请",
+    "version": "source-revision-1",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/delete/{skcName}": {
+      "delete": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "submitProductDeletionRequest",
+        "summary": "提交商品删除申请",
+        "description": "商品删除是SKC颗粒度，只有满足条件的SKC才可删除，删除前请先通过接口确认：/open-api/goods/check-deletable。 此接口为提交删除申请，提交后平台会审核，只有审核通过后才是删除成功，审核结果可对接webhook（product_delete_audit），或查询审核结果获取（/open-api/goods-delete-logs/search）。 SKC删除后不可逆，请提醒商家确认清楚后再发起操作。 SKC删除成功后，对应的商家SKU(supplier_sku)会被释放，商家可使用对应值创建新品或用到其他商品上。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOf开放平台-提交商品删除申请响应",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应信息",
+                  "x-shein-label": "开放平台-提交商品删除申请响应",
+                  "properties": {
+                    "apply_no": {
+                      "type": "string",
+                      "description": "删除申请的申请单号"
+                    },
+                    "deleted": {
+                      "type": "boolean",
+                      "description": "申请是否成功提交。注意，不是【是否删除成功】，而是提交成功。删除是否成功需要以审核结果为准。",
+                      "x-shein-example-redacted": true
+                    },
+                    "id": {
+                      "type": "string",
+                      "description": "删除的skcName"
+                    },
+                    "object": {
+                      "type": "string",
+                      "description": "固定为goods"
+                    }
+                  },
+                  "required": [
+                    "deleted"
+                  ]
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "追踪码"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001905,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001905-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [],
+        "x-shein-source-version": 1,
+        "x-shein-updated-at": "2026-07-03 13:41:20",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "新接口上线",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "int64",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\" style=\"text-align: start;\">接口签名。</a></p><p><span style=\"color: rgb(225, 60, 57);\"><strong>【注意】</strong></span>此接口生成签名时，使用的path需要包含skcName。例如，请求路径为/open-api/goods/delete/skc12345，则生成签名时使用的path也必须是/open-api/goods/delete/skc12345</p>",
+                  "name": "x-lt-signature"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br</p>",
+                  "name": "language",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "requestBody": null,
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOf开放平台-提交商品删除申请响应",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "错误描述,成功：OK",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>响应信息</p>",
+                  "name": "info",
+                  "label": "开放平台-提交商品删除申请响应",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>删除申请的申请单号</p>",
+                      "name": "apply_no",
+                      "label": "",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "boolean",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>申请是否成功提交。注意，不是【是否删除成功】，而是提交成功。删除是否成功需要以审核结果为准。</p>",
+                      "name": "deleted",
+                      "label": "",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>删除的skcName</p>",
+                      "name": "id",
+                      "label": "",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>固定为goods</p>",
+                      "name": "object",
+                      "label": "",
+                      "required": false
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>追踪码</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "present-unparsed"
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "id": "<REDACTED_SAMPLE>",
+                  "object": "<REDACTED_SAMPLE>",
+                  "deleted": false,
+                  "apply_no": "<REDACTED_SAMPLE>"
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+            "x-shein-original-type": "int64"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "接口签名。 【注意】 此接口生成签名时，使用的path需要包含skcName。例如，请求路径为/open-api/goods/delete/skc12345，则生成签名时使用的path也必须是/open-api/goods/delete/skc12345"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br"
+          },
+          {
+            "name": "skcName",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "Variable in the official path. The detail does not specify a type in its parameter table; the official URL example uses text.",
+            "x-shein-type-inferred-from-example": true
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3001905,
+            "updateTime": "2026-07-03",
+            "changeContent": "新接口上线",
+            "version": 1
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

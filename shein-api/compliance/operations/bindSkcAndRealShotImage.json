@@ -1,0 +1,486 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "绑定SKC和实拍图",
+    "version": "source-revision-4",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods-compliance/skc-save-label": {
+      "post": {
+        "tags": [
+          "合规"
+        ],
+        "operationId": "bindSkcAndRealShotImage",
+        "summary": "绑定SKC和实拍图",
+        "description": "绑定SKC和实拍图，若实拍图信息符合要求，则绑定成功。 实拍图场景整体解决方案， 可点击查看文档。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应码。正常为“0”。"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "响应信息。正常为“OK”。"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应详细信息",
+                  "properties": {
+                    "totalCount": {
+                      "type": "integer",
+                      "description": "合计任务数"
+                    },
+                    "successCount": {
+                      "type": "integer",
+                      "description": "成功任务数"
+                    },
+                    "faildCount": {
+                      "type": "integer",
+                      "description": "失败任务数"
+                    },
+                    "faildList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "失败明细",
+                        "properties": {
+                          "skc": {
+                            "type": "string",
+                            "description": "失败的skc"
+                          },
+                          "code": {
+                            "type": "string",
+                            "description": "响应码"
+                          },
+                          "reason": {
+                            "type": "string",
+                            "description": "失败原因"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求追踪码"
+                }
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001399,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001399-3000008",
+        "x-shein-category-id": 3000008,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 4,
+        "x-shein-updated-at": "2025-09-29 19:19:23",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "新增字段",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>application/json</p>",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p><p><br></p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：158339876400</p><p><br></p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">查看签名生成规则</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>指定出参语种，默认中文；支持语种:英语:EN 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR</p><p><br></p>",
+                  "name": "language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>SKC</p>",
+                  "name": "skcList",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "<p>包装类型标签实拍图</p>",
+                  "name": "packageLableList"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>图片的url。需通过接口转换获得/open-api/goods-compliance/label-print</p>",
+                      "name": "imageUrl"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>图片的md5。需通过接口转换获得/open-api/goods-compliance/label-print</p>",
+                      "name": "imageMd5"
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "<p>商品本体类标签实拍图</p>",
+                  "name": "bodyLableList"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>图片的url。需通过接口转换获得/open-api/goods-compliance/label-print</p>",
+                      "name": "imageUrl"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>图片的md5。需通过接口转换获得/open-api/goods-compliance/label-print</p>",
+                      "name": "imageMd5"
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "<p>此字段后续将废弃，请勿再对接。</p>",
+                  "name": "skcLablePicList"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>此字段后续将废弃，请勿再对接。</p>",
+                      "name": "imageUrl"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>此字段后续将废弃，请勿再对接。</p>",
+                      "name": "imageMd5"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>响应码。正常为“0”。</p>",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>响应信息。正常为“OK”。</p><p><br></p>",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "description": "<p>响应详细信息</p>",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "description": "<p>合计任务数</p>",
+                      "name": "totalCount"
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "description": "<p>成功任务数</p>",
+                      "name": "successCount"
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "description": "<p>失败任务数</p>",
+                      "name": "faildCount"
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>失败明细</p>",
+                      "name": "faildList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>失败的skc</p>",
+                          "name": "skc"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>响应码</p>",
+                          "name": "code"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>失败原因</p>",
+                          "name": "reason"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求追踪码</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "present-unparsed"
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "totalCount": 0,
+                  "successCount": 0,
+                  "faildCount": 0,
+                  "faildList": [
+                    {
+                      "skc": "<REDACTED_SAMPLE>",
+                      "code": "<REDACTED_SAMPLE>",
+                      "reason": "<REDACTED_SAMPLE>"
+                    }
+                  ]
+                },
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：158339876400"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "查看签名生成规则"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "指定出参语种，默认中文；支持语种:英语:EN 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "skcList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "SKC"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "packageLableList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "包装类型标签实拍图",
+                    "properties": {
+                      "imageUrl": {
+                        "type": "string",
+                        "description": "图片的url。需通过接口转换获得/open-api/goods-compliance/label-print"
+                      },
+                      "imageMd5": {
+                        "type": "string",
+                        "description": "图片的md5。需通过接口转换获得/open-api/goods-compliance/label-print"
+                      }
+                    }
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "bodyLableList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "商品本体类标签实拍图",
+                    "properties": {
+                      "imageUrl": {
+                        "type": "string",
+                        "description": "图片的url。需通过接口转换获得/open-api/goods-compliance/label-print"
+                      },
+                      "imageMd5": {
+                        "type": "string",
+                        "description": "图片的md5。需通过接口转换获得/open-api/goods-compliance/label-print"
+                      }
+                    }
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "skcLablePicList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "此字段后续将废弃，请勿再对接。",
+                    "properties": {
+                      "imageUrl": {
+                        "type": "string",
+                        "description": "此字段后续将废弃，请勿再对接。"
+                      },
+                      "imageMd5": {
+                        "type": "string",
+                        "description": "此字段后续将废弃，请勿再对接。"
+                      }
+                    }
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "skcList"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}
