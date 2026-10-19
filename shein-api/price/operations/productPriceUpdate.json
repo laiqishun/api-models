@@ -1,0 +1,587 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "更新商品售价",
+    "version": "source-revision-16",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/openapi-business-backend/product/price/save": {
+      "post": {
+        "tags": [
+          "价格"
+        ],
+        "operationId": "productPriceUpdate",
+        "summary": "更新商品售价",
+        "description": "该API支持更新商品的售价信息，调整价格会有价格审核机制，需要重点关注返回参数中的status，只有修改成功之后才能再次发起修改价格，如果返回参数status=2待审核，需通过webhook： 商品涨价审批结果通知 ，拿到结果之后才能再次修改价格。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应码 0: 正常"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应信息",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "success": {
+                            "type": "boolean",
+                            "description": "是否成功 ture:成功 false:失败"
+                          },
+                          "message": {
+                            "type": "string",
+                            "description": "message"
+                          },
+                          "productCode": {
+                            "type": "string",
+                            "description": "sku_code是商品发布SHEIN生成的系统编码"
+                          },
+                          "site": {
+                            "type": "string",
+                            "description": "站点"
+                          },
+                          "status": {
+                            "type": "integer",
+                            "description": "状态码，0 失败，1 成功，2 待审核"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "响应描述"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "application/json"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001940,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001940-3000013",
+        "x-shein-category-id": 3000013,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          }
+        ],
+        "x-shein-source-version": 16,
+        "x-shein-updated-at": "2026-08-03 11:05:50",
+        "x-shein-qps": "40",
+        "x-shein-change-content": "增加涨价操作前确认【商品能否涨价】的调用指引说明",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>默认值：application/json</p>",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "<p>商品价格信息列表, 最大长度100</p>",
+                  "name": "productPriceList",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>传sku_code，sku_code是商品发布SHEIN生成的系统编码</p>",
+                      "name": "productCode",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>币种，商品在SHEIN平台使用的售卖币种，如BRL, THB, USD, MXN. &nbsp;具体币种可查询<a href=\"https://open.sheincorp.com/documents/apidoc/detail/3000819\" target=\"_blank\">店铺站点和币种信息（新）</a>获取</p>",
+                      "name": "currencyCode",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "double",
+                      "multiple": 0,
+                      "description": "<p>原价。</p><p>发起涨价前，请先通过接口确认商品能否涨价（商品参与营销活动后可能无法涨价）：/open-api/goods/searchProduct，activityLockList-priceLockType</p>",
+                      "name": "shopPrice",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "double",
+                      "multiple": 0,
+                      "description": "<p>特价 ，注：特价不传时，默认特价更新为0！</p>",
+                      "name": "specialPrice",
+                      "required": false
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>站点-只能传子站点。例如shein-us</p>",
+                      "name": "site",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>涨价原因。枚举:1-商品成本上涨,2-物流履约费用上涨,3-活动结束恢复价格,4-其他,5-物流履约费用上涨（物流规则调整）</p>",
+                      "name": "riseReason"
+                    },
+                    "children": []
+                  }
+                ]
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>响应码 0: 正常</p>",
+                  "name": "code",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>响应信息</p>",
+                  "name": "info",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "name": "data",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "boolean",
+                          "multiple": 0,
+                          "description": "<p>是否成功 ture:成功 false:失败</p>",
+                          "name": "success",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "message",
+                          "name": "message",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>sku_code是商品发布SHEIN生成的系统编码</p>",
+                          "name": "productCode",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>站点</p>",
+                          "name": "site",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p>状态码，0 失败，1 成功，2 待审核</p>",
+                          "name": "status",
+                          "defaultValue": ""
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>响应描述</p>",
+                  "name": "msg",
+                  "required": false
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                },
+                "children": []
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 145,
+            "openPath": "/open-api/openapi-business-backend/product/price/save",
+            "errorCode": "0",
+            "errorMsg": "该产品目前的价格正在审核中，无法修改",
+            "errorMsgCn": "该产品目前的价格正在审核中，无法修改",
+            "errorMsgUs": "This product currently has a price under review and cannot be modified",
+            "errorMsgPt": "Este produto tem atualmente um preço em revisão e não pode ser modificado",
+            "errorMsgEs": "Este producto actualmente tiene un precio en revisión y no puede ser modificado",
+            "solution": "由于部分地区修改商品价格需要审核，因此开发者需要判断商品是否已审核通过。1、接入商品改价的webhook通知，当价格审核通过后，会进行消息通知：/product_price_audit_status_notice。2、调用修改价格接口后，返回参数会返回status，status=3代表商品价格正在审核中，请勿重复调用",
+            "sort": 0
+          },
+          {
+            "id": 758,
+            "openPath": "/open-api/openapi-business-backend/product/price/save",
+            "errorCode": "0",
+            "errorMsg": "系统异常，请稍后重试",
+            "errorMsgCn": "系统异常，请稍后重试",
+            "errorMsgUs": "System error, please try again later",
+            "errorMsgPt": "O sistema apresentou uma exceção, tente novamente mais tarde.",
+            "errorMsgEs": "Se ha producido un error en el sistema. Inténtelo de nuevo más tarde.",
+            "solution": "请不要对同一个SKC同时发起多次调价。如果要调整SKC下的多个SKU价格，请在同次请求中完成",
+            "sort": 0
+          },
+          {
+            "id": 759,
+            "openPath": "/open-api/openapi-business-backend/product/price/save",
+            "errorCode": "0",
+            "errorMsg": "活动，不支持涨价",
+            "errorMsgCn": "SKC：xxxxxxxxxxx 已报名shein-us活动，不支持涨价",
+            "errorMsgUs": "SKC: xxxxxxxxxxx has registered for the shein-jp event and does not support price increases.",
+            "errorMsgPt": "SKC：xxxxxxxxxxx  se inscreveu no evento shein-br e não apoia aumentos de preços.",
+            "errorMsgEs": "Promoción, no se admite aumento de precio",
+            "solution": "SKC参加站点的营销活动后，根据各活动的要求可能出现无法涨价的情况。可通过接口前置确认SKC当前的价格锁定状态：/open-api/goods/searchProduct，activityLockList-priceLockType，若priceLockType=0/2时，SKC才可在此站点涨价。",
+            "sort": 0
+          },
+          {
+            "id": 760,
+            "openPath": "/open-api/openapi-business-backend/product/price/save",
+            "errorCode": "",
+            "errorMsg": "站点不存在",
+            "errorMsgCn": "站点不存在",
+            "errorMsgUs": "Site does not exist",
+            "errorMsgPt": "O site não existe",
+            "errorMsgEs": "El sitio no existe",
+            "solution": "请查询接口获取店铺可用站点：/open-api/goods/query-site-list",
+            "sort": 0
+          },
+          {
+            "id": 147,
+            "openPath": "/open-api/openapi-business-backend/product/price/save",
+            "errorCode": "0",
+            "errorMsg": "SKU 不存在",
+            "errorMsgCn": "SKU 不存在",
+            "errorMsgUs": "SKU does not exist",
+            "errorMsgPt": "SKU não existe",
+            "errorMsgEs": "SKU no existe",
+            "solution": "SKU不存在可能有两种情况。一是商品尚未审核通过，二是商品已被删除。在修改SKU价格前，请先确认商品是生效的，可以通过接口确认：/open-api/goods/searchProduct，此接口中能返回的商品数据，一定是审核通过且未被删除的。",
+            "sort": 1
+          },
+          {
+            "id": 149,
+            "openPath": "/open-api/openapi-business-backend/product/price/save",
+            "errorCode": "0",
+            "errorMsg": "操作失败",
+            "errorMsgCn": "操作失败",
+            "errorMsgUs": "Operation failed",
+            "errorMsgPt": "Operação falhou",
+            "errorMsgEs": "Operación fallida",
+            "solution": "请检查金额小数位是否正确，站点是否有效",
+            "sort": 2
+          },
+          {
+            "id": 146,
+            "openPath": "/open-api/openapi-business-backend/product/price/save",
+            "errorCode": "0",
+            "errorMsg": "该产品处于营销活动价格锁定状态",
+            "errorMsgCn": "该产品处于营销活动价格锁定状态",
+            "errorMsgUs": "The product is in the marketing activity price lock",
+            "errorMsgPt": "O produto está bloqueado com preço de atividade de marketing",
+            "errorMsgEs": "El producto está en bloqueo de precio por actividad de marketing",
+            "solution": "商品报名了活动，在活动期间无法修改商品价格",
+            "sort": 3
+          },
+          {
+            "id": 69,
+            "openPath": "/open-api/openapi-business-backend/product/price/save",
+            "errorCode": "20100",
+            "errorMsg": "价格格式错误",
+            "errorMsgCn": "价格格式错误",
+            "errorMsgUs": "Price format error",
+            "errorMsgPt": "Formato de preço incorreto",
+            "errorMsgEs": "Formato de precio incorrecto",
+            "solution": "原价、特价必须是数字。大部分币种下价格最多支持2位小数，日元仅支持整数。",
+            "sort": 4
+          },
+          {
+            "id": 150,
+            "openPath": "/open-api/openapi-business-backend/product/price/save",
+            "errorCode": "0",
+            "errorMsg": "在新产品的保价期内，您无法申请调价",
+            "errorMsgCn": "在新产品的保价期内，您无法申请调价",
+            "errorMsgUs": "During the price guarantee period of new products, you cannot request a price adjustment",
+            "errorMsgPt": "Durante o período de garantia de novos produtos, você não poderá solicitar reajuste de preço",
+            "errorMsgEs": "Durante el período de garantía de nuevos productos, no podrá solicitar un ajuste de precio",
+            "solution": "在新产品的保价期内，您无法申请调价。",
+            "sort": 4
+          },
+          {
+            "id": 151,
+            "openPath": "/open-api/openapi-business-backend/product/price/save",
+            "errorCode": "0",
+            "errorMsg": "重复数据",
+            "errorMsgCn": "重复数据",
+            "errorMsgUs": "Duplicate data",
+            "errorMsgPt": "Dados duplicados",
+            "errorMsgEs": "Datos duplicados",
+            "solution": "productCode相同数据存在多条，请检查！",
+            "sort": 6
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "productPriceList": [
+                  {
+                    "currencyCode": "<REDACTED_SAMPLE>",
+                    "productCode": "<REDACTED_SAMPLE>",
+                    "site": "<REDACTED_SAMPLE>",
+                    "shopPrice": 0,
+                    "riseReason": null,
+                    "specialPrice": null
+                  }
+                ]
+              }
+            },
+            "response": {
+              "status": "present-unparsed"
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "productPriceList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "商品价格信息列表, 最大长度100",
+                    "properties": {
+                      "productCode": {
+                        "type": "string",
+                        "description": "传sku_code，sku_code是商品发布SHEIN生成的系统编码"
+                      },
+                      "currencyCode": {
+                        "type": "string",
+                        "description": "币种，商品在SHEIN平台使用的售卖币种，如BRL, THB, USD, MXN.  具体币种可查询 店铺站点和币种信息（新） 获取"
+                      },
+                      "shopPrice": {
+                        "type": "number",
+                        "description": "原价。 发起涨价前，请先通过接口确认商品能否涨价（商品参与营销活动后可能无法涨价）：/open-api/goods/searchProduct，activityLockList-priceLockType"
+                      },
+                      "specialPrice": {
+                        "type": "number",
+                        "description": "特价 ，注：特价不传时，默认特价更新为0！"
+                      },
+                      "site": {
+                        "type": "string",
+                        "description": "站点-只能传子站点。例如shein-us"
+                      },
+                      "riseReason": {
+                        "type": "string",
+                        "description": "涨价原因。枚举:1-商品成本上涨,2-物流履约费用上涨,3-活动结束恢复价格,4-其他,5-物流履约费用上涨（物流规则调整）"
+                      }
+                    },
+                    "required": [
+                      "productCode",
+                      "currencyCode",
+                      "shopPrice",
+                      "site"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3001940,
+            "updateTime": "2026-08-03",
+            "changeContent": "增加涨价操作前确认【商品能否涨价】的调用指引说明",
+            "version": 16
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

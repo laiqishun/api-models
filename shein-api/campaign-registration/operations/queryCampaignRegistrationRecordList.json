@@ -1,0 +1,791 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询活动报名记录列表",
+    "version": "source-revision-9",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/campaigns/registration-records": {
+      "post": {
+        "tags": [
+          "营销活动报名"
+        ],
+        "operationId": "queryCampaignRegistrationRecordList",
+        "summary": "查询活动报名记录列表",
+        "description": "该接口用于查询营销活动报名记录，支持根据活动ID、SKC进行筛选，仅支持查询近6个月内的报名记录数据。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述，成功：OK"
+                },
+                "code": {
+                  "type": "string",
+                  "description": "响应编码，成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应数据",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "description": "总数"
+                    },
+                    "goodsInfoList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "报名记录",
+                        "properties": {
+                          "partakeGoodsId": {
+                            "type": "integer",
+                            "description": "报名记录ID"
+                          },
+                          "activityId": {
+                            "type": "integer",
+                            "description": "活动ID"
+                          },
+                          "skc": {
+                            "type": "string",
+                            "description": "SKC编码"
+                          },
+                          "siteInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "自运营模式下，按站点提报的SKC维度活动价格信息。",
+                              "properties": {
+                                "site": {
+                                  "type": "string",
+                                  "description": "报名站点，示例：shein-br。"
+                                },
+                                "currency": {
+                                  "type": "string",
+                                  "description": "站点对应的币种，示例：BRL。"
+                                },
+                                "enrollPrice": {
+                                  "type": "string",
+                                  "description": "按SKC维度提报的活动售价。"
+                                },
+                                "enrollPriceLevel": {
+                                  "type": "integer",
+                                  "description": "活动售价命中的降幅档位。0：普通档，1：vip档，2：svip档。"
+                                },
+                                "enrollSalePriceRate": {
+                                  "type": "string",
+                                  "description": "按SKC维度提报的售价降幅。"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "supplyPriceInfo": {
+                            "type": "object",
+                            "description": "半托管、全托管模式下，按SKC维度提报的活动价格信息。",
+                            "properties": {
+                              "currency": {
+                                "type": "string",
+                                "description": "供货价对应的币种，样例：BRL。"
+                              },
+                              "enrollCostPrice": {
+                                "type": "string",
+                                "description": "按SKC维度提报的活动供货价。"
+                              },
+                              "enrollPriceLevel": {
+                                "type": "integer",
+                                "description": "活动供货价命中的降幅档位。0：普通档，1：vip档，2：svip档。"
+                              },
+                              "siteList": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string",
+                                  "description": "报名站点，示例：shein-br。"
+                                },
+                                "x-shein-original-multiple": 1
+                              }
+                            }
+                          },
+                          "adjustForm": {
+                            "type": "integer",
+                            "description": "报价形式。1：活动价格（活动售价或活动供货价），6：售价降幅。"
+                          },
+                          "actStock": {
+                            "type": "integer",
+                            "description": "SKC维度 活动件数。"
+                          },
+                          "reserveStock": {
+                            "type": "integer",
+                            "description": "SKC维度 活动预留件数。"
+                          },
+                          "auditStatus": {
+                            "type": "integer",
+                            "description": "报名审核状态。0：审核中，1：审核通过，2：审核不通过，4：取消报名，7：活动暂停，8：取消中。"
+                          },
+                          "refuseReason": {
+                            "type": "string",
+                            "description": "审核不通过原因。"
+                          },
+                          "partakeTime": {
+                            "type": "integer",
+                            "description": "报名时间。 时间戳，单位毫秒。"
+                          },
+                          "skuInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "按SKU维度提报的信息",
+                              "properties": {
+                                "sku": {
+                                  "type": "string",
+                                  "description": "SKU编码"
+                                },
+                                "siteInfoList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "自运营模式下，按站点提报的SKU维度活动价格信息。",
+                                    "properties": {
+                                      "site": {
+                                        "type": "string",
+                                        "description": "报名站点，示例：shein-br。"
+                                      },
+                                      "currency": {
+                                        "type": "string",
+                                        "description": "站点对应的币种，样例：BRL。"
+                                      },
+                                      "enrollPrice": {
+                                        "type": "string",
+                                        "description": "按SKU维度提报的活动售价。"
+                                      },
+                                      "enrollPriceLevel": {
+                                        "type": "integer",
+                                        "description": "活动售价命中的降幅档位。0：普通档，1：vip档，2：svip档。"
+                                      },
+                                      "enrollSalePriceRate": {
+                                        "type": "string",
+                                        "description": "按SKU维度提报的售价降幅。"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "supplyPriceInfo": {
+                                  "type": "object",
+                                  "description": "半托管/全托管模式下提报的SKU维度活动价格信息。",
+                                  "properties": {
+                                    "currency": {
+                                      "type": "string",
+                                      "description": "供货价对应的币种，示例：BRL。"
+                                    },
+                                    "enrollCostPrice": {
+                                      "type": "string",
+                                      "description": "SKU维度提报的活动供货价。"
+                                    },
+                                    "enrollPriceLevel": {
+                                      "type": "integer",
+                                      "description": "活动供货价命中的降幅档位。0：普通档，1：vip档，2：svip档。"
+                                    },
+                                    "siteList": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string",
+                                        "description": "报名站点，示例：shein-br。"
+                                      },
+                                      "x-shein-original-multiple": 1
+                                    }
+                                  }
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "partakeScope": {
+                            "type": "integer",
+                            "description": "提报维度。0：SKC维度提报，1：SKU维度提报。"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002016,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002016-3000009",
+        "x-shein-category-id": 3000009,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 9,
+        "x-shein-updated-at": "2026-09-01 14:30:45",
+        "x-shein-qps": "15",
+        "x-shein-change-content": "优化字段描述",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><span style=\"font-size: 14px;\">请求签名，生成规则请查阅：</span><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\" style=\"text-align: start;\">签名规则</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "指定出参语种，支持语种：英语：US，中文简体：CN，葡语：PT，西班牙语：ES，土耳其语：TR，法语：FR，德语：DE，泰语：TH",
+                  "name": "language",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>页码（从1开始）</p>",
+                  "name": "pageNum",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "每页数量（最大100）",
+                  "name": "pageSize",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 1,
+                  "description": "活动ID（最多100个）",
+                  "name": "activityIdList"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>SKC（最多100个）</p>",
+                  "name": "skcList"
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "错误描述，成功：OK",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "响应编码，成功：0",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "description": "响应数据",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "description": "总数",
+                      "name": "count"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>报名记录</p>",
+                      "name": "goodsInfoList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "报名记录ID",
+                          "name": "partakeGoodsId"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "活动ID",
+                          "name": "activityId"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>SKC编码</p>",
+                          "name": "skc"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p style=\"text-align: left;\">自运营模式下，按站点提报的SKC维度活动价格信息。</p>",
+                          "name": "siteInfoList"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>报名站点，示例：shein-br。</p>",
+                              "name": "site"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>站点对应的币种，示例：BRL。</p>",
+                              "name": "currency"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>按SKC维度提报的活动售价。</p>",
+                              "name": "enrollPrice"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "description": "<p>活动售价命中的降幅档位。0：普通档，1：vip档，2：svip档。</p>",
+                              "name": "enrollPriceLevel"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>按SKC维度提报的售价降幅。</p>",
+                              "name": "enrollSalePriceRate"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "description": "<p>半托管、全托管模式下，按SKC维度提报的活动价格信息。</p>",
+                          "name": "supplyPriceInfo"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>供货价对应的币种，样例：BRL。</p>",
+                              "name": "currency"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p><span style=\"font-size: 14px;\">按SKC维度提报的活动供货价。</span></p>",
+                              "name": "enrollCostPrice"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "description": "<p>活动供货价命中的降幅档位。0：普通档，1：vip档，2：svip档。</p>",
+                              "name": "enrollPriceLevel"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 1,
+                              "description": "<p><span style=\"font-size: 14px;\">报名站点，示例：shein-br。</span></p>",
+                              "name": "siteList"
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p>报价形式。1：活动价格（活动售价或活动供货价），6：售价降幅。</p>",
+                          "name": "adjustForm"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p><span style=\"font-size: 14px;\">SKC维度</span>活动件数。</p>",
+                          "name": "actStock"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p><span style=\"font-size: 14px;\">SKC维度</span>活动预留件数。</p>",
+                          "name": "reserveStock"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p>报名审核状态。0：审核中，1：审核通过，2：审核不通过，4：取消报名，7：活动暂停，8：取消中。</p>",
+                          "name": "auditStatus"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>审核不通过原因。</p>",
+                          "name": "refuseReason"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p>报名时间。<span style=\"font-size: 14px;\">时间戳，单位毫秒。</span></p>",
+                          "name": "partakeTime"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>按SKU维度提报的信息</p>",
+                          "name": "skuInfoList"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>SKU编码</p>",
+                              "name": "sku"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "<p><span style=\"font-size: 14px;\">自运营模式下，按站点提报的SKU维度活动价格信息。</span></p>",
+                              "name": "siteInfoList"
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p><span style=\"font-size: 14px;\">报名站点，示例：shein-br。</span></p>",
+                                  "name": "site"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p><span style=\"font-size: 14px;\">站点对应的币种，样例：BRL。</span></p>",
+                                  "name": "currency"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p><span style=\"font-size: 14px;\">按SKU维度提报的活动售价。</span></p>",
+                                  "name": "enrollPrice"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "description": "<p><span style=\"font-size: 14px;\">活动售价命中的降幅档位。0：普通档，1：vip档，2：svip档。</span></p>",
+                                  "name": "enrollPriceLevel"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p>按SKU维度提报的售价降幅。</p>",
+                                  "name": "enrollSalePriceRate"
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "description": "<p><span style=\"font-size: 14px;\">半托管/全托管模式下提报的SKU维度活动价格信息。</span></p>",
+                              "name": "supplyPriceInfo"
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p><span style=\"font-size: 14px;\">供货价对应的币种，示例：BRL。</span></p>",
+                                  "name": "currency"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "<p><span style=\"font-size: 14px;\">SKU维度提报的活动供货价。</span></p>",
+                                  "name": "enrollCostPrice"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "description": "<p>活动供货价命中的降幅档位。0：普通档，1：vip档，2：svip档。</p>",
+                                  "name": "enrollPriceLevel"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 1,
+                                  "description": "<p>报名站点，示例：shein-br。</p>",
+                                  "name": "siteList"
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p>提报维度。0：SKC维度提报，1：SKU维度提报。</p>",
+                          "name": "partakeScope"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "pageNum": 0,
+                "pageSize": 0,
+                "skcList": [
+                  "<REDACTED_SAMPLE>"
+                ],
+                "activityIdList": [
+                  0
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "msg": "<REDACTED_SAMPLE>",
+                "code": "<REDACTED_SAMPLE>",
+                "bbl": null,
+                "info": {
+                  "count": 0,
+                  "goodsInfoList": [
+                    {
+                      "partakeGoodsId": "<REDACTED_SAMPLE>",
+                      "activityId": "<REDACTED_SAMPLE>",
+                      "skc": "<REDACTED_SAMPLE>",
+                      "adjustForm": 0,
+                      "actStock": 0,
+                      "auditStatus": 0,
+                      "refuseReason": "<REDACTED_SAMPLE>",
+                      "partakeTime": "<REDACTED_SAMPLE>",
+                      "skuInfoList": [
+                        {
+                          "sku": "<REDACTED_SAMPLE>",
+                          "siteInfoList": [
+                            {
+                              "site": "<REDACTED_SAMPLE>",
+                              "currency": "<REDACTED_SAMPLE>",
+                              "enrollPrice": "<REDACTED_SAMPLE>",
+                              "enrollSalePriceRate": "<REDACTED_SAMPLE>"
+                            }
+                          ]
+                        }
+                      ],
+                      "partakeScope": 0
+                    }
+                  ]
+                },
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求签名，生成规则请查阅： 签名规则"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "指定出参语种，支持语种：英语：US，中文简体：CN，葡语：PT，西班牙语：ES，土耳其语：TR，法语：FR，德语：DE，泰语：TH"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "pageNum": {
+                  "type": "integer",
+                  "description": "页码（从1开始）"
+                },
+                "pageSize": {
+                  "type": "integer",
+                  "description": "每页数量（最大100）"
+                },
+                "activityIdList": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "description": "活动ID（最多100个）"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "skcList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "SKC（最多100个）"
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "pageNum",
+                "pageSize"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

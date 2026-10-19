@@ -1,0 +1,379 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "打印箱唛或包裹面单",
+    "version": "source-revision-12",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/order/print-package": {
+      "post": {
+        "tags": [
+          "采购单"
+        ],
+        "operationId": "printBoxMarkingsOrParcelLabels",
+        "summary": "打印箱唛或包裹面单",
+        "description": "该接口已逐步废弃，推荐优先对接【 发货单维度打印面单接口 】",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "0成功，1失败",
+                  "x-shein-label": "返回码"
+                },
+                "msg": {
+                  "type": "string",
+                  "x-shein-label": "错误信息"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "orderNoList": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "同个发货单的订单列表,如订单A,B一起发货,入参订单A查询,此字段会显示订单A,B",
+                        "x-shein-label": "订单号列表"
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "packingType": {
+                      "type": "string",
+                      "description": "如果是包裹方式发货,pdf为包裹单. 如为箱唛发货,pdf为箱唛单",
+                      "x-shein-label": "发货类型,1:包裹, 2:箱唛"
+                    },
+                    "url": {
+                      "type": "string",
+                      "description": "面单url",
+                      "x-shein-label": "打印内容PDF下载链接"
+                    }
+                  },
+                  "required": [
+                    "orderNoList",
+                    "packingType",
+                    "url"
+                  ]
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code",
+                "msg",
+                "info"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001659,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001659-1000002",
+        "x-shein-category-id": 1000002,
+        "x-shein-applicable-modes": [
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 12,
+        "x-shein-updated-at": "2026-04-07 20:28:19",
+        "x-shein-qps": "30",
+        "x-shein-change-content": "更新接口说明",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "发货单其中一个订单号",
+                  "name": "orderNo",
+                  "defaultValue": "B22388923",
+                  "label": "订单号",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "0成功，1失败",
+                  "name": "code",
+                  "defaultValue": "",
+                  "label": "返回码",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "name": "msg",
+                  "label": "错误信息",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "name": "info",
+                  "label": "",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 1,
+                      "description": "同个发货单的订单列表,如订单A,B一起发货,入参订单A查询,此字段会显示订单A,B",
+                      "name": "orderNoList",
+                      "label": "订单号列表",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "如果是包裹方式发货,pdf为包裹单. 如为箱唛发货,pdf为箱唛单",
+                      "name": "packingType",
+                      "label": "发货类型,1:包裹, 2:箱唛",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "面单url",
+                      "name": "url",
+                      "label": "打印内容PDF下载链接",
+                      "required": true
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 256,
+            "openPath": "/open-api/order/print-package",
+            "errorCode": "pfmp97026",
+            "errorMsg": "订单号不存在",
+            "errorMsgCn": "订单号不存在",
+            "errorMsgUs": "The order number does not exist.",
+            "errorMsgPt": "O número do pedido não existe.",
+            "errorMsgEs": "El número de pedido no existe.",
+            "solution": "orderNo不存在，请检查",
+            "sort": 0
+          },
+          {
+            "id": 258,
+            "openPath": "/open-api/order/print-package",
+            "errorCode": "001",
+            "errorMsg": "订单号不存在",
+            "errorMsgCn": "订单号不存在",
+            "errorMsgUs": "The order number does not exist.",
+            "errorMsgPt": "O número do pedido não existe.",
+            "errorMsgEs": "El número de pedido no existe.",
+            "solution": "orderNo不存在，请检查",
+            "sort": 0
+          },
+          {
+            "id": 259,
+            "openPath": "/open-api/order/print-package",
+            "errorCode": "832213",
+            "errorMsg": "请求被限流",
+            "errorMsgCn": "请求被限流",
+            "errorMsgUs": "The request has been rate-limited.",
+            "errorMsgPt": "A solicitação foi limitada por taxa.",
+            "errorMsgEs": "La solicitud ha sido limitada por el sistema de velocidad (rate limit).",
+            "solution": "接口触发限流。针对每个应用，该接口的qps（每秒最大请求数）为30",
+            "sort": 0
+          },
+          {
+            "id": 255,
+            "openPath": "/open-api/order/print-package",
+            "errorCode": "pfmp90112",
+            "errorMsg": "订单在SHEIN商家系统无发货信息，不可打印",
+            "errorMsgCn": "订单在SHEIN商家系统无发货信息，不可打印",
+            "errorMsgUs": "There is no shipping information for the order in the SHEIN merchant system, it cannot be printed.",
+            "errorMsgPt": "Não há informações de envio para o pedido no sistema de comerciantes da SHEIN, não é possível imprimir.",
+            "errorMsgEs": "No hay información de envío del pedido en el sistema comercial de SHEIN, no se puede imprimir.",
+            "solution": "该订单还未发货，无法打印面单，请检查",
+            "sort": 1
+          },
+          {
+            "id": 257,
+            "openPath": "/open-api/order/print-package",
+            "errorCode": "001",
+            "errorMsg": "订单在SHEIN商家系统无发货信息，不可打印",
+            "errorMsgCn": "订单在SHEIN商家系统无发货信息，不可打印",
+            "errorMsgUs": "There is no shipping information for the order in the SHEIN merchant system, it cannot be printed.",
+            "errorMsgPt": "Não há informações de envio para o pedido no sistema de comerciantes da SHEIN, não é possível imprimir.",
+            "errorMsgEs": "No hay información de envío del pedido en el sistema comercial de SHEIN, no se puede imprimir.",
+            "solution": "该订单还未发货，无法打印面单，请检查",
+            "sort": 1
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "orderNo": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "present-unparsed"
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "orderNo": {
+                  "type": "string",
+                  "description": "发货单其中一个订单号",
+                  "x-shein-label": "订单号",
+                  "x-shein-default-value": "B22388923"
+                }
+              },
+              "required": [
+                "orderNo"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

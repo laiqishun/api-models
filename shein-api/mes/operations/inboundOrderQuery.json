@@ -1,0 +1,714 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "入库单列表查询",
+    "version": "source-revision-2",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/sims/inbound-order-query": {
+      "post": {
+        "tags": [
+          "MES"
+        ],
+        "operationId": "inboundOrderQuery",
+        "summary": "入库单列表查询",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOfOpenApiInboundOrderQueryResponse",
+              "properties": {
+                "bbl": {
+                  "type": "object",
+                  "description": "响应异常时的bbl相关信息",
+                  "x-shein-label": "BblMeta",
+                  "properties": {
+                    "info": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string"
+                            },
+                            "npid": {
+                              "type": "string"
+                            },
+                            "tag": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "x-shein-original-multiple": 1
+                      }
+                    },
+                    "npid": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "分页请求响应",
+                  "x-shein-label": "OpenApiInboundOrderQueryResponse",
+                  "properties": {
+                    "cursorCode": {
+                      "type": "string",
+                      "description": "本次返回游标，作为拉取下一批数据的入参用"
+                    },
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "数据列表，单次返回200条，默认返回条件内最新的数据",
+                        "properties": {
+                          "addTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "添加时间"
+                          },
+                          "inboundOrderDetailList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "入库单明细",
+                              "properties": {
+                                "actualInboundQuantity": {
+                                  "type": "integer",
+                                  "description": "实际入库数"
+                                },
+                                "skuCode": {
+                                  "type": "string",
+                                  "description": "sku编码"
+                                },
+                                "suffixZh": {
+                                  "type": "string",
+                                  "description": "sku属性集-销售属性拼接（中文）"
+                                },
+                                "waitInboundQuantity": {
+                                  "type": "integer",
+                                  "description": "待出库数"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "inboundOrderNo": {
+                            "type": "string",
+                            "description": "入库单号"
+                          },
+                          "originalOrderNo": {
+                            "type": "string",
+                            "description": "关联单据号"
+                          },
+                          "productInfo": {
+                            "type": "object",
+                            "description": "商品信息",
+                            "x-shein-label": "BasicProductInfoResponse",
+                            "properties": {
+                              "designCode": {
+                                "type": "string",
+                                "description": "设计款号"
+                              },
+                              "skc": {
+                                "type": "string",
+                                "description": "skc"
+                              },
+                              "supplierCode": {
+                                "type": "string",
+                                "description": "供方货号"
+                              }
+                            }
+                          },
+                          "status": {
+                            "type": "integer",
+                            "description": "状态\t1:待办；2:已办，3:已作废"
+                          },
+                          "statusName": {
+                            "type": "string",
+                            "description": "状态名称"
+                          },
+                          "type": {
+                            "type": "integer",
+                            "description": "入库单类型 1、生产入库、2、退货入库、3、调拨入库、4、采购入库、5、其他入库"
+                          },
+                          "typeName": {
+                            "type": "string",
+                            "description": "入库单类型名称"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001816,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001816-1000015",
+        "x-shein-category-id": 1000015,
+        "x-shein-applicable-modes": [
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          }
+        ],
+        "x-shein-source-version": 2,
+        "x-shein-updated-at": "2026-06-15 14:05:56",
+        "x-shein-qps": null,
+        "x-shein-change-content": "调整请求头参数",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "默认值：application/json;charset=UTF-8",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识openKeyId，获取方式请查阅：<a href=\"https://open.sheincorp.com/documents/system/2169474d-1d4a-41a9-b9fd-427f63f54a63\" target=\"_blank\">授权手册</a></p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><span style=\"font-size: 14px;\">请求签名，生成规则请查阅：</span><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\"><span style=\"font-size: 14px;\">签名规则</span></a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "支持返回的多语言报错信息，默认返回中文多语言信息",
+                  "name": "language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "OpenApiInboundOrderQueryRequest",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "datetime",
+                  "multiple": 0,
+                  "description": "创建时间结束(yyyy-MM-dd HH:mm:ss)，最大区间为3个月",
+                  "name": "addTimeEnd",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "datetime",
+                  "multiple": 0,
+                  "description": "创建时间起始(yyyy-MM-dd HH:mm:ss)，最大区间为3个月",
+                  "name": "addTimeStart",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "上次接口返回的游标，响应体里的cursorCode，有值会继续往下翻页数据",
+                  "name": "lastCursorCode",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "状态\t1:待办；2:已办，3:已作废",
+                  "name": "status",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "入库单类型 1、生产入库、2、退货入库、3、调拨入库、4、采购入库、5、其他入库",
+                  "name": "type",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOfOpenApiInboundOrderQueryResponse",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "响应异常时的bbl相关信息",
+                  "name": "bbl",
+                  "label": "BblMeta",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "name": "info",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "name": "*",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "name": "key",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "name": "npid",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "name": "tag",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "name": "value",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "name": "npid",
+                      "label": "",
+                      "required": false
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "分页请求响应",
+                  "name": "info",
+                  "label": "OpenApiInboundOrderQueryResponse",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "<p>本次返回游标，作为拉取下一批数据的入参用</p>",
+                      "name": "cursorCode",
+                      "label": "",
+                      "required": false
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "数据列表，单次返回200条，默认返回条件内最新的数据",
+                      "name": "list",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "添加时间",
+                          "name": "addTime",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "入库单明细",
+                          "name": "inboundOrderDetailList",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "实际入库数",
+                              "name": "actualInboundQuantity",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "sku编码",
+                              "name": "skuCode",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "sku属性集-销售属性拼接（中文）",
+                              "name": "suffixZh",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "待出库数",
+                              "name": "waitInboundQuantity",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "入库单号",
+                          "name": "inboundOrderNo",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "关联单据号",
+                          "name": "originalOrderNo",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "商品信息",
+                          "name": "productInfo",
+                          "label": "BasicProductInfoResponse",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "设计款号",
+                              "name": "designCode",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "skc",
+                              "name": "skc",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "供方货号",
+                              "name": "supplierCode",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "状态\t1:待办；2:已办，3:已作废",
+                          "name": "status",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "状态名称",
+                          "name": "statusName",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "入库单类型 1、生产入库、2、退货入库、3、调拨入库、4、采购入库、5、其他入库",
+                          "name": "type",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "入库单类型名称",
+                          "name": "typeName",
+                          "label": "",
+                          "required": false
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误描述,成功：OK</p>",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": null,
+            "response": null
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json;charset=UTF-8"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识openKeyId，获取方式请查阅： 授权手册"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求签名，生成规则请查阅： 签名规则"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "支持返回的多语言报错信息，默认返回中文多语言信息"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "x-shein-label": "OpenApiInboundOrderQueryRequest",
+              "properties": {
+                "addTimeEnd": {
+                  "type": "string",
+                  "x-shein-original-type": "datetime",
+                  "description": "创建时间结束(yyyy-MM-dd HH:mm:ss)，最大区间为3个月"
+                },
+                "addTimeStart": {
+                  "type": "string",
+                  "x-shein-original-type": "datetime",
+                  "description": "创建时间起始(yyyy-MM-dd HH:mm:ss)，最大区间为3个月"
+                },
+                "lastCursorCode": {
+                  "type": "string",
+                  "description": "上次接口返回的游标，响应体里的cursorCode，有值会继续往下翻页数据"
+                },
+                "status": {
+                  "type": "integer",
+                  "description": "状态\t1:待办；2:已办，3:已作废"
+                },
+                "type": {
+                  "type": "integer",
+                  "description": "入库单类型 1、生产入库、2、退货入库、3、调拨入库、4、采购入库、5、其他入库"
+                }
+              },
+              "required": [
+                "addTimeEnd",
+                "addTimeStart",
+                "status"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

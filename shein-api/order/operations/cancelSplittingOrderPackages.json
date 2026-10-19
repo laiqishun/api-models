@@ -1,0 +1,279 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "取消超限拆分包裹",
+    "version": "source-revision-12",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/order/unpacking-group-remove": {
+      "post": {
+        "tags": [
+          "客单"
+        ],
+        "operationId": "cancelSplittingOrderPackages",
+        "summary": "取消超限拆分包裹",
+        "description": "该接口用于当巴西和墨西哥市场的订单超过限制并需要拆包时使用。ERP 需要根据订单详情字段判断订单是否需要拆包（\"isOverLimitOrder\": 1）。请注意：一旦取消拆包，订单会重新生成包裹号，需要调用订单详情接口重新获取；更多信息请查看 拆包解决方案；",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应码",
+                  "x-shein-label": "code,\"0\"-correct, other code-error\t",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误信息描述",
+                  "x-shein-label": "error message\t",
+                  "x-shein-example-redacted": true
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code",
+                "msg"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001279,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001279-2000001",
+        "x-shein-category-id": 2000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 12,
+        "x-shein-updated-at": "2025-07-21 11:28:24",
+        "x-shein-qps": "40",
+        "x-shein-change-content": "更新请求示例",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "application/json;charset=UTF-8",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "订单号",
+                  "name": "orderNo",
+                  "label": "order number",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "响应码",
+                  "name": "code",
+                  "label": "code,\"0\"-correct, other code-error\t",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "错误信息描述",
+                  "name": "msg",
+                  "label": "error message\t",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 288,
+            "openPath": "/open-api/order/unpacking-group-remove",
+            "errorCode": "9999002",
+            "errorMsg": "Data does not exist.",
+            "errorMsgCn": "数据不存在。",
+            "errorMsgUs": "Data does not exist.",
+            "errorMsgPt": "Os dados não existem.",
+            "errorMsgEs": "Los datos no existen.",
+            "solution": "orderNo不存在，请检查",
+            "sort": 0
+          },
+          {
+            "id": 289,
+            "openPath": "/open-api/order/unpacking-group-remove",
+            "errorCode": "9998885",
+            "errorMsg": "No need to unpack the order.",
+            "errorMsgCn": "无需对订单进行拆包。",
+            "errorMsgUs": "No need to unpack the order.",
+            "errorMsgPt": "Não é necessário abrir o pedido.",
+            "errorMsgEs": "No es necesario desempacar el pedido.",
+            "solution": "该订单不是超限订单，isOverLimitOrder=2，则说明订单不是超限订单，无需调用接口拆包",
+            "sort": 0
+          },
+          {
+            "id": 290,
+            "openPath": "/open-api/order/unpacking-group-remove",
+            "errorCode": "9999004",
+            "errorMsg": "The unpacking status has been confirmed and cannot be canceled.",
+            "errorMsgCn": "拆包状态已确认，无法取消。",
+            "errorMsgUs": "The unpacking status has been confirmed and cannot be canceled.",
+            "errorMsgPt": "O status de desempacotamento foi confirmado e não pode ser cancelado.",
+            "errorMsgEs": "El estado de desempaque ha sido confirmado y no se puede cancelar.",
+            "solution": "包裹已取消拆包，请勿重复调用接口",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "orderNo": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json;charset=UTF-8"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "orderNo": {
+                  "type": "string",
+                  "description": "订单号",
+                  "x-shein-label": "order number",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "orderNo"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

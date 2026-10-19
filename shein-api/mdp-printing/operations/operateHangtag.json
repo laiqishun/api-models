@@ -1,0 +1,409 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "挂卡聚合操作（上架or出库or移位）",
+    "version": "source-revision-1",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/mdp/hangcard/operate": {
+      "post": {
+        "tags": [
+          "MDP印染"
+        ],
+        "operationId": "operateHangtag",
+        "summary": "挂卡聚合操作（上架or出库or移位）",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "接口返回基础数据",
+              "x-shein-label": "ApiResult",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应码，成功：0",
+                  "x-shein-example-redacted": true
+                },
+                "detailMsg": {
+                  "type": "string",
+                  "description": "详细信息",
+                  "x-shein-example-redacted": true
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应数据"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "前端展示的描述信息",
+                  "x-shein-example-redacted": true
+                },
+                "time": {
+                  "type": "string",
+                  "x-shein-original-type": "datetime",
+                  "description": "响应时间"
+                }
+              }
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001430,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001430-3000002",
+        "x-shein-category-id": 3000002,
+        "x-shein-applicable-modes": [],
+        "x-shein-source-version": 1,
+        "x-shein-updated-at": "2025-10-15 16:18:40",
+        "x-shein-qps": null,
+        "x-shein-change-content": "MDP新增接口",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OpenAPI调用挂卡聚合操作请求参数",
+              "label": "OpenApiHangCardOperateReq",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "上架操作参数",
+                  "name": "groundingOperateParam",
+                  "label": "GroundingOperateParam",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "货位编号",
+                      "name": "cargoLocationCode",
+                      "label": "",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "挂卡编号",
+                      "name": "hangCardNo",
+                      "label": "",
+                      "required": true
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "操作类型 1:挂卡上架 2:挂卡出库 3:挂卡移位",
+                  "name": "operationType",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "出库操作参数",
+                  "name": "outboundOperateParam",
+                  "label": "OutboundOperateParam",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 1,
+                      "description": "挂卡编号集合",
+                      "name": "hangCardNos",
+                      "label": "",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "出库类型 1-配货出库 2-报废出库",
+                      "name": "outboundType",
+                      "label": "",
+                      "required": true
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "移位操作参数",
+                  "name": "shiftOperateParam",
+                  "label": "ShiftOperateParam",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "货位编号",
+                      "name": "cargoLocation",
+                      "label": "",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "description": "挂卡编号",
+                      "name": "hangCardNo",
+                      "label": "",
+                      "required": true
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "userCode",
+                  "name": "userCode",
+                  "label": "",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "接口返回基础数据",
+              "label": "ApiResult",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "响应码，成功：0",
+                  "name": "code",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "详细信息",
+                  "name": "detailMsg",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "响应数据",
+                  "name": "info",
+                  "label": "",
+                  "required": false
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "前端展示的描述信息",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "datetime",
+                  "multiple": 0,
+                  "description": "响应时间",
+                  "name": "time",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": null,
+            "response": null
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "description": "OpenAPI调用挂卡聚合操作请求参数",
+              "x-shein-label": "OpenApiHangCardOperateReq",
+              "properties": {
+                "groundingOperateParam": {
+                  "type": "object",
+                  "description": "上架操作参数",
+                  "x-shein-label": "GroundingOperateParam",
+                  "properties": {
+                    "cargoLocationCode": {
+                      "type": "string",
+                      "description": "货位编号"
+                    },
+                    "hangCardNo": {
+                      "type": "string",
+                      "description": "挂卡编号"
+                    }
+                  },
+                  "required": [
+                    "cargoLocationCode",
+                    "hangCardNo"
+                  ]
+                },
+                "operationType": {
+                  "type": "integer",
+                  "description": "操作类型 1:挂卡上架 2:挂卡出库 3:挂卡移位"
+                },
+                "outboundOperateParam": {
+                  "type": "object",
+                  "description": "出库操作参数",
+                  "x-shein-label": "OutboundOperateParam",
+                  "properties": {
+                    "hangCardNos": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "挂卡编号集合"
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "outboundType": {
+                      "type": "integer",
+                      "description": "出库类型 1-配货出库 2-报废出库"
+                    }
+                  },
+                  "required": [
+                    "hangCardNos",
+                    "outboundType"
+                  ]
+                },
+                "shiftOperateParam": {
+                  "type": "object",
+                  "description": "移位操作参数",
+                  "x-shein-label": "ShiftOperateParam",
+                  "properties": {
+                    "cargoLocation": {
+                      "type": "string",
+                      "description": "货位编号"
+                    },
+                    "hangCardNo": {
+                      "type": "string",
+                      "description": "挂卡编号"
+                    }
+                  },
+                  "required": [
+                    "cargoLocation",
+                    "hangCardNo"
+                  ]
+                },
+                "userCode": {
+                  "type": "string",
+                  "description": "userCode"
+                }
+              },
+              "required": [
+                "operationType",
+                "userCode"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

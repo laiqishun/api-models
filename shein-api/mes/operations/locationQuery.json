@@ -1,0 +1,583 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "库位列表数据",
+    "version": "source-revision-2",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/sims/location-query": {
+      "post": {
+        "tags": [
+          "MES"
+        ],
+        "operationId": "locationQuery",
+        "summary": "库位列表数据",
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOfOpenApiLocationQueryResponse",
+              "properties": {
+                "bbl": {
+                  "type": "object",
+                  "description": "响应异常时的bbl相关信息",
+                  "x-shein-label": "BblMeta",
+                  "properties": {
+                    "info": {
+                      "type": "object",
+                      "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "key": {
+                              "type": "string"
+                            },
+                            "npid": {
+                              "type": "string"
+                            },
+                            "tag": {
+                              "type": "string"
+                            },
+                            "value": {
+                              "type": "string"
+                            }
+                          }
+                        },
+                        "x-shein-original-multiple": 1
+                      }
+                    },
+                    "npid": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "x-shein-label": "OpenApiLocationQueryResponse",
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "list",
+                        "properties": {
+                          "isIdle": {
+                            "type": "boolean",
+                            "description": "空闲状态 true 空闲 false 占用中",
+                            "x-shein-example-redacted": true
+                          },
+                          "isUsed": {
+                            "type": "boolean",
+                            "description": "是否启用 0-否,1-是",
+                            "x-shein-example-redacted": true
+                          },
+                          "locationId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "库位ID"
+                          },
+                          "locationName": {
+                            "type": "string",
+                            "description": "库位编码/库位名称"
+                          },
+                          "locationType": {
+                            "type": "integer",
+                            "description": "库位类型：1-JIT库位(大货库位)/2-样衣库位/3-尾货库位/4-胚衣库位/5-面辅料库位/6-备货库位(成衣库位)"
+                          },
+                          "locationTypeName": {
+                            "type": "string",
+                            "description": "库位类型名称"
+                          },
+                          "warehouseId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "仓库id"
+                          },
+                          "warehouseName": {
+                            "type": "string",
+                            "description": "仓库名称"
+                          },
+                          "warehouseProductType": {
+                            "type": "integer",
+                            "description": "仓库类型,1-成品,2-半成品"
+                          },
+                          "warehouseProductTypeName": {
+                            "type": "string",
+                            "description": "仓库类型名称"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001818,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001818-1000015",
+        "x-shein-category-id": 1000015,
+        "x-shein-applicable-modes": [
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          }
+        ],
+        "x-shein-source-version": 2,
+        "x-shein-updated-at": "2026-06-15 14:54:40",
+        "x-shein-qps": null,
+        "x-shein-change-content": "调整请求头参数",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "默认值：application/json;charset=UTF-8",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识openKeyId，获取方式请查阅：<a href=\"https://open.sheincorp.com/documents/system/2169474d-1d4a-41a9-b9fd-427f63f54a63\" target=\"_blank\">授权手册</a></p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求签名，生成规则请查阅：<a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\">签名规则</a></p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>支持返回的多语言报错信息，默认返回中文多语言信息</p>",
+                  "name": "language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "OpenApiLocationQueryRequest",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "页码，每页200",
+                  "name": "page",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "int64",
+                  "multiple": 1,
+                  "description": "仓库ID",
+                  "name": "warehouseIdList",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 1,
+                  "description": "仓库类型,1-成品,2-半成品",
+                  "name": "warehouseProductTypeList",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOfOpenApiLocationQueryResponse",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "响应异常时的bbl相关信息",
+                  "name": "bbl",
+                  "label": "BblMeta",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 0,
+                      "name": "info",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "name": "*",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "name": "key",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "name": "npid",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "name": "tag",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "name": "value",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "name": "npid",
+                      "label": "",
+                      "required": false
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "label": "OpenApiLocationQueryResponse",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "list",
+                      "name": "list",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "boolean",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "空闲状态 true 空闲 false 占用中",
+                          "name": "isIdle",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "boolean",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "是否启用 0-否,1-是",
+                          "name": "isUsed",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "库位ID",
+                          "name": "locationId",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "库位编码/库位名称",
+                          "name": "locationName",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "库位类型：1-JIT库位(大货库位)/2-样衣库位/3-尾货库位/4-胚衣库位/5-面辅料库位/6-备货库位(成衣库位)",
+                          "name": "locationType",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "库位类型名称",
+                          "name": "locationTypeName",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "仓库id",
+                          "name": "warehouseId",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "仓库名称",
+                          "name": "warehouseName",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "仓库类型,1-成品,2-半成品",
+                          "name": "warehouseProductType",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>仓库类型名称</p>",
+                          "name": "warehouseProductTypeName",
+                          "label": "",
+                          "required": false
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误描述,成功：OK</p>",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": null,
+            "response": null
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json;charset=UTF-8"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识openKeyId，获取方式请查阅： 授权手册"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求签名，生成规则请查阅： 签名规则"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "支持返回的多语言报错信息，默认返回中文多语言信息"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "x-shein-label": "OpenApiLocationQueryRequest",
+              "properties": {
+                "page": {
+                  "type": "integer",
+                  "description": "页码，每页200"
+                },
+                "warehouseIdList": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int64",
+                    "x-shein-original-type": "int64",
+                    "description": "仓库ID"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "warehouseProductTypeList": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "description": "仓库类型,1-成品,2-半成品"
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

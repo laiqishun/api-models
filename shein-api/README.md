@@ -5,7 +5,7 @@ description: "Public SHEIN API and Webhook reference organized by official categ
 
 # SHEIN Open Platform
 
-Snapshot: **2026-10-15 18:50 CST**. The official public catalog had **232 API records in 20 categories** and **24 Webhook records in 1 category**. Each catalog ID maps to one JSON model and one [manifest](./manifest.md) row. These models are derived from SHEIN's public reference responses; SHEIN did not publish these files as Swagger.
+Snapshot: **2026-10-15 18:50 CST**. The official public catalog had **232 API records in 20 categories** and **24 Webhook records in 1 category**. Each catalog ID maps to one JSON model and one [manifest](./manifest.md) row. Module directories use business names, and each operation JSON filename matches its semantic `operationId`, based on the official English interface title when available; official numeric IDs remain in the manifest and JSON metadata. These models are derived from SHEIN's public reference responses; SHEIN did not publish these files as Swagger.
 
 ## Before using an operation
 
@@ -18,27 +18,27 @@ Snapshot: **2026-10-15 18:50 CST**. The official public catalog had **232 API re
 
 | Kind | Category | Official ID | Records | Open |
 |---|---|---:|---:|---|
-| API | 密钥 | 1000012 | 1 | [Module](./credentials-1000012/README.md) |
-| API | 商品 | 1000001 | 40 | [Module](./product-1000001/README.md) |
-| API | 价格 | 3000013 | 10 | [Module](./price-3000013/README.md) |
-| API | 合规 | 3000008 | 18 | [Module](./compliance-3000008/README.md) |
-| API | Feed | 3000003 | 6 | [Module](./feed-3000003/README.md) |
-| API | 客单 | 2000001 | 17 | [Module](./order-2000001/README.md) |
-| API | 退货退款 | 2000004 | 3 | [Module](./return-refund-2000004/README.md) |
-| API | 采购单 | 1000002 | 20 | [Module](./purchase-order-1000002/README.md) |
-| API | 采购单退货 | 3000011 | 13 | [Module](./purchase-order-return-3000011/README.md) |
-| API | 库存和销量 | 1000003 | 6 | [Module](./inventory-sales-1000003/README.md) |
-| API | 营销活动报名 | 3000009 | 6 | [Module](./campaign-registration-3000009/README.md) |
-| API | 财务 | 3000005 | 6 | [Module](./finance-3000005/README.md) |
-| API | 店铺 | 3000007 | 3 | [Module](./shop-3000007/README.md) |
-| API | 定制商品 | 3000010 | 5 | [Module](./custom-product-3000010/README.md) |
-| API | 认证仓 | 3000001 | 4 | [Module](./certified-warehouse-3000001/README.md) |
-| API | 物流 | 1000006 | 11 | [Module](./logistics-1000006/README.md) |
-| API | MES | 1000015 | 25 | [Module](./mes-1000015/README.md) |
-| API | 排产 | 3000012 | 10 | [Module](./production-scheduling-3000012/README.md) |
-| API | 面料 | 1000005 | 6 | [Module](./fabric-1000005/README.md) |
-| API | MDP印染 | 3000002 | 22 | [Module](./mdp-printing-3000002/README.md) |
-| Webhook | Webhook | 2000003 | 24 | [Module](./webhook-2000003/README.md) |
+| API | 密钥 | 1000012 | 1 | [Module](./credentials/README.md) |
+| API | 商品 | 1000001 | 40 | [Module](./product/README.md) |
+| API | 价格 | 3000013 | 10 | [Module](./price/README.md) |
+| API | 合规 | 3000008 | 18 | [Module](./compliance/README.md) |
+| API | Feed | 3000003 | 6 | [Module](./feed/README.md) |
+| API | 客单 | 2000001 | 17 | [Module](./order/README.md) |
+| API | 退货退款 | 2000004 | 3 | [Module](./return-refund/README.md) |
+| API | 采购单 | 1000002 | 20 | [Module](./purchase-order/README.md) |
+| API | 采购单退货 | 3000011 | 13 | [Module](./purchase-order-return/README.md) |
+| API | 库存和销量 | 1000003 | 6 | [Module](./inventory-sales/README.md) |
+| API | 营销活动报名 | 3000009 | 6 | [Module](./campaign-registration/README.md) |
+| API | 财务 | 3000005 | 6 | [Module](./finance/README.md) |
+| API | 店铺 | 3000007 | 3 | [Module](./shop/README.md) |
+| API | 定制商品 | 3000010 | 5 | [Module](./custom-product/README.md) |
+| API | 认证仓 | 3000001 | 4 | [Module](./certified-warehouse/README.md) |
+| API | 物流 | 1000006 | 11 | [Module](./logistics/README.md) |
+| API | MES | 1000015 | 25 | [Module](./mes/README.md) |
+| API | 排产 | 3000012 | 10 | [Module](./production-scheduling/README.md) |
+| API | 面料 | 1000005 | 6 | [Module](./fabric/README.md) |
+| API | MDP印染 | 3000002 | 22 | [Module](./mdp-printing/README.md) |
+| Webhook | Webhook | 2000003 | 24 | [Module](./webhook/README.md) |
 
 ## Source and validation boundary
 

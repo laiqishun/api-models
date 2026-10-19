@@ -1,0 +1,315 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "创建商品视频转换任务",
+    "version": "source-revision-2",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods/product/create-video-transform-task": {
+      "post": {
+        "tags": [
+          "商品"
+        ],
+        "operationId": "createProductVideoConversionTask",
+        "summary": "创建商品视频转换任务",
+        "description": "商品视频的调用顺序：① 查询规范确认分类下能否发布视频 → ② 创建视频转换任务 →  ③ 监听任务完成通知 →  ④ 查询任务获取转换后URL →⑤ 使用转换后URL发布/编辑商品。 此接口为顺序中的②步骤。商品视频的详细方案请参考： https://open.sheincorp.com/documents/system/16a63f9f-7237-47bd-94c9-37059aa25554",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应码。成功为0。",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "响应信息。成功为OK",
+                  "x-shein-example-redacted": true
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应详情。",
+                  "properties": {
+                    "task_id": {
+                      "type": "string",
+                      "description": "转换任务id。提供的视频URL满足校验后，会生成此视频的转换任务唯一ID。 转换为异步操作，后续需要通过task_id去查询获取转换结果。",
+                      "x-shein-example-redacted": true
+                    },
+                    "transformed_url": {
+                      "type": "string",
+                      "description": "转换后的SHEIN视频地址。 如果入参的video_url在最近一周内有成功转换过，则接口会即时返回上一次的转换结果。",
+                      "x-shein-example-redacted": true
+                    }
+                  },
+                  "required": [
+                    "task_id"
+                  ]
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "追踪id",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "code",
+                "msg"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002020,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002020-1000001",
+        "x-shein-category-id": 1000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 2,
+        "x-shein-updated-at": "2026-09-02 10:21:29",
+        "x-shein-qps": "10",
+        "x-shein-change-content": "接口上线",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>application/json</p>",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>接口签名</p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br</p>",
+                  "name": "language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>视频文件的URL地址。</p><p>视频要求：仅支持MP4格式，视频最大100M，视频内容不包含敏感信息，无水印。</p><p>URL地址要求：非SHEIN的视频地址，地址后缀必须是.mp4，地址可访问，可下载。不可提供在线视频网站的地址。开发者请前置确认URL是否符合要求。</p>",
+                  "name": "video_url",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>响应码。成功为0。</p>",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>响应信息。成功为OK</p>",
+                  "name": "msg",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>响应详情。</p>",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>转换任务id。提供的视频URL满足校验后，会生成此视频的转换任务唯一ID。</p><p>转换为异步操作，后续需要通过task_id去查询获取转换结果。</p>",
+                      "name": "task_id",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>转换后的SHEIN视频地址。</p><p>如果入参的video_url在最近一周内有成功转换过，则接口会即时返回上一次的转换结果。</p>",
+                      "name": "transformed_url"
+                    }
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>追踪id</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "video_url": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "task_id": "<REDACTED_SAMPLE>",
+                  "transformed_url": null
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "支持返回的多语言报错信息，例如：language:en。默认返回中文多语言信息 英语:en 法语: fr 西班牙语:es 德语:de 中文简体:zh-cn 泰语:th 巴西葡语:pt-br"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "video_url": {
+                  "type": "string",
+                  "description": "视频文件的URL地址。 视频要求：仅支持MP4格式，视频最大100M，视频内容不包含敏感信息，无水印。 URL地址要求：非SHEIN的视频地址，地址后缀必须是.mp4，地址可访问，可下载。不可提供在线视频网站的地址。开发者请前置确认URL是否符合要求。",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "video_url"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3002020,
+            "updateTime": "2026-09-02",
+            "changeContent": "接口上线",
+            "version": 2
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

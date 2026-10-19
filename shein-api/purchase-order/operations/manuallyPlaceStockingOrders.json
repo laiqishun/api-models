@@ -1,0 +1,347 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "手工下备货单",
+    "version": "source-revision-7",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/idms/create-order": {
+      "post": {
+        "tags": [
+          "采购单"
+        ],
+        "operationId": "manuallyPlaceStockingOrders",
+        "summary": "手工下备货单",
+        "description": "该接口用于商家创建备货单（创建的备货单需等待平台审核），适用于部分全托管、自运营及半托管模式的商家。需要注意的是，备货单是指 SHEIN 面向供应商的采购订单，并非面向消费者的客单。如果需获取消费者相关的订单信息，请使用订单列表接口： /open-api/order/order-list",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "成功：0"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "成功：OK"
+                }
+              },
+              "required": [
+                "code",
+                "msg"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002040,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002040-1000002",
+        "x-shein-category-id": 1000002,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 7,
+        "x-shein-updated-at": "2026-09-23 21:40:03",
+        "x-shein-qps": "50",
+        "x-shein-change-content": "更新",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "<p>下单参数</p>",
+                  "name": "paramList",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>shein skc 编码</p>",
+                      "name": "skc",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>sku下单参数</p>",
+                      "name": "skuCodeList",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>shein sku 编码</p>",
+                          "name": "skuCode",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "<p>下单数量</p>",
+                          "name": "orderCount",
+                          "required": true
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>成功：0</p>",
+                  "name": "code",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>成功：OK</p>",
+                  "name": "msg",
+                  "required": true
+                },
+                "children": []
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 829,
+            "openPath": "/open-api/idms/create-order",
+            "errorCode": "04905",
+            "errorMsg": "商品为代采供应链商品，不允许商家自行发起创单",
+            "errorMsgCn": "商品为代采供应链商品，不允许商家自行发起创单",
+            "errorMsgUs": "This product is sourced via a procurement supply chain; merchants are not permitted to initiate order creation independently.",
+            "errorMsgPt": "O produto é um item da cadeia de suprimentos de compra por procuração; os vendedores não podem iniciar pedidos por conta própria.",
+            "errorMsgEs": "El producto es un artículo de la cadena de suministro de compra por agencia; los vendedores no pueden crear pedidos por su cuenta.",
+            "solution": "此类商品不支持创建订单",
+            "sort": 0
+          },
+          {
+            "id": 830,
+            "openPath": "/open-api/idms/create-order",
+            "errorCode": "04903",
+            "errorMsg": "提交商品存在错误：SKC: XXXXXXXXX SKU: XXXXXXXXX 停止供货，不允许下单",
+            "errorMsgCn": "提交商品存在错误：SKC: XXXXXXXXX SKU: XXXXXXXXX 停止供货，不允许下单",
+            "errorMsgUs": "Item submission error: SKC: XXXXXXXXX SKU: XXXXXXXXX Supply stopped, ordering not allowed",
+            "errorMsgPt": "Erro no envio do produto: SKC: XXXXXXXXX SKU: XXXXXXXXX Fornecimento interrompido, pedidos não permitidos",
+            "errorMsgEs": "Error al enviar el producto: SKC: XXXXXXXXX SKU: XXXXXXXXX. Suministro detenido, pedidos no permitidos.",
+            "solution": "此商品不支持下单",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "paramList": [
+                  {
+                    "skc": "<REDACTED_SAMPLE>",
+                    "skuCodeList": [
+                      {
+                        "skuCode": "<REDACTED_SAMPLE>",
+                        "orderCount": 0
+                      },
+                      {
+                        "skuCode": "<REDACTED_SAMPLE>",
+                        "orderCount": 0
+                      },
+                      {
+                        "skuCode": "<REDACTED_SAMPLE>",
+                        "orderCount": 0
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "paramList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "下单参数",
+                    "properties": {
+                      "skc": {
+                        "type": "string",
+                        "description": "shein skc 编码"
+                      },
+                      "skuCodeList": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "description": "sku下单参数",
+                          "properties": {
+                            "skuCode": {
+                              "type": "string",
+                              "description": "shein sku 编码"
+                            },
+                            "orderCount": {
+                              "type": "integer",
+                              "description": "下单数量"
+                            }
+                          },
+                          "required": [
+                            "skuCode",
+                            "orderCount"
+                          ]
+                        },
+                        "x-shein-original-multiple": 1
+                      }
+                    },
+                    "required": [
+                      "skc",
+                      "skuCodeList"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "paramList"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

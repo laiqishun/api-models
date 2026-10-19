@@ -1,0 +1,681 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "报账单补扣款收支明细",
+    "version": "source-revision-13",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/finance/report-adjustment-detail": {
+      "post": {
+        "tags": [
+          "财务"
+        ],
+        "operationId": "debitAndReplenishmentDetailsOfBill",
+        "summary": "报账单补扣款收支明细",
+        "description": "该接口支持全托管和POP模式的商家通过报账单号查询补扣款明细数据；报账单号请通过【 报账单列表 】接口中的reportOrderNo获取；",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "description": "对账单明细总数"
+                    },
+                    "query": {
+                      "type": "string",
+                      "description": "若该字段有值，代表有下一页数据，用该字段的值去查询下一页数据"
+                    },
+                    "reportReplenishDetail": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "对账单明细信息",
+                        "properties": {
+                          "addTime": {
+                            "type": "string",
+                            "x-shein-original-type": "datetime",
+                            "description": "账单生成时间"
+                          },
+                          "amount": {
+                            "type": "number",
+                            "description": "金额"
+                          },
+                          "bzOrderNo": {
+                            "type": "string",
+                            "description": "业务单号"
+                          },
+                          "companyName": {
+                            "type": "string",
+                            "description": "公司主体"
+                          },
+                          "expenseType": {
+                            "type": "integer",
+                            "description": "明细费用类型；0:商品/ 1:服务；相同的bzOrderNo和skuCode可能在不同的报账单中以不同的费用明细给出；"
+                          },
+                          "goodsCount": {
+                            "type": "integer",
+                            "description": "商品数量"
+                          },
+                          "id": {
+                            "type": "string",
+                            "description": "对账单明细 id"
+                          },
+                          "replenishCategory": {
+                            "type": "string",
+                            "description": "补扣款分类"
+                          },
+                          "replenishNo": {
+                            "type": "string",
+                            "description": "补扣款单号"
+                          },
+                          "replenishType": {
+                            "type": "integer",
+                            "description": "款项类型；1：补款/ 2：扣款"
+                          },
+                          "replenishTypeName": {
+                            "type": "string",
+                            "description": "款项类型名称，补款/扣款"
+                          },
+                          "settleCurrencyCode": {
+                            "type": "string",
+                            "description": "结算币种"
+                          },
+                          "skcName": {
+                            "type": "string",
+                            "description": "SKC"
+                          },
+                          "skuCode": {
+                            "type": "string",
+                            "description": "平台SKU"
+                          },
+                          "supplierSku": {
+                            "type": "string",
+                            "description": "商家sku；若账单生成后商家修改了商品绑定的商家sku，返回的是修改后的商家sku；"
+                          },
+                          "unitPrice": {
+                            "type": "number",
+                            "description": "单价"
+                          }
+                        },
+                        "required": [
+                          "addTime",
+                          "amount",
+                          "companyName",
+                          "expenseType",
+                          "goodsCount",
+                          "id",
+                          "replenishCategory",
+                          "replenishNo",
+                          "replenishType",
+                          "replenishTypeName",
+                          "settleCurrencyCode"
+                        ]
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  },
+                  "required": [
+                    "count"
+                  ]
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001628,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001628-3000005",
+        "x-shein-category-id": 3000005,
+        "x-shein-applicable-modes": [
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 13,
+        "x-shein-updated-at": "2026-03-26 14:20:07",
+        "x-shein-qps": "50",
+        "x-shein-change-content": "去掉language参数描述空格",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>接口签名</p>",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>指定出参语种，默认英文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR</p>",
+                  "name": "x-lt-language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "下一页数据查询的值",
+                  "name": "query",
+                  "label": "",
+                  "required": false
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "每页大小，最大200",
+                  "name": "perPage",
+                  "label": "",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "报账单号",
+                  "name": "reportOrderNo",
+                  "label": "",
+                  "required": true
+                },
+                "children": []
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "label": "",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "description": "对账单明细总数",
+                      "name": "count",
+                      "label": "",
+                      "required": true
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "若该字段有值，代表有下一页数据，用该字段的值去查询下一页数据",
+                      "name": "query"
+                    },
+                    "children": []
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "对账单明细信息",
+                      "name": "reportReplenishDetail",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "datetime",
+                          "multiple": 0,
+                          "description": "账单生成时间",
+                          "name": "addTime",
+                          "label": "",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "double",
+                          "multiple": 0,
+                          "description": "金额",
+                          "name": "amount",
+                          "label": "",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "业务单号",
+                          "name": "bzOrderNo",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "公司主体",
+                          "name": "companyName",
+                          "label": "",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "description": "明细费用类型；0:商品/ 1:服务；相同的bzOrderNo和skuCode可能在不同的报账单中以不同的费用明细给出；",
+                          "name": "expenseType",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "商品数量",
+                          "name": "goodsCount",
+                          "label": "",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "对账单明细 id",
+                          "name": "id",
+                          "label": "",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "补扣款分类",
+                          "name": "replenishCategory",
+                          "label": "",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "补扣款单号",
+                          "name": "replenishNo",
+                          "label": "",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "款项类型；1：补款/ 2：扣款",
+                          "name": "replenishType",
+                          "label": "",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "款项类型名称，补款/扣款",
+                          "name": "replenishTypeName",
+                          "label": "",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "结算币种",
+                          "name": "settleCurrencyCode",
+                          "label": "",
+                          "required": true
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "SKC",
+                          "name": "skcName",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "平台SKU",
+                          "name": "skuCode",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>商家sku；若账单生成后商家修改了商品绑定的商家sku，返回的是修改后的商家sku；</p>",
+                          "name": "supplierSku"
+                        },
+                        "children": []
+                      },
+                      {
+                        "props": {
+                          "type": "double",
+                          "multiple": 0,
+                          "description": "<p>单价</p>",
+                          "name": "unitPrice",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": []
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>错误描述,成功：OK</p>",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                },
+                "children": []
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 420,
+            "openPath": "/open-api/finance/report-adjustment-detail",
+            "errorCode": "94003",
+            "errorMsg": "报账单不存在",
+            "errorMsgCn": "报账单不存在",
+            "errorMsgUs": "Invoices do not exist.",
+            "errorMsgPt": "As faturas não existem.",
+            "errorMsgEs": "Las facturas no existen.",
+            "solution": "报账单号不存在",
+            "sort": 0
+          },
+          {
+            "id": 421,
+            "openPath": "/open-api/finance/report-adjustment-detail",
+            "errorCode": "99500",
+            "errorMsg": "系统异常，请稍后重试",
+            "errorMsgCn": "系统异常，请稍后重试",
+            "errorMsgUs": "System error. Please try again later.",
+            "errorMsgPt": "Erro de sistema, por favor tente novamente mais tarde",
+            "errorMsgEs": "Error de sistema, inténtalo de nuevo más tarde por favor",
+            "solution": "系统异常，请稍后重试",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "perPage": "<REDACTED_SAMPLE>",
+                "reportOrderNo": "<REDACTED_SAMPLE>"
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "reportReplenishDetail": [
+                    {
+                      "replenishNo": "<REDACTED_SAMPLE>",
+                      "replenishType": 0,
+                      "replenishTypeName": "<REDACTED_SAMPLE>",
+                      "replenishCategory": "<REDACTED_SAMPLE>",
+                      "id": "<REDACTED_SAMPLE>",
+                      "bzOrderNo": "<REDACTED_SAMPLE>",
+                      "unitPrice": 0,
+                      "skcName": "<REDACTED_SAMPLE>",
+                      "skuCode": null,
+                      "goodsCount": 0,
+                      "settleCurrencyCode": "<REDACTED_SAMPLE>",
+                      "amount": 0,
+                      "companyName": "<REDACTED_SAMPLE>",
+                      "addTime": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "replenishNo": "<REDACTED_SAMPLE>",
+                      "replenishType": 0,
+                      "replenishTypeName": "<REDACTED_SAMPLE>",
+                      "replenishCategory": "<REDACTED_SAMPLE>",
+                      "id": "<REDACTED_SAMPLE>",
+                      "bzOrderNo": "<REDACTED_SAMPLE>",
+                      "unitPrice": 0,
+                      "skcName": "<REDACTED_SAMPLE>",
+                      "skuCode": null,
+                      "goodsCount": 0,
+                      "settleCurrencyCode": "<REDACTED_SAMPLE>",
+                      "amount": 0,
+                      "companyName": "<REDACTED_SAMPLE>",
+                      "addTime": "<REDACTED_SAMPLE>"
+                    }
+                  ],
+                  "count": 0,
+                  "query": null
+                },
+                "bbl": {},
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "x-lt-language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "指定出参语种，默认英文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "query": {
+                  "type": "string",
+                  "description": "下一页数据查询的值"
+                },
+                "perPage": {
+                  "type": "integer",
+                  "description": "每页大小，最大200"
+                },
+                "reportOrderNo": {
+                  "type": "string",
+                  "description": "报账单号"
+                }
+              },
+              "required": [
+                "perPage",
+                "reportOrderNo"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

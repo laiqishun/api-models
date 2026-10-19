@@ -1,0 +1,541 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "请求订单列表",
+    "version": "source-revision-24",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/order/order-list": {
+      "post": {
+        "tags": [
+          "客单"
+        ],
+        "operationId": "queryOrderList",
+        "summary": "请求订单列表",
+        "description": "通过该接口获取订单列表；该接口适用自主运营，半托管的应用；也可以使用webhook中的 订单同步通知 感知最新的订单信息； 支持通过订单的创建时间和更新时间查询；查询条件startTime和endTime的时间范围限制为48小时，查询结果总数限制为10000条；如查询范围内的订单超过10000条，需要取最后一次查询的最后一笔的订单创建时间作为下一个查询的 \"startTime\"。 注意：接口请求时间和响应时间的时区为 UTC+8（北京时间）",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "integer",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误信息描述",
+                  "x-shein-example-redacted": true
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应数据",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "description": "响应条数",
+                      "x-shein-example-redacted": true
+                    },
+                    "orderList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "订单信息列表",
+                        "properties": {
+                          "orderNo": {
+                            "type": "string",
+                            "description": "订单号",
+                            "x-shein-example-redacted": true
+                          },
+                          "orderStatus": {
+                            "type": "string",
+                            "description": "订单状态：1：待处理/ 2：待发货/ 3：待shein发货/ 4：已发货/ 5：已签收/ 6：用户已退款/ 7：待揽收/ 8：已报损/ 9：已拒收",
+                            "x-shein-example-redacted": true
+                          },
+                          "orderCreateTime": {
+                            "type": "string",
+                            "description": "订单下发时间（UTC+8）；示例2023-04-19 03:37:01",
+                            "x-shein-example-redacted": true
+                          },
+                          "orderUpdateTime": {
+                            "type": "string",
+                            "description": "订单更新时间（UTC+8）；示例2023-04-19 03:37:01；（当下发订单时会将下发时间同步到更新时间）",
+                            "x-shein-example-redacted": true
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  },
+                  "required": [
+                    "orderList"
+                  ]
+                }
+              },
+              "required": [
+                "info"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001921,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001921-2000001",
+        "x-shein-category-id": 2000001,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 24,
+        "x-shein-updated-at": "2026-07-09 19:46:04",
+        "x-shein-qps": "100",
+        "x-shein-change-content": "更新字段描述",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "defaultValue": "<REDACTED_SAMPLE>",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>查询类型：1：根据订单下发时间查询/2：根据订单更新时间查询（当下发订单时会将下发时间同步到更新时间）；</p>",
+                  "name": "queryType",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>开始时间;示例：2024-12-12 15:38:29（UTC+8）。<span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 255); font-size: 14px;\">startTime和endTime的时间范围限制为48小时，查询结果总数限制为10000条；如查询范围内的订单超过10000条，需要取最后一次查询的最后一笔的订单时间作为下一个查询的 \"startTime\"。</span></p>",
+                  "name": "startTime",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>结束时间;示例：2024-12-12 15:38:29（UTC+8）。<span style=\"color: rgb(51, 51, 51); background-color: rgb(255, 255, 255); font-size: 14px;\">startTime和endTime的时间范围限制为48小时，查询结果总数限制为10000条；如查询范围内的订单超过10000条，需要取最后一次查询的最后一笔的订单时间作为下一个查询的 \"startTime\"。</span></p>",
+                  "name": "endTime",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>分页的页码</p>",
+                  "name": "page",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "每页返回的条数；请设置1～30的整数",
+                  "name": "pageSize",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "<p>订单状态：1：待处理/ 2：待发货/ 3：待shein发货/ 4：已发货/ 5：已签收/ 6：用户已退款/ 7：待揽收/ 8：已报损/ 9：已拒收</p>",
+                  "name": "orderStatus"
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>查询对应发货仓类型的订单；1:认证仓发货订单/ 2:SHEIN仓发货订单 / 3:商家仓发货订单/ 4: 所有订单；</p><p>不传的情况下，巴西商家会返回商家仓发货订单，其他国家市场会返回SHEIN仓发货、商家仓发货订单</p>",
+                  "name": "queryOrderType"
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>巴西市场CTE开票状态；1:订单下所有包裹（取消的除外）已完成开票/ 2:订单下的包裹存在未完成开票</p>",
+                  "name": "cteInvoiceStatus"
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "巴西市场NFE开票状态;1：已完成NFE开票/ 2：未完成NFE开票（对于巴西卖家，当订单发票信息通过回传发票信息同步后，状态从2变为1）/ 3：待重传NFE发票/ 4：无需开NFE发票",
+                  "name": "nfeInvoiceStatus"
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "错误信息描述",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "响应数据",
+                  "name": "info",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "响应条数",
+                      "name": "count"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "订单信息列表",
+                      "name": "orderList",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "订单号",
+                          "name": "orderNo"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>订单状态：1：待处理/ 2：待发货/ 3：待shein发货/ 4：已发货/ 5：已签收/ 6：用户已退款/ 7：待揽收/ 8：已报损/ 9：已拒收</p>",
+                          "name": "orderStatus"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>订单下发时间（UTC+8）；示例2023-04-19 03:37:01</p>",
+                          "name": "orderCreateTime"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>订单更新时间（UTC+8）；示例2023-04-19 03:37:01；（当下发订单时会将下发时间同步到更新时间）</p>",
+                          "name": "orderUpdateTime"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 619,
+            "openPath": "/open-api/order/order-list",
+            "errorCode": "9999400",
+            "errorMsg": "The request parameter is abnormal, the start time cannot be greater than the end time",
+            "errorMsgCn": "请求参数异常，开始时间不能大于结束时间",
+            "errorMsgUs": "The request parameter is abnormal, the start time cannot be greater than the end time",
+            "errorMsgPt": "O parâmetro de solicitação é anormal, o horário de início não pode ser maior que o horário de término",
+            "errorMsgEs": "El parámetro de solicitud es anormal, el tiempo de inicio no puede ser mayor que el tiempo de finalización",
+            "solution": "startTime入参不能大于endTime入参，请检查",
+            "sort": 0
+          },
+          {
+            "id": 621,
+            "openPath": "/open-api/order/order-list",
+            "errorCode": "9999400",
+            "errorMsg": "Pagination query data cannot exceed the 10000",
+            "errorMsgCn": "分页查询数据不能超过10000",
+            "errorMsgUs": "Pagination query data cannot exceed the 10000",
+            "errorMsgPt": "Os dados de consulta de paginação não podem exceder 10000",
+            "errorMsgEs": "Los datos de consulta de paginación no pueden exceder los 10000",
+            "solution": "分页查询数据不能超过10000，如查询范围内的订单超过10000条，需要取最后一次查询的最后一笔的订单创建时间作为下一个查询的 \"startTime\"。",
+            "sort": 0
+          },
+          {
+            "id": 622,
+            "openPath": "/open-api/order/order-list",
+            "errorCode": "9999400",
+            "errorMsg": "The time difference between query start time and end time cannot be greater than 172800000 ms",
+            "errorMsgCn": "查询开始时间和结束时间之间的时间差不能大于172800000毫秒",
+            "errorMsgUs": "The time difference between query start time and end time cannot be greater than 172800000 ms",
+            "errorMsgPt": "A diferença de tempo entre o horário de início da consulta e o horário de término não pode ser superior a 172800000 ms",
+            "errorMsgEs": "La diferencia de tiempo entre la hora de inicio de la consulta y la hora de finalización no puede ser mayor de 172800000 ms",
+            "solution": "查询开始时间和结束时间之间的时间差不能大于172800000毫秒，即48小时。查询结果总数限制为10000条；如查询范围内的订单超过10000条，需要取最后一次查询的最后一笔的订单创建时间作为下一个查询的 \"startTime\"",
+            "sort": 0
+          },
+          {
+            "id": 623,
+            "openPath": "/open-api/order/order-list",
+            "errorCode": "9999400",
+            "errorMsg": "每页大小取值范围范围 1~30",
+            "errorMsgCn": "每页大小取值范围范围 1~30",
+            "errorMsgUs": "Page size range 1~30",
+            "errorMsgPt": "Intervalo de tamanho por página de 1 a 30",
+            "errorMsgEs": "Tamaño de página rango de valores 1~30",
+            "solution": "pageSize入参最大为30，请检查",
+            "sort": 0
+          },
+          {
+            "id": 620,
+            "openPath": "/open-api/order/order-list",
+            "errorCode": "9996002",
+            "errorMsg": "Store information does not exist.",
+            "errorMsgCn": "商店信息不存在。",
+            "errorMsgUs": "Store information does not exist.",
+            "errorMsgPt": "A informação da loja não existe.",
+            "errorMsgEs": "La información de la tienda no existe.",
+            "solution": "店铺信息不存在，可能的原因是店铺是全托管店铺，此接口面向的是自运营和半托管的商家",
+            "sort": 1
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "queryType": 0,
+                "startTime": "<REDACTED_SAMPLE>",
+                "endTime": "<REDACTED_SAMPLE>",
+                "page": 0,
+                "pageSize": 0,
+                "orderStatus": 0
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "count": 0,
+                  "orderList": [
+                    {
+                      "orderNo": "<REDACTED_SAMPLE>",
+                      "orderStatus": "<REDACTED_SAMPLE>",
+                      "orderCreateTime": "<REDACTED_SAMPLE>",
+                      "orderUpdateTime": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "orderNo": "<REDACTED_SAMPLE>",
+                      "orderStatus": "<REDACTED_SAMPLE>",
+                      "orderCreateTime": "<REDACTED_SAMPLE>",
+                      "orderUpdateTime": "<REDACTED_SAMPLE>"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "queryType": {
+                  "type": "integer",
+                  "description": "查询类型：1：根据订单下发时间查询/2：根据订单更新时间查询（当下发订单时会将下发时间同步到更新时间）；",
+                  "x-shein-example-redacted": true
+                },
+                "startTime": {
+                  "type": "string",
+                  "description": "开始时间;示例：2024-12-12 15:38:29（UTC+8）。 startTime和endTime的时间范围限制为48小时，查询结果总数限制为10000条；如查询范围内的订单超过10000条，需要取最后一次查询的最后一笔的订单时间作为下一个查询的 \"startTime\"。",
+                  "x-shein-example-redacted": true
+                },
+                "endTime": {
+                  "type": "string",
+                  "description": "结束时间;示例：2024-12-12 15:38:29（UTC+8）。 startTime和endTime的时间范围限制为48小时，查询结果总数限制为10000条；如查询范围内的订单超过10000条，需要取最后一次查询的最后一笔的订单时间作为下一个查询的 \"startTime\"。",
+                  "x-shein-example-redacted": true
+                },
+                "page": {
+                  "type": "integer",
+                  "description": "分页的页码",
+                  "x-shein-example-redacted": true
+                },
+                "pageSize": {
+                  "type": "integer",
+                  "description": "每页返回的条数；请设置1～30的整数",
+                  "x-shein-example-redacted": true
+                },
+                "orderStatus": {
+                  "type": "integer",
+                  "description": "订单状态：1：待处理/ 2：待发货/ 3：待shein发货/ 4：已发货/ 5：已签收/ 6：用户已退款/ 7：待揽收/ 8：已报损/ 9：已拒收",
+                  "x-shein-example-redacted": true
+                },
+                "queryOrderType": {
+                  "type": "integer",
+                  "description": "查询对应发货仓类型的订单；1:认证仓发货订单/ 2:SHEIN仓发货订单 / 3:商家仓发货订单/ 4: 所有订单； 不传的情况下，巴西商家会返回商家仓发货订单，其他国家市场会返回SHEIN仓发货、商家仓发货订单"
+                },
+                "cteInvoiceStatus": {
+                  "type": "integer",
+                  "description": "巴西市场CTE开票状态；1:订单下所有包裹（取消的除外）已完成开票/ 2:订单下的包裹存在未完成开票"
+                },
+                "nfeInvoiceStatus": {
+                  "type": "integer",
+                  "description": "巴西市场NFE开票状态;1：已完成NFE开票/ 2：未完成NFE开票（对于巴西卖家，当订单发票信息通过回传发票信息同步后，状态从2变为1）/ 3：待重传NFE发票/ 4：无需开NFE发票"
+                }
+              },
+              "required": [
+                "queryType",
+                "startTime",
+                "endTime",
+                "page",
+                "pageSize"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

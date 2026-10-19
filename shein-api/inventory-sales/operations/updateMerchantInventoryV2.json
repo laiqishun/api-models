@@ -1,0 +1,541 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "更新商家库存接口v2",
+    "version": "source-revision-5",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/stock/change-inventory/v2": {
+      "post": {
+        "tags": [
+          "库存和销量"
+        ],
+        "operationId": "updateMerchantInventoryV2",
+        "summary": "更新商家库存接口v2",
+        "description": "修改sku库存数量，支持自运营，半托管模式商家 注意： 1. 如果店铺是多仓库的，warehouseCode必填 2. changeInventoryQuantity和saleInventory有且只有其中一个参数必填 3. 支持修改商家虚拟库存、商家JIT虚拟库存 4. SHEIN仓库存通过采购/退供等供应链业务管理增/减，不对外开放直接修改能力 5. 原库存修改接口 /open-api/gsp/goods/change-inventory 将于 2026年12月31日下线。请尽快切换至新接口进行相关操作。过渡期内，新旧接口将同时保留功能支持。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码（0：成功；非0：失败） 具体见下方错误码描述"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述信息"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "failedList": {
+                      "type": "object",
+                      "description": "失败列表",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "失败编码，失败原因，多个原因的情况下只返回一个错误码"
+                        },
+                        "reason": {
+                          "type": "string",
+                          "description": "失败原因，多个原因的情况下都会返回"
+                        },
+                        "skuCode": {
+                          "type": "string",
+                          "description": "编辑时上传的sku编码"
+                        }
+                      }
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001738,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001738-1000003",
+        "x-shein-category-id": 1000003,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 5,
+        "x-shein-updated-at": "2026-06-01 21:33:50",
+        "x-shein-qps": "50",
+        "x-shein-change-content": "变更内容",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>指定出参语种，默认中文，支持语种，英语：US，法语：FR，西班牙语：ES，德语：DE，中文简体：CN，泰语：TH，巴西葡语：PT，土耳其语：TR</p>",
+                  "name": "x-lt-language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "上限100个SKU",
+                  "name": "updateSkuInventoryQuantityRequests",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>业务幂等键。重复请求会被去重掉，避免重复修改库存。</p>",
+                      "name": "idempotencyKey",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "SHEIN平台生成的SKU，仅限审核通过的SKU可以修改库存；审核失败的SKU不可用",
+                      "name": "skuCode",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "库存类型 VI：VIRTUAL_INVENTORY/虚拟库存； JI：JIT_INVENTORY/JIT虚拟库存；",
+                      "name": "invType",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "修改商家虚拟库存：商家自有仓编码（多仓情况下必填）。 修改商家JIT虚拟库存：不需要填。",
+                      "name": "warehouseCode"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "<p>总销售库存=可售数量+预占数量+占用数量。预占、占用库存已经被消费者订单占用不能修改。ADD：增加库存；SUB：减少库存；最大可减少数量=可售数量，超出范围报异常。OVERWRITE：覆盖库存；覆盖总销售数量=可售数量+预占数量+占用数量，最小覆盖数量不能低于预占数量+占用数量，否则按预占数量+占用数量覆盖数量来减少库存（即最多仅能把对应的未占用/预占的数量减掉）</p>",
+                      "name": "changeType",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "integer",
+                      "description": "变更数量（正数）",
+                      "name": "changeQuantity",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "description": "变更原因",
+                      "name": "changeReason"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "name": ""
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "响应编码（0：成功；非0：失败） 具体见下方错误码描述",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "错误描述信息",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "description": "失败列表",
+                      "name": "failedList"
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "失败编码，失败原因，多个原因的情况下只返回一个错误码",
+                          "name": "code"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "失败原因，多个原因的情况下都会返回",
+                          "name": "reason"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>编辑时上传的sku编码</p>",
+                          "name": "skuCode"
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 798,
+            "openPath": "/open-api/stock/change-inventory/v2",
+            "errorCode": "msc-update-stock-001",
+            "errorMsg": "商家仓库未匹配到",
+            "errorMsgCn": "商家仓库未匹配到",
+            "errorMsgUs": "Merchant warehouse not matched",
+            "errorMsgPt": "O armazém do comerciante não foi encontrado correspondência",
+            "errorMsgEs": "No se encontró el almacén del comerciante",
+            "solution": "请检查商家仓库id",
+            "sort": 1
+          },
+          {
+            "id": 799,
+            "openPath": "/open-api/stock/change-inventory/v2",
+            "errorCode": "msc-update-stock-002",
+            "errorMsg": "请选择商家仓库",
+            "errorMsgCn": "请选择商家仓库",
+            "errorMsgUs": "Please select the merchant warehouse",
+            "errorMsgPt": "Selecione o armazém do comerciante",
+            "errorMsgEs": "Por favor, seleccione el almacén del comerciante",
+            "solution": "请检查商家仓库",
+            "sort": 2
+          },
+          {
+            "id": 800,
+            "openPath": "/open-api/stock/change-inventory/v2",
+            "errorCode": "msc-update-stock-003",
+            "errorMsg": "认证仓库存目前不支持ERP接口调用修改库存",
+            "errorMsgCn": "认证仓库存目前不支持ERP接口调用修改库存",
+            "errorMsgUs": "Certified warehouse inventory currently does not support modifying inventory via ERP interface calls.",
+            "errorMsgPt": "Atualmente, o estoque do armazém certificado não suporta a modificação de estoque por chamada de interface ERP.",
+            "errorMsgEs": "Actualmente, el almacén certificado no admite la modificación de inventario mediante llamadas a la interfaz ERP.",
+            "solution": "认证仓不支持修改库存",
+            "sort": 3
+          },
+          {
+            "id": 801,
+            "openPath": "/open-api/stock/change-inventory/v2",
+            "errorCode": "msc-update-stock-004",
+            "errorMsg": "商品SKU不存在",
+            "errorMsgCn": "商品SKU不存在",
+            "errorMsgUs": "Product SKU does not exist",
+            "errorMsgPt": "O SKU do produto não existe",
+            "errorMsgEs": "El SKU del producto no existe",
+            "solution": "请检查商品SKU是否正确",
+            "sort": 4
+          },
+          {
+            "id": 802,
+            "openPath": "/open-api/stock/change-inventory/v2",
+            "errorCode": "msc-update-stock-005",
+            "errorMsg": "sku不属于当前调用openkey",
+            "errorMsgCn": "sku不属于当前调用openkey",
+            "errorMsgUs": "The sku does not belong to the current openkey call.",
+            "errorMsgPt": "O SKU não pertence à chave de chamada atual do openkey",
+            "errorMsgEs": "El SKU no pertenece a la clave de llamada actual de OpenKey",
+            "solution": "请检查sku是否正确",
+            "sort": 5
+          },
+          {
+            "id": 803,
+            "openPath": "/open-api/stock/change-inventory/v2",
+            "errorCode": "msc-update-stock-006",
+            "errorMsg": "原库存已发生变更",
+            "errorMsgCn": "原库存已发生变更",
+            "errorMsgUs": "The original inventory has changed.",
+            "errorMsgPt": "O estoque original foi alterado",
+            "errorMsgEs": "El inventario original ha cambiado",
+            "solution": "请勿重复变更库存",
+            "sort": 6
+          },
+          {
+            "id": 804,
+            "openPath": "/open-api/stock/change-inventory/v2",
+            "errorCode": "msc-update-stock-007",
+            "errorMsg": "可销售库存和总库存只能传一个",
+            "errorMsgCn": "可销售库存和总库存只能传一个",
+            "errorMsgUs": "Only one of salable inventory and total inventory can be submitted.",
+            "errorMsgPt": "Só é possível enviar ou o estoque disponível para venda ou o estoque total.",
+            "errorMsgEs": "Solo se puede enviar el inventario disponible para la venta o el inventario total, pero no ambos.",
+            "solution": "可销售库存和总库存只能传一个",
+            "sort": 7
+          },
+          {
+            "id": 805,
+            "openPath": "/open-api/stock/change-inventory/v2",
+            "errorCode": "msc-update-stock-008",
+            "errorMsg": "可销售库存不能小于零",
+            "errorMsgCn": "可销售库存不能小于零",
+            "errorMsgUs": "Available stock cannot be less than zero",
+            "errorMsgPt": "O estoque disponível para venda não pode ser menor que zero",
+            "errorMsgEs": "El inventario disponible para la venta no puede ser menor que cero",
+            "solution": "请检查可销售库存数量",
+            "sort": 8
+          },
+          {
+            "id": 806,
+            "openPath": "/open-api/stock/change-inventory/v2",
+            "errorCode": "msc-update-stock-009",
+            "errorMsg": "更新库存数的总量不能小于零",
+            "errorMsgCn": "更新库存数的总量不能小于零",
+            "errorMsgUs": "The total updated inventory quantity cannot be less than zero.",
+            "errorMsgPt": "A quantidade total de atualização do estoque não pode ser menor que zero",
+            "errorMsgEs": "La cantidad total de actualización de inventario no puede ser menor que cero",
+            "solution": "请检查库存数量",
+            "sort": 9
+          },
+          {
+            "id": 807,
+            "openPath": "/open-api/stock/change-inventory/v2",
+            "errorCode": "msc-update-stock-999",
+            "errorMsg": "更新库存未知异常",
+            "errorMsgCn": "更新库存未知异常",
+            "errorMsgUs": "Unknown exception while updating inventory",
+            "errorMsgPt": "Atualização de estoque com erro desconhecido",
+            "errorMsgEs": "Excepción desconocida al actualizar el inventario",
+            "solution": "请稍后重试，如果反复报错请联系平台排查问题",
+            "sort": 999
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "updateSkuInventoryQuantityRequests": [
+                  {
+                    "idempotencyKey": "<REDACTED_SAMPLE>",
+                    "skuCode": "<REDACTED_SAMPLE>",
+                    "invType": "<REDACTED_SAMPLE>",
+                    "warehouseCode": "<REDACTED_SAMPLE>",
+                    "changeType": "<REDACTED_SAMPLE>",
+                    "changeQuantity": 0,
+                    "changeReason": "<REDACTED_SAMPLE>"
+                  },
+                  {
+                    "idempotencyKey": "<REDACTED_SAMPLE>",
+                    "skuCode": "<REDACTED_SAMPLE>",
+                    "invType": "<REDACTED_SAMPLE>",
+                    "warehouseCode": "<REDACTED_SAMPLE>",
+                    "changeType": "<REDACTED_SAMPLE>",
+                    "changeQuantity": 0,
+                    "changeReason": "<REDACTED_SAMPLE>"
+                  },
+                  {
+                    "idempotencyKey": "<REDACTED_SAMPLE>",
+                    "skuCode": "<REDACTED_SAMPLE>",
+                    "invType": "<REDACTED_SAMPLE>",
+                    "changeType": "<REDACTED_SAMPLE>",
+                    "changeQuantity": 0,
+                    "changeReason": "<REDACTED_SAMPLE>"
+                  }
+                ]
+              }
+            },
+            "response": {
+              "status": "present-unparsed"
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "x-lt-language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "指定出参语种，默认中文，支持语种，英语：US，法语：FR，西班牙语：ES，德语：DE，中文简体：CN，泰语：TH，巴西葡语：PT，土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "updateSkuInventoryQuantityRequests": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "上限100个SKU",
+                    "properties": {
+                      "idempotencyKey": {
+                        "type": "string",
+                        "description": "业务幂等键。重复请求会被去重掉，避免重复修改库存。"
+                      },
+                      "skuCode": {
+                        "type": "string",
+                        "description": "SHEIN平台生成的SKU，仅限审核通过的SKU可以修改库存；审核失败的SKU不可用"
+                      },
+                      "invType": {
+                        "type": "string",
+                        "description": "库存类型 VI：VIRTUAL_INVENTORY/虚拟库存； JI：JIT_INVENTORY/JIT虚拟库存；"
+                      },
+                      "warehouseCode": {
+                        "type": "string",
+                        "description": "修改商家虚拟库存：商家自有仓编码（多仓情况下必填）。 修改商家JIT虚拟库存：不需要填。"
+                      },
+                      "changeType": {
+                        "type": "string",
+                        "description": "总销售库存=可售数量+预占数量+占用数量。预占、占用库存已经被消费者订单占用不能修改。ADD：增加库存；SUB：减少库存；最大可减少数量=可售数量，超出范围报异常。OVERWRITE：覆盖库存；覆盖总销售数量=可售数量+预占数量+占用数量，最小覆盖数量不能低于预占数量+占用数量，否则按预占数量+占用数量覆盖数量来减少库存（即最多仅能把对应的未占用/预占的数量减掉）"
+                      },
+                      "changeQuantity": {
+                        "type": "integer",
+                        "description": "变更数量（正数）"
+                      },
+                      "changeReason": {
+                        "type": "string",
+                        "description": "变更原因"
+                      }
+                    },
+                    "required": [
+                      "idempotencyKey",
+                      "skuCode",
+                      "invType",
+                      "changeType",
+                      "changeQuantity"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "updateSkuInventoryQuantityRequests"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

@@ -1,0 +1,746 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "商家库存查询接口",
+    "version": "source-revision-17",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/stock/stock-query": {
+      "post": {
+        "tags": [
+          "库存和销量"
+        ],
+        "operationId": "merchantInventoryQuery",
+        "summary": "商家库存查询接口",
+        "description": "支持通过sku、skc、spu查询库存数量 请求参数：请注意，skuCodeList/skcNameList/spuNameList三个参数不能全部为空，至少传入一个 invType为新增参数，用于更准确地表达库存类型。原warehouseType参数将于2026年12月31日废弃下线，建议尽快切换至invType。过渡期内两个参数可同时使用，当同时传入时以invType为准。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "goodsInventory": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "商品库存",
+                        "properties": {
+                          "spuName": {
+                            "type": "string",
+                            "description": "SHEIN spu 编码"
+                          },
+                          "skcName": {
+                            "type": "string",
+                            "description": "SHEIN skc 编码"
+                          },
+                          "skuList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "sku库存数据",
+                              "properties": {
+                                "skuCode": {
+                                  "type": "string",
+                                  "description": "SHEIN sku 编码"
+                                },
+                                "totalInventoryQuantity": {
+                                  "type": "integer",
+                                  "description": "查询sku仓库库存汇总"
+                                },
+                                "totalLockedQuantity": {
+                                  "type": "integer",
+                                  "description": "查询sku仓库锁定库存汇总"
+                                },
+                                "totalTempLockQuantity": {
+                                  "type": "integer",
+                                  "description": "查询sku仓库临时锁库存汇总"
+                                },
+                                "totalUsableInventory": {
+                                  "type": "integer",
+                                  "description": "查询sku仓库可用库存汇总"
+                                },
+                                "totalOutOfStockQty": {
+                                  "type": "integer",
+                                  "description": "查询已付款未转急采单的缺货需求数汇总；仅适用代运营，SHEIN自营的急采业务"
+                                },
+                                "totalTransitQuantity": {
+                                  "type": "integer",
+                                  "description": "查询sku仓库在途库存汇总"
+                                },
+                                "warehouseInventoryList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "具体仓库数据",
+                                    "properties": {
+                                      "inventoryQuantity": {
+                                        "type": "integer",
+                                        "description": "仓库库存数"
+                                      },
+                                      "lockedQuantity": {
+                                        "type": "integer",
+                                        "description": "仓库锁定库存"
+                                      },
+                                      "tempLockQuantity": {
+                                        "type": "integer",
+                                        "description": "仓库临时锁库存"
+                                      },
+                                      "usableInventory": {
+                                        "type": "integer",
+                                        "description": "仓库可用库存"
+                                      },
+                                      "outOfStockQty": {
+                                        "type": "string",
+                                        "description": "仓库已付款未转急采单的缺货需求数汇总；仅适用代运营，SHEIN自营的急采业务"
+                                      },
+                                      "warehouseCode": {
+                                        "type": "string",
+                                        "description": "仓库编码"
+                                      },
+                                      "warehouseType": {
+                                        "type": "string",
+                                        "description": "仓库类型"
+                                      },
+                                      "transitQuantity": {
+                                        "type": "integer",
+                                        "description": "仓库在途库存"
+                                      }
+                                    },
+                                    "required": [
+                                      "inventoryQuantity",
+                                      "lockedQuantity",
+                                      "tempLockQuantity",
+                                      "usableInventory",
+                                      "warehouseCode",
+                                      "warehouseType"
+                                    ]
+                                  },
+                                  "x-shein-original-multiple": 1
+                                }
+                              },
+                              "required": [
+                                "skuCode",
+                                "totalInventoryQuantity",
+                                "totalLockedQuantity",
+                                "totalTempLockQuantity",
+                                "totalUsableInventory",
+                                "warehouseInventoryList"
+                              ]
+                            },
+                            "x-shein-original-multiple": 1
+                          }
+                        },
+                        "required": [
+                          "spuName",
+                          "skcName",
+                          "skuList"
+                        ]
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  },
+                  "required": [
+                    "goodsInventory"
+                  ]
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001695,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001695-1000003",
+        "x-shein-category-id": 1000003,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 3,
+            "name": "SHEIN自营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 17,
+        "x-shein-updated-at": "2026-04-27 20:38:29",
+        "x-shein-qps": "50",
+        "x-shein-change-content": "更新接口说明",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>SHEIN生成SKU 最多传100个，skuCodeList/skcNameList/spuNameList ，请确保三个参数有且只有1个不为空；</p>",
+                  "name": "skuCodeList"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "SHEIN生成SKC，skuCodeList/skcNameList/spuNameList ，请确保三个参数有且只有1个不为空；",
+                  "name": "skcNameList"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>SHEIN生成SPU，skuCodeList/skcNameList/spuNameList ，请确保三个参数有且只有1个不为空；</p>",
+                  "name": "spuNameList"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>仓库类型；1:查备货在SHEIN仓的库存/ 2:查半托管，自主运营模式的虚拟库存/ 3:查代运营（全托管）、SHEIN自营模式的虚拟库存</p>",
+                  "name": "warehouseType",
+                  "label": "仓库类型",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "库存类型，PI：SHEIN仓实物库存，VI：商家虚拟库存，JI：商家JITJIT库存",
+                  "name": "invType"
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            }
+          },
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "响应编码 成功：0\t",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "name": "info"
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "商品库存",
+                      "name": "goodsInventory",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>SHEIN spu 编码</p>",
+                          "name": "spuName",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>SHEIN skc 编码</p>",
+                          "name": "skcName",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "sku库存数据",
+                          "name": "skuList",
+                          "required": true
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "SHEIN sku 编码",
+                              "name": "skuCode",
+                              "required": true
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "description": "查询sku仓库库存汇总",
+                              "name": "totalInventoryQuantity",
+                              "required": true
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "description": "查询sku仓库锁定库存汇总",
+                              "name": "totalLockedQuantity",
+                              "required": true
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "description": "查询sku仓库临时锁库存汇总",
+                              "name": "totalTempLockQuantity",
+                              "required": true
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "description": "<p>查询sku仓库可用库存汇总</p>",
+                              "name": "totalUsableInventory",
+                              "required": true
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "description": "查询已付款未转急采单的缺货需求数汇总；仅适用代运营，SHEIN自营的急采业务",
+                              "name": "totalOutOfStockQty",
+                              "label": ""
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "description": "<p>查询sku仓库在途库存汇总</p>",
+                              "name": "totalTransitQuantity"
+                            },
+                            "children": []
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "具体仓库数据",
+                              "name": "warehouseInventoryList",
+                              "defaultValue": "",
+                              "required": true
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "description": "仓库库存数",
+                                  "name": "inventoryQuantity",
+                                  "required": true
+                                },
+                                "children": []
+                              },
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "description": "仓库锁定库存",
+                                  "name": "lockedQuantity",
+                                  "required": true
+                                },
+                                "children": []
+                              },
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "description": "仓库临时锁库存",
+                                  "name": "tempLockQuantity",
+                                  "required": true
+                                },
+                                "children": []
+                              },
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "description": "仓库可用库存",
+                                  "name": "usableInventory",
+                                  "required": true
+                                },
+                                "children": []
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "仓库已付款未转急采单的缺货需求数汇总；仅适用代运营，SHEIN自营的急采业务",
+                                  "name": "outOfStockQty"
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "仓库编码",
+                                  "name": "warehouseCode",
+                                  "required": true
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "description": "仓库类型",
+                                  "name": "warehouseType",
+                                  "required": true
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "integer",
+                                  "description": "<p>仓库在途库存</p>",
+                                  "name": "transitQuantity"
+                                },
+                                "children": []
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK\t",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [
+          {
+            "id": 137,
+            "openPath": "/open-api/stock/stock-query",
+            "errorCode": "00-E-MSC-0000",
+            "errorMsg": "服务器发生错误",
+            "errorMsgCn": "服务器发生错误",
+            "errorMsgUs": "server occurs error",
+            "errorMsgPt": "ocorreu erro no servidor",
+            "errorMsgEs": "error en el servidor",
+            "solution": "系统异常，请重试",
+            "sort": 0
+          },
+          {
+            "id": 138,
+            "openPath": "/open-api/stock/stock-query",
+            "errorCode": "00-E-MSC-0002",
+            "errorMsg": "SKU、SKC、SPU这三者中只需要传一个值",
+            "errorMsgCn": "SKU、SKC、SPU这三者中只需要传一个值",
+            "errorMsgUs": "SKU, SKC, SPU, all three have and only one item needs to be passed a value",
+            "errorMsgPt": "SKU, SKC, SPU, todos os três têm e apenas um item precisa receber um valor",
+            "errorMsgEs": "SKU, SKC, SPU, los tres tienen y solo un elemento necesita recibir un valor",
+            "solution": "该接口以下入参字段必传，且只能选择其中一个参数作为入参，否则无法查询；入参字段：skuCodeList、skcNameList、spuNameList",
+            "sort": 0
+          },
+          {
+            "id": 139,
+            "openPath": "/open-api/stock/stock-query",
+            "errorCode": "00-E-MSC-0004",
+            "errorMsg": "SKC下的SKU数量超过100，SPU下的SKU数量超过100，请按照SKU传值",
+            "errorMsgCn": "SKC下的SKU数量超过100，SPU下的SKU数量超过100，请按照SKU传值",
+            "errorMsgUs": "the number of SKUs under SKC exceeds 100, the number of SKUs under SPU exceeds 100, please transfer values according to SKUs",
+            "errorMsgPt": "o número de SKUs sob SKC excede 100, o número de SKUs sob SPU excede 100, por favor transfira valores de acordo com os SKUs",
+            "errorMsgEs": "el número de SKUs bajo SKC excede 100, el número de SKUs bajo SPU excede 100, por favor transfiera valores según los SKUs",
+            "solution": "以下入参字段的数量不能超过100，入参字段：skuCodeList、skcNameList、spuNameList",
+            "sort": 0
+          },
+          {
+            "id": 140,
+            "openPath": "/open-api/stock/stock-query",
+            "errorCode": "00-E-MSC-0006",
+            "errorMsg": "不允许该供应商操作",
+            "errorMsgCn": "不允许该供应商操作",
+            "errorMsgUs": "is not allowed to be operated by this supplier",
+            "errorMsgPt": "não é permitido ser operado por este fornecedor",
+            "errorMsgEs": "no se permite que este proveedor opere",
+            "solution": "该接口仅限查询自主运营、半托管、全托管类型店铺的仓库",
+            "sort": 0
+          },
+          {
+            "id": 141,
+            "openPath": "/open-api/stock/stock-query",
+            "errorCode": "00-E-MSC-0009",
+            "errorMsg": "SKU数量超过100",
+            "errorMsgCn": "SKU数量超过100",
+            "errorMsgUs": "the number of SKUs exceeds 100",
+            "errorMsgPt": "o número de SKUs excede 100",
+            "errorMsgEs": "el número de SKUs excede 100",
+            "solution": "skuCodeList中，sku数量不能超过100",
+            "sort": 0
+          },
+          {
+            "id": 142,
+            "openPath": "/open-api/stock/stock-query",
+            "errorCode": "00-E-MSC-0010",
+            "errorMsg": "SKC数量超过100",
+            "errorMsgCn": "SKC数量超过100",
+            "errorMsgUs": "the number of SKCs exceeds 100",
+            "errorMsgPt": "o número de SKCs excede 100",
+            "errorMsgEs": "el número de SKCs excede 100",
+            "solution": "skcNameList中，skc数量不能超过100",
+            "sort": 0
+          },
+          {
+            "id": 143,
+            "openPath": "/open-api/stock/stock-query",
+            "errorCode": "00-E-MSC-0011",
+            "errorMsg": "SPU数量超过100",
+            "errorMsgCn": "SPU数量超过100",
+            "errorMsgUs": "The number of SPUs exceeds 100",
+            "errorMsgPt": "O número de SPUs excede 100",
+            "errorMsgEs": "El número de SPUs excede 100",
+            "solution": "spuNameList中，spu数量不能超过100",
+            "sort": 0
+          },
+          {
+            "id": 144,
+            "openPath": "/open-api/stock/stock-query",
+            "errorCode": "00-E-MSC-0012",
+            "errorMsg": "仓库类型无效",
+            "errorMsgCn": "仓库类型无效",
+            "errorMsgUs": "Invalid warehouse type",
+            "errorMsgPt": "Tipo de armazém inválido",
+            "errorMsgEs": "Tipo de almacén no válido",
+            "solution": "warehouseType无效，请按照文档提供的枚举值进行传参",
+            "sort": 0
+          }
+        ],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "skuCodeList": [
+                  "<REDACTED_SAMPLE>"
+                ],
+                "warehouseType": 0
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": [
+                  {
+                    "goodsInventory": [
+                      {
+                        "spuName": "<REDACTED_SAMPLE>",
+                        "skcName": "<REDACTED_SAMPLE>",
+                        "skuList": [
+                          {
+                            "skuCode": "<REDACTED_SAMPLE>",
+                            "totalInventoryQuantity": 0,
+                            "totalLockedQuantity": 0,
+                            "totalUsableInventory": 0,
+                            "totalTempLockQuantity": 0,
+                            "warehouseInventoryList": [
+                              {
+                                "warehouseCode": "<REDACTED_SAMPLE>",
+                                "warehouseType": "<REDACTED_SAMPLE>",
+                                "inventoryQuantity": 0,
+                                "lockedQuantity": 0,
+                                "usableInventory": 0,
+                                "tempLockQuantity": 0
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "bbl": null
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "skuCodeList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "SHEIN生成SKU 最多传100个，skuCodeList/skcNameList/spuNameList ，请确保三个参数有且只有1个不为空；"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "skcNameList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "SHEIN生成SKC，skuCodeList/skcNameList/spuNameList ，请确保三个参数有且只有1个不为空；"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "spuNameList": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "SHEIN生成SPU，skuCodeList/skcNameList/spuNameList ，请确保三个参数有且只有1个不为空；"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "warehouseType": {
+                  "type": "string",
+                  "description": "仓库类型；1:查备货在SHEIN仓的库存/ 2:查半托管，自主运营模式的虚拟库存/ 3:查代运营（全托管）、SHEIN自营模式的虚拟库存",
+                  "x-shein-label": "仓库类型"
+                },
+                "invType": {
+                  "type": "string",
+                  "description": "库存类型，PI：SHEIN仓实物库存，VI：商家虚拟库存，JI：商家JITJIT库存"
+                }
+              },
+              "required": [
+                "warehouseType"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

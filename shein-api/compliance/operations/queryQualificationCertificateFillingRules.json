@@ -1,0 +1,1026 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询资质证书填写规则",
+    "version": "source-revision-4",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods-certificate-schemas/detail": {
+      "post": {
+        "tags": [
+          "合规"
+        ],
+        "operationId": "queryQualificationCertificateFillingRules",
+        "summary": "查询资质证书填写规则",
+        "description": "获取资质证书的填写规则，仅支持获取 complianceGroupCode= ZSZZL的规则，其他合规信息的填写规则请通过其他接口获取。 完整的资质证书接口调用方案， 详见文档",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOfErpCertificateBasicInfoWrapResp",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码成功：0"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应信息",
+                  "x-shein-label": "ErpCertificateBasicInfoWrapResp",
+                  "properties": {
+                    "certificateTypeInfoList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "证书类型信息列表",
+                        "properties": {
+                          "certificateDimension": {
+                            "type": "integer",
+                            "description": "证书绑定维度：1:部分商品（需手动和SKC绑定）；2:全部商品"
+                          },
+                          "certificateLabel": {
+                            "type": "string",
+                            "description": "证书类型标识：0普通类型；1自符类型；2-溯源证书。 目前API仅支持0普通类型的资质证书创建。"
+                          },
+                          "certificateType": {
+                            "type": "string",
+                            "description": "证书类型值描述"
+                          },
+                          "certificateTypeId": {
+                            "type": "integer",
+                            "format": "int64",
+                            "x-shein-original-type": "int64",
+                            "description": "证书类型id"
+                          },
+                          "certificateTypeCode": {
+                            "type": "string",
+                            "description": "证书类型code"
+                          },
+                          "complianceGroupCode": {
+                            "type": "string",
+                            "description": "合规信息分组code。枚举值：HGXXL-合规信息类；SPTL-卖点类；GSL-公司类；ZSZZL-证书资质类；SPSMS-说明书 【重要】 此接口只能获取ZSZZL的填写规则，其他分组的填写规则需要通过其他接口获取。"
+                          },
+                          "fileModelUrl": {
+                            "type": "string",
+                            "description": "证书下载模板链接"
+                          },
+                          "isEnabled": {
+                            "type": "integer",
+                            "description": "规则状态（0:不启用,1:启用)"
+                          },
+                          "otherPresetInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "证书字段（外部关联字段，例如检测机构等。字段的的可选value通常需要srmDetectionAgencyList获取。）",
+                              "properties": {
+                                "inputType": {
+                                  "type": "integer",
+                                  "description": "外部关联字段录入方式(1:单选,2:多选,3:手动录入,4:日期格式,5:警告语,6:欧盟责任人)"
+                                },
+                                "isRequired": {
+                                  "type": "integer",
+                                  "description": "外部维护时是否必填(0:否,1:是)"
+                                },
+                                "presetId": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "外部关联字段id"
+                                },
+                                "presetName": {
+                                  "type": "string",
+                                  "description": "外部关联字段名CODE"
+                                },
+                                "presetRemark": {
+                                  "type": "string",
+                                  "description": "外部关联字段名描述"
+                                },
+                                "presetValueList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "外部关联字段值信息",
+                                    "properties": {
+                                      "presetValue": {
+                                        "type": "string",
+                                        "description": "关联字段的值描述"
+                                      },
+                                      "presetValueId": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "x-shein-original-type": "int64",
+                                        "description": "关联字段的值ID"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "sourceFrom": {
+                                  "type": "string",
+                                  "description": "外部关联字段来源"
+                                },
+                                "unit": {
+                                  "type": "string",
+                                  "description": "外部关联字段单位"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "presetInfoList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "证书关联字段信息",
+                              "properties": {
+                                "inputType": {
+                                  "type": "integer",
+                                  "description": "关联字段录入方式(1:单选,2:多选,3:手动录入,4:日期格式,5:警告语,6:欧盟责任人)"
+                                },
+                                "isRequired": {
+                                  "type": "integer",
+                                  "description": "维护时是否必填(0:否,1:是)"
+                                },
+                                "presetId": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "关联字段id"
+                                },
+                                "presetName": {
+                                  "type": "string",
+                                  "description": "关联字段名CODE"
+                                },
+                                "presetRemark": {
+                                  "type": "string",
+                                  "description": "关联字段名描述"
+                                },
+                                "presetValueList": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "description": "关联字段值信息",
+                                    "properties": {
+                                      "presetValue": {
+                                        "type": "string",
+                                        "description": "关联字段的值描述"
+                                      },
+                                      "presetValueId": {
+                                        "type": "integer",
+                                        "format": "int64",
+                                        "x-shein-original-type": "int64",
+                                        "description": "关联字段的值ID"
+                                      }
+                                    }
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "unit": {
+                                  "type": "string",
+                                  "description": "关联字段单位"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "srmDetectionAgencyList": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "SRM检测机构列表",
+                        "properties": {
+                          "detectionAgency": {
+                            "type": "object",
+                            "x-shein-label": "DetectionAgency",
+                            "properties": {
+                              "detectionAgencyId": {
+                                "type": "integer",
+                                "format": "int64",
+                                "x-shein-original-type": "int64",
+                                "description": "检测机构id"
+                              },
+                              "detectionAgencyName": {
+                                "type": "string",
+                                "description": "检测机构名称"
+                              }
+                            }
+                          },
+                          "laboratoryList": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "description": "实验室列表",
+                              "properties": {
+                                "laboratoryId": {
+                                  "type": "integer",
+                                  "format": "int64",
+                                  "x-shein-original-type": "int64",
+                                  "description": "实验室id"
+                                },
+                                "laboratoryName": {
+                                  "type": "string",
+                                  "description": "实验室名称"
+                                }
+                              }
+                            },
+                            "x-shein-original-multiple": 1
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "traceId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002037,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002037-3000008",
+        "x-shein-category-id": 3000008,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          },
+          {
+            "id": 8,
+            "name": "POP"
+          }
+        ],
+        "x-shein-source-version": 4,
+        "x-shein-updated-at": "2026-09-22 17:47:57",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "出参新增字段\"certificateTypeCode\"",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object",
+              "multiple": 0
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "默认值：application/json",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p><span style=\"color: rgba(20, 23, 55, 0.88); background-color: rgba(238, 242, 254, 0.016); font-size: 14px;\">响应msg的语种。不传时默认为中文，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR</span></p>",
+                  "name": "language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "ERP批量查询证书基础资料配置请求",
+              "label": "ErpGetCertificateBasicInfoReq",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "<p>证书类型code，单次最多查询10个。</p>",
+                  "name": "certificateTypeCodes",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "int64",
+                  "multiple": 1,
+                  "description": "<p>证书类型id,批量查询数量最多:1000</p>",
+                  "name": "certificateTypeIdList",
+                  "label": "",
+                  "required": false
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object",
+              "multiple": 0
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOfErpCertificateBasicInfoWrapResp",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>响应编码成功：0</p>",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "错误描述,成功：OK",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>响应信息</p>",
+                  "name": "info",
+                  "label": "ErpCertificateBasicInfoWrapResp",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>证书类型信息列表</p>",
+                      "name": "certificateTypeInfoList",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>证书绑定维度：1:部分商品（需手动和SKC绑定）；2:全部商品</p>",
+                          "name": "certificateDimension",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>证书类型标识：0普通类型；1自符类型；2-溯源证书。</p><p>目前API仅支持0普通类型的资质证书创建。</p>",
+                          "name": "certificateLabel",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>证书类型值描述</p>",
+                          "name": "certificateType",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "int64",
+                          "multiple": 0,
+                          "description": "<p>证书类型id</p>",
+                          "name": "certificateTypeId",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "证书类型code",
+                          "name": "certificateTypeCode"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>合规信息分组code。枚举值：HGXXL-合规信息类；SPTL-卖点类；GSL-公司类；ZSZZL-证书资质类；SPSMS-说明书</p><p><span style=\"color: rgb(225, 60, 57); background-color: rgb(255, 255, 255); font-size: 14px;\">【重要】</span>此接口只能获取ZSZZL的填写规则，其他分组的填写规则需要通过其他接口获取。</p><p><br></p>",
+                          "name": "complianceGroupCode",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>证书下载模板链接</p>",
+                          "name": "fileModelUrl",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "description": "<p>规则状态（0:不启用,1:启用)</p>",
+                          "name": "isEnabled",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "<p>证书字段（外部关联字段，例如检测机构等。字段的的可选value通常需要srmDetectionAgencyList获取。）</p>",
+                          "name": "otherPresetInfoList",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "外部关联字段录入方式(1:单选,2:多选,3:手动录入,4:日期格式,5:警告语,6:欧盟责任人)",
+                              "name": "inputType",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "外部维护时是否必填(0:否,1:是)",
+                              "name": "isRequired",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "外部关联字段id",
+                              "name": "presetId",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "外部关联字段名CODE",
+                              "name": "presetName",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "外部关联字段名描述",
+                              "name": "presetRemark",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "外部关联字段值信息",
+                              "name": "presetValueList",
+                              "label": "",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "关联字段的值描述",
+                                  "name": "presetValue",
+                                  "label": "",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "int64",
+                                  "multiple": 0,
+                                  "description": "关联字段的值ID",
+                                  "name": "presetValueId",
+                                  "label": "",
+                                  "required": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "外部关联字段来源",
+                              "name": "sourceFrom",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "外部关联字段单位",
+                              "name": "unit",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "证书关联字段信息",
+                          "name": "presetInfoList",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "关联字段录入方式(1:单选,2:多选,3:手动录入,4:日期格式,5:警告语,6:欧盟责任人)",
+                              "name": "inputType",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "multiple": 0,
+                              "description": "维护时是否必填(0:否,1:是)",
+                              "name": "isRequired",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "关联字段id",
+                              "name": "presetId",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "关联字段名CODE",
+                              "name": "presetName",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "关联字段名描述",
+                              "name": "presetRemark",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "object",
+                              "multiple": 1,
+                              "description": "关联字段值信息",
+                              "name": "presetValueList",
+                              "label": "",
+                              "required": false
+                            },
+                            "children": [
+                              {
+                                "props": {
+                                  "type": "string",
+                                  "multiple": 0,
+                                  "description": "关联字段的值描述",
+                                  "name": "presetValue",
+                                  "label": "",
+                                  "required": false
+                                }
+                              },
+                              {
+                                "props": {
+                                  "type": "int64",
+                                  "multiple": 0,
+                                  "description": "关联字段的值ID",
+                                  "name": "presetValueId",
+                                  "label": "",
+                                  "required": false
+                                }
+                              }
+                            ]
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "关联字段单位",
+                              "name": "unit",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "SRM检测机构列表",
+                      "name": "srmDetectionAgencyList",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "name": "detectionAgency",
+                          "label": "DetectionAgency",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "检测机构id",
+                              "name": "detectionAgencyId",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "检测机构名称",
+                              "name": "detectionAgencyName",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 1,
+                          "description": "实验室列表",
+                          "name": "laboratoryList",
+                          "label": "",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "int64",
+                              "multiple": 0,
+                              "description": "实验室id",
+                              "name": "laboratoryId",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "description": "实验室名称",
+                              "name": "laboratoryName",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p></p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "certificateTypeCodes": [
+                  "<REDACTED_SAMPLE>"
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "certificateTypeInfoList": [
+                    {
+                      "certificateTypeId": 0,
+                      "certificateLabel": 0,
+                      "certificateType": "<REDACTED_SAMPLE>",
+                      "certificateDimension": 0,
+                      "fileModelUrl": "<REDACTED_SAMPLE>",
+                      "isEnabled": 0,
+                      "complianceGroupCode": "<REDACTED_SAMPLE>",
+                      "presetInfoList": [
+                        {
+                          "presetId": 0,
+                          "presetName": "<REDACTED_SAMPLE>",
+                          "presetRemark": "<REDACTED_SAMPLE>",
+                          "inputType": 0,
+                          "unit": "<REDACTED_SAMPLE>",
+                          "isRequired": 0,
+                          "presetValueList": []
+                        }
+                      ],
+                      "otherPresetInfoList": []
+                    }
+                  ],
+                  "srmDetectionAgencyList": [
+                    {
+                      "detectionAgency": {
+                        "detectionAgencyId": 0,
+                        "detectionAgencyName": "<REDACTED_SAMPLE>"
+                      },
+                      "laboratoryList": [
+                        {
+                          "laboratoryId": 0,
+                          "laboratoryName": "<REDACTED_SAMPLE>"
+                        }
+                      ]
+                    },
+                    {
+                      "detectionAgency": {
+                        "detectionAgencyId": 0,
+                        "detectionAgencyName": "<REDACTED_SAMPLE>"
+                      },
+                      "laboratoryList": [
+                        {
+                          "laboratoryId": 0,
+                          "laboratoryName": "<REDACTED_SAMPLE>"
+                        }
+                      ]
+                    },
+                    {
+                      "detectionAgency": {
+                        "detectionAgencyId": 0,
+                        "detectionAgencyName": "<REDACTED_SAMPLE>"
+                      },
+                      "laboratoryList": [
+                        {
+                          "laboratoryId": 0,
+                          "laboratoryName": "<REDACTED_SAMPLE>"
+                        }
+                      ]
+                    },
+                    {
+                      "detectionAgency": {
+                        "detectionAgencyId": 0,
+                        "detectionAgencyName": "<REDACTED_SAMPLE>"
+                      },
+                      "laboratoryList": [
+                        {
+                          "laboratoryId": 0,
+                          "laboratoryName": "<REDACTED_SAMPLE>"
+                        }
+                      ]
+                    },
+                    {
+                      "detectionAgency": {
+                        "detectionAgencyId": 0,
+                        "detectionAgencyName": "<REDACTED_SAMPLE>"
+                      },
+                      "laboratoryList": [
+                        {
+                          "laboratoryId": 0,
+                          "laboratoryName": "<REDACTED_SAMPLE>"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "默认值：application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "响应msg的语种。不传时默认为中文，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "description": "ERP批量查询证书基础资料配置请求",
+              "x-shein-label": "ErpGetCertificateBasicInfoReq",
+              "properties": {
+                "certificateTypeCodes": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "证书类型code，单次最多查询10个。"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "certificateTypeIdList": {
+                  "type": "array",
+                  "items": {
+                    "type": "integer",
+                    "format": "int64",
+                    "x-shein-original-type": "int64",
+                    "description": "证书类型id,批量查询数量最多:1000"
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              }
+            }
+          }
+        ],
+        "x-shein-update-log": [
+          {
+            "id": 3002037,
+            "updateTime": "2026-09-22",
+            "changeContent": "出参新增字段\"certificateTypeCode\"",
+            "version": 4
+          },
+          {
+            "id": 3001851,
+            "updateTime": "2026-06-29",
+            "changeContent": "新接口上线",
+            "version": 2
+          }
+        ]
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

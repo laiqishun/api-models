@@ -1,0 +1,691 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "提交建议零售价",
+    "version": "source-revision-3",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/goods-recommend-retail-price/batch-save": {
+      "post": {
+        "tags": [
+          "价格"
+        ],
+        "operationId": "submitSuggestedRetailPrice",
+        "summary": "提交建议零售价",
+        "description": "支持新增/更新商品的建议零售价，建议零售价发起新增/更新后，会进入审核流程。 注意：更新建议零售价是 全量覆盖 逻辑，请在提交时务必传入所有需要的信息，可以在更新前先查询商品当前的建议零售价信息，原数据会被清空。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "description": "OK",
+              "x-shein-label": "ResponseOfSubmitOpenApiRespOfOpenApiAdjustResult",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "description": "响应信息",
+                  "x-shein-label": "SubmitOpenApiRespOfOpenApiAdjustResult",
+                  "properties": {
+                    "failed_list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "失败列表。 提交操作是SKC维度，若SKC下有一个SKU提交信息不符合要求则会整体失败，失败信息会给到【SKU+站点】颗粒度。",
+                        "properties": {
+                          "code": {
+                            "type": "string",
+                            "description": "失败错误码"
+                          },
+                          "reason": {
+                            "type": "string",
+                            "description": "失败原因"
+                          },
+                          "site": {
+                            "type": "string",
+                            "description": "站点代码"
+                          },
+                          "skc_name": {
+                            "type": "string",
+                            "description": "SKC平台编码"
+                          },
+                          "sku_code": {
+                            "type": "string",
+                            "description": "SKU平台编码"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    },
+                    "success_list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "成功列表",
+                        "properties": {
+                          "skc_name": {
+                            "type": "string",
+                            "description": "SKC平台编码"
+                          }
+                        }
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  }
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "追踪码"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001895,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001895-3000013",
+        "x-shein-category-id": 3000013,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 2,
+            "name": "全托管"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 3,
+        "x-shein-updated-at": "2026-07-02 20:38:59",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "更新为商品",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "int64",
+                  "description": "<p><a href=\"https://open.sheincorp.com/documents/system/passwdrule\" target=\"_blank\" style=\"text-align: start;\">接口签名</a></p>",
+                  "name": "x-lt-signature",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>访问用户隐私数据时的唯一权限标识 openKeyId</p>",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000</p>",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>响应msg的语种。不传时默认为英语，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR</p>",
+                  "name": "language",
+                  "label": ""
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "label": "提交RRP调价请求（开放平台）",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 1,
+                  "description": "<p>SKC信息列表。单次最多同时提交10个SKC。</p><p>提交前请查询SKC的建议零售价填写规则：/open-api/goods/query-recommend-retail-price-rule</p><p>建议零售价的详细说明参考文档：<span style=\"color: rgba(20, 23, 55, 0.88); background-color: rgba(238, 242, 254, 0.424); font-size: 14px;\"> </span><a href=\"https://open.sheincorp.com/documents/system/bf5a59ca-d378-4417-a359-f07cc89bf96b\" target=\"_blank\" style=\"text-align: start;\">https://open.sheincorp.com/documents/system/bf5a59ca-d378-4417-a359-f07cc89bf96b</a></p>",
+                  "name": "skc_rrp_list",
+                  "label": "",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>SKC平台编码</p>",
+                      "name": "skc_name",
+                      "label": "",
+                      "required": true
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>SKU信息列表。</p>",
+                      "name": "sku_rrp_info_list",
+                      "label": "",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>币种</p>",
+                          "name": "currency",
+                          "label": "",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p style=\"text-align: start;\">站点缩写。</p><p style=\"text-align: start;\">分站点规则下填写站点名，不分站点规则下不用写站点</p>",
+                          "name": "site",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>SKU平台编码</p>",
+                          "name": "sku_code",
+                          "label": "",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "double",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>调整后的建议零售价，不填表示清空.</p><p>不同币种的精度要求不同，精度要求参考<a href=\"https://open.sheincorp.com/documents/faq-detail/290\" target=\"_blank\" style=\"text-align: start;\">FAQ</a></p>",
+                          "name": "suggested_retail_price",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "<p>类型一证明材料</p>",
+                          "name": "type_one_proof",
+                          "label": "证明材料",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 1,
+                              "description": "<p style=\"text-align: start;\">证明材料附件列表，图片或PDF的URL， 上传材料不能超过6个。</p><p style=\"text-align: start;\">URL需要使用SHEIN链接，使用接口转换获取：/open-api/goods/discuss/upload-discuss-file</p>",
+                              "name": "attachments",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "<p>网站地址，不超过1000个字符</p>",
+                              "name": "proof_link",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "multiple": 0,
+                          "description": "类型二证明材料",
+                          "name": "type_two_proof",
+                          "label": "证明材料",
+                          "required": false
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 1,
+                              "description": "<p style=\"text-align: start;\">证明材料附件列表，图片或PDF的URL， 上传材料不能超过6个。</p><p style=\"text-align: start;\">URL需要使用SHEIN链接，使用接口转换获取：/open-api/goods/discuss/upload-discuss-file</p>",
+                              "name": "attachments",
+                              "label": "",
+                              "required": false
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "string",
+                              "multiple": 0,
+                              "example": "<REDACTED_SAMPLE>",
+                              "description": "<p>网站地址，不超过1000个字符</p>",
+                              "name": "proof_link",
+                              "label": "",
+                              "required": false
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "string",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "<p>SPU平台编码</p>",
+                      "name": "spu_name",
+                      "label": "",
+                      "required": false
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "description": "OK",
+              "label": "ResponseOfSubmitOpenApiRespOfOpenApiAdjustResult",
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "<p>响应编码 成功：0</p>",
+                  "name": "code",
+                  "label": "",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "<p>响应信息</p>",
+                  "name": "info",
+                  "label": "SubmitOpenApiRespOfOpenApiAdjustResult",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>失败列表。</p><p>提交操作是SKC维度，若SKC下有一个SKU提交信息不符合要求则会整体失败，失败信息会给到【SKU+站点】颗粒度。</p>",
+                      "name": "failed_list",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>失败错误码</p>",
+                          "name": "code",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>失败原因</p>",
+                          "name": "reason",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "站点代码",
+                          "name": "site",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>SKC平台编码</p>",
+                          "name": "skc_name",
+                          "label": "",
+                          "required": false
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>SKU平台编码</p>",
+                          "name": "sku_code",
+                          "label": "",
+                          "required": false
+                        }
+                      }
+                    ]
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>成功列表</p>",
+                      "name": "success_list",
+                      "label": "",
+                      "required": false
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "<p>SKC平台编码</p>",
+                          "name": "skc_name",
+                          "label": "",
+                          "required": false
+                        }
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "错误描述,成功：OK",
+                  "name": "msg",
+                  "label": "",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>追踪码</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "redacted-json-shape",
+              "value": {
+                "skc_rrp_list": [
+                  {
+                    "skc_name": "<REDACTED_SAMPLE>",
+                    "sku_rrp_info_list": [
+                      {
+                        "currency": "<REDACTED_SAMPLE>",
+                        "site": "<REDACTED_SAMPLE>",
+                        "sku_code": "<REDACTED_SAMPLE>",
+                        "suggested_retail_price": 0,
+                        "type_one_proof": {
+                          "attachments": [
+                            "<REDACTED_SAMPLE>"
+                          ]
+                        }
+                      }
+                    ],
+                    "spu_name": "<REDACTED_SAMPLE>"
+                  }
+                ]
+              }
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "success_list": [],
+                  "failed_list": [
+                    {
+                      "code": "<REDACTED_SAMPLE>",
+                      "site": "<REDACTED_SAMPLE>",
+                      "skc_name": "<REDACTED_SAMPLE>",
+                      "sku_code": "<REDACTED_SAMPLE>",
+                      "reason": "<REDACTED_SAMPLE>"
+                    }
+                  ]
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "integer",
+            "format": "int64",
+            "description": "接口签名",
+            "x-shein-original-type": "int64"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "响应msg的语种。不传时默认为英语，枚举值支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "x-shein-label": "提交RRP调价请求（开放平台）",
+              "properties": {
+                "skc_rrp_list": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "description": "SKC信息列表。单次最多同时提交10个SKC。 提交前请查询SKC的建议零售价填写规则：/open-api/goods/query-recommend-retail-price-rule 建议零售价的详细说明参考文档： https://open.sheincorp.com/documents/system/bf5a59ca-d378-4417-a359-f07cc89bf96b",
+                    "properties": {
+                      "skc_name": {
+                        "type": "string",
+                        "description": "SKC平台编码",
+                        "x-shein-example-redacted": true
+                      },
+                      "sku_rrp_info_list": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "description": "SKU信息列表。",
+                          "properties": {
+                            "currency": {
+                              "type": "string",
+                              "description": "币种",
+                              "x-shein-example-redacted": true
+                            },
+                            "site": {
+                              "type": "string",
+                              "description": "站点缩写。 分站点规则下填写站点名，不分站点规则下不用写站点",
+                              "x-shein-example-redacted": true
+                            },
+                            "sku_code": {
+                              "type": "string",
+                              "description": "SKU平台编码",
+                              "x-shein-example-redacted": true
+                            },
+                            "suggested_retail_price": {
+                              "type": "number",
+                              "description": "调整后的建议零售价，不填表示清空. 不同币种的精度要求不同，精度要求参考 FAQ",
+                              "x-shein-example-redacted": true
+                            },
+                            "type_one_proof": {
+                              "type": "object",
+                              "description": "类型一证明材料",
+                              "x-shein-label": "证明材料",
+                              "properties": {
+                                "attachments": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "description": "证明材料附件列表，图片或PDF的URL， 上传材料不能超过6个。 URL需要使用SHEIN链接，使用接口转换获取：/open-api/goods/discuss/upload-discuss-file"
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "proof_link": {
+                                  "type": "string",
+                                  "description": "网站地址，不超过1000个字符",
+                                  "x-shein-example-redacted": true
+                                }
+                              }
+                            },
+                            "type_two_proof": {
+                              "type": "object",
+                              "description": "类型二证明材料",
+                              "x-shein-label": "证明材料",
+                              "properties": {
+                                "attachments": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "string",
+                                    "description": "证明材料附件列表，图片或PDF的URL， 上传材料不能超过6个。 URL需要使用SHEIN链接，使用接口转换获取：/open-api/goods/discuss/upload-discuss-file"
+                                  },
+                                  "x-shein-original-multiple": 1
+                                },
+                                "proof_link": {
+                                  "type": "string",
+                                  "description": "网站地址，不超过1000个字符",
+                                  "x-shein-example-redacted": true
+                                }
+                              }
+                            }
+                          },
+                          "required": [
+                            "currency",
+                            "sku_code"
+                          ]
+                        },
+                        "x-shein-original-multiple": 1
+                      },
+                      "spu_name": {
+                        "type": "string",
+                        "description": "SPU平台编码",
+                        "x-shein-example-redacted": true
+                      }
+                    },
+                    "required": [
+                      "skc_name",
+                      "sku_rrp_info_list"
+                    ]
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "skc_rrp_list"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

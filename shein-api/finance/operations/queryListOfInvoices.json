@@ -1,0 +1,466 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询报账单列表",
+    "version": "source-revision-4",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/finance/report-order-list": {
+      "post": {
+        "tags": [
+          "财务"
+        ],
+        "operationId": "queryListOfInvoices",
+        "summary": "查询报账单列表",
+        "description": "自运营和半托管应用可使用该接口查询店铺中已生成的报账单列表。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "x-shein-example-redacted": true
+                },
+                "msg": {
+                  "type": "string",
+                  "x-shein-example-redacted": true
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer",
+                      "x-shein-example-redacted": true
+                    },
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "reportOrderNo": {
+                            "type": "string",
+                            "description": "报账单编号",
+                            "x-shein-example-redacted": true
+                          },
+                          "reportStatus": {
+                            "type": "integer",
+                            "description": "报账单状态:1-即将付款，2-已付款，3-付款异常",
+                            "x-shein-example-redacted": true
+                          },
+                          "completedPayTime": {
+                            "type": "string",
+                            "description": "打款日期，yyyy-MM-ddHH:mm:ss 当收款方式为钱包充值时，返回充值到账时间；当收款方式为直接打款时，返回付款完成时间。与商家后台展示一致。",
+                            "x-shein-example-redacted": true
+                          },
+                          "income": {
+                            "type": "integer",
+                            "description": "应收金额",
+                            "x-shein-example-redacted": true
+                          },
+                          "currencyCode": {
+                            "type": "string",
+                            "description": "币种",
+                            "x-shein-example-redacted": true
+                          },
+                          "paymentMethod": {
+                            "type": "integer",
+                            "description": "收款方式：1-直接打款，2-钱包充值",
+                            "x-shein-example-redacted": true
+                          },
+                          "rxAcct": {
+                            "type": "string",
+                            "description": "收款账户",
+                            "x-shein-example-redacted": true
+                          }
+                        },
+                        "required": [
+                          "reportOrderNo",
+                          "income",
+                          "currencyCode",
+                          "rxAcct"
+                        ]
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  },
+                  "required": [
+                    "list"
+                  ]
+                }
+              },
+              "required": [
+                "info"
+              ]
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3001920,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3001920-3000005",
+        "x-shein-category-id": 3000005,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 4,
+        "x-shein-updated-at": "2026-07-06 15:07:48",
+        "x-shein-qps": "20",
+        "x-shein-change-content": "优化字段描述",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "application/json",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "指定出参语种，默认英文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR",
+                  "name": "x-lt-language"
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "当前页",
+                  "name": "page",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "每页记录数",
+                  "name": "pageSize",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "报账单编号",
+                  "name": "reportOrderNo"
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "报账单状态:1-即将付款，2-已付款，3-付款异常",
+                  "name": "reportStatus"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "打款周，格式：yyyy-MM-dd，传入该周任意一天（会覆盖打款完成时间）",
+                  "name": "completedPayDate"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "打款完成结束时间，格式：yyyy-MM-ddHH:mm:ss",
+                  "name": "completedPayTimeStart"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "\t打款完成开始时间，格式：yyyy-MM-ddHH:mm:ss",
+                  "name": "completedPayTimeEnd"
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "",
+                  "name": "code"
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "example": "<REDACTED_SAMPLE>",
+                  "description": "",
+                  "name": "msg"
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "description": "",
+                  "name": "info",
+                  "required": true
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "integer",
+                      "multiple": 0,
+                      "example": "<REDACTED_SAMPLE>",
+                      "description": "",
+                      "name": "count"
+                    }
+                  },
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "",
+                      "name": "list",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "报账单编号",
+                          "name": "reportOrderNo",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "报账单状态:1-即将付款，2-已付款，3-付款异常",
+                          "name": "reportStatus"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "<p>打款日期，yyyy-MM-ddHH:mm:ss<br>当收款方式为钱包充值时，返回充值到账时间；当收款方式为直接打款时，返回付款完成时间。与商家后台展示一致。</p>",
+                          "name": "completedPayTime"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "应收金额",
+                          "name": "income",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "币种",
+                          "name": "currencyCode",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "integer",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "收款方式：1-直接打款，2-钱包充值",
+                          "name": "paymentMethod"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "example": "<REDACTED_SAMPLE>",
+                          "description": "收款账户",
+                          "name": "rxAcct",
+                          "required": true
+                        }
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": null,
+            "response": null
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "application/json"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          },
+          {
+            "name": "x-lt-language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "指定出参语种，默认英文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "page": {
+                  "type": "integer",
+                  "description": "当前页",
+                  "x-shein-example-redacted": true
+                },
+                "pageSize": {
+                  "type": "integer",
+                  "description": "每页记录数",
+                  "x-shein-example-redacted": true
+                },
+                "reportOrderNo": {
+                  "type": "string",
+                  "description": "报账单编号",
+                  "x-shein-example-redacted": true
+                },
+                "reportStatus": {
+                  "type": "integer",
+                  "description": "报账单状态:1-即将付款，2-已付款，3-付款异常",
+                  "x-shein-example-redacted": true
+                },
+                "completedPayDate": {
+                  "type": "string",
+                  "description": "打款周，格式：yyyy-MM-dd，传入该周任意一天（会覆盖打款完成时间）",
+                  "x-shein-example-redacted": true
+                },
+                "completedPayTimeStart": {
+                  "type": "string",
+                  "description": "打款完成结束时间，格式：yyyy-MM-ddHH:mm:ss",
+                  "x-shein-example-redacted": true
+                },
+                "completedPayTimeEnd": {
+                  "type": "string",
+                  "description": "打款完成开始时间，格式：yyyy-MM-ddHH:mm:ss",
+                  "x-shein-example-redacted": true
+                }
+              },
+              "required": [
+                "page",
+                "pageSize"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

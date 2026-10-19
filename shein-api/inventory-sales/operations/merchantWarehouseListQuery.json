@@ -1,0 +1,439 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "商家仓库列表查询",
+    "version": "source-revision-25",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/msc/warehouse/list": {
+      "get": {
+        "tags": [
+          "库存和销量"
+        ],
+        "operationId": "merchantWarehouseListQuery",
+        "summary": "商家仓库列表查询",
+        "description": "功能介绍：查询商家仓库列表信息。适用应用：自运营，半托管 ⚠️注意：商家如果有多个仓库，修改库存时必须传仓库id",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object",
+                  "properties": {
+                    "list": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "商家仓库列表；商家如果有多个仓库，修改库存时必须传仓库id",
+                        "properties": {
+                          "saleCountryList": {
+                            "type": "array",
+                            "items": {
+                              "type": "string",
+                              "description": "销售国列表,枚举：BR、TH、US、MX、US、DE、FR、ES、IT、NL、PL、PT、SE、GB"
+                            },
+                            "x-shein-original-multiple": 1
+                          },
+                          "warehouseCode": {
+                            "type": "string",
+                            "description": "商家仓库编码"
+                          },
+                          "warehouseName": {
+                            "type": "string",
+                            "description": "仓库名称,根据入参语种返回,默认EN"
+                          },
+                          "warehouseType": {
+                            "type": "string",
+                            "description": "仓库类型；1：商家仓；2：认证仓；只有商家仓的商品可以修改库存"
+                          },
+                          "authServiceCode": {
+                            "type": "string",
+                            "description": "认证仓code；仅认证仓显示"
+                          },
+                          "authServiceName": {
+                            "type": "string",
+                            "description": "认证仓名称；仅认证仓显示"
+                          },
+                          "countrySiteDefaultList": {
+                            "type": "object",
+                            "description": "销售站点及默认仓信息",
+                            "properties": {
+                              "countrySiteCode": {
+                                "type": "string",
+                                "description": "子站点编码"
+                              },
+                              "defaultFlag": {
+                                "type": "integer",
+                                "description": "是否默认仓;0-非默认,1-默认"
+                              }
+                            }
+                          }
+                        },
+                        "required": [
+                          "saleCountryList",
+                          "warehouseCode",
+                          "warehouseName",
+                          "warehouseType"
+                        ]
+                      },
+                      "x-shein-original-multiple": 1
+                    }
+                  },
+                  "required": [
+                    "list"
+                  ]
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3002013,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3002013-1000003",
+        "x-shein-category-id": 1000003,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 25,
+        "x-shein-updated-at": "2026-08-31 11:37:28",
+        "x-shein-qps": "50",
+        "x-shein-change-content": "update",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "指定出参语种，默认中文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR",
+                  "name": "x-lt-language",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "name": "Content-Type",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "访问用户隐私数据时的唯一权限标识 openKeyId",
+                  "name": "x-lt-openKeyId",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000",
+                  "name": "x-lt-timestamp",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "接口签名",
+                  "name": "x-lt-signature",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": null,
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "required": false
+                },
+                "children": [
+                  {
+                    "props": {
+                      "type": "object",
+                      "multiple": 1,
+                      "description": "<p>商家仓库列表；商家如果有多个仓库，修改库存时必须传仓库id</p>",
+                      "name": "list",
+                      "required": true
+                    },
+                    "children": [
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 1,
+                          "description": "<p>销售国列表,枚举：BR、TH、US、MX、US、DE、FR、ES、IT、NL、PL、PT、SE、GB</p>",
+                          "name": "saleCountryList",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "商家仓库编码",
+                          "name": "warehouseCode",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "multiple": 0,
+                          "description": "仓库名称,根据入参语种返回,默认EN",
+                          "name": "warehouseName",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>仓库类型；1：商家仓；2：认证仓；只有商家仓的商品可以修改库存</p>",
+                          "name": "warehouseType",
+                          "required": true
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "认证仓code；仅认证仓显示",
+                          "name": "authServiceCode"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "string",
+                          "description": "<p>认证仓名称；仅认证仓显示</p>",
+                          "name": "authServiceName"
+                        }
+                      },
+                      {
+                        "props": {
+                          "type": "object",
+                          "description": "<p>销售站点及默认仓信息</p>",
+                          "name": "countrySiteDefaultList"
+                        },
+                        "children": [
+                          {
+                            "props": {
+                              "type": "string",
+                              "description": "<p>子站点编码</p>",
+                              "name": "countrySiteCode"
+                            }
+                          },
+                          {
+                            "props": {
+                              "type": "integer",
+                              "description": "<p>是否默认仓;0-非默认,1-默认</p>",
+                              "name": "defaultFlag"
+                            }
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "错误描述,成功：OK",
+                  "name": "msg",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>请求的唯一标识；用于异常报错跟踪</p>",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": {
+              "status": "present-unparsed"
+            },
+            "response": {
+              "status": "redacted-json-shape",
+              "value": {
+                "code": "<REDACTED_SAMPLE>",
+                "msg": "<REDACTED_SAMPLE>",
+                "info": {
+                  "list": [
+                    {
+                      "warehouseCode": "<REDACTED_SAMPLE>",
+                      "warehouseName": "<REDACTED_SAMPLE>",
+                      "saleCountryList": [
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>"
+                      ],
+                      "createType": 0,
+                      "warehouseType": 0,
+                      "authServiceCode": "<REDACTED_SAMPLE>",
+                      "authServiceName": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "warehouseCode": "<REDACTED_SAMPLE>",
+                      "warehouseName": "<REDACTED_SAMPLE>",
+                      "saleCountryList": [
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>",
+                        "<REDACTED_SAMPLE>"
+                      ],
+                      "createType": 0,
+                      "warehouseType": 0,
+                      "authServiceCode": "<REDACTED_SAMPLE>",
+                      "authServiceName": "<REDACTED_SAMPLE>"
+                    },
+                    {
+                      "warehouseCode": "<REDACTED_SAMPLE>",
+                      "warehouseName": "<REDACTED_SAMPLE>",
+                      "saleCountryList": [
+                        "<REDACTED_SAMPLE>"
+                      ],
+                      "createType": 0,
+                      "warehouseType": 0,
+                      "authServiceCode": "<REDACTED_SAMPLE>",
+                      "authServiceName": "<REDACTED_SAMPLE>"
+                    }
+                  ]
+                },
+                "bbl": null,
+                "traceId": "<REDACTED_SAMPLE>"
+              }
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "x-lt-language",
+            "in": "header",
+            "required": false,
+            "type": "string",
+            "description": "指定出参语种，默认中文；支持语种:英语:US 法语:FR 西班牙语:ES 德语:DE 中文简体:CN 泰语:TH 巴西葡语:PT 土耳其语：TR"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "x-lt-openKeyId",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "访问用户隐私数据时的唯一权限标识 openKeyId"
+          },
+          {
+            "name": "x-lt-timestamp",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "请求时间戳，格式为时间转换为毫秒的值，也就是从1970年1月1日起至今的时间转换为毫秒，如：1583398764000"
+          },
+          {
+            "name": "x-lt-signature",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "接口签名"
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

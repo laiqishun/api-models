@@ -1,0 +1,250 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "上传结算异常举证",
+    "version": "source-revision-4",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/open-api/cargo/quote-return": {
+      "post": {
+        "tags": [
+          "物流"
+        ],
+        "operationId": "uploadEvidenceOfSettlementAbnormalities",
+        "summary": "上传结算异常举证",
+        "description": "该接口用于物流商上传运单号异常的举证信息，举证信息不超过500字符，相关附件最多上传10个文件。",
+        "responses": {
+          "200": {
+            "description": "See the official response schema",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": "string",
+                  "description": "响应编码 成功：0"
+                },
+                "info": {
+                  "type": "object"
+                },
+                "msg": {
+                  "type": "string",
+                  "description": "错误描述,成功：OK"
+                },
+                "traceId": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪"
+                }
+              },
+              "required": [
+                "code"
+              ]
+            },
+            "headers": {
+              "Content-Type": {
+                "type": "string",
+                "description": "*/*"
+              }
+            }
+          }
+        },
+        "x-shein-direction": "outbound-api-call",
+        "x-shein-official-id": 3000503,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/apidoc/detail/3000503-1000006",
+        "x-shein-category-id": 1000006,
+        "x-shein-applicable-modes": [],
+        "x-shein-source-version": 4,
+        "x-shein-updated-at": "2024-10-15 10:42:16",
+        "x-shein-qps": null,
+        "x-shein-change-content": "新增traceId",
+        "x-shein-source-field-trees": {
+          "queryStrings": {
+            "props": {
+              "type": "object"
+            },
+            "children": []
+          },
+          "requestHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "name": "Content-Type",
+                  "defaultValue": "application/json",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "requestBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "integer",
+                  "multiple": 0,
+                  "description": "操作类型，枚举值：3-结算举证",
+                  "name": "operateType",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "附件，支持回传多个附件链接（最多不超个10个，每个附件大小不超过10M）链接对应文件的格式限制：jpg、jpeg、png、xlsx、xls、pdf、docx、doc、zip、txt",
+                  "name": "quoteAttachment",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "备注，限制不超过500字符（备注和附件至少填一个）",
+                  "name": "remark",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 1,
+                  "description": "运单号",
+                  "name": "trackingNumbers",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseHeader": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "*/*",
+                  "name": "Content-Type",
+                  "defaultValue": "*/*",
+                  "required": true
+                }
+              }
+            ]
+          },
+          "responseBody": {
+            "props": {
+              "type": "object",
+              "multiple": 0,
+              "required": false
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "响应编码 成功：0",
+                  "name": "code",
+                  "required": true
+                }
+              },
+              {
+                "props": {
+                  "type": "object",
+                  "multiple": 0,
+                  "name": "info",
+                  "required": false
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "multiple": 0,
+                  "description": "错误描述,成功：OK",
+                  "name": "msg",
+                  "required": false
+                }
+              },
+              {
+                "props": {
+                  "type": "string",
+                  "description": "请求的唯一标识；用于异常报错跟踪",
+                  "name": "traceId"
+                }
+              }
+            ]
+          }
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": null,
+            "response": null
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "operateType": {
+                  "type": "integer",
+                  "description": "操作类型，枚举值：3-结算举证"
+                },
+                "quoteAttachment": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "附件，支持回传多个附件链接（最多不超个10个，每个附件大小不超过10M）链接对应文件的格式限制：jpg、jpeg、png、xlsx、xls、pdf、docx、doc、zip、txt"
+                  },
+                  "x-shein-original-multiple": 1
+                },
+                "remark": {
+                  "type": "string",
+                  "description": "备注，限制不超过500字符（备注和附件至少填一个）"
+                },
+                "trackingNumbers": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "运单号"
+                  },
+                  "x-shein-original-multiple": 1
+                }
+              },
+              "required": [
+                "operateType",
+                "trackingNumbers"
+              ]
+            }
+          }
+        ],
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "api",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}

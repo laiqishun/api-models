@@ -1,0 +1,110 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "订单同步通知",
+    "version": "source-revision-12",
+    "description": "Derived from SHEIN's public developer reference; this is not an official Swagger download."
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/order_push_notice": {
+      "post": {
+        "tags": [
+          "Webhook"
+        ],
+        "operationId": "orderSynchronizationNotification",
+        "summary": "订单同步通知",
+        "description": "该消息用于通知 ERP 店铺消费者下单及订单信息的变更，具体场景包括首次下单、订单信息更新、换货和消费者取消订单等。 消息接入方式可查看文档： webhook说明文档",
+        "responses": {
+          "200": {
+            "description": "Webhook acknowledgment; see integration guide"
+          }
+        },
+        "x-shein-direction": "inbound-webhook-notification",
+        "x-shein-official-id": 3001442,
+        "x-shein-official-url": "https://open.sheincorp.com/documents/msgdoc/detail/3001442-2000003",
+        "x-shein-category-id": 2000003,
+        "x-shein-applicable-modes": [
+          {
+            "id": 1,
+            "name": "自运营"
+          },
+          {
+            "id": 5,
+            "name": "半托管"
+          }
+        ],
+        "x-shein-source-version": 12,
+        "x-shein-updated-at": "2025-11-05 14:45:12",
+        "x-shein-qps": null,
+        "x-shein-change-content": "更新版本",
+        "x-shein-source-field-trees": {
+          "queryStrings": null,
+          "requestHeader": null,
+          "requestBody": {
+            "props": {
+              "type": "object"
+            },
+            "children": [
+              {
+                "props": {
+                  "type": "string",
+                  "description": "<p>订单号</p>",
+                  "name": "orderNo"
+                }
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>更新时间</p>",
+                  "name": "changeTime"
+                },
+                "children": []
+              },
+              {
+                "props": {
+                  "type": "integer",
+                  "description": "<p>订单状态\t</p>",
+                  "name": "orderStatus"
+                }
+              }
+            ]
+          },
+          "responseHeader": null,
+          "responseBody": null
+        },
+        "x-shein-error-table": [],
+        "x-shein-redacted-example-shapes": [
+          {
+            "scene": "默认",
+            "request": null,
+            "response": null
+          }
+        ],
+        "x-shein-decrypted-event-payload-schema": {
+          "type": "object",
+          "properties": {
+            "orderNo": {
+              "type": "string",
+              "description": "订单号"
+            },
+            "changeTime": {
+              "type": "integer",
+              "description": "更新时间"
+            },
+            "orderStatus": {
+              "type": "integer",
+              "description": "订单状态"
+            }
+          }
+        },
+        "x-shein-transport-note": "The event payload schema is decrypted content. The actual callback carries encrypted eventData in form-data; callback URL is developer-defined.",
+        "x-shein-update-log": []
+      }
+    }
+  },
+  "x-shein-document-kind": "webhook",
+  "x-shein-catalog-snapshot": "2026-10-15 18:50 CST"
+}
