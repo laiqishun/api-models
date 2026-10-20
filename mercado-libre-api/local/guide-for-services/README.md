@@ -15,9 +15,7 @@ Local seller official documentation category. The operation models below are der
 | [Official: Subscribe to our feeds](https://developers.mercadolibre.com.ar/en_us/services-subscribe-to-our-feeds) | 6 | 0 | modeled |
 | [Official: Advanced queries](https://developers.mercadolibre.com.ar/en_us/advanced-queries) | 0 | 0 | guide-only |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | GET | `/coverage_areas/TUxBUEpVSnk3YmUz` | 1 | [JSON](./operations/get-99787ab71c33.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/coverage_areas` | 1 | [JSON](./operations/get-d59364de5609.json) |
+- [getCoverageAreaId](operations/getCoverageAreaId.json) (GET /coverage_areas/TUxBUEpVSnk3YmUz)：Coverage area ID [Official](https://developers.mercadolibre.com.ar/en_us/manage-coverage-areas)
+- [getCoverageAreasBySite](operations/getCoverageAreasBySite.json) (GET /sites/{site_id}/coverage_areas)：Coverage areas by site [Official](https://developers.mercadolibre.com.ar/en_us/manage-coverage-areas)

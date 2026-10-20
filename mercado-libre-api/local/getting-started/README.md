@@ -19,20 +19,18 @@ Local seller official documentation category. The operation models below are der
 | [Official: Manage an application IPs](https://developers.mercadolibre.com.ar/en_us/manage-an-application-ips) | 0 | 0 | guide-only |
 | [Official: Support for Integrators](https://developers.mercadolibre.com.ar/en_us/integrator-support) | 0 | 0 | guide-only |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | DELETE | `/users/{user_id}/applications/{app_id}` | 1 | [JSON](./operations/delete-89be15c1c293.json) |
-| `api.mercadolibre.com` | GET | `/applications/v1/{app_id}/consumed-applications` | 1 | [JSON](./operations/get-20a99e1cc42e.json) |
-| `api.mercadolibre.com` | GET | `/applications/{app_id}` | 3 | [JSON](./operations/get-e2b5f28b5a2a.json) |
-| `api.mercadolibre.com` | GET | `/applications/{app_id}/grants` | 1 | [JSON](./operations/get-6ba6a9d0c625.json) |
-| `api.mercadolibre.com` | GET | `/currencies` | 3 | [JSON](./operations/get-13584bf4ae56.json) |
-| `api.mercadolibre.com` | GET | `/currencies/ARS` | 1 | [JSON](./operations/get-16f6d5631022.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/search` | 15 | [JSON](./operations/get-4d9f01f7e4b1.json) |
-| `api.mercadolibre.com` | GET | `/users/me` | 7 | [JSON](./operations/get-9f2a0ee5948c.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}` | 14 | [JSON](./operations/get-8dc1057dfee6.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/applications` | 1 | [JSON](./operations/get-9de9a21417d5.json) |
-| `api.mercadolibre.com` | POST | `/items/validate` | 4 | [JSON](./operations/post-c39968a77888.json) |
-| `api.mercadolibre.com` | POST | `/oauth/token` | 3 | [JSON](./operations/post-bce0abb3d5a4.json) |
-| `api.mercadolibre.com` | POST | `/users/test_user` | 1 | [JSON](./operations/post-fe55ad4d27f1.json) |
+- [createTestUser](operations/createTestUser.json) (POST /users/test_user)：Create a test user [Official](https://developers.mercadolibre.com.ar/en_us/start-testing)
+- [createValidationExamples](operations/createValidationExamples.json) (POST /items/validate)：Validation examples [Official](https://developers.mercadolibre.com.ar/en_us/listing-validator)
+- [deleteByUserIdApplicationsByAppId](operations/deleteByUserIdApplicationsByAppId.json) (DELETE /users/{user_id}/applications/{app_id})：Revoke user authorization [Official](https://developers.mercadolibre.com.ar/en_us/manage-your-applications)
+- [getApplicationsByAppId](operations/getApplicationsByAppId.json) (GET /applications/{app_id})：Application details [Official](https://developers.mercadolibre.com.ar/en_us/manage-your-applications)
+- [getAuthorizedApplicationsByUser](operations/getAuthorizedApplicationsByUser.json) (GET /users/{user_id}/applications)：Authorized applications by user [Official](https://developers.mercadolibre.com.ar/en_us/manage-your-applications)
+- [getBySiteIdSearch](operations/getBySiteIdSearch.json) (GET /sites/{site_id}/search)：Default values [Official](https://developers.mercadolibre.com.ar/en_us/design-considerations)
+- [getJsonpUsage](operations/getJsonpUsage.json) (GET /currencies/ARS)：JSONP Usage [Official](https://developers.mercadolibre.com.ar/en_us/design-considerations)
+- [getReducingResponses](operations/getReducingResponses.json) (GET /currencies)：Reducing responses [Official](https://developers.mercadolibre.com.ar/en_us/design-considerations)
+- [getUsersMe](operations/getUsersMe.json) (GET /users/me)：Send access token by header [Official](https://developers.mercadolibre.com.ar/en_us/authorization-and-token-recommendations)
+- [getUsersWhoGavePermissionsYourApplication](operations/getUsersWhoGavePermissionsYourApplication.json) (GET /applications/{app_id}/grants)：Users who gave permissions to your application [Official](https://developers.mercadolibre.com.ar/en_us/manage-your-applications)
+- [getYourApplicationConsumptionMetrics](operations/getYourApplicationConsumptionMetrics.json) (GET /applications/v1/{app_id}/consumed-applications)：Your application's consumption metrics [Official](https://developers.mercadolibre.com.ar/en_us/manage-your-applications)
+- [postOauthToken](operations/postOauthToken.json) (POST /oauth/token)：Obtain access token by sending body parameters [Official](https://developers.mercadolibre.com.ar/en_us/authorization-and-token-recommendations)
+- [validateSellerInformation](operations/validateSellerInformation.json) (GET /users/{user_id})：Validate seller's information [Official](https://developers.mercadolibre.com.ar/en_us/validate-sellers)

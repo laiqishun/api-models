@@ -10,16 +10,14 @@ Global Selling / CBT official documentation category. The operation models below
 | [Official: Pending messages](https://global-selling.mercadolibre.com/devsite/pending-messages-gs) | 2 | 0 | modeled |
 | [Official: Blocked messages](https://global-selling.mercadolibre.com/devsite/blocked-messages-gs) | 1 | 0 | modeled |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | GET | `/marketplace/messages/2d45a5ad186041659e9a608f0c109dff` | 1 | [JSON](./operations/get-f6da8e7419d3.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/messages/attachments/76601286_5946e4c4-168a-45fd-945e-b8f0c306c58d.png` | 1 | [JSON](./operations/get-8243e6a4ba4e.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/messages/attachments/{attachment_id}` | 1 | [JSON](./operations/get-25c8155df58e.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/messages/packs/{pack_id}` | 1 | [JSON](./operations/get-b33dd94953cd.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/messages/unread` | 2 | [JSON](./operations/get-fc4c683f1bc1.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/messages/{message_id}` | 1 | [JSON](./operations/get-61c57b279fab.json) |
-| `api.mercadolibre.com` | GET | `/messages/packs/{pack_id}/sellers/{seller_id}` | 2 | [JSON](./operations/get-5c3daa42527f.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/messages/attachments` | 1 | [JSON](./operations/post-e6c333c3a2a0.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/messages/packs/{pack_id}` | 1 | [JSON](./operations/post-ff3805f5d4e7.json) |
+- [createMessage](operations/createMessage.json) (POST /marketplace/messages/packs/{pack_id})：Create message [Official](https://global-selling.mercadolibre.com/devsite/messaging-after-sale-global-selling)
+- [getAttachment](operations/getAttachment.json) (GET /marketplace/messages/attachments/{attachment_id})：Get attachment [Official](https://global-selling.mercadolibre.com/devsite/messaging-after-sale-global-selling)
+- [getAttachmentsByAttachmentId](operations/getAttachmentsByAttachmentId.json) (GET /marketplace/messages/attachments/76601286_5946e4c4-168a-45fd-945e-b8f0c306c58d.png)：Get attachment [Official](https://global-selling.mercadolibre.com/devsite/messaging-after-sale-global-selling)
+- [getMessageById](operations/getMessageById.json) (GET /marketplace/messages/{message_id})：Get message by ID [Official](https://global-selling.mercadolibre.com/devsite/messaging-after-sale-global-selling)
+- [getMessagesByMessageId](operations/getMessagesByMessageId.json) (GET /marketplace/messages/2d45a5ad186041659e9a608f0c109dff)：Get message by ID [Official](https://global-selling.mercadolibre.com/devsite/messaging-after-sale-global-selling)
+- [getMessagesByPack](operations/getMessagesByPack.json) (GET /marketplace/messages/packs/{pack_id})：Get messages by pack [Official](https://global-selling.mercadolibre.com/devsite/messaging-after-sale-global-selling)
+- [getMessagesUnread](operations/getMessagesUnread.json) (GET /marketplace/messages/unread)：Parameters [Official](https://global-selling.mercadolibre.com/devsite/pending-messages-gs)
+- [markMessagesAsRead](operations/markMessagesAsRead.json) (GET /messages/packs/{pack_id}/sellers/{seller_id})：Mark messages as read [Official](https://global-selling.mercadolibre.com/devsite/pending-messages-gs)
+- [uploadAttachment](operations/uploadAttachment.json) (POST /marketplace/messages/attachments)：Upload attachment [Official](https://global-selling.mercadolibre.com/devsite/messaging-after-sale-global-selling)

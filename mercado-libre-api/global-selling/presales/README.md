@@ -8,10 +8,8 @@ Global Selling / CBT official documentation category. The operation models below
 |---|---:|---:|---|
 | [Official: Manage questions & answers](https://global-selling.mercadolibre.com/devsite/manage-questions-answers-global-selling) | 4 | 0 | modeled |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | DELETE | `/marketplace/questions/{question_id}` | 1 | [JSON](./operations/delete-adcf4e4f0bdf.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/questions/search` | 5 | [JSON](./operations/get-fa9e9c985d05.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/answers` | 1 | [JSON](./operations/post-baca2e5388d2.json) |
+- [createAnswerQuestions](operations/createAnswerQuestions.json) (POST /marketplace/answers)：Answer questions [Official](https://global-selling.mercadolibre.com/devsite/manage-questions-answers-global-selling)
+- [deleteQuestions](operations/deleteQuestions.json) (DELETE /marketplace/questions/{question_id})：Delete questions [Official](https://global-selling.mercadolibre.com/devsite/manage-questions-answers-global-selling)
+- [searchBySeller](operations/searchBySeller.json) (GET /marketplace/questions/search)：Search by seller [Official](https://global-selling.mercadolibre.com/devsite/manage-questions-answers-global-selling)

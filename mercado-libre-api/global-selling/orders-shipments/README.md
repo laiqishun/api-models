@@ -13,41 +13,39 @@ Global Selling / CBT official documentation category. The operation models below
 | [Official: Dispatch Information](https://global-selling.mercadolibre.com/devsite/dispatch-information) | 8 | 0 | modeled |
 | [Official: Export evidence](https://global-selling.mercadolibre.com/devsite/export-evidence) | 1 | 0 | modeled |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | GET | `/marketplace` | 1 | [JSON](./operations/get-b049eb85d108.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/items/{item_id}/shipping_compensation` | 1 | [JSON](./operations/get-a62970c21f46.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/items/{item_id}/shipping_options/cost` | 1 | [JSON](./operations/get-17db246bbf02.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/orders/pack/{family_pack_id}` | 1 | [JSON](./operations/get-a7d0a2ce8683.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/orders/pack/{id}` | 3 | [JSON](./operations/get-9aef4c77e23a.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/orders/pack/{pack_id}` | 2 | [JSON](./operations/get-fa353b27d131.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/orders/search` | 4 | [JSON](./operations/get-cb7901029f19.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/orders/{order_id}/invoice` | 2 | [JSON](./operations/get-960974faf013.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/sellers/{seller_id}/working_days` | 1 | [JSON](./operations/get-98c96e6f773e.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/shipments/dispatch_preferences/carriers` | 1 | [JSON](./operations/get-e0e3e2fdf686.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/shipments/dispatch_preferences/pick_up_addresses` | 1 | [JSON](./operations/get-99cfc6644a06.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/shipments/{shipment_id}/carrier` | 1 | [JSON](./operations/get-da92636478e8.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/shipments/{shipment_id}/compensation_costs` | 1 | [JSON](./operations/get-202443ee946f.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/shipments/{shipment_id}/costs` | 1 | [JSON](./operations/get-f929b18055d8.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/shipments/{shipment_id}/history` | 1 | [JSON](./operations/get-a023e54b22db.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/shipments/{shipment_id}/items` | 1 | [JSON](./operations/get-35c433d6c16c.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/shipments/{shipment_id}/lead_time` | 1 | [JSON](./operations/get-9ffd67949317.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/shipments/{shipment_id}/sla` | 1 | [JSON](./operations/get-abe6ca4cdae4.json) |
-| `api.mercadolibre.com` | GET | `/orders/{order_id}` | 1 | [JSON](./operations/get-38ac2d327b47.json) |
-| `api.mercadolibre.com` | GET | `/orders/{order_id}/shipments` | 1 | [JSON](./operations/get-a7d2acc2422e.json) |
-| `api.mercadolibre.com` | GET | `/shipments/{shipment_id}/orders` | 1 | [JSON](./operations/get-cb3ba1ade08a.json) |
-| `api.mercadolibre.com` | GET | `/sites/MLM/payment_methods` | 1 | [JSON](./operations/get-476971c4837c.json) |
-| `api.mercadolibre.com` | GET | `/sites/MLM/payment_methods/visa` | 1 | [JSON](./operations/get-09613497e8d1.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/shipping_options/cost` | 1 | [JSON](./operations/get-be20c18aba6c.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/orders/{order_id}/attributes` | 1 | [JSON](./operations/post-6b71c3b60b00.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/shipments/dispatch_preferences/pick_up_addresses` | 1 | [JSON](./operations/post-1cae2c9d849e.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/shipments/{shipment_id}/split` | 1 | [JSON](./operations/post-b72b6d9c88e5.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/shipments/{shipment_id}/tracking/status` | 3 | [JSON](./operations/post-8e2e802e11e4.json) |
-| `api.mercadolibre.com` | PUT | `/marketplace/sellers/{$seller_id}/working_days` | 1 | [JSON](./operations/put-71f839311819.json) |
-| `api.mercadolibre.com` | PUT | `/marketplace/shipments/dispatch_preferences/carriers/cainiao` | 3 | [JSON](./operations/put-5c1fedc2018e.json) |
-| `api.mercadolibre.com` | PUT | `/marketplace/shipments/dispatch_preferences/carriers/mailamericas` | 1 | [JSON](./operations/put-9bd4239e8fcd.json) |
-| `api.mercadolibre.com` | PUT | `/marketplace/shipments/dispatch_preferences/carriers/{carrier_name}` | 2 | [JSON](./operations/put-9d115c720d0f.json) |
-| `cbt-shipping-op-api.melisystems.com` | GET | `/marketplace/shipments/dispatch_preferences/return_address` | 1 | [JSON](./operations/get-15fbd1fe924f.json) |
-| `cbt-shipping-op-api.melisystems.com` | POST | `/marketplace/shipments/dispatch_preferences/return_address` | 1 | [JSON](./operations/post-1e8a2a1f9146.json) |
+- [addProductInformation](operations/addProductInformation.json) (POST /marketplace/orders/{order_id}/attributes)：Add product information [Official](https://global-selling.mercadolibre.com/devsite/manage-orders-cbt)
+- [associatePickUpAddress](operations/associatePickUpAddress.json) (POST /marketplace/shipments/dispatch_preferences/pick_up_addresses)：Associate pick-up address [Official](https://global-selling.mercadolibre.com/devsite/dispatch-information)
+- [associatePickUpAsDispatchPreference](operations/associatePickUpAsDispatchPreference.json) (PUT /marketplace/shipments/dispatch_preferences/carriers/cainiao)：Associate Pick-Up as dispatch preference [Official](https://global-selling.mercadolibre.com/devsite/dispatch-information)
+- [checkIfPackWasSplit](operations/checkIfPackWasSplit.json) (GET /marketplace/orders/pack/{family_pack_id})：4. Check if the Pack Was Split [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [createOrUpdateReturnAddressUpsert](operations/createOrUpdateReturnAddressUpsert.json) (POST /marketplace/shipments/dispatch_preferences/return_address)：POST — Create or Update Return Address (Upsert) [Official](https://global-selling.mercadolibre.com/devsite/dispatch-information)
+- [getByItemIdShippingCompensation](operations/getByItemIdShippingCompensation.json) (GET /marketplace/items/{item_id}/shipping_compensation)：Parameters [Official](https://global-selling.mercadolibre.com/devsite/compensations)
+- [getByOrderIdShipments](operations/getByOrderIdShipments.json) (GET /orders/{order_id}/shipments)：Call [Official](https://global-selling.mercadolibre.com/devsite/manage-orders-cbt)
+- [getByShipmentIdCompensationCosts](operations/getByShipmentIdCompensationCosts.json) (GET /marketplace/shipments/{shipment_id}/compensation_costs)：Parameters [Official](https://global-selling.mercadolibre.com/devsite/compensations)
+- [getByShipmentIdOrders](operations/getByShipmentIdOrders.json) (GET /shipments/{shipment_id}/orders)：Call [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [getByShipmentIdSla](operations/getByShipmentIdSla.json) (GET /marketplace/shipments/{shipment_id}/sla)：Call [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [getCarrierInformation](operations/getCarrierInformation.json) (GET /marketplace/shipments/{shipment_id}/carrier)：Get carrier information [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [getItemShippingCost](operations/getItemShippingCost.json) (GET /marketplace/items/{item_id}/shipping_options/cost)：Item´s shipping cost [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [getLeadTime](operations/getLeadTime.json) (GET /marketplace/shipments/{shipment_id}/lead_time)：Get lead time [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [getMlmPaymentMethods](operations/getMlmPaymentMethods.json) (GET /sites/MLM/payment_methods)：Returns data for a payment [Official](https://global-selling.mercadolibre.com/devsite/manage-orders-cbt)
+- [getOrderInvoice](operations/getOrderInvoice.json) (GET /marketplace/orders/{order_id}/invoice)：Get an order invoice [Official](https://global-selling.mercadolibre.com/devsite/manage-orders-cbt)
+- [getOrdersByOrderId](operations/getOrdersByOrderId.json) (GET /orders/{order_id})：Example response with gross_price [Official](https://global-selling.mercadolibre.com/devsite/manage-orders-cbt)
+- [getPackByPackId](operations/getPackByPackId.json) (GET /marketplace/orders/pack/{pack_id})：View cart sales [Official](https://global-selling.mercadolibre.com/devsite/packs)
+- [getPaymentMethod](operations/getPaymentMethod.json) (GET /sites/MLM/payment_methods/visa)：Get payment method [Official](https://global-selling.mercadolibre.com/devsite/manage-orders-cbt)
+- [getPickUpAddress](operations/getPickUpAddress.json) (GET /marketplace/shipments/dispatch_preferences/pick_up_addresses)：Get pick-up address [Official](https://global-selling.mercadolibre.com/devsite/dispatch-information)
+- [getShipmentCost](operations/getShipmentCost.json) (GET /marketplace/shipments/{shipment_id}/costs)：Shipment cost [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [getShipmentItems](operations/getShipmentItems.json) (GET /marketplace/shipments/{shipment_id}/items)：Get shipment items [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [getShippingOptionsCost](operations/getShippingOptionsCost.json) (GET /users/{user_id}/shipping_options/cost)：Item´s shipping cost [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [getStatusHistory](operations/getStatusHistory.json) (GET /marketplace/shipments/{shipment_id}/history)：Get status history [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [getWorkingDays](operations/getWorkingDays.json) (GET /marketplace/sellers/{seller_id}/working_days)：Get Working Days [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [informStatus](operations/informStatus.json) (POST /marketplace/shipments/{shipment_id}/tracking/status)：Inform Status [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [listExportDeclarationsByMerchant](operations/listExportDeclarationsByMerchant.json) (GET /marketplace)：GET — List Export Declarations by Merchant [Official](https://global-selling.mercadolibre.com/devsite/export-evidence)
+- [postByShipmentIdSplit](operations/postByShipmentIdSplit.json) (POST /marketplace/shipments/{shipment_id}/split)：Possible values in the "reason" field [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [putCarriersByCarrierName](operations/putCarriersByCarrierName.json) (PUT /marketplace/shipments/dispatch_preferences/carriers/{carrier_name})：Associate Pick-Up as dispatch preference [Official](https://global-selling.mercadolibre.com/devsite/dispatch-information)
+- [putCarriersMailamericas](operations/putCarriersMailamericas.json) (PUT /marketplace/shipments/dispatch_preferences/carriers/mailamericas)：Possible errors when associating Drop Off Agency as dispatch preference [Official](https://global-selling.mercadolibre.com/devsite/dispatch-information)
+- [retrieveReturnAddress](operations/retrieveReturnAddress.json) (GET /marketplace/shipments/dispatch_preferences/return_address)：GET — Retrieve Return Address [Official](https://global-selling.mercadolibre.com/devsite/dispatch-information)
+- [searchDispatchPreferences](operations/searchDispatchPreferences.json) (GET /marketplace/shipments/dispatch_preferences/carriers)：Search dispatch preferences [Official](https://global-selling.mercadolibre.com/devsite/dispatch-information)
+- [searchOrdersBySeller](operations/searchOrdersBySeller.json) (GET /marketplace/orders/search)：Search the orders by seller [Official](https://global-selling.mercadolibre.com/devsite/manage-orders-cbt)
+- [updateWorkingDays](operations/updateWorkingDays.json) (PUT /marketplace/sellers/{$seller_id}/working_days)：Update Working Days [Official](https://global-selling.mercadolibre.com/devsite/manage-shipments)
+- [viewCartSales](operations/viewCartSales.json) (GET /marketplace/orders/pack/{id})：View cart sales [Official](https://global-selling.mercadolibre.com/devsite/packs)

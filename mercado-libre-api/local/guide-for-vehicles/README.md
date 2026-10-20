@@ -17,13 +17,11 @@ Local seller official documentation category. The operation models below are der
 | [Official: Interested persons](https://developers.mercadolibre.com.ar/en_us/interested-persons) | 3 | 0 | modeled |
 | [Official: Credits pre-approved](https://developers.mercadolibre.com.ar/en_us/credits-pre-approved-vehicles) | 3 | 0 | modeled |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | DELETE | `/users/{user_id}/immediate_payment/by_user` | 1 | [JSON](./operations/delete-90819a67cf91.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/all` | 1 | [JSON](./operations/get-5c08a0c28e94.json) |
-| `api.mercadolibre.com` | GET | `/vis/leads/3f2dedf2-dfbd-4981-a726-40b13aa172ff` | 1 | [JSON](./operations/get-6c34fd0066da.json) |
-| `api.mercadolibre.com` | GET | `/vis/leads/{lead_id}` | 1 | [JSON](./operations/get-bb3bdba6bdee.json) |
-| `api.mercadolibre.com` | GET | `/vis/users/{user_id}/leads/buyers` | 1 | [JSON](./operations/get-30df5827be1d.json) |
-| `api.mercadolibre.com` | POST | `/users/{user_id}/immediate_payment` | 1 | [JSON](./operations/post-e1c4bb0086f0.json) |
+- [checkInterestedUsersInSeller](operations/checkInterestedUsersInSeller.json) (GET /vis/users/{user_id}/leads/buyers)：Check interested users in the seller’s [Official](https://developers.mercadolibre.com.ar/en_us/interested-persons)
+- [deleteImmediatePaymentByUser](operations/deleteImmediatePaymentByUser.json) (DELETE /users/{user_id}/immediate_payment/by_user)：User Seller S = P (Sell Equal Pay) [Official](https://developers.mercadolibre.com.ar/en_us/vehicles-manage-users)
+- [getDetailsLead](operations/getDetailsLead.json) (GET /vis/leads/3f2dedf2-dfbd-4981-a726-40b13aa172ff)：Get details of a Lead [Official](https://developers.mercadolibre.com.ar/en_us/interested-persons)
+- [getDumpCategories](operations/getDumpCategories.json) (GET /sites/{site_id}/all)：Dump categories [Official](https://developers.mercadolibre.com.ar/en_us/categories-attributes)
+- [getLeadsByLeadId](operations/getLeadsByLeadId.json) (GET /vis/leads/{lead_id})：Get details of a Lead [Official](https://developers.mercadolibre.com.ar/en_us/interested-persons)
+- [postByUserIdImmediatePayment](operations/postByUserIdImmediatePayment.json) (POST /users/{user_id}/immediate_payment)：User Seller S = P (Sell Equal Pay) [Official](https://developers.mercadolibre.com.ar/en_us/vehicles-manage-users)

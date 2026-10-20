@@ -28,119 +28,117 @@ Local seller official documentation category. The operation models below are der
 | [Official: Member of the program](https://developers.mercadolibre.com.ar/en_us/member-of-the-program) | 7 | 0 | modeled |
 | [Official: Complained publications](https://developers.mercadolibre.com.ar/en_us/complained-publications) | 6 | 0 | modeled |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | DELETE | `/users/me/bookmarks/{id}` | 1 | [JSON](./operations/delete-eb0ce3809240.json) |
-| `api.mercadolibre.com` | DELETE | `/users/{cust_id}/applications/{app_id}` | 1 | [JSON](./operations/delete-6a4274337ffb.json) |
-| `api.mercadolibre.com` | DELETE | `/users/{seller_id}/questions_blacklist/{user_id}` | 2 | [JSON](./operations/delete-e899ad6593f2.json) |
-| `api.mercadolibre.com` | DELETE | `/users/{user_id}/order_blacklist/{id}` | 1 | [JSON](./operations/delete-d60f1bf0cd8c.json) |
-| `api.mercadolibre.com` | GET | `/catalog_suggestions/{suggestion_id}` | 2 | [JSON](./operations/get-db13ab1e0b09.json) |
-| `api.mercadolibre.com` | GET | `/categories/{category_id}` | 10 | [JSON](./operations/get-be0b111d1b70.json) |
-| `api.mercadolibre.com` | GET | `/categories/{category_id}/attributes` | 8 | [JSON](./operations/get-867f16b8fd70.json) |
-| `api.mercadolibre.com` | GET | `/categories/{category_id}/classifieds_promotion_packs` | 4 | [JSON](./operations/get-e2ee7fba1255.json) |
-| `api.mercadolibre.com` | GET | `/categories/{category_id}/technical_specs/input` | 1 | [JSON](./operations/get-31805565d2bd.json) |
-| `api.mercadolibre.com` | GET | `/classified_locations/cities/TUxVQ0NBQjY1MmQ1` | 1 | [JSON](./operations/get-a823bb660e50.json) |
-| `api.mercadolibre.com` | GET | `/classified_locations/countries` | 3 | [JSON](./operations/get-3c8b607466f8.json) |
-| `api.mercadolibre.com` | GET | `/classified_locations/countries/UY` | 1 | [JSON](./operations/get-273ee1c8ea3e.json) |
-| `api.mercadolibre.com` | GET | `/classified_locations/states/UY-RO` | 1 | [JSON](./operations/get-fe34bc119fac.json) |
-| `api.mercadolibre.com` | GET | `/communications/notices` | 1 | [JSON](./operations/get-ff355f2cca25.json) |
-| `api.mercadolibre.com` | GET | `/countries/AR/zip_codes/{id}` | 1 | [JSON](./operations/get-ebee521b83dd.json) |
-| `api.mercadolibre.com` | GET | `/country/AR/zip_codes/search_between` | 1 | [JSON](./operations/get-e2137cbc4c9d.json) |
-| `api.mercadolibre.com` | GET | `/currencies/CLP` | 1 | [JSON](./operations/get-45459e0540d6.json) |
-| `api.mercadolibre.com` | GET | `/currency_conversions/search` | 2 | [JSON](./operations/get-74ee54c572b8.json) |
-| `api.mercadolibre.com` | GET | `/domains/MLA-JACKETS_AND_COATS/technical_specs` | 1 | [JSON](./operations/get-b236472572ce.json) |
-| `api.mercadolibre.com` | GET | `/flex/sites/{site_id}/shipments/{shipment_id}/assignment/v1` | 3 | [JSON](./operations/get-0c9cf7aee331.json) |
-| `api.mercadolibre.com` | GET | `/items` | 2 | [JSON](./operations/get-3fb41a0ed2bf.json) |
-| `api.mercadolibre.com` | GET | `/items/contacts/phone_views/time_window` | 6 | [JSON](./operations/get-45c2c6fe9817.json) |
-| `api.mercadolibre.com` | GET | `/items/visits` | 2 | [JSON](./operations/get-3924f48217ab.json) |
-| `api.mercadolibre.com` | GET | `/items/visits/time_window` | 1 | [JSON](./operations/get-3ee421c13447.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}` | 25 | [JSON](./operations/get-c5f5b64ad91f.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/contacts/questions` | 5 | [JSON](./operations/get-4cdc034ba5c6.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/contacts/questions/time_window` | 6 | [JSON](./operations/get-d6e62f3e508a.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/price_to_win` | 2 | [JSON](./operations/get-7609e41eb1db.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/prices` | 2 | [JSON](./operations/get-d6693bc56e88.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/shipping_options` | 3 | [JSON](./operations/get-9202115d022d.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/visits/time_window` | 2 | [JSON](./operations/get-3b9db157ba12.json) |
-| `api.mercadolibre.com` | GET | `/messages/{resource}` | 1 | [JSON](./operations/get-c33b0555ca44.json) |
-| `api.mercadolibre.com` | GET | `/missed_feeds` | 3 | [JSON](./operations/get-0cb382621c60.json) |
-| `api.mercadolibre.com` | GET | `/moderations/infractions/{id}` | 2 | [JSON](./operations/get-8d37ea7b4ce5.json) |
-| `api.mercadolibre.com` | GET | `/moderations/infractions/{user_id}` | 2 | [JSON](./operations/get-436bc4ce42e6.json) |
-| `api.mercadolibre.com` | GET | `/moderations/last_moderation/MLA123444123-ITM` | 1 | [JSON](./operations/get-82e94f39df24.json) |
-| `api.mercadolibre.com` | GET | `/moderations/last_moderation/MLA926647862-ITM` | 1 | [JSON](./operations/get-7c76b19772e7.json) |
-| `api.mercadolibre.com` | GET | `/moderations/last_moderation/{moderation_reference_id}` | 3 | [JSON](./operations/get-39b059d7ecbc.json) |
-| `api.mercadolibre.com` | GET | `/moderations/pppi/case/123` | 1 | [JSON](./operations/get-e0f989add0a8.json) |
-| `api.mercadolibre.com` | GET | `/moderations/pppi/case/{case_id}` | 1 | [JSON](./operations/get-ba3123d7c4a6.json) |
-| `api.mercadolibre.com` | GET | `/moderations/pppi/case/{denounce_id}` | 1 | [JSON](./operations/get-30a4902f29c3.json) |
-| `api.mercadolibre.com` | GET | `/moderations/pppi/case/{id}` | 1 | [JSON](./operations/get-2474bf46a78b.json) |
-| `api.mercadolibre.com` | GET | `/moderations/pppi/cases` | 1 | [JSON](./operations/get-c51adae12dea.json) |
-| `api.mercadolibre.com` | GET | `/moderations/pppi/denounces/MLA/ITM/options` | 1 | [JSON](./operations/get-5552c6c86ad2.json) |
-| `api.mercadolibre.com` | GET | `/moderations/pppi/denounces/{site_id}/ITM/options` | 1 | [JSON](./operations/get-402c8d2b23b1.json) |
-| `api.mercadolibre.com` | GET | `/my/received_questions/search` | 1 | [JSON](./operations/get-5b103a6679fe.json) |
-| `api.mercadolibre.com` | GET | `/orders/search` | 6 | [JSON](./operations/get-3a89145f6dae.json) |
-| `api.mercadolibre.com` | GET | `/orders/{order_id}` | 12 | [JSON](./operations/get-948dd86947c5.json) |
-| `api.mercadolibre.com` | GET | `/orders/{order_id}/feedback` | 2 | [JSON](./operations/get-e6fae400ec7d.json) |
-| `api.mercadolibre.com` | GET | `/orders/{order_id}/product` | 2 | [JSON](./operations/get-8c71d0a6bc0a.json) |
-| `api.mercadolibre.com` | GET | `/orders/{order_id}/shipments` | 3 | [JSON](./operations/get-c4e3ca8c4b85.json) |
-| `api.mercadolibre.com` | GET | `/questions/search` | 7 | [JSON](./operations/get-ea91150225ec.json) |
-| `api.mercadolibre.com` | GET | `/questions/{question_id}` | 6 | [JSON](./operations/get-abc35ee5fa49.json) |
-| `api.mercadolibre.com` | GET | `/quotations/{quotation_id}` | 1 | [JSON](./operations/get-72f0b10796dc.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/candidates/{candidate_id}` | 2 | [JSON](./operations/get-60348d660283.json) |
-| `api.mercadolibre.com` | GET | `/shipment_labels` | 4 | [JSON](./operations/get-e0030f676294.json) |
-| `api.mercadolibre.com` | GET | `/shipments/{shipment_id}` | 5 | [JSON](./operations/get-b4bf0b5ceccd.json) |
-| `api.mercadolibre.com` | GET | `/sites` | 1 | [JSON](./operations/get-d96ba0e2a6e7.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/categories` | 6 | [JSON](./operations/get-8f50424f36c5.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/domain_discovery/search` | 3 | [JSON](./operations/get-c97b021bb4f3.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/listing_exposures` | 2 | [JSON](./operations/get-18d37b13c670.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/listing_prices` | 10 | [JSON](./operations/get-7d127ae572d3.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/payment_methods` | 1 | [JSON](./operations/get-ba66f24ce327.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/payment_methods/amex` | 1 | [JSON](./operations/get-c7b1761e3e36.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/shipping_methods` | 2 | [JSON](./operations/get-f9b5b1d6e2ec.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/user-products-families/{family_id}` | 2 | [JSON](./operations/get-3e08bc51735b.json) |
-| `api.mercadolibre.com` | GET | `/user-products/{user_product_id}/stock` | 5 | [JSON](./operations/get-82089946f540.json) |
-| `api.mercadolibre.com` | GET | `/users` | 1 | [JSON](./operations/get-25655e62c49d.json) |
-| `api.mercadolibre.com` | GET | `/users/${seller_id}/questions_blacklist` | 1 | [JSON](./operations/get-0338d99e1644.json) |
-| `api.mercadolibre.com` | GET | `/users/:userID/order_blacklist` | 1 | [JSON](./operations/get-1b2d05835338.json) |
-| `api.mercadolibre.com` | GET | `/users/me/bookmarks` | 1 | [JSON](./operations/get-1e03f80ee034.json) |
-| `api.mercadolibre.com` | GET | `/users/{seller_id}/items/search` | 7 | [JSON](./operations/get-bb7e7adf95b1.json) |
-| `api.mercadolibre.com` | GET | `/users/{seller_id}/questions_blacklist` | 2 | [JSON](./operations/get-960138a2f45e.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/accepted_payment_methods` | 1 | [JSON](./operations/get-c6f70a819e16.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/addresses` | 2 | [JSON](./operations/get-c3f71e019851.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/available_listing_type/gold_special` | 1 | [JSON](./operations/get-7b0fd85fb01f.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/available_listing_types` | 2 | [JSON](./operations/get-8cf86414f27d.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/brands` | 2 | [JSON](./operations/get-66ac6a09fb9f.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/classifieds_promotion_packs` | 3 | [JSON](./operations/get-f09c3aac5576.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/classifieds_promotion_packs/silver` | 2 | [JSON](./operations/get-c5d6b7caf11e.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/contacts/phone_views` | 3 | [JSON](./operations/get-022d83a4f856.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/items/search` | 17 | [JSON](./operations/get-8c4d1a783a29.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/items_visits` | 2 | [JSON](./operations/get-3b8f52c4c8a8.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/items_visits/time_window` | 2 | [JSON](./operations/get-101ac3e69da2.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/order_blacklist` | 1 | [JSON](./operations/get-460fe3cea94f.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/shipping_preferences` | 3 | [JSON](./operations/get-4e35ef3fe675.json) |
-| `api.mercadolibre.com` | GET | `/vis/loans/{credit_id}` | 3 | [JSON](./operations/get-b8c8e38e3042.json) |
-| `api.mercadolibre.com` | GET | `/{resource}` | 4 | [JSON](./operations/get-5b1d53874ce4.json) |
-| `api.mercadolibre.com` | POST | `/answers` | 2 | [JSON](./operations/post-9c6c763c6617.json) |
-| `api.mercadolibre.com` | POST | `/catalog_domains/MLA-CELLPHONES/attributes/BRAND/top_values` | 1 | [JSON](./operations/post-650e4357d571.json) |
-| `api.mercadolibre.com` | POST | `/catalog_domains/MLA-CELLPHONES/attributes/MODEL/top_value` | 1 | [JSON](./operations/post-59b43afc3c44.json) |
-| `api.mercadolibre.com` | POST | `/catalog_domains/{doamain_id}/attributes/{attribute_id}/top_value` | 1 | [JSON](./operations/post-a9b96aee4e96.json) |
-| `api.mercadolibre.com` | POST | `/catalog_domains/{domain_id}/attributes/{attribute_id}/top_values` | 3 | [JSON](./operations/post-444b5e67722b.json) |
-| `api.mercadolibre.com` | POST | `/categories/{category_id}/attributes/conditional` | 1 | [JSON](./operations/post-8ea6eb073615.json) |
-| `api.mercadolibre.com` | POST | `/feedback/{id}/reply` | 1 | [JSON](./operations/post-13a4d0b6b217.json) |
-| `api.mercadolibre.com` | POST | `/items` | 19 | [JSON](./operations/post-6eeb0889e5f5.json) |
-| `api.mercadolibre.com` | POST | `/moderations/pictures/diagnostic` | 1 | [JSON](./operations/post-0b30b5f446dc.json) |
-| `api.mercadolibre.com` | POST | `/moderations/pppi/case/{case_id}` | 1 | [JSON](./operations/post-ab8d1cff95e2.json) |
-| `api.mercadolibre.com` | POST | `/moderations/pppi/case/{denounce_id}` | 1 | [JSON](./operations/post-2a0cf37fb435.json) |
-| `api.mercadolibre.com` | POST | `/moderations/pppi/case/{id}` | 1 | [JSON](./operations/post-ec47e30c69af.json) |
-| `api.mercadolibre.com` | POST | `/moderations/pppi/denounces/items/MLA123` | 2 | [JSON](./operations/post-98ea1d040e6e.json) |
-| `api.mercadolibre.com` | POST | `/moderations/pppi/denounces/items/{item_id}` | 1 | [JSON](./operations/post-4a8b196447f2.json) |
-| `api.mercadolibre.com` | POST | `/orders/{order_id}/feedback` | 2 | [JSON](./operations/post-b4ff700031db.json) |
-| `api.mercadolibre.com` | POST | `/questions` | 2 | [JSON](./operations/post-cd57ce50c2d0.json) |
-| `api.mercadolibre.com` | POST | `/users/me/bookmarks` | 1 | [JSON](./operations/post-12e5b4e9f35f.json) |
-| `api.mercadolibre.com` | POST | `/users/{seller_id}/questions_blacklist` | 2 | [JSON](./operations/post-a23520af4b2d.json) |
-| `api.mercadolibre.com` | POST | `/users/{user_id}/classifieds_promotion_packs` | 1 | [JSON](./operations/post-fa43086b1a89.json) |
-| `api.mercadolibre.com` | POST | `/users/{user_id}/order_blacklist` | 1 | [JSON](./operations/post-aa18ab021906.json) |
-| `api.mercadolibre.com` | PUT | `/feedback/{id}` | 1 | [JSON](./operations/put-2a35af407c5e.json) |
-| `api.mercadolibre.com` | PUT | `/items/{item_id}` | 37 | [JSON](./operations/put-e8a2d3fe2796.json) |
-| `api.mercadolibre.com` | PUT | `/moderations/pppi/case/files` | 1 | [JSON](./operations/put-91872c60cf92.json) |
-| `api.mercadolibre.com` | PUT | `/users/{user_id}` | 5 | [JSON](./operations/put-21453870cfd7.json) |
+- [changeAndOrAddAttributes](operations/changeAndOrAddAttributes.json) (PUT /items/{item_id})：Change and/or add attributes [Official](https://developers.mercadolibre.com.ar/en_us/attributes)
+- [checkComplaintStatus](operations/checkComplaintStatus.json) (GET /moderations/pppi/case/{denounce_id})：Check a complaint status [Official](https://developers.mercadolibre.com.ar/en_us/member-of-the-program)
+- [checkUserQuestionsBlacklistWithLimitAndOffset](operations/checkUserQuestionsBlacklistWithLimitAndOffset.json) (GET /users/{seller_id}/questions_blacklist)：Check user's questions blacklist (With limit and offset). [Official](https://developers.mercadolibre.com.ar/en_us/questions)
+- [checkUserQuestionsBlacklistWithoutOffsetAndLimit](operations/checkUserQuestionsBlacklistWithoutOffsetAndLimit.json) (GET /users/${seller_id}/questions_blacklist)：Check user's questions blacklist (Without offset and limit) [Official](https://developers.mercadolibre.com.ar/en_us/questions)
+- [createAnswerQuestion](operations/createAnswerQuestion.json) (POST /answers)：Answer a question. [Official](https://developers.mercadolibre.com.ar/en_us/questions)
+- [createBookmarkItem](operations/createBookmarkItem.json) (POST /users/me/bookmarks)：Bookmark an item [Official](https://developers.mercadolibre.com.ar/en_us/bookmarks)
+- [createDarUnaOpinionSobreUnPedido](operations/createDarUnaOpinionSobreUnPedido.json) (POST /orders/{order_id}/feedback)：Dar una opinión sobre un pedido [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [createItemWithAttributesPostItems](operations/createItemWithAttributesPostItems.json) (POST /items)：Create an item with attributes [Official](https://developers.mercadolibre.com.ar/en_us/attributes)
+- [createMakeComplaint](operations/createMakeComplaint.json) (POST /moderations/pppi/denounces/items/{item_id})：Make a complaint [Official](https://developers.mercadolibre.com.ar/en_us/member-of-the-program)
+- [createMakeQuestion](operations/createMakeQuestion.json) (POST /questions)：Make a question [Official](https://developers.mercadolibre.com.ar/en_us/questions)
+- [createWhenAndHowUseIt](operations/createWhenAndHowUseIt.json) (POST /moderations/pictures/diagnostic)：When and how to use it [Official](https://developers.mercadolibre.com.ar/en_us/image-diagnostics)
+- [deleteApplicationsByAppId](operations/deleteApplicationsByAppId.json) (DELETE /users/{cust_id}/applications/{app_id})：Revoke permissions to an application. [Official](https://developers.mercadolibre.com.ar/en_us/usuarios-y-aplicaciones)
+- [deleteOrderBlacklistById](operations/deleteOrderBlacklistById.json) (DELETE /users/{user_id}/order_blacklist/{id})：Desbloquear a usuarios para hacer una oferta en un ítem. [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [getAllowsPrintTicketSendOrderGetShipmentLabels](operations/getAllowsPrintTicketSendOrderGetShipmentLabels.json) (GET /shipment_labels)：Allows print the ticket for send the order. [Official](https://developers.mercadolibre.com.ar/en_us/shipping)
+- [getAllSitesGetSites](operations/getAllSitesGetSites.json) (GET /sites)：Get all sites. [Official](https://developers.mercadolibre.com.ar/en_us/categories-and-listings)
+- [getAllZipCodesBetweenTwoGivenValuesZipCodes](operations/getAllZipCodesBetweenTwoGivenValuesZipCodes.json) (GET /country/AR/zip_codes/search_between)：Get all zip codes between two given values of zip codes. [Official](https://developers.mercadolibre.com.ar/en_us/locations-and-currencies)
+- [getAssignmentV1](operations/getAssignmentV1.json) (GET /flex/sites/{site_id}/shipments/{shipment_id}/assignment/v1)：public offers [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [getAvailabilityListingTypeAvailabilityByUserAndCategory](operations/getAvailabilityListingTypeAvailabilityByUserAndCategory.json) (GET /users/{user_id}/classifieds_promotion_packs/silver)：Get the availability Listing Type availability by user and category. [Official](https://developers.mercadolibre.com.ar/en_us/usuarios-y-aplicaciones)
+- [getBuscarLosPedidosPorVendedor](operations/getBuscarLosPedidosPorVendedor.json) (GET /orders/search)：Buscar los pedidos por vendedor [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [getByItemIdShippingOptions](operations/getByItemIdShippingOptions.json) (GET /items/{item_id}/shipping_options)：Get visits by user and time [Official](https://developers.mercadolibre.com.ar/en_us/shipping)
+- [getByOrderIdProduct](operations/getByOrderIdProduct.json) (GET /orders/{order_id}/product)：Obtener información específica del producto vendido dentro del pedido. [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [getByResource](operations/getByResource.json) (GET /{resource})：payments [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [getBySellerIdItemsSearch](operations/getBySellerIdItemsSearch.json) (GET /users/{seller_id}/items/search)：Items with loss of exposure [Official](https://developers.mercadolibre.com.ar/en_us/items-and-searches)
+- [getBySiteIdShippingMethods](operations/getBySiteIdShippingMethods.json) (GET /sites/{site_id}/shipping_methods)：Retrieves shipping modes available in a country. [Official](https://developers.mercadolibre.com.ar/en_us/shipping)
+- [getByUserIdAcceptedPaymentMethods](operations/getByUserIdAcceptedPaymentMethods.json) (GET /users/{user_id}/accepted_payment_methods)：Get accepted payment methods by user. [Official](https://developers.mercadolibre.com.ar/en_us/usuarios-y-aplicaciones)
+- [getByUserIdAddresses](operations/getByUserIdAddresses.json) (GET /users/{user_id}/addresses)：Get user addresses. [Official](https://developers.mercadolibre.com.ar/en_us/usuarios-y-aplicaciones)
+- [getByUserIdBrands](operations/getByUserIdBrands.json) (GET /users/{user_id}/brands)：Get brands by user. [Official](https://developers.mercadolibre.com.ar/en_us/usuarios-y-aplicaciones)
+- [getByUserIdOrderBlacklist](operations/getByUserIdOrderBlacklist.json) (GET /users/:userID/order_blacklist)：Respuesta [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [getCandidatesByCandidateId](operations/getCandidatesByCandidateId.json) (GET /seller-promotions/candidates/{candidate_id})：public candidates [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [getCaseByCaseId](operations/getCaseByCaseId.json) (GET /moderations/pppi/case/{case_id})：Consult details of a reported item [Official](https://developers.mercadolibre.com.ar/en_us/complained-publications)
+- [getCatalogSuggestions](operations/getCatalogSuggestions.json) (GET /catalog_suggestions/{suggestion_id})：catalog suggestions [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [getCategoryAvailability](operations/getCategoryAvailability.json) (GET /users/{user_id}/available_listing_type/gold_special)：Get category availability. [Official](https://developers.mercadolibre.com.ar/en_us/usuarios-y-aplicaciones)
+- [getCategoryPredictor](operations/getCategoryPredictor.json) (GET /sites/{site_id}/domain_discovery/search)：Category predictor. [Official](https://developers.mercadolibre.com.ar/en_us/categories-and-listings)
+- [getCityInformation](operations/getCityInformation.json) (GET /classified_locations/cities/TUxVQ0NBQjY1MmQ1)：Get city information. [Official](https://developers.mercadolibre.com.ar/en_us/locations-and-currencies)
+- [getConsultDetailsReportedItem](operations/getConsultDetailsReportedItem.json) (GET /moderations/pppi/case/{id})：Consult details of a reported item [Official](https://developers.mercadolibre.com.ar/en_us/complained-publications)
+- [getConsultEnabledMotives](operations/getConsultEnabledMotives.json) (GET /moderations/pppi/denounces/{site_id}/ITM/options)：Consult enabled motives [Official](https://developers.mercadolibre.com.ar/en_us/member-of-the-program)
+- [getConsultUserInfractionHistory](operations/getConsultUserInfractionHistory.json) (GET /moderations/infractions/{user_id})：Consult user infraction history [Official](https://developers.mercadolibre.com.ar/en_us/manage-moderations)
+- [getCountryDetail](operations/getCountryDetail.json) (GET /classified_locations/countries/UY)：Get country detail [Official](https://developers.mercadolibre.com.ar/en_us/locations-and-currencies)
+- [getCurrencyDetails](operations/getCurrencyDetails.json) (GET /currencies/CLP)：Get currency details. [Official](https://developers.mercadolibre.com.ar/en_us/locations-and-currencies)
+- [getDetalleDeMetodoDePago](operations/getDetalleDeMetodoDePago.json) (GET /sites/{site_id}/payment_methods/amex)：Detalle de método de pago [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [getGetsCategoryDetail](operations/getGetsCategoryDetail.json) (GET /categories/{category_id})：Gets category detail. [Official](https://developers.mercadolibre.com.ar/en_us/categories-and-listings)
+- [getGetsCategoryTreeBySite](operations/getGetsCategoryTreeBySite.json) (GET /sites/{site_id}/categories)：Gets the category tree by site. [Official](https://developers.mercadolibre.com.ar/en_us/categories-and-listings)
+- [getGetsPriceList](operations/getGetsPriceList.json) (GET /sites/{site_id}/listing_prices)：Gets price list. [Official](https://developers.mercadolibre.com.ar/en_us/categories-and-listings)
+- [getHistoricNotificationsByAppGetMissedFeeds](operations/getHistoricNotificationsByAppGetMissedFeeds.json) (GET /missed_feeds)：Get historic of notifications by app. [Official](https://developers.mercadolibre.com.ar/en_us/usuarios-y-aplicaciones)
+- [getInformationAboutCountries](operations/getInformationAboutCountries.json) (GET /classified_locations/countries)：Get information about countries. [Official](https://developers.mercadolibre.com.ar/en_us/locations-and-currencies)
+- [getInfractionsById](operations/getInfractionsById.json) (GET /moderations/infractions/{id})：Consult user infraction history [Official](https://developers.mercadolibre.com.ar/en_us/manage-moderations)
+- [getItemCompetition](operations/getItemCompetition.json) (GET /items/{item_id}/price_to_win)：item competition [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [getItems](operations/getItems.json) (GET /items)：Multiget [Official](https://developers.mercadolibre.com.ar/en_us/items-and-searches)
+- [getItemsPrices](operations/getItemsPrices.json) (GET /items/{item_id}/prices)：items_prices [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [getItemsWithLossExposure](operations/getItemsWithLossExposure.json) (GET /users/{user_id}/items/search)：Items with loss of exposure [Official](https://developers.mercadolibre.com.ar/en_us/items-and-searches)
+- [getItemVisits](operations/getItemVisits.json) (GET /items/{item_id}/visits/time_window)：Get item's visits. [Official](https://developers.mercadolibre.com.ar/en_us/metrics)
+- [getItemVisitsMultiGet](operations/getItemVisitsMultiGet.json) (GET /items/visits/time_window)：Get item's visits (Multi Get) [Official](https://developers.mercadolibre.com.ar/en_us/metrics)
+- [getLastModerationByModerationReferenceId](operations/getLastModerationByModerationReferenceId.json) (GET /moderations/last_moderation/{moderation_reference_id})：Recommended flow [Official](https://developers.mercadolibre.com.ar/en_us/manage-moderations)
+- [getLeadsCredits](operations/getLeadsCredits.json) (GET /vis/loans/{credit_id})：Leads credits [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [getLocationInformationByZipCode](operations/getLocationInformationByZipCode.json) (GET /countries/AR/zip_codes/{id})：Get location information by zip code. [Official](https://developers.mercadolibre.com.ar/en_us/locations-and-currencies)
+- [getMandatoryParameters](operations/getMandatoryParameters.json) (GET /moderations/pppi/cases)：Mandatory parameters [Official](https://developers.mercadolibre.com.ar/en_us/complained-publications)
+- [getMessagesByResource](operations/getMessagesByResource.json) (GET /messages/{resource})：Messages: [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [getMlaItmOptions](operations/getMlaItmOptions.json) (GET /moderations/pppi/denounces/MLA/ITM/options)：Consult enabled motives [Official](https://developers.mercadolibre.com.ar/en_us/member-of-the-program)
+- [getMlaJacketsAndCoatsTechnicalSpecs](operations/getMlaJacketsAndCoatsTechnicalSpecs.json) (GET /domains/MLA-JACKETS_AND_COATS/technical_specs)：Obtains domain information. [Official](https://developers.mercadolibre.com.ar/en_us/categories-and-listings)
+- [getModerationItemWithoutSales](operations/getModerationItemWithoutSales.json) (GET /moderations/last_moderation/MLA123444123-ITM)：Moderation for item without sales [Official](https://developers.mercadolibre.com.ar/en_us/moderations-paused)
+- [getModerationUnusualPriceChange](operations/getModerationUnusualPriceChange.json) (GET /moderations/last_moderation/MLA926647862-ITM)：Moderation for unusual price change [Official](https://developers.mercadolibre.com.ar/en_us/moderations-paused)
+- [getObtainsListExposuresBySite](operations/getObtainsListExposuresBySite.json) (GET /sites/{site_id}/listing_exposures)：Obtains list of exposures by site. [Official](https://developers.mercadolibre.com.ar/en_us/categories-and-listings)
+- [getObtenerMetodoDePago](operations/getObtenerMetodoDePago.json) (GET /sites/{site_id}/payment_methods)：Obtener método de pago [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [getObtenerOpinionesPorPedido](operations/getObtenerOpinionesPorPedido.json) (GET /orders/{order_id}/feedback)：Obtener opiniones por pedido [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [getPppiCaseByCaseId](operations/getPppiCaseByCaseId.json) (GET /moderations/pppi/case/123)：Check a complaint status [Official](https://developers.mercadolibre.com.ar/en_us/member-of-the-program)
+- [getPromotionalPacksByCategory](operations/getPromotionalPacksByCategory.json) (GET /categories/{category_id}/classifieds_promotion_packs)：Get promotional packs by category. [Official](https://developers.mercadolibre.com.ar/en_us/categories-and-listings)
+- [getPromotionsPacksEngagedByUser](operations/getPromotionsPacksEngagedByUser.json) (GET /users/{user_id}/classifieds_promotion_packs)：Get promotions packs engaged by user. [Official](https://developers.mercadolibre.com.ar/en_us/usuarios-y-aplicaciones)
+- [getQuestionDetails](operations/getQuestionDetails.json) (GET /questions/{question_id})：Get question details. [Official](https://developers.mercadolibre.com.ar/en_us/questions)
+- [getQuestionsMadeOnSellerClassifiedItemsWithinTimeWindow](operations/getQuestionsMadeOnSellerClassifiedItemsWithinTimeWindow.json) (GET /items/{item_id}/contacts/questions/time_window)：Get questions made on a seller classified items within a time window. [Official](https://developers.mercadolibre.com.ar/en_us/metrics)
+- [getQuestionsMadeOnYourItems](operations/getQuestionsMadeOnYourItems.json) (GET /my/received_questions/search)：Get questions made on your items. [Official](https://developers.mercadolibre.com.ar/en_us/questions)
+- [getQuotationsByQuotationId](operations/getQuotationsByQuotationId.json) (GET /quotations/{quotation_id})：quotations [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [getRatioConversionBetweenCurrencies](operations/getRatioConversionBetweenCurrencies.json) (GET /currency_conversions/search)：Get ratio conversion between currencies. [Official](https://developers.mercadolibre.com.ar/en_us/locations-and-currencies)
+- [getRetrievesDeliveryInformationIntoOrder](operations/getRetrievesDeliveryInformationIntoOrder.json) (GET /orders/{order_id}/shipments)：Retrieves the delivery information into order. [Official](https://developers.mercadolibre.com.ar/en_us/shipping)
+- [getRetrievesItemVisitsMultiGet](operations/getRetrievesItemVisitsMultiGet.json) (GET /items/visits)：>Retrieves item's visits (Multi Get) [Official](https://developers.mercadolibre.com.ar/en_us/metrics)
+- [getSeePhoneViewsByDate](operations/getSeePhoneViewsByDate.json) (GET /users/{user_id}/contacts/phone_views)：Get "See phone" views by date. [Official](https://developers.mercadolibre.com.ar/en_us/metrics)
+- [getSeePhoneViewsWithinTimeWindow](operations/getSeePhoneViewsWithinTimeWindow.json) (GET /items/contacts/phone_views/time_window)：Get "See Phone" views within a time window. [Official](https://developers.mercadolibre.com.ar/en_us/metrics)
+- [getShipmentsByShipmentId](operations/getShipmentsByShipmentId.json) (GET /shipments/{shipment_id})：Retrieves all delivery data. [Official](https://developers.mercadolibre.com.ar/en_us/shipping)
+- [getSpecifyNotApplicableAttributes](operations/getSpecifyNotApplicableAttributes.json) (GET /items/{item_id})：Specify not applicable attributes [Official](https://developers.mercadolibre.com.ar/en_us/attributes)
+- [getStateInformation](operations/getStateInformation.json) (GET /classified_locations/states/UY-RO)：Get state information. [Official](https://developers.mercadolibre.com.ar/en_us/locations-and-currencies)
+- [getStockLocations](operations/getStockLocations.json) (GET /user-products/{user_product_id}/stock)：stock_locations [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [getTechnicalSpecsInput](operations/getTechnicalSpecsInput.json) (GET /categories/{category_id}/technical_specs/input)：Mandatory attributes [Official](https://developers.mercadolibre.com.ar/en_us/attributes)
+- [getTotalAmountQuestionsByUser](operations/getTotalAmountQuestionsByUser.json) (GET /items/{item_id}/contacts/questions)：Get total amount of questions by user. [Official](https://developers.mercadolibre.com.ar/en_us/metrics)
+- [getUserProductsFamilies](operations/getUserProductsFamilies.json) (GET /sites/{site_id}/user-products-families/{family_id})：user products families [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [getUsers](operations/getUsers.json) (GET /users)：Multiget [Official](https://developers.mercadolibre.com.ar/en_us/items-and-searches)
+- [getUsersByUserIdAvailableListingTypes](operations/getUsersByUserIdAvailableListingTypes.json) (GET /users/{user_id}/available_listing_types)：Get available listing types. [Official](https://developers.mercadolibre.com.ar/en_us/usuarios-y-aplicaciones)
+- [getUsersByUserIdOrderBlacklist](operations/getUsersByUserIdOrderBlacklist.json) (GET /users/{user_id}/order_blacklist)：Recupera todos los usuarios bloqueados de la oferta en los ítems de un vendedor. [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [getUsersByUserIdShippingPreferences](operations/getUsersByUserIdShippingPreferences.json) (GET /users/{user_id}/shipping_preferences)：Retrieves all shipping modes and services available to user. [Official](https://developers.mercadolibre.com.ar/en_us/shipping)
+- [getVisitsByUser](operations/getVisitsByUser.json) (GET /users/{user_id}/items_visits)：Get visits by user [Official](https://developers.mercadolibre.com.ar/en_us/metrics)
+- [getVisitsByUserAndTime](operations/getVisitsByUserAndTime.json) (GET /users/{user_id}/items_visits/time_window)：Get visits by user and time. [Official](https://developers.mercadolibre.com.ar/en_us/metrics)
+- [getWhatIsAttribute](operations/getWhatIsAttribute.json) (GET /categories/{category_id}/attributes)：What is an attribute? [Official](https://developers.mercadolibre.com.ar/en_us/attributes)
+- [getYourBookmarks](operations/getYourBookmarks.json) (GET /users/me/bookmarks)：Get your bookmarks [Official](https://developers.mercadolibre.com.ar/en_us/bookmarks)
+- [localCommunicationsNotices](operations/localCommunicationsNotices.json) (GET /communications/notices)：Optional parameters [Official](https://developers.mercadolibre.com.ar/en_us/know-the-news-that-sellers-receive)
+- [localOrdersByOrderId](operations/localOrdersByOrderId.json) (GET /orders/{order_id})：orders [Official](https://developers.mercadolibre.com.ar/en_us/products-receive-notifications)
+- [postAttributesConditional](operations/postAttributesConditional.json) (POST /categories/{category_id}/attributes/conditional)：Required attributes by condition [Official](https://developers.mercadolibre.com.ar/en_us/attributes)
+- [postBrandTopValues](operations/postBrandTopValues.json) (POST /catalog_domains/MLA-CELLPHONES/attributes/BRAND/top_values)：Optional parameters [Official](https://developers.mercadolibre.com.ar/en_us/attributes)
+- [postByAttributeIdTopValue](operations/postByAttributeIdTopValue.json) (POST /catalog_domains/{doamain_id}/attributes/{attribute_id}/top_value)：Optional parameters [Official](https://developers.mercadolibre.com.ar/en_us/attributes)
+- [postByAttributeIdTopValues](operations/postByAttributeIdTopValues.json) (POST /catalog_domains/{domain_id}/attributes/{attribute_id}/top_values)：Optional parameters [Official](https://developers.mercadolibre.com.ar/en_us/attributes)
+- [postByIdReply](operations/postByIdReply.json) (POST /feedback/{id}/reply)：Devuelve datos de una opinión dada por un vendedor. [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [postByUserIdClassifiedsPromotionPacks](operations/postByUserIdClassifiedsPromotionPacks.json) (POST /users/{user_id}/classifieds_promotion_packs)：You can associate an existing pack with a user. A commercial advisor performs the creation of packs. [Official](https://developers.mercadolibre.com.ar/en_us/usuarios-y-aplicaciones)
+- [postByUserIdOrderBlacklist](operations/postByUserIdOrderBlacklist.json) (POST /users/{user_id}/order_blacklist)：Bloquear a usuarios para hacer una oferta en un ítem. [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [postCaseByDenounceId](operations/postCaseByDenounceId.json) (POST /moderations/pppi/case/{denounce_id})：Respond to a seller's [Official](https://developers.mercadolibre.com.ar/en_us/member-of-the-program)
+- [postCaseById](operations/postCaseById.json) (POST /moderations/pppi/case/{id})：3. Send a response to a complaint [Official](https://developers.mercadolibre.com.ar/en_us/complained-publications)
+- [createBrandProtectionComplaint](operations/createBrandProtectionComplaint.json) (POST /moderations/pppi/denounces/items/MLA123)：Make a complaint [Official](https://developers.mercadolibre.com.ar/en_us/member-of-the-program)
+- [postModelTopValue](operations/postModelTopValue.json) (POST /catalog_domains/MLA-CELLPHONES/attributes/MODEL/top_value)：Optional parameters [Official](https://developers.mercadolibre.com.ar/en_us/attributes)
+- [putUsersByUserId](operations/putUsersByUserId.json) (PUT /users/{user_id})：Update user information. [Official](https://developers.mercadolibre.com.ar/en_us/usuarios-y-aplicaciones)
+- [removeBookmark](operations/removeBookmark.json) (DELETE /users/me/bookmarks/{id})：Remove a bookmark [Official](https://developers.mercadolibre.com.ar/en_us/bookmarks)
+- [removeUserFromYourQuestionBlacklist](operations/removeUserFromYourQuestionBlacklist.json) (DELETE /users/{seller_id}/questions_blacklist/{user_id})：Remove user from your question blacklist. [Official](https://developers.mercadolibre.com.ar/en_us/questions)
+- [searchAbove1000Records](operations/searchAbove1000Records.json) (GET /questions/search)：Search above 1000 records [Official](https://developers.mercadolibre.com.ar/en_us/items-and-searches)
+- [sendResponseComplaint](operations/sendResponseComplaint.json) (POST /moderations/pppi/case/{case_id})：3. Send a response to a complaint [Official](https://developers.mercadolibre.com.ar/en_us/complained-publications)
+- [sendUsersQuestionsBlacklist](operations/sendUsersQuestionsBlacklist.json) (POST /users/{seller_id}/questions_blacklist)：Send users to questions blacklist [Official](https://developers.mercadolibre.com.ar/en_us/questions)
+- [updateCambiarOpinion](operations/updateCambiarOpinion.json) (PUT /feedback/{id})：Cambiar opinión [Official](https://developers.mercadolibre.com.ar/en_us/order-management)
+- [updateMandatoryParameters](operations/updateMandatoryParameters.json) (PUT /moderations/pppi/case/files)：Mandatory parameters [Official](https://developers.mercadolibre.com.ar/en_us/complained-publications)

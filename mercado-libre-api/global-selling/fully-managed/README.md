@@ -11,10 +11,8 @@ Global Selling / CBT official documentation category. The operation models below
 | [Official: Grouped Listings](https://global-selling.mercadolibre.com/devsite/grouped-listings) | 2 | 0 | modeled |
 | [Official: Get Replenishment Orders](https://global-selling.mercadolibre.com/devsite/get-replenishment-orders-cbt) | 1 | 0 | modeled |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | GET | `/grouped-listings/TR8868468488504082` | 1 | [JSON](./operations/get-92270143be68.json) |
-| `api.mercadolibre.com` | GET | `/grouped-listings/{id}` | 1 | [JSON](./operations/get-13c082d428c2.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/fbm/orders` | 1 | [JSON](./operations/get-9e1c01800f72.json) |
+- [getGeneralDescription](operations/getGeneralDescription.json) (GET /marketplace/fbm/orders)：General Description [Official](https://global-selling.mercadolibre.com/devsite/get-replenishment-orders-cbt)
+- [getHierarchicalNavigation](operations/getHierarchicalNavigation.json) (GET /grouped-listings/TR8868468488504082)：Hierarchical navigation [Official](https://global-selling.mercadolibre.com/devsite/grouped-listings)
+- [queryEntity](operations/queryEntity.json) (GET /grouped-listings/{id})：Query an entity [Official](https://global-selling.mercadolibre.com/devsite/grouped-listings)

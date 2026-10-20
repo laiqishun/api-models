@@ -5,7 +5,7 @@ description: "Global Selling and local seller official developer documentation w
 
 # Mercado Libre developer documentation
 
-Snapshot: **2026-10-15 19:13 CST**. The two official article directories contain **117 Global Selling / CBT** and **173 local-seller** articles. All 290 were retrieved from the official sites. The [document manifest](./document-manifest.md) records every article and its extraction status. The [operation manifest](./manifest.md) lists **910 distinct family + host + method + path models** derived from explicit request examples. [Review gaps](./review-gaps.md) identifies cURL examples that could not be modeled conservatively.
+Snapshot: **2026-10-15 19:13 CST**. The two official article directories contain **117 Global Selling / CBT** and **173 local-seller** articles. All 290 were retrieved from the official sites. The [document manifest](./document-manifest.md) records every article and its extraction status. The [operation manifest](./manifest.md) lists **910 distinct family + host + method + path models** derived from explicit request examples. Each JSON filename now matches a readable camelCase `operationId` based on the article action title or documented route; no hash is used as a filename. [Review gaps](./review-gaps.md) identifies cURL examples that could not be modeled conservatively.
 
 - [Global Selling / CBT](./global-selling/README.md): Global user authorization and marketplace user resources. [Official developer directory](https://global-selling.mercadolibre.com/devsite/api-docs).
 - [Local sellers](./local/README.md): local site seller resources and guides. [Official developer directory](https://developers.mercadolibre.com.ar/en_us/api-docs).

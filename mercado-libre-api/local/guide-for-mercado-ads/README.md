@@ -11,26 +11,24 @@ Local seller official documentation category. The operation models below are der
 | [Official: Display Ads](https://developers.mercadolibre.com.ar/en_us/display-ads) | 8 | 0 | modeled |
 | [Official: Product Ads](https://developers.mercadolibre.com.ar/en_us/product-ads-us-read) | 5 | 0 | modeled |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | GET | `/advertising/advertisers` | 3 | [JSON](./operations/get-ac2f1e3bed20.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/61/display/campaigns` | 1 | [JSON](./operations/get-b6d75db746ad.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/brand_ads/campaigns` | 1 | [JSON](./operations/get-1abdb2606c27.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/brand_ads/campaigns/metrics` | 1 | [JSON](./operations/get-4eb59a870c39.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/brand_ads/campaigns/{campaign_id}` | 1 | [JSON](./operations/get-c274823cf97c.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/brand_ads/campaigns/{campaign_id}/items` | 1 | [JSON](./operations/get-facbc3f2f79b.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/brand_ads/campaigns/{campaign_id}/keywords` | 1 | [JSON](./operations/get-40a916b68892.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/brand_ads/campaigns/{campaign_id}/keywords/metrics` | 1 | [JSON](./operations/get-2170dae7329e.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/brand_ads/campaigns/{campaign_id}/metrics` | 1 | [JSON](./operations/get-df1dc9d7b107.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/display/campaigns` | 1 | [JSON](./operations/get-7d129f914fa3.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/display/campaigns/80/metrics` | 1 | [JSON](./operations/get-9d3b202dcb33.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/display/campaigns/{campaign_id}/line_items` | 1 | [JSON](./operations/get-b875d3231647.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/display/campaigns/{campaign_id}/line_items/{line_item_id}/creatives` | 1 | [JSON](./operations/get-2463a54305ea.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/display/campaigns/{campaign_id}/metrics` | 1 | [JSON](./operations/get-69372acbaceb.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/display/metrics` | 1 | [JSON](./operations/get-8e7d32e6f62c.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/product_ads/campaigns` | 3 | [JSON](./operations/get-4903a2ea26f7.json) |
-| `api.mercadolibre.com` | GET | `/advertising/advertisers/{advertiser_id}/product_ads/items` | 3 | [JSON](./operations/get-c2236dbb4406.json) |
-| `api.mercadolibre.com` | GET | `/advertising/product_ads/campaigns/{campaign_id}` | 2 | [JSON](./operations/get-c47f5d374e6e.json) |
-| `api.mercadolibre.com` | GET | `/advertising/product_ads/items/{item_id}` | 3 | [JSON](./operations/get-618d4a605033.json) |
+- [getAdDetails](operations/getAdDetails.json) (GET /advertising/product_ads/items/{item_id})：Ad Details [Official](https://developers.mercadolibre.com.ar/en_us/product-ads-us-read)
+- [getAdSearchAndMetrics](operations/getAdSearchAndMetrics.json) (GET /advertising/advertisers/{advertiser_id}/product_ads/items)：Ad Search and Metrics [Official](https://developers.mercadolibre.com.ar/en_us/product-ads-us-read)
+- [getAdvertisersByAdvertiserIdDisplayCampaigns](operations/getAdvertisersByAdvertiserIdDisplayCampaigns.json) (GET /advertising/advertisers/{advertiser_id}/display/campaigns)：Optional Parameters [Official](https://developers.mercadolibre.com.ar/en_us/display-ads)
+- [getAvailableFilters](operations/getAvailableFilters.json) (GET /advertising/advertisers/{advertiser_id}/brand_ads/campaigns/metrics)：Available filters [Official](https://developers.mercadolibre.com.ar/en_us/ads-bads)
+- [getBrandAdsCampaigns](operations/getBrandAdsCampaigns.json) (GET /advertising/advertisers/{advertiser_id}/brand_ads/campaigns)：Search campaigns [Official](https://developers.mercadolibre.com.ar/en_us/ads-bads)
+- [getBrandAdsCampaignsByCampaignIdMetrics](operations/getBrandAdsCampaignsByCampaignIdMetrics.json) (GET /advertising/advertisers/{advertiser_id}/brand_ads/campaigns/{campaign_id}/metrics)：Optional parameters [Official](https://developers.mercadolibre.com.ar/en_us/ads-bads)
+- [getByAdvertiserIdDisplayMetrics](operations/getByAdvertiserIdDisplayMetrics.json) (GET /advertising/advertisers/{advertiser_id}/display/metrics)：Optional Parameters [Official](https://developers.mercadolibre.com.ar/en_us/display-ads)
+- [getByResourceIdDisplayCampaigns](operations/getByResourceIdDisplayCampaigns.json) (GET /advertising/advertisers/61/display/campaigns)：Optional Parameters [Official](https://developers.mercadolibre.com.ar/en_us/display-ads)
+- [getByResourceIdMetrics](operations/getByResourceIdMetrics.json) (GET /advertising/advertisers/{advertiser_id}/display/campaigns/80/metrics)：Mandatory Parameters [Official](https://developers.mercadolibre.com.ar/en_us/display-ads)
+- [getCampaignDetail](operations/getCampaignDetail.json) (GET /advertising/advertisers/{advertiser_id}/brand_ads/campaigns/{campaign_id})：Campaign detail [Official](https://developers.mercadolibre.com.ar/en_us/ads-bads)
+- [getCampaignsByCampaignId](operations/getCampaignsByCampaignId.json) (GET /advertising/product_ads/campaigns/{campaign_id})：Available filters [Official](https://developers.mercadolibre.com.ar/en_us/product-ads-us-read)
+- [getCampaignsByCampaignIdLineItems](operations/getCampaignsByCampaignIdLineItems.json) (GET /advertising/advertisers/{advertiser_id}/display/campaigns/{campaign_id}/line_items)：Optional Parameters [Official](https://developers.mercadolibre.com.ar/en_us/display-ads)
+- [getCampaignsByCampaignIdMetrics](operations/getCampaignsByCampaignIdMetrics.json) (GET /advertising/advertisers/{advertiser_id}/display/campaigns/{campaign_id}/metrics)：Mandatory Parameters [Official](https://developers.mercadolibre.com.ar/en_us/display-ads)
+- [getCampaignSearchAndMetrics](operations/getCampaignSearchAndMetrics.json) (GET /advertising/advertisers/{advertiser_id}/product_ads/campaigns)：Campaign Search and Metrics [Official](https://developers.mercadolibre.com.ar/en_us/product-ads-us-read)
+- [getConsultAdvertiser](operations/getConsultAdvertiser.json) (GET /advertising/advertisers)：Consult advertiser [Official](https://developers.mercadolibre.com.ar/en_us/ads-bads)
+- [getConsultCampaignAds](operations/getConsultCampaignAds.json) (GET /advertising/advertisers/{advertiser_id}/brand_ads/campaigns/{campaign_id}/items)：Consult campaign ads [Official](https://developers.mercadolibre.com.ar/en_us/ads-bads)
+- [getConsultCampaignKeywords](operations/getConsultCampaignKeywords.json) (GET /advertising/advertisers/{advertiser_id}/brand_ads/campaigns/{campaign_id}/keywords)：Consult campaign keywords [Official](https://developers.mercadolibre.com.ar/en_us/ads-bads)
+- [getKeywordsMetrics](operations/getKeywordsMetrics.json) (GET /advertising/advertisers/{advertiser_id}/brand_ads/campaigns/{campaign_id}/keywords/metrics)：Optional parameters [Official](https://developers.mercadolibre.com.ar/en_us/ads-bads)
+- [getLineItemsByLineItemIdCreatives](operations/getLineItemsByLineItemIdCreatives.json) (GET /advertising/advertisers/{advertiser_id}/display/campaigns/{campaign_id}/line_items/{line_item_id}/creatives)：Optional Parameters [Official](https://developers.mercadolibre.com.ar/en_us/display-ads)

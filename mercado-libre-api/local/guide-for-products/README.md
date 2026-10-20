@@ -92,371 +92,369 @@ Local seller official documentation category. The operation models below are der
 | [Official: Despegue program and Reputation Benefit](https://developers.mercadolibre.com.ar/en_us/reputation-recovery) | 5 | 0 | modeled |
 | [Official: Official Stores](https://developers.mercadolibre.com.ar/en_us/official-store) | 4 | 0 | modeled |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | DELETE | `/items/{item_id}/compatibilities` | 1 | [JSON](./operations/delete-8b0a272f7c1b.json) |
-| `api.mercadolibre.com` | DELETE | `/items/{item_id}/compatibilities/4cb9af35-8e9b-ebfd-9e7f-2245ac363d10` | 1 | [JSON](./operations/delete-f1e864eda5ac.json) |
-| `api.mercadolibre.com` | DELETE | `/items/{item_id}/compatibilities/{compatibility_id}` | 1 | [JSON](./operations/delete-030f2320442d.json) |
-| `api.mercadolibre.com` | DELETE | `/items/{item_id}/variations/{id}` | 1 | [JSON](./operations/delete-9479ebf36ce4.json) |
-| `api.mercadolibre.com` | DELETE | `/orders/{order_id}/notes/{note_id}` | 1 | [JSON](./operations/delete-b4d5d740fdb3.json) |
-| `api.mercadolibre.com` | DELETE | `/packs/{pack_id}/fiscal_documents` | 1 | [JSON](./operations/delete-fe6ed66d1245.json) |
-| `api.mercadolibre.com` | DELETE | `/questions/{question_id}` | 1 | [JSON](./operations/delete-88652b893524.json) |
-| `api.mercadolibre.com` | DELETE | `/seller-promotions/items/{item_id}` | 11 | [JSON](./operations/delete-30ee6388d39c.json) |
-| `api.mercadolibre.com` | DELETE | `/seller-promotions/promotions/C-MLB1234` | 1 | [JSON](./operations/delete-6d4e365f71a7.json) |
-| `api.mercadolibre.com` | DELETE | `/seller-promotions/promotions/C-MLB360923` | 1 | [JSON](./operations/delete-46682286c324.json) |
-| `api.mercadolibre.com` | DELETE | `/seller-promotions/promotions/{promotion_id}` | 3 | [JSON](./operations/delete-164447c8e21b.json) |
-| `api.mercadolibre.com` | DELETE | `/sites/{site_id}/shipping/selfservice/items/{item_id}` | 1 | [JSON](./operations/delete-db01a084108e.json) |
-| `api.mercadolibre.com` | DELETE | `/soe/bundles/{bundle_id}/volumes` | 1 | [JSON](./operations/delete-ab6ed8b1a293.json) |
-| `api.mercadolibre.com` | DELETE | `/soe/bundles/{id}/volumes` | 1 | [JSON](./operations/delete-e2de4f23c27d.json) |
-| `api.mercadolibre.com` | GET | `/billing/integration/monthly/periods` | 1 | [JSON](./operations/get-a841c2d542e5.json) |
-| `api.mercadolibre.com` | GET | `/billing/integration/periods/key/2021-06-01/documents` | 1 | [JSON](./operations/get-0c910b9396ff.json) |
-| `api.mercadolibre.com` | GET | `/billing/integration/periods/key/2023-10-01/summary/details` | 1 | [JSON](./operations/get-ba1f2a96a619.json) |
-| `api.mercadolibre.com` | GET | `/billing/integration/periods/key/{key}/documents` | 1 | [JSON](./operations/get-57c51bec9799.json) |
-| `api.mercadolibre.com` | GET | `/billing/integration/periods/key/{key}/summary/details` | 1 | [JSON](./operations/get-6469c85a2c53.json) |
-| `api.mercadolibre.com` | GET | `/can_invoice/items/{item_idvariations}/{variation_id}` | 1 | [JSON](./operations/get-2014b9464027.json) |
-| `api.mercadolibre.com` | GET | `/can_invoice/items/{item_id}` | 1 | [JSON](./operations/get-f7bd7cd59864.json) |
-| `api.mercadolibre.com` | GET | `/can_invoice/items/{item_id}/variations/{variation_id}` | 1 | [JSON](./operations/get-b6a3d7688fc1.json) |
-| `api.mercadolibre.com` | GET | `/catalog/charts/{chart_id}` | 1 | [JSON](./operations/get-8996f582c2be.json) |
-| `api.mercadolibre.com` | GET | `/catalog/charts/{id}` | 1 | [JSON](./operations/get-beff2772f4ce.json) |
-| `api.mercadolibre.com` | GET | `/catalog/charts/{site_id}/configurations/active_domains` | 1 | [JSON](./operations/get-f3f0ccfd274b.json) |
-| `api.mercadolibre.com` | GET | `/catalog/dumps/domains/MLB/compatibilities` | 1 | [JSON](./operations/get-33bb65316348.json) |
-| `api.mercadolibre.com` | GET | `/catalog/dumps/domains/{site_id}/compatibilities` | 1 | [JSON](./operations/get-221dd2e1dd4c.json) |
-| `api.mercadolibre.com` | GET | `/catalog_compatibilities/restrictions/values` | 2 | [JSON](./operations/get-22157852487d.json) |
-| `api.mercadolibre.com` | GET | `/catalog_domains/MLA-AUTOMOTIVE_TIRES/shipping_attributes` | 1 | [JSON](./operations/get-5a2ba69808ab.json) |
-| `api.mercadolibre.com` | GET | `/catalog_domains/MLA-CARS_AND_VANS` | 1 | [JSON](./operations/get-c6d13414907a.json) |
-| `api.mercadolibre.com` | GET | `/catalog_domains/MLB-AUTOMOTIVE_TIRES/shipping_attributes` | 1 | [JSON](./operations/get-e728be51ca69.json) |
-| `api.mercadolibre.com` | GET | `/catalog_domains/{domain_id}` | 1 | [JSON](./operations/get-68a3698a704b.json) |
-| `api.mercadolibre.com` | GET | `/catalog_domains/{domain_id}/shipping_attributes` | 2 | [JSON](./operations/get-892534f462a3.json) |
-| `api.mercadolibre.com` | GET | `/catalog_suggestions/domains/MLA/available/full` | 1 | [JSON](./operations/get-6abe79b5f623.json) |
-| `api.mercadolibre.com` | GET | `/catalog_suggestions/domains/{site_id}/available/full` | 1 | [JSON](./operations/get-47de8da40a01.json) |
-| `api.mercadolibre.com` | GET | `/catalog_suggestions/users/{user_id}/quota` | 1 | [JSON](./operations/get-a73e85ace6d3.json) |
-| `api.mercadolibre.com` | GET | `/catalog_suggestions/users/{userid}/suggestions/search` | 1 | [JSON](./operations/get-b691bcf77e7c.json) |
-| `api.mercadolibre.com` | GET | `/catalog_suggestions/{id}` | 1 | [JSON](./operations/get-0afcca3f488f.json) |
-| `api.mercadolibre.com` | GET | `/catalog_suggestions/{id}/validations` | 1 | [JSON](./operations/get-f73b4906096f.json) |
-| `api.mercadolibre.com` | GET | `/catalog_suggestions/{suggestion_id}/validations` | 1 | [JSON](./operations/get-a37b4fe68ed6.json) |
-| `api.mercadolibre.com` | GET | `/categories/:CATEGORY_ID/attributes` | 1 | [JSON](./operations/get-86b7e594f335.json) |
-| `api.mercadolibre.com` | GET | `/categories/MCO7159/shipping_preferences` | 1 | [JSON](./operations/get-822557cf5c04.json) |
-| `api.mercadolibre.com` | GET | `/categories/{category_id}/sale_terms` | 3 | [JSON](./operations/get-4ad73591e370.json) |
-| `api.mercadolibre.com` | GET | `/categories/{category_id}/shipping_preferences` | 1 | [JSON](./operations/get-86045069cb1f.json) |
-| `api.mercadolibre.com` | GET | `/compats-snapshots/orders/{order_id}` | 1 | [JSON](./operations/get-2a386a8afdc6.json) |
-| `api.mercadolibre.com` | GET | `/domains/MLA-CELLPHONES/technical_specs` | 1 | [JSON](./operations/get-a4a48648106a.json) |
-| `api.mercadolibre.com` | GET | `/domains/MLA-CELLPHONES/technical_specs/input` | 1 | [JSON](./operations/get-cdc62baeff27.json) |
-| `api.mercadolibre.com` | GET | `/domains/MLA-CELLPHONES/technical_specs/output` | 1 | [JSON](./operations/get-18be76a6cde3.json) |
-| `api.mercadolibre.com` | GET | `/domains/MLA-SNEAKERS/technical_specs` | 1 | [JSON](./operations/get-c9ddf572947b.json) |
-| `api.mercadolibre.com` | GET | `/domains/{domain_id}/techincal_specs` | 1 | [JSON](./operations/get-9703dba65714.json) |
-| `api.mercadolibre.com` | GET | `/domains/{domain_id}/techincal_specs/input` | 1 | [JSON](./operations/get-94c4ff815f0b.json) |
-| `api.mercadolibre.com` | GET | `/domains/{domain_id}/techincal_specs/output` | 1 | [JSON](./operations/get-1d0bb19bef6a.json) |
-| `api.mercadolibre.com` | GET | `/domains/{domain_id}/technical_specs` | 1 | [JSON](./operations/get-0959dd721bf0.json) |
-| `api.mercadolibre.com` | GET | `/feedback/{feedback_id}` | 1 | [JSON](./operations/get-074b734bb33a.json) |
-| `api.mercadolibre.com` | GET | `/feedback/{id}` | 1 | [JSON](./operations/get-1f475081de39.json) |
-| `api.mercadolibre.com` | GET | `/highlights/MLA/category/{id}` | 1 | [JSON](./operations/get-2ba2286f3ec4.json) |
-| `api.mercadolibre.com` | GET | `/highlights/MLA/product/{id}` | 1 | [JSON](./operations/get-a17ecd33749a.json) |
-| `api.mercadolibre.com` | GET | `/highlights/MLB/category/{id}` | 1 | [JSON](./operations/get-22b4383150b3.json) |
-| `api.mercadolibre.com` | GET | `/highlights/MLB/item/{id}` | 1 | [JSON](./operations/get-e18585926a08.json) |
-| `api.mercadolibre.com` | GET | `/highlights/{site_id}/category/{category_id}` | 2 | [JSON](./operations/get-a33b01fee860.json) |
-| `api.mercadolibre.com` | GET | `/highlights/{site_id}/item/{item_id}` | 1 | [JSON](./operations/get-14e0f7a1c8bb.json) |
-| `api.mercadolibre.com` | GET | `/highlights/{site_id}/product/{product_id}` | 1 | [JSON](./operations/get-7e7b624282a8.json) |
-| `api.mercadolibre.com` | GET | `/inventories/LCQI05831/stock/fulfillment` | 1 | [JSON](./operations/get-34e605f0d96d.json) |
-| `api.mercadolibre.com` | GET | `/inventories/{inventory_id}/stock/fulfillment` | 1 | [JSON](./operations/get-e99a10c7f514.json) |
-| `api.mercadolibre.com` | GET | `/item/{id}/performance` | 1 | [JSON](./operations/get-c2b2e8a2b05a.json) |
-| `api.mercadolibre.com` | GET | `/item/{item_id}/performance` | 1 | [JSON](./operations/get-3c6296db99c6.json) |
-| `api.mercadolibre.com` | GET | `/items/MCO415774919/shipping_options` | 1 | [JSON](./operations/get-b9ee0a2821bb.json) |
-| `api.mercadolibre.com` | GET | `/items/MCO471870973/visits/time_window` | 1 | [JSON](./operations/get-0d1e3e4e7ecc.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/available_downgrades` | 1 | [JSON](./operations/get-197224828f63.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/available_listing_types` | 1 | [JSON](./operations/get-be4185ad5683.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/available_upgrades` | 1 | [JSON](./operations/get-5f9f7dad5e51.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/bundle/prices_configuration` | 1 | [JSON](./operations/get-0b5a2f61e3c8.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/catalog_forewarning/date` | 1 | [JSON](./operations/get-69c81ad4ef67.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/catalog_listing_eligibility` | 1 | [JSON](./operations/get-669c4cf83625.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/compatibilities` | 1 | [JSON](./operations/get-23292534dacf.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/compatibilities/bcbd413f-cd65-0e0f-88c9-5eb4aebb5372/note` | 1 | [JSON](./operations/get-9f5a5ad3aaa7.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/compatibilities/exception` | 1 | [JSON](./operations/get-c0e6e9b9ff2c.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/compatibilities/extended/check` | 1 | [JSON](./operations/get-fb3a7a178730.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/compatibilities/{compatibility_id}` | 1 | [JSON](./operations/get-55eec5f11423.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/compatibilities/{compatibility_id}/note` | 1 | [JSON](./operations/get-d7f7af19bd35.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/description` | 1 | [JSON](./operations/get-66939d88998c.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/migration_live_listing` | 1 | [JSON](./operations/get-f6900ec8cf88.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/sale_price` | 2 | [JSON](./operations/get-9983d2dc3196.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/user_product_listings/validate` | 1 | [JSON](./operations/get-a4eac8bcdb78.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/variations` | 1 | [JSON](./operations/get-05799aa73217.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/variations/{id}` | 1 | [JSON](./operations/get-3a0c97edc0dc.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/variations/{variation_id}` | 1 | [JSON](./operations/get-8144bd4e3343.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_original}/migration_live_listing` | 1 | [JSON](./operations/get-907586ccdbdf.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_original}/user_product_listings/validate` | 1 | [JSON](./operations/get-6d51ef2d3120.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/messages/packs/{pack_id}/sellers/{seller_id}` | 1 | [JSON](./operations/get-31da3475dcd1.json) |
-| `api.mercadolibre.com` | GET | `/messages/action_guide/packs/{pack_id}` | 2 | [JSON](./operations/get-df3d370cfaf2.json) |
-| `api.mercadolibre.com` | GET | `/messages/action_guide/packs/{pack_id}/caps_available` | 1 | [JSON](./operations/get-b39bfaa519f6.json) |
-| `api.mercadolibre.com` | GET | `/messages/attachments/76601286_5946e4c4-168a-45fd-945e-b8f0c306c58d.png` | 1 | [JSON](./operations/get-e4d3e739e67a.json) |
-| `api.mercadolibre.com` | GET | `/messages/attachments/{attchment_id}` | 1 | [JSON](./operations/get-697599db8c08.json) |
-| `api.mercadolibre.com` | GET | `/messages/packs/{pack_id}/sellers/415458330&limit=2&offset=1` | 1 | [JSON](./operations/get-ce88af2ed75c.json) |
-| `api.mercadolibre.com` | GET | `/messages/packs/{pack_id}/sellers/{seller_id}` | 2 | [JSON](./operations/get-9f66e71eb7b5.json) |
-| `api.mercadolibre.com` | GET | `/messages/packs/{pack_id}/sellers/{user_id}` | 1 | [JSON](./operations/get-b892b341c5d9.json) |
-| `api.mercadolibre.com` | GET | `/messages/unread` | 2 | [JSON](./operations/get-042d91ac7519.json) |
-| `api.mercadolibre.com` | GET | `/messages/unread/packs/{pack_id}/sellers/{seller_id}` | 1 | [JSON](./operations/get-f18107bf33a1.json) |
-| `api.mercadolibre.com` | GET | `/messages/unread/{resource}` | 1 | [JSON](./operations/get-dcf42d2e09f2.json) |
-| `api.mercadolibre.com` | GET | `/messages/{message_id}` | 1 | [JSON](./operations/get-443f170a81cd.json) |
-| `api.mercadolibre.com` | GET | `/multiget/catalog_listing_eligibility` | 1 | [JSON](./operations/get-6870f3a72a75.json) |
-| `api.mercadolibre.com` | GET | `/nodes/MXP20157465171/processing_time_middleend` | 1 | [JSON](./operations/get-d4d3be040182.json) |
-| `api.mercadolibre.com` | GET | `/nodes/MXP20157465171/schedule/xd_drop_off` | 1 | [JSON](./operations/get-9b8b7b047b56.json) |
-| `api.mercadolibre.com` | GET | `/nodes/MXP20214899242/capacity_middleend` | 1 | [JSON](./operations/get-f83583672cb8.json) |
-| `api.mercadolibre.com` | GET | `/nodes/{network_node_id}/processing_time_middleend` | 1 | [JSON](./operations/get-78f24fcaa42c.json) |
-| `api.mercadolibre.com` | GET | `/nodes/{network_node_id}/schedule/{logistic_type}` | 1 | [JSON](./operations/get-540b975b801e.json) |
-| `api.mercadolibre.com` | GET | `/nodes/{node_id}/capacity_middleend` | 1 | [JSON](./operations/get-f1d725802726.json) |
-| `api.mercadolibre.com` | GET | `/orders/{order_id}/billing_info` | 2 | [JSON](./operations/get-50515ecfd938.json) |
-| `api.mercadolibre.com` | GET | `/orders/{order_id}/bundle` | 1 | [JSON](./operations/get-576c625c83e3.json) |
-| `api.mercadolibre.com` | GET | `/orders/{order_id}/discounts` | 1 | [JSON](./operations/get-2deb9f7160ae.json) |
-| `api.mercadolibre.com` | GET | `/orders/{order_id}/notes` | 1 | [JSON](./operations/get-7bf4319741e2.json) |
-| `api.mercadolibre.com` | GET | `/packs/{pack_id}` | 1 | [JSON](./operations/get-54ce2d8109b5.json) |
-| `api.mercadolibre.com` | GET | `/packs/{pack_id}/fiscal_documents` | 1 | [JSON](./operations/get-51601ced80e6.json) |
-| `api.mercadolibre.com` | GET | `/packs/{pack_id}/fiscal_documents/415460047_a96d8dea-38cd-4402-938e-80a1c134fc5d` | 1 | [JSON](./operations/get-c1744f5936c4.json) |
-| `api.mercadolibre.com` | GET | `/packs/{pack_id}/fiscal_documents/{fiscal_document_id}` | 1 | [JSON](./operations/get-6597f69ca3fd.json) |
-| `api.mercadolibre.com` | GET | `/pictures/970736-MLU11111111111_092017/errors` | 1 | [JSON](./operations/get-c698c5f8063d.json) |
-| `api.mercadolibre.com` | GET | `/pictures/{picture_id}/errors` | 4 | [JSON](./operations/get-26e9522bb396.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/950700111”` | 1 | [JSON](./operations/get-90f0f1f2a891.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/search` | 3 | [JSON](./operations/get-5746a734b3d8.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}/affects-reputation` | 1 | [JSON](./operations/get-c2d7e6044d19.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}/attachments/0f2d81a2-c489-435e-96af-59688ad3d8f4_305860144.jpeg` | 1 | [JSON](./operations/get-1e837f276788.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}/attachments/0f2d81a2-c489-435e-96af-59688ad3d8f4_305860144.jpeg/download` | 1 | [JSON](./operations/get-234ec5a90e02.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}/attachments/{attach_id}` | 1 | [JSON](./operations/get-ba8d7a0be844.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}/attachments/{attach_id}/download` | 1 | [JSON](./operations/get-0c059bac06cb.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}/evidences”` | 1 | [JSON](./operations/get-a6236482394e.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}/expected_resolutions”` | 1 | [JSON](./operations/get-760a1ad71fb6.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}/messages` | 1 | [JSON](./operations/get-a8e0e62cd982.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}/messages”` | 1 | [JSON](./operations/get-4d1f071080d1.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}/partial-refund/available-offers` | 1 | [JSON](./operations/get-f2568c436269.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}/status_history”` | 2 | [JSON](./operations/get-9e8fb42012df.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/claims/{claim_id}”` | 1 | [JSON](./operations/get-4d1d4ebcbba6.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/reasons/PDD2/children”` | 1 | [JSON](./operations/get-823f586955d1.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v1/reasons/{reason_id}/children”` | 1 | [JSON](./operations/get-ce34227dc566.json) |
-| `api.mercadolibre.com` | GET | `/post-purchase/v2/claims/{claim_id}/returns` | 1 | [JSON](./operations/get-10f79dc588d4.json) |
-| `api.mercadolibre.com` | GET | `/products/search` | 2 | [JSON](./operations/get-27ac47d63c58.json) |
-| `api.mercadolibre.com` | GET | `/products/{product_id}` | 2 | [JSON](./operations/get-020d0dbacc06.json) |
-| `api.mercadolibre.com` | GET | `/public/buybox/sync/{item_id}` | 1 | [JSON](./operations/get-c9e6f03d89f2.json) |
-| `api.mercadolibre.com` | GET | `/reputation/items/{item_id}/purchase_experience/integrators` | 1 | [JSON](./operations/get-cd1ab84d2ff5.json) |
-| `api.mercadolibre.com` | GET | `/reputation/user_products/{up_id}/purchase_experience/integrators` | 1 | [JSON](./operations/get-53036865d24d.json) |
-| `api.mercadolibre.com` | GET | `/reputation/users_products/MLAU1391786841/purchase_experience/integrators` | 1 | [JSON](./operations/get-6bd3209760b4.json) |
-| `api.mercadolibre.com` | GET | `/reviews/item/{id}` | 2 | [JSON](./operations/get-417b45d21182.json) |
-| `api.mercadolibre.com` | GET | `/reviews/item/{item_id}` | 1 | [JSON](./operations/get-ba22691445d6.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/P-MLB2087012/items` | 1 | [JSON](./operations/get-52fe4c76078b.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/P-MLB3528002/items` | 1 | [JSON](./operations/get-f81e77643a26.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/candidates/CANDIDATE-` | 1 | [JSON](./operations/get-2d997894c181.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/exclusion-list/seller` | 1 | [JSON](./operations/get-d55b19ff53c7.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/exclusion-list/seller/{item_id}` | 1 | [JSON](./operations/get-890b6edf8173.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/items/{item_id}` | 1 | [JSON](./operations/get-038d26166a31.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/offers/OFFER-MLB1970246686-42701792` | 1 | [JSON](./operations/get-24754ea898dc.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/offers/{offers_id}` | 1 | [JSON](./operations/get-ad8f07e04ea7.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/C-MLB300` | 1 | [JSON](./operations/get-b79329aebbc3.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/C-MLB300/items` | 1 | [JSON](./operations/get-e2da00e588e4.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/C-MLB302` | 1 | [JSON](./operations/get-9c3128d21b6e.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/DOD-MLB1000/items` | 1 | [JSON](./operations/get-1ac84062126b.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/LGH-MLB1000/items` | 1 | [JSON](./operations/get-a3355e42da74.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB12345` | 1 | [JSON](./operations/get-20647e3696e2.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB12345/items` | 1 | [JSON](./operations/get-f13460b77087.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB13451002MLB9377/items` | 1 | [JSON](./operations/get-92187d342b9c.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB1806015` | 1 | [JSON](./operations/get-8bcfcda3a503.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB1806015/items` | 1 | [JSON](./operations/get-912016517fa0.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB1806017` | 1 | [JSON](./operations/get-83d2ca757873.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB1806017/items` | 1 | [JSON](./operations/get-2505319f2b53.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB1806019` | 1 | [JSON](./operations/get-faaa66b44750.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB1806019/items` | 1 | [JSON](./operations/get-ac8fcc9d0402.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB1812010` | 1 | [JSON](./operations/get-151903b948c5.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB1812010/items` | 1 | [JSON](./operations/get-c42bcf459d32.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB2087012` | 1 | [JSON](./operations/get-3d060be432df.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLB35280024` | 1 | [JSON](./operations/get-85ba20b95702.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLM394001` | 1 | [JSON](./operations/get-3c7bfee4c895.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/P-MLM394001/items` | 1 | [JSON](./operations/get-0d86a085fc21.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/{promotion_id}` | 1 | [JSON](./operations/get-f4032f2e846a.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/{promotion_id}/items` | 4 | [JSON](./operations/get-2bbf1ecda4e1.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/promotions/{promotions_id}/items` | 2 | [JSON](./operations/get-33163e5c8084.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/users/{user_id}` | 1 | [JSON](./operations/get-91fe65436718.json) |
-| `api.mercadolibre.com` | GET | `/shipment_statuses` | 1 | [JSON](./operations/get-4c893727eca6.json) |
-| `api.mercadolibre.com` | GET | `/shipments/shipment_id` | 2 | [JSON](./operations/get-9887af541734.json) |
-| `api.mercadolibre.com` | GET | `/shipments/shipment_id/items` | 1 | [JSON](./operations/get-a15f0dd32df1.json) |
-| `api.mercadolibre.com` | GET | `/shipments/shipment_id/lead_time` | 2 | [JSON](./operations/get-6777493b2032.json) |
-| `api.mercadolibre.com` | GET | `/shipments/{shipment_id}/carrier` | 1 | [JSON](./operations/get-548c9b60a4aa.json) |
-| `api.mercadolibre.com` | GET | `/shipments/{shipment_id}/costs` | 1 | [JSON](./operations/get-a8b97325dfd3.json) |
-| `api.mercadolibre.com` | GET | `/shipments/{shipment_id}/delays` | 1 | [JSON](./operations/get-a5247d904bd0.json) |
-| `api.mercadolibre.com` | GET | `/shipments/{shipment_id}/history` | 1 | [JSON](./operations/get-fef59d751123.json) |
-| `api.mercadolibre.com` | GET | `/shipments/{shipment_id}/payments` | 1 | [JSON](./operations/get-d2993b44c26b.json) |
-| `api.mercadolibre.com` | GET | `/shipping/flex/sites/{site_id}/users/{user_id}/subscriptions/v1` | 2 | [JSON](./operations/get-38acba2c3bc7.json) |
-| `api.mercadolibre.com` | GET | `/shipping/seller/{id}/working_day_middleend` | 2 | [JSON](./operations/get-9684abff0354.json) |
-| `api.mercadolibre.com` | GET | `/shipping/seller/{seller_id}/working_day_middleend` | 1 | [JSON](./operations/get-1bb090d26177.json) |
-| `api.mercadolibre.com` | GET | `/shipping/seller/{seller_id}/working_day_middleend/optout` | 1 | [JSON](./operations/get-78d05294d717.json) |
-| `api.mercadolibre.com` | GET | `/shipping/users/{user_id}/processing_time_middleend/cross_docking` | 1 | [JSON](./operations/get-afa893dc0d4c.json) |
-| `api.mercadolibre.com` | GET | `/shipping/users/{user_id}/processing_time_middleend/{logistic_type}` | 1 | [JSON](./operations/get-d48a4cfb3024.json) |
-| `api.mercadolibre.com` | GET | `/sites/categories/{category_id}` | 1 | [JSON](./operations/get-2dbddd72e411.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/listing_exposures/high` | 1 | [JSON](./operations/get-443f4f12835b.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/listing_exposures/{exposure_level}` | 1 | [JSON](./operations/get-7d34119d5c95.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/listing_types` | 1 | [JSON](./operations/get-abfe3a654374.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/listing_types/gold_special` | 1 | [JSON](./operations/get-c675291aa3b7.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/listing_types/{listing_type_id}` | 1 | [JSON](./operations/get-7e393a21ade4.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/shipping/selfservice/items/{item_id}` | 1 | [JSON](./operations/get-445e416ce8b9.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site_id}/user-products-families/{id}` | 1 | [JSON](./operations/get-12761d559b48.json) |
-| `api.mercadolibre.com` | GET | `/sites/{site}/listing_prices` | 9 | [JSON](./operations/get-4f6e933bfa93.json) |
-| `api.mercadolibre.com` | GET | `/soe/bundles/789/file` | 1 | [JSON](./operations/get-837ed84622c5.json) |
-| `api.mercadolibre.com` | GET | `/soe/bundles/search` | 2 | [JSON](./operations/get-381dfa550c2b.json) |
-| `api.mercadolibre.com` | GET | `/soe/bundles/users/validate` | 1 | [JSON](./operations/get-fe248a28b547.json) |
-| `api.mercadolibre.com` | GET | `/soe/bundles/{bundle_id}/summary` | 1 | [JSON](./operations/get-fd4072c05651.json) |
-| `api.mercadolibre.com` | GET | `/soe/bundles/{bundle_id}/volumes` | 1 | [JSON](./operations/get-a39ff29e095a.json) |
-| `api.mercadolibre.com` | GET | `/soe/bundles/{bundle_id}/volumes/search` | 1 | [JSON](./operations/get-26663193011b.json) |
-| `api.mercadolibre.com` | GET | `/soe/bundles/{bundleid}/file` | 1 | [JSON](./operations/get-214c07a6320c.json) |
-| `api.mercadolibre.com` | GET | `/soe/bundles/{id}/summary` | 1 | [JSON](./operations/get-dd0ef01a9d18.json) |
-| `api.mercadolibre.com` | GET | `/soe/bundles/{id}/volumes` | 1 | [JSON](./operations/get-d45c6a4533b5.json) |
-| `api.mercadolibre.com` | GET | `/soe/bundles/{id}/volumes/search` | 1 | [JSON](./operations/get-5cac099cedcf.json) |
-| `api.mercadolibre.com` | GET | `/special_installments/3x_campaign/sellers/{seller_id}` | 1 | [JSON](./operations/get-49d79ec092ab.json) |
-| `api.mercadolibre.com` | GET | `/stock/fulfillment/operations/search` | 1 | [JSON](./operations/get-2fb85fb0dc53.json) |
-| `api.mercadolibre.com` | GET | `/trends/MLA` | 1 | [JSON](./operations/get-0e02b2b4c910.json) |
-| `api.mercadolibre.com` | GET | `/trends/MLA/{id}` | 1 | [JSON](./operations/get-cf67cb3859b9.json) |
-| `api.mercadolibre.com` | GET | `/trends/{site_id}` | 1 | [JSON](./operations/get-04605ba9676c.json) |
-| `api.mercadolibre.com` | GET | `/trends/{site_id}/{category_id}` | 1 | [JSON](./operations/get-d9c7ca9ac339.json) |
-| `api.mercadolibre.com` | GET | `/user-product/$USER-PRODUCT-ID/performance` | 1 | [JSON](./operations/get-3a6a46c88f62.json) |
-| `api.mercadolibre.com` | GET | `/user-product/MLAU395977691/performance` | 1 | [JSON](./operations/get-422e4c80755a.json) |
-| `api.mercadolibre.com` | GET | `/user-products-families/tasks/{task_id}` | 1 | [JSON](./operations/get-5d989e55220f.json) |
-| `api.mercadolibre.com` | GET | `/user-products-families/{family_id}` | 1 | [JSON](./operations/get-4ee0eae24dfb.json) |
-| `api.mercadolibre.com` | GET | `/user-products-families/{family_id}/user-products` | 1 | [JSON](./operations/get-2e063b840a66.json) |
-| `api.mercadolibre.com` | GET | `/user-products-families/{id}` | 1 | [JSON](./operations/get-b2be3b7510a7.json) |
-| `api.mercadolibre.com` | GET | `/user-products-families/{id}/user-products` | 1 | [JSON](./operations/get-932ef5a3afb3.json) |
-| `api.mercadolibre.com` | GET | `/user-products/MLAU12345678/stock` | 1 | [JSON](./operations/get-a3b4951a689b.json) |
-| `api.mercadolibre.com` | GET | `/user-products/MLAU123456789/stock` | 1 | [JSON](./operations/get-242eb2a8a8af.json) |
-| `api.mercadolibre.com` | GET | `/user-products/MLBU22012` | 1 | [JSON](./operations/get-3315dd8a028a.json) |
-| `api.mercadolibre.com` | GET | `/user-products/MLMU123456789/stock` | 1 | [JSON](./operations/get-1698460c2ea2.json) |
-| `api.mercadolibre.com` | GET | `/user-products/{user_product_id}` | 2 | [JSON](./operations/get-5700e4f0cd67.json) |
-| `api.mercadolibre.com` | GET | `/user-products/{user_product_id}/bundles` | 1 | [JSON](./operations/get-11bbd9677e10.json) |
-| `api.mercadolibre.com` | GET | `/users/reputation/seller_recovery/legal-document` | 1 | [JSON](./operations/get-2821e21948a1.json) |
-| `api.mercadolibre.com` | GET | `/users/reputation/seller_recovery/status` | 1 | [JSON](./operations/get-480e56130310.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/available_listing_type/free` | 1 | [JSON](./operations/get-c8227c25fd95.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/brands/133` | 1 | [JSON](./operations/get-04c3b375e2e0.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/brands/aaaaa` | 1 | [JSON](./operations/get-4ab9ee45ae6e.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/brands/{id}` | 1 | [JSON](./operations/get-a0dcf86bfa53.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/capacity_middleend/cross_docking` | 1 | [JSON](./operations/get-acf9eb1bf282.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/capacity_middleend/{logistic_type}` | 1 | [JSON](./operations/get-9c3e9746c382.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/questions/response_time` | 1 | [JSON](./operations/get-8d1abe7f0d44.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/shipping/schedule/cross_docking` | 1 | [JSON](./operations/get-4e5373a8caa6.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/shipping/schedule/{logistic_type}` | 1 | [JSON](./operations/get-546d06456f4b.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/shipping_options/free` | 1 | [JSON](./operations/get-f1db1205bb9c.json) |
-| `api.mercadolibre.com` | GET | `/users/{user_id}/stores/search` | 1 | [JSON](./operations/get-bd90fcb8de1f.json) |
-| `api.mercadolibre.com` | GET | `/visits/items` | 1 | [JSON](./operations/get-79a21fc92af5.json) |
-| `api.mercadolibre.com` | POST | `/catalog/charts` | 3 | [JSON](./operations/post-0d44f48026e6.json) |
-| `api.mercadolibre.com` | POST | `/catalog/charts/4/rows` | 1 | [JSON](./operations/post-86a7fb529147.json) |
-| `api.mercadolibre.com` | POST | `/catalog/charts/domains/search` | 1 | [JSON](./operations/post-47dd56936027.json) |
-| `api.mercadolibre.com` | POST | `/catalog/charts/search` | 2 | [JSON](./operations/post-2364cdbf3f07.json) |
-| `api.mercadolibre.com` | POST | `/catalog/charts/{chart_id}/rows` | 1 | [JSON](./operations/post-6c4af7fc1b65.json) |
-| `api.mercadolibre.com` | POST | `/catalog_compatibilities/products_search/count_family_products` | 1 | [JSON](./operations/post-04094d972fde.json) |
-| `api.mercadolibre.com` | POST | `/catalog_domains/MLA-CARS_AND_VANS/attributes/BRAND/top_values` | 2 | [JSON](./operations/post-4fcd7625d18c.json) |
-| `api.mercadolibre.com` | POST | `/catalog_domains/MLA-CARS_AND_VANS/attributes/MODEL/top_values` | 2 | [JSON](./operations/post-f7b0f4273c44.json) |
-| `api.mercadolibre.com` | POST | `/catalog_domains/MLA-CARS_AND_VANS/attributes/VEHICLE_YEAR/top_values` | 1 | [JSON](./operations/post-e063228d556c.json) |
-| `api.mercadolibre.com` | POST | `/catalog_domains/MLB-CARS_AND_VANS/compatibilities/cards` | 1 | [JSON](./operations/post-465a99b58418.json) |
-| `api.mercadolibre.com` | POST | `/catalog_suggestions` | 1 | [JSON](./operations/post-199765df2dae.json) |
-| `api.mercadolibre.com` | POST | `/catalog_suggestions/${suggestion_id}/description` | 1 | [JSON](./operations/post-a48c400d7c8b.json) |
-| `api.mercadolibre.com` | POST | `/catalog_suggestions/validate` | 1 | [JSON](./operations/post-91f462f48dca.json) |
-| `api.mercadolibre.com` | POST | `/domains/MLA-SNEAKERS/technical_specs` | 1 | [JSON](./operations/post-603287cbc9c4.json) |
-| `api.mercadolibre.com` | POST | `/domains/{domain_id}/technical_specs` | 1 | [JSON](./operations/post-cea16ed24302.json) |
-| `api.mercadolibre.com` | POST | `/feedback/{feedback_id}/reply` | 1 | [JSON](./operations/post-36f726f39db7.json) |
-| `api.mercadolibre.com` | POST | `/fiscal_information/graphql` | 6 | [JSON](./operations/post-a63e8f8a343c.json) |
-| `api.mercadolibre.com` | POST | `/items/catalog_domains/{domain_id}/compatibilities/cards` | 1 | [JSON](./operations/post-866df84d89b6.json) |
-| `api.mercadolibre.com` | POST | `/items/catalog_listings` | 1 | [JSON](./operations/post-67285a4c4e99.json) |
-| `api.mercadolibre.com` | POST | `/items/compatibilities_summary` | 2 | [JSON](./operations/post-35263a1e3df6.json) |
-| `api.mercadolibre.com` | POST | `/items/kits` | 1 | [JSON](./operations/post-9af1a508574a.json) |
-| `api.mercadolibre.com` | POST | `/items/multiwarehouse` | 1 | [JSON](./operations/post-077dfc0a67f3.json) |
-| `api.mercadolibre.com` | POST | `/items/{item_id}` | 1 | [JSON](./operations/post-617830c174a4.json) |
-| `api.mercadolibre.com` | POST | `/items/{item_id}/compatibilities` | 5 | [JSON](./operations/post-60f5c5075e04.json) |
-| `api.mercadolibre.com` | POST | `/items/{item_id}/compatibilities/exception` | 1 | [JSON](./operations/post-30fbe009563c.json) |
-| `api.mercadolibre.com` | POST | `/items/{item_id}/description` | 2 | [JSON](./operations/post-dd9b3f97c670.json) |
-| `api.mercadolibre.com` | POST | `/items/{item_id}/listing_type` | 3 | [JSON](./operations/post-3916712cf059.json) |
-| `api.mercadolibre.com` | POST | `/items/{item_id}/pictures` | 1 | [JSON](./operations/post-00f847894322.json) |
-| `api.mercadolibre.com` | POST | `/items/{item_id}/relist` | 2 | [JSON](./operations/post-bb47461c4737.json) |
-| `api.mercadolibre.com` | POST | `/messages/action_guide/packs/{pack_id}/option` | 1 | [JSON](./operations/post-dfb350cfcdc4.json) |
-| `api.mercadolibre.com` | POST | `/messages/attachments` | 1 | [JSON](./operations/post-387ef0b61531.json) |
-| `api.mercadolibre.com` | POST | `/messages/packs/{pack_id}/sellers/{seller_id}` | 1 | [JSON](./operations/post-87e821a7d2a3.json) |
-| `api.mercadolibre.com` | POST | `/messages/packs/{pack_id}/sellers/{user_id}` | 1 | [JSON](./operations/post-06b7225b3d12.json) |
-| `api.mercadolibre.com` | POST | `/orders/{order_id}/notes` | 1 | [JSON](./operations/post-fda00e8b9605.json) |
-| `api.mercadolibre.com` | POST | `/orders/{orderid}/feedback` | 2 | [JSON](./operations/post-6346b2358cf1.json) |
-| `api.mercadolibre.com` | POST | `/packs/{pack_id}/fiscal_documents` | 2 | [JSON](./operations/post-64d8d29b72f3.json) |
-| `api.mercadolibre.com` | POST | `/pictures/items/upload` | 1 | [JSON](./operations/post-72697cafb9a0.json) |
-| `api.mercadolibre.com` | POST | `/post-purchase/v1/claims/{claim_id}/actions/evidences` | 1 | [JSON](./operations/post-79df0f2aaede.json) |
-| `api.mercadolibre.com` | POST | `/post-purchase/v1/claims/{claim_id}/actions/message` | 1 | [JSON](./operations/post-f0dc4091f67e.json) |
-| `api.mercadolibre.com` | POST | `/post-purchase/v1/claims/{claim_id}/attachments` | 1 | [JSON](./operations/post-34cd4eec3f9b.json) |
-| `api.mercadolibre.com` | POST | `/post-purchase/v1/claims/{claim_id}/evidences”` | 4 | [JSON](./operations/post-29e38ba11f9c.json) |
-| `api.mercadolibre.com` | POST | `/post-purchase/v1/claims/{claim_id}/expected-resolutions/refund` | 1 | [JSON](./operations/post-f5c01e685c2c.json) |
-| `api.mercadolibre.com` | POST | `/post-purchase/v1/claims/{claim_id}/expected_resolutions` | 1 | [JSON](./operations/post-d52462476486.json) |
-| `api.mercadolibre.com` | POST | `/post-purchase/v1/claims/{claim_id}/expected_resolutions”` | 1 | [JSON](./operations/post-ba706d68714f.json) |
-| `api.mercadolibre.com` | POST | `/post-purchase/v1/claims/{claim_id}/messages` | 1 | [JSON](./operations/post-b6c93a475523.json) |
-| `api.mercadolibre.com` | POST | `/post-purchase/v1/claims/{claim_id}/messages”` | 1 | [JSON](./operations/post-3e0563859a53.json) |
-| `api.mercadolibre.com` | POST | `/products/search` | 1 | [JSON](./operations/post-caa6f8647e33.json) |
-| `api.mercadolibre.com` | POST | `/public/buybox/sync` | 1 | [JSON](./operations/post-e8e0ecc42a88.json) |
-| `api.mercadolibre.com` | POST | `/seller-promotions/exclusion-list/item` | 1 | [JSON](./operations/post-8884cbce8d26.json) |
-| `api.mercadolibre.com` | POST | `/seller-promotions/exclusion-list/seller` | 1 | [JSON](./operations/post-4030088ed2b1.json) |
-| `api.mercadolibre.com` | POST | `/seller-promotions/items/MLB1834747833&app_version=v2` | 1 | [JSON](./operations/post-9fee1d59bc3e.json) |
-| `api.mercadolibre.com` | POST | `/seller-promotions/items/{item_id}` | 10 | [JSON](./operations/post-f52f705e5591.json) |
-| `api.mercadolibre.com` | POST | `/seller-promotions/promotions` | 3 | [JSON](./operations/post-183a93d2f0e5.json) |
-| `api.mercadolibre.com` | POST | `/shipments/{shipment_id}/process/ready_to_ship` | 1 | [JSON](./operations/post-0c9951d09cff.json) |
-| `api.mercadolibre.com` | POST | `/shipments/{shipment_id}/seller_notifications` | 3 | [JSON](./operations/post-259e19edce52.json) |
-| `api.mercadolibre.com` | POST | `/shipments/{shipment_id}/split` | 1 | [JSON](./operations/post-0fcc3396acf4.json) |
-| `api.mercadolibre.com` | POST | `/shipping/flex/sites/{site_id}/configuration/v3` | 2 | [JSON](./operations/post-cc6c3a65b209.json) |
-| `api.mercadolibre.com` | POST | `/sites/{site_id}/items/user_product_listings` | 1 | [JSON](./operations/post-dd0137f6abbc.json) |
-| `api.mercadolibre.com` | POST | `/sites/{site_id}/shipping/selfservice/items/{item_id}` | 1 | [JSON](./operations/post-6a7fdba29127.json) |
-| `api.mercadolibre.com` | POST | `/soe/bundles` | 2 | [JSON](./operations/post-58703755f412.json) |
-| `api.mercadolibre.com` | POST | `/soe/bundles/label` | 2 | [JSON](./operations/post-e9763ad0408e.json) |
-| `api.mercadolibre.com` | POST | `/special_installments/3x_campaign/categories/{category_id}/enabled` | 1 | [JSON](./operations/post-0093f359e00a.json) |
-| `api.mercadolibre.com` | POST | `/special_installments/cuota-simple-6/categories/{category_id}/enabled` | 1 | [JSON](./operations/post-3120328dc50d.json) |
-| `api.mercadolibre.com` | POST | `/special_installments/{campaign_tag_id}/categories/{category_id}/enabled` | 1 | [JSON](./operations/post-6bfaf7b5d980.json) |
-| `api.mercadolibre.com` | POST | `/user-products-families/{family_id}/tasks` | 1 | [JSON](./operations/post-b0823a8b45de.json) |
-| `api.mercadolibre.com` | POST | `/user-products-families/{family_id}/user-products` | 1 | [JSON](./operations/post-4afacd33040e.json) |
-| `api.mercadolibre.com` | POST | `/user-products/MLMU3691277914/items` | 1 | [JSON](./operations/post-d6130c02ae33.json) |
-| `api.mercadolibre.com` | POST | `/user-products/{user_product_id}/items` | 1 | [JSON](./operations/post-6715eb7f5f92.json) |
-| `api.mercadolibre.com` | POST | `/users/reputation/seller_recovery/activate` | 1 | [JSON](./operations/post-8fd62475cc26.json) |
-| `api.mercadolibre.com` | POST | `/users/{cust_id}/order_blacklist` | 1 | [JSON](./operations/post-04e05c4606c6.json) |
-| `api.mercadolibre.com` | POST | `/users/{seller_id}/kits/components/search` | 1 | [JSON](./operations/post-f2ecd203ff42.json) |
-| `api.mercadolibre.com` | POST | `/users/{user_id}/shipping_modes` | 1 | [JSON](./operations/post-e0ca5a0dd2ac.json) |
-| `api.mercadolibre.com` | PUT | `/catalog/charts/5` | 1 | [JSON](./operations/put-0cc61aeb6065.json) |
-| `api.mercadolibre.com` | PUT | `/catalog/charts/{chart_id}` | 1 | [JSON](./operations/put-1fc43f190ef9.json) |
-| `api.mercadolibre.com` | PUT | `/catalog/charts/{chart_id}/rows/{row_id}` | 1 | [JSON](./operations/put-d11f142614c9.json) |
-| `api.mercadolibre.com` | PUT | `/catalog/charts/{id}/rows/1` | 1 | [JSON](./operations/put-669812cde530.json) |
-| `api.mercadolibre.com` | PUT | `/catalog_suggestions/${suggestion_id}/description` | 1 | [JSON](./operations/put-e73ac8bc20b6.json) |
-| `api.mercadolibre.com` | PUT | `/catalog_suggestions/{suggestion_id}` | 1 | [JSON](./operations/put-49e24f87e302.json) |
-| `api.mercadolibre.com` | PUT | `/catalog_suggestions/{suggestion_id}/description` | 1 | [JSON](./operations/put-1fa22e33005e.json) |
-| `api.mercadolibre.com` | PUT | `/feedback/{feedback_id}` | 1 | [JSON](./operations/put-503399b57e89.json) |
-| `api.mercadolibre.com` | PUT | `/items` | 1 | [JSON](./operations/put-ab7ceadfed1b.json) |
-| `api.mercadolibre.com` | PUT | `/items/{item_id}/bundle/prices_configuration` | 1 | [JSON](./operations/put-48ef05f7a516.json) |
-| `api.mercadolibre.com` | PUT | `/items/{item_id}/compatibilities` | 4 | [JSON](./operations/put-ec62723439b3.json) |
-| `api.mercadolibre.com` | PUT | `/items/{item_id}/description` | 2 | [JSON](./operations/put-c4b0cb8c9a0f.json) |
-| `api.mercadolibre.com` | PUT | `/nodes/MXP20157465171/processing_time_middleend` | 1 | [JSON](./operations/put-55857eac7e65.json) |
-| `api.mercadolibre.com` | PUT | `/nodes/MXP20214899242/capacity_middleend` | 1 | [JSON](./operations/put-49a155e4b311.json) |
-| `api.mercadolibre.com` | PUT | `/nodes/{network_node_id}/capacity_middleend` | 1 | [JSON](./operations/put-21c398076463.json) |
-| `api.mercadolibre.com` | PUT | `/nodes/{network_node_id}/processing_time_middleend` | 1 | [JSON](./operations/put-e01817283a64.json) |
-| `api.mercadolibre.com` | PUT | `/orders/{order_id}/notes/{note}` | 1 | [JSON](./operations/put-4f1acca81840.json) |
-| `api.mercadolibre.com` | PUT | `/post-purchase/v1/claims/950463475”` | 1 | [JSON](./operations/put-e701551df09d.json) |
-| `api.mercadolibre.com` | PUT | `/post-purchase/v1/claims/{claim_id}/expected_resolutions”` | 1 | [JSON](./operations/put-0f2c39c5dfde.json) |
-| `api.mercadolibre.com` | PUT | `/post-purchase/v1/claims/{claim_id}”` | 1 | [JSON](./operations/put-a8c3f33e29a2.json) |
-| `api.mercadolibre.com` | PUT | `/seller-promotions/items/{item_id}` | 2 | [JSON](./operations/put-e62a76eda8a0.json) |
-| `api.mercadolibre.com` | PUT | `/seller-promotions/promotions/C-MLB5783` | 1 | [JSON](./operations/put-33cdf09a836f.json) |
-| `api.mercadolibre.com` | PUT | `/seller-promotions/promotions/{promotion_id}` | 2 | [JSON](./operations/put-074e78c3379d.json) |
-| `api.mercadolibre.com` | PUT | `/shipments/:shipment_id` | 1 | [JSON](./operations/put-57764d076ec3.json) |
-| `api.mercadolibre.com` | PUT | `/shipments/{shipping_id}` | 2 | [JSON](./operations/put-05a1a408250f.json) |
-| `api.mercadolibre.com` | PUT | `/shipping/flex/sites/{site_id}/users/{user_id}/services/{id}/configuration/coverage/radius/v3` | 1 | [JSON](./operations/put-2dc3a5013e37.json) |
-| `api.mercadolibre.com` | PUT | `/shipping/flex/sites/{site_id}/users/{user_id}/services/{id}/configuration/coverage/zone/v3` | 1 | [JSON](./operations/put-2306ed1d396f.json) |
-| `api.mercadolibre.com` | PUT | `/shipping/flex/sites/{site_id}/users/{user_id}/services/{id}/configuration/delivery/accurate/v3` | 1 | [JSON](./operations/put-b3227c08daba.json) |
-| `api.mercadolibre.com` | PUT | `/shipping/flex/sites/{site_id}/users/{user_id}/services/{id}/configuration/delivery/custom/v3` | 1 | [JSON](./operations/put-677de0550071.json) |
-| `api.mercadolibre.com` | PUT | `/shipping/flex/sites/{site_id}/users/{user_id}/services/{service_id}/configuration/coverage/radius/v3` | 1 | [JSON](./operations/put-dbe797885c8e.json) |
-| `api.mercadolibre.com` | PUT | `/shipping/flex/sites/{site_id}/users/{user_id}/services/{service_id}/configuration/coverage/zone/v3` | 1 | [JSON](./operations/put-c664a3921294.json) |
-| `api.mercadolibre.com` | PUT | `/shipping/flex/sites/{site_id}/users/{user_id}/services/{service_id}/configuration/delivery/accurate/v3` | 1 | [JSON](./operations/put-fc11dd6e57b7.json) |
-| `api.mercadolibre.com` | PUT | `/shipping/flex/sites/{site_id}/users/{user_id}/services/{service_id}/configuration/delivery/custom/v3` | 1 | [JSON](./operations/put-dbecaa67fc83.json) |
-| `api.mercadolibre.com` | PUT | `/shipping/seller/{seller_id}/working_day_middleend` | 1 | [JSON](./operations/put-02d9f799c9cf.json) |
-| `api.mercadolibre.com` | PUT | `/shipping/users/{user_id}/processing_time_middleend/{logistic_type}` | 1 | [JSON](./operations/put-28ba2b925b45.json) |
-| `api.mercadolibre.com` | PUT | `/soe/bundles/789` | 1 | [JSON](./operations/put-ea5ceab97615.json) |
-| `api.mercadolibre.com` | PUT | `/soe/bundles/{bundle_id}/volumes` | 1 | [JSON](./operations/put-e015e8a7adf5.json) |
-| `api.mercadolibre.com` | PUT | `/soe/bundles/{bundleid}` | 1 | [JSON](./operations/put-15bb04c0b483.json) |
-| `api.mercadolibre.com` | PUT | `/soe/bundles/{id}/volumes` | 1 | [JSON](./operations/put-5553dd01bb15.json) |
-| `api.mercadolibre.com` | PUT | `/user-products-families/{family_id}` | 1 | [JSON](./operations/put-31d26cac7048.json) |
-| `api.mercadolibre.com` | PUT | `/user-products-families/{family_id}/user-products` | 1 | [JSON](./operations/put-045c0c3a5020.json) |
-| `api.mercadolibre.com` | PUT | `/user-products/MLAU12345678/stock/type/selling_address` | 1 | [JSON](./operations/put-daefc2632762.json) |
-| `api.mercadolibre.com` | PUT | `/user-products/MLMU123456789/stock/type/seller_warehouse` | 1 | [JSON](./operations/put-050c905fa49d.json) |
-| `api.mercadolibre.com` | PUT | `/user-products/{user_product_id}/stock/type/seller_warehouse` | 1 | [JSON](./operations/put-ca4234f25546.json) |
-| `api.mercadolibre.com` | PUT | `/user-products/{user_product_id}/stock/type/selling_address` | 1 | [JSON](./operations/put-a7b71699b4e8.json) |
-| `api.mercadolibre.com` | PUT | `/users/reputation/seller_recovery/cancel_guarantee` | 1 | [JSON](./operations/put-64d639c3761e.json) |
-| `api.mercadolibre.com` | PUT | `/users/{user_id}/capacity_middleend/cross_docking` | 1 | [JSON](./operations/put-d7a47e6de16b.json) |
-| `api.mercadolibre.com` | PUT | `/users/{user_id}/capacity_middleend/{logistic_type}` | 1 | [JSON](./operations/put-046427acdb7c.json) |
-| `api.mercadolibre.com` | PUT | `/users/{user_id}/processing_time_middleend/cross_docking` | 1 | [JSON](./operations/put-6c0580d6e977.json) |
-| `user-products.melioffice.com` | GET | `/user-products-families/tasks/{task_id}` | 1 | [JSON](./operations/get-661fe847c987.json) |
+- [activateFlexInItem](operations/activateFlexInItem.json) (POST /sites/{site_id}/shipping/selfservice/items/{item_id})：Activate Flex in the item [Official](https://developers.mercadolibre.com.ar/en_us/mercado-envios-flex)
+- [activateProgram](operations/activateProgram.json) (POST /users/reputation/seller_recovery/activate)：Activate Program [Official](https://developers.mercadolibre.com.ar/en_us/reputation-recovery)
+- [addByProduct](operations/addByProduct.json) (POST /items/{item_id}/compatibilities)：Add by product [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [addItemsCampaign](operations/addItemsCampaign.json) (POST /seller-promotions/items/MLB1834747833&app_version=v2)：Add items to a campaign [Official](https://developers.mercadolibre.com.ar/en_us/volume-discount-campaigns)
+- [addItemsCampaignPostByItemId](operations/addItemsCampaignPostByItemId.json) (POST /seller-promotions/items/{item_id})：Add items to a campaign [Official](https://developers.mercadolibre.com.ar/en_us/traditional-campaigns)
+- [addNoteOrder](operations/addNoteOrder.json) (POST /orders/{order_id}/notes)：Add a note to an order [Official](https://developers.mercadolibre.com.ar/en_us/orders-notes)
+- [addRowsSizeCharts](operations/addRowsSizeCharts.json) (POST /catalog/charts/{chart_id}/rows)：Add rows to the size charts [Official](https://developers.mercadolibre.com.ar/en_us/size-guide)
+- [addSellingConditionUserProduct](operations/addSellingConditionUserProduct.json) (POST /user-products/{user_product_id}/items)：Add a selling condition to a User Product [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [addTrackingNumber](operations/addTrackingNumber.json) (PUT /shipments/:shipment_id)：Add tracking number [Official](https://developers.mercadolibre.com.ar/en_us/custom-shipping)
+- [addVariantUpFamily](operations/addVariantUpFamily.json) (POST /user-products-families/{family_id}/user-products)：Add variant (UP) to a family [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [calculatePartialReturnValue](operations/calculatePartialReturnValue.json) (GET /post-purchase/v1/claims/{claim_id}/partial-refund/available-offers)：Calculate partial return value [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [calculateResponseTime](operations/calculateResponseTime.json) (GET /users/{user_id}/questions/response_time)：Calculate response time [Official](https://developers.mercadolibre.com.ar/en_us/manage-questions-and-answers)
+- [checkCrossDomainCompatibility](operations/checkCrossDomainCompatibility.json) (GET /catalog/dumps/domains/{site_id}/compatibilities)：Check cross domain compatibility [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [checkFlexInItem](operations/checkFlexInItem.json) (GET /sites/{site_id}/shipping/selfservice/items/{item_id})：Check Flex in the item [Official](https://developers.mercadolibre.com.ar/en_us/mercado-envios-flex)
+- [checkIfItemHasException](operations/checkIfItemHasException.json) (GET /items/{item_id}/compatibilities/exception)：Check if an item has an exception [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [checkIfPublicationCanBeBilled](operations/checkIfPublicationCanBeBilled.json) (GET /can_invoice/items/{item_idvariations}/{variation_id})：Check if a publication can be billed [Official](https://developers.mercadolibre.com.ar/en_us/sending-tax-data)
+- [checkMultipleEligiblePublications](operations/checkMultipleEligiblePublications.json) (GET /multiget/catalog_listing_eligibility)：Check multiple eligible publications [Official](https://developers.mercadolibre.com.ar/en_us/catalog-eligibility)
+- [checkNumberAvailableMessages](operations/checkNumberAvailableMessages.json) (GET /messages/action_guide/packs/{pack_id}/caps_available)：Check number of available messages [Official](https://developers.mercadolibre.com.ar/en_us/reasons-to-communicate)
+- [checkSellerStock](operations/checkSellerStock.json) (GET /inventories/LCQI05831/stock/fulfillment)：Check the seller's stock [Official](https://developers.mercadolibre.com.ar/en_us/fulfillment)
+- [checkSubscriptionSettings](operations/checkSubscriptionSettings.json) (POST /shipping/flex/sites/{site_id}/configuration/v3)：Check the subscription settings [Official](https://developers.mercadolibre.com.ar/en_us/mercado-envios-flex)
+- [checkUserSubscriptions](operations/checkUserSubscriptions.json) (GET /shipping/flex/sites/{site_id}/users/{user_id}/subscriptions/v1)：Check user's subscriptions [Official](https://developers.mercadolibre.com.ar/en_us/mercado-envios-flex)
+- [countProductsFromDomain](operations/countProductsFromDomain.json) (POST /catalog_compatibilities/products_search/count_family_products)：Count products from a domain [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [createAllowedFields](operations/createAllowedFields.json) (POST /user-products/MLMU3691277914/items)：Allowed fields [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [createAttachmentPost](operations/createAttachmentPost.json) (POST /post-purchase/v1/claims/{claim_id}/attachments)：Attachment post [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [createBlockBidsFromSpecificUser](operations/createBlockBidsFromSpecificUser.json) (POST /users/{cust_id}/order_blacklist)：Block bids from a specific user [Official](https://developers.mercadolibre.com.ar/en_us/orders-notes)
+- [createComponentProductFinder](operations/createComponentProductFinder.json) (POST /users/{seller_id}/kits/components/search)：Component product finder [Official](https://developers.mercadolibre.com.ar/en_us/virtual-kits)
+- [createCopyAndPasteCompatibilities](operations/createCopyAndPasteCompatibilities.json) (POST /items/compatibilities_summary)：Copy and Paste Compatibilities [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [createCustomizedSizeCharts](operations/createCustomizedSizeCharts.json) (POST /catalog/charts)：Create customized size charts [Official](https://developers.mercadolibre.com.ar/en_us/size-guide)
+- [createDeliveryByMail](operations/createDeliveryByMail.json) (POST /post-purchase/v1/claims/{claim_id}/evidences”)：Delivery by mail [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [createDescription](operations/createDescription.json) (POST /catalog_suggestions/${suggestion_id}/description)：Create a description [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [createFamilyEditor](operations/createFamilyEditor.json) (POST /user-products-families/{family_id}/tasks)：Family Editor [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [createHowReportExceptions](operations/createHowReportExceptions.json) (POST /items/{item_id}/compatibilities/exception)：How to report exceptions [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [createIHaveProduct](operations/createIHaveProduct.json) (POST /shipments/{shipment_id}/process/ready_to_ship)：I have the product [Official](https://developers.mercadolibre.com.ar/en_us/packs-management)
+- [createItemMigration](operations/createItemMigration.json) (POST /sites/{site_id}/items/user_product_listings)：Item Migration [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [createItemSynchronization](operations/createItemSynchronization.json) (POST /public/buybox/sync)：Item synchronization [Official](https://developers.mercadolibre.com.ar/en_us/catalog-listing)
+- [createLoadNewResolution](operations/createLoadNewResolution.json) (POST /post-purchase/v1/claims/{claim_id}/expected_resolutions”)：Load a new resolution [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [createLoadShippingEvidence](operations/createLoadShippingEvidence.json) (POST /post-purchase/v1/claims/{claim_id}/actions/evidences)：Load shipping evidence [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [createManageItemsFromExclusionList](operations/createManageItemsFromExclusionList.json) (POST /seller-promotions/exclusion-list/item)：Manage items from the Exclusion List [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [createManageSellersFromExclusionList](operations/createManageSellersFromExclusionList.json) (POST /seller-promotions/exclusion-list/seller)：Manage sellers from the Exclusion List [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [createMessageBuyer](operations/createMessageBuyer.json) (POST /messages/packs/{pack_id}/sellers/{user_id})：Create message for a buyer [Official](https://developers.mercadolibre.com.ar/en_us/messaging-after-sale)
+- [createMessagePostWithAboveAttachment](operations/createMessagePostWithAboveAttachment.json) (POST /post-purchase/v1/claims/{claim_id}/actions/message)：Message post with the above attachment [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [createMultiWarehouseItemCreation](operations/createMultiWarehouseItemCreation.json) (POST /items/multiwarehouse)：Multi-Warehouse Item Creation [Official](https://developers.mercadolibre.com.ar/en_us/multi-origin-stock)
+- [createOfferTotalRefund](operations/createOfferTotalRefund.json) (POST /post-purchase/v1/claims/{claim_id}/expected-resolutions/refund)：Offer total refund [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [createPreviousValidations](operations/createPreviousValidations.json) (POST /catalog_suggestions/validate)：Previous validations [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [createRelistItem](operations/createRelistItem.json) (POST /items/{item_id}/relist)：Relist item [Official](https://developers.mercadolibre.com.ar/en_us/relist-items)
+- [createRespondingFeedback](operations/createRespondingFeedback.json) (POST /feedback/{feedback_id}/reply)：Responding to feedback [Official](https://developers.mercadolibre.com.ar/en_us/feedback-on-sale)
+- [createScenario3](operations/createScenario3.json) (POST /orders/{orderid}/feedback)：Scenario 3 [Official](https://developers.mercadolibre.com.ar/en_us/custom-shipping)
+- [createSizeChartSearch](operations/createSizeChartSearch.json) (POST /catalog/charts/search)：Size chart search [Official](https://developers.mercadolibre.com.ar/en_us/first-steps-mkt)
+- [createStandardAndBrandDomains](operations/createStandardAndBrandDomains.json) (POST /catalog/charts/domains/search)：Standard and Brand domains [Official](https://developers.mercadolibre.com.ar/en_us/first-steps-mkt)
+- [createSuggestion](operations/createSuggestion.json) (POST /catalog_suggestions)：Create a suggestion [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [createTopValues](operations/createTopValues.json) (POST /catalog_domains/MLA-CARS_AND_VANS/attributes/BRAND/top_values)：Top values [Official](https://developers.mercadolibre.com.ar/en_us/domains-products-and-attributes-vehicle-accessories)
+- [createUploadingItemDescription](operations/createUploadingItemDescription.json) (POST /items/{item_id}/description)：Uploading item description [Official](https://developers.mercadolibre.com.ar/en_us/item-description-2)
+- [createVirtualKit](operations/createVirtualKit.json) (POST /items/kits)：Create virtual kit [Official](https://developers.mercadolibre.com.ar/en_us/virtual-kits)
+- [deactivateFlexInItem](operations/deactivateFlexInItem.json) (DELETE /sites/{site_id}/shipping/selfservice/items/{item_id})：Deactivate Flex in the item [Official](https://developers.mercadolibre.com.ar/en_us/mercado-envios-flex)
+- [deactivateProgram](operations/deactivateProgram.json) (PUT /users/reputation/seller_recovery/cancel_guarantee)：Deactivate program [Official](https://developers.mercadolibre.com.ar/en_us/reputation-recovery)
+- [deleteBulkDeleteOffers](operations/deleteBulkDeleteOffers.json) (DELETE /seller-promotions/items/{item_id})：Bulk delete offers [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [deleteByBundleIdVolumes](operations/deleteByBundleIdVolumes.json) (DELETE /soe/bundles/{bundle_id}/volumes)：Call: [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [deleteByIdVolumes](operations/deleteByIdVolumes.json) (DELETE /soe/bundles/{id}/volumes)：Body [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [deleteByItemIdCompatibilities](operations/deleteByItemIdCompatibilities.json) (DELETE /items/{item_id}/compatibilities)：Delete compatibilities [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [deleteCompatibilities](operations/deleteCompatibilities.json) (DELETE /items/{item_id}/compatibilities/{compatibility_id})：Delete compatibilities [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [deleteCompatibilitiesByCompatibilitieId](operations/deleteCompatibilitiesByCompatibilitieId.json) (DELETE /items/{item_id}/compatibilities/4cb9af35-8e9b-ebfd-9e7f-2245ac363d10)：Delete compatibilities [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [deleteInvoices](operations/deleteInvoices.json) (DELETE /packs/{pack_id}/fiscal_documents)：Delete invoices [Official](https://developers.mercadolibre.com.ar/en_us/upload-invoices)
+- [deleteNotes](operations/deleteNotes.json) (DELETE /orders/{order_id}/notes/{note_id})：Delete notes [Official](https://developers.mercadolibre.com.ar/en_us/orders-notes)
+- [deletePromotionsByPromotionId](operations/deletePromotionsByPromotionId.json) (DELETE /seller-promotions/promotions/{promotion_id})：Delete campaign [Official](https://developers.mercadolibre.com.ar/en_us/volume-discount-campaigns)
+- [deleteSellerCouponCampaign](operations/deleteSellerCouponCampaign.json) (DELETE /seller-promotions/promotions/C-MLB1234)：Delete campaign [Official](https://developers.mercadolibre.com.ar/en_us/seller-coupon)
+- [deleteLocalSellerCampaign](operations/deleteLocalSellerCampaign.json) (DELETE /seller-promotions/promotions/C-MLB360923)：Delete campaign [Official](https://developers.mercadolibre.com.ar/en_us/seller-campaigns)
+- [deleteQuestionsByQuestionId](operations/deleteQuestionsByQuestionId.json) (DELETE /questions/{question_id})：Delete questions [Official](https://developers.mercadolibre.com.ar/en_us/manage-questions-and-answers)
+- [deleteVariationsById](operations/deleteVariationsById.json) (DELETE /items/{item_id}/variations/{id})：Delete variations [Official](https://developers.mercadolibre.com.ar/en_us/variations)
+- [findOutIfUserIsEnabledJoinCampaign](operations/findOutIfUserIsEnabledJoinCampaign.json) (GET /special_installments/3x_campaign/sellers/{seller_id})：Find out if the user is enabled to join the campaign [Official](https://developers.mercadolibre.com.ar/en_us/campaigns-with-installments-for-marketplace)
+- [findOutWhichCategoriesCanBeAddedCampaign](operations/findOutWhichCategoriesCanBeAddedCampaign.json) (POST /special_installments/3x_campaign/categories/{category_id}/enabled)：Find out which categories can be added to the campaign [Official](https://developers.mercadolibre.com.ar/en_us/campaigns-with-installments-for-marketplace)
+- [findWhichKitsUpIsAssociatedWith](operations/findWhichKitsUpIsAssociatedWith.json) (GET /user-products/{user_product_id}/bundles)：Find which Kits a UP is associated with [Official](https://developers.mercadolibre.com.ar/en_us/virtual-kits)
+- [getAllCompatibilitiesItem](operations/getAllCompatibilitiesItem.json) (GET /items/{item_id}/compatibilities)：Get all compatibilities for an item [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [getAllMessagesClaim](operations/getAllMessagesClaim.json) (GET /post-purchase/v1/claims/{claim_id}/messages”)：Get all the messages of a claim [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getAttachmentsByAttachId](operations/getAttachmentsByAttachId.json) (GET /post-purchase/v1/claims/{claim_id}/attachments/{attach_id})：Get file's information [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getAttachmentsByAttchmentId](operations/getAttachmentsByAttchmentId.json) (GET /messages/attachments/{attchment_id})：Get attachment [Official](https://developers.mercadolibre.com.ar/en_us/messaging-after-sale)
+- [getAttributesByCategory](operations/getAttributesByCategory.json) (GET /categories/:CATEGORY_ID/attributes)：Attributes by category [Official](https://developers.mercadolibre.com.ar/en_us/domains-products-and-attributes-vehicle-accessories)
+- [getAttributesByDomain](operations/getAttributesByDomain.json) (GET /catalog_domains/{domain_id})：Attributes by domain [Official](https://developers.mercadolibre.com.ar/en_us/domains-products-and-attributes-vehicle-accessories)
+- [getAvailableDomains](operations/getAvailableDomains.json) (GET /catalog_suggestions/domains/{site_id}/available/full)：Available domains [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getAvailableFull](operations/getAvailableFull.json) (GET /catalog_suggestions/domains/MLA/available/full)：Available domains [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getAvailableListingTypeFree](operations/getAvailableListingTypeFree.json) (GET /users/{user_id}/available_listing_type/free)：Available listing types [Official](https://developers.mercadolibre.com.ar/en_us/listing-types-item-upgrades-tutorial)
+- [getAvailableTemplatesAccordingSite](operations/getAvailableTemplatesAccordingSite.json) (GET /messages/action_guide/packs/{pack_id})：Available templates according the site [Official](https://developers.mercadolibre.com.ar/en_us/reasons-to-communicate)
+- [getBestSellersByCategory](operations/getBestSellersByCategory.json) (GET /highlights/MLB/category/{id})：Best sellers by category [Official](https://developers.mercadolibre.com.ar/en_us/best-sellers-in-mercado-libre)
+- [getBillingSummary](operations/getBillingSummary.json) (GET /billing/integration/periods/key/{key}/summary/details)：Billing Summary [Official](https://developers.mercadolibre.com.ar/en_us/billing-reports)
+- [getBrandsById](operations/getBrandsById.json) (GET /users/{user_id}/brands/{id})：Obtain all information about a specific brand [Official](https://developers.mercadolibre.com.ar/en_us/official-store)
+- [getBundlesSearch](operations/getBundlesSearch.json) (GET /soe/bundles/search)：Call: [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [getByAttachIdDownload](operations/getByAttachIdDownload.json) (GET /post-purchase/v1/claims/{claim_id}/attachments/{attach_id}/download)：Download the file [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getByBundleidFile](operations/getByBundleidFile.json) (GET /soe/bundles/{bundleid}/file)：Call: [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [getByBundleIdSummary](operations/getByBundleIdSummary.json) (GET /soe/bundles/{bundle_id}/summary)：Call: [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [getByBundleIdVolumes](operations/getByBundleIdVolumes.json) (GET /soe/bundles/{bundle_id}/volumes)：Call: [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [getByClaimIdAffectsReputation](operations/getByClaimIdAffectsReputation.json) (GET /post-purchase/v1/claims/{claim_id}/affects-reputation)：How to identify if a claim affects the reputation [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getByClaimIdAttachmentsByAttachmentId](operations/getByClaimIdAttachmentsByAttachmentId.json) (GET /post-purchase/v1/claims/{claim_id}/attachments/0f2d81a2-c489-435e-96af-59688ad3d8f4_305860144.jpeg)：Get file's information [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getByClaimIdMessages](operations/getByClaimIdMessages.json) (GET /post-purchase/v1/claims/{claim_id}/messages)：Get all the messages of a claim [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getByCompatibilityIdNote](operations/getByCompatibilityIdNote.json) (GET /items/{item_id}/compatibilities/{compatibility_id}/note)：Obtain a compatibility note [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [getByDomainIdShippingAttributes](operations/getByDomainIdShippingAttributes.json) (GET /catalog_domains/{domain_id}/shipping_attributes)：Query Shipping Attributes by Domain [Official](https://developers.mercadolibre.com.ar/en_us/ship-products)
+- [getByIdPerformance](operations/getByIdPerformance.json) (GET /item/{id}/performance)：Quality detail per item [Official](https://developers.mercadolibre.com.ar/en_us/listings-quality)
+- [getByIdSummary](operations/getByIdSummary.json) (GET /soe/bundles/{id}/summary)：Required query parameters [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [getByIdUserProducts](operations/getByIdUserProducts.json) (GET /user-products-families/{id}/user-products)：Get Family variants [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [getByIdValidations](operations/getByIdValidations.json) (GET /catalog_suggestions/{id}/validations)：Get validations results [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getByIdVolumes](operations/getByIdVolumes.json) (GET /soe/bundles/{id}/volumes)：Required query parameters [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [getByIdVolumesSearch](operations/getByIdVolumesSearch.json) (GET /soe/bundles/{id}/volumes/search)：Required query parameters [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [getByIdWorkingDayMiddleend](operations/getByIdWorkingDayMiddleend.json) (GET /shipping/seller/{id}/working_day_middleend)：List non-working days [Official](https://developers.mercadolibre.com.ar/en_us/non-working-days)
+- [getByInventoryIdStockFulfillment](operations/getByInventoryIdStockFulfillment.json) (GET /inventories/{inventory_id}/stock/fulfillment)：Check the seller's stock [Official](https://developers.mercadolibre.com.ar/en_us/fulfillment)
+- [getByItemIdAvailableDowngrades](operations/getByItemIdAvailableDowngrades.json) (GET /items/{item_id}/available_downgrades)：Available downgrades for a listing [Official](https://developers.mercadolibre.com.ar/en_us/listing-types-item-upgrades-tutorial)
+- [getByItemIdAvailableListingTypes](operations/getByItemIdAvailableListingTypes.json) (GET /items/{item_id}/available_listing_types)：Available transactions for a listing [Official](https://developers.mercadolibre.com.ar/en_us/listing-types-item-upgrades-tutorial)
+- [getByItemIdAvailableUpgrades](operations/getByItemIdAvailableUpgrades.json) (GET /items/{item_id}/available_upgrades)：Available upgrades for a listing [Official](https://developers.mercadolibre.com.ar/en_us/listing-types-item-upgrades-tutorial)
+- [getByItemIdMigrationLiveListing](operations/getByItemIdMigrationLiveListing.json) (GET /items/{item_id}/migration_live_listing)：Migration Status [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [getByItemIdPurchaseExperienceIntegrators](operations/getByItemIdPurchaseExperienceIntegrators.json) (GET /reputation/items/{item_id}/purchase_experience/integrators)：Shopping experience [Official](https://developers.mercadolibre.com.ar/en_us/shopping-experience-marketplace)
+- [getByItemIdVariationsByVariationId](operations/getByItemIdVariationsByVariationId.json) (GET /can_invoice/items/{item_id}/variations/{variation_id})：Check if a publication can be billed [Official](https://developers.mercadolibre.com.ar/en_us/sending-tax-data)
+- [getByItemOriginalMigrationLiveListing](operations/getByItemOriginalMigrationLiveListing.json) (GET /items/{item_original}/migration_live_listing)：Migration Status [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [getByKeyDocuments](operations/getByKeyDocuments.json) (GET /billing/integration/periods/key/{key}/documents)：Optional parameters [Official](https://developers.mercadolibre.com.ar/en_us/billing-reports)
+- [getByNetworkNodeIdProcessingTimeMiddleend](operations/getByNetworkNodeIdProcessingTimeMiddleend.json) (GET /nodes/{network_node_id}/processing_time_middleend)：Request by NODE_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getByNodeIdCapacityMiddleend](operations/getByNodeIdCapacityMiddleend.json) (GET /nodes/{node_id}/capacity_middleend)：Request by NODE_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getByOrderIdBillingInfo](operations/getByOrderIdBillingInfo.json) (GET /orders/{order_id}/billing_info)：Query billing data [Official](https://developers.mercadolibre.com.ar/en_us/billing-data)
+- [getByPackIdSellersBySellerId](operations/getByPackIdSellersBySellerId.json) (GET /messages/packs/{pack_id}/sellers/{seller_id})：Mark messages as read [Official](https://developers.mercadolibre.com.ar/en_us/pending-messages)
+- [getByPeriodDocuments](operations/getByPeriodDocuments.json) (GET /billing/integration/periods/key/2021-06-01/documents)：Optional parameters [Official](https://developers.mercadolibre.com.ar/en_us/billing-reports)
+- [getByPictureIdErrors](operations/getByPictureIdErrors.json) (GET /pictures/{picture_id}/errors)：Check possible errors [Official](https://developers.mercadolibre.com.ar/en_us/working-with-pictures)
+- [getByReasonIdChildren](operations/getByReasonIdChildren.json) (GET /post-purchase/v1/reasons/{reason_id}/children”)：Get details of the reason why the claim was filed [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getByResourceIdCapacityMiddleend](operations/getByResourceIdCapacityMiddleend.json) (GET /nodes/MXP20214899242/capacity_middleend)：Request by NODE_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getByResourceIdDownload](operations/getByResourceIdDownload.json) (GET /post-purchase/v1/claims/{claim_id}/attachments/0f2d81a2-c489-435e-96af-59688ad3d8f4_305860144.jpeg/download)：Download the file [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getByResourceIdFile](operations/getByResourceIdFile.json) (GET /soe/bundles/789/file)：Required query parameters [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [getByResourceIdPerformance](operations/getByResourceIdPerformance.json) (GET /user-product/MLAU395977691/performance)：Quality detail per User Product [Official](https://developers.mercadolibre.com.ar/en_us/listings-quality)
+- [getByResourceIdProcessingTimeMiddleend](operations/getByResourceIdProcessingTimeMiddleend.json) (GET /nodes/MXP20157465171/processing_time_middleend)：Request by NODE_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getByResourceIdPurchaseExperienceIntegrators](operations/getByResourceIdPurchaseExperienceIntegrators.json) (GET /reputation/users_products/MLAU1391786841/purchase_experience/integrators)：Call [Official](https://developers.mercadolibre.com.ar/en_us/shopping-experience-marketplace)
+- [getByResourceIdShippingOptions](operations/getByResourceIdShippingOptions.json) (GET /items/MCO415774919/shipping_options)：Shipping costs over Item and city on MCO [Official](https://developers.mercadolibre.com.ar/en_us/calculate-shipping-costs-handling-time)
+- [getByResourceIdVisitsTimeWindow](operations/getByResourceIdVisitsTimeWindow.json) (GET /items/MCO471870973/visits/time_window)：Dated visits by item [Official](https://developers.mercadolibre.com.ar/en_us/visits-resource)
+- [getByShipmentIdCarrier](operations/getByShipmentIdCarrier.json) (GET /shipments/{shipment_id}/carrier)：Carrier information [Official](https://developers.mercadolibre.com.ar/en_us/shipment-handling)
+- [getByShipmentIdHistory](operations/getByShipmentIdHistory.json) (GET /shipments/{shipment_id}/history)：History [Official](https://developers.mercadolibre.com.ar/en_us/shipment-handling)
+- [getBySiteIdByCategoryId](operations/getBySiteIdByCategoryId.json) (GET /trends/{site_id}/{category_id})：Search for trends by country and category [Official](https://developers.mercadolibre.com.ar/en_us/trends)
+- [getBySiteIdListingExposuresByExposureLevel](operations/getBySiteIdListingExposuresByExposureLevel.json) (GET /sites/{site_id}/listing_exposures/{exposure_level})：Listing exposures [Official](https://developers.mercadolibre.com.ar/en_us/listing-types-item-upgrades-tutorial)
+- [getBySiteIdListingExposuresHigh](operations/getBySiteIdListingExposuresHigh.json) (GET /sites/{site_id}/listing_exposures/high)：Listing exposures [Official](https://developers.mercadolibre.com.ar/en_us/listing-types-item-upgrades-tutorial)
+- [getBySiteIdListingTypesByListingTypeId](operations/getBySiteIdListingTypesByListingTypeId.json) (GET /sites/{site_id}/listing_types/{listing_type_id})：Listing type specification [Official](https://developers.mercadolibre.com.ar/en_us/listing-types-item-upgrades-tutorial)
+- [getLocalStoreBrandDetails](operations/getLocalStoreBrandDetails.json) (GET /users/{user_id}/brands/aaaaa)：Obtain all information about a specific brand [Official](https://developers.mercadolibre.com.ar/en_us/official-store)
+- [getByUserIdBrandsByBrandId](operations/getByUserIdBrandsByBrandId.json) (GET /users/{user_id}/brands/133)：Obtain all information about a specific brand [Official](https://developers.mercadolibre.com.ar/en_us/official-store)
+- [getCanInvoiceItemsByItemId](operations/getCanInvoiceItemsByItemId.json) (GET /can_invoice/items/{item_id})：Check if a publication can be billed [Official](https://developers.mercadolibre.com.ar/en_us/sending-tax-data)
+- [getCapacityMiddleendByLogisticType](operations/getCapacityMiddleendByLogisticType.json) (GET /users/{user_id}/capacity_middleend/{logistic_type})：Request by USER_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getCapacityMiddleendCrossDocking](operations/getCapacityMiddleendCrossDocking.json) (GET /users/{user_id}/capacity_middleend/cross_docking)：Request by USER_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getCatalogDomainsMlaCarsAndVans](operations/getCatalogDomainsMlaCarsAndVans.json) (GET /catalog_domains/MLA-CARS_AND_VANS)：Attributes by domain [Official](https://developers.mercadolibre.com.ar/en_us/domains-products-and-attributes-vehicle-accessories)
+- [getCategoriesWithImmediatePayment](operations/getCategoriesWithImmediatePayment.json) (GET /sites/categories/{category_id})：Categories with immediate payment [Official](https://developers.mercadolibre.com.ar/en_us/list-products)
+- [getCategoryByCategoryId](operations/getCategoryByCategoryId.json) (GET /highlights/{site_id}/category/{category_id})：Best sellers by category [Official](https://developers.mercadolibre.com.ar/en_us/best-sellers-in-mercado-libre)
+- [getChartsById](operations/getChartsById.json) (GET /catalog/charts/{id})：Consult a size guide [Official](https://developers.mercadolibre.com.ar/en_us/size-guide)
+- [getClaimEvidence](operations/getClaimEvidence.json) (GET /post-purchase/v1/claims/{claim_id}/evidences”)：Get claim evidence [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getClaimsByClaimId](operations/getClaimsByClaimId.json) (GET /post-purchase/v1/claims/950700111”)：See message details [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [listLocalSellerCampaignItems](operations/listLocalSellerCampaignItems.json) (GET /seller-promotions/promotions/C-MLB300/items)：Query items in a campaign [Official](https://developers.mercadolibre.com.ar/en_us/seller-campaigns)
+- [getConfigurationsActiveDomains](operations/getConfigurationsActiveDomains.json) (GET /catalog/charts/{site_id}/configurations/active_domains)：Available domains for size chart [Official](https://developers.mercadolibre.com.ar/en_us/first-steps-mkt)
+- [getConsultDelayedShipments](operations/getConsultDelayedShipments.json) (GET /shipments/{shipment_id}/delays)：Consult delayed shipments [Official](https://developers.mercadolibre.com.ar/en_us/shipment-handling)
+- [getConsultFeedback](operations/getConsultFeedback.json) (GET /feedback/{feedback_id})：Consult feedback [Official](https://developers.mercadolibre.com.ar/en_us/feedback-on-sale)
+- [getConsultPackOrders](operations/getConsultPackOrders.json) (GET /packs/{pack_id})：Consult pack orders [Official](https://developers.mercadolibre.com.ar/en_us/packs-management)
+- [getConsultReturn](operations/getConsultReturn.json) (GET /post-purchase/v2/claims/{claim_id}/returns)：Consult a return [Official](https://developers.mercadolibre.com.ar/en_us/ml-returns)
+- [getConsultShipments](operations/getConsultShipments.json) (GET /shipments/shipment_id)：Consult shipments [Official](https://developers.mercadolibre.com.ar/en_us/shipment-handling)
+- [getConsultSizeGuide](operations/getConsultSizeGuide.json) (GET /catalog/charts/{chart_id})：Consult a size guide [Official](https://developers.mercadolibre.com.ar/en_us/size-guide)
+- [getCurrentSalesPrice](operations/getCurrentSalesPrice.json) (GET /items/{item_id}/sale_price)：Get current sales price [Official](https://developers.mercadolibre.com.ar/en_us/price-apl)
+- [getDeliveryByEmail](operations/getDeliveryByEmail.json) (GET /post-purchase/v1/claims/{claim_id}/status_history”)：Delivery by email [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getDeliveryPromiseType](operations/getDeliveryPromiseType.json) (GET /shipments/shipment_id/lead_time)：Delivery promise type [Official](https://developers.mercadolibre.com.ar/en_us/calculate-shipping-costs-handling-time)
+- [getDetailsReasonWhyClaimWasFiled](operations/getDetailsReasonWhyClaimWasFiled.json) (GET /post-purchase/v1/reasons/PDD2/children”)：Get details of the reason why the claim was filed [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getDiscountsAppliedSale](operations/getDiscountsAppliedSale.json) (GET /orders/{order_id}/discounts)：Get discounts applied to a sale [Official](https://developers.mercadolibre.com.ar/en_us/manage-sales)
+- [getDomainsByDomainIdTechnicalSpecs](operations/getDomainsByDomainIdTechnicalSpecs.json) (GET /domains/{domain_id}/technical_specs)：Check product specification sheet of domain [Official](https://developers.mercadolibre.com.ar/en_us/first-steps-mkt)
+- [getDomainTechnicalData](operations/getDomainTechnicalData.json) (GET /domains/{domain_id}/techincal_specs)：Domain technical data [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getExtendedCheck](operations/getExtendedCheck.json) (GET /items/{item_id}/compatibilities/extended/check)：Identifying if an item has notes or restrictions position [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [getFamily](operations/getFamily.json) (GET /user-products-families/{family_id})：Get Family [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [getFamilyEditor](operations/getFamilyEditor.json) (GET /user-products-families/tasks/{task_id})：Family Editor [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [getFamilyVariants](operations/getFamilyVariants.json) (GET /user-products-families/{family_id}/user-products)：Get Family variants [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [getFeedbackById](operations/getFeedbackById.json) (GET /feedback/{id})：Consult feedback [Official](https://developers.mercadolibre.com.ar/en_us/feedback-on-sale)
+- [getFilterByPrice](operations/getFilterByPrice.json) (GET /sites/{site}/listing_prices)：Filter by price [Official](https://developers.mercadolibre.com.ar/en_us/fees-for-listing)
+- [getFiscalDocumentsByDocumentId](operations/getFiscalDocumentsByDocumentId.json) (GET /packs/{pack_id}/fiscal_documents/415460047_a96d8dea-38cd-4402-938e-80a1c134fc5d)：Obtain invoices [Official](https://developers.mercadolibre.com.ar/en_us/upload-invoices)
+- [getFulfillmentOperationsSearch](operations/getFulfillmentOperationsSearch.json) (GET /stock/fulfillment/operations/search)：Parameters [Official](https://developers.mercadolibre.com.ar/en_us/fulfillment)
+- [getIdentifyCompatibilitiesThatGenerateComplaints](operations/getIdentifyCompatibilitiesThatGenerateComplaints.json) (GET /compats-snapshots/orders/{order_id})：Identify compatibilities that generate complaints [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [getItemDescription](operations/getItemDescription.json) (GET /items/{item_id}/description)：Get item description [Official](https://developers.mercadolibre.com.ar/en_us/item-description-2)
+- [getItemEligibilityUptin](operations/getItemEligibilityUptin.json) (GET /items/{item_original}/user_product_listings/validate)：Item Eligibility - UPTIN [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [getItemPosition](operations/getItemPosition.json) (GET /highlights/{site_id}/item/{item_id})：Item position [Official](https://developers.mercadolibre.com.ar/en_us/best-sellers-in-mercado-libre)
+- [getItemsAssociatedWithShipment](operations/getItemsAssociatedWithShipment.json) (GET /shipments/shipment_id/items)：Items associated with a shipment [Official](https://developers.mercadolibre.com.ar/en_us/shipment-handling)
+- [getItemStock](operations/getItemStock.json) (GET /user-products/MLAU12345678/stock)：Get an item's stock [Official](https://developers.mercadolibre.com.ar/en_us/full-and-flex-coexistence)
+- [getItemSynchronizationQuery](operations/getItemSynchronizationQuery.json) (GET /public/buybox/sync/{item_id})：Item synchronization query [Official](https://developers.mercadolibre.com.ar/en_us/catalog-listing)
+- [getKitItemPriceConfiguration](operations/getKitItemPriceConfiguration.json) (GET /items/{item_id}/bundle/prices_configuration)：Get a Kit item’s price configuration [Official](https://developers.mercadolibre.com.ar/en_us/virtual-kits)
+- [getListingTypesGoldSpecial](operations/getListingTypesGoldSpecial.json) (GET /sites/{site_id}/listing_types/gold_special)：Listing type specification [Official](https://developers.mercadolibre.com.ar/en_us/listing-types-item-upgrades-tutorial)
+- [getMessagesAttachmentsByAttachmentId](operations/getMessagesAttachmentsByAttachmentId.json) (GET /messages/attachments/76601286_5946e4c4-168a-45fd-945e-b8f0c306c58d.png)：Get attachment [Official](https://developers.mercadolibre.com.ar/en_us/messaging-after-sale)
+- [getMessagesById](operations/getMessagesById.json) (GET /messages/{message_id})：Get messages by ID [Official](https://developers.mercadolibre.com.ar/en_us/messaging-after-sale)
+- [getMlaCellphonesTechnicalSpecs](operations/getMlaCellphonesTechnicalSpecs.json) (GET /domains/MLA-CELLPHONES/technical_specs)：Domain technical data [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getMlaCellphonesTechnicalSpecsInput](operations/getMlaCellphonesTechnicalSpecsInput.json) (GET /domains/MLA-CELLPHONES/technical_specs/input)：Input [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getMlaProductById](operations/getMlaProductById.json) (GET /highlights/MLA/product/{id})：Product position [Official](https://developers.mercadolibre.com.ar/en_us/best-sellers-in-mercado-libre)
+- [getMlaSneakersTechnicalSpecs](operations/getMlaSneakersTechnicalSpecs.json) (GET /domains/MLA-SNEAKERS/technical_specs)：Check product specification sheet of domain [Official](https://developers.mercadolibre.com.ar/en_us/first-steps-mkt)
+- [getMlbAutomotiveTiresShippingAttributes](operations/getMlbAutomotiveTiresShippingAttributes.json) (GET /catalog_domains/MLB-AUTOMOTIVE_TIRES/shipping_attributes)：Required attributes by domain [Official](https://developers.mercadolibre.com.ar/en_us/mercadoenvios-mode-2)
+- [getMlbCompatibilities](operations/getMlbCompatibilities.json) (GET /catalog/dumps/domains/MLB/compatibilities)：Check cross domain compatibility [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [getMlbItemById](operations/getMlbItemById.json) (GET /highlights/MLB/item/{id})：Item position [Official](https://developers.mercadolibre.com.ar/en_us/best-sellers-in-mercado-libre)
+- [getMonthlyPeriods](operations/getMonthlyPeriods.json) (GET /billing/integration/monthly/periods)：Required parameter [Official](https://developers.mercadolibre.com.ar/en_us/billing-reports)
+- [getNumberSuggestionsAndComplaints](operations/getNumberSuggestionsAndComplaints.json) (POST /catalog_domains/MLB-CARS_AND_VANS/compatibilities/cards)：Get the number of suggestions and complaints [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [getOfferingMe2OnYourProducts](operations/getOfferingMe2OnYourProducts.json) (GET /categories/MCO7159/shipping_preferences)：Offering ME2 on your products [Official](https://developers.mercadolibre.com.ar/en_us/mercadoenvios-mode-2)
+- [getOffersByOffersId](operations/getOffersByOffersId.json) (GET /seller-promotions/offers/{offers_id})：Query offers [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [getPacksByPackIdSellersBySellerId](operations/getPacksByPackIdSellersBySellerId.json) (GET /messages/packs/{pack_id}/sellers/415458330&limit=2&offset=1)：Get messages by pack [Official](https://developers.mercadolibre.com.ar/en_us/messaging-after-sale)
+- [getPendingMessagesFilteredByResource](operations/getPendingMessagesFilteredByResource.json) (GET /messages/unread/{resource})：Pending messages filtered by resource [Official](https://developers.mercadolibre.com.ar/en_us/pending-messages)
+- [getPicturesByPictureIdErrors](operations/getPicturesByPictureIdErrors.json) (GET /pictures/970736-MLU11111111111_092017/errors)：Check possible errors [Official](https://developers.mercadolibre.com.ar/en_us/working-with-pictures)
+- [listPreNegotiatedCampaignItems](operations/listPreNegotiatedCampaignItems.json) (GET /seller-promotions/promotions/P-MLB12345/items)：Query items in a campaign [Official](https://developers.mercadolibre.com.ar/en_us/pre-negotiated-discount-per-item)
+- [getPositionRestrictions](operations/getPositionRestrictions.json) (GET /catalog_compatibilities/restrictions/values)：Get position restrictions [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [getProcessingTimeMiddleendByLogisticType](operations/getProcessingTimeMiddleendByLogisticType.json) (GET /shipping/users/{user_id}/processing_time_middleend/{logistic_type})：Request by USER_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getProcessingTimeMiddleendCrossDocking](operations/getProcessingTimeMiddleendCrossDocking.json) (GET /shipping/users/{user_id}/processing_time_middleend/cross_docking)：Request by USER_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getProductDetail](operations/getProductDetail.json) (GET /products/{product_id})：Product detail [Official](https://developers.mercadolibre.com.ar/en_us/products-search)
+- [getProductPosition](operations/getProductPosition.json) (GET /highlights/{site_id}/product/{product_id})：Product position [Official](https://developers.mercadolibre.com.ar/en_us/best-sellers-in-mercado-libre)
+- [getProductWarranty](operations/getProductWarranty.json) (GET /categories/{category_id}/sale_terms)：Product warranty [Official](https://developers.mercadolibre.com.ar/en_us/list-products)
+- [getProgramDetails](operations/getProgramDetails.json) (GET /users/reputation/seller_recovery/status)：Get program details [Official](https://developers.mercadolibre.com.ar/en_us/reputation-recovery)
+- [getSellerCouponCampaignDetails](operations/getSellerCouponCampaignDetails.json) (GET /seller-promotions/promotions/C-MLB300)：Query campaign details [Official](https://developers.mercadolibre.com.ar/en_us/seller-coupon)
+- [getLocalSellerCampaignDetails](operations/getLocalSellerCampaignDetails.json) (GET /seller-promotions/promotions/C-MLB302)：Query campaign details [Official](https://developers.mercadolibre.com.ar/en_us/seller-campaigns)
+- [getPreNegotiatedCampaignDetailsBrazil](operations/getPreNegotiatedCampaignDetailsBrazil.json) (GET /seller-promotions/promotions/P-MLB12345)：Query campaign details [Official](https://developers.mercadolibre.com.ar/en_us/pre-negotiated-discount-per-item)
+- [getPreNegotiatedCampaignDetailsMexico](operations/getPreNegotiatedCampaignDetailsMexico.json) (GET /seller-promotions/promotions/P-MLM394001)：Query campaign details [Official](https://developers.mercadolibre.com.ar/en_us/pre-negotiated-discount-per-item)
+- [getPublicationEligibilityWithCatalogProductId](operations/getPublicationEligibilityWithCatalogProductId.json) (GET /items/{item_id}/catalog_listing_eligibility)：Publication eligibility with catalog_product_id [Official](https://developers.mercadolibre.com.ar/en_us/catalog-eligibility)
+- [getPurchaseExperienceIntegrators](operations/getPurchaseExperienceIntegrators.json) (GET /reputation/user_products/{up_id}/purchase_experience/integrators)：Call [Official](https://developers.mercadolibre.com.ar/en_us/shopping-experience-marketplace)
+- [getQualityDetailPerItem](operations/getQualityDetailPerItem.json) (GET /item/{item_id}/performance)：Quality detail per item [Official](https://developers.mercadolibre.com.ar/en_us/listings-quality)
+- [getQualityDetailPerUserProduct](operations/getQualityDetailPerUserProduct.json) (GET /user-product/$USER-PRODUCT-ID/performance)：Quality detail per User Product [Official](https://developers.mercadolibre.com.ar/en_us/listings-quality)
+- [getRecognizeProductsPreviously](operations/getRecognizeProductsPreviously.json) (GET /items/{item_id}/catalog_forewarning/date)：Recognize products previously [Official](https://developers.mercadolibre.com.ar/en_us/catalog-required-listings)
+- [getReviewsItemById](operations/getReviewsItemById.json) (GET /reviews/item/{id})：Optional query parameters [Official](https://developers.mercadolibre.com.ar/en_us/products-reviews)
+- [getReviewsItemByItemId](operations/getReviewsItemByItemId.json) (GET /reviews/item/{item_id})：Functional flow [Official](https://developers.mercadolibre.com.ar/en_us/products-reviews)
+- [getScheduleByLogisticType](operations/getScheduleByLogisticType.json) (GET /nodes/{network_node_id}/schedule/{logistic_type})：Request by NODE_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getScheduleCrossDocking](operations/getScheduleCrossDocking.json) (GET /users/{user_id}/shipping/schedule/cross_docking)：Request by USER_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getScheduleXdDropOff](operations/getScheduleXdDropOff.json) (GET /nodes/MXP20157465171/schedule/xd_drop_off)：Request by NODE_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getSeeMessageDetails](operations/getSeeMessageDetails.json) (GET /post-purchase/v1/claims/{claim_id}”)：See message details [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getSeeOrderNotes](operations/getSeeOrderNotes.json) (GET /orders/{order_id}/notes)：See order notes [Official](https://developers.mercadolibre.com.ar/en_us/orders-notes)
+- [getSeeParticipantsExpectedResolutions](operations/getSeeParticipantsExpectedResolutions.json) (GET /post-purchase/v1/claims/{claim_id}/expected_resolutions”)：See participants expected resolutions [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getSellerPromotions](operations/getSellerPromotions.json) (GET /seller-promotions/users/{user_id})：Seller promotions [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [getSellerPromotionsByPromotionIdItems](operations/getSellerPromotionsByPromotionIdItems.json) (GET /seller-promotions/P-MLB2087012/items)：Query items in a campaign [Official](https://developers.mercadolibre.com.ar/en_us/smart-campaigns)
+- [getSellerRecoveryLegalDocument](operations/getSellerRecoveryLegalDocument.json) (GET /users/reputation/seller_recovery/legal-document)：Mandatory parameter [Official](https://developers.mercadolibre.com.ar/en_us/reputation-recovery)
+- [getSellersBySellerId](operations/getSellersBySellerId.json) (GET /marketplace/messages/packs/{pack_id}/sellers/{seller_id})：Mark messages as read [Official](https://developers.mercadolibre.com.ar/en_us/pending-messages)
+- [getSellersByUserId](operations/getSellersByUserId.json) (GET /messages/packs/{pack_id}/sellers/{user_id})：Get messages by pack [Official](https://developers.mercadolibre.com.ar/en_us/messaging-after-sale)
+- [getShipmentStatuses](operations/getShipmentStatuses.json) (GET /shipment_statuses)：Status and substatus information [Official](https://developers.mercadolibre.com.ar/en_us/shipment-handling)
+- [getShippingCosts](operations/getShippingCosts.json) (GET /shipments/{shipment_id}/costs)：Shipping costs [Official](https://developers.mercadolibre.com.ar/en_us/shipment-handling)
+- [getShippingPayment](operations/getShippingPayment.json) (GET /shipments/{shipment_id}/payments)：Shipping payment [Official](https://developers.mercadolibre.com.ar/en_us/shipment-handling)
+- [getShippingScheduleByLogisticType](operations/getShippingScheduleByLogisticType.json) (GET /users/{user_id}/shipping/schedule/{logistic_type})：Request by USER_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [getSitesBySiteIdListingTypes](operations/getSitesBySiteIdListingTypes.json) (GET /sites/{site_id}/listing_types)：Listing types by site [Official](https://developers.mercadolibre.com.ar/en_us/listing-types-item-upgrades-tutorial)
+- [getSpecificCompatibilityItemByItsId](operations/getSpecificCompatibilityItemByItsId.json) (GET /items/{item_id}/compatibilities/{compatibility_id})：Get a specific compatibility of an item by its id [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [getStockDetails](operations/getStockDetails.json) (GET /user-products/MLAU123456789/stock)：Get Stock Details [Official](https://developers.mercadolibre.com.ar/en_us/distributed-stock)
+- [getSuggestion](operations/getSuggestion.json) (GET /catalog_suggestions/{id})：Get a suggestion [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getSuggestionsQuota](operations/getSuggestionsQuota.json) (GET /catalog_suggestions/users/{user_id}/quota)：Suggestions quota [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getSummaryDetails](operations/getSummaryDetails.json) (GET /billing/integration/periods/key/2023-10-01/summary/details)：Billing Summary [Official](https://developers.mercadolibre.com.ar/en_us/billing-reports)
+- [getTasksByTaskId](operations/getTasksByTaskId.json) (GET /user-products-families/tasks/{task_id})：Request considerations [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [getTechincalSpecsInput](operations/getTechincalSpecsInput.json) (GET /domains/{domain_id}/techincal_specs/input)：Input [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getTechincalSpecsOutput](operations/getTechincalSpecsOutput.json) (GET /domains/{domain_id}/techincal_specs/output)：Output [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getTechnicalSpecsOutput](operations/getTechnicalSpecsOutput.json) (GET /domains/MLA-CELLPHONES/technical_specs/output)：Output [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getTotalVisitsByArticle](operations/getTotalVisitsByArticle.json) (GET /visits/items)：Total visits by article [Official](https://developers.mercadolibre.com.ar/en_us/visits-resource)
+- [getTrendsMla](operations/getTrendsMla.json) (GET /trends/MLA)：Search for trends by country [Official](https://developers.mercadolibre.com.ar/en_us/trends)
+- [getUnreadPacksByPackIdSellersBySellerId](operations/getUnreadPacksByPackIdSellersBySellerId.json) (GET /messages/unread/packs/{pack_id}/sellers/{seller_id})：Pending messages filtered by resource [Official](https://developers.mercadolibre.com.ar/en_us/pending-messages)
+- [getUseModes](operations/getUseModes.json) (GET /messages/unread)：Use modes [Official](https://developers.mercadolibre.com.ar/en_us/pending-messages)
+- [getUserProductListingsValidate](operations/getUserProductListingsValidate.json) (GET /items/{item_id}/user_product_listings/validate)：Item Eligibility - UPTIN [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [getUserProductsByUserProductId](operations/getUserProductsByUserProductId.json) (GET /user-products/{user_product_id})：Query a User Product [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [getUserProductsFamiliesById](operations/getUserProductsFamiliesById.json) (GET /user-products-families/{id})：Get Family [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [getUsersValidate](operations/getUsersValidate.json) (GET /soe/bundles/users/validate)：Call: [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [getV1ClaimsSearch](operations/getV1ClaimsSearch.json) (GET /post-purchase/v1/claims/search)：Claims search [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [getValidationsResults](operations/getValidationsResults.json) (GET /catalog_suggestions/{suggestion_id}/validations)：Get validations results [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [getVariationsById](operations/getVariationsById.json) (GET /items/{item_id}/variations/{id})：Query variations [Official](https://developers.mercadolibre.com.ar/en_us/variations)
+- [getVariationsByVariationId](operations/getVariationsByVariationId.json) (GET /items/{item_id}/variations/{variation_id})：Query variations [Official](https://developers.mercadolibre.com.ar/en_us/variations)
+- [getVolumesSearch](operations/getVolumesSearch.json) (GET /soe/bundles/{bundle_id}/volumes/search)：Call: [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [listNonWorkingDays](operations/listNonWorkingDays.json) (GET /shipping/seller/{seller_id}/working_day_middleend)：List non-working days [Official](https://developers.mercadolibre.com.ar/en_us/non-working-days)
+- [listSuggestions](operations/listSuggestions.json) (GET /catalog_suggestions/users/{userid}/suggestions/search)：List suggestions [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [localItemsCatalogListings](operations/localItemsCatalogListings.json) (POST /items/catalog_listings)：Variations [Official](https://developers.mercadolibre.com.ar/en_us/catalog-listing)
+- [localProductsSearch](operations/localProductsSearch.json) (GET /products/search)：Parameters [Official](https://developers.mercadolibre.com.ar/en_us/products-search)
+- [localQueryCampaignDetails](operations/localQueryCampaignDetails.json) (GET /seller-promotions/promotions/P-MLB35280024)：Query campaign details [Official](https://developers.mercadolibre.com.ar/en_us/smart-campaigns)
+- [localSellerPromotionsPromotionsByPromotionId](operations/localSellerPromotionsPromotionsByPromotionId.json) (GET /seller-promotions/promotions/P-MLB1806015)：Query campaign details [Official](https://developers.mercadolibre.com.ar/en_us/co-funded-campaigns)
+- [localSellerPromotionsPromotionsByPromotionIdItems](operations/localSellerPromotionsPromotionsByPromotionIdItems.json) (GET /seller-promotions/promotions/{promotion_id}/items)：Filters [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [managePromotionGetSellerPromotionsPromotionsByPromotionIdItems](operations/managePromotionGetSellerPromotionsPromotionsByPromotionIdItems.json) (GET /seller-promotions/promotions/P-MLB13451002MLB9377/items)：Pagination [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [markOrderAsDispatched](operations/markOrderAsDispatched.json) (POST /shipments/{shipment_id}/seller_notifications)：Mark order as dispatched [Official](https://developers.mercadolibre.com.ar/en_us/me1-order-states)
+- [modifyDescription](operations/modifyDescription.json) (PUT /catalog_suggestions/{suggestion_id}/description)：Modify a description [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [modifyItems](operations/modifyItems.json) (PUT /seller-promotions/items/{item_id})：Modify items [Official](https://developers.mercadolibre.com.ar/en_us/traditional-campaigns)
+- [modifyItemStock](operations/modifyItemStock.json) (PUT /user-products/{user_product_id}/stock/type/selling_address)：Modify an item's stock [Official](https://developers.mercadolibre.com.ar/en_us/full-and-flex-coexistence)
+- [modifyKitItemAutomaticPrice](operations/modifyKitItemAutomaticPrice.json) (PUT /items/{item_id}/bundle/prices_configuration)：Modify a Kit item’s automatic price [Official](https://developers.mercadolibre.com.ar/en_us/virtual-kits)
+- [modifyNote](operations/modifyNote.json) (PUT /orders/{order_id}/notes/{note})：Modify a note [Official](https://developers.mercadolibre.com.ar/en_us/orders-notes)
+- [modifyRowInSizeCharts](operations/modifyRowInSizeCharts.json) (PUT /catalog/charts/{id}/rows/1)：Modify row in size charts [Official](https://developers.mercadolibre.com.ar/en_us/size-guide)
+- [modifySizeCharts](operations/modifySizeCharts.json) (PUT /catalog/charts/5)：Modify size charts [Official](https://developers.mercadolibre.com.ar/en_us/size-guide)
+- [modifySuggestion](operations/modifySuggestion.json) (PUT /catalog_suggestions/{suggestion_id})：Modify a suggestion [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [obtainCompatibilityNote](operations/obtainCompatibilityNote.json) (GET /items/{item_id}/compatibilities/bcbd413f-cd65-0e0f-88c9-5eb4aebb5372/note)：Obtain a compatibility note [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [obtainInvoices](operations/obtainInvoices.json) (GET /packs/{pack_id}/fiscal_documents/{fiscal_document_id})：Obtain invoices [Official](https://developers.mercadolibre.com.ar/en_us/upload-invoices)
+- [obtainInvoicesIDs](operations/obtainInvoicesIDs.json) (GET /packs/{pack_id}/fiscal_documents)：Obtain invoices IDs [Official](https://developers.mercadolibre.com.ar/en_us/upload-invoices)
+- [post4Rows](operations/post4Rows.json) (POST /catalog/charts/4/rows)：Add rows to the size charts [Official](https://developers.mercadolibre.com.ar/en_us/size-guide)
+- [postBundlesLabel](operations/postBundlesLabel.json) (POST /soe/bundles/label)：Call: [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [postByCategoryIdEnabled](operations/postByCategoryIdEnabled.json) (POST /special_installments/cuota-simple-6/categories/{category_id}/enabled)：Find out which categories can be added to the campaign [Official](https://developers.mercadolibre.com.ar/en_us/campaigns-with-installments-for-marketplace)
+- [postByClaimIdExpectedResolutions](operations/postByClaimIdExpectedResolutions.json) (POST /post-purchase/v1/claims/{claim_id}/expected_resolutions)：Calculate partial return value [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [postByClaimIdMessages](operations/postByClaimIdMessages.json) (POST /post-purchase/v1/claims/{claim_id}/messages)：Request mediation [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [postByDomainIdTechnicalSpecs](operations/postByDomainIdTechnicalSpecs.json) (POST /domains/{domain_id}/technical_specs)：Check the product specification sheet of the size chart [Official](https://developers.mercadolibre.com.ar/en_us/first-steps-mkt)
+- [postByItemIdListingType](operations/postByItemIdListingType.json) (POST /items/{item_id}/listing_type)：Update listing type [Official](https://developers.mercadolibre.com.ar/en_us/listing-types-item-upgrades-tutorial)
+- [postByItemIdPictures](operations/postByItemIdPictures.json) (POST /items/{item_id}/pictures)：Link a picture to your Item [Official](https://developers.mercadolibre.com.ar/en_us/working-with-pictures)
+- [postCategoriesByCategoryIdEnabled](operations/postCategoriesByCategoryIdEnabled.json) (POST /special_installments/{campaign_tag_id}/categories/{category_id}/enabled)：Find out which categories can be added to the campaign [Official](https://developers.mercadolibre.com.ar/en_us/campaigns-with-installments-for-marketplace)
+- [postCompatibilitiesCards](operations/postCompatibilitiesCards.json) (POST /items/catalog_domains/{domain_id}/compatibilities/cards)：Get the number of suggestions and complaints [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [postItemsUpload](operations/postItemsUpload.json) (POST /pictures/items/upload)：Validate and upload pictures [Official](https://developers.mercadolibre.com.ar/en_us/working-with-pictures)
+- [postMlaSneakersTechnicalSpecs](operations/postMlaSneakersTechnicalSpecs.json) (POST /domains/MLA-SNEAKERS/technical_specs)：Check the product specification sheet of the size chart [Official](https://developers.mercadolibre.com.ar/en_us/first-steps-mkt)
+- [postModelTopValues](operations/postModelTopValues.json) (POST /catalog_domains/MLA-CARS_AND_VANS/attributes/MODEL/top_values)：Top values [Official](https://developers.mercadolibre.com.ar/en_us/domains-products-and-attributes-vehicle-accessories)
+- [postProductsSearch](operations/postProductsSearch.json) (POST /products/search)：Parameters [Official](https://developers.mercadolibre.com.ar/en_us/products-search)
+- [postSellerPromotionsPromotions](operations/postSellerPromotionsPromotions.json) (POST /seller-promotions/promotions)：Create campaign [Official](https://developers.mercadolibre.com.ar/en_us/volume-discount-campaigns)
+- [postSellersBySellerId](operations/postSellersBySellerId.json) (POST /messages/packs/{pack_id}/sellers/{seller_id})：Create message for a buyer [Official](https://developers.mercadolibre.com.ar/en_us/messaging-after-sale)
+- [postShipmentsByShipmentIdSplit](operations/postShipmentsByShipmentIdSplit.json) (POST /shipments/{shipment_id}/split)：Considerations [Official](https://developers.mercadolibre.com.ar/en_us/shipment-handling)
+- [postSoeBundles](operations/postSoeBundles.json) (POST /soe/bundles)：Call: [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [postVehicleYearTopValues](operations/postVehicleYearTopValues.json) (POST /catalog_domains/MLA-CARS_AND_VANS/attributes/VEHICLE_YEAR/top_values)：Top values [Official](https://developers.mercadolibre.com.ar/en_us/domains-products-and-attributes-vehicle-accessories)
+- [publishItemWithMe1](operations/publishItemWithMe1.json) (POST /items/{item_id})：Publish an item with ME1 [Official](https://developers.mercadolibre.com.ar/en_us/mercadoenvios-1)
+- [putAccurateV3](operations/putAccurateV3.json) (PUT /shipping/flex/sites/{site_id}/users/{user_id}/services/{service_id}/configuration/delivery/accurate/v3)：Set delivery time ranges and delivery limits [Official](https://developers.mercadolibre.com.ar/en_us/turbo-shipping)
+- [putBundlesByBundleid](operations/putBundlesByBundleid.json) (PUT /soe/bundles/{bundleid})：Call: [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [putByBundleIdVolumes](operations/putByBundleIdVolumes.json) (PUT /soe/bundles/{bundle_id}/volumes)：Call: [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [putByIdVolumes](operations/putByIdVolumes.json) (PUT /soe/bundles/{id}/volumes)：Body [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [putByNetworkNodeIdCapacityMiddleend](operations/putByNetworkNodeIdCapacityMiddleend.json) (PUT /nodes/{network_node_id}/capacity_middleend)：Request by NODE_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [putByNetworkNodeIdProcessingTimeMiddleend](operations/putByNetworkNodeIdProcessingTimeMiddleend.json) (PUT /nodes/{network_node_id}/processing_time_middleend)：Update by NODE_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [putByResourceIdCapacityMiddleend](operations/putByResourceIdCapacityMiddleend.json) (PUT /nodes/MXP20214899242/capacity_middleend)：Request by NODE_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [putCapacityMiddleendCrossDocking](operations/putCapacityMiddleendCrossDocking.json) (PUT /users/{user_id}/capacity_middleend/cross_docking)：Actualización por USER_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [putCatalogChartsByChartId](operations/putCatalogChartsByChartId.json) (PUT /catalog/charts/{chart_id})：Modify size charts [Official](https://developers.mercadolibre.com.ar/en_us/size-guide)
+- [putClaimsByClaimId](operations/putClaimsByClaimId.json) (PUT /post-purchase/v1/claims/950463475”)：Request mediation [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [putClaimsClaimId](operations/putClaimsClaimId.json) (PUT /post-purchase/v1/claims/{claim_id}”)：Request mediation [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [putCustomV3](operations/putCustomV3.json) (PUT /shipping/flex/sites/{site_id}/users/{user_id}/services/{service_id}/configuration/delivery/custom/v3)：Set up deadline and shipping limit [Official](https://developers.mercadolibre.com.ar/en_us/mercado-envios-flex)
+- [putProcessingTimeMiddleendByLogisticType](operations/putProcessingTimeMiddleendByLogisticType.json) (PUT /shipping/users/{user_id}/processing_time_middleend/{logistic_type})：Request by USER_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [putProcessingTimeMiddleendCrossDocking](operations/putProcessingTimeMiddleendCrossDocking.json) (PUT /users/{user_id}/processing_time_middleend/cross_docking)：Request by USER_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [putPromotionsByPromotionId](operations/putPromotionsByPromotionId.json) (PUT /seller-promotions/promotions/{promotion_id})：Update campaign [Official](https://developers.mercadolibre.com.ar/en_us/seller-campaigns)
+- [updateLocalVolumeDiscountCampaign](operations/updateLocalVolumeDiscountCampaign.json) (PUT /seller-promotions/promotions/C-MLB5783)：Update campaign [Official](https://developers.mercadolibre.com.ar/en_us/volume-discount-campaigns)
+- [putRadiusV3](operations/putRadiusV3.json) (PUT /shipping/flex/sites/{site_id}/users/{user_id}/services/{service_id}/configuration/coverage/radius/v3)：Expand Turbo coverage area [Official](https://developers.mercadolibre.com.ar/en_us/turbo-shipping)
+- [putRowsByRowId](operations/putRowsByRowId.json) (PUT /catalog/charts/{chart_id}/rows/{row_id})：Modify row in size charts [Official](https://developers.mercadolibre.com.ar/en_us/size-guide)
+- [putSoeBundlesByBundleId](operations/putSoeBundlesByBundleId.json) (PUT /soe/bundles/789)：Body [Official](https://developers.mercadolibre.com.ar/en_us/package-grouping-for-pickup)
+- [putSuggestionIdDescription](operations/putSuggestionIdDescription.json) (PUT /catalog_suggestions/${suggestion_id}/description)：Modify a description [Official](https://developers.mercadolibre.com.ar/en_us/brand-central)
+- [putTypeSellerWarehouse](operations/putTypeSellerWarehouse.json) (PUT /user-products/{user_product_id}/stock/type/seller_warehouse)：Stock Management by Location [Official](https://developers.mercadolibre.com.ar/en_us/multi-origin-stock)
+- [putTypeSellingAddress](operations/putTypeSellingAddress.json) (PUT /user-products/MLAU12345678/stock/type/selling_address)：Modify an item's stock [Official](https://developers.mercadolibre.com.ar/en_us/full-and-flex-coexistence)
+- [putZoneV3](operations/putZoneV3.json) (PUT /shipping/flex/sites/{site_id}/users/{user_id}/services/{service_id}/configuration/coverage/zone/v3)：Expand Flex coverage area [Official](https://developers.mercadolibre.com.ar/en_us/mercado-envios-flex)
+- [queryByItems](operations/queryByItems.json) (GET /seller-promotions/exclusion-list/seller/{item_id})：Query by items [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [queryBySeller](operations/queryBySeller.json) (GET /seller-promotions/exclusion-list/seller)：Query by Seller [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [queryCampaignDetailsGetByResourceId](operations/queryCampaignDetailsGetByResourceId.json) (GET /seller-promotions/promotions/P-MLB1812010)：Query campaign details [Official](https://developers.mercadolibre.com.ar/en_us/smart-campaigns)
+- [queryCampaignDetailsGetPromotionsByPromotionId](operations/queryCampaignDetailsGetPromotionsByPromotionId.json) (GET /seller-promotions/promotions/P-MLB2087012)：Query campaign details [Official](https://developers.mercadolibre.com.ar/en_us/smart-campaigns)
+- [queryCampaignDetailsGetSellerPromotionsPromotionsByPromotionId](operations/queryCampaignDetailsGetSellerPromotionsPromotionsByPromotionId.json) (GET /seller-promotions/promotions/P-MLB1806017)：Query campaign details [Official](https://developers.mercadolibre.com.ar/en_us/volume-discount-campaigns)
+- [queryCampaignItems](operations/queryCampaignItems.json) (GET /seller-promotions/promotions/DOD-MLB1000/items)：Query campaign items [Official](https://developers.mercadolibre.com.ar/en_us/daily-deal)
+- [queryCampaignItemsGetItems](operations/queryCampaignItemsGetItems.json) (GET /seller-promotions/promotions/P-MLB1806019/items)：Query campaign items [Official](https://developers.mercadolibre.com.ar/en_us/traditional-campaigns)
+- [queryCandidateItems](operations/queryCandidateItems.json) (GET /seller-promotions/candidates/CANDIDATE-)：Query candidate items [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [queryItemPromotions](operations/queryItemPromotions.json) (GET /seller-promotions/items/{item_id})：Query item promotions [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [queryItems](operations/queryItems.json) (GET /seller-promotions/promotions/LGH-MLB1000/items)：Query items [Official](https://developers.mercadolibre.com.ar/en_us/lightning-deal)
+- [queryItemsInCampaign](operations/queryItemsInCampaign.json) (GET /seller-promotions/promotions/P-MLM394001/items)：Query items in a campaign [Official](https://developers.mercadolibre.com.ar/en_us/pre-negotiated-discount-per-item)
+- [queryItemsInCampaignGetByResourceIdItems](operations/queryItemsInCampaignGetByResourceIdItems.json) (GET /seller-promotions/promotions/P-MLB1806015/items)：Query items in a campaign [Official](https://developers.mercadolibre.com.ar/en_us/co-funded-campaigns)
+- [queryItemsInCampaignGetItems](operations/queryItemsInCampaignGetItems.json) (GET /seller-promotions/promotions/P-MLB1806017/items)：Query items in a campaign [Official](https://developers.mercadolibre.com.ar/en_us/volume-discount-campaigns)
+- [queryItemsInCampaignGetPromotionsByPromotionIdItems](operations/queryItemsInCampaignGetPromotionsByPromotionIdItems.json) (GET /seller-promotions/promotions/P-MLB1812010/items)：Query items in a campaign [Official](https://developers.mercadolibre.com.ar/en_us/smart-campaigns)
+- [queryItemsInCampaignGetSellerPromotionsByPromotionIdItems](operations/queryItemsInCampaignGetSellerPromotionsByPromotionIdItems.json) (GET /seller-promotions/P-MLB3528002/items)：Query items in a campaign [Official](https://developers.mercadolibre.com.ar/en_us/smart-campaigns)
+- [queryOffers](operations/queryOffers.json) (GET /seller-promotions/offers/OFFER-MLB1970246686-42701792)：Query offers [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [queryParameters](operations/queryParameters.json) (GET /highlights/MLA/category/{id})：Query parameters [Official](https://developers.mercadolibre.com.ar/en_us/best-sellers-in-mercado-libre)
+- [queryPromotionDetails](operations/queryPromotionDetails.json) (GET /seller-promotions/promotions/{promotion_id})：Query promotion details [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [queryPromotionItems](operations/queryPromotionItems.json) (GET /seller-promotions/promotions/{promotions_id}/items)：Query promotion items [Official](https://developers.mercadolibre.com.ar/en_us/manage-promotion)
+- [queryShippingAttributesByDomain](operations/queryShippingAttributesByDomain.json) (GET /catalog_domains/MLA-AUTOMOTIVE_TIRES/shipping_attributes)：Query Shipping Attributes by Domain [Official](https://developers.mercadolibre.com.ar/en_us/ship-products)
+- [queryShippingCosts](operations/queryShippingCosts.json) (GET /users/{user_id}/shipping_options/free)：Query shipping costs [Official](https://developers.mercadolibre.com.ar/en_us/management-of-shippin-fees)
+- [queryShippingModesCategory](operations/queryShippingModesCategory.json) (GET /categories/{category_id}/shipping_preferences)：Query Shipping Modes for a Category [Official](https://developers.mercadolibre.com.ar/en_us/ship-products)
+- [queryShippingModesItemUser](operations/queryShippingModesItemUser.json) (POST /users/{user_id}/shipping_modes)：Query Shipping Modes for an Item for the User [Official](https://developers.mercadolibre.com.ar/en_us/ship-products)
+- [queryUserProduct](operations/queryUserProduct.json) (GET /user-products/MLBU22012)：Query a User Product [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [queryUserProductsFamily](operations/queryUserProductsFamily.json) (GET /sites/{site_id}/user-products-families/{id})：Query User Products of a family [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [queryVariations](operations/queryVariations.json) (GET /items/{item_id}/variations)：Query variations [Official](https://developers.mercadolibre.com.ar/en_us/variations)
+- [queryWarehouseStockDetailsUserProducts](operations/queryWarehouseStockDetailsUserProducts.json) (GET /user-products/MLMU123456789/stock)：Query Warehouse Stock Details (User Products) [Official](https://developers.mercadolibre.com.ar/en_us/multi-origin-stock)
+- [retrieveRelatedOrdersFromOneOrder](operations/retrieveRelatedOrdersFromOneOrder.json) (GET /orders/{order_id}/bundle)：Retrieve related orders from one order [Official](https://developers.mercadolibre.com.ar/en_us/virtual-kits)
+- [searchByNonWorkingDay](operations/searchByNonWorkingDay.json) (GET /shipping/seller/{seller_id}/working_day_middleend/optout)：Search by non-working day [Official](https://developers.mercadolibre.com.ar/en_us/non-working-days)
+- [searchTrendsByCountryAndCategory](operations/searchTrendsByCountryAndCategory.json) (GET /trends/MLA/{id})：Search for trends by country and category [Official](https://developers.mercadolibre.com.ar/en_us/trends)
+- [searchTrendsByCountryGetBySiteId](operations/searchTrendsByCountryGetBySiteId.json) (GET /trends/{site_id})：Search for trends by country [Official](https://developers.mercadolibre.com.ar/en_us/trends)
+- [searchUserWarehousesStores](operations/searchUserWarehousesStores.json) (GET /users/{user_id}/stores/search)：Search User Warehouses (stores) [Official](https://developers.mercadolibre.com.ar/en_us/multi-origin-stock)
+- [sendMessageAccordingOptionId](operations/sendMessageAccordingOptionId.json) (POST /messages/action_guide/packs/{pack_id}/option)：Send message according to option_id [Official](https://developers.mercadolibre.com.ar/en_us/reasons-to-communicate)
+- [sendMessagesWithoutAttachments](operations/sendMessagesWithoutAttachments.json) (POST /post-purchase/v1/claims/{claim_id}/messages”)：Send messages without attachments [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [sendTaxData](operations/sendTaxData.json) (POST /fiscal_information/graphql)：Send tax data [Official](https://developers.mercadolibre.com.ar/en_us/sending-tax-data)
+- [setDeliveryTimeRangesAndDeliveryLimits](operations/setDeliveryTimeRangesAndDeliveryLimits.json) (PUT /shipping/flex/sites/{site_id}/users/{user_id}/services/{id}/configuration/delivery/accurate/v3)：Set delivery time ranges and delivery limits [Official](https://developers.mercadolibre.com.ar/en_us/turbo-shipping)
+- [setUpDeadlineAndShippingLimit](operations/setUpDeadlineAndShippingLimit.json) (PUT /shipping/flex/sites/{site_id}/users/{user_id}/services/{id}/configuration/delivery/custom/v3)：Set up deadline and shipping limit [Official](https://developers.mercadolibre.com.ar/en_us/mercado-envios-flex)
+- [traditionalCampaignsGetSellerPromotionsPromotionsByPromotionId](operations/traditionalCampaignsGetSellerPromotionsPromotionsByPromotionId.json) (GET /seller-promotions/promotions/P-MLB1806019)：Query campaign details [Official](https://developers.mercadolibre.com.ar/en_us/traditional-campaigns)
+- [updateAcceptPayersResolution](operations/updateAcceptPayersResolution.json) (PUT /post-purchase/v1/claims/{claim_id}/expected_resolutions”)：Accept the payers resolution [Official](https://developers.mercadolibre.com.ar/en_us/working-with-claims)
+- [updateActualizacionPorUserId](operations/updateActualizacionPorUserId.json) (PUT /users/{user_id}/capacity_middleend/{logistic_type})：Actualización por USER_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [updateByNodeId](operations/updateByNodeId.json) (PUT /nodes/MXP20157465171/processing_time_middleend)：Update by NODE_ID [Official](https://developers.mercadolibre.com.ar/en_us/shipping-colectas-places)
+- [updateChangingFeedback](operations/updateChangingFeedback.json) (PUT /feedback/{feedback_id})：Changing feedback [Official](https://developers.mercadolibre.com.ar/en_us/feedback-on-sale)
+- [updateConsultItemStatus](operations/updateConsultItemStatus.json) (PUT /items)：Consult item status [Official](https://developers.mercadolibre.com.ar/en_us/mercado-envios-flex)
+- [updateCopyAndPasteCompatibilities](operations/updateCopyAndPasteCompatibilities.json) (PUT /items/{item_id}/compatibilities)：Copy and Paste Compatibilities [Official](https://developers.mercadolibre.com.ar/en_us/compatibility-between-items-and-vehicle-accessories)
+- [updateExpandFlexCoverageArea](operations/updateExpandFlexCoverageArea.json) (PUT /shipping/flex/sites/{site_id}/users/{user_id}/services/{id}/configuration/coverage/zone/v3)：Expand Flex coverage area [Official](https://developers.mercadolibre.com.ar/en_us/mercado-envios-flex)
+- [updateExpandTurboCoverageArea](operations/updateExpandTurboCoverageArea.json) (PUT /shipping/flex/sites/{site_id}/users/{user_id}/services/{id}/configuration/coverage/radius/v3)：Expand Turbo coverage area [Official](https://developers.mercadolibre.com.ar/en_us/turbo-shipping)
+- [updateFamily](operations/updateFamily.json) (PUT /user-products-families/{family_id})：Update Family [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [updateFamilyVariantUp](operations/updateFamilyVariantUp.json) (PUT /user-products-families/{family_id}/user-products)：Update Family variant (UP) [Official](https://developers.mercadolibre.com.ar/en_us/price-per-variation)
+- [updateNonWorkingDay](operations/updateNonWorkingDay.json) (PUT /shipping/seller/{seller_id}/working_day_middleend)：Update non-working day [Official](https://developers.mercadolibre.com.ar/en_us/non-working-days)
+- [updateReplacingExistingDescription](operations/updateReplacingExistingDescription.json) (PUT /items/{item_id}/description)：Replacing an existing description [Official](https://developers.mercadolibre.com.ar/en_us/item-description-2)
+- [updateScenario1](operations/updateScenario1.json) (PUT /shipments/{shipping_id})：Scenario 1 [Official](https://developers.mercadolibre.com.ar/en_us/custom-shipping)
+- [updateStockManagementByLocation](operations/updateStockManagementByLocation.json) (PUT /user-products/MLMU123456789/stock/type/seller_warehouse)：Stock Management by Location [Official](https://developers.mercadolibre.com.ar/en_us/multi-origin-stock)
+- [uploadAndSaveMessages](operations/uploadAndSaveMessages.json) (POST /messages/attachments)：Upload and save messages [Official](https://developers.mercadolibre.com.ar/en_us/messaging-after-sale)
+- [uploadInvoices](operations/uploadInvoices.json) (POST /packs/{pack_id}/fiscal_documents)：Upload invoices [Official](https://developers.mercadolibre.com.ar/en_us/upload-invoices)

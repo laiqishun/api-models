@@ -19,59 +19,57 @@ Global Selling / CBT official documentation category. The operation models below
 | [Official: Automated co-participation and competitive pricing campaign](https://global-selling.mercadolibre.com/devsite/automated-co-participation-and-competitive-pricing-campaign) | 7 | 0 | modeled |
 | [Official: Clearance](https://global-selling.mercadolibre.com/devsite/clearance) | 5 | 0 | modeled |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | DELETE | `/marketplace/seller-promotions/items/massive/{id}` | 1 | [JSON](./operations/delete-b1dea54d25db.json) |
-| `api.mercadolibre.com` | DELETE | `/marketplace/seller-promotions/items/massive/{itemid}` | 1 | [JSON](./operations/delete-78e673bcd07f.json) |
-| `api.mercadolibre.com` | DELETE | `/marketplace/seller-promotions/items/{item_id}` | 10 | [JSON](./operations/delete-a4a71b0c6890.json) |
-| `api.mercadolibre.com` | DELETE | `/marketplace/seller-promotions/items/{itemid}` | 5 | [JSON](./operations/delete-3cc51b9a9601.json) |
-| `api.mercadolibre.com` | DELETE | `/marketplace/seller-promotions/seller-campaign/C-MLM360923` | 1 | [JSON](./operations/delete-5c5d4c5a4e8a.json) |
-| `api.mercadolibre.com` | DELETE | `/marketplace/seller-promotions/seller-campaign/C-MLM703970` | 1 | [JSON](./operations/delete-91a0aee2d29f.json) |
-| `api.mercadolibre.com` | DELETE | `/marketplace/seller-promotions/seller-campaign/{campaignid}` | 1 | [JSON](./operations/delete-6b34959a8c90.json) |
-| `api.mercadolibre.com` | DELETE | `/marketplace/seller-promotions/seller-campaign/{promotion_id}` | 1 | [JSON](./operations/delete-82dccd2914e4.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/items/{item_id}` | 2 | [JSON](./operations/get-4e8962131dbb.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/items/{itemid}` | 1 | [JSON](./operations/get-f81df15f3ab0.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/C-MLM199082/items` | 1 | [JSON](./operations/get-fa34bb038d2c.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/C-MLM201059` | 1 | [JSON](./operations/get-98ef6745a1ca.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/C-MLM201059/items` | 1 | [JSON](./operations/get-005e32d75cfa.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/C-MLM614177` | 1 | [JSON](./operations/get-8b9f1740b03e.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/C-MLM703970` | 1 | [JSON](./operations/get-cf46cd6edae7.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/C-MLM703970/items` | 1 | [JSON](./operations/get-7c1301824b1e.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/DOD-MLM1000/items` | 1 | [JSON](./operations/get-5c626e88e653.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/LGH-MLM1000/items` | 1 | [JSON](./operations/get-b72466e9116d.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLC13457036` | 1 | [JSON](./operations/get-1341215fd301.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLC13457036/items` | 1 | [JSON](./operations/get-46daa8e89f5a.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLM13637333` | 2 | [JSON](./operations/get-ab9989b82a21.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLM13757022` | 1 | [JSON](./operations/get-c7fbf6aa79d4.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLM13757022/items` | 1 | [JSON](./operations/get-d75fd82aebad.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLM13765128` | 1 | [JSON](./operations/get-d463407b147b.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLM13765128/items` | 1 | [JSON](./operations/get-6f9e60b22734.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLM13773008` | 1 | [JSON](./operations/get-7154ca50359a.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLM13773008/items` | 2 | [JSON](./operations/get-4ddfa59331f3.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLM1806015` | 1 | [JSON](./operations/get-0c7ef4e34fc2.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLM1806015/items` | 1 | [JSON](./operations/get-c17870fbd433.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/P-MLM6276082` | 1 | [JSON](./operations/get-818007d12641.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/candidate/CANDIDATE-MLM2199514002-70027957276/{id}` | 1 | [JSON](./operations/get-e8778441c92d.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/candidates/{candidate_id}` | 1 | [JSON](./operations/get-8a06b30f819d.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/offer/OFFER-MLM1873971357-10078845289/{id}` | 1 | [JSON](./operations/get-0fdd44a08903.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/offer/{offerid}/{user_id}` | 1 | [JSON](./operations/get-10cc0f2667d2.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/{dodid}/items` | 1 | [JSON](./operations/get-2f3355eb7a4d.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/{promotion_id}` | 7 | [JSON](./operations/get-55406815a6e8.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/{promotion_id}/items` | 4 | [JSON](./operations/get-e0f824a08e60.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/{promotionid}` | 3 | [JSON](./operations/get-c0899fc1589a.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/promotions/{promotionid}/items` | 6 | [JSON](./operations/get-fafb6a0800fa.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/users/{user_id}` | 2 | [JSON](./operations/get-4bf572f5344c.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/seller-promotions/users/{user_id}/pricing-model` | 6 | [JSON](./operations/get-219d543dcb83.json) |
-| `api.mercadolibre.com` | GET | `/seller-promotions/P-MLB2087012/items` | 1 | [JSON](./operations/get-0d9c4b171757.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/seller-promotions/items/{item_id}` | 9 | [JSON](./operations/post-a0b452b0db08.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/seller-promotions/items/{itemid}` | 8 | [JSON](./operations/post-efa4bd980ed6.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/seller-promotions/seller-campaign/{id}` | 2 | [JSON](./operations/post-d98264418add.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/seller-promotions/seller-campaign/{user_id}` | 2 | [JSON](./operations/post-d6846ed6e9fa.json) |
-| `api.mercadolibre.com` | PUT | `/marketplace/seller-promotions/items/{item_id}` | 1 | [JSON](./operations/put-7806dc0b9ba4.json) |
-| `api.mercadolibre.com` | PUT | `/marketplace/seller-promotions/items/{itemid}` | 7 | [JSON](./operations/put-4b3497ecd994.json) |
-| `api.mercadolibre.com` | PUT | `/marketplace/seller-promotions/seller-campaign/C-MLM5689` | 1 | [JSON](./operations/put-f0f6b5232279.json) |
-| `api.mercadolibre.com` | PUT | `/marketplace/seller-promotions/seller-campaign/C-MLM703970` | 1 | [JSON](./operations/put-64db99347bb4.json) |
-| `api.mercadolibre.com` | PUT | `/marketplace/seller-promotions/seller-campaign/{campaignid}` | 1 | [JSON](./operations/put-6294fbb823ff.json) |
-| `api.mercadolibre.com` | PUT | `/marketplace/seller-promotions/seller-campaign/{promotion_id}` | 1 | [JSON](./operations/put-660a72a309a5.json) |
+- [checkCampaignDetails](operations/checkCampaignDetails.json) (GET /marketplace/seller-promotions/promotions/P-MLM1806015)：Check campaign details [Official](https://global-selling.mercadolibre.com/devsite/cofunded-campaigns)
+- [checkCampaignItems](operations/checkCampaignItems.json) (GET /marketplace/seller-promotions/promotions/P-MLC13457036/items)：Check campaign items [Official](https://global-selling.mercadolibre.com/devsite/unhealthy-stock-campaign)
+- [checkDetailsAboutPreNegotiatedCampaign](operations/checkDetailsAboutPreNegotiatedCampaign.json) (GET /marketplace/seller-promotions/promotions/P-MLM13773008)：Check details about a pre-negotiated campaign [Official](https://global-selling.mercadolibre.com/devsite/pre-negotiated-discount-per-item-gs)
+- [checkItemPromotions](operations/checkItemPromotions.json) (GET /marketplace/seller-promotions/items/{item_id})：Check Item Promotions [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [checkItemsInDealDay](operations/checkItemsInDealDay.json) (GET /marketplace/seller-promotions/promotions/{dodid}/items)：Check items in a deal of the day [Official](https://global-selling.mercadolibre.com/devsite/deal-of-day-gs)
+- [checkItemsInLightningDeal](operations/checkItemsInLightningDeal.json) (GET /marketplace/seller-promotions/promotions/LGH-MLM1000/items)：Check items in a lightning deal [Official](https://global-selling.mercadolibre.com/devsite/lightning-deal-gs)
+- [checkOffers](operations/checkOffers.json) (GET /marketplace/seller-promotions/promotions/offer/OFFER-MLM1873971357-10078845289/{id})：Check offers [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [checkPromotionItems](operations/checkPromotionItems.json) (GET /marketplace/seller-promotions/promotions/C-MLM201059/items)：Check Promotion Items [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [checkPromotionItemsGetItems](operations/checkPromotionItemsGetItems.json) (GET /marketplace/seller-promotions/promotions/{promotionid}/items)：Check Promotion Items [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [checkSellerPricingModel](operations/checkSellerPricingModel.json) (GET /marketplace/seller-promotions/users/{user_id}/pricing-model)：Check seller pricing model [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [deleteCampaign](operations/deleteCampaign.json) (DELETE /marketplace/seller-promotions/seller-campaign/C-MLM360923)：Delete campaign [Official](https://global-selling.mercadolibre.com/devsite/volume-discount-campaigns-gs)
+- [deleteDealFromCampaign](operations/deleteDealFromCampaign.json) (DELETE /marketplace/seller-promotions/items/{itemid})：Delete a Deal from a campaign [Official](https://global-selling.mercadolibre.com/devsite/deals-gs)
+- [deleteItemsByItemId](operations/deleteItemsByItemId.json) (DELETE /marketplace/seller-promotions/items/{item_id})：Delete a Deal from a campaign [Official](https://global-selling.mercadolibre.com/devsite/deals-gs)
+- [deleteMassiveById](operations/deleteMassiveById.json) (DELETE /marketplace/seller-promotions/items/massive/{id})：Massive delete of offers [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [deleteMassiveDeleteOffers](operations/deleteMassiveDeleteOffers.json) (DELETE /marketplace/seller-promotions/items/massive/{itemid})：Massive delete of offers [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [deleteSellerCampaignByCampaignid](operations/deleteSellerCampaignByCampaignid.json) (DELETE /marketplace/seller-promotions/seller-campaign/{campaignid})：Delete a campaign [Official](https://global-selling.mercadolibre.com/devsite/seller-campaign)
+- [deleteSellerCampaignByPromotionId](operations/deleteSellerCampaignByPromotionId.json) (DELETE /marketplace/seller-promotions/seller-campaign/{promotion_id})：Delete campaign [Official](https://global-selling.mercadolibre.com/devsite/volume-discount-campaigns-gs)
+- [deleteSellerCampaign](operations/deleteSellerCampaign.json) (DELETE /marketplace/seller-promotions/seller-campaign/C-MLM703970)：Delete a campaign [Official](https://global-selling.mercadolibre.com/devsite/seller-campaign)
+- [getByOfferidByUserId](operations/getByOfferidByUserId.json) (GET /marketplace/seller-promotions/promotions/offer/{offerid}/{user_id})：Check offers [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [getByPromotionIdItems](operations/getByPromotionIdItems.json) (GET /marketplace/seller-promotions/promotions/{promotion_id}/items)：Check campaign Items [Official](https://global-selling.mercadolibre.com/devsite/cofunded-campaigns)
+- [getByResourceIdById](operations/getByResourceIdById.json) (GET /marketplace/seller-promotions/promotions/candidate/CANDIDATE-MLM2199514002-70027957276/{id})：Consult candidate items [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [getByResourceIdItems](operations/getByResourceIdItems.json) (GET /marketplace/seller-promotions/promotions/P-MLM13773008/items)：Filters [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [getCampaignDetails](operations/getCampaignDetails.json) (GET /marketplace/seller-promotions/promotions/P-MLM13757022)：Get campaign details [Official](https://global-selling.mercadolibre.com/devsite/deals-gs)
+- [getCampaignItems](operations/getCampaignItems.json) (GET /marketplace/seller-promotions/promotions/C-MLM614177)：Get campaign items [Official](https://global-selling.mercadolibre.com/devsite/volume-discount-campaigns-gs)
+- [listPromotionItemsPage](operations/listPromotionItemsPage.json) (GET /marketplace/seller-promotions/promotions/C-MLM199082/items)：Pagination [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [getConsultCandidateItems](operations/getConsultCandidateItems.json) (GET /marketplace/seller-promotions/promotions/candidates/{candidate_id})：Consult candidate items [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [getDealOfDayItems](operations/getDealOfDayItems.json) (GET /marketplace/seller-promotions/promotions/DOD-MLM1000/items)：Check items in a deal of the day [Official](https://global-selling.mercadolibre.com/devsite/deal-of-day-gs)
+- [getMarketplaceSellerPromotionsPromotionsByPromotionid](operations/getMarketplaceSellerPromotionsPromotionsByPromotionid.json) (GET /marketplace/seller-promotions/promotions/{promotionid})：Promotion Details [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [getMarketplaceSellerPromotionsPromotionsByPromotionIdItems](operations/getMarketplaceSellerPromotionsPromotionsByPromotionIdItems.json) (GET /marketplace/seller-promotions/promotions/P-MLM13757022/items)：Check campaign items [Official](https://global-selling.mercadolibre.com/devsite/deals-gs)
+- [getPromotionDetails](operations/getPromotionDetails.json) (GET /marketplace/seller-promotions/promotions/C-MLM201059)：Promotion Details [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [getPromotionsByPromotionId](operations/getPromotionsByPromotionId.json) (GET /marketplace/seller-promotions/promotions/P-MLC13457036)：Check campaign details [Official](https://global-selling.mercadolibre.com/devsite/unhealthy-stock-campaign)
+- [getPromotionsByPromotionIdItems](operations/getPromotionsByPromotionIdItems.json) (GET /marketplace/seller-promotions/promotions/P-MLM13765128/items)：View campaign items [Official](https://global-selling.mercadolibre.com/devsite/automated-co-participation-and-competitive-pricing-campaign)
+- [getSellerCampaignDetails](operations/getSellerCampaignDetails.json) (GET /marketplace/seller-promotions/promotions/C-MLM703970)：View campaign details [Official](https://global-selling.mercadolibre.com/devsite/seller-campaign)
+- [getSalesPromotionsSeller](operations/getSalesPromotionsSeller.json) (GET /marketplace/seller-promotions/users/{user_id})：Sales promotions for the seller [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [getSellerPromotionsItemsByItemid](operations/getSellerPromotionsItemsByItemid.json) (GET /marketplace/seller-promotions/items/{itemid})：Check Item Promotions [Official](https://global-selling.mercadolibre.com/devsite/manage-promotions-gs)
+- [getSellerPromotionsPromotionsByPromotionId](operations/getSellerPromotionsPromotionsByPromotionId.json) (GET /marketplace/seller-promotions/promotions/{promotion_id})：Check campaign details [Official](https://global-selling.mercadolibre.com/devsite/cofunded-campaigns)
+- [getSellerPromotionsPromotionsByPromotionIdItems](operations/getSellerPromotionsPromotionsByPromotionIdItems.json) (GET /marketplace/seller-promotions/promotions/P-MLM1806015/items)：Check campaign Items [Official](https://global-selling.mercadolibre.com/devsite/cofunded-campaigns)
+- [postItemsByItemId](operations/postItemsByItemId.json) (POST /marketplace/seller-promotions/items/{item_id})：A Listing price flow [Official](https://global-selling.mercadolibre.com/devsite/deals-gs)
+- [postSellerCampaignById](operations/postSellerCampaignById.json) (POST /marketplace/seller-promotions/seller-campaign/{id})：Create campaign [Official](https://global-selling.mercadolibre.com/devsite/volume-discount-campaigns-gs)
+- [postSellerCampaignByUserId](operations/postSellerCampaignByUserId.json) (POST /marketplace/seller-promotions/seller-campaign/{user_id})：Create campaign [Official](https://global-selling.mercadolibre.com/devsite/volume-discount-campaigns-gs)
+- [postSellerPromotionsItemsByItemid](operations/postSellerPromotionsItemsByItemid.json) (POST /marketplace/seller-promotions/items/{itemid})：A Listing price flow [Official](https://global-selling.mercadolibre.com/devsite/deals-gs)
+- [putMarketplaceSellerPromotionsItemsByItemId](operations/putMarketplaceSellerPromotionsItemsByItemId.json) (PUT /marketplace/seller-promotions/items/{item_id})：Listing price flow [Official](https://global-selling.mercadolibre.com/devsite/deals-gs)
+- [putSellerCampaignByPromotionId](operations/putSellerCampaignByPromotionId.json) (PUT /marketplace/seller-promotions/seller-campaign/{promotion_id})：Update campaign [Official](https://global-selling.mercadolibre.com/devsite/volume-discount-campaigns-gs)
+- [updateVolumeDiscountCampaign](operations/updateVolumeDiscountCampaign.json) (PUT /marketplace/seller-promotions/seller-campaign/C-MLM5689)：Update campaign [Official](https://global-selling.mercadolibre.com/devsite/volume-discount-campaigns-gs)
+- [updateSellerCampaign](operations/updateSellerCampaign.json) (PUT /marketplace/seller-promotions/seller-campaign/C-MLM703970)：Update a campaign [Official](https://global-selling.mercadolibre.com/devsite/seller-campaign)
+- [putSellerPromotionsItemsByItemid](operations/putSellerPromotionsItemsByItemid.json) (PUT /marketplace/seller-promotions/items/{itemid})：Listing price flow [Official](https://global-selling.mercadolibre.com/devsite/deals-gs)
+- [queryCampaignDetails](operations/queryCampaignDetails.json) (GET /marketplace/seller-promotions/promotions/P-MLM6276082)：Query Campaign Details [Official](https://global-selling.mercadolibre.com/devsite/clearance)
+- [updateCampaign](operations/updateCampaign.json) (PUT /marketplace/seller-promotions/seller-campaign/{campaignid})：Update a campaign [Official](https://global-selling.mercadolibre.com/devsite/seller-campaign)
+- [viewCampaignDetails](operations/viewCampaignDetails.json) (GET /marketplace/seller-promotions/promotions/P-MLM13637333)：View campaign details [Official](https://global-selling.mercadolibre.com/devsite/automated-co-participation-and-competitive-pricing-campaign)
+- [viewCampaignDetailsGetByResourceId](operations/viewCampaignDetailsGetByResourceId.json) (GET /marketplace/seller-promotions/promotions/P-MLM13765128)：View campaign details [Official](https://global-selling.mercadolibre.com/devsite/automated-co-participation-and-competitive-pricing-campaign)
+- [viewCampaignItems](operations/viewCampaignItems.json) (GET /seller-promotions/P-MLB2087012/items)：View campaign items [Official](https://global-selling.mercadolibre.com/devsite/automated-co-participation-and-competitive-pricing-campaign)
+- [viewItemsInCampaign](operations/viewItemsInCampaign.json) (GET /marketplace/seller-promotions/promotions/C-MLM703970/items)：View items in a campaign [Official](https://global-selling.mercadolibre.com/devsite/seller-campaign)

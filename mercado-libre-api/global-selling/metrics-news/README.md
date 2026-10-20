@@ -14,24 +14,22 @@ Global Selling / CBT official documentation category. The operation models below
 | [Official: Seller reputation](https://global-selling.mercadolibre.com/devsite/seller-reputation-global-selling) | 1 | 0 | modeled |
 | [Official: Shopping experience](https://global-selling.mercadolibre.com/devsite/shopping-experience) | 3 | 0 | modeled |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | GET | `/communications/notices` | 1 | [JSON](./operations/get-c9fd6c5ed167.json) |
-| `api.mercadolibre.com` | GET | `/global/users/seller_reputation` | 1 | [JSON](./operations/get-8b871531b0b7.json) |
-| `api.mercadolibre.com` | GET | `/item/{id}/performance` | 1 | [JSON](./operations/get-52f1fb431a05.json) |
-| `api.mercadolibre.com` | GET | `/item/{item_id}/performance` | 1 | [JSON](./operations/get-97992d7227a5.json) |
-| `api.mercadolibre.com` | GET | `/items/MCO471870973/visits/time_window` | 1 | [JSON](./operations/get-1eb82b2a2747.json) |
-| `api.mercadolibre.com` | GET | `/items/visits` | 1 | [JSON](./operations/get-7bf2ad4e26e9.json) |
-| `api.mercadolibre.com` | GET | `/items/{item_id}/visits/time_window` | 1 | [JSON](./operations/get-1a954d63d966.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/items/{item_id}/purchase_experience` | 1 | [JSON](./operations/get-00dbdefeeb8b.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/user_products/MLAU1391786841/purchase_experience` | 1 | [JSON](./operations/get-bdfe0ac90f6e.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/user_products/{up_id}/purchase_experience` | 1 | [JSON](./operations/get-ba58b578f200.json) |
-| `api.mercadolibre.com` | GET | `/reviews/item/{id}` | 2 | [JSON](./operations/get-2782cfce49ab.json) |
-| `api.mercadolibre.com` | GET | `/reviews/item/{item_id}` | 1 | [JSON](./operations/get-d85a78d08d40.json) |
-| `api.mercadolibre.com` | GET | `/trends/MLA` | 1 | [JSON](./operations/get-21b14ffd5953.json) |
-| `api.mercadolibre.com` | GET | `/trends/MLA/{id}` | 1 | [JSON](./operations/get-d89325522471.json) |
-| `api.mercadolibre.com` | GET | `/trends/{site_id}` | 1 | [JSON](./operations/get-8c8442c79b84.json) |
-| `api.mercadolibre.com` | GET | `/trends/{site_id}/{category_id}` | 1 | [JSON](./operations/get-47f77484b8ce.json) |
-| `api.mercadolibre.com` | GET | `/visits/items` | 1 | [JSON](./operations/get-80d9cb6ebdb0.json) |
+- [checkGlobalAndMarketplaceSellersReputation](operations/checkGlobalAndMarketplaceSellersReputation.json) (GET /global/users/seller_reputation)：Check global and marketplace sellers reputation [Official](https://global-selling.mercadolibre.com/devsite/seller-reputation-global-selling)
+- [getByItemIdPerformance](operations/getByItemIdPerformance.json) (GET /item/{item_id}/performance)：Quality detail by item [Official](https://global-selling.mercadolibre.com/devsite/listings-quality-gs)
+- [getByResourceIdPurchaseExperience](operations/getByResourceIdPurchaseExperience.json) (GET /marketplace/user_products/MLAU1391786841/purchase_experience)：Call [Official](https://global-selling.mercadolibre.com/devsite/shopping-experience)
+- [getByUpIdPurchaseExperience](operations/getByUpIdPurchaseExperience.json) (GET /marketplace/user_products/{up_id}/purchase_experience)：Call [Official](https://global-selling.mercadolibre.com/devsite/shopping-experience)
+- [getCommunicationsNotices](operations/getCommunicationsNotices.json) (GET /communications/notices)：Optional parameters [Official](https://global-selling.mercadolibre.com/devsite/seller-news)
+- [getDatedVisitsByItem](operations/getDatedVisitsByItem.json) (GET /items/{item_id}/visits/time_window)：Dated visits by item [Official](https://global-selling.mercadolibre.com/devsite/visits)
+- [getItemById](operations/getItemById.json) (GET /reviews/item/{id})：Optional query parameters [Official](https://global-selling.mercadolibre.com/devsite/product-reviews)
+- [getItemByItemId](operations/getItemByItemId.json) (GET /reviews/item/{item_id})：Functional flow [Official](https://global-selling.mercadolibre.com/devsite/product-reviews)
+- [getItemsVisits](operations/getItemsVisits.json) (GET /items/visits)：Total visits by item between date ranges [Official](https://global-selling.mercadolibre.com/devsite/visits)
+- [getMlaById](operations/getMlaById.json) (GET /trends/MLA/{id})：Trends by country and category [Official](https://global-selling.mercadolibre.com/devsite/trends-gs)
+- [getQualityDetailByItem](operations/getQualityDetailByItem.json) (GET /item/{id}/performance)：Quality detail by item [Official](https://global-selling.mercadolibre.com/devsite/listings-quality-gs)
+- [getShoppingExperience](operations/getShoppingExperience.json) (GET /marketplace/items/{item_id}/purchase_experience)：Shopping experience [Official](https://global-selling.mercadolibre.com/devsite/shopping-experience)
+- [getTotalVisitsByItem](operations/getTotalVisitsByItem.json) (GET /visits/items)：Total visits by item [Official](https://global-selling.mercadolibre.com/devsite/visits)
+- [getTrendsByCountryAndCategory](operations/getTrendsByCountryAndCategory.json) (GET /trends/{site_id}/{category_id})：Trends by country and category [Official](https://global-selling.mercadolibre.com/devsite/trends-gs)
+- [getTrendsBySiteId](operations/getTrendsBySiteId.json) (GET /trends/{site_id})：Search for trends by country [Official](https://global-selling.mercadolibre.com/devsite/trends-gs)
+- [getVisitsTimeWindow](operations/getVisitsTimeWindow.json) (GET /items/MCO471870973/visits/time_window)：Dated visits by item [Official](https://global-selling.mercadolibre.com/devsite/visits)
+- [searchTrendsByCountry](operations/searchTrendsByCountry.json) (GET /trends/MLA)：Search for trends by country [Official](https://global-selling.mercadolibre.com/devsite/trends-gs)

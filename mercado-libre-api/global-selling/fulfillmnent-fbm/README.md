@@ -10,16 +10,14 @@ Global Selling / CBT official documentation category. The operation models below
 | [Official: Fulfilment Inbound Creation](https://global-selling.mercadolibre.com/devsite/fulfilment-inbound-creation) | 2 | 0 | modeled |
 | [Official: Fulfillment stock](https://global-selling.mercadolibre.com/devsite/fulfillment-stock-gs) | 7 | 0 | modeled |
 
-## Operation models
+## API List
 
-| Host | Method | Path | Source pages | JSON |
-|---|---|---|---:|---|
-| `api.mercadolibre.com` | GET | `/marketplace/fbm/inbounds/process/{process_id}` | 2 | [JSON](./operations/get-96269fcf05aa.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/fbm/user-products/{id}/replenishment` | 1 | [JSON](./operations/get-8bab5b5ef14e.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/inventories/TKQK18938/stock/fulfillment` | 1 | [JSON](./operations/get-c1ea372cbc3e.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/inventories/YLXH33638/stock/fulfillment` | 1 | [JSON](./operations/get-10b049faab6c.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/inventories/{inventory_id}/stock/fulfillment` | 2 | [JSON](./operations/get-138dd47f322d.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/stock/fulfillment/operations/search` | 2 | [JSON](./operations/get-23c0f7912f5e.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/stock/fulfillment/operations/{id}` | 1 | [JSON](./operations/get-754682403c2c.json) |
-| `api.mercadolibre.com` | GET | `/marketplace/stock/fulfillment/operations/{operation_id}` | 1 | [JSON](./operations/get-ed53eab06ffb.json) |
-| `api.mercadolibre.com` | POST | `/marketplace/fbm/inbounds` | 2 | [JSON](./operations/post-9b447b97cb28.json) |
+- [checkDetailStockNotAvailable](operations/checkDetailStockNotAvailable.json) (GET /marketplace/inventories/YLXH33638/stock/fulfillment)：Check the detail of stock not available [Official](https://global-selling.mercadolibre.com/devsite/fulfillment-stock-gs)
+- [createInbound](operations/createInbound.json) (POST /marketplace/fbm/inbounds)：Create Inbound [Official](https://global-selling.mercadolibre.com/devsite/fulfilment-inbound-creation)
+- [getByIdReplenishment](operations/getByIdReplenishment.json) (GET /marketplace/fbm/user-products/{id}/replenishment)：Examples [Official](https://global-selling.mercadolibre.com/devsite/replenishment-plans-inbound)
+- [getOperationsById](operations/getOperationsById.json) (GET /marketplace/stock/fulfillment/operations/{id})：Parameters [Official](https://global-selling.mercadolibre.com/devsite/fulfillment-stock-gs)
+- [getOperationsByOperationId](operations/getOperationsByOperationId.json) (GET /marketplace/stock/fulfillment/operations/{operation_id})：Parameters [Official](https://global-selling.mercadolibre.com/devsite/fulfillment-stock-gs)
+- [getOperationsSearch](operations/getOperationsSearch.json) (GET /marketplace/stock/fulfillment/operations/search)：Parameters [Official](https://global-selling.mercadolibre.com/devsite/fulfillment-stock-gs)
+- [getProcessStatus](operations/getProcessStatus.json) (GET /marketplace/fbm/inbounds/process/{process_id})：Get Process Status [Official](https://global-selling.mercadolibre.com/devsite/fulfilment-inbound-creation)
+- [getStockFulfillment](operations/getStockFulfillment.json) (GET /marketplace/inventories/{inventory_id}/stock/fulfillment)：Parameters [Official](https://global-selling.mercadolibre.com/devsite/fulfillment-stock-gs)
+- [getFulfillmentStockByInventoryId](operations/getFulfillmentStockByInventoryId.json) (GET /marketplace/inventories/TKQK18938/stock/fulfillment)：Parameters [Official](https://global-selling.mercadolibre.com/devsite/fulfillment-stock-gs)
