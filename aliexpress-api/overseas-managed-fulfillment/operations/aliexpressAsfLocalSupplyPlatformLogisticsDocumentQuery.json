@@ -1,0 +1,1059 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Platform logistics order document query.",
+    "version": "2025-09-16 02:54:51",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "get": {
+        "operationId": "aliexpressAsfLocalSupplyPlatformLogisticsDocumentQueryGet",
+        "tags": [
+          "AE-海外托管-发货"
+        ],
+        "summary": "Platform logistics order document query.",
+        "description": "您可以使用此 API 来为已打包并用于平台物流订单的包裹生成运单。返回的消息是以 base64 编码的字节数组数据。请使用 base64 对“bytes”字段中的数据进行解码，以获取运单的字节数据。请注意，此 API 不应用于为 DBS 订单生成运单，并且目前仅支持生成运单。",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.asf.local.supply.platform.logistics.document.query",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21458&path=aliexpress.asf.local.supply.platform.logistics.document.query&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1972,
+        "x-aliexpress-source-last-modified": "2025-09-16 02:54:51",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.asf.local.supply.platform.logistics.document.query"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      },
+      "post": {
+        "operationId": "aliexpressAsfLocalSupplyPlatformLogisticsDocumentQueryPost",
+        "tags": [
+          "AE-海外托管-发货"
+        ],
+        "summary": "Platform logistics order document query.",
+        "description": "您可以使用此 API 来为已打包并用于平台物流订单的包裹生成运单。返回的消息是以 base64 编码的字节数组数据。请使用 base64 对“bytes”字段中的数据进行解码，以获取运单的字节数据。请注意，此 API 不应用于为 DBS 订单生成运单，并且目前仅支持生成运单。",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.asf.local.supply.platform.logistics.document.query",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21458&path=aliexpress.asf.local.supply.platform.logistics.document.query&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1972,
+        "x-aliexpress-source-last-modified": "2025-09-16 02:54:51",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.asf.local.supply.platform.logistics.document.query"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "documentType": {
+          "type": "string",
+          "description": "打印运单：WAY_BILL， 打印拣货单：PICKING_ORDER， 打印交接单：HANDOVER， 打印运单和拣货单：PICKING_ORDER_AND_WAY_BILL"
+        },
+        "fileType": {
+          "type": "string",
+          "description": "此字段表示您需要打印的文件所返回的数据类型，目前仅支持 PDF 格式。因此，目前请不要在此字段中填写任何内容，因为这是一个保留字段。"
+        },
+        "queryDocumentRequestList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "queryDocumentRequestList",
+            "properties": {
+              "tradeOrderId": {
+                "type": "number",
+                "description": "交易单"
+              },
+              "trackingNumber": {
+                "type": "string",
+                "description": "运单号"
+              },
+              "packageId": {
+                "type": "string",
+                "description": "包裹Id"
+              }
+            },
+            "required": [
+              "tradeOrderId"
+            ]
+          }
+        },
+        "locale": {
+          "type": "string",
+          "description": "locale"
+        },
+        "channelSellerId": {
+          "type": "string",
+          "description": "渠道店铺id"
+        }
+      },
+      "required": [
+        "documentType",
+        "queryDocumentRequestList",
+        "locale"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "description": "返回结果",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "返回数据",
+              "properties": {
+                "bytes": {
+                  "type": "string",
+                  "description": "Base64 编码的字符串"
+                },
+                "fileUrl": {
+                  "type": "string",
+                  "description": "文件下载链接（不推荐使用，会校验卖家登录态）"
+                }
+              }
+            },
+            "success": {
+              "type": "boolean",
+              "description": "success"
+            },
+            "errorMessage": {
+              "type": "string",
+              "description": "错误信息"
+            },
+            "errorCode": {
+              "type": "string",
+              "description": "错误码"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21458,
+    "name": "AE-海外托管-发货",
+    "description": "海外托管发货相关"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressAsfLocalSupplyPlatformLogisticsDocumentQueryRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "您可以使用此 API 来为已打包并用于平台物流订单的包裹生成运单。返回的消息是以 base64 编码的字节数组数据。请使用 base64 对“bytes”字段中的数据进行解码，以获取运单的字节数据。请注意，此 API 不应用于为 DBS 订单生成运单，并且目前仅支持生成运单。",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "Platform logistics order document query.",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "aliexpress.asf.local.supply.platform.logistics.document.query",
+    "methodType": "GET/POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21458,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "GET/POST",
+    "docId": 1972,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 2863
+    },
+    "title": "Platform logistics order document query.",
+    "path": "aliexpress.asf.local.supply.platform.logistics.document.query",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "result",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "4",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "2",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "data",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "4",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "bytes",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4194003,
+                      "apiId": "303950",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "bytes",
+                      "parentId": 4194002,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"Base64 编码的字符串\"},{\"en_US\":\"Base64 encoded string\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "fileUrl",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4194004,
+                      "apiId": "303950",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "fileUrl",
+                      "parentId": 4194002,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"文件下载链接（不推荐使用，会校验卖家登录态）\"},{\"en_US\":\"File download link (not recommended to use, it will verify the seller's login status)\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4194002,
+                  "apiId": "303950",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "data",
+                  "parentId": 4194001,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "com.alibaba.ae.asf.openapi.v1.dto.response.PlatformLogisticsQueryDocumentResponse",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"返回数据\"},{\"en_US\":\"data\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "success",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "3",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4194005,
+                  "apiId": "303950",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "success",
+                  "parentId": 4194001,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.Boolean",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"success\"},{\"en_US\":\"success\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "errorMessage",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4194006,
+                  "apiId": "303950",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorMessage",
+                  "parentId": 4194001,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误信息\"},{\"en_US\":\"errorMessage\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "errorCode",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4194007,
+                  "apiId": "303950",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorCode",
+                  "parentId": 4194001,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误码\"},{\"en_US\":\"errorCode\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4194001,
+              "apiId": "303950",
+              "docVisible": false,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "com.alibaba.ae.asf.openapi.v1.dto.OpenapiResponseDTO",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"返回结果\"},{\"en_US\":\"result\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "documentType",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4193991,
+              "apiId": "303950",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "documentType",
+              "parentId": 4193990,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"打印运单：WAY_BILL， 打印拣货单：PICKING_ORDER， 打印交接单：HANDOVER， 打印运单和拣货单：PICKING_ORDER_AND_WAY_BILL\"},{\"en_US\":\"Print the waybill：WAY_BILL， Print the picking list：PICKING_ORDER, Print the handover form：HANDOVER Print the waybill and the picking list：PICKING_ORDER_AND_WAY_BILL\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "fileType",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4193992,
+              "apiId": "303950",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "fileType",
+              "parentId": 4193990,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"此字段表示您需要打印的文件所返回的数据类型，目前仅支持 PDF 格式。因此，目前请不要在此字段中填写任何内容，因为这是一个保留字段。\"},{\"en_US\":\"This field represents the type of data returned for the file you need to print, currently only supporting PDF format. Therefore, please do not fill in this field for now as it is a reserved field.\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "queryDocumentRequestList",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Object[]",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "tradeOrderId",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "Number",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4193994,
+                  "apiId": "303950",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "tradeOrderId",
+                  "parentId": 4193993,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"交易单\"},{\"en_US\":\"Trade Order Id\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "trackingNumber",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "String",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4193995,
+                  "apiId": "303950",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "trackingNumber",
+                  "parentId": 4193993,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"运单号\"},{\"en_US\":\"Tracking Number\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "packageId",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "String",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4193996,
+                  "apiId": "303950",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "packageId",
+                  "parentId": 4193993,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"包裹Id\"},{\"en_US\":\"Package Id\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4193993,
+              "apiId": "303950",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "queryDocumentRequestList",
+              "parentId": 4193990,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "com.alibaba.ae.asf.openapi.v1.dto.QueryDocumentRequest",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"queryDocumentRequestList\"},{\"en_US\":\"queryDocumentRequestList\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "locale",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4194000,
+              "apiId": "303950",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "locale",
+              "parentId": 4193990,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"locale\"},{\"en_US\":\"locale\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "channelSellerId",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4194008,
+              "apiId": "303950",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "channelSellerId",
+              "parentId": 4193990,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"渠道店铺id\"},{\"en_US\":\"channel Seller Id\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 2862,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "aliexpress_asf_local_supply_platform_logistics_document_query_response": {
+              "result": {
+                "data": {
+                  "bytes": "<REDACTED_SAMPLE>",
+                  "fileUrl": "<REDACTED_SAMPLE>"
+                },
+                "success": "<REDACTED_SAMPLE>",
+                "errorMessage": "<REDACTED_SAMPLE>",
+                "errorCode": "<REDACTED_SAMPLE>"
+              }
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "result": {
+              "data": {
+                "bytes": "<REDACTED_SAMPLE>",
+                "fileUrl": "<REDACTED_SAMPLE>"
+              },
+              "success": "<REDACTED_SAMPLE>",
+              "errorMessage": "<REDACTED_SAMPLE>",
+              "errorCode": "<REDACTED_SAMPLE>"
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 2862
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 2863
+    },
+    "lastModified": "2025-09-16 02:54:51",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4193991,
+          "data": [],
+          "children": [],
+          "name": "documentType",
+          "id": 2863,
+          "type": "String",
+          "required": true,
+          "desc": "打印运单：WAY_BILL， 打印拣货单：PICKING_ORDER， 打印交接单：HANDOVER， 打印运单和拣货单：PICKING_ORDER_AND_WAY_BILL"
+        },
+        {
+          "treeId": 4193992,
+          "data": [],
+          "children": [],
+          "name": "fileType",
+          "id": 2863,
+          "type": "String",
+          "required": false,
+          "desc": "此字段表示您需要打印的文件所返回的数据类型，目前仅支持 PDF 格式。因此，目前请不要在此字段中填写任何内容，因为这是一个保留字段。"
+        },
+        {
+          "treeId": 4193993,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4193994,
+              "data": [],
+              "children": [],
+              "name": "tradeOrderId",
+              "id": 2863,
+              "type": "Number",
+              "required": true,
+              "desc": "交易单"
+            },
+            {
+              "treeId": 4193995,
+              "data": [],
+              "children": [],
+              "name": "trackingNumber",
+              "id": 2863,
+              "type": "String",
+              "required": false,
+              "desc": "运单号"
+            },
+            {
+              "treeId": 4193996,
+              "data": [],
+              "children": [],
+              "name": "packageId",
+              "id": 2863,
+              "type": "String",
+              "required": false,
+              "desc": "包裹Id"
+            }
+          ],
+          "name": "queryDocumentRequestList",
+          "id": 2863,
+          "type": "Object[]",
+          "required": true,
+          "desc": "queryDocumentRequestList"
+        },
+        {
+          "treeId": 4194000,
+          "data": [],
+          "children": [],
+          "name": "locale",
+          "id": 2863,
+          "type": "String",
+          "required": true,
+          "desc": "locale"
+        },
+        {
+          "treeId": 4194008,
+          "data": [],
+          "children": [],
+          "name": "channelSellerId",
+          "id": 2863,
+          "type": "String",
+          "required": false,
+          "desc": "渠道店铺id"
+        }
+      ],
+      "id": 2863
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 2560,
+    "desc": "您可以使用此 API 来为已打包并用于平台物流订单的包裹生成运单。返回的消息是以 base64 编码的字节数组数据。请使用 base64 对“bytes”字段中的数据进行解码，以获取运单的字节数据。请注意，此 API 不应用于为 DBS 订单生成运单，并且目前仅支持生成运单。",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4194001,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4194002,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4194003,
+                  "data": [],
+                  "children": [],
+                  "name": "bytes",
+                  "id": 2865,
+                  "type": "String",
+                  "required": false,
+                  "desc": "Base64 编码的字符串"
+                },
+                {
+                  "treeId": 4194004,
+                  "data": [],
+                  "children": [],
+                  "name": "fileUrl",
+                  "id": 2865,
+                  "type": "String",
+                  "required": false,
+                  "desc": "文件下载链接（不推荐使用，会校验卖家登录态）"
+                }
+              ],
+              "name": "data",
+              "id": 2865,
+              "type": "Object",
+              "required": false,
+              "desc": "返回数据"
+            },
+            {
+              "treeId": 4194005,
+              "data": [],
+              "children": [],
+              "name": "success",
+              "id": 2865,
+              "type": "Boolean",
+              "required": false,
+              "desc": "success"
+            },
+            {
+              "treeId": 4194006,
+              "data": [],
+              "children": [],
+              "name": "errorMessage",
+              "id": 2865,
+              "type": "String",
+              "required": false,
+              "desc": "错误信息"
+            },
+            {
+              "treeId": 4194007,
+              "data": [],
+              "children": [],
+              "name": "errorCode",
+              "id": 2865,
+              "type": "String",
+              "required": false,
+              "desc": "错误码"
+            }
+          ],
+          "name": "result",
+          "id": 2865,
+          "type": "Object",
+          "required": false,
+          "desc": "返回结果"
+        }
+      ],
+      "id": 2865
+    }
+  }
+}

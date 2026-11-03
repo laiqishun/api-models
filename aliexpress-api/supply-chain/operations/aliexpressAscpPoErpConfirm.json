@@ -1,0 +1,1129 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "AE仓发备货单-确认接单",
+    "version": "2024-08-12 16:38:57",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "post": {
+        "operationId": "aliexpressAscpPoErpConfirm",
+        "tags": [
+          "AE-供应链"
+        ],
+        "summary": "AE仓发备货单-确认接单",
+        "description": "AE仓发备货单-确认接单",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.ascp.po.erp.confirm",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21022&path=aliexpress.ascp.po.erp.confirm&methodType=POST",
+        "x-aliexpress-source-doc-id": 1672,
+        "x-aliexpress-source-last-modified": "2024-08-12 16:38:57",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.ascp.po.erp.confirm"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "channel": {
+          "type": "string",
+          "description": "渠道（可以在这个API中查询：global.seller.relation.query）， 海外托管必填"
+        },
+        "channel_user_id": {
+          "type": "number",
+          "description": "渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id"
+        },
+        "merchant_code": {
+          "type": "string",
+          "description": "经营组织 {全托管:AECHOICE；半托管：AEFF；海外托管：AETK}"
+        },
+        "purchase_order_no": {
+          "type": "string",
+          "description": "备货单号"
+        },
+        "gmt_pre_delivery": {
+          "type": "string",
+          "description": "预计发货时间 {yyyy-MM-dd}。 时间可选范围：[当天，最晚到仓时间]，可以等于"
+        },
+        "all_quantity_confirm": {
+          "type": "boolean",
+          "description": "确认数量是否等于采购单采购数量{true/false}。 [true: 供应商确认数量=采购单数量] [false: 供应商确认数量!=采购数量，则字段{sc_item_id, confirm_quantity}必填。]"
+        },
+        "reason": {
+          "type": "string",
+          "description": "供应商确认不能按照采购单采购数量备货原因。 当all_quantity_confirm == false  && confirm_quantity != 采购单备货数量时，必填。 当填写的code不再下列枚举中时，系统无法识别:阻断异常。 {产能不足 未按箱规下单 备货量偏高 销量预测偏高 库存水位偏高 目的仓不可售 仓产能问题 其他}"
+        },
+        "purchase_confirm_item_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "demo",
+            "properties": {
+              "sc_item_id": {
+                "type": "number",
+                "description": "货品id。 all_quantity_confirm == false时，必填。"
+              },
+              "confirm_quantity": {
+                "type": "number",
+                "description": "对应货品供应商确认数量。 all_quantity_confirm == false时，必填。"
+              }
+            }
+          }
+        }
+      },
+      "required": [
+        "merchant_code",
+        "purchase_order_no",
+        "all_quantity_confirm"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "description": "demo",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "demo",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "success"
+                }
+              }
+            },
+            "success": {
+              "type": "boolean",
+              "description": "是否成功"
+            },
+            "error_code": {
+              "type": "string",
+              "description": "错误码"
+            },
+            "error_msg": {
+              "type": "string",
+              "description": "描述"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21022,
+    "name": "AE-供应链",
+    "description": "维护AE供应链相关API"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressAscpPoErpConfirmRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "AE仓发备货单-确认接单",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "AE仓发备货单-确认接单",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "aliexpress.ascp.po.erp.confirm",
+    "methodType": "POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21022,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "post",
+    "docId": 1672,
+    "errorCodes": {
+      "data": [
+        {
+          "codeDesc": "order confirm current not allow confirm",
+          "code": "PO_CONFIRM_CURRENT_NOT_ALLOW_CONFIRM",
+          "data": [],
+          "solution": "请检查传入单号和状态",
+          "id": 2388
+        },
+        {
+          "codeDesc": "The quantity specified in the purchase order for item {0} ({1}) exceeds the maximum allowable modification quantity {2}.",
+          "code": "CG_PO_ENLARGE_SURPASS_MAX_QUANTITY",
+          "data": [],
+          "solution": "请检查入参",
+          "id": 2388
+        },
+        {
+          "codeDesc": "supplier is empty",
+          "code": "SUPPLIER_EMPTY",
+          "data": [],
+          "solution": "请检查传入商家",
+          "id": 2388
+        },
+        {
+          "codeDesc": "The operation is too frequent. Please try again later.",
+          "code": "IDEMPOTENT_CHECK_FAIL",
+          "data": [],
+          "solution": "操作太频繁请稍后重试",
+          "id": 2388
+        },
+        {
+          "codeDesc": "po confirm cargo date before arrive date",
+          "code": "CG_PO_PO_CONFIRM_CARGO_DATE_BEFORE_ARRIVE_DATE",
+          "data": [],
+          "solution": "请检查入参",
+          "id": 2388
+        },
+        {
+          "codeDesc": "Input param error",
+          "code": "ILLEGAL_ARGUMENT",
+          "data": [],
+          "solution": "请检查入参",
+          "id": 2388
+        },
+        {
+          "codeDesc": "po confirm item quantity not times pcs",
+          "code": "CG_PO_PO_CONFIRM_ITEM_QUANTITY_NOT_TIMES_PCS",
+          "data": [],
+          "solution": "请检查确认数量",
+          "id": 2388
+        },
+        {
+          "codeDesc": "Input param error",
+          "code": "CG_PO_PO_CONFIRM_MISS_ITEM_LINE",
+          "data": [],
+          "solution": "请检查入参",
+          "id": 2388
+        },
+        {
+          "codeDesc": "po status not allow confirm",
+          "code": "PO_CONFIRM_CURRENT_NOT_ALLOW_CONFIRM",
+          "data": [],
+          "solution": "请检查入参",
+          "id": 2388
+        }
+      ],
+      "id": 2388
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 2387
+    },
+    "title": "AE仓发备货单-确认接单",
+    "path": "aliexpress.ascp.po.erp.confirm",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "result",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "4",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "2",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "data",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "4",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "status",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4190681,
+                      "apiId": "303896",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "status",
+                      "parentId": 4190680,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"success\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4190680,
+                  "apiId": "303896",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "data",
+                  "parentId": 4190679,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "com.aidc.inbound.erp.openapi.dto.SimpleResult",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"demo\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "success",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "3",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4190682,
+                  "apiId": "303896",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "success",
+                  "parentId": 4190679,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.Boolean",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"是否成功\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_code",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4190683,
+                  "apiId": "303896",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorCode",
+                  "parentId": 4190679,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误码\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_msg",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4190684,
+                  "apiId": "303896",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "message",
+                  "parentId": 4190679,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"描述\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4190679,
+              "apiId": "303896",
+              "docVisible": false,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "com.wdk.infrastructure.foundation.client.result.DataResult<com.aidc.inbound.erp.openapi.dto.SimpleResult>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"demo\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "channel",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4191038,
+              "apiId": "303896",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "channel",
+              "parentId": 4190666,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"渠道（可以在这个API中查询：global.seller.relation.query）， 海外托管必填\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "channel_user_id",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "Number",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4190669,
+              "apiId": "303896",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "channelUserId",
+              "parentId": 4190666,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.Long",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "merchant_code",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4190670,
+              "apiId": "303896",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "merchantCode",
+              "parentId": 4190666,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"经营组织 {全托管:AECHOICE；半托管：AEFF；海外托管：AETK}\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "purchase_order_no",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4190671,
+              "apiId": "303896",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "purchaseOrderNo",
+              "parentId": 4190666,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"备货单号\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "gmt_pre_delivery",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4190672,
+              "apiId": "303896",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "gmtPreDelivery",
+              "parentId": 4190666,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"预计发货时间 {yyyy-MM-dd}。 时间可选范围：[当天，最晚到仓时间]，可以等于\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "all_quantity_confirm",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Boolean",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4190673,
+              "apiId": "303896",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "allQuantityConfirm",
+              "parentId": 4190666,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.Boolean",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"确认数量是否等于采购单采购数量{true/false}。 [true: 供应商确认数量=采购单数量] [false: 供应商确认数量!=采购数量，则字段{sc_item_id, confirm_quantity}必填。]\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "reason",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4190674,
+              "apiId": "303896",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "reason",
+              "parentId": 4190666,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"供应商确认不能按照采购单采购数量备货原因。 当all_quantity_confirm == false  && confirm_quantity != 采购单备货数量时，必填。 当填写的code不再下列枚举中时，系统无法识别:阻断异常。 {产能不足 未按箱规下单 备货量偏高 销量预测偏高 库存水位偏高 目的仓不可售 仓产能问题 其他}\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "purchase_confirm_item_list",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "Object[]",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "sc_item_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "Number",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4190676,
+                  "apiId": "303896",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "scItemId",
+                  "parentId": 4190675,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"货品id。 all_quantity_confirm == false时，必填。\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "confirm_quantity",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "Number",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4190677,
+                  "apiId": "303896",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "confirmQuantity",
+                  "parentId": 4190675,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"对应货品供应商确认数量。 all_quantity_confirm == false时，必填。\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4190675,
+              "apiId": "303896",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "purchaseConfirmItemList",
+              "parentId": 4190666,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.util.List<com.aidc.inbound.erp.openapi.dto.po.ErpPurchaseOrderConfirmItemRequest>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"demo\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 2386,
+          "complexResponseCode": {
+            "aliexpress_ascp_po_erp_confirm_response": {
+              "result": {
+                "error_msg": "<REDACTED_SAMPLE>",
+                "data": {
+                  "status": "<REDACTED_SAMPLE>"
+                },
+                "success": "<REDACTED_SAMPLE>",
+                "error_code": "<REDACTED_SAMPLE>"
+              }
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "result": {
+              "error_msg": "<REDACTED_SAMPLE>",
+              "data": {
+                "status": "<REDACTED_SAMPLE>"
+              },
+              "success": "<REDACTED_SAMPLE>",
+              "error_code": "<REDACTED_SAMPLE>"
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 2386
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 2387
+    },
+    "lastModified": "2024-08-12 16:38:57",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4191038,
+          "data": [],
+          "children": [],
+          "name": "channel",
+          "id": 2387,
+          "type": "String",
+          "required": false,
+          "desc": "渠道（可以在这个API中查询：global.seller.relation.query）， 海外托管必填"
+        },
+        {
+          "treeId": 4190669,
+          "data": [],
+          "children": [],
+          "name": "channel_user_id",
+          "id": 2387,
+          "type": "Number",
+          "required": false,
+          "desc": "渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id"
+        },
+        {
+          "treeId": 4190670,
+          "data": [],
+          "children": [],
+          "name": "merchant_code",
+          "id": 2387,
+          "type": "String",
+          "required": true,
+          "desc": "经营组织 {全托管:AECHOICE；半托管：AEFF；海外托管：AETK}"
+        },
+        {
+          "treeId": 4190671,
+          "data": [],
+          "children": [],
+          "name": "purchase_order_no",
+          "id": 2387,
+          "type": "String",
+          "required": true,
+          "desc": "备货单号"
+        },
+        {
+          "treeId": 4190672,
+          "data": [],
+          "children": [],
+          "name": "gmt_pre_delivery",
+          "id": 2387,
+          "type": "String",
+          "required": false,
+          "desc": "预计发货时间 {yyyy-MM-dd}。 时间可选范围：[当天，最晚到仓时间]，可以等于"
+        },
+        {
+          "treeId": 4190673,
+          "data": [],
+          "children": [],
+          "name": "all_quantity_confirm",
+          "id": 2387,
+          "type": "Boolean",
+          "required": true,
+          "desc": "确认数量是否等于采购单采购数量{true/false}。 [true: 供应商确认数量=采购单数量] [false: 供应商确认数量!=采购数量，则字段{sc_item_id, confirm_quantity}必填。]"
+        },
+        {
+          "treeId": 4190674,
+          "data": [],
+          "children": [],
+          "name": "reason",
+          "id": 2387,
+          "type": "String",
+          "required": false,
+          "desc": "供应商确认不能按照采购单采购数量备货原因。 当all_quantity_confirm == false  && confirm_quantity != 采购单备货数量时，必填。 当填写的code不再下列枚举中时，系统无法识别:阻断异常。 {产能不足 未按箱规下单 备货量偏高 销量预测偏高 库存水位偏高 目的仓不可售 仓产能问题 其他}"
+        },
+        {
+          "treeId": 4190675,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4190676,
+              "data": [],
+              "children": [],
+              "name": "sc_item_id",
+              "id": 2387,
+              "type": "Number",
+              "required": false,
+              "desc": "货品id。 all_quantity_confirm == false时，必填。"
+            },
+            {
+              "treeId": 4190677,
+              "data": [],
+              "children": [],
+              "name": "confirm_quantity",
+              "id": 2387,
+              "type": "Number",
+              "required": false,
+              "desc": "对应货品供应商确认数量。 all_quantity_confirm == false时，必填。"
+            }
+          ],
+          "name": "purchase_confirm_item_list",
+          "id": 2387,
+          "type": "Object[]",
+          "required": false,
+          "desc": "demo"
+        }
+      ],
+      "id": 2387
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 2931,
+    "desc": "AE仓发备货单-确认接单",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4190679,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4190680,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4190681,
+                  "data": [],
+                  "children": [],
+                  "name": "status",
+                  "id": 2389,
+                  "type": "String",
+                  "required": false,
+                  "desc": "success"
+                }
+              ],
+              "name": "data",
+              "id": 2389,
+              "type": "Object",
+              "required": false,
+              "desc": "demo"
+            },
+            {
+              "treeId": 4190682,
+              "data": [],
+              "children": [],
+              "name": "success",
+              "id": 2389,
+              "type": "Boolean",
+              "required": false,
+              "desc": "是否成功"
+            },
+            {
+              "treeId": 4190683,
+              "data": [],
+              "children": [],
+              "name": "error_code",
+              "id": 2389,
+              "type": "String",
+              "required": false,
+              "desc": "错误码"
+            },
+            {
+              "treeId": 4190684,
+              "data": [],
+              "children": [],
+              "name": "error_msg",
+              "id": 2389,
+              "type": "String",
+              "required": false,
+              "desc": "描述"
+            }
+          ],
+          "name": "result",
+          "id": 2389,
+          "type": "Object",
+          "required": false,
+          "desc": "demo"
+        }
+      ],
+      "id": 2389
+    }
+  }
+}

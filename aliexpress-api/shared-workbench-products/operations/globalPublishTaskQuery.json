@@ -1,0 +1,779 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "查询铺货任务状态",
+    "version": "2022-09-08 14:44:22",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "get": {
+        "operationId": "globalPublishTaskQuery",
+        "tags": [
+          "统一跨境商家工作台-商品"
+        ],
+        "summary": "查询铺货任务状态",
+        "description": "查询铺货任务状态",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "global.publish.task.query",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21389&path=global.publish.task.query&methodType=GET",
+        "x-aliexpress-source-doc-id": 1040,
+        "x-aliexpress-source-last-modified": "2022-09-08 14:44:22",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "global.publish.task.query"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "task_id": {
+          "type": "string",
+          "description": "任务id"
+        }
+      },
+      "required": [
+        "task_id"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "published_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "任务调度状态，代表任务是否开始执行，不代表铺货状态。一共三种状态： waiting、success、failed ； 铺货状态在 published_list 中",
+            "properties": {
+              "channel_seller_id": {
+                "type": "number",
+                "description": "渠道商家id"
+              },
+              "channel": {
+                "type": "string",
+                "description": "渠道名"
+              },
+              "channel_product_id": {
+                "type": "number",
+                "description": "若铺货成功，展示渠道商品id"
+              },
+              "failed_reason": {
+                "type": "string",
+                "description": "若铺货失败，展示失败原因"
+              },
+              "global_product_id": {
+                "type": "string",
+                "description": "全球商品id"
+              },
+              "assortment_status": {
+                "type": "string",
+                "description": "铺货状态：代表铺货的成功或失败。 1：初始化；   2：数据准备；    3：等待执行；  4：执行中；   5：执行失败；  6：执行成功"
+              }
+            },
+            "required": [
+              "channel_seller_id",
+              "channel",
+              "channel_product_id",
+              "failed_reason"
+            ]
+          }
+        },
+        "task_status": {
+          "type": "string",
+          "description": "任务状态  一共三种： waiting、success、failed"
+        },
+        "remark": {
+          "type": "string",
+          "description": "铺货任务备注，创建铺货任务时传入"
+        }
+      },
+      "required": [
+        "published_list",
+        "task_status"
+      ]
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21389,
+    "name": "统一跨境商家工作台-商品",
+    "description": "统一跨境商家工作台-商品"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "GlobalPublishTaskQueryRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "查询铺货任务状态",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "查询铺货任务状态",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "global.publish.task.query",
+    "methodType": "GET",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21389,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "get",
+    "docId": 1040,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 1272
+    },
+    "title": "查询铺货任务状态",
+    "path": "global.publish.task.query",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "published_list",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "9",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "channel_seller_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "2",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4022058,
+                  "apiId": "300412",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "channelSellerId",
+                  "parentId": 4022057,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"渠道商家id\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "channel",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4022059,
+                  "apiId": "300412",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "channel",
+                  "parentId": 4022057,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"渠道名\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "channel_product_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "2",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4022060,
+                  "apiId": "300412",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "channelProductId",
+                  "parentId": 4022057,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"若铺货成功，展示渠道商品id\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "failed_reason",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4022061,
+                  "apiId": "300412",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "failedReason",
+                  "parentId": 4022057,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"若铺货失败，展示失败原因\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "global_product_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4022062,
+                  "apiId": "300412",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "globalProductId",
+                  "parentId": 4022057,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"全球商品id\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "assortment_status",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4022065,
+                  "apiId": "300412",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "assortmentStatus",
+                  "parentId": 4022057,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.Integer",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"铺货状态：代表铺货的成功或失败。 1：初始化；   2：数据准备；    3：等待执行；  4：执行中；   5：执行失败；  6：执行成功\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4022057,
+              "apiId": "300412",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "publishedList",
+              "parentId": 4022051,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.util.List<com.alibaba.csp.api.client.item.dto.assortment.GlobalProductPublishedChannelDTO>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"任务调度状态，代表任务是否开始执行，不代表铺货状态。一共三种状态： waiting、success、failed ； 铺货状态在 published_list 中\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "task_status",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "1",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4022063,
+              "apiId": "300412",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "taskStatus",
+              "parentId": 4022051,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"任务状态  一共三种： waiting、success、failed\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "remark",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "1",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4022064,
+              "apiId": "300412",
+              "docVisible": false,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "remark",
+              "parentId": 4022051,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"铺货任务备注，创建铺货任务时传入\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "task_id",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4022050,
+              "apiId": "300412",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "taskId",
+              "parentId": 4022045,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"任务id\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 1271,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "global_publish_task_query_response": {
+              "task_status": "<REDACTED_SAMPLE>",
+              "published_list": [
+                {
+                  "channel_product_id": "<REDACTED_SAMPLE>",
+                  "channel_seller_id": "<REDACTED_SAMPLE>",
+                  "channel": "<REDACTED_SAMPLE>",
+                  "global_product_id": "<REDACTED_SAMPLE>",
+                  "assortment_status": "<REDACTED_SAMPLE>",
+                  "failed_reason": "<REDACTED_SAMPLE>"
+                }
+              ],
+              "remark": "<REDACTED_SAMPLE>"
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "task_status": "<REDACTED_SAMPLE>",
+            "code": "<REDACTED_SAMPLE>",
+            "published_list": [
+              {
+                "channel_product_id": "<REDACTED_SAMPLE>",
+                "channel_seller_id": "<REDACTED_SAMPLE>",
+                "channel": "<REDACTED_SAMPLE>",
+                "global_product_id": "<REDACTED_SAMPLE>",
+                "assortment_status": "<REDACTED_SAMPLE>",
+                "failed_reason": "<REDACTED_SAMPLE>"
+              }
+            ],
+            "remark": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 1271
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 1272
+    },
+    "lastModified": "2022-09-08 14:44:22",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4022050,
+          "data": [],
+          "children": [],
+          "name": "task_id",
+          "id": 1272,
+          "type": "String",
+          "required": true,
+          "desc": "任务id"
+        }
+      ],
+      "id": 1272
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 1154,
+    "desc": "查询铺货任务状态",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4022057,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4022058,
+              "data": [],
+              "children": [],
+              "name": "channel_seller_id",
+              "id": 1274,
+              "type": "Number",
+              "required": true,
+              "desc": "渠道商家id"
+            },
+            {
+              "treeId": 4022059,
+              "data": [],
+              "children": [],
+              "name": "channel",
+              "id": 1274,
+              "type": "String",
+              "required": true,
+              "desc": "渠道名"
+            },
+            {
+              "treeId": 4022060,
+              "data": [],
+              "children": [],
+              "name": "channel_product_id",
+              "id": 1274,
+              "type": "Number",
+              "required": true,
+              "desc": "若铺货成功，展示渠道商品id"
+            },
+            {
+              "treeId": 4022061,
+              "data": [],
+              "children": [],
+              "name": "failed_reason",
+              "id": 1274,
+              "type": "String",
+              "required": true,
+              "desc": "若铺货失败，展示失败原因"
+            },
+            {
+              "treeId": 4022062,
+              "data": [],
+              "children": [],
+              "name": "global_product_id",
+              "id": 1274,
+              "type": "String",
+              "required": false,
+              "desc": "全球商品id"
+            },
+            {
+              "treeId": 4022065,
+              "data": [],
+              "children": [],
+              "name": "assortment_status",
+              "id": 1274,
+              "type": "String",
+              "required": false,
+              "desc": "铺货状态：代表铺货的成功或失败。 1：初始化；   2：数据准备；    3：等待执行；  4：执行中；   5：执行失败；  6：执行成功"
+            }
+          ],
+          "name": "published_list",
+          "id": 1274,
+          "type": "Object[]",
+          "required": true,
+          "desc": "任务调度状态，代表任务是否开始执行，不代表铺货状态。一共三种状态： waiting、success、failed ； 铺货状态在 published_list 中"
+        },
+        {
+          "treeId": 4022063,
+          "data": [],
+          "children": [],
+          "name": "task_status",
+          "id": 1274,
+          "type": "String",
+          "required": true,
+          "desc": "任务状态  一共三种： waiting、success、failed"
+        },
+        {
+          "treeId": 4022064,
+          "data": [],
+          "children": [],
+          "name": "remark",
+          "id": 1274,
+          "type": "String",
+          "required": false,
+          "desc": "铺货任务备注，创建铺货任务时传入"
+        }
+      ],
+      "id": 1274
+    }
+  }
+}

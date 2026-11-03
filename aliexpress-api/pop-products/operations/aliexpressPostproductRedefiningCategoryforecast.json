@@ -1,0 +1,705 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "类目预测，可以筛选卖家已经通过准入申请的类目",
+    "version": "2022-04-01 18:03:51",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "get": {
+        "operationId": "aliexpressPostproductRedefiningCategoryforecastGet",
+        "tags": [
+          "AE-POP-商品"
+        ],
+        "summary": "类目预测，可以筛选卖家已经通过准入申请的类目",
+        "description": "类目预测，根据商品标题和图片预测商品的叶子类目，可以筛选已经通过准入申请的类目",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.postproduct.redefining.categoryforecast",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=20904&path=aliexpress.postproduct.redefining.categoryforecast&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 583,
+        "x-aliexpress-source-last-modified": "2022-04-01 18:03:51",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.postproduct.redefining.categoryforecast"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      },
+      "post": {
+        "operationId": "aliexpressPostproductRedefiningCategoryforecastPost",
+        "tags": [
+          "AE-POP-商品"
+        ],
+        "summary": "类目预测，可以筛选卖家已经通过准入申请的类目",
+        "description": "类目预测，根据商品标题和图片预测商品的叶子类目，可以筛选已经通过准入申请的类目",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.postproduct.redefining.categoryforecast",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=20904&path=aliexpress.postproduct.redefining.categoryforecast&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 583,
+        "x-aliexpress-source-last-modified": "2022-04-01 18:03:51",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.postproduct.redefining.categoryforecast"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "image_url": {
+          "type": "string",
+          "description": "必填。图片url，请isv上传商品图片，通过图片银行接口获取。当语种为俄语时不必填。"
+        },
+        "subject": {
+          "type": "string",
+          "description": "商品标题"
+        },
+        "locale": {
+          "type": "string",
+          "description": "必填。商品标题语种:en，ru，pt，id，es，fr，it，de，nl，tr，he，ja，ar，th，vi，ko，pl"
+        },
+        "is_filter_by_permission": {
+          "type": "string",
+          "description": "是否过滤类目准入权限 N=不过滤 | Y=过滤，不填写时，默认为N , 如果是发品类目预测需要填 Y，否则返回的类目可能会在发品时报错，影响用户体验"
+        }
+      },
+      "required": [
+        "subject",
+        "locale"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "description": "result",
+          "properties": {
+            "category_suitability_list": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "description": "类目预测结果。  字段含义 ：  \"score\"：预测可能性分数，分数越高结果越准确。\"category_name_path\"：预测类目路径，locale语种。\"cn_name\"：中文的叶子类目名。\"category_id\"：叶子类目id。\"category_id_path\"：类目id路径。\"name\"：叶子类目名称，locale语种。\"suitability_rank\"：类目适合度排序，值越小越适合。\"cn_category_name_path\"：中文类目路径"
+              }
+            }
+          },
+          "required": [
+            "category_suitability_list"
+          ]
+        }
+      },
+      "required": [
+        "result"
+      ]
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 20904,
+    "name": "AE-POP-商品",
+    "description": "AE-POP-商品"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressPostproductRedefiningCategoryforecastRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "类目预测，根据商品标题和图片预测商品的叶子类目，可以筛选已经通过准入申请的类目",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "类目预测，可以筛选卖家已经通过准入申请的类目",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "aliexpress.postproduct.redefining.categoryforecast",
+    "methodType": "GET/POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 20904,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "GET/POST",
+    "docId": 583,
+    "errorCodes": {
+      "data": [
+        {
+          "codeDesc": "Image link cannot be empty",
+          "code": "24000018",
+          "data": [],
+          "solution": "图片链接不能为空",
+          "id": 318
+        },
+        {
+          "codeDesc": "类目预测无可用结果：根据传入的商品标题和图片，系统无法预测出任何可用类目（No available category）",
+          "code": "24000011",
+          "data": [],
+          "solution": "1. 请优化请求参数后重试：使用更清晰、准确描述商品主体的标题（subject），并确保图片（image_url）能清晰反映商品且图文一致；2. 避免使用同一组标题和图片反复重试（结果不会改变），可更换标题措辞或商品主图，并确认图片链接可正常访问。",
+          "id": 318
+        }
+      ],
+      "id": 318
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 317
+    },
+    "title": "类目预测，可以筛选卖家已经通过准入申请的类目",
+    "path": "aliexpress.postproduct.redefining.categoryforecast",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "result",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "4",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "3",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "category_suitability_list",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "6",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4019848,
+                  "apiId": "300368",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "categorySuitabilityList",
+                  "parentId": 4019846,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.util.List<com.aliexpress.icopenapi.product.domain.AeopCategorySuitability>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"类目预测结果。  字段含义 ：  \\\"score\\\"：预测可能性分数，分数越高结果越准确。\\\"category_name_path\\\"：预测类目路径，locale语种。\\\"cn_name\\\"：中文的叶子类目名。\\\"category_id\\\"：叶子类目id。\\\"category_id_path\\\"：类目id路径。\\\"name\\\"：叶子类目名称，locale语种。\\\"suitability_rank\\\"：类目适合度排序，值越小越适合。\\\"cn_category_name_path\\\"：中文类目路径\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4019846,
+              "apiId": "300368",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "com.aliexpress.icopenapi.product.domain.AeopCategoryForecastResultDTO",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"result\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "image_url",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4019842,
+              "apiId": "300368",
+              "docVisible": false,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "imageUrl",
+              "parentId": 4019841,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"必填。图片url，请isv上传商品图片，通过图片银行接口获取。当语种为俄语时不必填。\"}]"
+            },
+            {
+              "serviceParamHttpType": "3",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "subject",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4019843,
+              "apiId": "300368",
+              "docVisible": false,
+              "paramOrder": "0",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "subject",
+              "parentId": 4019841,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"商品标题\"}]"
+            },
+            {
+              "serviceParamHttpType": "3",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "<REDACTED_SAMPLE>",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "locale",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4019844,
+              "apiId": "300368",
+              "docVisible": false,
+              "paramOrder": "0",
+              "moreLimit": "Default Value:es",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "locale",
+              "parentId": 4019841,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"必填。商品标题语种:en，ru，pt，id，es，fr，it，de，nl，tr，he，ja，ar，th，vi，ko，pl\"}]"
+            },
+            {
+              "serviceParamHttpType": "3",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "<REDACTED_SAMPLE>",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "is_filter_by_permission",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4019845,
+              "apiId": "300368",
+              "docVisible": false,
+              "paramOrder": "0",
+              "moreLimit": "Default Value:N",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "isFilterByPermission",
+              "parentId": 4019841,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"是否过滤类目准入权限 N=不过滤 | Y=过滤，不填写时，默认为N , 如果是发品类目预测需要填 Y，否则返回的类目可能会在发品时报错，影响用户体验\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 316,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "aliexpress_postproduct_redefining_categoryforecast_response": {
+              "result": {
+                "category_suitability_list": [
+                  {
+                    "score": "<REDACTED_SAMPLE>",
+                    "category_name_path": [
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>"
+                    ],
+                    "cn_name": "<REDACTED_SAMPLE>",
+                    "category_id": 0,
+                    "category_id_path": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "name": "<REDACTED_SAMPLE>",
+                    "suitability_rank": 0,
+                    "cn_category_name_path": [
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>"
+                    ]
+                  },
+                  {
+                    "score": "<REDACTED_SAMPLE>",
+                    "category_name_path": [
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>"
+                    ],
+                    "cn_name": "<REDACTED_SAMPLE>",
+                    "category_id": 0,
+                    "category_id_path": [
+                      0,
+                      0,
+                      0
+                    ],
+                    "name": "<REDACTED_SAMPLE>",
+                    "suitability_rank": 0,
+                    "cn_category_name_path": [
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>",
+                      "<REDACTED_SAMPLE>"
+                    ]
+                  }
+                ]
+              }
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "result": {
+              "category_suitability_list": [
+                {
+                  "score": "<REDACTED_SAMPLE>",
+                  "category_name_path": [
+                    "<REDACTED_SAMPLE>",
+                    "<REDACTED_SAMPLE>",
+                    "<REDACTED_SAMPLE>"
+                  ],
+                  "cn_name": "<REDACTED_SAMPLE>",
+                  "category_id": 0,
+                  "category_id_path": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "name": "<REDACTED_SAMPLE>",
+                  "suitability_rank": 0,
+                  "cn_category_name_path": [
+                    "<REDACTED_SAMPLE>",
+                    "<REDACTED_SAMPLE>",
+                    "<REDACTED_SAMPLE>"
+                  ]
+                },
+                {
+                  "score": "<REDACTED_SAMPLE>",
+                  "category_name_path": [
+                    "<REDACTED_SAMPLE>",
+                    "<REDACTED_SAMPLE>",
+                    "<REDACTED_SAMPLE>"
+                  ],
+                  "cn_name": "<REDACTED_SAMPLE>",
+                  "category_id": 0,
+                  "category_id_path": [
+                    0,
+                    0,
+                    0
+                  ],
+                  "name": "<REDACTED_SAMPLE>",
+                  "suitability_rank": 0,
+                  "cn_category_name_path": [
+                    "<REDACTED_SAMPLE>",
+                    "<REDACTED_SAMPLE>",
+                    "<REDACTED_SAMPLE>"
+                  ]
+                }
+              ]
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 316
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 317
+    },
+    "lastModified": "2022-04-01 18:03:51",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4019842,
+          "data": [],
+          "children": [],
+          "name": "image_url",
+          "id": 317,
+          "type": "String",
+          "required": false,
+          "desc": "必填。图片url，请isv上传商品图片，通过图片银行接口获取。当语种为俄语时不必填。"
+        },
+        {
+          "treeId": 4019843,
+          "data": [],
+          "children": [],
+          "name": "subject",
+          "id": 317,
+          "type": "String",
+          "required": true,
+          "desc": "商品标题"
+        },
+        {
+          "treeId": 4019844,
+          "data": [],
+          "children": [],
+          "name": "locale",
+          "id": 317,
+          "type": "String",
+          "required": true,
+          "desc": "必填。商品标题语种:en，ru，pt，id，es，fr，it，de，nl，tr，he，ja，ar，th，vi，ko，pl"
+        },
+        {
+          "treeId": 4019845,
+          "data": [],
+          "children": [],
+          "name": "is_filter_by_permission",
+          "id": 317,
+          "type": "String",
+          "required": false,
+          "desc": "是否过滤类目准入权限 N=不过滤 | Y=过滤，不填写时，默认为N , 如果是发品类目预测需要填 Y，否则返回的类目可能会在发品时报错，影响用户体验"
+        }
+      ],
+      "id": 317
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 4850,
+    "desc": "类目预测，根据商品标题和图片预测商品的叶子类目，可以筛选已经通过准入申请的类目",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4019846,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4019848,
+              "data": [],
+              "children": [],
+              "name": "category_suitability_list",
+              "id": 569,
+              "type": "String[]",
+              "required": true,
+              "desc": "类目预测结果。  字段含义 ：  \"score\"：预测可能性分数，分数越高结果越准确。\"category_name_path\"：预测类目路径，locale语种。\"cn_name\"：中文的叶子类目名。\"category_id\"：叶子类目id。\"category_id_path\"：类目id路径。\"name\"：叶子类目名称，locale语种。\"suitability_rank\"：类目适合度排序，值越小越适合。\"cn_category_name_path\"：中文类目路径"
+            }
+          ],
+          "name": "result",
+          "id": 569,
+          "type": "Object",
+          "required": true,
+          "desc": "result"
+        }
+      ],
+      "id": 569
+    }
+  }
+}

@@ -12,6 +12,7 @@ The current dataset contains:
 - [Lazada Open Platform API Models](lazada-api/README.md)
 - [SHEIN Open Platform API Models](shein-api/README.md)
 - [Mercado Libre API Models](mercado-libre-api/README.md)
+- [AliExpress API Models](aliexpress-api/README.md)
 
 ## Structure
 
@@ -27,6 +28,7 @@ api-models/
   lazada-api/
   shein-api/
   mercado-libre-api/
+  aliexpress-api/
 ```
 
 Inside an API family, the expected navigation pattern is:
@@ -57,6 +59,8 @@ This keeps broad discovery lightweight while still preserving the detailed endpo
 `shein-api` contains the public SHEIN API and Webhook catalog, with 256 operation models across 21 official categories. Mode applicability, source field trees, errors, and redacted example shapes are preserved per record.
 
 `mercado-libre-api` catalogs Global Selling and local-seller official developer articles and provides source-linked, example-derived operation models for explicit method/path examples.
+
+`aliexpress-api` contains 496 source-traceable AliExpress catalog models across 36 categories, with official SDK operation names, TOP/GOP routing evidence, preserved business field trees, and an explicit scope manifest for separate MIRAVIA records.
 
 ## Future Scope
 

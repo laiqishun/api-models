@@ -1,0 +1,947 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "批量查询商品禁限运标（跨境纯配场景使用）",
+    "version": "2023-02-10 18:22:24",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "get": {
+        "operationId": "cainiaoGlobalLogisticsListitemtagGet",
+        "tags": [
+          "菜鸟国际出口"
+        ],
+        "summary": "批量查询商品禁限运标（跨境纯配场景使用）",
+        "description": "批量查询商品禁限运标，用于提前感知商品禁限运情况，选择正确发货渠道",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "cainiao.global.logistics.listitemtag",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21215&path=cainiao.global.logistics.listitemtag&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1201,
+        "x-aliexpress-source-last-modified": "2023-02-10 18:22:24",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "cainiao.global.logistics.listitemtag"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      },
+      "post": {
+        "operationId": "cainiaoGlobalLogisticsListitemtagPost",
+        "tags": [
+          "菜鸟国际出口"
+        ],
+        "summary": "批量查询商品禁限运标（跨境纯配场景使用）",
+        "description": "批量查询商品禁限运标，用于提前感知商品禁限运情况，选择正确发货渠道",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "cainiao.global.logistics.listitemtag",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21215&path=cainiao.global.logistics.listitemtag&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1201,
+        "x-aliexpress-source-last-modified": "2023-02-10 18:22:24",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "cainiao.global.logistics.listitemtag"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "trade_order_id": {
+          "type": "number",
+          "description": "交易订单ID"
+        },
+        "item_id_list": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "商品ID列表"
+          }
+        }
+      },
+      "required": [
+        "item_id_list"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "description": "返回值",
+          "properties": {
+            "item_tags": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "商品标列表",
+                "properties": {
+                  "item_id": {
+                    "type": "string",
+                    "description": "商品ID"
+                  },
+                  "tag_detail_list": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "商品标详情列表",
+                      "properties": {
+                        "prohibition_msg": {
+                          "type": "string",
+                          "description": "禁限运属性描述"
+                        },
+                        "prohibition_result": {
+                          "type": "string",
+                          "description": "Y（是禁限运商品）、N（不是禁限运商品）、NO_DATA（无结果）"
+                        },
+                        "prohibition_feature": {
+                          "type": "string",
+                          "description": "IPR（IPR）、禁运（CONTRABAND）、纯电（BATTERIES）、特货（SPECIAL）、带电带磁（ELECTRICAL）、普货（GENERAL）、无记录（N/A）"
+                        }
+                      },
+                      "required": [
+                        "prohibition_msg",
+                        "prohibition_result",
+                        "prohibition_feature"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "item_id",
+                  "tag_detail_list"
+                ]
+              }
+            },
+            "success": {
+              "type": "boolean",
+              "description": "是否成功"
+            },
+            "error_code": {
+              "type": "string",
+              "description": "错误码（接口报错时有值）"
+            },
+            "error_msg": {
+              "type": "string",
+              "description": "错误信息（接口报错时有值）"
+            }
+          },
+          "required": [
+            "item_tags",
+            "success",
+            "error_code",
+            "error_msg"
+          ]
+        }
+      },
+      "required": [
+        "response"
+      ]
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21215,
+    "name": "菜鸟国际出口",
+    "description": "菜鸟国际出口相关业务的TOP接口"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "CainiaoGlobalLogisticsListitemtagRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "批量查询商品禁限运标，用于提前感知商品禁限运情况，选择正确发货渠道",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "批量查询商品禁限运标（跨境纯配场景使用）",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "cainiao.global.logistics.listitemtag",
+    "methodType": "GET/POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21215,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "GET/POST",
+    "docId": 1201,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 1568
+    },
+    "title": "批量查询商品禁限运标（跨境纯配场景使用）",
+    "path": "cainiao.global.logistics.listitemtag",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "response",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "4",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "3",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "item_tags",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "9",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "item_id",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4205691,
+                      "apiId": "304175",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "itemId",
+                      "parentId": 4205690,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"商品ID\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "3",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "tag_detail_list",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "9",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "prohibition_msg",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": true,
+                          "paramType": "1",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4205693,
+                          "apiId": "304175",
+                          "docVisible": true,
+                          "paramOrder": "",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "2",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "prohibitionMsg",
+                          "parentId": 4205692,
+                          "dataSecurityLevel": "S2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"禁限运属性描述\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "prohibition_result",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": true,
+                          "paramType": "1",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4205694,
+                          "apiId": "304175",
+                          "docVisible": true,
+                          "paramOrder": "",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "2",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "prohibitionResult",
+                          "parentId": 4205692,
+                          "dataSecurityLevel": "S2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"Y（是禁限运商品）、N（不是禁限运商品）、NO_DATA（无结果）\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "prohibition_feature",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": true,
+                          "paramType": "1",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4205695,
+                          "apiId": "304175",
+                          "docVisible": true,
+                          "paramOrder": "",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "2",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "prohibitionFeature",
+                          "parentId": 4205692,
+                          "dataSecurityLevel": "S2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"IPR（IPR）、禁运（CONTRABAND）、纯电（BATTERIES）、特货（SPECIAL）、带电带磁（ELECTRICAL）、普货（GENERAL）、无记录（N/A）\"}]"
+                        }
+                      ],
+                      "maxListSize": "",
+                      "id": 4205692,
+                      "apiId": "304175",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "tagDetailList",
+                      "parentId": 4205690,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.util.List<com.alibaba.intl.ae.biz.aeop.share.dataobject.logistics.ItemTagDetail>",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"商品标详情列表\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4205690,
+                  "apiId": "304175",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "itemTags",
+                  "parentId": 4205689,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.util.List<com.alibaba.intl.ae.biz.aeop.share.dataobject.logistics.ItemTag>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"商品标列表\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "success",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "3",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4205696,
+                  "apiId": "304175",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "success",
+                  "parentId": 4205689,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.Boolean",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"是否成功\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_code",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4205697,
+                  "apiId": "304175",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorCode",
+                  "parentId": 4205689,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误码（接口报错时有值）\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_msg",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4205698,
+                  "apiId": "304175",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorMsg",
+                  "parentId": 4205689,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误信息（接口报错时有值）\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4205689,
+              "apiId": "304175",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "com.alibaba.intl.ae.biz.aeop.share.dataobject.logistics.AeopItemContrabandRestrictTagResponse",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"返回值\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "trade_order_id",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "Number",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4205687,
+              "apiId": "304175",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "tradeOrderId",
+              "parentId": 4205686,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.Long",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"交易订单ID\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "item_id_list",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String[]",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4205688,
+              "apiId": "304175",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "itemIdList",
+              "parentId": 4205686,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"商品ID列表\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 1567,
+          "complexResponseCode": {
+            "cainiao_global_logistics_listitemtag_response": {
+              "response": {
+                "error_msg": "<REDACTED_SAMPLE>",
+                "item_tags": [
+                  {
+                    "tag_detail_list": [
+                      {
+                        "prohibition_result": "<REDACTED_SAMPLE>",
+                        "prohibition_feature": "<REDACTED_SAMPLE>",
+                        "prohibition_msg": "<REDACTED_SAMPLE>"
+                      }
+                    ],
+                    "item_id": "<REDACTED_SAMPLE>"
+                  }
+                ],
+                "success": "<REDACTED_SAMPLE>",
+                "error_code": "<REDACTED_SAMPLE>"
+              }
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "response": {
+              "error_msg": "<REDACTED_SAMPLE>",
+              "item_tags": [
+                {
+                  "tag_detail_list": [
+                    {
+                      "prohibition_result": "<REDACTED_SAMPLE>",
+                      "prohibition_feature": "<REDACTED_SAMPLE>",
+                      "prohibition_msg": "<REDACTED_SAMPLE>"
+                    }
+                  ],
+                  "item_id": "<REDACTED_SAMPLE>"
+                }
+              ],
+              "success": "<REDACTED_SAMPLE>",
+              "error_code": "<REDACTED_SAMPLE>"
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 1567
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 1568
+    },
+    "lastModified": "2023-02-10 18:22:24",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4205687,
+          "data": [],
+          "children": [],
+          "name": "trade_order_id",
+          "id": 1568,
+          "type": "Number",
+          "required": false,
+          "desc": "交易订单ID"
+        },
+        {
+          "treeId": 4205688,
+          "data": [],
+          "children": [],
+          "name": "item_id_list",
+          "id": 1568,
+          "type": "String[]",
+          "required": true,
+          "desc": "商品ID列表"
+        }
+      ],
+      "id": 1568
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 1045,
+    "desc": "批量查询商品禁限运标，用于提前感知商品禁限运情况，选择正确发货渠道",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4205689,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4205690,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4205691,
+                  "data": [],
+                  "children": [],
+                  "name": "item_id",
+                  "id": 1570,
+                  "type": "String",
+                  "required": true,
+                  "desc": "商品ID"
+                },
+                {
+                  "treeId": 4205692,
+                  "data": [],
+                  "children": [
+                    {
+                      "treeId": 4205693,
+                      "data": [],
+                      "children": [],
+                      "name": "prohibition_msg",
+                      "id": 1570,
+                      "type": "String",
+                      "required": true,
+                      "desc": "禁限运属性描述"
+                    },
+                    {
+                      "treeId": 4205694,
+                      "data": [],
+                      "children": [],
+                      "name": "prohibition_result",
+                      "id": 1570,
+                      "type": "String",
+                      "required": true,
+                      "desc": "Y（是禁限运商品）、N（不是禁限运商品）、NO_DATA（无结果）"
+                    },
+                    {
+                      "treeId": 4205695,
+                      "data": [],
+                      "children": [],
+                      "name": "prohibition_feature",
+                      "id": 1570,
+                      "type": "String",
+                      "required": true,
+                      "desc": "IPR（IPR）、禁运（CONTRABAND）、纯电（BATTERIES）、特货（SPECIAL）、带电带磁（ELECTRICAL）、普货（GENERAL）、无记录（N/A）"
+                    }
+                  ],
+                  "name": "tag_detail_list",
+                  "id": 1570,
+                  "type": "Object[]",
+                  "required": true,
+                  "desc": "商品标详情列表"
+                }
+              ],
+              "name": "item_tags",
+              "id": 1570,
+              "type": "Object[]",
+              "required": true,
+              "desc": "商品标列表"
+            },
+            {
+              "treeId": 4205696,
+              "data": [],
+              "children": [],
+              "name": "success",
+              "id": 1570,
+              "type": "Boolean",
+              "required": true,
+              "desc": "是否成功"
+            },
+            {
+              "treeId": 4205697,
+              "data": [],
+              "children": [],
+              "name": "error_code",
+              "id": 1570,
+              "type": "String",
+              "required": true,
+              "desc": "错误码（接口报错时有值）"
+            },
+            {
+              "treeId": 4205698,
+              "data": [],
+              "children": [],
+              "name": "error_msg",
+              "id": 1570,
+              "type": "String",
+              "required": true,
+              "desc": "错误信息（接口报错时有值）"
+            }
+          ],
+          "name": "response",
+          "id": 1570,
+          "type": "Object",
+          "required": true,
+          "desc": "返回值"
+        }
+      ],
+      "id": 1570
+    }
+  }
+}

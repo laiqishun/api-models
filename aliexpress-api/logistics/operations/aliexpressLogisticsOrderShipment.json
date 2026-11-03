@@ -1,0 +1,1855 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "子单声明发货",
+    "version": "2022-03-29 17:31:47",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "get": {
+        "operationId": "aliexpressLogisticsOrderShipmentGet",
+        "tags": [
+          "AE-物流"
+        ],
+        "summary": "子单声明发货",
+        "description": "子单申明发货",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.logistics.order.shipment",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=20892&path=aliexpress.logistics.order.shipment&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 490,
+        "x-aliexpress-source-last-modified": "2022-03-29 17:31:47",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.logistics.order.shipment"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      },
+      "post": {
+        "operationId": "aliexpressLogisticsOrderShipmentPost",
+        "tags": [
+          "AE-物流"
+        ],
+        "summary": "子单声明发货",
+        "description": "子单申明发货",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.logistics.order.shipment",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=20892&path=aliexpress.logistics.order.shipment&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 490,
+        "x-aliexpress-source-last-modified": "2022-03-29 17:31:47",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.logistics.order.shipment"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "param_aeop_seller_shipment_sub_trade_order_request": {
+          "type": "object",
+          "description": "-",
+          "properties": {
+            "sub_trade_order_list": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "子单列表",
+                "properties": {
+                  "ioss": {
+                    "type": "string",
+                    "description": "ioss"
+                  },
+                  "send_type": {
+                    "type": "string",
+                    "description": "申明发货类型 part / all"
+                  },
+                  "shipment_list": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "发货列表",
+                      "properties": {
+                        "logistics_no": {
+                          "type": "string",
+                          "description": "货物跟踪编码/国际运单号"
+                        },
+                        "service_name": {
+                          "type": "string",
+                          "description": "物流方案编码"
+                        },
+                        "tracking_web_site": {
+                          "type": "string",
+                          "description": "运单号轨迹查询地址-物流方案为自定义(OTHER开头)的时候必填"
+                        },
+                        "actual_carrier": {
+                          "type": "string",
+                          "description": "实际承运商--物流方案为“卖家自定义-中国”(OTHER)时该字段为必填"
+                        },
+                        "package_type": {
+                          "type": "string",
+                          "description": "合单的时候传 consolidation"
+                        }
+                      },
+                      "required": [
+                        "logistics_no",
+                        "service_name"
+                      ]
+                    }
+                  },
+                  "sub_trade_order_index": {
+                    "type": "number",
+                    "description": "子交易单序号"
+                  }
+                },
+                "required": [
+                  "send_type",
+                  "shipment_list",
+                  "sub_trade_order_index"
+                ]
+              }
+            },
+            "trade_order_id": {
+              "type": "number",
+              "description": "交易单号"
+            }
+          },
+          "required": [
+            "sub_trade_order_list",
+            "trade_order_id"
+          ]
+        }
+      },
+      "required": [
+        "param_aeop_seller_shipment_sub_trade_order_request"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "description": "结果",
+          "properties": {
+            "error_code": {
+              "type": "string",
+              "description": "错误码"
+            },
+            "error_msg": {
+              "type": "string",
+              "description": "错误信息"
+            },
+            "sub_trade_order_list": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "子交易单列表",
+                "properties": {
+                  "error_code": {
+                    "type": "string",
+                    "description": "错误码"
+                  },
+                  "error_msg": {
+                    "type": "string",
+                    "description": "错误信息"
+                  },
+                  "ioss": {
+                    "type": "string",
+                    "description": "ioss"
+                  },
+                  "send_type": {
+                    "type": "string",
+                    "description": "全部申明发货/部分申明发货"
+                  },
+                  "shipment_list": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "发货列表",
+                      "properties": {
+                        "error_code": {
+                          "type": "string",
+                          "description": "错误码"
+                        },
+                        "error_msg": {
+                          "type": "string",
+                          "description": "错误信息"
+                        },
+                        "logistics_no": {
+                          "type": "string",
+                          "description": "运单号"
+                        },
+                        "service_name": {
+                          "type": "string",
+                          "description": "物流方案编码"
+                        },
+                        "tracking_web_site": {
+                          "type": "string",
+                          "description": "查询物流根据链接"
+                        },
+                        "actual_carrier": {
+                          "type": "string",
+                          "description": "实际承运商"
+                        }
+                      }
+                    }
+                  },
+                  "sub_trade_order_index": {
+                    "type": "number",
+                    "description": "子交易单序号"
+                  }
+                }
+              }
+            },
+            "success": {
+              "type": "boolean",
+              "description": "是否成功"
+            },
+            "trade_order_id": {
+              "type": "number",
+              "description": "交易单号"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 20892,
+    "name": "AE-物流",
+    "description": "AE-物流"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressLogisticsOrderShipmentRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "子单申明发货",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "子单声明发货",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "aliexpress.logistics.order.shipment",
+    "methodType": "GET/POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 20892,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "GET/POST",
+    "docId": 490,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 173
+    },
+    "title": "子单声明发货",
+    "path": "aliexpress.logistics.order.shipment",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "result",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "4",
+              "mappingValue": "result",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_code",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "result->error_code",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4077082,
+                  "apiId": "301707",
+                  "docVisible": false,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorCode",
+                  "parentId": 4077081,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误码\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_msg",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "result->error_msg",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4077083,
+                  "apiId": "301707",
+                  "docVisible": false,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorMsg",
+                  "parentId": 4077081,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误信息\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "3",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "sub_trade_order_list",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "9",
+                  "mappingValue": "result->sub_trade_order_list",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "error_code",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "result->sub_trade_order_list->error_code",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4077085,
+                      "apiId": "301707",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "errorCode",
+                      "parentId": 4077084,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"错误码\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "error_msg",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "result->sub_trade_order_list->error_msg",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4077086,
+                      "apiId": "301707",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "errorMsg",
+                      "parentId": 4077084,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"错误信息\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "ioss",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "result->sub_trade_order_list->ioss",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4077087,
+                      "apiId": "301707",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "ioss",
+                      "parentId": 4077084,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"ioss\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "send_type",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "result->sub_trade_order_list->send_type",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4077088,
+                      "apiId": "301707",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "sendType",
+                      "parentId": 4077084,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"全部申明发货/部分申明发货\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "3",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "shipment_list",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "9",
+                      "mappingValue": "result->sub_trade_order_list->shipment_list",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "error_code",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "1",
+                          "mappingValue": "result->sub_trade_order_list->shipment_list->error_code",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4077090,
+                          "apiId": "301707",
+                          "docVisible": false,
+                          "paramOrder": "100",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "2",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "errorCode",
+                          "parentId": 4077089,
+                          "dataSecurityLevel": "s1",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"错误码\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "error_msg",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "1",
+                          "mappingValue": "result->sub_trade_order_list->shipment_list->error_msg",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4077091,
+                          "apiId": "301707",
+                          "docVisible": false,
+                          "paramOrder": "100",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "2",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "errorMsg",
+                          "parentId": 4077089,
+                          "dataSecurityLevel": "s1",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"错误信息\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "logistics_no",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "1",
+                          "mappingValue": "result->sub_trade_order_list->shipment_list->logistics_no",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4077092,
+                          "apiId": "301707",
+                          "docVisible": false,
+                          "paramOrder": "100",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "2",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "logisticsNo",
+                          "parentId": 4077089,
+                          "dataSecurityLevel": "s1",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"运单号\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "service_name",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "1",
+                          "mappingValue": "result->sub_trade_order_list->shipment_list->service_name",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4077093,
+                          "apiId": "301707",
+                          "docVisible": false,
+                          "paramOrder": "100",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "2",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "serviceName",
+                          "parentId": 4077089,
+                          "dataSecurityLevel": "s1",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"物流方案编码\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "tracking_web_site",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "1",
+                          "mappingValue": "result->sub_trade_order_list->shipment_list->tracking_web_site",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4077094,
+                          "apiId": "301707",
+                          "docVisible": false,
+                          "paramOrder": "100",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "2",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "trackingWebSite",
+                          "parentId": 4077089,
+                          "dataSecurityLevel": "s1",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"查询物流根据链接\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "actual_carrier",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "1",
+                          "mappingValue": "result->sub_trade_order_list->shipment_list->actual_carrier",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4077095,
+                          "apiId": "301707",
+                          "docVisible": false,
+                          "paramOrder": "100",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "2",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "actualCarrier",
+                          "parentId": 4077089,
+                          "dataSecurityLevel": "s1",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"实际承运商\"}]"
+                        }
+                      ],
+                      "maxListSize": "",
+                      "id": 4077089,
+                      "apiId": "301707",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "shipmentList",
+                      "parentId": 4077084,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.util.List<com.alibaba.intl.ae.biz.aeop.share.dataobject.logistics.AeopShipmentDTO>",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"发货列表\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "sub_trade_order_index",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "2",
+                      "mappingValue": "result->sub_trade_order_list->sub_trade_order_index",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4077096,
+                      "apiId": "301707",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "subTradeOrderIndex",
+                      "parentId": 4077084,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "int",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"子交易单序号\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4077084,
+                  "apiId": "301707",
+                  "docVisible": false,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "subTradeOrderList",
+                  "parentId": 4077081,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "java.util.List<com.alibaba.intl.ae.biz.aeop.share.dataobject.logistics.AeopSellerShipmentSubTradeOrderDTO>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"子交易单列表\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "success",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "3",
+                  "mappingValue": "result->success",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4077097,
+                  "apiId": "301707",
+                  "docVisible": false,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "success",
+                  "parentId": 4077081,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "boolean",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"是否成功\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "trade_order_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "2",
+                  "mappingValue": "result->trade_order_id",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4077098,
+                  "apiId": "301707",
+                  "docVisible": false,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "tradeOrderId",
+                  "parentId": 4077081,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"交易单号\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4077081,
+              "apiId": "301707",
+              "docVisible": false,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "s1",
+              "serviceParamPath": "com.alibaba.intl.ae.biz.aeop.share.dataobject.logistics.AeopSellerShipmentSubTradeOrderResponse",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"结果\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "3",
+              "serviceParamType": "2",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "param_aeop_seller_shipment_sub_trade_order_request",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Object",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "3",
+                  "serviceParamType": "3",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "sub_trade_order_list",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "Object[]",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "3",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "ioss",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4077071,
+                      "apiId": "301707",
+                      "docVisible": false,
+                      "paramOrder": "0",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "ioss",
+                      "parentId": 4077070,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"ioss\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "3",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "send_type",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4077072,
+                      "apiId": "301707",
+                      "docVisible": false,
+                      "paramOrder": "0",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "sendType",
+                      "parentId": 4077070,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"申明发货类型 part / all\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "3",
+                      "serviceParamType": "3",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "shipment_list",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "Object[]",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [
+                        {
+                          "serviceParamHttpType": "3",
+                          "serviceParamType": "1",
+                          "hitLog": false,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "logistics_no",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": true,
+                          "paramType": "String",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4077074,
+                          "apiId": "301707",
+                          "docVisible": false,
+                          "paramOrder": "0",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "logisticsNo",
+                          "parentId": 4077073,
+                          "dataSecurityLevel": "C2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"货物跟踪编码/国际运单号\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "3",
+                          "serviceParamType": "1",
+                          "hitLog": false,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "service_name",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": true,
+                          "paramType": "String",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4077075,
+                          "apiId": "301707",
+                          "docVisible": false,
+                          "paramOrder": "0",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "serviceName",
+                          "parentId": 4077073,
+                          "dataSecurityLevel": "C2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"物流方案编码\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "3",
+                          "serviceParamType": "1",
+                          "hitLog": false,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "tracking_web_site",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "String",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4077076,
+                          "apiId": "301707",
+                          "docVisible": false,
+                          "paramOrder": "0",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "trackingWebSite",
+                          "parentId": 4077073,
+                          "dataSecurityLevel": "C2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"运单号轨迹查询地址-物流方案为自定义(OTHER开头)的时候必填\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "3",
+                          "serviceParamType": "1",
+                          "hitLog": false,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "actual_carrier",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "String",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4077077,
+                          "apiId": "301707",
+                          "docVisible": false,
+                          "paramOrder": "100",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "actualCarrier",
+                          "parentId": 4077073,
+                          "dataSecurityLevel": "C2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"实际承运商--物流方案为“卖家自定义-中国”(OTHER)时该字段为必填\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "3",
+                          "serviceParamType": "1",
+                          "hitLog": false,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "package_type",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "String",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4077078,
+                          "apiId": "301707",
+                          "docVisible": false,
+                          "paramOrder": "100",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "packageType",
+                          "parentId": 4077073,
+                          "dataSecurityLevel": "C2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"合单的时候传 consolidation\"}]"
+                        }
+                      ],
+                      "maxListSize": "999",
+                      "id": 4077073,
+                      "apiId": "301707",
+                      "docVisible": false,
+                      "paramOrder": "0",
+                      "moreLimit": "Max List Size:999",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "shipmentList",
+                      "parentId": 4077070,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.util.List<com.alibaba.intl.ae.biz.aeop.share.dataobject.logistics.AeopShipmentDTO>",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"发货列表\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "3",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "sub_trade_order_index",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "Number",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4077079,
+                      "apiId": "301707",
+                      "docVisible": false,
+                      "paramOrder": "0",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "subTradeOrderIndex",
+                      "parentId": 4077070,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "int",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"子交易单序号\"}]"
+                    }
+                  ],
+                  "maxListSize": "999",
+                  "id": 4077070,
+                  "apiId": "301707",
+                  "docVisible": false,
+                  "paramOrder": "0",
+                  "moreLimit": "Max List Size:999",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "subTradeOrderList",
+                  "parentId": 4077069,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.util.List<com.alibaba.intl.ae.biz.aeop.share.dataobject.logistics.AeopSellerShipmentSubTradeOrderDTO>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"子单列表\"}]"
+                },
+                {
+                  "serviceParamHttpType": "3",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "trade_order_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "Number",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4077080,
+                  "apiId": "301707",
+                  "docVisible": false,
+                  "paramOrder": "0",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "tradeOrderId",
+                  "parentId": 4077069,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"交易单号\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4077069,
+              "apiId": "301707",
+              "docVisible": false,
+              "paramOrder": "1",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "com.alibaba.intl.ae.biz.aeop.share.dataobject.logistics.AeopSellerShipmentSubTradeOrderRequest",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"-\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 172,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "aliexpress_logistics_order_shipment_response": {
+              "result": {
+                "error_msg": "<REDACTED_SAMPLE>",
+                "success": "<REDACTED_SAMPLE>",
+                "sub_trade_order_list": [
+                  {
+                    "error_msg": "<REDACTED_SAMPLE>",
+                    "send_type": "<REDACTED_SAMPLE>",
+                    "ioss": "<REDACTED_SAMPLE>",
+                    "error_code": "<REDACTED_SAMPLE>",
+                    "shipment_list": [
+                      {
+                        "actual_carrier": "<REDACTED_SAMPLE>",
+                        "error_msg": "<REDACTED_SAMPLE>",
+                        "tracking_web_site": "<REDACTED_SAMPLE>",
+                        "logistics_no": "<REDACTED_SAMPLE>",
+                        "service_name": "<REDACTED_SAMPLE>",
+                        "error_code": "<REDACTED_SAMPLE>"
+                      }
+                    ],
+                    "sub_trade_order_index": "<REDACTED_SAMPLE>"
+                  }
+                ],
+                "trade_order_id": "<REDACTED_SAMPLE>",
+                "error_code": "<REDACTED_SAMPLE>"
+              }
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "result": {
+              "error_msg": "<REDACTED_SAMPLE>",
+              "success": "<REDACTED_SAMPLE>",
+              "sub_trade_order_list": [
+                {
+                  "error_msg": "<REDACTED_SAMPLE>",
+                  "send_type": "<REDACTED_SAMPLE>",
+                  "ioss": "<REDACTED_SAMPLE>",
+                  "error_code": "<REDACTED_SAMPLE>",
+                  "shipment_list": [
+                    {
+                      "actual_carrier": "<REDACTED_SAMPLE>",
+                      "error_msg": "<REDACTED_SAMPLE>",
+                      "tracking_web_site": "<REDACTED_SAMPLE>",
+                      "logistics_no": "<REDACTED_SAMPLE>",
+                      "service_name": "<REDACTED_SAMPLE>",
+                      "error_code": "<REDACTED_SAMPLE>"
+                    }
+                  ],
+                  "sub_trade_order_index": "<REDACTED_SAMPLE>"
+                }
+              ],
+              "trade_order_id": "<REDACTED_SAMPLE>",
+              "error_code": "<REDACTED_SAMPLE>"
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 172
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 173
+    },
+    "lastModified": "2022-03-29 17:31:47",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4077069,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4077070,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4077071,
+                  "data": [],
+                  "children": [],
+                  "name": "ioss",
+                  "id": 173,
+                  "type": "String",
+                  "required": false,
+                  "desc": "ioss"
+                },
+                {
+                  "treeId": 4077072,
+                  "data": [],
+                  "children": [],
+                  "name": "send_type",
+                  "id": 173,
+                  "type": "String",
+                  "required": true,
+                  "desc": "申明发货类型 part / all"
+                },
+                {
+                  "treeId": 4077073,
+                  "data": [],
+                  "children": [
+                    {
+                      "treeId": 4077074,
+                      "data": [],
+                      "children": [],
+                      "name": "logistics_no",
+                      "id": 173,
+                      "type": "String",
+                      "required": true,
+                      "desc": "货物跟踪编码/国际运单号"
+                    },
+                    {
+                      "treeId": 4077075,
+                      "data": [],
+                      "children": [],
+                      "name": "service_name",
+                      "id": 173,
+                      "type": "String",
+                      "required": true,
+                      "desc": "物流方案编码"
+                    },
+                    {
+                      "treeId": 4077076,
+                      "data": [],
+                      "children": [],
+                      "name": "tracking_web_site",
+                      "id": 173,
+                      "type": "String",
+                      "required": false,
+                      "desc": "运单号轨迹查询地址-物流方案为自定义(OTHER开头)的时候必填"
+                    },
+                    {
+                      "treeId": 4077077,
+                      "data": [],
+                      "children": [],
+                      "name": "actual_carrier",
+                      "id": 173,
+                      "type": "String",
+                      "required": false,
+                      "desc": "实际承运商--物流方案为“卖家自定义-中国”(OTHER)时该字段为必填"
+                    },
+                    {
+                      "treeId": 4077078,
+                      "data": [],
+                      "children": [],
+                      "name": "package_type",
+                      "id": 173,
+                      "type": "String",
+                      "required": false,
+                      "desc": "合单的时候传 consolidation"
+                    }
+                  ],
+                  "name": "shipment_list",
+                  "id": 173,
+                  "type": "Object[]",
+                  "required": true,
+                  "desc": "发货列表"
+                },
+                {
+                  "treeId": 4077079,
+                  "data": [],
+                  "children": [],
+                  "name": "sub_trade_order_index",
+                  "id": 173,
+                  "type": "Number",
+                  "required": true,
+                  "desc": "子交易单序号"
+                }
+              ],
+              "name": "sub_trade_order_list",
+              "id": 173,
+              "type": "Object[]",
+              "required": true,
+              "desc": "子单列表"
+            },
+            {
+              "treeId": 4077080,
+              "data": [],
+              "children": [],
+              "name": "trade_order_id",
+              "id": 173,
+              "type": "Number",
+              "required": true,
+              "desc": "交易单号"
+            }
+          ],
+          "name": "param_aeop_seller_shipment_sub_trade_order_request",
+          "id": 173,
+          "type": "Object",
+          "required": true,
+          "desc": "-"
+        }
+      ],
+      "id": 173
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 9669,
+    "desc": "子单申明发货",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4077081,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4077082,
+              "data": [],
+              "children": [],
+              "name": "error_code",
+              "id": 685,
+              "type": "String",
+              "required": false,
+              "desc": "错误码"
+            },
+            {
+              "treeId": 4077083,
+              "data": [],
+              "children": [],
+              "name": "error_msg",
+              "id": 685,
+              "type": "String",
+              "required": false,
+              "desc": "错误信息"
+            },
+            {
+              "treeId": 4077084,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4077085,
+                  "data": [],
+                  "children": [],
+                  "name": "error_code",
+                  "id": 685,
+                  "type": "String",
+                  "required": false,
+                  "desc": "错误码"
+                },
+                {
+                  "treeId": 4077086,
+                  "data": [],
+                  "children": [],
+                  "name": "error_msg",
+                  "id": 685,
+                  "type": "String",
+                  "required": false,
+                  "desc": "错误信息"
+                },
+                {
+                  "treeId": 4077087,
+                  "data": [],
+                  "children": [],
+                  "name": "ioss",
+                  "id": 685,
+                  "type": "String",
+                  "required": false,
+                  "desc": "ioss"
+                },
+                {
+                  "treeId": 4077088,
+                  "data": [],
+                  "children": [],
+                  "name": "send_type",
+                  "id": 685,
+                  "type": "String",
+                  "required": false,
+                  "desc": "全部申明发货/部分申明发货"
+                },
+                {
+                  "treeId": 4077089,
+                  "data": [],
+                  "children": [
+                    {
+                      "treeId": 4077090,
+                      "data": [],
+                      "children": [],
+                      "name": "error_code",
+                      "id": 685,
+                      "type": "String",
+                      "required": false,
+                      "desc": "错误码"
+                    },
+                    {
+                      "treeId": 4077091,
+                      "data": [],
+                      "children": [],
+                      "name": "error_msg",
+                      "id": 685,
+                      "type": "String",
+                      "required": false,
+                      "desc": "错误信息"
+                    },
+                    {
+                      "treeId": 4077092,
+                      "data": [],
+                      "children": [],
+                      "name": "logistics_no",
+                      "id": 685,
+                      "type": "String",
+                      "required": false,
+                      "desc": "运单号"
+                    },
+                    {
+                      "treeId": 4077093,
+                      "data": [],
+                      "children": [],
+                      "name": "service_name",
+                      "id": 685,
+                      "type": "String",
+                      "required": false,
+                      "desc": "物流方案编码"
+                    },
+                    {
+                      "treeId": 4077094,
+                      "data": [],
+                      "children": [],
+                      "name": "tracking_web_site",
+                      "id": 685,
+                      "type": "String",
+                      "required": false,
+                      "desc": "查询物流根据链接"
+                    },
+                    {
+                      "treeId": 4077095,
+                      "data": [],
+                      "children": [],
+                      "name": "actual_carrier",
+                      "id": 685,
+                      "type": "String",
+                      "required": false,
+                      "desc": "实际承运商"
+                    }
+                  ],
+                  "name": "shipment_list",
+                  "id": 685,
+                  "type": "Object[]",
+                  "required": false,
+                  "desc": "发货列表"
+                },
+                {
+                  "treeId": 4077096,
+                  "data": [],
+                  "children": [],
+                  "name": "sub_trade_order_index",
+                  "id": 685,
+                  "type": "Number",
+                  "required": false,
+                  "desc": "子交易单序号"
+                }
+              ],
+              "name": "sub_trade_order_list",
+              "id": 685,
+              "type": "Object[]",
+              "required": false,
+              "desc": "子交易单列表"
+            },
+            {
+              "treeId": 4077097,
+              "data": [],
+              "children": [],
+              "name": "success",
+              "id": 685,
+              "type": "Boolean",
+              "required": false,
+              "desc": "是否成功"
+            },
+            {
+              "treeId": 4077098,
+              "data": [],
+              "children": [],
+              "name": "trade_order_id",
+              "id": 685,
+              "type": "Number",
+              "required": false,
+              "desc": "交易单号"
+            }
+          ],
+          "name": "result",
+          "id": 685,
+          "type": "Object",
+          "required": false,
+          "desc": "结果"
+        }
+      ],
+      "id": 685
+    }
+  }
+}

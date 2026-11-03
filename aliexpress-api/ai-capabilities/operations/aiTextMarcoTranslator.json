@@ -1,0 +1,773 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Marco 大模型翻译",
+    "version": "2024-11-26 11:01:38",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/rest/ai/text/marco/translator": {
+      "get": {
+        "operationId": "aiTextMarcoTranslatorGet",
+        "tags": [
+          "AI能力"
+        ],
+        "summary": "Marco 大模型翻译",
+        "description": "通过对内容上下文的理解，可以完成高质量商品信息翻译、多语言沟通及文档翻译等任务，在电商行业术语和日常对话翻译中都表现出色。",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "/ai/text/marco/translator",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Ftext%2Fmarco%2Ftranslator&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1746,
+        "x-aliexpress-source-last-modified": "2024-11-26 11:01:38",
+        "x-aliexpress-auth-type": 0,
+        "x-aliexpress-chargeable": true,
+        "x-aliexpress-protocol": "GOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        }
+      },
+      "post": {
+        "operationId": "aiTextMarcoTranslatorPost",
+        "tags": [
+          "AI能力"
+        ],
+        "summary": "Marco 大模型翻译",
+        "description": "通过对内容上下文的理解，可以完成高质量商品信息翻译、多语言沟通及文档翻译等任务，在电商行业术语和日常对话翻译中都表现出色。",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "/ai/text/marco/translator",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Ftext%2Fmarco%2Ftranslator&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1746,
+        "x-aliexpress-source-last-modified": "2024-11-26 11:01:38",
+        "x-aliexpress-auth-type": 0,
+        "x-aliexpress-chargeable": true,
+        "x-aliexpress-protocol": "GOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        }
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "text": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "待翻译文本；总字符长度不超过 50000，List 不超过 50 条。"
+          }
+        },
+        "sourceLanguage": {
+          "type": "string",
+          "description": "源语言代码；使用 ISO 693-1 语言代码规范，例如“英文”的语言代码为 “en”，中文的语言代码为“zh”。支持的语向见如下支持语向列表。"
+        },
+        "targetLanguage": {
+          "type": "string",
+          "description": "目标语言代码；使用 ISO 693-1 语言代码规范，请选择如下支持的翻译语向入参；当前支持的翻译语向列表（源语言-目标语言)：中(zh)→英(en)；中(zh)/英(en)→乌尔都语(ur)/孟加拉语(bn)/乌克兰语(uk)/波兰语(pl)/俄语(ru)/法语(fr)/西语(es)/葡语(pt)/韩语(ko)/意大利语(it)/阿拉伯语(ar)/德语(de)/土耳其语(tr)/日语(ja)/希伯来语(he)/印尼语(id)/马来语(ms)/荷兰语(nl)/泰语(th)/越南语(vi)；土耳其语(tr)→阿拉伯语(ar)/英语(en)/德语(de)/罗马尼亚语(ro)/希腊语(el)/匈牙利语(hu)/捷克语(cs)"
+        },
+        "formatType": {
+          "type": "string",
+          "description": "源文本的格式类型；支持 text/html 类型。"
+        },
+        "glossary": {
+          "type": "string",
+          "description": "干预词表 ID，干预词表需要单独创建后在入参中提供干预词表的 ID，支持传入多个干预词表。如果传入的干预词表 ID 为空，则不对翻译结果进行干预。"
+        }
+      },
+      "required": [
+        "text",
+        "targetLanguage"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "resCode": {
+          "type": "number",
+          "description": "响应代码； 200 代表调用成功，其他的响应代码可以参考错误码信息。"
+        },
+        "data": {
+          "type": "object",
+          "description": "返回的翻译结果结构体信息。"
+        },
+        "requestId": {
+          "type": "string",
+          "description": "请求 ID；用来识别唯一一次请求调用。"
+        },
+        "success": {
+          "type": "boolean",
+          "description": "是否成功；true 代表成功，false 代表失败。"
+        },
+        "resMessage": {
+          "type": "string",
+          "description": "报错信息，例如\"content has sensitive data, please try other input\"。"
+        }
+      },
+      "required": [
+        "resCode",
+        "data",
+        "requestId",
+        "success",
+        "resMessage"
+      ]
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21444,
+    "name": "AI能力",
+    "description": " Aidge AI 能力开放"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AiTextMarcoTranslatorRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "通过对内容上下文的理解，可以完成高质量商品信息翻译、多语言沟通及文档翻译等任务，在电商行业术语和日常对话翻译中都表现出色。",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "Marco 大模型翻译",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "/ai/text/marco/translator",
+    "methodType": "GET/POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21444,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": true,
+    "method": "GET/POST",
+    "docId": 1746,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": false,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 2547
+    },
+    "title": "Marco 大模型翻译",
+    "path": "/ai/text/marco/translator",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "resCode",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "2",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4167653,
+              "apiId": "303500",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "code",
+              "parentId": 4167652,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.Integer",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"响应代码； 200 代表调用成功，其他的响应代码可以参考错误码信息。\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "data",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "4",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4167654,
+              "apiId": "303500",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "data",
+              "parentId": 4167652,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "com.aidc.translate.service.client.translate.dto.LlmTranslationResponse",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"返回的翻译结果结构体信息。\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "requestId",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "1",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4167655,
+              "apiId": "303500",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "requestId",
+              "parentId": 4167652,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"请求 ID；用来识别唯一一次请求调用。\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "success",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "3",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4167656,
+              "apiId": "303500",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "success",
+              "parentId": 4167652,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.Boolean",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"是否成功；true 代表成功，false 代表失败。\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "resMessage",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "1",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4167657,
+              "apiId": "303500",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "message",
+              "parentId": 4167652,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"报错信息，例如\\\"content has sensitive data, please try other input\\\"。\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "text",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String[]",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4167646,
+              "apiId": "303500",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "sourceTextList",
+              "parentId": 4167645,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.util.List<java.lang.String>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"待翻译文本；总字符长度不超过 50000，List 不超过 50 条。\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "sourceLanguage",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4167647,
+              "apiId": "303500",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "sourceLanguage",
+              "parentId": 4167645,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"源语言代码；使用 ISO 693-1 语言代码规范，例如“英文”的语言代码为 “en”，中文的语言代码为“zh”。支持的语向见如下支持语向列表。 \"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "targetLanguage",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4167648,
+              "apiId": "303500",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "targetLanguage",
+              "parentId": 4167645,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"目标语言代码；使用 ISO 693-1 语言代码规范，请选择如下支持的翻译语向入参；当前支持的翻译语向列表（源语言-目标语言)：中(zh)→英(en)；中(zh)/英(en)→乌尔都语(ur)/孟加拉语(bn)/乌克兰语(uk)/波兰语(pl)/俄语(ru)/法语(fr)/西语(es)/葡语(pt)/韩语(ko)/意大利语(it)/阿拉伯语(ar)/德语(de)/土耳其语(tr)/日语(ja)/希伯来语(he)/印尼语(id)/马来语(ms)/荷兰语(nl)/泰语(th)/越南语(vi)；土耳其语(tr)→阿拉伯语(ar)/英语(en)/德语(de)/罗马尼亚语(ro)/希腊语(el)/匈牙利语(hu)/捷克语(cs)\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "formatType",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4167649,
+              "apiId": "303500",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "formatType",
+              "parentId": 4167645,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"源文本的格式类型；支持 text/html 类型。\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "glossary",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4167650,
+              "apiId": "303500",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "glossary",
+              "parentId": 4167645,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"干预词表 ID，干预词表需要单独创建后在入参中提供干预词表的 ID，支持传入多个干预词表。如果传入的干预词表 ID 为空，则不对翻译结果进行干预。\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 2546,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "/ai/text/marco/translator_response": {
+              "data": {},
+              "requestId": "<REDACTED_SAMPLE>",
+              "success": "<REDACTED_SAMPLE>",
+              "resCode": "<REDACTED_SAMPLE>",
+              "resMessage": "<REDACTED_SAMPLE>"
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "data": {},
+            "requestId": "<REDACTED_SAMPLE>",
+            "success": "<REDACTED_SAMPLE>",
+            "resCode": "<REDACTED_SAMPLE>",
+            "resMessage": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 2546
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 2547
+    },
+    "lastModified": "2024-11-26 11:01:38",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4167646,
+          "data": [],
+          "children": [],
+          "name": "text",
+          "id": 2547,
+          "type": "String[]",
+          "required": true,
+          "desc": "待翻译文本；总字符长度不超过 50000，List 不超过 50 条。"
+        },
+        {
+          "treeId": 4167647,
+          "data": [],
+          "children": [],
+          "name": "sourceLanguage",
+          "id": 2547,
+          "type": "String",
+          "required": false,
+          "desc": "源语言代码；使用 ISO 693-1 语言代码规范，例如“英文”的语言代码为 “en”，中文的语言代码为“zh”。支持的语向见如下支持语向列表。 "
+        },
+        {
+          "treeId": 4167648,
+          "data": [],
+          "children": [],
+          "name": "targetLanguage",
+          "id": 2547,
+          "type": "String",
+          "required": true,
+          "desc": "目标语言代码；使用 ISO 693-1 语言代码规范，请选择如下支持的翻译语向入参；当前支持的翻译语向列表（源语言-目标语言)：中(zh)→英(en)；中(zh)/英(en)→乌尔都语(ur)/孟加拉语(bn)/乌克兰语(uk)/波兰语(pl)/俄语(ru)/法语(fr)/西语(es)/葡语(pt)/韩语(ko)/意大利语(it)/阿拉伯语(ar)/德语(de)/土耳其语(tr)/日语(ja)/希伯来语(he)/印尼语(id)/马来语(ms)/荷兰语(nl)/泰语(th)/越南语(vi)；土耳其语(tr)→阿拉伯语(ar)/英语(en)/德语(de)/罗马尼亚语(ro)/希腊语(el)/匈牙利语(hu)/捷克语(cs)"
+        },
+        {
+          "treeId": 4167649,
+          "data": [],
+          "children": [],
+          "name": "formatType",
+          "id": 2547,
+          "type": "String",
+          "required": false,
+          "desc": "源文本的格式类型；支持 text/html 类型。"
+        },
+        {
+          "treeId": 4167650,
+          "data": [],
+          "children": [],
+          "name": "glossary",
+          "id": 2547,
+          "type": "String",
+          "required": false,
+          "desc": "干预词表 ID，干预词表需要单独创建后在入参中提供干预词表的 ID，支持传入多个干预词表。如果传入的干预词表 ID 为空，则不对翻译结果进行干预。"
+        }
+      ],
+      "id": 2547
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 886,
+    "desc": "通过对内容上下文的理解，可以完成高质量商品信息翻译、多语言沟通及文档翻译等任务，在电商行业术语和日常对话翻译中都表现出色。",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4167653,
+          "data": [],
+          "children": [],
+          "name": "resCode",
+          "id": 2549,
+          "type": "Number",
+          "required": true,
+          "desc": "响应代码； 200 代表调用成功，其他的响应代码可以参考错误码信息。"
+        },
+        {
+          "treeId": 4167654,
+          "data": [],
+          "children": [],
+          "name": "data",
+          "id": 2549,
+          "type": "Object",
+          "required": true,
+          "desc": "返回的翻译结果结构体信息。"
+        },
+        {
+          "treeId": 4167655,
+          "data": [],
+          "children": [],
+          "name": "requestId",
+          "id": 2549,
+          "type": "String",
+          "required": true,
+          "desc": "请求 ID；用来识别唯一一次请求调用。"
+        },
+        {
+          "treeId": 4167656,
+          "data": [],
+          "children": [],
+          "name": "success",
+          "id": 2549,
+          "type": "Boolean",
+          "required": true,
+          "desc": "是否成功；true 代表成功，false 代表失败。"
+        },
+        {
+          "treeId": 4167657,
+          "data": [],
+          "children": [],
+          "name": "resMessage",
+          "id": 2549,
+          "type": "String",
+          "required": true,
+          "desc": "报错信息，例如\"content has sensitive data, please try other input\"。"
+        }
+      ],
+      "id": 2549
+    }
+  }
+}

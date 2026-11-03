@@ -1,0 +1,827 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "AE仓发发货单-取消发货单",
+    "version": "2024-08-12 09:49:24",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "post": {
+        "operationId": "aliexpressAscpCoErpCancel",
+        "tags": [
+          "AE-供应链"
+        ],
+        "summary": "AE仓发发货单-取消发货单",
+        "description": "AE仓发发货单-取消发货单",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.ascp.co.erp.cancel",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21022&path=aliexpress.ascp.co.erp.cancel&methodType=POST",
+        "x-aliexpress-source-doc-id": 1670,
+        "x-aliexpress-source-last-modified": "2024-08-12 09:49:24",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.ascp.co.erp.cancel"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "channel_user_id": {
+          "type": "number",
+          "description": "渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id，全托管必填，半托管非必填"
+        },
+        "merchant_code": {
+          "type": "string",
+          "description": "经营组织 {全托管:AECHOICE；半托管：AEFF；海外托管：AETK}"
+        },
+        "consign_order_no": {
+          "type": "string",
+          "description": "发货单号"
+        },
+        "cancel_reason": {
+          "type": "string",
+          "description": "备注取消原因"
+        },
+        "channel": {
+          "type": "string",
+          "description": "渠道（可以在这个API中查询：global.seller.relation.query）， 海外托管必填"
+        }
+      },
+      "required": [
+        "merchant_code",
+        "consign_order_no"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "description": "demo",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "demo",
+              "properties": {
+                "status": {
+                  "type": "string",
+                  "description": "demo"
+                }
+              }
+            },
+            "success": {
+              "type": "boolean",
+              "description": "是否成功"
+            },
+            "error_code": {
+              "type": "string",
+              "description": "错误码"
+            },
+            "error_msg": {
+              "type": "string",
+              "description": "描述"
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21022,
+    "name": "AE-供应链",
+    "description": "维护AE供应链相关API"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressAscpCoErpCancelRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "AE仓发发货单-取消发货单",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "AE仓发发货单-取消发货单",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "aliexpress.ascp.co.erp.cancel",
+    "methodType": "POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21022,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "post",
+    "docId": 1670,
+    "errorCodes": {
+      "data": [
+        {
+          "codeDesc": "The logistics system does not allow for cancellation",
+          "code": "LC_FAIL_WHC_ORDER_CANCEL_FORBIDDEN",
+          "data": [],
+          "solution": "下游物流系统不允许取消",
+          "id": 2380
+        },
+        {
+          "codeDesc": "Fail to cancel the logistics order",
+          "code": "LC_FAIL_WHC_ORDER_CANCEL_WMS_FAILED",
+          "data": [],
+          "solution": "请稍后重试",
+          "id": 2380
+        }
+      ],
+      "id": 2380
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 2379
+    },
+    "title": "AE仓发发货单-取消发货单",
+    "path": "aliexpress.ascp.co.erp.cancel",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "result",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "4",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "2",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "data",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "4",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "status",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4191049,
+                      "apiId": "303905",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "status",
+                      "parentId": 4191048,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"demo\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4191048,
+                  "apiId": "303905",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "data",
+                  "parentId": 4191047,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "com.aidc.inbound.erp.openapi.dto.SimpleResult",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"demo\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "success",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "3",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4191050,
+                  "apiId": "303905",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "success",
+                  "parentId": 4191047,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.Boolean",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"是否成功\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_code",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4191051,
+                  "apiId": "303905",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorCode",
+                  "parentId": 4191047,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误码\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_msg",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4191052,
+                  "apiId": "303905",
+                  "docVisible": false,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "message",
+                  "parentId": 4191047,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"描述\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4191047,
+              "apiId": "303905",
+              "docVisible": false,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "com.wdk.infrastructure.foundation.client.result.DataResult<com.aidc.inbound.erp.openapi.dto.SimpleResult>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"demo\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "channel_user_id",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "Number",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4191042,
+              "apiId": "303905",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "channelUserId",
+              "parentId": 4191039,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.Long",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id，全托管必填，半托管非必填\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "merchant_code",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4191043,
+              "apiId": "303905",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "merchantCode",
+              "parentId": 4191039,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"经营组织 {全托管:AECHOICE；半托管：AEFF；海外托管：AETK}\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "consign_order_no",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4191044,
+              "apiId": "303905",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "consignOrderNo",
+              "parentId": 4191039,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"发货单号\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "cancel_reason",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4191045,
+              "apiId": "303905",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "cancelReason",
+              "parentId": 4191039,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"备注取消原因\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "channel",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4191053,
+              "apiId": "303905",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "channel",
+              "parentId": 4191039,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"渠道（可以在这个API中查询：global.seller.relation.query）， 海外托管必填\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 2378,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "aliexpress_ascp_co_erp_cancel_response": {
+              "result": {
+                "error_msg": "<REDACTED_SAMPLE>",
+                "data": {
+                  "status": "<REDACTED_SAMPLE>"
+                },
+                "success": "<REDACTED_SAMPLE>",
+                "error_code": "<REDACTED_SAMPLE>"
+              }
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "result": {
+              "error_msg": "<REDACTED_SAMPLE>",
+              "data": {
+                "status": "<REDACTED_SAMPLE>"
+              },
+              "success": "<REDACTED_SAMPLE>",
+              "error_code": "<REDACTED_SAMPLE>"
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 2378
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 2379
+    },
+    "lastModified": "2024-08-12 09:49:24",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4191042,
+          "data": [],
+          "children": [],
+          "name": "channel_user_id",
+          "id": 2379,
+          "type": "Number",
+          "required": false,
+          "desc": "渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id，全托管必填，半托管非必填"
+        },
+        {
+          "treeId": 4191043,
+          "data": [],
+          "children": [],
+          "name": "merchant_code",
+          "id": 2379,
+          "type": "String",
+          "required": true,
+          "desc": "经营组织 {全托管:AECHOICE；半托管：AEFF；海外托管：AETK}"
+        },
+        {
+          "treeId": 4191044,
+          "data": [],
+          "children": [],
+          "name": "consign_order_no",
+          "id": 2379,
+          "type": "String",
+          "required": true,
+          "desc": "发货单号"
+        },
+        {
+          "treeId": 4191045,
+          "data": [],
+          "children": [],
+          "name": "cancel_reason",
+          "id": 2379,
+          "type": "String",
+          "required": false,
+          "desc": "备注取消原因"
+        },
+        {
+          "treeId": 4191053,
+          "data": [],
+          "children": [],
+          "name": "channel",
+          "id": 2379,
+          "type": "String",
+          "required": false,
+          "desc": "渠道（可以在这个API中查询：global.seller.relation.query）， 海外托管必填"
+        }
+      ],
+      "id": 2379
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 1585,
+    "desc": "AE仓发发货单-取消发货单",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4191047,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4191048,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4191049,
+                  "data": [],
+                  "children": [],
+                  "name": "status",
+                  "id": 2381,
+                  "type": "String",
+                  "required": false,
+                  "desc": "demo"
+                }
+              ],
+              "name": "data",
+              "id": 2381,
+              "type": "Object",
+              "required": false,
+              "desc": "demo"
+            },
+            {
+              "treeId": 4191050,
+              "data": [],
+              "children": [],
+              "name": "success",
+              "id": 2381,
+              "type": "Boolean",
+              "required": false,
+              "desc": "是否成功"
+            },
+            {
+              "treeId": 4191051,
+              "data": [],
+              "children": [],
+              "name": "error_code",
+              "id": 2381,
+              "type": "String",
+              "required": false,
+              "desc": "错误码"
+            },
+            {
+              "treeId": 4191052,
+              "data": [],
+              "children": [],
+              "name": "error_msg",
+              "id": 2381,
+              "type": "String",
+              "required": false,
+              "desc": "描述"
+            }
+          ],
+          "name": "result",
+          "id": 2381,
+          "type": "Object",
+          "required": false,
+          "desc": "demo"
+        }
+      ],
+      "id": 2381
+    }
+  }
+}

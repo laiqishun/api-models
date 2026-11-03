@@ -1,0 +1,1279 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "完成价格任务",
+    "version": "2026-03-06 08:52:47",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "post": {
+        "operationId": "aliexpressProductPriceTaskFinish",
+        "tags": [
+          "AE-商品任务"
+        ],
+        "summary": "完成价格任务",
+        "description": "采纳价格任务",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.product.price.task.finish",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21463&path=aliexpress.product.price.task.finish&methodType=POST",
+        "x-aliexpress-source-doc-id": 2861,
+        "x-aliexpress-source-last-modified": "2026-03-06 08:52:47",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.product.price.task.finish"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "postage_id": {
+          "type": "string",
+          "description": "商品运费模板 ID"
+        },
+        "sku_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "sku列表",
+            "properties": {
+              "postage_id": {
+                "type": "string",
+                "description": "SKU运费模板 ID new_logistics_template为true 时必传"
+              },
+              "suggest_country_list": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "区域价格信息",
+                  "properties": {
+                    "suggest_logistics_lines": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "运费线路信息",
+                        "properties": {
+                          "shipping_cost": {
+                            "type": "string",
+                            "description": "运费成本"
+                          },
+                          "delivery_option_code": {
+                            "type": "string",
+                            "description": "线路 CODE"
+                          },
+                          "modify_shipping_fee": {
+                            "type": "string",
+                            "description": "更改的外露运费"
+                          }
+                        }
+                      }
+                    },
+                    "country_code": {
+                      "type": "string",
+                      "description": "当前国家的 CODE"
+                    },
+                    "modify_line_price": {
+                      "type": "string",
+                      "description": "当前国家的区域价"
+                    }
+                  }
+                }
+              },
+              "sku_id": {
+                "type": "string",
+                "description": "SKU ID"
+              }
+            },
+            "required": [
+              "sku_id"
+            ]
+          }
+        },
+        "md5hash": {
+          "type": "string",
+          "description": "MD5 HASH，由详情接口返回 原封不动传入"
+        },
+        "item_id": {
+          "type": "string",
+          "description": "商品 ID"
+        },
+        "currency": {
+          "type": "string",
+          "description": "币种"
+        },
+        "task_id": {
+          "type": "string",
+          "description": "任务 ID"
+        },
+        "product_price_diagnosis_task_id": {
+          "type": "string",
+          "description": "价格任务 ID"
+        }
+      },
+      "required": [
+        "sku_list",
+        "md5hash",
+        "item_id",
+        "currency",
+        "task_id",
+        "product_price_diagnosis_task_id"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "description": "结果",
+          "properties": {
+            "success": {
+              "type": "boolean",
+              "description": "结果"
+            },
+            "error_message": {
+              "type": "string",
+              "description": "错误原因"
+            },
+            "error_code": {
+              "type": "string",
+              "description": "错误码"
+            }
+          },
+          "required": [
+            "success",
+            "error_message",
+            "error_code"
+          ]
+        }
+      },
+      "required": [
+        "result"
+      ]
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21463,
+    "name": "AE-商品任务",
+    "description": "AE-商品任务"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressProductPriceTaskFinishRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "采纳价格任务",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "完成价格任务",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "aliexpress.product.price.task.finish",
+    "methodType": "POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21463,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "post",
+    "docId": 2861,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 6299
+    },
+    "title": "完成价格任务",
+    "path": "aliexpress.product.price.task.finish",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "result",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "4",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "success",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "3",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4181267,
+                  "apiId": "303751",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "success",
+                  "parentId": 4181266,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.Boolean",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"结果\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_message",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4181268,
+                  "apiId": "303751",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorMessage",
+                  "parentId": 4181266,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误原因\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_code",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4181269,
+                  "apiId": "303751",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorCode",
+                  "parentId": 4181266,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误码\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4181266,
+              "apiId": "303751",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "com.aliexpress.icopenapi.base.BaseApiResponseDTO",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"结果\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "postage_id",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4181248,
+              "apiId": "303751",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "postageId",
+              "parentId": 4181247,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"商品运费模板 ID\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "sku_list",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Object[]",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "postage_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "String",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4181250,
+                  "apiId": "303751",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "postageId",
+                  "parentId": 4181249,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"SKU运费模板 ID new_logistics_template为true 时必传\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "3",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "suggest_country_list",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "Object[]",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "3",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "suggest_logistics_lines",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "Object[]",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "shipping_cost",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "String",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4181254,
+                          "apiId": "303751",
+                          "docVisible": true,
+                          "paramOrder": "",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "shippingCost",
+                          "parentId": 4181253,
+                          "dataSecurityLevel": "S2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"运费成本\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "delivery_option_code",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "String",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4181255,
+                          "apiId": "303751",
+                          "docVisible": true,
+                          "paramOrder": "",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "deliveryOptionCode",
+                          "parentId": 4181253,
+                          "dataSecurityLevel": "S2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\" 线路 CODE\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "modify_shipping_fee",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "String",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4181256,
+                          "apiId": "303751",
+                          "docVisible": true,
+                          "paramOrder": "",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "shippingFee",
+                          "parentId": 4181253,
+                          "dataSecurityLevel": "S2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"更改的外露运费\"}]"
+                        }
+                      ],
+                      "maxListSize": "",
+                      "id": 4181253,
+                      "apiId": "303751",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "suggestLogisticsLines",
+                      "parentId": 4181252,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.util.List<com.aliexpress.icopenapi.product.task.ProductPriceDiagnosisModel$LogisticsLine>",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"运费线路信息\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "country_code",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4181257,
+                      "apiId": "303751",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "countryCode",
+                      "parentId": 4181252,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"当前国家的 CODE\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "modify_line_price",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4181258,
+                      "apiId": "303751",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "modifyLinePrice",
+                      "parentId": 4181252,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"当前国家的区域价\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4181252,
+                  "apiId": "303751",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "suggestCountryList",
+                  "parentId": 4181249,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.util.List<com.aliexpress.icopenapi.product.task.ProductPriceDiagnosisModel$SuggestCountry>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"区域价格信息\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "sku_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "String",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4181259,
+                  "apiId": "303751",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "skuId",
+                  "parentId": 4181249,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"SKU ID\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4181249,
+              "apiId": "303751",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "skuList",
+              "parentId": 4181247,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.util.List<com.aliexpress.icopenapi.product.task.ProductPriceDiagnosisModel$Sku>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"sku列表\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "md5hash",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4181260,
+              "apiId": "303751",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "md5hash",
+              "parentId": 4181247,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"MD5 HASH，由详情接口返回 原封不动传入\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "item_id",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4181261,
+              "apiId": "303751",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "itemId",
+              "parentId": 4181247,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"商品 ID\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "currency",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4181263,
+              "apiId": "303751",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "currency",
+              "parentId": 4181247,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"币种\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "task_id",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4181264,
+              "apiId": "303751",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "taskId",
+              "parentId": 4181247,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\" 任务 ID\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "product_price_diagnosis_task_id",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4181265,
+              "apiId": "303751",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "productPriceDiagnosisTaskId",
+              "parentId": 4181247,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\" 价格任务 ID\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 6298,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "aliexpress_product_price_task_finish_response": {
+              "result": {
+                "error_message": "<REDACTED_SAMPLE>",
+                "success": "<REDACTED_SAMPLE>",
+                "error_code": "<REDACTED_SAMPLE>"
+              }
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "result": {
+              "error_message": "<REDACTED_SAMPLE>",
+              "success": "<REDACTED_SAMPLE>",
+              "error_code": "<REDACTED_SAMPLE>"
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 6298
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 6299
+    },
+    "lastModified": "2026-03-06 08:52:47",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4181248,
+          "data": [],
+          "children": [],
+          "name": "postage_id",
+          "id": 6299,
+          "type": "String",
+          "required": false,
+          "desc": "商品运费模板 ID"
+        },
+        {
+          "treeId": 4181249,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4181250,
+              "data": [],
+              "children": [],
+              "name": "postage_id",
+              "id": 6299,
+              "type": "String",
+              "required": false,
+              "desc": "SKU运费模板 ID new_logistics_template为true 时必传"
+            },
+            {
+              "treeId": 4181252,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4181253,
+                  "data": [],
+                  "children": [
+                    {
+                      "treeId": 4181254,
+                      "data": [],
+                      "children": [],
+                      "name": "shipping_cost",
+                      "id": 6299,
+                      "type": "String",
+                      "required": false,
+                      "desc": "运费成本"
+                    },
+                    {
+                      "treeId": 4181255,
+                      "data": [],
+                      "children": [],
+                      "name": "delivery_option_code",
+                      "id": 6299,
+                      "type": "String",
+                      "required": false,
+                      "desc": " 线路 CODE"
+                    },
+                    {
+                      "treeId": 4181256,
+                      "data": [],
+                      "children": [],
+                      "name": "modify_shipping_fee",
+                      "id": 6299,
+                      "type": "String",
+                      "required": false,
+                      "desc": "更改的外露运费"
+                    }
+                  ],
+                  "name": "suggest_logistics_lines",
+                  "id": 6299,
+                  "type": "Object[]",
+                  "required": false,
+                  "desc": "运费线路信息"
+                },
+                {
+                  "treeId": 4181257,
+                  "data": [],
+                  "children": [],
+                  "name": "country_code",
+                  "id": 6299,
+                  "type": "String",
+                  "required": false,
+                  "desc": "当前国家的 CODE"
+                },
+                {
+                  "treeId": 4181258,
+                  "data": [],
+                  "children": [],
+                  "name": "modify_line_price",
+                  "id": 6299,
+                  "type": "String",
+                  "required": false,
+                  "desc": "当前国家的区域价"
+                }
+              ],
+              "name": "suggest_country_list",
+              "id": 6299,
+              "type": "Object[]",
+              "required": false,
+              "desc": "区域价格信息"
+            },
+            {
+              "treeId": 4181259,
+              "data": [],
+              "children": [],
+              "name": "sku_id",
+              "id": 6299,
+              "type": "String",
+              "required": true,
+              "desc": "SKU ID"
+            }
+          ],
+          "name": "sku_list",
+          "id": 6299,
+          "type": "Object[]",
+          "required": true,
+          "desc": "sku列表"
+        },
+        {
+          "treeId": 4181260,
+          "data": [],
+          "children": [],
+          "name": "md5hash",
+          "id": 6299,
+          "type": "String",
+          "required": true,
+          "desc": "MD5 HASH，由详情接口返回 原封不动传入"
+        },
+        {
+          "treeId": 4181261,
+          "data": [],
+          "children": [],
+          "name": "item_id",
+          "id": 6299,
+          "type": "String",
+          "required": true,
+          "desc": "商品 ID"
+        },
+        {
+          "treeId": 4181263,
+          "data": [],
+          "children": [],
+          "name": "currency",
+          "id": 6299,
+          "type": "String",
+          "required": true,
+          "desc": "币种"
+        },
+        {
+          "treeId": 4181264,
+          "data": [],
+          "children": [],
+          "name": "task_id",
+          "id": 6299,
+          "type": "String",
+          "required": true,
+          "desc": " 任务 ID"
+        },
+        {
+          "treeId": 4181265,
+          "data": [],
+          "children": [],
+          "name": "product_price_diagnosis_task_id",
+          "id": 6299,
+          "type": "String",
+          "required": true,
+          "desc": " 价格任务 ID"
+        }
+      ],
+      "id": 6299
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 804,
+    "desc": "采纳价格任务",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4181266,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4181267,
+              "data": [],
+              "children": [],
+              "name": "success",
+              "id": 6301,
+              "type": "Boolean",
+              "required": true,
+              "desc": "结果"
+            },
+            {
+              "treeId": 4181268,
+              "data": [],
+              "children": [],
+              "name": "error_message",
+              "id": 6301,
+              "type": "String",
+              "required": true,
+              "desc": "错误原因"
+            },
+            {
+              "treeId": 4181269,
+              "data": [],
+              "children": [],
+              "name": "error_code",
+              "id": 6301,
+              "type": "String",
+              "required": true,
+              "desc": "错误码"
+            }
+          ],
+          "name": "result",
+          "id": 6301,
+          "type": "Object",
+          "required": true,
+          "desc": "结果"
+        }
+      ],
+      "id": 6301
+    }
+  }
+}

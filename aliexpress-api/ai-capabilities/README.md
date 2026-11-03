@@ -1,0 +1,34 @@
+---
+title: "AliExpress AI能力"
+---
+
+# API List
+
+Official category ID: 21444. Applicable permissions and seller modes must be checked in the current application. [Manifest](../manifest.md).
+
+- [aiVirtualModelGenerationBatch](operations/aiVirtualModelGenerationBatch.json) (GET/POST `/rest/ai/virtual/model/generation/batch`)： 虚拟模特替换 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fvirtual%2Fmodel%2Fgeneration%2Fbatch&methodType=GET%2FPOST)
+- [aiVirtualModelGenerationQuery](operations/aiVirtualModelGenerationQuery.json) (GET/POST `/rest/ai/virtual/model/generation/query`)： 虚拟模特替换结果查询 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fvirtual%2Fmodel%2Fgeneration%2Fquery&methodType=GET%2FPOST)
+- [aiImageCutIframe](operations/aiImageCutIframe.json) (GET/POST `/rest/ai/image/cut/iframe`)：iframe专用收费抠图 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Fcut%2Fiframe&methodType=GET%2FPOST)
+- [aiMarketingGenerate](operations/aiMarketingGenerate.json) (GET/POST `/rest/ai/marketing/generate`)：iframe营销图生图 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fmarketing%2Fgenerate&methodType=GET%2FPOST)
+- [aiVirtualTryOnline](operations/aiVirtualTryOnline.json) (GET/POST `/rest/ai/virtual/try/online`)：iframe虚拟试衣 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fvirtual%2Ftry%2Fonline&methodType=GET%2FPOST)
+- [aiTextMarcoTranslator](operations/aiTextMarcoTranslator.json) (GET/POST `/rest/ai/text/marco/translator`)：Marco 大模型翻译 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Ftext%2Fmarco%2Ftranslator&methodType=GET%2FPOST)
+- [aiImageHumanDetection](operations/aiImageHumanDetection.json) (GET/POST `/rest/ai/image/Human/Detection`)：人脸人体检测API [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2FHuman%2FDetection&methodType=GET%2FPOST)
+- [aiImageHumanDetectionQuery](operations/aiImageHumanDetectionQuery.json) (get `/rest/ai/image/Human/Detection/query`)：人脸人体识别结果查询 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2FHuman%2FDetection%2Fquery&methodType=GET)
+- [aiTextTranslationAndPolishment](operations/aiTextTranslationAndPolishment.json) (GET/POST `/rest/ai/text/translation/and/polishment`)：商品文本翻译 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Ftext%2Ftranslation%2Fand%2Fpolishment&methodType=GET%2FPOST)
+- [aiProductTitleGeneration](operations/aiProductTitleGeneration.json) (GET/POST `/rest/ai/product/title/generation`)：商品标题生成 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fproduct%2Ftitle%2Fgeneration&methodType=GET%2FPOST)
+- [aiProductDescriptionGeneration](operations/aiProductDescriptionGeneration.json) (GET/POST `/rest/ai/product/description/generation`)：商品详描生成 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fproduct%2Fdescription%2Fgeneration&methodType=GET%2FPOST)
+- [aiImageSpecifyDetection](operations/aiImageSpecifyDetection.json) (GET/POST `/rest/ai/image/specify/detection`)：图片内容识别 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Fspecify%2Fdetection&methodType=GET%2FPOST)
+- [aiImageDetectionBatch](operations/aiImageDetectionBatch.json) (GET/POST `/rest/ai/image/detection/batch`)：图片智能识别批量提交 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Fdetection%2Fbatch&methodType=GET%2FPOST)
+- [aiImageDetectionQuery](operations/aiImageDetectionQuery.json) (GET/POST `/rest/ai/image/detection/query`)：图片智能识别批量轮询 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Fdetection%2Fquery&methodType=GET%2FPOST)
+- [aiImageTranslation](operations/aiImageTranslation.json) (GET/POST `/rest/ai/image/translation`)：图片翻译 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Ftranslation&methodType=GET%2FPOST)
+- [aiImageTranslationImageData](operations/aiImageTranslationImageData.json) (GET/POST `/rest/ai/image/translation/imageData`)：图片翻译iframe [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Ftranslation%2FimageData&methodType=GET%2FPOST)
+- [aiImageBackgroundGenerationIframe](operations/aiImageBackgroundGenerationIframe.json) (GET/POST `/rest/ai/image/background/generation/iframe`)：场景图生成Iframe [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Fbackground%2Fgeneration%2Fiframe&methodType=GET%2FPOST)
+- [aiImageBackgroundGenerationQuery](operations/aiImageBackgroundGenerationQuery.json) (GET/POST `/rest/ai/image/background/generation/query`)：场景图结果查询 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Fbackground%2Fgeneration%2Fquery&methodType=GET%2FPOST)
+- [aiMultimodalProductFeatureExtraction](operations/aiMultimodalProductFeatureExtraction.json) (GET/POST `/rest/ai/multimodal/product/feature/extraction`)：多模态商品特征提取 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fmultimodal%2Fproduct%2Ffeature%2Fextraction&methodType=GET%2FPOST)
+- [aiLivechatTranslationAndPolishment](operations/aiLivechatTranslationAndPolishment.json) (GET/POST `/rest/ai/livechat/translation/and/polishment`)：对话翻译与润色 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Flivechat%2Ftranslation%2Fand%2Fpolishment&methodType=GET%2FPOST)
+- [aiImageBackgroundGenerationBatch](operations/aiImageBackgroundGenerationBatch.json) (GET/POST `/rest/ai/image/background/generation/batch`)：批量场景图生成 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Fbackground%2Fgeneration%2Fbatch&methodType=GET%2FPOST)
+- [aiImageCropping](operations/aiImageCropping.json) (GET/POST `/rest/ai/image/cropping`)：智能剪裁 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Fcropping&methodType=GET%2FPOST)
+- [aiImageCutOut](operations/aiImageCutOut.json) (GET/POST `/rest/ai/image/cut/out`)：智能抠图 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Fcut%2Fout&methodType=GET%2FPOST)
+- [aiImageRemoval](operations/aiImageRemoval.json) (GET/POST `/rest/ai/image/removal`)：智能消除 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fimage%2Fremoval&methodType=GET%2FPOST)
+- [aiReviewAutoReply](operations/aiReviewAutoReply.json) (GET/POST `/rest/ai/review/auto/reply`)：评价自动回复 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Freview%2Fauto%2Freply&methodType=GET%2FPOST)
+- [aiSuperResolution](operations/aiSuperResolution.json) (GET/POST `/rest/ai/super/resolution`)：高清放大	Super-resolution [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21444&path=%2Fai%2Fsuper%2Fresolution&methodType=GET%2FPOST)

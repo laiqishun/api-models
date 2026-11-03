@@ -1,0 +1,1360 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "统一与渠道类目HScode预测接口",
+    "version": "2022-11-17 11:32:31",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "get": {
+        "operationId": "globalHscodeForecastQueryGet",
+        "tags": [
+          "统一跨境商家工作台-类目"
+        ],
+        "summary": "统一与渠道类目HScode预测接口",
+        "description": "hscode对应发品页面的是商品的海关描述，是必填字段，需要isv在做必填校验，接口根据商品的类目 、渠道、标题、主图、商品属性来推荐hscode。",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "global.hscode.forecast.query",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21388&path=global.hscode.forecast.query&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1135,
+        "x-aliexpress-source-last-modified": "2022-11-17 11:32:31",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "global.hscode.forecast.query"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      },
+      "post": {
+        "operationId": "globalHscodeForecastQueryPost",
+        "tags": [
+          "统一跨境商家工作台-类目"
+        ],
+        "summary": "统一与渠道类目HScode预测接口",
+        "description": "hscode对应发品页面的是商品的海关描述，是必填字段，需要isv在做必填校验，接口根据商品的类目 、渠道、标题、主图、商品属性来推荐hscode。",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "global.hscode.forecast.query",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21388&path=global.hscode.forecast.query&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1135,
+        "x-aliexpress-source-last-modified": "2022-11-17 11:32:31",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "global.hscode.forecast.query"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "request_param": {
+          "type": "object",
+          "description": "入参",
+          "properties": {
+            "image_url": {
+              "type": "string",
+              "description": "主图链接：\"https://ae01.alicdn.com/kf/S74f777cfd20b4e22a936e68667fa7ab4r.jpg\""
+            },
+            "channel": {
+              "type": "string",
+              "description": "渠道必填，目前支持的渠道有全球商品：AE_GLOBAL 。 arise商品：ARISE_ES   。"
+            },
+            "title": {
+              "type": "string",
+              "description": "商品英文标题"
+            },
+            "product_property_list": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "商品普通属性列表。可以参照商品发布接口填写",
+                "properties": {
+                  "attr_value_id": {
+                    "type": "number",
+                    "description": "商品普通属性值id。可以参照商品发布接口填写"
+                  },
+                  "attr_value": {
+                    "type": "string",
+                    "description": "商品普通属性值名称。可以参照商品发布接口填写"
+                  },
+                  "attr_name": {
+                    "type": "string",
+                    "description": "商品普通属性名称。可以参照商品发布接口填写"
+                  },
+                  "attr_name_id": {
+                    "type": "number",
+                    "description": "商品普通属性id。可以参照商品发布接口填写"
+                  }
+                }
+              }
+            },
+            "category_id": {
+              "type": "number",
+              "description": "叶子类目id。 可以传统一的叶子类目，也可以传arise的叶子类目。 category_id 和 channel必须对应上，当channel = AE_GLOBAL 时只能传 统一的叶子类目 ；    当channel = ARISE_ES 时只能传 arise的叶子类目。"
+            }
+          },
+          "required": [
+            "image_url",
+            "channel",
+            "title",
+            "category_id"
+          ]
+        }
+      },
+      "required": [
+        "request_param"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "hs_code_response_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "hscode list",
+            "properties": {
+              "leaf_hs_code_list": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "叶子hscode列表，全球商品和渠道商品中使用的都是hscode都是leaf_hs_code中选择的",
+                  "properties": {
+                    "hs_code_desc": {
+                      "type": "string",
+                      "description": "hscode的英文描述"
+                    },
+                    "hs_code": {
+                      "type": "string",
+                      "description": "hscode主键，叶子结点的hs_code才能用来发品"
+                    },
+                    "hs_code_length": {
+                      "type": "number",
+                      "description": "hscode的长度"
+                    },
+                    "rank": {
+                      "type": "string",
+                      "description": "叶子hscode的排列顺序，2 -> 2-1 -> 2-2 -> 2-3"
+                    }
+                  },
+                  "required": [
+                    "hs_code_desc",
+                    "hs_code",
+                    "hs_code_length",
+                    "rank"
+                  ]
+                }
+              },
+              "parent_hs_code_list": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "叶子hscode对应的父节点。 是将父节点压缩都一个list集合中，方便查询，已经按照层级结构进行排序",
+                  "properties": {
+                    "hs_code_desc": {
+                      "type": "string",
+                      "description": "hscode的英文描述"
+                    },
+                    "hs_code": {
+                      "type": "string",
+                      "description": "hscode主键，非叶子结点"
+                    },
+                    "hs_code_length": {
+                      "type": "number",
+                      "description": "hscode的长度，长度越短，代表越靠近根结点。   父节点的层级顺序是 4-> 6。或 4-> 5->6"
+                    }
+                  },
+                  "required": [
+                    "hs_code_desc",
+                    "hs_code",
+                    "hs_code_length"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "leaf_hs_code_list",
+              "parent_hs_code_list"
+            ]
+          }
+        }
+      },
+      "required": [
+        "hs_code_response_list"
+      ]
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21388,
+    "name": "统一跨境商家工作台-类目",
+    "description": "统一跨境商家工作台-类目"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "GlobalHscodeForecastQueryRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "hscode对应发品页面的是商品的海关描述，是必填字段，需要isv在做必填校验，接口根据商品的类目 、渠道、标题、主图、商品属性来推荐hscode。\n",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "统一与渠道类目HScode预测接口",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "global.hscode.forecast.query",
+    "methodType": "GET/POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21388,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "GET/POST",
+    "docId": 1135,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 1412
+    },
+    "title": "统一与渠道类目HScode预测接口",
+    "path": "global.hscode.forecast.query",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "hs_code_response_list",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "9",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "3",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "leaf_hs_code_list",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "9",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "hs_code_desc",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4021724,
+                      "apiId": "300404",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "hsCodeDesc",
+                      "parentId": 4021723,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"hscode的英文描述\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "hs_code",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4021725,
+                      "apiId": "300404",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "hsCode",
+                      "parentId": 4021723,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"hscode主键，叶子结点的hs_code才能用来发品\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "hs_code_length",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "2",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4021726,
+                      "apiId": "300404",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "hsCodeLength",
+                      "parentId": 4021723,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.Integer",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"hscode的长度 \"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "rank",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4021727,
+                      "apiId": "300404",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "rank",
+                      "parentId": 4021723,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"叶子hscode的排列顺序，2 -> 2-1 -> 2-2 -> 2-3\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4021723,
+                  "apiId": "300404",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "leafHsCodeList",
+                  "parentId": 4021722,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.util.List<com.alibaba.csp.api.client.item.dto.common.LeafHsCode>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"叶子hscode列表，全球商品和渠道商品中使用的都是hscode都是leaf_hs_code中选择的\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "3",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "parent_hs_code_list",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "9",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "hs_code_desc",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4021730,
+                      "apiId": "300404",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "hsCodeDesc",
+                      "parentId": 4021729,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"hscode的英文描述\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "hs_code",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4021731,
+                      "apiId": "300404",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "hsCode",
+                      "parentId": 4021729,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"hscode主键，非叶子结点\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "hs_code_length",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "2",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4021732,
+                      "apiId": "300404",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "hsCodeLength",
+                      "parentId": 4021729,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.Integer",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"hscode的长度，长度越短，代表越靠近根结点。   父节点的层级顺序是 4-> 6。或 4-> 5->6 \"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4021729,
+                  "apiId": "300404",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "parentHsCodeList",
+                  "parentId": 4021722,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.util.List<com.alibaba.csp.api.client.item.dto.common.ParentHsCode>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"叶子hscode对应的父节点。 是将父节点压缩都一个list集合中，方便查询，已经按照层级结构进行排序\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4021722,
+              "apiId": "300404",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "hsCodeResponseList",
+              "parentId": 4021721,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.util.List<com.alibaba.csp.api.client.item.dto.common.HsCodeResponseDTO>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"hscode list\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "request_param",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Object",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "image_url",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "String",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4021710,
+                  "apiId": "300404",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "imageUrl",
+                  "parentId": 4021707,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"主图链接：\\\"https://ae01.alicdn.com/kf/S74f777cfd20b4e22a936e68667fa7ab4r.jpg\\\"   \"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "channel",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "String",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4021711,
+                  "apiId": "300404",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "channel",
+                  "parentId": 4021707,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"渠道必填，目前支持的渠道有全球商品：AE_GLOBAL 。 arise商品：ARISE_ES   。\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "title",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "String",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4021714,
+                  "apiId": "300404",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "title",
+                  "parentId": 4021707,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"商品英文标题\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "3",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "product_property_list",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "Object[]",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "attr_value_id",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "Number",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4021716,
+                      "apiId": "300404",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "attrValueId",
+                      "parentId": 4021715,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.Long",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"商品普通属性值id。可以参照商品发布接口填写\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "attr_value",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4021717,
+                      "apiId": "300404",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "attrValue",
+                      "parentId": 4021715,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"商品普通属性值名称。可以参照商品发布接口填写\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "attr_name",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4021718,
+                      "apiId": "300404",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "attrName",
+                      "parentId": 4021715,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"商品普通属性名称。可以参照商品发布接口填写\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "attr_name_id",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "Number",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4021719,
+                      "apiId": "300404",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "attrNameId",
+                      "parentId": 4021715,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.Long",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"商品普通属性id。可以参照商品发布接口填写\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4021715,
+                  "apiId": "300404",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "productPropertyList",
+                  "parentId": 4021707,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.util.List<com.alibaba.csp.api.client.item.dto.common.ProductProperty>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"商品普通属性列表。可以参照商品发布接口填写\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "category_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "Number",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4021720,
+                  "apiId": "300404",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "categoryId",
+                  "parentId": 4021707,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"叶子类目id。 可以传统一的叶子类目，也可以传arise的叶子类目。 category_id 和 channel必须对应上，当channel = AE_GLOBAL 时只能传 统一的叶子类目 ；    当channel = ARISE_ES 时只能传 arise的叶子类目。  \"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4021707,
+              "apiId": "300404",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "com.alibaba.csp.api.client.item.dto.csp.CspHsCodeApiRequestDTO",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"入参\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 1411,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "global_hscode_forecast_query_response": {
+              "hs_code_response_list": [
+                {
+                  "parent_hs_code_list": [
+                    {
+                      "hs_code_desc": "<REDACTED_SAMPLE>",
+                      "hs_code": "<REDACTED_SAMPLE>",
+                      "hs_code_length": "<REDACTED_SAMPLE>"
+                    }
+                  ],
+                  "leaf_hs_code_list": [
+                    {
+                      "rank": "<REDACTED_SAMPLE>",
+                      "hs_code_desc": "<REDACTED_SAMPLE>",
+                      "hs_code": "<REDACTED_SAMPLE>",
+                      "hs_code_length": "<REDACTED_SAMPLE>"
+                    }
+                  ]
+                }
+              ]
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "hs_code_response_list": [
+              {
+                "parent_hs_code_list": [
+                  {
+                    "hs_code_desc": "<REDACTED_SAMPLE>",
+                    "hs_code": "<REDACTED_SAMPLE>",
+                    "hs_code_length": "<REDACTED_SAMPLE>"
+                  }
+                ],
+                "leaf_hs_code_list": [
+                  {
+                    "rank": "<REDACTED_SAMPLE>",
+                    "hs_code_desc": "<REDACTED_SAMPLE>",
+                    "hs_code": "<REDACTED_SAMPLE>",
+                    "hs_code_length": "<REDACTED_SAMPLE>"
+                  }
+                ]
+              }
+            ],
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 1411
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 1412
+    },
+    "lastModified": "2022-11-17 11:32:31",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4021707,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4021710,
+              "data": [],
+              "children": [],
+              "name": "image_url",
+              "id": 1412,
+              "type": "String",
+              "required": true,
+              "desc": "主图链接：\"https://ae01.alicdn.com/kf/S74f777cfd20b4e22a936e68667fa7ab4r.jpg\"   "
+            },
+            {
+              "treeId": 4021711,
+              "data": [],
+              "children": [],
+              "name": "channel",
+              "id": 1412,
+              "type": "String",
+              "required": true,
+              "desc": "渠道必填，目前支持的渠道有全球商品：AE_GLOBAL 。 arise商品：ARISE_ES   。"
+            },
+            {
+              "treeId": 4021714,
+              "data": [],
+              "children": [],
+              "name": "title",
+              "id": 1412,
+              "type": "String",
+              "required": true,
+              "desc": "商品英文标题"
+            },
+            {
+              "treeId": 4021715,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4021716,
+                  "data": [],
+                  "children": [],
+                  "name": "attr_value_id",
+                  "id": 1412,
+                  "type": "Number",
+                  "required": false,
+                  "desc": "商品普通属性值id。可以参照商品发布接口填写"
+                },
+                {
+                  "treeId": 4021717,
+                  "data": [],
+                  "children": [],
+                  "name": "attr_value",
+                  "id": 1412,
+                  "type": "String",
+                  "required": false,
+                  "desc": "商品普通属性值名称。可以参照商品发布接口填写"
+                },
+                {
+                  "treeId": 4021718,
+                  "data": [],
+                  "children": [],
+                  "name": "attr_name",
+                  "id": 1412,
+                  "type": "String",
+                  "required": false,
+                  "desc": "商品普通属性名称。可以参照商品发布接口填写"
+                },
+                {
+                  "treeId": 4021719,
+                  "data": [],
+                  "children": [],
+                  "name": "attr_name_id",
+                  "id": 1412,
+                  "type": "Number",
+                  "required": false,
+                  "desc": "商品普通属性id。可以参照商品发布接口填写"
+                }
+              ],
+              "name": "product_property_list",
+              "id": 1412,
+              "type": "Object[]",
+              "required": false,
+              "desc": "商品普通属性列表。可以参照商品发布接口填写"
+            },
+            {
+              "treeId": 4021720,
+              "data": [],
+              "children": [],
+              "name": "category_id",
+              "id": 1412,
+              "type": "Number",
+              "required": true,
+              "desc": "叶子类目id。 可以传统一的叶子类目，也可以传arise的叶子类目。 category_id 和 channel必须对应上，当channel = AE_GLOBAL 时只能传 统一的叶子类目 ；    当channel = ARISE_ES 时只能传 arise的叶子类目。  "
+            }
+          ],
+          "name": "request_param",
+          "id": 1412,
+          "type": "Object",
+          "required": true,
+          "desc": "入参"
+        }
+      ],
+      "id": 1412
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 2053,
+    "desc": "hscode对应发品页面的是商品的海关描述，是必填字段，需要isv在做必填校验，接口根据商品的类目 、渠道、标题、主图、商品属性来推荐hscode。\n",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4021722,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4021723,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4021724,
+                  "data": [],
+                  "children": [],
+                  "name": "hs_code_desc",
+                  "id": 1414,
+                  "type": "String",
+                  "required": true,
+                  "desc": "hscode的英文描述"
+                },
+                {
+                  "treeId": 4021725,
+                  "data": [],
+                  "children": [],
+                  "name": "hs_code",
+                  "id": 1414,
+                  "type": "String",
+                  "required": true,
+                  "desc": "hscode主键，叶子结点的hs_code才能用来发品"
+                },
+                {
+                  "treeId": 4021726,
+                  "data": [],
+                  "children": [],
+                  "name": "hs_code_length",
+                  "id": 1414,
+                  "type": "Number",
+                  "required": true,
+                  "desc": "hscode的长度 "
+                },
+                {
+                  "treeId": 4021727,
+                  "data": [],
+                  "children": [],
+                  "name": "rank",
+                  "id": 1414,
+                  "type": "String",
+                  "required": true,
+                  "desc": "叶子hscode的排列顺序，2 -> 2-1 -> 2-2 -> 2-3"
+                }
+              ],
+              "name": "leaf_hs_code_list",
+              "id": 1414,
+              "type": "Object[]",
+              "required": true,
+              "desc": "叶子hscode列表，全球商品和渠道商品中使用的都是hscode都是leaf_hs_code中选择的"
+            },
+            {
+              "treeId": 4021729,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4021730,
+                  "data": [],
+                  "children": [],
+                  "name": "hs_code_desc",
+                  "id": 1414,
+                  "type": "String",
+                  "required": true,
+                  "desc": "hscode的英文描述"
+                },
+                {
+                  "treeId": 4021731,
+                  "data": [],
+                  "children": [],
+                  "name": "hs_code",
+                  "id": 1414,
+                  "type": "String",
+                  "required": true,
+                  "desc": "hscode主键，非叶子结点"
+                },
+                {
+                  "treeId": 4021732,
+                  "data": [],
+                  "children": [],
+                  "name": "hs_code_length",
+                  "id": 1414,
+                  "type": "Number",
+                  "required": true,
+                  "desc": "hscode的长度，长度越短，代表越靠近根结点。   父节点的层级顺序是 4-> 6。或 4-> 5->6 "
+                }
+              ],
+              "name": "parent_hs_code_list",
+              "id": 1414,
+              "type": "Object[]",
+              "required": true,
+              "desc": "叶子hscode对应的父节点。 是将父节点压缩都一个list集合中，方便查询，已经按照层级结构进行排序"
+            }
+          ],
+          "name": "hs_code_response_list",
+          "id": 1414,
+          "type": "Object[]",
+          "required": true,
+          "desc": "hscode list"
+        }
+      ],
+      "id": 1414
+    }
+  }
+}

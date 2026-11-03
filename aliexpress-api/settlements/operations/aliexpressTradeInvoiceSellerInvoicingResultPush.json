@@ -1,0 +1,999 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "结算税务-商家回传开票结果(卖家给买家开票)",
+    "version": "2025-02-14 17:58:16",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "get": {
+        "operationId": "aliexpressTradeInvoiceSellerInvoicingResultPushGet",
+        "tags": [
+          "AE-结算"
+        ],
+        "summary": "结算税务-商家回传开票结果(卖家给买家开票)",
+        "description": "商家（ISV平台）同步开票结果至结算税务. 请注意! 只有开票成功的时候, 才可以调用这个接口来做开票信息的回传.  (并且要注意, 回传时你的入参中的invoiceStatus变量当前场景下只可以传递固定值, 也就是\"GENERATED_SUCCESS\")",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.trade.invoice.sellerInvoicingResult.push",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21451&path=aliexpress.trade.invoice.sellerInvoicingResult.push&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1787,
+        "x-aliexpress-source-last-modified": "2025-02-14 17:58:16",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.trade.invoice.sellerInvoicingResult.push"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      },
+      "post": {
+        "operationId": "aliexpressTradeInvoiceSellerInvoicingResultPushPost",
+        "tags": [
+          "AE-结算"
+        ],
+        "summary": "结算税务-商家回传开票结果(卖家给买家开票)",
+        "description": "商家（ISV平台）同步开票结果至结算税务. 请注意! 只有开票成功的时候, 才可以调用这个接口来做开票信息的回传.  (并且要注意, 回传时你的入参中的invoiceStatus变量当前场景下只可以传递固定值, 也就是\"GENERATED_SUCCESS\")",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.trade.invoice.sellerInvoicingResult.push",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21451&path=aliexpress.trade.invoice.sellerInvoicingResult.push&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1787,
+        "x-aliexpress-source-last-modified": "2025-02-14 17:58:16",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.trade.invoice.sellerInvoicingResult.push"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "invoiceStatus": {
+          "type": "string",
+          "description": "开票状态. 只能传\"GENERATED_SUCCESS\". 请注意! 由于本接口只有当开票成功时才能调用,所以只可以传递规定的值."
+        },
+        "invoiceDate": {
+          "type": "number",
+          "description": "开票日期, 注意, 传递的是毫秒级别的时间戳.比如:\"1737374768053\""
+        },
+        "invoiceNo": {
+          "type": "string",
+          "description": "发票号码，唯一标识，一个订单发票号码唯一"
+        },
+        "requestNo": {
+          "type": "string",
+          "description": "幂等号，如果重复调用会进行幂等处理.requestNo由请求方自己生成,只需要保证每次请求的requestNo不同就好了.同一个requestNo的多次请求,我们会以第一次请求为准."
+        },
+        "invoiceFileType": {
+          "type": "string",
+          "description": "发票文件类型,约定为\"pdf\"或者\"png\"\""
+        },
+        "invoiceData": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "x-aliexpress-original-type": "byte[]",
+            "description": "发票文件的数据. 字节流的方式, 请注意,限制在5M以下"
+          }
+        },
+        "invoiceDirection": {
+          "type": "string",
+          "description": "开票方向 （正向/逆向）invoice_direction是开票方向, 正向是\"BLUE\", 逆向是\"RED\" (正向发票，指买家下单支付 逆向发票指的是买家发生了退款，开逆向发票)"
+        },
+        "invoiceName": {
+          "type": "string",
+          "description": "发票名称"
+        },
+        "orderId": {
+          "type": "string",
+          "description": "订单id"
+        },
+        "customerId": {
+          "type": "string",
+          "description": "用户id"
+        }
+      },
+      "required": [
+        "invoiceStatus",
+        "invoiceDate",
+        "invoiceNo",
+        "requestNo",
+        "invoiceFileType",
+        "invoiceData",
+        "invoiceDirection",
+        "invoiceName",
+        "orderId",
+        "customerId"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "data": {
+          "type": "string",
+          "description": "是否成功"
+        },
+        "errorCode": {
+          "type": "string",
+          "description": "错误码"
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "调用成功"
+        },
+        "errorMsg": {
+          "type": "string",
+          "description": "错误信息"
+        }
+      },
+      "required": [
+        "data",
+        "errorCode",
+        "succeeded",
+        "errorMsg"
+      ]
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21451,
+    "name": "AE-结算",
+    "description": "AliExpress资金结算"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressTradeInvoiceSellerInvoicingResultPushRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "商家（ISV平台）同步开票结果至结算税务. 请注意! 只有开票成功的时候, 才可以调用这个接口来做开票信息的回传.  (并且要注意, 回传时你的入参中的invoiceStatus变量当前场景下只可以传递固定值, 也就是\"GENERATED_SUCCESS\")",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "结算税务-商家回传开票结果(卖家给买家开票)",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "aliexpress.trade.invoice.sellerInvoicingResult.push",
+    "methodType": "GET/POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21451,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "GET/POST",
+    "docId": 1787,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 2635
+    },
+    "title": "结算税务-商家回传开票结果(卖家给买家开票)",
+    "path": "aliexpress.trade.invoice.sellerInvoicingResult.push",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "data",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "1",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147463,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "data",
+              "parentId": 4147462,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.Boolean",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"是否成功\"},{\"en_US\":\"is success\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "errorCode",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "1",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147464,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "errorCode",
+              "parentId": 4147462,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"错误码\"},{\"en_US\":\"error_code\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "succeeded",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "3",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147465,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "succeeded",
+              "parentId": 4147462,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "boolean",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"调用成功\"},{\"en_US\":\"succeeded\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "errorMsg",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "1",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147466,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "errorMsg",
+              "parentId": 4147462,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"错误信息\"},{\"en_US\":\"error_msg\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "invoiceStatus",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147456,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "invoiceStatus",
+              "parentId": 4147451,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"开票状态. 只能传\\\"GENERATED_SUCCESS\\\". 请注意! 由于本接口只有当开票成功时才能调用,所以只可以传递规定的值.\"},{\"en_US\":\"invoice_status. Only the value \\\"GENERATED_SUCCESS\\\" can be passed. Please note that since this API can only be called when the invoicing is successful, you must pass the specified value.\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "invoiceDate",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Number",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147457,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "invoiceDate",
+              "parentId": 4147451,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.Long",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"开票日期, 注意, 传递的是毫秒级别的时间戳.比如:\\\"1737374768053\\\"\"},{\"en_US\":\"invoice_date.\\\"Invoice date: Note that the time passed is a millisecond-level timestamp, for example: '1737374768053'.\\\"\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "invoiceNo",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147458,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "invoiceNo",
+              "parentId": 4147451,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"发票号码，唯一标识，一个订单发票号码唯一\"},{\"en_US\":\"\\\"Invoice number: a unique identifier, with each order having a unique invoice number.\\\"\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "requestNo",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147459,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "requestNo",
+              "parentId": 4147451,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"幂等号，如果重复调用会进行幂等处理.requestNo由请求方自己生成,只需要保证每次请求的requestNo不同就好了.同一个requestNo的多次请求,我们会以第一次请求为准.\"},{\"en_US\":\"request_no.Idempotency key: If a call is repeated, idempotency will be handled. The requestNo is generated by the requester and must be unique for each request. For multiple requests with the same requestNo, we will consider the first request as the valid one.\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "invoiceFileType",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147460,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "invoiceFileType",
+              "parentId": 4147451,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"发票文件类型,约定为\\\"pdf\\\"或者\\\"png\\\"\\\"\"},{\"en_US\":\"\\\"Invoice file type, agreed to be either 'pdf' or 'png'.\\\"\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "6",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "invoiceData",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "byte[]",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147461,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "invoiceData",
+              "parentId": 4147451,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.util.Byte",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"发票文件的数据. 字节流的方式, 请注意,限制在5M以下\"},{\"en_US\":\"The content of the invoice file should be represented as a byte stream. Please note that it should be limited to less than 5MB.\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "invoiceDirection",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147452,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "invoiceDirection",
+              "parentId": 4147451,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"开票方向 （正向/逆向）invoice_direction是开票方向, 正向是\\\"BLUE\\\", 逆向是\\\"RED\\\" (正向发票，指买家下单支付 逆向发票指的是买家发生了退款，开逆向发票)\"},{\"en_US\":\"invoice_direction.Here is the translation of your text into English:  \\\"Invoice direction refers to the billing direction. Forward is 'BLUE', and reverse is 'RED'. (A forward invoice indicates that the buyer places an order and makes a payment. A reverse invoice indicates that the buyer has received a refund and a reverse invoice is issued.)\\\"\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "invoiceName",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147453,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "invoiceName",
+              "parentId": 4147451,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"发票名称\"},{\"en_US\":\"invoice_name\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "orderId",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147454,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "orderId",
+              "parentId": 4147451,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"订单id\"},{\"en_US\":\"order_id\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "customerId",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4147455,
+              "apiId": "303174",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "customerId",
+              "parentId": 4147451,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"用户id\"},{\"en_US\":\"customer_id.The buyer's ID number corresponding to this order in the AE system. eg：\\\"isRich235\\\"\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 2634,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "aliexpress_trade_invoice_sellerInvoicingResult_push_response": {
+              "data": "<REDACTED_SAMPLE>",
+              "errorCode": "<REDACTED_SAMPLE>",
+              "succeeded": "<REDACTED_SAMPLE>",
+              "errorMsg": "<REDACTED_SAMPLE>"
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "data": "<REDACTED_SAMPLE>",
+            "errorCode": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>",
+            "succeeded": "<REDACTED_SAMPLE>",
+            "errorMsg": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 2634
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 2635
+    },
+    "lastModified": "2025-02-14 17:58:16",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4147456,
+          "data": [],
+          "children": [],
+          "name": "invoiceStatus",
+          "id": 2635,
+          "type": "String",
+          "required": true,
+          "desc": "开票状态. 只能传\"GENERATED_SUCCESS\". 请注意! 由于本接口只有当开票成功时才能调用,所以只可以传递规定的值."
+        },
+        {
+          "treeId": 4147457,
+          "data": [],
+          "children": [],
+          "name": "invoiceDate",
+          "id": 2635,
+          "type": "Number",
+          "required": true,
+          "desc": "开票日期, 注意, 传递的是毫秒级别的时间戳.比如:\"1737374768053\""
+        },
+        {
+          "treeId": 4147458,
+          "data": [],
+          "children": [],
+          "name": "invoiceNo",
+          "id": 2635,
+          "type": "String",
+          "required": true,
+          "desc": "发票号码，唯一标识，一个订单发票号码唯一"
+        },
+        {
+          "treeId": 4147459,
+          "data": [],
+          "children": [],
+          "name": "requestNo",
+          "id": 2635,
+          "type": "String",
+          "required": true,
+          "desc": "幂等号，如果重复调用会进行幂等处理.requestNo由请求方自己生成,只需要保证每次请求的requestNo不同就好了.同一个requestNo的多次请求,我们会以第一次请求为准."
+        },
+        {
+          "treeId": 4147460,
+          "data": [],
+          "children": [],
+          "name": "invoiceFileType",
+          "id": 2635,
+          "type": "String",
+          "required": true,
+          "desc": "发票文件类型,约定为\"pdf\"或者\"png\"\""
+        },
+        {
+          "treeId": 4147461,
+          "data": [],
+          "children": [],
+          "name": "invoiceData",
+          "id": 2635,
+          "type": "byte[]",
+          "required": true,
+          "desc": "发票文件的数据. 字节流的方式, 请注意,限制在5M以下"
+        },
+        {
+          "treeId": 4147452,
+          "data": [],
+          "children": [],
+          "name": "invoiceDirection",
+          "id": 2635,
+          "type": "String",
+          "required": true,
+          "desc": "开票方向 （正向/逆向）invoice_direction是开票方向, 正向是\"BLUE\", 逆向是\"RED\" (正向发票，指买家下单支付 逆向发票指的是买家发生了退款，开逆向发票)"
+        },
+        {
+          "treeId": 4147453,
+          "data": [],
+          "children": [],
+          "name": "invoiceName",
+          "id": 2635,
+          "type": "String",
+          "required": true,
+          "desc": "发票名称"
+        },
+        {
+          "treeId": 4147454,
+          "data": [],
+          "children": [],
+          "name": "orderId",
+          "id": 2635,
+          "type": "String",
+          "required": true,
+          "desc": "订单id"
+        },
+        {
+          "treeId": 4147455,
+          "data": [],
+          "children": [],
+          "name": "customerId",
+          "id": 2635,
+          "type": "String",
+          "required": true,
+          "desc": "用户id"
+        }
+      ],
+      "id": 2635
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 2081,
+    "desc": "商家（ISV平台）同步开票结果至结算税务. 请注意! 只有开票成功的时候, 才可以调用这个接口来做开票信息的回传.  (并且要注意, 回传时你的入参中的invoiceStatus变量当前场景下只可以传递固定值, 也就是\"GENERATED_SUCCESS\")",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4147463,
+          "data": [],
+          "children": [],
+          "name": "data",
+          "id": 2637,
+          "type": "String",
+          "required": true,
+          "desc": "是否成功"
+        },
+        {
+          "treeId": 4147464,
+          "data": [],
+          "children": [],
+          "name": "errorCode",
+          "id": 2637,
+          "type": "String",
+          "required": true,
+          "desc": "错误码"
+        },
+        {
+          "treeId": 4147465,
+          "data": [],
+          "children": [],
+          "name": "succeeded",
+          "id": 2637,
+          "type": "Boolean",
+          "required": true,
+          "desc": "调用成功"
+        },
+        {
+          "treeId": 4147466,
+          "data": [],
+          "children": [],
+          "name": "errorMsg",
+          "id": 2637,
+          "type": "String",
+          "required": true,
+          "desc": "错误信息"
+        }
+      ],
+      "id": 2637
+    }
+  }
+}

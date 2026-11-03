@@ -1,0 +1,1044 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "海外托管商品库存查询",
+    "version": "2024-06-25 13:52:14",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "get": {
+        "operationId": "aliexpressLocalServiceProductStocksQueryGet",
+        "tags": [
+          "AE-海外托管-商品"
+        ],
+        "summary": "海外托管商品库存查询",
+        "description": "海外托管商品库存查询",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.local.service.product.stocks.query",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21449&path=aliexpress.local.service.product.stocks.query&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1631,
+        "x-aliexpress-source-last-modified": "2024-06-25 13:52:14",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.local.service.product.stocks.query"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      },
+      "post": {
+        "operationId": "aliexpressLocalServiceProductStocksQueryPost",
+        "tags": [
+          "AE-海外托管-商品"
+        ],
+        "summary": "海外托管商品库存查询",
+        "description": "海外托管商品库存查询",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.local.service.product.stocks.query",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21449&path=aliexpress.local.service.product.stocks.query&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 1631,
+        "x-aliexpress-source-last-modified": "2024-06-25 13:52:14",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.local.service.product.stocks.query"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "channel_seller_id": {
+          "type": "number",
+          "description": "渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id"
+        },
+        "product_id": {
+          "type": "number",
+          "description": "商品id"
+        },
+        "channel": {
+          "type": "string",
+          "description": "渠道（可以在这个API中查询：global.seller.relation.query）"
+        }
+      },
+      "required": [
+        "channel_seller_id",
+        "product_id",
+        "channel"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "product_sku_stock_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "商品sku库存列表",
+            "properties": {
+              "sku_warehouse_stock_list": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "sku不同仓 对应库存列表",
+                  "properties": {
+                    "warehouse_type": {
+                      "type": "string",
+                      "description": "仓库类型， 只有类型 =dropshipping的仓才能编辑库存"
+                    },
+                    "warehouse_name": {
+                      "type": "string",
+                      "description": "仓库名称"
+                    },
+                    "sellable_quantity": {
+                      "type": "number",
+                      "description": "库存"
+                    },
+                    "warehouse_code": {
+                      "type": "string",
+                      "description": "仓库编码"
+                    },
+                    "can_change_quantity": {
+                      "type": "boolean",
+                      "description": "卖家是否可以编辑库存。true 可以，false 不可以"
+                    },
+                    "can_increase_quantity": {
+                      "type": "boolean",
+                      "description": "是否可增加库存"
+                    },
+                    "can_decrease_quantity": {
+                      "type": "boolean",
+                      "description": "是否可减少库存"
+                    }
+                  },
+                  "required": [
+                    "warehouse_type",
+                    "warehouse_name",
+                    "sellable_quantity",
+                    "warehouse_code"
+                  ]
+                }
+              },
+              "sku_id": {
+                "type": "number",
+                "description": "sku唯一标识"
+              }
+            },
+            "required": [
+              "sku_warehouse_stock_list",
+              "sku_id"
+            ]
+          }
+        },
+        "success": {
+          "type": "boolean",
+          "description": "请求结果：成功，失败"
+        }
+      },
+      "required": [
+        "product_sku_stock_list",
+        "success"
+      ]
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21449,
+    "name": "AE-海外托管-商品",
+    "description": "AE-海外托管-商品API"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressLocalServiceProductStocksQueryRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "海外托管商品库存查询",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "海外托管商品库存查询",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "aliexpress.local.service.product.stocks.query",
+    "methodType": "GET/POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21449,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "GET/POST",
+    "docId": 1631,
+    "errorCodes": {
+      "data": [
+        {
+          "codeDesc": "传入的 product_id 查询不到对应商品，商品不存在或 ID 无效",
+          "code": "100043",
+          "data": [],
+          "solution": "1. 核对 product_id 是否为当前授权卖家账号下的商品 ID，不要误传 SKU ID、其他渠道的商品 ID 或已删除商品的 ID；建议先调用商品列表查询接口获取有效的 product_id，再用于本接口。2. 收到 100043 时请勿用相同参数重试（重复调用仍会失败并浪费调用配额），应先修正 product_id 后再发起请求。",
+          "id": 2276
+        }
+      ],
+      "id": 2276
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 2275
+    },
+    "title": "海外托管商品库存查询",
+    "path": "aliexpress.local.service.product.stocks.query",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "product_sku_stock_list",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "9",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "3",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "sku_warehouse_stock_list",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "9",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "warehouse_type",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4093852,
+                      "apiId": "302005",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "warehouseType",
+                      "parentId": 4093851,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"仓库类型， 只有类型 =dropshipping的仓才能编辑库存\"},{\"en_US\":\"Warehouse type, only warehouses with type = dropshipping can edit inventory\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "warehouse_name",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4093853,
+                      "apiId": "302005",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "warehouseName",
+                      "parentId": 4093851,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"仓库名称\"},{\"en_US\":\"warehouse name\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "sellable_quantity",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "2",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4093854,
+                      "apiId": "302005",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "sellableQuantity",
+                      "parentId": 4093851,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.Integer",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"库存\"},{\"en_US\":\"stock\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "warehouse_code",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4093855,
+                      "apiId": "302005",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "warehouseCode",
+                      "parentId": 4093851,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"仓库编码\"},{\"en_US\":\"Warehouse Code\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "can_change_quantity",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "3",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4093856,
+                      "apiId": "302005",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "canChangeQuantity",
+                      "parentId": 4093851,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.Boolean",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"卖家是否可以编辑库存。true 可以，false 不可以\"},{\"en_US\":\"Whether the seller can edit the inventory. true for yes, false for no\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "can_increase_quantity",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "3",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4093857,
+                      "apiId": "302005",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "canIncreaseQuantity",
+                      "parentId": 4093851,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.Boolean",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"是否可增加库存\"},{\"en_US\":\"Can inventory be increased\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "can_decrease_quantity",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "3",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4093858,
+                      "apiId": "302005",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "canDecreaseQuantity",
+                      "parentId": 4093851,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.Boolean",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"是否可减少库存\"},{\"en_US\":\"Can inventory be reduced\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4093851,
+                  "apiId": "302005",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "skuWarehouseStockList",
+                  "parentId": 4093850,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.util.List<com.aliexpress.icopenapi.product.localservice.dto.LocalServiceSkuStockWarehouseDTO>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"sku不同仓 对应库存列表\"},{\"en_US\":\"sku different warehouse corresponding inventory list\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "sku_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "2",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4093859,
+                  "apiId": "302005",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "skuId",
+                  "parentId": 4093850,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"sku唯一标识\"},{\"en_US\":\"sku unique identifier\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4093850,
+              "apiId": "302005",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "productSkuStockList",
+              "parentId": 4093849,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.util.List<com.aliexpress.icopenapi.product.localservice.dto.LocalServiceProductSkuStockDTO>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"商品sku库存列表\"},{\"en_US\":\"Product sku inventory list\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "success",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "3",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4093860,
+              "apiId": "302005",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "success",
+              "parentId": 4093849,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.Boolean",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"请求结果：成功，失败\"},{\"en_US\":\"Request result: success, failure\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "channel_seller_id",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Number",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4093842,
+              "apiId": "302005",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "channelSellerId",
+              "parentId": 4093839,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.Long",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id\"},{\"en_US\":\"Channel seller id (can be queried in this API: global.seller.relation.query), please use the fully managed store channel_seller_id with business_type = ONE_STOP_SERVICE\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "product_id",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Number",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4093843,
+              "apiId": "302005",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "productId",
+              "parentId": 4093839,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.Long",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"商品id\"},{\"en_US\":\"Product ID\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "channel",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4093846,
+              "apiId": "302005",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "channel",
+              "parentId": 4093839,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"渠道（可以在这个API中查询：global.seller.relation.query）\"},{\"en_US\":\"Channel (can be queried in this API: global.seller.relation.query)\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 2274,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "aliexpress_local_service_product_stocks_query_response": {
+              "success": "<REDACTED_SAMPLE>",
+              "product_sku_stock_list": [
+                {
+                  "sku_warehouse_stock_list": [
+                    {
+                      "warehouse_type": "<REDACTED_SAMPLE>",
+                      "warehouse_name": "<REDACTED_SAMPLE>",
+                      "warehouse_code": "<REDACTED_SAMPLE>",
+                      "can_decrease_quantity": "<REDACTED_SAMPLE>",
+                      "can_increase_quantity": "<REDACTED_SAMPLE>",
+                      "sellable_quantity": "<REDACTED_SAMPLE>",
+                      "can_change_quantity": "<REDACTED_SAMPLE>"
+                    }
+                  ],
+                  "sku_id": "<REDACTED_SAMPLE>"
+                }
+              ]
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "success": "<REDACTED_SAMPLE>",
+            "product_sku_stock_list": [
+              {
+                "sku_warehouse_stock_list": [
+                  {
+                    "warehouse_type": "<REDACTED_SAMPLE>",
+                    "warehouse_name": "<REDACTED_SAMPLE>",
+                    "warehouse_code": "<REDACTED_SAMPLE>",
+                    "can_decrease_quantity": "<REDACTED_SAMPLE>",
+                    "can_increase_quantity": "<REDACTED_SAMPLE>",
+                    "sellable_quantity": "<REDACTED_SAMPLE>",
+                    "can_change_quantity": "<REDACTED_SAMPLE>"
+                  }
+                ],
+                "sku_id": "<REDACTED_SAMPLE>"
+              }
+            ],
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 2274
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 2275
+    },
+    "lastModified": "2024-06-25 13:52:14",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4093842,
+          "data": [],
+          "children": [],
+          "name": "channel_seller_id",
+          "id": 2275,
+          "type": "Number",
+          "required": true,
+          "desc": "渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id"
+        },
+        {
+          "treeId": 4093843,
+          "data": [],
+          "children": [],
+          "name": "product_id",
+          "id": 2275,
+          "type": "Number",
+          "required": true,
+          "desc": "商品id"
+        },
+        {
+          "treeId": 4093846,
+          "data": [],
+          "children": [],
+          "name": "channel",
+          "id": 2275,
+          "type": "String",
+          "required": true,
+          "desc": "渠道（可以在这个API中查询：global.seller.relation.query）"
+        }
+      ],
+      "id": 2275
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 5500,
+    "desc": "海外托管商品库存查询",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4093850,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4093851,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4093852,
+                  "data": [],
+                  "children": [],
+                  "name": "warehouse_type",
+                  "id": 2277,
+                  "type": "String",
+                  "required": true,
+                  "desc": "仓库类型， 只有类型 =dropshipping的仓才能编辑库存"
+                },
+                {
+                  "treeId": 4093853,
+                  "data": [],
+                  "children": [],
+                  "name": "warehouse_name",
+                  "id": 2277,
+                  "type": "String",
+                  "required": true,
+                  "desc": "仓库名称"
+                },
+                {
+                  "treeId": 4093854,
+                  "data": [],
+                  "children": [],
+                  "name": "sellable_quantity",
+                  "id": 2277,
+                  "type": "Number",
+                  "required": true,
+                  "desc": "库存"
+                },
+                {
+                  "treeId": 4093855,
+                  "data": [],
+                  "children": [],
+                  "name": "warehouse_code",
+                  "id": 2277,
+                  "type": "String",
+                  "required": true,
+                  "desc": "仓库编码"
+                },
+                {
+                  "treeId": 4093856,
+                  "data": [],
+                  "children": [],
+                  "name": "can_change_quantity",
+                  "id": 2277,
+                  "type": "Boolean",
+                  "required": false,
+                  "desc": "卖家是否可以编辑库存。true 可以，false 不可以"
+                },
+                {
+                  "treeId": 4093857,
+                  "data": [],
+                  "children": [],
+                  "name": "can_increase_quantity",
+                  "id": 2277,
+                  "type": "Boolean",
+                  "required": false,
+                  "desc": "是否可增加库存"
+                },
+                {
+                  "treeId": 4093858,
+                  "data": [],
+                  "children": [],
+                  "name": "can_decrease_quantity",
+                  "id": 2277,
+                  "type": "Boolean",
+                  "required": false,
+                  "desc": "是否可减少库存"
+                }
+              ],
+              "name": "sku_warehouse_stock_list",
+              "id": 2277,
+              "type": "Object[]",
+              "required": true,
+              "desc": "sku不同仓 对应库存列表"
+            },
+            {
+              "treeId": 4093859,
+              "data": [],
+              "children": [],
+              "name": "sku_id",
+              "id": 2277,
+              "type": "Number",
+              "required": true,
+              "desc": "sku唯一标识"
+            }
+          ],
+          "name": "product_sku_stock_list",
+          "id": 2277,
+          "type": "Object[]",
+          "required": true,
+          "desc": "商品sku库存列表"
+        },
+        {
+          "treeId": 4093860,
+          "data": [],
+          "children": [],
+          "name": "success",
+          "id": 2277,
+          "type": "Boolean",
+          "required": true,
+          "desc": "请求结果：成功，失败"
+        }
+      ],
+      "id": 2277
+    }
+  }
+}

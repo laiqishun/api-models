@@ -1,0 +1,18 @@
+---
+title: "AliExpress AE-营销"
+---
+
+# API List
+
+Official category ID: 20890. Applicable permissions and seller modes must be checked in the current application. [Manifest](../manifest.md).
+
+- [aliexpressMarketingRedefiningGetactlist](operations/aliexpressMarketingRedefiningGetactlist.json) (GET/POST `/sync?method=aliexpress.marketing.redefining.getactlist`)：coupon活动查询 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20890&path=aliexpress.marketing.redefining.getactlist&methodType=GET%2FPOST)
+- [aliexpressMarketingLimitdiscountpromotionEdit](operations/aliexpressMarketingLimitdiscountpromotionEdit.json) (GET/POST `/sync?method=aliexpress.marketing.limitdiscountpromotion.edit`)：修改店铺限时限量活动 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20890&path=aliexpress.marketing.limitdiscountpromotion.edit&methodType=GET%2FPOST)
+- [aliexpressMarketingLimitdiscountpromotionproductEdit](operations/aliexpressMarketingLimitdiscountpromotionproductEdit.json) (GET/POST `/sync?method=aliexpress.marketing.limitdiscountpromotionproduct.edit`)：修改店铺限时限量活动商品 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20890&path=aliexpress.marketing.limitdiscountpromotionproduct.edit&methodType=GET%2FPOST)
+- [aliexpressMarketingLimitdiscountpromotionCreate](operations/aliexpressMarketingLimitdiscountpromotionCreate.json) (GET/POST `/sync?method=aliexpress.marketing.limitdiscountpromotion.create`)：创建店铺限时限量活动 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20890&path=aliexpress.marketing.limitdiscountpromotion.create&methodType=GET%2FPOST)
+- [aliexpressMarketingLimitdiscountpromotionproductDel](operations/aliexpressMarketingLimitdiscountpromotionproductDel.json) (GET/POST `/sync?method=aliexpress.marketing.limitdiscountpromotionproduct.del`)：店铺限时限量活动删除商品 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20890&path=aliexpress.marketing.limitdiscountpromotionproduct.del&methodType=GET%2FPOST)
+- [aliexpressMarketingStorepromotionProductsQuery](operations/aliexpressMarketingStorepromotionProductsQuery.json) (GET/POST `/sync?method=aliexpress.marketing.storepromotion.products.query`)：查询一个单品折扣活动中的所有商品 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20890&path=aliexpress.marketing.storepromotion.products.query&methodType=GET%2FPOST)
+- [aliexpressMarketingStorepromotionsQuerybyproduct](operations/aliexpressMarketingStorepromotionsQuerybyproduct.json) (GET/POST `/sync?method=aliexpress.marketing.storepromotions.querybyproduct`)：查询一个商品参加的有效的店铺活动 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20890&path=aliexpress.marketing.storepromotions.querybyproduct&methodType=GET%2FPOST)
+- [aliexpressMarketingStorepromotionsList](operations/aliexpressMarketingStorepromotionsList.json) (GET/POST `/sync?method=aliexpress.marketing.storepromotions.list`)：查询商家营销活动列表 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20890&path=aliexpress.marketing.storepromotions.list&methodType=GET%2FPOST)
+- [aliexpressMarketingRedefiningFindsellercouponactivity](operations/aliexpressMarketingRedefiningFindsellercouponactivity.json) (GET/POST `/sync?method=aliexpress.marketing.redefining.findsellercouponactivity`)：获取指定活动详细信息 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20890&path=aliexpress.marketing.redefining.findsellercouponactivity&methodType=GET%2FPOST)
+- [aliexpressMarketingLimiteddiscountpromotionAddpromotionproduct](operations/aliexpressMarketingLimiteddiscountpromotionAddpromotionproduct.json) (GET/POST `/sync?method=aliexpress.marketing.limiteddiscountpromotion.addpromotionproduct`)：限时限量活动商品添加 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20890&path=aliexpress.marketing.limiteddiscountpromotion.addpromotionproduct&methodType=GET%2FPOST)

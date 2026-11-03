@@ -1,0 +1,1102 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "写入商家库存数据",
+    "version": "2025-12-09 15:14:28",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "post": {
+        "operationId": "aliexpressAscpCpfrCreateSkuCodeInv",
+        "tags": [
+          "AE-供应链"
+        ],
+        "summary": "写入商家库存数据",
+        "description": "CPFR-写入商家库存数据，新增或更新",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.ascp.cpfr.createSkuCodeInv",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21022&path=aliexpress.ascp.cpfr.createSkuCodeInv&methodType=POST",
+        "x-aliexpress-source-doc-id": 1998,
+        "x-aliexpress-source-last-modified": "2025-12-09 15:14:28",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.ascp.cpfr.createSkuCodeInv"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "merchant_code": {
+          "type": "string",
+          "description": "全托管请填写AECHOICE，半托管请填写AEFF"
+        },
+        "channel_user_id": {
+          "type": "number",
+          "description": "渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id"
+        },
+        "sku_code_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "商家SKU编码对应的库存数据列表,批量上限20个",
+            "properties": {
+              "inventory_type": {
+                "type": "number",
+                "description": "商家库存类型：1-AE独享在仓可用库存；302-AE独享在途可用库存"
+              },
+              "quantity": {
+                "type": "number",
+                "description": "商家库存数量，要求整数，取值范围[0-999999]"
+              },
+              "sku_code": {
+                "type": "string",
+                "description": "商家SKU编码，长度限制要求不超过64个字符，不支持中文或特殊字符"
+              }
+            },
+            "required": [
+              "inventory_type",
+              "quantity",
+              "sku_code"
+            ]
+          }
+        }
+      },
+      "required": [
+        "merchant_code",
+        "channel_user_id",
+        "sku_code_list"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "description": "返回结果",
+          "properties": {
+            "data": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "SKU编码行业维度的结果返回",
+                "properties": {
+                  "success": {
+                    "type": "boolean",
+                    "description": "SKU编码维度是否成功"
+                  },
+                  "sku_code": {
+                    "type": "string",
+                    "description": "商家SKU编码"
+                  },
+                  "inventory_type": {
+                    "type": "number",
+                    "description": "商家库存类型"
+                  },
+                  "error_code": {
+                    "type": "string",
+                    "description": "SKU编码维度错误码"
+                  },
+                  "message": {
+                    "type": "string",
+                    "description": "SKU编码维度错误信息"
+                  }
+                }
+              }
+            },
+            "success": {
+              "type": "boolean",
+              "description": "是否成功"
+            },
+            "error_code": {
+              "type": "string",
+              "description": "错误码"
+            },
+            "message": {
+              "type": "string",
+              "description": "错误信息"
+            }
+          },
+          "required": [
+            "data",
+            "success",
+            "error_code",
+            "message"
+          ]
+        }
+      },
+      "required": [
+        "result"
+      ]
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21022,
+    "name": "AE-供应链",
+    "description": "维护AE供应链相关API"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressAscpCpfrCreateSkuCodeInvRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "CPFR-写入商家库存数据，新增或更新",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "写入商家库存数据",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "aliexpress.ascp.cpfr.createSkuCodeInv",
+    "methodType": "POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21022,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "post",
+    "docId": 1998,
+    "errorCodes": {
+      "data": [
+        {
+          "codeDesc": "请求中传入的商家（供应商）尚未加入 CPFR 组织，缺少有效的 CPFR 群成员关系，因此无法写入 SKU 编码维度的库存数据。",
+          "code": "NO_CPFR_SUPPLIER",
+          "data": [],
+          "solution": "1) 核对调用时传入的商家身份参数（userId/havanaId/channelUserId/merchantCode/supplierId），确认使用的是已加入 CPFR 组织的主店铺账号，且 merchantCode 与租户业务模式（bizType）与商家实际归属一致；2) 若该商家确实尚未加入 CPFR 组织，请先在业务侧完成 CPFR 组织成员加入/绑定，待成员关系生效后再重新调用该接口。",
+          "id": 2912
+        }
+      ],
+      "id": 2912
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 2911
+    },
+    "title": "写入商家库存数据",
+    "path": "aliexpress.ascp.cpfr.createSkuCodeInv",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "result",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "4",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "3",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "data",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "9",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "success",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "3",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4201157,
+                      "apiId": "304097",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "success",
+                      "parentId": 4201156,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"SKU编码维度是否成功\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "sku_code",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4201158,
+                      "apiId": "304097",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "skuCode",
+                      "parentId": 4201156,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"商家SKU编码\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "inventory_type",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "2",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4201159,
+                      "apiId": "304097",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "inventoryType",
+                      "parentId": 4201156,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.Integer",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"商家库存类型\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "error_code",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4201160,
+                      "apiId": "304097",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "errorCode",
+                      "parentId": 4201156,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"SKU编码维度错误码\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "message",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4201161,
+                      "apiId": "304097",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "message",
+                      "parentId": 4201156,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"SKU编码维度错误信息\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4201156,
+                  "apiId": "304097",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "data",
+                  "parentId": 4201155,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.util.List<com.aidc.inbound.erp.openapi.dto.inv.SkuCodeInvCreateItemResult>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\" SKU编码行业维度的结果返回\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "success",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "3",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4201162,
+                  "apiId": "304097",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "success",
+                  "parentId": 4201155,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "boolean",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"是否成功\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_code",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4201163,
+                  "apiId": "304097",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorCode",
+                  "parentId": 4201155,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误码\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "message",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4201164,
+                  "apiId": "304097",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "message",
+                  "parentId": 4201155,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误信息\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4201155,
+              "apiId": "304097",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "com.wdk.infrastructure.foundation.client.result.DataResult<java.util.list>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"返回结果\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "merchant_code",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4201146,
+              "apiId": "304097",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "merchantCode",
+              "parentId": 4201145,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"全托管请填写AECHOICE，半托管请填写AEFF\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "channel_user_id",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Number",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4201147,
+              "apiId": "304097",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "channelUserId",
+              "parentId": 4201145,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.Long",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "sku_code_list",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Object[]",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "inventory_type",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "Number",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4201149,
+                  "apiId": "304097",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "inventoryType",
+                  "parentId": 4201148,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.Integer",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"商家库存类型：1-AE独享在仓可用库存；302-AE独享在途可用库存\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "quantity",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "Number",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4201150,
+                  "apiId": "304097",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "quantity",
+                  "parentId": 4201148,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"商家库存数量，要求整数，取值范围[0-999999]\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "sku_code",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "String",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4201151,
+                  "apiId": "304097",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "skuCode",
+                  "parentId": 4201148,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"商家SKU编码，长度限制要求不超过64个字符，不支持中文或特殊字符\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4201148,
+              "apiId": "304097",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "skuCodeList",
+              "parentId": 4201145,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.util.List<com.aidc.inbound.erp.openapi.dto.inv.SkuCodeInvCreateItem>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"商家SKU编码对应的库存数据列表,批量上限20个\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 2910,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "aliexpress_ascp_cpfr_createSkuCodeInv_response": {
+              "result": {
+                "data": [
+                  {
+                    "success": "<REDACTED_SAMPLE>",
+                    "error_code": "<REDACTED_SAMPLE>",
+                    "inventory_type": "<REDACTED_SAMPLE>",
+                    "message": "<REDACTED_SAMPLE>",
+                    "sku_code": "<REDACTED_SAMPLE>"
+                  }
+                ],
+                "success": "<REDACTED_SAMPLE>",
+                "error_code": "<REDACTED_SAMPLE>",
+                "message": "<REDACTED_SAMPLE>"
+              }
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "result": {
+              "data": [
+                {
+                  "success": "<REDACTED_SAMPLE>",
+                  "error_code": "<REDACTED_SAMPLE>",
+                  "inventory_type": "<REDACTED_SAMPLE>",
+                  "message": "<REDACTED_SAMPLE>",
+                  "sku_code": "<REDACTED_SAMPLE>"
+                }
+              ],
+              "success": "<REDACTED_SAMPLE>",
+              "error_code": "<REDACTED_SAMPLE>",
+              "message": "<REDACTED_SAMPLE>"
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 2910
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 2911
+    },
+    "lastModified": "2025-12-09 15:14:28",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4201146,
+          "data": [],
+          "children": [],
+          "name": "merchant_code",
+          "id": 2911,
+          "type": "String",
+          "required": true,
+          "desc": "全托管请填写AECHOICE，半托管请填写AEFF"
+        },
+        {
+          "treeId": 4201147,
+          "data": [],
+          "children": [],
+          "name": "channel_user_id",
+          "id": 2911,
+          "type": "Number",
+          "required": true,
+          "desc": "渠道seller id （可以在这个API中查询：global.seller.relation.query）， 请使用 business_type = ONE_STOP_SERVICE 的全托管店铺 channel_seller_id"
+        },
+        {
+          "treeId": 4201148,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4201149,
+              "data": [],
+              "children": [],
+              "name": "inventory_type",
+              "id": 2911,
+              "type": "Number",
+              "required": true,
+              "desc": "商家库存类型：1-AE独享在仓可用库存；302-AE独享在途可用库存"
+            },
+            {
+              "treeId": 4201150,
+              "data": [],
+              "children": [],
+              "name": "quantity",
+              "id": 2911,
+              "type": "Number",
+              "required": true,
+              "desc": "商家库存数量，要求整数，取值范围[0-999999]"
+            },
+            {
+              "treeId": 4201151,
+              "data": [],
+              "children": [],
+              "name": "sku_code",
+              "id": 2911,
+              "type": "String",
+              "required": true,
+              "desc": "商家SKU编码，长度限制要求不超过64个字符，不支持中文或特殊字符"
+            }
+          ],
+          "name": "sku_code_list",
+          "id": 2911,
+          "type": "Object[]",
+          "required": true,
+          "desc": "商家SKU编码对应的库存数据列表,批量上限20个"
+        }
+      ],
+      "id": 2911
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 898,
+    "desc": "CPFR-写入商家库存数据，新增或更新",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4201155,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4201156,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4201157,
+                  "data": [],
+                  "children": [],
+                  "name": "success",
+                  "id": 2913,
+                  "type": "Boolean",
+                  "required": false,
+                  "desc": "SKU编码维度是否成功"
+                },
+                {
+                  "treeId": 4201158,
+                  "data": [],
+                  "children": [],
+                  "name": "sku_code",
+                  "id": 2913,
+                  "type": "String",
+                  "required": false,
+                  "desc": "商家SKU编码"
+                },
+                {
+                  "treeId": 4201159,
+                  "data": [],
+                  "children": [],
+                  "name": "inventory_type",
+                  "id": 2913,
+                  "type": "Number",
+                  "required": false,
+                  "desc": "商家库存类型"
+                },
+                {
+                  "treeId": 4201160,
+                  "data": [],
+                  "children": [],
+                  "name": "error_code",
+                  "id": 2913,
+                  "type": "String",
+                  "required": false,
+                  "desc": "SKU编码维度错误码"
+                },
+                {
+                  "treeId": 4201161,
+                  "data": [],
+                  "children": [],
+                  "name": "message",
+                  "id": 2913,
+                  "type": "String",
+                  "required": false,
+                  "desc": "SKU编码维度错误信息"
+                }
+              ],
+              "name": "data",
+              "id": 2913,
+              "type": "Object[]",
+              "required": true,
+              "desc": " SKU编码行业维度的结果返回"
+            },
+            {
+              "treeId": 4201162,
+              "data": [],
+              "children": [],
+              "name": "success",
+              "id": 2913,
+              "type": "Boolean",
+              "required": true,
+              "desc": "是否成功"
+            },
+            {
+              "treeId": 4201163,
+              "data": [],
+              "children": [],
+              "name": "error_code",
+              "id": 2913,
+              "type": "String",
+              "required": true,
+              "desc": "错误码"
+            },
+            {
+              "treeId": 4201164,
+              "data": [],
+              "children": [],
+              "name": "message",
+              "id": 2913,
+              "type": "String",
+              "required": true,
+              "desc": "错误信息"
+            }
+          ],
+          "name": "result",
+          "id": 2913,
+          "type": "Object",
+          "required": true,
+          "desc": "返回结果"
+        }
+      ],
+      "id": 2913
+    }
+  }
+}

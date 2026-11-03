@@ -1,0 +1,658 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "巴西卖家发票查询",
+    "version": "2025-12-23 11:54:35",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "get": {
+        "operationId": "aliexpressTradeTaxInvoiceQueryBrazilInvoiceInfoGet",
+        "tags": [
+          "AE-结算"
+        ],
+        "summary": "巴西卖家发票查询",
+        "description": "支持批量BY交易主单查询解析后的发票内容的能力（每次最多查询20条订单）\n\n● 有返回查询结果，则商家有上传发票\n● 无返回查询结果，则商家未上传发票",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.trade.tax.invoice.queryBrazilInvoiceInfo",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21451&path=aliexpress.trade.tax.invoice.queryBrazilInvoiceInfo&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 2005,
+        "x-aliexpress-source-last-modified": "2025-12-23 11:54:35",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.trade.tax.invoice.queryBrazilInvoiceInfo"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      },
+      "post": {
+        "operationId": "aliexpressTradeTaxInvoiceQueryBrazilInvoiceInfoPost",
+        "tags": [
+          "AE-结算"
+        ],
+        "summary": "巴西卖家发票查询",
+        "description": "支持批量BY交易主单查询解析后的发票内容的能力（每次最多查询20条订单）\n\n● 有返回查询结果，则商家有上传发票\n● 无返回查询结果，则商家未上传发票",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.trade.tax.invoice.queryBrazilInvoiceInfo",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21451&path=aliexpress.trade.tax.invoice.queryBrazilInvoiceInfo&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 2005,
+        "x-aliexpress-source-last-modified": "2025-12-23 11:54:35",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.trade.tax.invoice.queryBrazilInvoiceInfo"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "trade_order_id_list": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "description": "订单号的列表,支持批量查询,但一次查询不能超过20个元素."
+          }
+        },
+        "source": {
+          "type": "string",
+          "description": "请求来源,统一填写\"ISV\""
+        }
+      },
+      "required": [
+        "trade_order_id_list",
+        "source"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "description": "响应结果对象，包含查询返回的完整数据结构，主要包含 data（数据内容）和 pageInfo（分页信息）两个核心部分",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "核心字段说明 1. status - 发票状态 类型：String 说明：表示发票的审核状态 示例值：\"REVIEW_SUCCESS\"（审核成功） 字段路径：dataSource[].status 2. nfeTotalValue - 发票总金额 类型：Object 说明：NFE发票的总金额，包含币种信息 示例值：amount: 128.5, currencyCode: \"BRL\"（128.5巴西雷亚尔） 字段路径：dataSource[].nfeTotalValue.amount 和 dataSource[].nfeTotalValue.currencyCode 3. invoiceNumber - 发票票号 类型：String 说明：NFE发票的票号 示例值：\"12345\" 字段路径：dataSource[].invoiceNumber 4. invoiceKey - 发票号 类型：String 说明：NFE发票的唯一标识Key（44位数字） 示例值：\"35210812345678000123550010000123451234567890\" 字段路径：dataSource[].invoiceKey 5. sender_cnpj - 发票税号（发件人） 类型：String 说明：发件人（卖家）的CNPJ税号 示例值：\"12345678000123\" 字段路径：dataSource[].extendInfo.sender_cnpj 6. sender_ie - 发件人IE号 类型：String 说明：发件人的州注册号（Inscrição Estadual） 示例值：\"123456789012\" 字段路径：dataSource[].extendInfo.sender_ie 7. recipient_cpf - 收件人税号 类型：String 说明：收件人（买家）的CPF税号 示例值：\"12345678901\" 字段路径：dataSource[].extendInfo.recipient_cpf 8. printInvoiceDate - 发票开具时间 类型：Long（时间戳） 说明：发票的打印/开具时间，Unix时间戳（毫秒） 示例值：1634567890000（对应日期：2021-10-18） 字段路径：dataSource[].printInvoiceDate"
+            },
+            "success": {
+              "type": "boolean",
+              "description": "请求是否成功的标识。true表示请求成功，false表示请求失败"
+            },
+            "error_code": {
+              "type": "string",
+              "description": "错误码。当请求失败时返回具体的错误类型标识"
+            },
+            "error": {
+              "type": "string",
+              "description": "错误信息。当请求失败时返回详细的错误描述信息"
+            }
+          },
+          "required": [
+            "data",
+            "success",
+            "error_code",
+            "error"
+          ]
+        }
+      },
+      "required": [
+        "result"
+      ]
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21451,
+    "name": "AE-结算",
+    "description": "AliExpress资金结算"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressTradeTaxInvoiceQueryBrazilInvoiceInfoRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "支持批量BY交易主单查询解析后的发票内容的能力（每次最多查询20条订单）\n\n● 有返回查询结果，则商家有上传发票\n● 无返回查询结果，则商家未上传发票",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "巴西卖家发票查询",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "aliexpress.trade.tax.invoice.queryBrazilInvoiceInfo",
+    "methodType": "GET/POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21451,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "GET/POST",
+    "docId": 2005,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 2919
+    },
+    "title": "巴西卖家发票查询",
+    "path": "aliexpress.trade.tax.invoice.queryBrazilInvoiceInfo",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "result",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "4",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "2",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "data",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "4",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4174531,
+                  "apiId": "303643",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "data",
+                  "parentId": 4174530,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.Object",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"核心字段说明 1. status - 发票状态 类型：String 说明：表示发票的审核状态 示例值：\\\"REVIEW_SUCCESS\\\"（审核成功） 字段路径：dataSource[].status 2. nfeTotalValue - 发票总金额 类型：Object 说明：NFE发票的总金额，包含币种信息 示例值：amount: 128.5, currencyCode: \\\"BRL\\\"（128.5巴西雷亚尔） 字段路径：dataSource[].nfeTotalValue.amount 和 dataSource[].nfeTotalValue.currencyCode 3. invoiceNumber - 发票票号 类型：String 说明：NFE发票的票号 示例值：\\\"12345\\\" 字段路径：dataSource[].invoiceNumber 4. invoiceKey - 发票号 类型：String 说明：NFE发票的唯一标识Key（44位数字） 示例值：\\\"35210812345678000123550010000123451234567890\\\" 字段路径：dataSource[].invoiceKey 5. sender_cnpj - 发票税号（发件人） 类型：String 说明：发件人（卖家）的CNPJ税号 示例值：\\\"12345678000123\\\" 字段路径：dataSource[].extendInfo.sender_cnpj 6. sender_ie - 发件人IE号 类型：String 说明：发件人的州注册号（Inscrição Estadual） 示例值：\\\"123456789012\\\" 字段路径：dataSource[].extendInfo.sender_ie 7. recipient_cpf - 收件人税号 类型：String 说明：收件人（买家）的CPF税号 示例值：\\\"12345678901\\\" 字段路径：dataSource[].extendInfo.recipient_cpf 8. printInvoiceDate - 发票开具时间 类型：Long（时间戳） 说明：发票的打印/开具时间，Unix时间戳（毫秒） 示例值：1634567890000（对应日期：2021-10-18） 字段路径：dataSource[].printInvoiceDate\"},{\"en_US\":\"Core Field List 1. status - Invoice Status Type: String Description: Indicates the review status of the invoice Example: \\\"REVIEW_SUCCESS\\\" (Review successful) Field Path: dataSource[].status 2. nfeTotalValue - Invoice Total Amount Type: Object Description: Total amount of the NFE invoice, including currency information Example: amount: 128.5, currencyCode: \\\"BRL\\\" (128.5 Brazilian Real) Field Path: dataSource[].nfeTotalValue.amount and dataSource[].nfeTotalValue.currencyCode 3. invoiceNumber - Invoice Number Type: String Description: The invoice number of the NFE Example: \\\"12345\\\" Field Path: dataSource[].invoiceNumber 4. invoiceKey - Invoice Key Type: String Description: The unique identification key of the NFE invoice (44 digits) Example: \\\"35210812345678000123550010000123451234567890\\\" Field Path: dataSource[].invoiceKey 5. sender_cnpj - Sender Tax ID (CNPJ) Type: String Description: The CNPJ tax ID of the sender (seller) Example: \\\"12345678000123\\\" Field Path: dataSource[].extendInfo.sender_cnpj 6. sender_ie - Sender IE Number Type: String Description: The state registration number (Inscrição Estadual) of the sender Example: \\\"123456789012\\\" Field Path: dataSource[].extendInfo.sender_ie 7. recipient_cpf - Recipient Tax ID (CPF) Type: String Description: The CPF tax ID of the recipient (buyer) Example: \\\"12345678901\\\" Field Path: dataSource[].extendInfo.recipient_cpf 8. printInvoiceDate - Invoice Issue Date Type: Long (Timestamp) Description: The print/issue date of the invoice, Unix timestamp in milliseconds Example: 1634567890000 (Corresponds to: 2021-10-18) Field Path: dataSource[].printInvoiceDate\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "success",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "3",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4174532,
+                  "apiId": "303643",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "success",
+                  "parentId": 4174530,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "boolean",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"请求是否成功的标识。true表示请求成功，false表示请求失败\"},{\"en_US\":\"Indicates whether the request was successful. true means success, false means failure\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_code",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4174533,
+                  "apiId": "303643",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorCode",
+                  "parentId": 4174530,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误码。当请求失败时返回具体的错误类型标识\"},{\"en_US\":\"Error code. Returns the specific error type identifier when the request fails\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4174534,
+                  "apiId": "303643",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "error",
+                  "parentId": 4174530,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误信息。当请求失败时返回详细的错误描述信息\"},{\"en_US\":\"Error message. Returns detailed error description when the request fails\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4174530,
+              "apiId": "303643",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "com.alibaba.global.finance.taxation.api.mtop.CommonResponse",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"响应结果对象，包含查询返回的完整数据结构，主要包含 data（数据内容）和 pageInfo（分页信息）两个核心部分\"},{\"en_US\":\"Response result object containing the complete data structure, including data (content) and pageInfo (pagination information)\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "trade_order_id_list",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String[]",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4174525,
+              "apiId": "303643",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "tradeOrderIdList",
+              "parentId": 4174524,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.util.List<java.lang.String>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"订单号的列表,支持批量查询,但一次查询不能超过20个元素.\"},{\"en_US\":\"List of order IDs, supports batch query, but cannot exceed 20 elements per request.\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "source",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4174529,
+              "apiId": "303643",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "source",
+              "parentId": 4174524,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"请求来源,统一填写\\\"ISV\\\"\"},{\"en_US\":\"Request source, always fill in \\\"ISV\\\"\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 2918,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "aliexpress_trade_tax_invoice_queryBrazilInvoiceInfo_response": {
+              "result": {
+                "data": {},
+                "success": "<REDACTED_SAMPLE>",
+                "error_code": "<REDACTED_SAMPLE>",
+                "error": "<REDACTED_SAMPLE>"
+              }
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "result": {
+              "data": {},
+              "success": "<REDACTED_SAMPLE>",
+              "error_code": "<REDACTED_SAMPLE>",
+              "error": "<REDACTED_SAMPLE>"
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 2918
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 2919
+    },
+    "lastModified": "2025-12-23 11:54:35",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4174525,
+          "data": [],
+          "children": [],
+          "name": "trade_order_id_list",
+          "id": 2919,
+          "type": "String[]",
+          "required": true,
+          "desc": "订单号的列表,支持批量查询,但一次查询不能超过20个元素."
+        },
+        {
+          "treeId": 4174529,
+          "data": [],
+          "children": [],
+          "name": "source",
+          "id": 2919,
+          "type": "String",
+          "required": true,
+          "desc": "请求来源,统一填写\"ISV\""
+        }
+      ],
+      "id": 2919
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 1572,
+    "desc": "支持批量BY交易主单查询解析后的发票内容的能力（每次最多查询20条订单）\n\n● 有返回查询结果，则商家有上传发票\n● 无返回查询结果，则商家未上传发票",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4174530,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4174531,
+              "data": [],
+              "children": [],
+              "name": "data",
+              "id": 2921,
+              "type": "Object",
+              "required": true,
+              "desc": "核心字段说明 1. status - 发票状态 类型：String 说明：表示发票的审核状态 示例值：\"REVIEW_SUCCESS\"（审核成功） 字段路径：dataSource[].status 2. nfeTotalValue - 发票总金额 类型：Object 说明：NFE发票的总金额，包含币种信息 示例值：amount: 128.5, currencyCode: \"BRL\"（128.5巴西雷亚尔） 字段路径：dataSource[].nfeTotalValue.amount 和 dataSource[].nfeTotalValue.currencyCode 3. invoiceNumber - 发票票号 类型：String 说明：NFE发票的票号 示例值：\"12345\" 字段路径：dataSource[].invoiceNumber 4. invoiceKey - 发票号 类型：String 说明：NFE发票的唯一标识Key（44位数字） 示例值：\"35210812345678000123550010000123451234567890\" 字段路径：dataSource[].invoiceKey 5. sender_cnpj - 发票税号（发件人） 类型：String 说明：发件人（卖家）的CNPJ税号 示例值：\"12345678000123\" 字段路径：dataSource[].extendInfo.sender_cnpj 6. sender_ie - 发件人IE号 类型：String 说明：发件人的州注册号（Inscrição Estadual） 示例值：\"123456789012\" 字段路径：dataSource[].extendInfo.sender_ie 7. recipient_cpf - 收件人税号 类型：String 说明：收件人（买家）的CPF税号 示例值：\"12345678901\" 字段路径：dataSource[].extendInfo.recipient_cpf 8. printInvoiceDate - 发票开具时间 类型：Long（时间戳） 说明：发票的打印/开具时间，Unix时间戳（毫秒） 示例值：1634567890000（对应日期：2021-10-18） 字段路径：dataSource[].printInvoiceDate"
+            },
+            {
+              "treeId": 4174532,
+              "data": [],
+              "children": [],
+              "name": "success",
+              "id": 2921,
+              "type": "Boolean",
+              "required": true,
+              "desc": "请求是否成功的标识。true表示请求成功，false表示请求失败"
+            },
+            {
+              "treeId": 4174533,
+              "data": [],
+              "children": [],
+              "name": "error_code",
+              "id": 2921,
+              "type": "String",
+              "required": true,
+              "desc": "错误码。当请求失败时返回具体的错误类型标识"
+            },
+            {
+              "treeId": 4174534,
+              "data": [],
+              "children": [],
+              "name": "error",
+              "id": 2921,
+              "type": "String",
+              "required": true,
+              "desc": "错误信息。当请求失败时返回详细的错误描述信息"
+            }
+          ],
+          "name": "result",
+          "id": 2921,
+          "type": "Object",
+          "required": true,
+          "desc": "响应结果对象，包含查询返回的完整数据结构，主要包含 data（数据内容）和 pageInfo（分页信息）两个核心部分"
+        }
+      ],
+      "id": 2921
+    }
+  }
+}

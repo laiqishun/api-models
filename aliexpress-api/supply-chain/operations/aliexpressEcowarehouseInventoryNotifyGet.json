@@ -1,0 +1,991 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "库存售罄 & 恢复 & 预警同步",
+    "version": "2022-09-09 15:26:19",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "post": {
+        "operationId": "aliexpressEcowarehouseInventoryNotifyGet",
+        "tags": [
+          "AE-供应链"
+        ],
+        "summary": "库存售罄 & 恢复 & 预警同步",
+        "description": "库存售罄 & 恢复 & 预警同步",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.ecowarehouse.inventory.notify.get",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21022&path=aliexpress.ecowarehouse.inventory.notify.get&methodType=POST",
+        "x-aliexpress-source-doc-id": 1065,
+        "x-aliexpress-source-last-modified": "2022-09-09 15:26:19",
+        "x-aliexpress-auth-type": 0,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.ecowarehouse.inventory.notify.get"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "inventory_notify_request": {
+          "type": "object",
+          "description": "输入",
+          "properties": {
+            "sku_inventory_list": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "description": "输入",
+                "properties": {
+                  "owner_id": {
+                    "type": "string",
+                    "description": "货主ID"
+                  },
+                  "sku_id": {
+                    "type": "string",
+                    "description": "sku id"
+                  },
+                  "warehouse_code_inventory": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "输入",
+                      "properties": {
+                        "available_stock": {
+                          "type": "number",
+                          "description": "可售库存"
+                        },
+                        "warehouse_code": {
+                          "type": "string",
+                          "description": "仓code"
+                        }
+                      },
+                      "required": [
+                        "available_stock",
+                        "warehouse_code"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "owner_id",
+                  "sku_id",
+                  "warehouse_code_inventory"
+                ]
+              }
+            },
+            "warehouse_customer_id": {
+              "type": "string",
+              "description": "服务商"
+            },
+            "type": {
+              "type": "string",
+              "description": "通知类型"
+            }
+          },
+          "required": [
+            "sku_inventory_list",
+            "warehouse_customer_id",
+            "type"
+          ]
+        }
+      },
+      "required": [
+        "inventory_notify_request"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "description": "输入",
+          "properties": {
+            "data": {
+              "type": "object",
+              "description": "设置成功与否。如果为false说明有业务错误"
+            },
+            "success": {
+              "type": "boolean",
+              "description": "调用成功与否。如果为false说明有系统错误。比如NPE"
+            },
+            "error_message": {
+              "type": "string",
+              "description": "错误信息"
+            },
+            "error_code": {
+              "type": "string",
+              "description": "错误编码"
+            }
+          },
+          "required": [
+            "data",
+            "success",
+            "error_message",
+            "error_code"
+          ]
+        }
+      },
+      "required": [
+        "result"
+      ]
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21022,
+    "name": "AE-供应链",
+    "description": "维护AE供应链相关API"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressEcowarehouseInventoryNotifyGetRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "库存售罄 & 恢复 & 预警同步",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "库存售罄 & 恢复 & 预警同步",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "aliexpress.ecowarehouse.inventory.notify.get",
+    "methodType": "POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21022,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "post",
+    "docId": 1065,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": false,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 1300
+    },
+    "title": "库存售罄 & 恢复 & 预警同步",
+    "path": "aliexpress.ecowarehouse.inventory.notify.get",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "result",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "4",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "2",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "data",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "4",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4017794,
+                  "apiId": "300313",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "data",
+                  "parentId": 4017793,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.Object",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"设置成功与否。如果为false说明有业务错误\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "success",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "3",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4017795,
+                  "apiId": "300313",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "success",
+                  "parentId": 4017793,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.Boolean",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"调用成功与否。如果为false说明有系统错误。比如NPE\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_message",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4017796,
+                  "apiId": "300313",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorMessage",
+                  "parentId": 4017793,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误信息\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_code",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "1",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4017797,
+                  "apiId": "300313",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorCode",
+                  "parentId": 4017793,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误编码\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4017793,
+              "apiId": "300313",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "com.alibaba.ae.supplychain.overseaswarehouse.api.v1.dto.top.TopResponseDO",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"输入\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "inventory_notify_request",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Object",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "3",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "sku_inventory_list",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "Object[]",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "owner_id",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4017785,
+                      "apiId": "300313",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "ownerId",
+                      "parentId": 4017784,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"货主ID\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "sku_id",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4017786,
+                      "apiId": "300313",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "skuId",
+                      "parentId": 4017784,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"sku id\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "3",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "warehouse_code_inventory",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "Object[]",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "available_stock",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": true,
+                          "paramType": "Number",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4017788,
+                          "apiId": "300313",
+                          "docVisible": true,
+                          "paramOrder": "",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "availableStock",
+                          "parentId": 4017787,
+                          "dataSecurityLevel": "C2",
+                          "serviceParamPath": "java.lang.Integer",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"可售库存\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": null,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "warehouse_code",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": true,
+                          "paramType": "String",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4017789,
+                          "apiId": "300313",
+                          "docVisible": true,
+                          "paramOrder": "",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "warehouseCode",
+                          "parentId": 4017787,
+                          "dataSecurityLevel": "C2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"仓code\"}]"
+                        }
+                      ],
+                      "maxListSize": "",
+                      "id": 4017787,
+                      "apiId": "300313",
+                      "docVisible": true,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "warehouseCodeInventory",
+                      "parentId": 4017784,
+                      "dataSecurityLevel": "C2",
+                      "serviceParamPath": "java.util.List<com.alibaba.ae.supplychain.overseaswarehouse.api.v1.dto.top.WmsCodeInventoryPair>",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"输入\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4017784,
+                  "apiId": "300313",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "skuInventoryList",
+                  "parentId": 4017783,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.util.List<com.alibaba.ae.supplychain.overseaswarehouse.api.v1.dto.top.WarehouseSkuInventory>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"输入\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "warehouse_customer_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "String",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4017790,
+                  "apiId": "300313",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "warehouseCustomerId",
+                  "parentId": 4017783,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"服务商\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "type",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "String",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4017792,
+                  "apiId": "300313",
+                  "docVisible": true,
+                  "paramOrder": "",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "type",
+                  "parentId": 4017783,
+                  "dataSecurityLevel": "C2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"通知类型\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4017783,
+              "apiId": "300313",
+              "docVisible": true,
+              "paramOrder": "",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "C2",
+              "serviceParamPath": "com.alibaba.ae.supplychain.overseaswarehouse.api.v1.dto.top.InventoryNotifyRequest",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"输入\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 1299,
+          "complexResponseCode": {
+            "aliexpress_ecowarehouse_inventory_notify_get_response": {
+              "result": {
+                "error_message": "<REDACTED_SAMPLE>",
+                "data": {},
+                "success": "<REDACTED_SAMPLE>",
+                "error_code": "<REDACTED_SAMPLE>"
+              }
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "result": {
+              "error_message": "<REDACTED_SAMPLE>",
+              "data": {},
+              "success": "<REDACTED_SAMPLE>",
+              "error_code": "<REDACTED_SAMPLE>"
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 1299
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 1300
+    },
+    "lastModified": "2022-09-09 15:26:19",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4017783,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4017784,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4017785,
+                  "data": [],
+                  "children": [],
+                  "name": "owner_id",
+                  "id": 1300,
+                  "type": "String",
+                  "required": true,
+                  "desc": "货主ID"
+                },
+                {
+                  "treeId": 4017786,
+                  "data": [],
+                  "children": [],
+                  "name": "sku_id",
+                  "id": 1300,
+                  "type": "String",
+                  "required": true,
+                  "desc": "sku id"
+                },
+                {
+                  "treeId": 4017787,
+                  "data": [],
+                  "children": [
+                    {
+                      "treeId": 4017788,
+                      "data": [],
+                      "children": [],
+                      "name": "available_stock",
+                      "id": 1300,
+                      "type": "Number",
+                      "required": true,
+                      "desc": "可售库存"
+                    },
+                    {
+                      "treeId": 4017789,
+                      "data": [],
+                      "children": [],
+                      "name": "warehouse_code",
+                      "id": 1300,
+                      "type": "String",
+                      "required": true,
+                      "desc": "仓code"
+                    }
+                  ],
+                  "name": "warehouse_code_inventory",
+                  "id": 1300,
+                  "type": "Object[]",
+                  "required": true,
+                  "desc": "输入"
+                }
+              ],
+              "name": "sku_inventory_list",
+              "id": 1300,
+              "type": "Object[]",
+              "required": true,
+              "desc": "输入"
+            },
+            {
+              "treeId": 4017790,
+              "data": [],
+              "children": [],
+              "name": "warehouse_customer_id",
+              "id": 1300,
+              "type": "String",
+              "required": true,
+              "desc": "服务商"
+            },
+            {
+              "treeId": 4017792,
+              "data": [],
+              "children": [],
+              "name": "type",
+              "id": 1300,
+              "type": "String",
+              "required": true,
+              "desc": "通知类型"
+            }
+          ],
+          "name": "inventory_notify_request",
+          "id": 1300,
+          "type": "Object",
+          "required": true,
+          "desc": "输入"
+        }
+      ],
+      "id": 1300
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 1350,
+    "desc": "库存售罄 & 恢复 & 预警同步",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4017793,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4017794,
+              "data": [],
+              "children": [],
+              "name": "data",
+              "id": 1302,
+              "type": "Object",
+              "required": true,
+              "desc": "设置成功与否。如果为false说明有业务错误"
+            },
+            {
+              "treeId": 4017795,
+              "data": [],
+              "children": [],
+              "name": "success",
+              "id": 1302,
+              "type": "Boolean",
+              "required": true,
+              "desc": "调用成功与否。如果为false说明有系统错误。比如NPE"
+            },
+            {
+              "treeId": 4017796,
+              "data": [],
+              "children": [],
+              "name": "error_message",
+              "id": 1302,
+              "type": "String",
+              "required": true,
+              "desc": "错误信息"
+            },
+            {
+              "treeId": 4017797,
+              "data": [],
+              "children": [],
+              "name": "error_code",
+              "id": 1302,
+              "type": "String",
+              "required": true,
+              "desc": "错误编码"
+            }
+          ],
+          "name": "result",
+          "id": 1302,
+          "type": "Object",
+          "required": true,
+          "desc": "输入"
+        }
+      ],
+      "id": 1302
+    }
+  }
+}

@@ -1,0 +1,1367 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "提供给ISV通过该接口查询小包信息",
+    "version": "2022-06-07 14:53:52",
+    "description": "Derived from official AliExpress documentation and SDK, not an official Swagger release."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/sync": {
+      "get": {
+        "operationId": "cainiaoGlobalHandoverParcelQueryGet",
+        "tags": [
+          "菜鸟国际出口"
+        ],
+        "summary": "提供给ISV通过该接口查询小包信息",
+        "description": "提供给ISV通过该接口查询小包信息",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "cainiao.global.handover.parcel.query",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21215&path=cainiao.global.handover.parcel.query&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 929,
+        "x-aliexpress-source-last-modified": "2022-06-07 14:53:52",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "cainiao.global.handover.parcel.query"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      },
+      "post": {
+        "operationId": "cainiaoGlobalHandoverParcelQueryPost",
+        "tags": [
+          "菜鸟国际出口"
+        ],
+        "summary": "提供给ISV通过该接口查询小包信息",
+        "description": "提供给ISV通过该接口查询小包信息",
+        "responses": {
+          "200": {
+            "description": "See the official response envelope and business response fields.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "cainiao.global.handover.parcel.query",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=21215&path=cainiao.global.handover.parcel.query&methodType=GET%2FPOST",
+        "x-aliexpress-source-doc-id": 929,
+        "x-aliexpress-source-last-modified": "2022-06-07 14:53:52",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        },
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "cainiao.global.handover.parcel.query"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "locale": {
+          "type": "string",
+          "description": "多语言"
+        },
+        "order_code": {
+          "type": "string",
+          "description": "小包的物流订单号,和小包的国际运单号参数任选其一即可"
+        },
+        "tracking_number": {
+          "type": "string",
+          "description": "小包的国际运单号，和小包的物流订单号参数任选其一即可"
+        },
+        "user_info": {
+          "type": "object",
+          "description": "用户信息",
+          "properties": {
+            "top_user_key": {
+              "type": "string",
+              "description": "每个商家在ISV系统的唯一标识，一般为商家ISV账号的id"
+            }
+          }
+        },
+        "client": {
+          "type": "string",
+          "description": "客户端名称，ISV：ISV-ISV英文或拼音名称、商家ERP：SELLER-商家英文或拼音名称"
+        }
+      },
+      "required": [
+        "user_info",
+        "client"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "result": {
+          "type": "object",
+          "description": "请求结果",
+          "properties": {
+            "success": {
+              "type": "boolean",
+              "description": "请求处理是否成功"
+            },
+            "error_code": {
+              "type": "string",
+              "description": "异常码"
+            },
+            "error_msg": {
+              "type": "string",
+              "description": "错误信息"
+            },
+            "data": {
+              "type": "object",
+              "description": "响应数据",
+              "properties": {
+                "pickup_type": {
+                  "type": "string",
+                  "description": "小包发货方式，DOOR_PICKUP/SELF_SEND/SELF_POST"
+                },
+                "features": {
+                  "type": "object",
+                  "description": "扩展字段",
+                  "properties": {
+                    "plan_separate_op_level": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "handover_warehouse_code": {
+                  "type": "string",
+                  "description": "交接仓编码，快递揽收场景,大包交接目的地国际分拨"
+                },
+                "handover_warehouse_name": {
+                  "type": "string",
+                  "description": "交接仓名称，快递揽收场景,大包交接目的地国际分拨"
+                },
+                "has_been_handover": {
+                  "type": "boolean",
+                  "description": "该小包是否已经组包"
+                },
+                "handover_order_id": {
+                  "type": "number",
+                  "description": "关联的交接单ID"
+                },
+                "handover_content_code": {
+                  "type": "string",
+                  "description": "关联的大包的编码"
+                },
+                "handover_content_id": {
+                  "type": "number",
+                  "description": "关联的大包ID"
+                },
+                "can_create_handover": {
+                  "type": "boolean",
+                  "description": "是否能组包"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": 21215,
+    "name": "菜鸟国际出口",
+    "description": "菜鸟国际出口相关业务的TOP接口"
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "CainiaoGlobalHandoverParcelQueryRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java and GopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-catalog-record": {
+    "responseDemo": "",
+    "description": "提供给ISV通过该接口查询小包信息",
+    "requestDemos": [],
+    "commonRspParams": [],
+    "title": "提供给ISV通过该接口查询小包信息",
+    "errorJson": "",
+    "apiErrorExplans": [],
+    "openScope": null,
+    "path": "cainiao.global.handover.parcel.query",
+    "methodType": "GET/POST",
+    "readWhiteType": null,
+    "apiTags": "",
+    "authType": null,
+    "apiId": null,
+    "apiTagList": [],
+    "requestUrls": [],
+    "pathInput": [],
+    "apiInput": [],
+    "docVisible": null,
+    "headerInput": [],
+    "inputParams": [],
+    "version": null,
+    "dataSecurityLevel": "",
+    "commonParams": [],
+    "apiCategoryId": 21215,
+    "outputParams": [],
+    "status": null
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "GET/POST",
+    "docId": 929,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 1048
+    },
+    "title": "提供给ISV通过该接口查询小包信息",
+    "path": "cainiao.global.handover.parcel.query",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "2",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "result",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "4",
+              "mappingValue": "result",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "success",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "3",
+                  "mappingValue": "result->success",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4171483,
+                  "apiId": "303584",
+                  "docVisible": false,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "success",
+                  "parentId": 4171482,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "java.lang.Boolean",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"请求处理是否成功\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_code",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "result->error_code",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4171484,
+                  "apiId": "303584",
+                  "docVisible": false,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorCode",
+                  "parentId": 4171482,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"异常码\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_msg",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "result->error_msg",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4171485,
+                  "apiId": "303584",
+                  "docVisible": false,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorMsg",
+                  "parentId": 4171482,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"错误信息\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "2",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "data",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "4",
+                  "mappingValue": "result->data",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "pickup_type",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4171487,
+                      "apiId": "303584",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "pickupType",
+                      "parentId": 4171486,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"小包发货方式，DOOR_PICKUP/SELF_SEND/SELF_POST\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "2",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "features",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "4",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [
+                        {
+                          "serviceParamHttpType": "",
+                          "serviceParamType": "1",
+                          "hitLog": false,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "plan_separate_op_level",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "1",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 4171498,
+                          "apiId": "303584",
+                          "docVisible": false,
+                          "paramOrder": "",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "2",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "planSeparateOpLevel",
+                          "parentId": 4171497,
+                          "dataSecurityLevel": "S2",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"\"}]"
+                        }
+                      ],
+                      "maxListSize": "",
+                      "id": 4171497,
+                      "apiId": "303584",
+                      "docVisible": false,
+                      "paramOrder": "",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "features",
+                      "parentId": 4171486,
+                      "dataSecurityLevel": "S2",
+                      "serviceParamPath": "java.util.Map",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"扩展字段\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "handover_warehouse_code",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "result->data->handover_warehouse_code",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4171488,
+                      "apiId": "303584",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "handoverWarehouseCode",
+                      "parentId": 4171486,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"交接仓编码，快递揽收场景,大包交接目的地国际分拨\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "handover_warehouse_name",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "result->data->handover_warehouse_name",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4171489,
+                      "apiId": "303584",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "handoverWarehouseName",
+                      "parentId": 4171486,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"交接仓名称，快递揽收场景,大包交接目的地国际分拨\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "has_been_handover",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "3",
+                      "mappingValue": "result->data->has_been_handover",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4171490,
+                      "apiId": "303584",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "hasBeenHandover",
+                      "parentId": 4171486,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.lang.Boolean",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"该小包是否已经组包\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "handover_order_id",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "2",
+                      "mappingValue": "result->data->handover_order_id",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4171491,
+                      "apiId": "303584",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "handoverOrderId",
+                      "parentId": 4171486,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.lang.Long",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"关联的交接单ID\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "handover_content_code",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "1",
+                      "mappingValue": "result->data->handover_content_code",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4171492,
+                      "apiId": "303584",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "handoverContentCode",
+                      "parentId": 4171486,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"关联的大包的编码\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "handover_content_id",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "2",
+                      "mappingValue": "result->data->handover_content_id",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4171493,
+                      "apiId": "303584",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "handoverContentId",
+                      "parentId": 4171486,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.lang.Long",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"关联的大包ID\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "",
+                      "serviceParamType": "1",
+                      "hitLog": null,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "can_create_handover",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "3",
+                      "mappingValue": "result->data->can_create_handover",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 4171494,
+                      "apiId": "303584",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "2",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "canCreateHandover",
+                      "parentId": 4171486,
+                      "dataSecurityLevel": "s1",
+                      "serviceParamPath": "java.lang.Boolean",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"是否能组包\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 4171486,
+                  "apiId": "303584",
+                  "docVisible": false,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "data",
+                  "parentId": 4171482,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "com.cainiao.global.pms.response.OpenParcelOrderQueryResponse",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"响应数据\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4171482,
+              "apiId": "303584",
+              "docVisible": false,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "",
+              "parentId": 0,
+              "dataSecurityLevel": "s1",
+              "serviceParamPath": "com.cainiao.global.pms.service.dto.HsfResult<com.cainiao.global.pms.response.OpenParcelOrderQueryResponse>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"请求结果\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "3",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "locale",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4171474,
+              "apiId": "303584",
+              "docVisible": false,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "locale",
+              "parentId": 4171473,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"多语言\"}]"
+            },
+            {
+              "serviceParamHttpType": "3",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "order_code",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4171475,
+              "apiId": "303584",
+              "docVisible": false,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "orderCode",
+              "parentId": 4171473,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"小包的物流订单号,和小包的国际运单号参数任选其一即可\"}]"
+            },
+            {
+              "serviceParamHttpType": "3",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "tracking_number",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": false,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4171476,
+              "apiId": "303584",
+              "docVisible": false,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "trackingNumber",
+              "parentId": 4171473,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"小包的国际运单号，和小包的物流订单号参数任选其一即可\"}]"
+            },
+            {
+              "serviceParamHttpType": "3",
+              "serviceParamType": "2",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "user_info",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "Object",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "3",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "16",
+                  "paramName": "top_user_key",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": false,
+                  "paramType": "String",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 4171480,
+                  "apiId": "303584",
+                  "docVisible": false,
+                  "paramOrder": "100",
+                  "moreLimit": "Max Size:16",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "topUserKey",
+                  "parentId": 4171477,
+                  "dataSecurityLevel": "S2",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"每个商家在ISV系统的唯一标识，一般为商家ISV账号的id\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 4171477,
+              "apiId": "303584",
+              "docVisible": false,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "userInfo",
+              "parentId": 4171473,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "com.cainiao.global.pms.model.UserInfoDTO",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"用户信息\"}]"
+            },
+            {
+              "serviceParamHttpType": "3",
+              "serviceParamType": "1",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "client",
+              "demo": "<REDACTED_SAMPLE>",
+              "required": true,
+              "paramType": "String",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 4171481,
+              "apiId": "303584",
+              "docVisible": false,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "client",
+              "parentId": 4171473,
+              "dataSecurityLevel": "S2",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"客户端名称，ISV：ISV-ISV英文或拼音名称、商家ERP：SELLER-商家英文或拼音名称\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 1047,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "cainiao_global_handover_parcel_query_response": {
+              "result": {
+                "error_msg": "<REDACTED_SAMPLE>",
+                "data": {
+                  "features": {
+                    "plan_separate_op_level": "<REDACTED_SAMPLE>"
+                  },
+                  "handover_order_id": "<REDACTED_SAMPLE>",
+                  "handover_warehouse_code": "<REDACTED_SAMPLE>",
+                  "handover_content_code": "<REDACTED_SAMPLE>",
+                  "has_been_handover": "<REDACTED_SAMPLE>",
+                  "pickup_type": "<REDACTED_SAMPLE>",
+                  "handover_warehouse_name": "<REDACTED_SAMPLE>",
+                  "handover_content_id": "<REDACTED_SAMPLE>",
+                  "can_create_handover": "<REDACTED_SAMPLE>"
+                },
+                "success": "<REDACTED_SAMPLE>",
+                "error_code": "<REDACTED_SAMPLE>"
+              }
+            },
+            "request_id": "<REDACTED_SAMPLE>"
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "result": {
+              "error_msg": "<REDACTED_SAMPLE>",
+              "data": {
+                "features": {
+                  "plan_separate_op_level": "<REDACTED_SAMPLE>"
+                },
+                "handover_order_id": "<REDACTED_SAMPLE>",
+                "handover_warehouse_code": "<REDACTED_SAMPLE>",
+                "handover_content_code": "<REDACTED_SAMPLE>",
+                "has_been_handover": "<REDACTED_SAMPLE>",
+                "pickup_type": "<REDACTED_SAMPLE>",
+                "handover_warehouse_name": "<REDACTED_SAMPLE>",
+                "handover_content_id": "<REDACTED_SAMPLE>",
+                "can_create_handover": "<REDACTED_SAMPLE>"
+              },
+              "success": "<REDACTED_SAMPLE>",
+              "error_code": "<REDACTED_SAMPLE>"
+            },
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 1047
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 1048
+    },
+    "lastModified": "2022-06-07 14:53:52",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 4171474,
+          "data": [],
+          "children": [],
+          "name": "locale",
+          "id": 1048,
+          "type": "String",
+          "required": false,
+          "desc": "多语言"
+        },
+        {
+          "treeId": 4171475,
+          "data": [],
+          "children": [],
+          "name": "order_code",
+          "id": 1048,
+          "type": "String",
+          "required": false,
+          "desc": "小包的物流订单号,和小包的国际运单号参数任选其一即可"
+        },
+        {
+          "treeId": 4171476,
+          "data": [],
+          "children": [],
+          "name": "tracking_number",
+          "id": 1048,
+          "type": "String",
+          "required": false,
+          "desc": "小包的国际运单号，和小包的物流订单号参数任选其一即可"
+        },
+        {
+          "treeId": 4171477,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4171480,
+              "data": [],
+              "children": [],
+              "name": "top_user_key",
+              "id": 1048,
+              "type": "String",
+              "required": false,
+              "desc": "每个商家在ISV系统的唯一标识，一般为商家ISV账号的id"
+            }
+          ],
+          "name": "user_info",
+          "id": 1048,
+          "type": "Object",
+          "required": true,
+          "desc": "用户信息"
+        },
+        {
+          "treeId": 4171481,
+          "data": [],
+          "children": [],
+          "name": "client",
+          "id": 1048,
+          "type": "String",
+          "required": true,
+          "desc": "客户端名称，ISV：ISV-ISV英文或拼音名称、商家ERP：SELLER-商家英文或拼音名称"
+        }
+      ],
+      "id": 1048
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 3589,
+    "desc": "提供给ISV通过该接口查询小包信息",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 4171482,
+          "data": [],
+          "children": [
+            {
+              "treeId": 4171483,
+              "data": [],
+              "children": [],
+              "name": "success",
+              "id": 1050,
+              "type": "Boolean",
+              "required": false,
+              "desc": "请求处理是否成功"
+            },
+            {
+              "treeId": 4171484,
+              "data": [],
+              "children": [],
+              "name": "error_code",
+              "id": 1050,
+              "type": "String",
+              "required": false,
+              "desc": "异常码"
+            },
+            {
+              "treeId": 4171485,
+              "data": [],
+              "children": [],
+              "name": "error_msg",
+              "id": 1050,
+              "type": "String",
+              "required": false,
+              "desc": "错误信息"
+            },
+            {
+              "treeId": 4171486,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 4171487,
+                  "data": [],
+                  "children": [],
+                  "name": "pickup_type",
+                  "id": 1050,
+                  "type": "String",
+                  "required": false,
+                  "desc": "小包发货方式，DOOR_PICKUP/SELF_SEND/SELF_POST"
+                },
+                {
+                  "treeId": 4171497,
+                  "data": [],
+                  "children": [
+                    {
+                      "treeId": 4171498,
+                      "data": [],
+                      "children": [],
+                      "name": "plan_separate_op_level",
+                      "id": 1050,
+                      "type": "String",
+                      "required": false,
+                      "desc": ""
+                    }
+                  ],
+                  "name": "features",
+                  "id": 1050,
+                  "type": "Object",
+                  "required": false,
+                  "desc": "扩展字段"
+                },
+                {
+                  "treeId": 4171488,
+                  "data": [],
+                  "children": [],
+                  "name": "handover_warehouse_code",
+                  "id": 1050,
+                  "type": "String",
+                  "required": false,
+                  "desc": "交接仓编码，快递揽收场景,大包交接目的地国际分拨"
+                },
+                {
+                  "treeId": 4171489,
+                  "data": [],
+                  "children": [],
+                  "name": "handover_warehouse_name",
+                  "id": 1050,
+                  "type": "String",
+                  "required": false,
+                  "desc": "交接仓名称，快递揽收场景,大包交接目的地国际分拨"
+                },
+                {
+                  "treeId": 4171490,
+                  "data": [],
+                  "children": [],
+                  "name": "has_been_handover",
+                  "id": 1050,
+                  "type": "Boolean",
+                  "required": false,
+                  "desc": "该小包是否已经组包"
+                },
+                {
+                  "treeId": 4171491,
+                  "data": [],
+                  "children": [],
+                  "name": "handover_order_id",
+                  "id": 1050,
+                  "type": "Number",
+                  "required": false,
+                  "desc": "关联的交接单ID"
+                },
+                {
+                  "treeId": 4171492,
+                  "data": [],
+                  "children": [],
+                  "name": "handover_content_code",
+                  "id": 1050,
+                  "type": "String",
+                  "required": false,
+                  "desc": "关联的大包的编码"
+                },
+                {
+                  "treeId": 4171493,
+                  "data": [],
+                  "children": [],
+                  "name": "handover_content_id",
+                  "id": 1050,
+                  "type": "Number",
+                  "required": false,
+                  "desc": "关联的大包ID"
+                },
+                {
+                  "treeId": 4171494,
+                  "data": [],
+                  "children": [],
+                  "name": "can_create_handover",
+                  "id": 1050,
+                  "type": "Boolean",
+                  "required": false,
+                  "desc": "是否能组包"
+                }
+              ],
+              "name": "data",
+              "id": 1050,
+              "type": "Object",
+              "required": false,
+              "desc": "响应数据"
+            }
+          ],
+          "name": "result",
+          "id": 1050,
+          "type": "Object",
+          "required": false,
+          "desc": "请求结果"
+        }
+      ],
+      "id": 1050
+    }
+  }
+}
