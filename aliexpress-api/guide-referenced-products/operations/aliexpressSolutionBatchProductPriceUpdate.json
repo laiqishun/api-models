@@ -1,0 +1,1455 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Batch product price update",
+    "version": "2022-04-12 10:40:15",
+    "description": "Supplemental API referenced by the official POP solution but absent from the current category catalog; availability and app permission are unverified."
+  },
+  "host": "api-sg.aliexpress.com",
+  "schemes": [
+    "https"
+  ],
+  "definitions": {
+    "BusinessRequest": {
+      "type": "object",
+      "properties": {
+        "mutiple_product_update_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "The product list, in which the price needs to be updated. Maximum length:20",
+            "properties": {
+              "product_id": {
+                "type": "number",
+                "description": "product id"
+              },
+              "multiple_sku_update_list": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "description": "The sku list, in which the inventory needs to be updated within the same product id",
+                  "properties": {
+                    "discount_price": {
+                      "type": "string",
+                      "description": "discount_price of an sku. If not set, the discount_price will be erased."
+                    },
+                    "price": {
+                      "type": "string",
+                      "description": "price of an sku"
+                    },
+                    "sku_code": {
+                      "type": "string",
+                      "description": "sku code"
+                    }
+                  },
+                  "required": [
+                    "price",
+                    "sku_code"
+                  ]
+                }
+              },
+              "multi_country_price_configuration": {
+                "type": "object",
+                "description": "multi country price configuration",
+                "properties": {
+                  "country_price_list": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "description": "Price list for different countries",
+                      "properties": {
+                        "sku_price_by_country_list": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "description": "Sku price list under the same ship_to_country",
+                            "properties": {
+                              "sku_code": {
+                                "type": "string",
+                                "description": "sku_code, must existed in  multiple_sku_update_list"
+                              },
+                              "price": {
+                                "type": "string",
+                                "description": "Value of price configuration. If the price of a specific country is set, it must be greater than or equal to 70% of the original sku price in multiple_sku_update_list"
+                              },
+                              "discount_price": {
+                                "type": "string",
+                                "description": "Value of discount_price for each country"
+                              }
+                            }
+                          }
+                        },
+                        "ship_to_country": {
+                          "type": "string",
+                          "description": "Currently supporting RU US CA ES FR UK NL IL BR CL AU UA BY JP TH SG KR ID MY PH VN IT DE SA AE PL TR"
+                        }
+                      }
+                    }
+                  },
+                  "price_type": {
+                    "type": "string",
+                    "description": "Currently supporting only absolute. Please test carefully before uploading products."
+                  }
+                }
+              }
+            },
+            "required": [
+              "product_id",
+              "multiple_sku_update_list"
+            ]
+          }
+        }
+      },
+      "required": [
+        "mutiple_product_update_list"
+      ]
+    },
+    "BusinessResponse": {
+      "type": "object",
+      "properties": {
+        "update_error_code": {
+          "type": "string",
+          "description": "When success equals false, indicating the error code"
+        },
+        "update_error_message": {
+          "type": "string",
+          "description": "When success equals false, indicating the error message"
+        },
+        "update_failed_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "update failed list",
+            "properties": {
+              "error_code": {
+                "type": "string",
+                "description": "error code"
+              },
+              "error_message": {
+                "type": "string",
+                "description": "error message"
+              },
+              "product_id": {
+                "type": "number",
+                "description": "product oid"
+              }
+            }
+          }
+        },
+        "update_successful_list": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "description": "update successful list",
+            "properties": {
+              "product_id": {
+                "type": "number",
+                "description": "product id"
+              }
+            }
+          }
+        },
+        "update_success": {
+          "type": "boolean",
+          "description": "Indicates the update result is successful or not. Only all the products in mutiple_product_update_list have been updated successfully will make the success to be true, otherwise false."
+        }
+      }
+    }
+  },
+  "x-aliexpress-catalog-category": {
+    "id": null,
+    "name": "Guide-referenced POP products",
+    "description": "Editorial grouping, not an official catalog category."
+  },
+  "x-aliexpress-sdk": {
+    "download": "https://ae-open-platform-public.oss-ap-southeast-1.aliyuncs.com/online/oss_1793422815637_0_lT6D.zip",
+    "request-class": "AliexpressSolutionBatchProductPriceUpdateRequest",
+    "routing-source": "com/global/iop/api/TopExecutor.java"
+  },
+  "x-aliexpress-snapshot": "2026-11-03T03:36:17.754545+00:00",
+  "x-aliexpress-transport-note": "Business object/array parameters may be serialized JSON strings; original trees and field metadata are retained. Do not infer wire locations from BusinessRequest definitions; follow the official page and SDK.",
+  "x-aliexpress-supplemental-source": {
+    "status": "referenced-in-guide-not-in-catalog",
+    "guide-url": "https://open.aliexpress.com/doc/api.htm?#/api?cid=20904&isSolution=1&solutionDocId=9800",
+    "detail-url": "https://open.aliexpress.com/handler/share/apidoc/getApi.json?path=aliexpress.solution.batch.product.price.update"
+  },
+  "paths": {
+    "/sync": {
+      "get": {
+        "operationId": "aliexpressSolutionBatchProductPriceUpdateGet",
+        "tags": [
+          "Guide-referenced POP products"
+        ],
+        "summary": "Batch product price update",
+        "description": "Batch product price update operation for oversea sellers",
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.solution.batch.product.price.update"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official business fields and sample envelope are in the reference metadata.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.solution.batch.product.price.update",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/handler/share/apidoc/getApi.json?path=aliexpress.solution.batch.product.price.update",
+        "x-aliexpress-source-doc-id": 768,
+        "x-aliexpress-source-last-modified": "2022-04-12 10:40:15",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        }
+      },
+      "post": {
+        "operationId": "aliexpressSolutionBatchProductPriceUpdatePost",
+        "tags": [
+          "Guide-referenced POP products"
+        ],
+        "summary": "Batch product price update",
+        "description": "Batch product price update operation for oversea sellers",
+        "parameters": [
+          {
+            "name": "method",
+            "in": "query",
+            "type": "string",
+            "required": true,
+            "enum": [
+              "aliexpress.solution.batch.product.price.update"
+            ],
+            "description": "Named API selector; official SDK TopExecutor routing."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Official business fields and sample envelope are in the reference metadata.",
+            "x-aliexpress-business-schema": {
+              "$ref": "#/definitions/BusinessResponse"
+            }
+          }
+        },
+        "x-aliexpress-api-name": "aliexpress.solution.batch.product.price.update",
+        "x-aliexpress-source-url": "https://open.aliexpress.com/handler/share/apidoc/getApi.json?path=aliexpress.solution.batch.product.price.update",
+        "x-aliexpress-source-doc-id": 768,
+        "x-aliexpress-source-last-modified": "2022-04-12 10:40:15",
+        "x-aliexpress-auth-type": 1,
+        "x-aliexpress-chargeable": false,
+        "x-aliexpress-protocol": "TOP",
+        "x-aliexpress-business-parameters-schema": {
+          "$ref": "#/definitions/BusinessRequest"
+        }
+      }
+    }
+  },
+  "x-aliexpress-reference": {
+    "chargeable": false,
+    "method": "GET/POST",
+    "docId": 768,
+    "errorCodes": {
+      "data": [],
+      "id": null
+    },
+    "commonParameters": {
+      "data": [
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "app_key",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Unique app ID issued by AE Open Platform console when you apply for an app category"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "timestamp",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The time stamp of the request e.g. 2022-04-28 10:46:37 (TOP Protocol) or 1651113997000 (GOP Protocol), with less than 7200s difference from UTC time"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "access_token",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "API interface call credentials"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign_method",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "The HMAC hash algorithm you are using to calculate your signature"
+        },
+        {
+          "treeId": null,
+          "data": [],
+          "children": [],
+          "name": "sign",
+          "id": null,
+          "type": "String",
+          "required": true,
+          "desc": "Part of the authentication process that is used for identifying and verifying who is sending a request (click <a target='_blank' href='https://developers.aliexpress.com/doc.htm?docId=107468&docType=1'>here</a> for details)"
+        }
+      ],
+      "id": 515
+    },
+    "title": "Batch product price update",
+    "path": "aliexpress.solution.batch.product.price.update",
+    "examples": {
+      "data": [
+        {
+          "output": [
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "update_error_code",
+              "demo": "",
+              "required": false,
+              "paramType": "1",
+              "mappingValue": "result->update_error_code",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 2165874,
+              "apiId": "194567",
+              "docVisible": null,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "errorCode",
+              "parentId": 2165873,
+              "dataSecurityLevel": "s1",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"When success equals false, indicating the error code\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "update_error_message",
+              "demo": "",
+              "required": false,
+              "paramType": "1",
+              "mappingValue": "result->update_error_message",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 2165875,
+              "apiId": "194567",
+              "docVisible": null,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "errorMessage",
+              "parentId": 2165873,
+              "dataSecurityLevel": "s1",
+              "serviceParamPath": "java.lang.String",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"When success equals false, indicating the error message\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "update_failed_list",
+              "demo": "",
+              "required": false,
+              "paramType": "9",
+              "mappingValue": "result->update_failed_list",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_code",
+                  "demo": "",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "result->update_failed_list->error_code",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 2165877,
+                  "apiId": "194567",
+                  "docVisible": null,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorCode",
+                  "parentId": 2165876,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"error code\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "error_message",
+                  "demo": "",
+                  "required": false,
+                  "paramType": "1",
+                  "mappingValue": "result->update_failed_list->error_message",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 2165878,
+                  "apiId": "194567",
+                  "docVisible": null,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "errorMessage",
+                  "parentId": 2165876,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "java.lang.String",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"error message\"}]"
+                },
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "product_id",
+                  "demo": "",
+                  "required": false,
+                  "paramType": "2",
+                  "mappingValue": "result->update_failed_list->product_id",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 2165879,
+                  "apiId": "194567",
+                  "docVisible": null,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "productId",
+                  "parentId": 2165876,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"product oid\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 2165876,
+              "apiId": "194567",
+              "docVisible": null,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "productFailedList",
+              "parentId": 2165873,
+              "dataSecurityLevel": "s1",
+              "serviceParamPath": "java.util.List<com.aliexpress.spain.supply.item.dto.catalogSynchronize.SynchronizeProductResponseDTO>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"update failed list\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "3",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "update_successful_list",
+              "demo": "",
+              "required": false,
+              "paramType": "9",
+              "mappingValue": "result->update_successful_list",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "",
+                  "serviceParamType": "1",
+                  "hitLog": null,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "product_id",
+                  "demo": "",
+                  "required": false,
+                  "paramType": "2",
+                  "mappingValue": "result->update_successful_list->product_id",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 2165883,
+                  "apiId": "194567",
+                  "docVisible": null,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "2",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "productId",
+                  "parentId": 2165882,
+                  "dataSecurityLevel": "s1",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"product id\"}]"
+                }
+              ],
+              "maxListSize": "",
+              "id": 2165882,
+              "apiId": "194567",
+              "docVisible": null,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "productSuccessList",
+              "parentId": 2165873,
+              "dataSecurityLevel": "s1",
+              "serviceParamPath": "java.util.List<com.aliexpress.spain.supply.item.dto.catalogSynchronize.SynchronizeProductResponseDTO>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"update successful list\"}]"
+            },
+            {
+              "serviceParamHttpType": "",
+              "serviceParamType": "1",
+              "hitLog": null,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "update_success",
+              "demo": "",
+              "required": false,
+              "paramType": "3",
+              "mappingValue": "result->update_success",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [],
+              "maxListSize": "",
+              "id": 2165886,
+              "apiId": "194567",
+              "docVisible": null,
+              "paramOrder": "100",
+              "moreLimit": "",
+              "maxValue": null,
+              "paramFrom": "2",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "success",
+              "parentId": 2165873,
+              "dataSecurityLevel": "s1",
+              "serviceParamPath": "java.lang.Boolean",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"Indicates the update result is successful or not. Only all the products in mutiple_product_update_list have been updated successfully will make the success to be true, otherwise false.\"}]"
+            }
+          ],
+          "input": [
+            {
+              "serviceParamHttpType": "3",
+              "serviceParamType": "3",
+              "hitLog": false,
+              "defaultValue": "",
+              "previewDemo": "",
+              "maxSize": "",
+              "paramName": "mutiple_product_update_list",
+              "demo": "",
+              "required": true,
+              "paramType": "Object[]",
+              "mappingValue": "",
+              "minValue": null,
+              "dataMaskUrl": "",
+              "enumValue": "",
+              "children": [
+                {
+                  "serviceParamHttpType": "3",
+                  "serviceParamType": "1",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "product_id",
+                  "demo": "<REDACTED_SAMPLE>",
+                  "required": true,
+                  "paramType": "Number",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [],
+                  "maxListSize": "",
+                  "id": 2165860,
+                  "apiId": "194567",
+                  "docVisible": false,
+                  "paramOrder": "0",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "productId",
+                  "parentId": 2165859,
+                  "dataSecurityLevel": "",
+                  "serviceParamPath": "java.lang.Long",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"product id\"}]"
+                },
+                {
+                  "serviceParamHttpType": "3",
+                  "serviceParamType": "3",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "multiple_sku_update_list",
+                  "demo": "",
+                  "required": true,
+                  "paramType": "Object[]",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "3",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "discount_price",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 2165862,
+                      "apiId": "194567",
+                      "docVisible": false,
+                      "paramOrder": "0",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "discountPrice",
+                      "parentId": 2165861,
+                      "dataSecurityLevel": "",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"discount_price of an sku. If not set, the discount_price will be erased.\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "3",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "price",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 2165863,
+                      "apiId": "194567",
+                      "docVisible": false,
+                      "paramOrder": "0",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "price",
+                      "parentId": 2165861,
+                      "dataSecurityLevel": "",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"price of an sku\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "3",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "sku_code",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": true,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 2165864,
+                      "apiId": "194567",
+                      "docVisible": false,
+                      "paramOrder": "0",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "skuCode",
+                      "parentId": 2165861,
+                      "dataSecurityLevel": "",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"sku code\"}]"
+                    }
+                  ],
+                  "maxListSize": "200",
+                  "id": 2165861,
+                  "apiId": "194567",
+                  "docVisible": false,
+                  "paramOrder": "0",
+                  "moreLimit": "Max List Size:200",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "synchronizeSkuRequestDTOList",
+                  "parentId": 2165859,
+                  "dataSecurityLevel": "",
+                  "serviceParamPath": "java.util.List<com.aliexpress.spain.supply.item.dto.catalogSynchronize.SynchronizeSkuRequestDTO>",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"The sku list, in which the inventory needs to be updated within the same product id\"}]"
+                },
+                {
+                  "serviceParamHttpType": "3",
+                  "serviceParamType": "2",
+                  "hitLog": false,
+                  "defaultValue": "",
+                  "previewDemo": "",
+                  "maxSize": "",
+                  "paramName": "multi_country_price_configuration",
+                  "demo": "",
+                  "required": false,
+                  "paramType": "Object",
+                  "mappingValue": "",
+                  "minValue": null,
+                  "dataMaskUrl": "",
+                  "enumValue": "",
+                  "children": [
+                    {
+                      "serviceParamHttpType": "3",
+                      "serviceParamType": "3",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "country_price_list",
+                      "demo": "",
+                      "required": false,
+                      "paramType": "Object[]",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [
+                        {
+                          "serviceParamHttpType": "3",
+                          "serviceParamType": "3",
+                          "hitLog": false,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "sku_price_by_country_list",
+                          "demo": "",
+                          "required": false,
+                          "paramType": "Object[]",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [
+                            {
+                              "serviceParamHttpType": "3",
+                              "serviceParamType": "1",
+                              "hitLog": false,
+                              "defaultValue": "",
+                              "previewDemo": "",
+                              "maxSize": "",
+                              "paramName": "sku_code",
+                              "demo": "<REDACTED_SAMPLE>",
+                              "required": false,
+                              "paramType": "String",
+                              "mappingValue": "",
+                              "minValue": null,
+                              "dataMaskUrl": "",
+                              "enumValue": "",
+                              "children": [],
+                              "maxListSize": "",
+                              "id": 2165868,
+                              "apiId": "194567",
+                              "docVisible": false,
+                              "paramOrder": "100",
+                              "moreLimit": "",
+                              "maxValue": null,
+                              "paramFrom": "1",
+                              "sensitiveDataTag": "",
+                              "maskField": "",
+                              "serviceParamName": "skuCode",
+                              "parentId": 2165867,
+                              "dataSecurityLevel": "",
+                              "serviceParamPath": "java.lang.String",
+                              "mappingType": "1",
+                              "regexExpression": "",
+                              "constantValue": "",
+                              "desc": "[{\"zh_CN\":\"sku_code, must existed in  multiple_sku_update_list\"}]"
+                            },
+                            {
+                              "serviceParamHttpType": "3",
+                              "serviceParamType": "1",
+                              "hitLog": false,
+                              "defaultValue": "",
+                              "previewDemo": "",
+                              "maxSize": "",
+                              "paramName": "price",
+                              "demo": "<REDACTED_SAMPLE>",
+                              "required": false,
+                              "paramType": "String",
+                              "mappingValue": "",
+                              "minValue": null,
+                              "dataMaskUrl": "",
+                              "enumValue": "",
+                              "children": [],
+                              "maxListSize": "",
+                              "id": 2165869,
+                              "apiId": "194567",
+                              "docVisible": false,
+                              "paramOrder": "100",
+                              "moreLimit": "",
+                              "maxValue": null,
+                              "paramFrom": "1",
+                              "sensitiveDataTag": "",
+                              "maskField": "",
+                              "serviceParamName": "retailPrice",
+                              "parentId": 2165867,
+                              "dataSecurityLevel": "",
+                              "serviceParamPath": "java.lang.String",
+                              "mappingType": "1",
+                              "regexExpression": "",
+                              "constantValue": "",
+                              "desc": "[{\"zh_CN\":\"Value of price configuration. If the price of a specific country is set, it must be greater than or equal to 70% of the original sku price in multiple_sku_update_list\"}]"
+                            },
+                            {
+                              "serviceParamHttpType": "3",
+                              "serviceParamType": "1",
+                              "hitLog": false,
+                              "defaultValue": "",
+                              "previewDemo": "",
+                              "maxSize": "",
+                              "paramName": "discount_price",
+                              "demo": "<REDACTED_SAMPLE>",
+                              "required": false,
+                              "paramType": "String",
+                              "mappingValue": "",
+                              "minValue": null,
+                              "dataMaskUrl": "",
+                              "enumValue": "",
+                              "children": [],
+                              "maxListSize": "",
+                              "id": 2165870,
+                              "apiId": "194567",
+                              "docVisible": false,
+                              "paramOrder": "100",
+                              "moreLimit": "",
+                              "maxValue": null,
+                              "paramFrom": "1",
+                              "sensitiveDataTag": "",
+                              "maskField": "",
+                              "serviceParamName": "discountPrice",
+                              "parentId": 2165867,
+                              "dataSecurityLevel": "",
+                              "serviceParamPath": "java.lang.String",
+                              "mappingType": "1",
+                              "regexExpression": "",
+                              "constantValue": "",
+                              "desc": "[{\"zh_CN\":\"Value of discount_price for each country\"}]"
+                            }
+                          ],
+                          "maxListSize": "200",
+                          "id": 2165867,
+                          "apiId": "194567",
+                          "docVisible": false,
+                          "paramOrder": "100",
+                          "moreLimit": "Max List Size:200",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "skuPriceByCountryList",
+                          "parentId": 2165866,
+                          "dataSecurityLevel": "",
+                          "serviceParamPath": "java.util.List<com.aliexpress.spain.supply.price.dto.SingleSkuPriceByCountryDTO>",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"Sku price list under the same ship_to_country\"}]"
+                        },
+                        {
+                          "serviceParamHttpType": "3",
+                          "serviceParamType": "1",
+                          "hitLog": false,
+                          "defaultValue": "",
+                          "previewDemo": "",
+                          "maxSize": "",
+                          "paramName": "ship_to_country",
+                          "demo": "<REDACTED_SAMPLE>",
+                          "required": false,
+                          "paramType": "String",
+                          "mappingValue": "",
+                          "minValue": null,
+                          "dataMaskUrl": "",
+                          "enumValue": "",
+                          "children": [],
+                          "maxListSize": "",
+                          "id": 2165871,
+                          "apiId": "194567",
+                          "docVisible": false,
+                          "paramOrder": "100",
+                          "moreLimit": "",
+                          "maxValue": null,
+                          "paramFrom": "1",
+                          "sensitiveDataTag": "",
+                          "maskField": "",
+                          "serviceParamName": "shipToCountry",
+                          "parentId": 2165866,
+                          "dataSecurityLevel": "",
+                          "serviceParamPath": "java.lang.String",
+                          "mappingType": "1",
+                          "regexExpression": "",
+                          "constantValue": "",
+                          "desc": "[{\"zh_CN\":\"Currently supporting RU US CA ES FR UK NL IL BR CL AU UA BY JP TH SG KR ID MY PH VN IT DE SA AE PL TR\"}]"
+                        }
+                      ],
+                      "maxListSize": "20",
+                      "id": 2165866,
+                      "apiId": "194567",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "Max List Size:20",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "countryPriceList",
+                      "parentId": 2165865,
+                      "dataSecurityLevel": "",
+                      "serviceParamPath": "java.util.List<com.aliexpress.spain.supply.price.dto.SingleCountryPriceDTO>",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"Price list for different countries\"}]"
+                    },
+                    {
+                      "serviceParamHttpType": "3",
+                      "serviceParamType": "1",
+                      "hitLog": false,
+                      "defaultValue": "",
+                      "previewDemo": "",
+                      "maxSize": "",
+                      "paramName": "price_type",
+                      "demo": "<REDACTED_SAMPLE>",
+                      "required": false,
+                      "paramType": "String",
+                      "mappingValue": "",
+                      "minValue": null,
+                      "dataMaskUrl": "",
+                      "enumValue": "",
+                      "children": [],
+                      "maxListSize": "",
+                      "id": 2165872,
+                      "apiId": "194567",
+                      "docVisible": false,
+                      "paramOrder": "100",
+                      "moreLimit": "",
+                      "maxValue": null,
+                      "paramFrom": "1",
+                      "sensitiveDataTag": "",
+                      "maskField": "",
+                      "serviceParamName": "priceType",
+                      "parentId": 2165865,
+                      "dataSecurityLevel": "",
+                      "serviceParamPath": "java.lang.String",
+                      "mappingType": "1",
+                      "regexExpression": "",
+                      "constantValue": "",
+                      "desc": "[{\"zh_CN\":\"Currently supporting only absolute. Please test carefully before uploading products.\"}]"
+                    }
+                  ],
+                  "maxListSize": "",
+                  "id": 2165865,
+                  "apiId": "194567",
+                  "docVisible": false,
+                  "paramOrder": "100",
+                  "moreLimit": "",
+                  "maxValue": null,
+                  "paramFrom": "1",
+                  "sensitiveDataTag": "",
+                  "maskField": "",
+                  "serviceParamName": "multiCountryPriceConfiguration",
+                  "parentId": 2165859,
+                  "dataSecurityLevel": "",
+                  "serviceParamPath": "com.aliexpress.spain.supply.price.dto.MultiCountryPriceConfigurationDTO",
+                  "mappingType": "1",
+                  "regexExpression": "",
+                  "constantValue": "",
+                  "desc": "[{\"zh_CN\":\"multi country price configuration\"}]"
+                }
+              ],
+              "maxListSize": "20",
+              "id": 2165859,
+              "apiId": "194567",
+              "docVisible": false,
+              "paramOrder": "0",
+              "moreLimit": "Max List Size:20",
+              "maxValue": null,
+              "paramFrom": "1",
+              "sensitiveDataTag": "",
+              "maskField": "",
+              "serviceParamName": "synchronizeProductRequestDTOList",
+              "parentId": 2165853,
+              "dataSecurityLevel": "",
+              "serviceParamPath": "java.util.List<com.aliexpress.spain.supply.item.dto.catalogSynchronize.SynchronizeProductRequestDTO>",
+              "mappingType": "1",
+              "regexExpression": "",
+              "constantValue": "",
+              "desc": "[{\"zh_CN\":\"The product list, in which the price needs to be updated. Maximum length:20\"}]"
+            }
+          ],
+          "data": [],
+          "requestCodes": [
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "JAVA"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PHP"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": ".NET"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "RUBY"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "PYTHON"
+            },
+            {
+              "code": "<REDACTED_SDK_SAMPLE_CODE; SEE OFFICIAL PAGE>",
+              "lang": "CURL"
+            }
+          ],
+          "id": 514,
+          "complexResponseCode": {
+            "code": "<REDACTED_SAMPLE>",
+            "request_id": "<REDACTED_SAMPLE>",
+            "aliexpress_solution_batch_product_price_update_response": {
+              "update_successful_list": [
+                {}
+              ],
+              "update_failed_list": [
+                {}
+              ]
+            }
+          },
+          "title": "default demo example",
+          "content": "",
+          "responseCode": {
+            "update_successful_list": [
+              {}
+            ],
+            "code": "<REDACTED_SAMPLE>",
+            "update_failed_list": [
+              {}
+            ],
+            "request_id": "<REDACTED_SAMPLE>"
+          }
+        }
+      ],
+      "id": 514
+    },
+    "endpointParams": {
+      "data": [],
+      "id": 515
+    },
+    "lastModified": "2022-04-12 10:40:15",
+    "parameters": {
+      "data": [
+        {
+          "treeId": 2165859,
+          "data": [],
+          "children": [
+            {
+              "treeId": 2165860,
+              "data": [],
+              "children": [],
+              "name": "product_id",
+              "id": 515,
+              "type": "Number",
+              "required": true,
+              "desc": "product id"
+            },
+            {
+              "treeId": 2165861,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 2165862,
+                  "data": [],
+                  "children": [],
+                  "name": "discount_price",
+                  "id": 515,
+                  "type": "String",
+                  "required": false,
+                  "desc": "discount_price of an sku. If not set, the discount_price will be erased."
+                },
+                {
+                  "treeId": 2165863,
+                  "data": [],
+                  "children": [],
+                  "name": "price",
+                  "id": 515,
+                  "type": "String",
+                  "required": true,
+                  "desc": "price of an sku"
+                },
+                {
+                  "treeId": 2165864,
+                  "data": [],
+                  "children": [],
+                  "name": "sku_code",
+                  "id": 515,
+                  "type": "String",
+                  "required": true,
+                  "desc": "sku code"
+                }
+              ],
+              "name": "multiple_sku_update_list",
+              "id": 515,
+              "type": "Object[]",
+              "required": true,
+              "desc": "The sku list, in which the inventory needs to be updated within the same product id"
+            },
+            {
+              "treeId": 2165865,
+              "data": [],
+              "children": [
+                {
+                  "treeId": 2165866,
+                  "data": [],
+                  "children": [
+                    {
+                      "treeId": 2165867,
+                      "data": [],
+                      "children": [
+                        {
+                          "treeId": 2165868,
+                          "data": [],
+                          "children": [],
+                          "name": "sku_code",
+                          "id": 515,
+                          "type": "String",
+                          "required": false,
+                          "desc": "sku_code, must existed in  multiple_sku_update_list"
+                        },
+                        {
+                          "treeId": 2165869,
+                          "data": [],
+                          "children": [],
+                          "name": "price",
+                          "id": 515,
+                          "type": "String",
+                          "required": false,
+                          "desc": "Value of price configuration. If the price of a specific country is set, it must be greater than or equal to 70% of the original sku price in multiple_sku_update_list"
+                        },
+                        {
+                          "treeId": 2165870,
+                          "data": [],
+                          "children": [],
+                          "name": "discount_price",
+                          "id": 515,
+                          "type": "String",
+                          "required": false,
+                          "desc": "Value of discount_price for each country"
+                        }
+                      ],
+                      "name": "sku_price_by_country_list",
+                      "id": 515,
+                      "type": "Object[]",
+                      "required": false,
+                      "desc": "Sku price list under the same ship_to_country"
+                    },
+                    {
+                      "treeId": 2165871,
+                      "data": [],
+                      "children": [],
+                      "name": "ship_to_country",
+                      "id": 515,
+                      "type": "String",
+                      "required": false,
+                      "desc": "Currently supporting RU US CA ES FR UK NL IL BR CL AU UA BY JP TH SG KR ID MY PH VN IT DE SA AE PL TR"
+                    }
+                  ],
+                  "name": "country_price_list",
+                  "id": 515,
+                  "type": "Object[]",
+                  "required": false,
+                  "desc": "Price list for different countries"
+                },
+                {
+                  "treeId": 2165872,
+                  "data": [],
+                  "children": [],
+                  "name": "price_type",
+                  "id": 515,
+                  "type": "String",
+                  "required": false,
+                  "desc": "Currently supporting only absolute. Please test carefully before uploading products."
+                }
+              ],
+              "name": "multi_country_price_configuration",
+              "id": 515,
+              "type": "Object",
+              "required": false,
+              "desc": "multi country price configuration"
+            }
+          ],
+          "name": "mutiple_product_update_list",
+          "id": 515,
+          "type": "Object[]",
+          "required": true,
+          "desc": "The product list, in which the price needs to be updated. Maximum length:20"
+        }
+      ],
+      "id": 515
+    },
+    "introduction": {
+      "data": [],
+      "id": null
+    },
+    "views": 14353,
+    "desc": "Batch product price update operation for oversea sellers",
+    "outputParameters": {
+      "data": [
+        {
+          "treeId": 2165874,
+          "data": [],
+          "children": [],
+          "name": "update_error_code",
+          "id": 669,
+          "type": "String",
+          "required": false,
+          "desc": "When success equals false, indicating the error code"
+        },
+        {
+          "treeId": 2165875,
+          "data": [],
+          "children": [],
+          "name": "update_error_message",
+          "id": 669,
+          "type": "String",
+          "required": false,
+          "desc": "When success equals false, indicating the error message"
+        },
+        {
+          "treeId": 2165876,
+          "data": [],
+          "children": [
+            {
+              "treeId": 2165877,
+              "data": [],
+              "children": [],
+              "name": "error_code",
+              "id": 669,
+              "type": "String",
+              "required": false,
+              "desc": "error code"
+            },
+            {
+              "treeId": 2165878,
+              "data": [],
+              "children": [],
+              "name": "error_message",
+              "id": 669,
+              "type": "String",
+              "required": false,
+              "desc": "error message"
+            },
+            {
+              "treeId": 2165879,
+              "data": [],
+              "children": [],
+              "name": "product_id",
+              "id": 669,
+              "type": "Number",
+              "required": false,
+              "desc": "product oid"
+            }
+          ],
+          "name": "update_failed_list",
+          "id": 669,
+          "type": "Object[]",
+          "required": false,
+          "desc": "update failed list"
+        },
+        {
+          "treeId": 2165882,
+          "data": [],
+          "children": [
+            {
+              "treeId": 2165883,
+              "data": [],
+              "children": [],
+              "name": "product_id",
+              "id": 669,
+              "type": "Number",
+              "required": false,
+              "desc": "product id"
+            }
+          ],
+          "name": "update_successful_list",
+          "id": 669,
+          "type": "Object[]",
+          "required": false,
+          "desc": "update successful list"
+        },
+        {
+          "treeId": 2165886,
+          "data": [],
+          "children": [],
+          "name": "update_success",
+          "id": 669,
+          "type": "Boolean",
+          "required": false,
+          "desc": "Indicates the update result is successful or not. Only all the products in mutiple_product_update_list have been updated successfully will make the success to be true, otherwise false."
+        }
+      ],
+      "id": 669
+    }
+  }
+}

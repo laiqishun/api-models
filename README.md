@@ -60,7 +60,7 @@ This keeps broad discovery lightweight while still preserving the detailed endpo
 
 `mercado-libre-api` catalogs Global Selling and local-seller official developer articles and provides source-linked, example-derived operation models for explicit method/path examples.
 
-`aliexpress-api` contains 496 source-traceable AliExpress catalog models across 36 categories, with official SDK operation names, TOP/GOP routing evidence, preserved business field trees, and an explicit scope manifest for separate MIRAVIA records.
+`aliexpress-api` contains 496 source-traceable AliExpress catalog models across 36 categories plus four guide-referenced supplemental models, with official SDK operation names, TOP/GOP routing evidence, preserved business field trees, and an explicit scope manifest for separate MIRAVIA records.
 
 ## Future Scope
 

@@ -22,3 +22,7 @@ Official category ID: 21449. Applicable permissions and seller modes must be che
 - [aliexpressLocalServiceProductQuery](operations/aliexpressLocalServiceProductQuery.json) (GET/POST `/sync?method=aliexpress.local.service.product.query`)：海外托管店铺-查询单个商品详情 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21449&path=aliexpress.local.service.product.query&methodType=GET%2FPOST)
 - [aliexpressLocalServiceProductPricesEdit](operations/aliexpressLocalServiceProductPricesEdit.json) (GET/POST `/sync?method=aliexpress.local.service.product.prices.edit`)：海外托管店铺-编辑商品SKU供货价 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21449&path=aliexpress.local.service.product.prices.edit&methodType=GET%2FPOST)
 - [aliexpressLocalServiceProductStatusUpdate](operations/aliexpressLocalServiceProductStatusUpdate.json) (GET/POST `/sync?method=aliexpress.local.service.product.status.update`)：申请变更海外托管商品上下架状态 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21449&path=aliexpress.local.service.product.status.update&methodType=GET%2FPOST)
+
+## Integration solution
+
+[海外托管商品对接](https://open.aliexpress.com/doc/api.htm?#/api?cid=21449&isSolution=1&solutionDocId=9789) · [Local API mapping](../integration-solutions.md).

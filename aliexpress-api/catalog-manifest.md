@@ -1,6 +1,6 @@
 # Official catalog scope
 
-All 528 catalog records are accounted for. MIRAVIA is a separate marketplace and is excluded from AliExpress models.
+All 528 API catalog records are accounted for. MIRAVIA is a separate marketplace and is excluded from AliExpress models. The four solutionDocs entries and their additional API references are covered separately in [integration solutions](integration-solutions.md) and the [guide-reference manifest](guide-reference-manifest.md).
 
 | Category | API | Scope | Source |
 |---|---|---|---|

@@ -89,3 +89,7 @@ Official category ID: 20904. Applicable permissions and seller modes must be che
 - [aliexpressProductLadderPriceCalculate](operations/aliexpressProductLadderPriceCalculate.json) (GET/POST `/sync?method=aliexpress.product.ladder.price.calculate`)：计算批发折扣SKU价格 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20904&path=aliexpress.product.ladder.price.calculate&methodType=GET%2FPOST)
 - [aliexpressDistributionProductPost](operations/aliexpressDistributionProductPost.json) (GET/POST `/sync?method=aliexpress.distribution.product.post`)：货通AE渠道供给发布 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20904&path=aliexpress.distribution.product.post&methodType=GET%2FPOST)
 - [aliexpressOfferRedefiningInitialnewbundle](operations/aliexpressOfferRedefiningInitialnewbundle.json) (GET/POST `/sync?method=aliexpress.offer.redefining.initialnewbundle`)：通过商品ID初始化商品搭配 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20904&path=aliexpress.offer.redefining.initialnewbundle&methodType=GET%2FPOST)
+
+## Integration solution
+
+[POP商品对接](https://open.aliexpress.com/doc/api.htm?#/api?cid=20904&isSolution=1&solutionDocId=9800) · [Local API mapping](../integration-solutions.md).

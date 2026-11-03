@@ -27,3 +27,7 @@ Official category ID: 20905. Applicable permissions and seller modes must be che
 - [aliexpressTradeRedefiningFindorderbaseinfo](operations/aliexpressTradeRedefiningFindorderbaseinfo.json) (GET/POST `/sync?method=aliexpress.trade.redefining.findorderbaseinfo`)：订单基础信息查询 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20905&path=aliexpress.trade.redefining.findorderbaseinfo&methodType=GET%2FPOST)
 - [aliexpressTradeRedefiningFindorderreceiptinfo](operations/aliexpressTradeRedefiningFindorderreceiptinfo.json) (GET/POST `/sync?method=aliexpress.trade.redefining.findorderreceiptinfo`)：订单收货信息查询 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20905&path=aliexpress.trade.redefining.findorderreceiptinfo&methodType=GET%2FPOST)
 - [aliexpressMerchantRedefiningSaveremark](operations/aliexpressMerchantRedefiningSaveremark.json) (GET/POST `/sync?method=aliexpress.merchant.redefining.saveremark`)：记录订单备注信息 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=20905&path=aliexpress.merchant.redefining.saveremark&methodType=GET%2FPOST)
+
+## Integration solution
+
+[交易订单对接](https://open.aliexpress.com/doc/api.htm?#/api?cid=20905&isSolution=1&solutionDocId=9803) · [Local API mapping](../integration-solutions.md).

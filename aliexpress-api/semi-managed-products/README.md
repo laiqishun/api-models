@@ -18,3 +18,7 @@ Official category ID: 21439. Applicable permissions and seller modes must be che
 - [aliexpressPopChoiceInfoQuery](operations/aliexpressPopChoiceInfoQuery.json) (get `/sync?method=aliexpress.pop.choice.info.query`)：商家半托管基本信息查询 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21439&path=aliexpress.pop.choice.info.query&methodType=GET)
 - [aliexpressPopChoiceCollectedProductsList](operations/aliexpressPopChoiceCollectedProductsList.json) (get `/sync?method=aliexpress.pop.choice.collected.products.list`)：已预存商品列表查询 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21439&path=aliexpress.pop.choice.collected.products.list&methodType=GET)
 - [aliexpressPopChoiceProductsList](operations/aliexpressPopChoiceProductsList.json) (get `/sync?method=aliexpress.pop.choice.products.list`)：查询半托管已加入/待加入/待预存商品列表 [Official](https://open.aliexpress.com/doc/api.htm?#/api?cid=21439&path=aliexpress.pop.choice.products.list&methodType=GET)
+
+## Integration solution
+
+[半托管商品对接](https://open.aliexpress.com/doc/api.htm?#/api?cid=21439&isSolution=1&solutionDocId=9780) · [Local API mapping](../integration-solutions.md).

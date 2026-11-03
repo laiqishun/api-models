@@ -4,7 +4,7 @@ title: AliExpress API Models
 
 # AliExpress API Models
 
-Official public catalog snapshot: **2026-11-03T03:36:17.754545+00:00**. **496 records across 36 categories**, representing **912 documented HTTP operations**. All detail records were retrieved and matched to the catalog by API name/path and methods. [Operation manifest](manifest.md) · [Complete catalog scope](catalog-manifest.md) · [Validation and known source conflicts](validation-report.md).
+Official public catalog snapshot: **2026-11-03T03:36:17.754545+00:00**, rechecked on 2026-11-03 with no catalog ID/path/method differences. **496 catalog records across 36 categories** remain fully represented. Four additional APIs referenced by official integration solutions have readable details and are included separately: **500 models / 920 documented HTTP operations** in total. One further guide reference has an empty public detail and remains a documented gap. [Operation manifest](manifest.md) · [Complete catalog scope](catalog-manifest.md) · [Integration solutions](integration-solutions.md) · [Guide-reference coverage](guide-reference-manifest.md) · [Validation and source gaps](validation-report.md).
 
 ## Modules
 
@@ -47,7 +47,10 @@ Official public catalog snapshot: **2026-11-03T03:36:17.754545+00:00**. **496 re
 
 ## Source and interpretation
 
+- [Guide-referenced POP product APIs](guide-referenced-products/README.md) are a supplemental editorial module, not an additional official category. The four integration solutions linked by the category response are indexed with their Chinese/English API references. Their one unresolved reference is listed in the guide-reference manifest.
+
 - [Official API reference](https://open.aliexpress.com/doc/api.htm) and its public category/detail responses are the source. The official SDK linked from each detail supplies readable request class names and confirms TOP `/sync?method=...` versus GOP `/rest/...` routing. [Overseas endpoint guide](https://developer.alibaba.com/docs/doc.htm?articleId=120689&docType=1&treeId=727).
-- Each file represents one catalog record. A GET/POST record has two unique method operationIds in the same named file. Business request and response schemas are retained as definitions; they do not assert the complete HTTP envelope or serialization of complex parameters. All original field trees and constraints remain under `x-aliexpress-reference`. Source demo values are redacted; parseable response samples preserve structural shapes. SDK code sample values are omitted, with the official detail linked.
+- Each file represents one official API record; the four guide-only supplements are explicitly distinguished from category-list records. A GET/POST record has two unique method operationIds in the same named file. Business request and response schemas are retained as definitions; they do not assert the complete HTTP envelope or serialization of complex parameters. All original field trees and constraints remain under `x-aliexpress-reference`. Source demo values are redacted; parseable response samples preserve structural shapes. SDK code sample values are omitted, with the official detail linked.
+- Non-sensitive contract defaults are preserved in the original field metadata. Binary `byte[]` fields are modeled as `string` with `format: binary` and an explicit source-type/wire note; this does not prescribe multipart or other wire placement.
 - POP, fully managed, semi-managed, overseas-managed and local cross-border product categories remain distinct. Shared merchant-workbench APIs, dropshipping, AI, supply-chain and system tools are included as shown in the public AliExpress catalog. Catalog inclusion is not evidence of a current app permission, seller authorization or live call.
 - The catalog also exposes 32 MIRAVIA records in six categories. They are recorded as excluded in the scope manifest because MIRAVIA is a separate marketplace. The newer `openservice.aliexpress.com` entry was reachable, but its directory request timed out in this session; collection used the accessible official `open.aliexpress.com` reference. No claim is made that app-private interfaces are covered.
